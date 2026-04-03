@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Percentages — TrueMaths</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #1D9E75;
+  --green-light: #E1F5EE;
+  --green-dark: #085041;
+  --blue: #185FA5;
+  --blue-light: #E6F1FB;
+  --blue-dark: #042C53;
+  --amber: #BA7517;
+  --amber-light: #FAEEDA;
+  --amber-dark: #412402;
+  --purple: #534AB7;
+  --purple-light: #EEEDFE;
+  --purple-dark: #26215C;
+  --coral: #993C1D;
+  --coral-light: #FAECE7;
+  --red-dark: #712B13;
+  --gray-bg: #F7F6F3;
+  --gray-border: #E2E0D8;
+  --gray-mid: #888780;
+  --text: #1A1A18;
+  --text-muted: #6B6A65;
+  --white: #FFFFFF;
+  --radius: 10px;
+  --radius-lg: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--gray-bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+/* ── Layout ── */
+.page-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-border);
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo { font-size: 13px; font-weight: 600; color: var(--green); letter-spacing: 0.08em; text-transform: uppercase; }
+.header-title { font-size: 17px; font-weight: 500; color: var(--text); }
+.header-sep { color: var(--gray-border); font-size: 20px; }
+
+.nav-sidebar {
+  position: fixed;
+  left: 0; top: 64px;
+  width: 220px;
+  height: calc(100vh - 64px);
+  background: var(--white);
+  border-right: 1px solid var(--gray-border);
+  overflow-y: auto;
+  padding: 1.25rem 0;
+  z-index: 90;
+}
+.nav-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+  padding: 0 1.25rem;
+  margin: 1rem 0 0.4rem;
+}
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.45rem 1.25rem;
+  font-size: 13.5px;
+  color: var(--text-muted);
+  text-decoration: none;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all 0.15s;
+}
+.nav-link:hover { background: var(--gray-bg); color: var(--text); }
+.nav-link.active { color: var(--green-dark); background: var(--green-light); border-left-color: var(--green); font-weight: 500; }
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.5; flex-shrink: 0; }
+
+.main-content {
+  margin-left: 220px;
+  padding: 2rem 2.5rem 4rem;
+  max-width: 860px;
+}
+
+/* ── Sections ── */
+.content-section {
+  background: var(--white);
+  border: 1px solid var(--gray-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  scroll-margin-top: 80px;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 0.75rem;
+}
+.tag-concept { background: var(--green-light); color: var(--green-dark); }
+.tag-worked { background: var(--blue-light); color: var(--blue-dark); }
+.tag-beginner { background: var(--blue-light); color: var(--blue-dark); }
+.tag-intermediate { background: var(--amber-light); color: var(--amber-dark); }
+.tag-advanced { background: var(--purple-light); color: var(--purple-dark); }
+.tag-challenge { background: var(--coral-light); color: var(--red-dark); }
+.tag-answers { background: var(--green-light); color: var(--green-dark); }
+
+h1 { font-size: 26px; font-weight: 600; margin-bottom: 0.5rem; }
+h2 { font-size: 20px; font-weight: 500; margin-bottom: 0.5rem; }
+h3 { font-size: 16px; font-weight: 500; margin: 1.25rem 0 0.4rem; }
+p { margin-bottom: 0.75rem; color: var(--text); }
+p:last-child { margin-bottom: 0; }
+
+/* ── Callouts ── */
+.callout {
+  border-radius: 0 var(--radius) var(--radius) 0;
+  border-left: 3px solid var(--green);
+  background: var(--green-light);
+  padding: 0.85rem 1.1rem;
+  margin: 1rem 0;
+  font-size: 14.5px;
+  color: var(--green-dark);
+}
+.callout-blue { border-left-color: var(--blue); background: var(--blue-light); color: var(--blue-dark); }
+.callout-amber { border-left-color: var(--amber); background: var(--amber-light); color: var(--amber-dark); }
+.callout-purple { border-left-color: var(--purple); background: var(--purple-light); color: var(--purple-dark); }
+.callout strong { font-weight: 600; }
+
+.warn-box {
+  background: var(--coral-light);
+  border: 1px solid #F0997B;
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  font-size: 13.5px;
+  color: var(--red-dark);
+  margin: 0.75rem 0;
+}
+.warn-title { font-weight: 600; margin-bottom: 3px; }
+
+.think-box {
+  background: var(--amber-light);
+  border-radius: var(--radius);
+  padding: 0.85rem 1.1rem;
+  margin: 1rem 0;
+  font-size: 14.5px;
+  color: var(--amber-dark);
+}
+.think-title { font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+
+/* ── Highlights ── */
+.hl { padding: 1px 6px; border-radius: 4px; font-weight: 500; }
+.hl-g { background: var(--green-light); color: var(--green-dark); }
+.hl-b { background: var(--blue-light); color: var(--blue-dark); }
+.hl-a { background: var(--amber-light); color: var(--amber-dark); }
+.hl-p { background: var(--purple-light); color: var(--purple-dark); }
+.math-inline { font-family: 'DM Mono', monospace; background: var(--gray-bg); border: 1px solid var(--gray-border); border-radius: 4px; padding: 2px 8px; font-size: 14px; color: var(--text); }
+
+/* ── Steps ── */
+.step-list { margin: 0.75rem 0; }
+.step { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 0.6rem; }
+.step-num { min-width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; margin-top: 2px; }
+.sn-g { background: var(--green-light); color: var(--green-dark); }
+.sn-b { background: var(--blue-light); color: var(--blue-dark); }
+.sn-a { background: var(--amber-light); color: var(--amber-dark); }
+.step-text { font-size: 15px; line-height: 1.6; }
+
+/* ── Scaling visuals ── */
+.scale-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--gray-border);
+  margin: 1rem 0;
+}
+.scale-box { flex: 1; padding: 0.85rem 0.75rem; text-align: center; }
+.scale-arrow { display: flex; align-items: center; justify-content: center; padding: 0 0.6rem; background: var(--gray-bg); border-left: 1px solid var(--gray-border); border-right: 1px solid var(--gray-border); }
+.scale-arrow-text { font-size: 11px; color: var(--text-muted); text-align: center; line-height: 1.3; }
+.scale-num { font-size: 22px; font-weight: 600; margin-bottom: 2px; }
+.scale-label { font-size: 11px; color: var(--text-muted); }
+.sb-blue { background: var(--blue-light); }
+.sb-blue .scale-num { color: var(--blue-dark); }
+.sb-amber { background: var(--amber-light); }
+.sb-amber .scale-num { color: var(--amber-dark); }
+.sb-green { background: var(--green-light); }
+.sb-green .scale-num { color: var(--green-dark); }
+
+/* ── Bar comparison ── */
+.bar-wrap { margin: 1rem 0; }
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.bar-label { font-size: 13px; color: var(--text-muted); min-width: 120px; }
+.bar-track { flex: 1; height: 24px; background: var(--gray-bg); border-radius: 4px; overflow: hidden; border: 1px solid var(--gray-border); }
+.bar-fill { height: 100%; display: flex; align-items: center; padding-left: 8px; }
+.bar-text { font-size: 12px; font-weight: 500; }
+.bar-pct { font-size: 13px; font-weight: 600; min-width: 36px; text-align: right; }
+
+/* ── Conversion summary grid ── */
+.conv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1rem 0; }
+.conv-card { background: var(--gray-bg); border: 1px solid var(--gray-border); border-radius: var(--radius); padding: 0.9rem 1rem; }
+.conv-title { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+.conv-rule { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+.conv-note { font-size: 12px; color: var(--text-muted); }
+
+/* ── 100-square ── */
+.hgrid { display: grid; grid-template-columns: repeat(10,1fr); gap: 3px; max-width: 260px; }
+.hcell { aspect-ratio: 1; border-radius: 2px; }
+.hc-filled { background: var(--green); }
+.hc-empty { background: var(--gray-bg); border: 1px solid var(--gray-border); }
+.grid-legend { display: flex; gap: 16px; margin-top: 8px; flex-wrap: wrap; }
+.gl-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-muted); }
+.gl-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+/* ── Interactive controls ── */
+.interactive-block {
+  border: 1px solid var(--gray-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  margin: 1rem 0;
+}
+.slider-row { display: flex; align-items: center; gap: 10px; margin-bottom: 0.85rem; }
+.slider-row label { font-size: 13px; color: var(--text-muted); min-width: 100px; }
+.slider-row input[type=range] { flex: 1; accent-color: var(--green); cursor: pointer; }
+.slider-val { font-size: 13px; font-weight: 600; min-width: 45px; text-align: right; color: var(--text); }
+.live-result { font-size: 26px; font-weight: 600; color: var(--blue); margin: 4px 0; }
+.live-label { font-size: 13px; color: var(--text-muted); }
+.live-calc { font-size: 13px; color: var(--text-muted); font-family: 'DM Mono', monospace; margin-top: 2px; }
+.hr-light { height: 1px; background: var(--gray-border); margin: 0.85rem 0; }
+
+/* ── Worked example blocks ── */
+.we-block {
+  border: 1px solid var(--gray-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--gray-bg);
+  border-bottom: 1px solid var(--gray-border);
+  padding: 0.65rem 1.1rem;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.we-body { padding: 1.1rem 1.25rem; }
+.we-story { font-size: 15.5px; margin-bottom: 1rem; padding-bottom: 0.85rem; border-bottom: 1px solid var(--gray-border); line-height: 1.6; }
+.ans-pill { display: inline-block; background: var(--green-light); color: var(--green-dark); font-weight: 600; font-size: 14px; padding: 4px 14px; border-radius: 20px; margin-top: 0.5rem; }
+.insight { background: var(--gray-bg); border-left: 3px solid var(--green); border-radius: 0 6px 6px 0; padding: 0.6rem 0.9rem; margin-top: 0.85rem; font-size: 13.5px; color: var(--text-muted); }
+.insight-a { border-left-color: var(--amber); }
+.insight-p { border-left-color: var(--purple); }
+
+/* ── Difficulty ladder ── */
+.ladder { display: flex; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--gray-border); margin-bottom: 1.5rem; }
+.ladder-seg { flex: 1; padding: 0.6rem 0.5rem; text-align: center; }
+.ls-b { background: var(--blue-light); }
+.ls-b .ls-title { color: var(--blue-dark); }
+.ls-i { background: var(--amber-light); }
+.ls-i .ls-title { color: var(--amber-dark); }
+.ls-a { background: var(--purple-light); }
+.ls-a .ls-title { color: var(--purple-dark); }
+.ls-ch { background: var(--coral-light); }
+.ls-ch .ls-title { color: var(--red-dark); }
+.ls-title { font-size: 12px; font-weight: 600; }
+.ls-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+/* ── Question blocks ── */
+.level-header { display: flex; align-items: center; gap: 10px; margin: 1.5rem 0 0.85rem; }
+.level-badge { font-size: 12px; font-weight: 600; padding: 4px 14px; border-radius: 20px; }
+.lb-b { background: var(--blue-light); color: var(--blue-dark); }
+.lb-i { background: var(--amber-light); color: var(--amber-dark); }
+.lb-a { background: var(--purple-light); color: var(--purple-dark); }
+.lb-ch { background: var(--coral-light); color: var(--red-dark); }
+.level-desc { font-size: 13px; color: var(--text-muted); }
+
+.q-block {
+  border: 1px solid var(--gray-border);
+  border-radius: var(--radius);
+  padding: 1rem 1.15rem;
+  margin-bottom: 0.75rem;
+  transition: border-color 0.15s;
+}
+.q-block:hover { border-color: #C5C3BB; }
+.q-num { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
+.q-text { font-size: 15px; color: var(--text); line-height: 1.6; }
+.q-hint { font-size: 13px; color: var(--text-muted); margin-top: 6px; font-style: italic; }
+
+/* ── Answer accordion ── */
+.ans-wrap {
+  border: 1px solid var(--gray-border);
+  border-radius: var(--radius);
+  margin-bottom: 0.6rem;
+  overflow: hidden;
+}
+.ans-hdr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--white);
+  user-select: none;
+  transition: background 0.12s;
+}
+.ans-hdr:hover { background: var(--gray-bg); }
+.ans-chevron { font-size: 11px; color: var(--text-muted); transition: transform 0.2s; }
+.ans-hdr.open .ans-chevron { transform: rotate(180deg); }
+.ans-body {
+  display: none;
+  padding: 0.85rem 1rem;
+  border-top: 1px solid var(--gray-border);
+  background: var(--gray-bg);
+  font-size: 14px;
+}
+.ans-body.open { display: block; }
+.ans-val { font-size: 16px; font-weight: 600; color: var(--green-dark); margin-bottom: 5px; }
+.ans-reason { color: var(--text-muted); line-height: 1.6; }
+
+/* ── Self-check ── */
+.check-box {
+  background: var(--gray-bg);
+  border: 1px solid var(--gray-border);
+  border-radius: var(--radius);
+  padding: 1rem 1.15rem;
+  margin-bottom: 0.75rem;
+}
+.check-hint { font-size: 13px; color: var(--text-muted); margin-top: 5px; }
+
+/* ── Progress tracker ── */
+.progress-bar-wrap { background: var(--gray-bg); border-radius: 20px; height: 8px; margin: 0.5rem 0 1rem; overflow: hidden; border: 1px solid var(--gray-border); }
+.progress-bar-fill { height: 100%; background: var(--green); border-radius: 20px; transition: width 0.4s ease; }
+.progress-label { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+
+/* ── Mobile ── */
+@media (max-width: 700px) {
+  .nav-sidebar { display: none; }
+  .main-content { margin-left: 0; padding: 1rem 1rem 3rem; }
+  .page-header { padding: 1rem; }
+  .conv-grid { grid-template-columns: 1fr; }
+  .ladder { flex-direction: column; }
+  .scale-row { flex-direction: column; }
+  .scale-arrow { border: none; padding: 0.25rem 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <span class="logo">TrueMaths</span>
+  <span class="header-sep">|</span>
+  <span class="header-title">Percentages — Complete Module</span>
+</header>
+
+<nav class="nav-sidebar">
+  <div class="nav-section-label">Concepts</div>
+  <a class="nav-link active" onclick="scrollTo('sec-what')"><span class="nav-dot"></span>What is a percentage?</a>
+  <a class="nav-link" onclick="scrollTo('sec-scaling')"><span class="nav-dot"></span>Scaling to 100</a>
+  <a class="nav-link" onclick="scrollTo('sec-decimals')"><span class="nav-dot"></span>Decimals ↔ %</a>
+  <a class="nav-link" onclick="scrollTo('sec-reverse')"><span class="nav-dot"></span>Going backwards</a>
+  <a class="nav-link" onclick="scrollTo('sec-of')"><span class="nav-dot"></span>% of a quantity</a>
+  <a class="nav-link" onclick="scrollTo('sec-summary')"><span class="nav-dot"></span>All conversions</a>
+  <div class="nav-section-label">Practice</div>
+  <a class="nav-link" onclick="scrollTo('sec-worked')"><span class="nav-dot"></span>Worked examples</a>
+  <a class="nav-link" onclick="scrollTo('sec-beginner')"><span class="nav-dot"></span>Beginner questions</a>
+  <a class="nav-link" onclick="scrollTo('sec-intermediate')"><span class="nav-dot"></span>Intermediate questions</a>
+  <a class="nav-link" onclick="scrollTo('sec-advanced')"><span class="nav-dot"></span>Advanced questions</a>
+  <a class="nav-link" onclick="scrollTo('sec-challenge')"><span class="nav-dot"></span>Challenge set</a>
+  <a class="nav-link" onclick="scrollTo('sec-answers')"><span class="nav-dot"></span>Answer key</a>
+</nav>
+
+<main class="main-content">
+
+<!-- PROGRESS -->
+<div style="margin-bottom:1.5rem">
+  <div class="progress-label" id="prog-label">Progress — 0 of 21 questions attempted</div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="prog-bar" style="width:0%"></div></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 1 — WHAT IS A PERCENTAGE
+════════════════════════════════════════════ -->
+<div class="content-section" id="sec-what">
+  <span class="section-tag tag-concept">Part 1 — Foundation</span>
+  <h2>What is a percentage, really?</h2>
+
+  <p>Imagine a cricket match. The commentator says: <em>"Virat hit the ball 8 out of 10 times he faced."</em></p>
+  <p>Your friend says: <em>"My favourite player Rohit hit 16 out of 20 times."</em></p>
+  <p>Who was better? It's hard to compare — the totals are different.</p>
+
+  <div class="think-box">
+    <div class="think-title">Stop and think</div>
+    What if both players had faced exactly 100 balls? Then comparing would be instant — you'd just look at the number and know.
+  </div>
+
+  <p>That's all a percentage is. It's a way of saying <em>"let me pretend the total is 100, and tell you how many parts I have."</em></p>
+  <p>The word comes from Latin: <span class="hl hl-g">per centum</span> = per hundred. A cricket century is 100 runs — same root word, same idea.</p>
+
+  <h3>Why "scaling to 100" works — the step most books skip</h3>
+  <p>With <span class="hl hl-a">16 out of 20</span>, ask: what do I multiply 20 by to get 100?</p>
+
+  <div class="scale-row">
+    <div class="scale-box sb-blue"><div class="scale-num">20</div><div class="scale-label">original total</div></div>
+    <div class="scale-arrow"><div class="scale-arrow-text">× 5<br>to reach 100</div></div>
+    <div class="scale-box sb-amber"><div class="scale-num">100</div><div class="scale-label">new total</div></div>
+  </div>
+
+  <p>The total was multiplied by 5. The number of parts must also be multiplied by 5 — otherwise the ratio would change and you'd be misrepresenting the fraction.</p>
+
+  <div class="scale-row">
+    <div class="scale-box sb-blue"><div class="scale-num">16</div><div class="scale-label">original parts</div></div>
+    <div class="scale-arrow"><div class="scale-arrow-text">× 5<br>same multiplier</div></div>
+    <div class="scale-box sb-green"><div class="scale-num">80</div><div class="scale-label">out of 100 = 80%</div></div>
+  </div>
+
+  <div class="callout callout-blue"><strong>Key insight:</strong> Same multiplier top and bottom — the fraction's value doesn't change, only how it's written. 16/20 and 80/100 are identical fractions. We prefer the /100 version because it's a percentage.</div>
+
+  <p>Now both cricketers are directly comparable:</p>
+  <div class="bar-wrap">
+    <div class="bar-row">
+      <div class="bar-label">Virat — 8 of 10</div>
+      <div class="bar-track"><div class="bar-fill" style="width:80%;background:var(--green)"><span class="bar-text" style="color:var(--green-dark)">80 out of 100</span></div></div>
+      <div class="bar-pct" style="color:var(--green)">80%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Rohit — 16 of 20</div>
+      <div class="bar-track"><div class="bar-fill" style="width:80%;background:var(--amber)"><span class="bar-text" style="color:var(--amber-dark)">80 out of 100</span></div></div>
+      <div class="bar-pct" style="color:var(--amber)">80%</div>
+    </div>
+  </div>
+  <p style="font-size:14px;color:var(--text-muted)">Equal performance — and now you can see it at a glance.</p>
+
+  <h3>The 100-square — your mental picture for every percentage</h3>
+  <p>Every cell below is one percent. Move the slider to see any percentage shaded.</p>
+
+  <div class="interactive-block">
+    <div class="slider-row">
+      <label>Percentage</label>
+      <input type="range" min="0" max="100" value="30" id="sq-slide" step="1">
+      <span class="slider-val" id="sq-val">30%</span>
+    </div>
+    <div class="hr-light"></div>
+    <div id="sq-big" style="font-size:20px;font-weight:600;color:var(--green);margin-bottom:4px">30 out of 100</div>
+    <div id="sq-sub" style="font-size:13px;color:var(--text-muted);margin-bottom:10px">= 30% shaded</div>
+    <div class="hgrid" id="main-grid"></div>
+    <div class="grid-legend">
+      <div class="gl-item"><div class="gl-dot" style="background:var(--green)"></div><span id="gl-filled">30 filled = 30%</span></div>
+      <div class="gl-item"><div class="gl-dot" style="background:var(--gray-bg);border:1px solid var(--gray-border)"></div><span id="gl-empty">70 empty = 70%</span></div>
+    </div>
+  </div>
+
+  <div class="callout"><strong>Try these:</strong> Set to 50% (exactly half), 25% (one quarter), 1% (just one single cell — this is how small 1% really is), and 100% (the entire grid).</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 2 — SCALING
+════════════════════════════════════════════ -->
+<div class="content-section" id="sec-scaling">
+  <span class="section-tag tag-concept">Part 2 — Fractions to percentages</span>
+  <h2>Converting any fraction to a percentage</h2>
+
+  <p>The general method: to express a/b as a percentage, multiply by <span class="math-inline">100 ÷ b</span> on both top and bottom. The shortcut — multiply the fraction by 100 — does exactly this in one step.</p>
+
+  <div class="callout callout-blue"><strong>The rule and why it works:</strong> Multiplying a/b by 100 is the same as asking "if the total were 100, how many parts would I have?" It rescales the fraction to the /100 form — which is what percentage means.</div>
+
+  <div class="step-list">
+    <div class="step"><div class="step-num sn-g">A</div><div class="step-text">Emma scored 14 out of 25. Multiply by 4 to get to 100. So 14 × 4 = <span class="hl hl-g">56%</span></div></div>
+    <div class="step"><div class="step-num sn-b">B</div><div class="step-text">A team won 3 out of 5 games. Multiply by 20. So 3 × 20 = <span class="hl hl-b">60%</span></div></div>
+    <div class="step"><div class="step-num sn-a">C</div><div class="step-text">A student got 17 out of 40. Multiply by 2.5 → 17 × 2.5 = <span class="hl hl-a">42.5%</span> — multipliers don't have to be whole numbers.</div></div>
+  </div>
+
+  <div class="we-block">
+    <div class="we-header">Worked example — fraction to percentage</div>
+    <div class="we-body">
+      <div class="we-story">Emma's bracelet has 8 red beads and 12 blue beads. What percentage are red?</div>
+      <div class="step-list">
+        <div class="step"><div class="step-num sn-g">1</div><div class="step-text"><strong>Find total:</strong> 8 + 12 = <span class="hl hl-g">20 beads</span></div></div>
+        <div class="step"><div class="step-num sn-g">2</div><div class="step-text"><strong>Write fraction:</strong> Red = 8 out of 20 = <span class="hl hl-a">8/20</span></div></div>
+        <div class="step"><div class="step-num sn-g">3</div><div class="step-text"><strong>Scale:</strong> 20 × 5 = 100, so 8 × 5 = 40. Answer: <span class="hl hl-g">40% red, 60% blue</span></div></div>
+      </div>
+      <div class="warn-box"><div class="warn-title">Common mistake</div>Writing 8/12 instead of 8/20. Percentage is always out of the <strong>whole</strong>, not the other part.</div>
+      <span class="ans-pill">40% red · 60% blue</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 3 — DECIMALS
+════════════════════════════════════════════ -->
+<div class="content-section" id="sec-decimals">
+  <span class="section-tag tag-concept">Part 2b — Decimals and percentages</span>
+  <h2>Decimals to percentages — same idea, one step</h2>
+
+  <p>A decimal like 0.75 means "75 hundredths" — it's already a fraction of 1 whole. To express it as a percentage (out of 100), multiply by 100.</p>
+
+  <div class="scale-row">
+    <div class="scale-box sb-blue"><div class="scale-num">0.75</div><div class="scale-label">decimal</div></div>
+    <div class="scale-arrow"><div class="scale-arrow-text">× 100</div></div>
+    <div class="scale-box sb-green"><div class="scale-num">75%</div><div class="scale-label">percentage</div></div>
+  </div>
+
+  <div class="callout callout-amber"><strong>Why "move the decimal two places right"?</strong> Multiplying by 100 shifts every digit two columns left in place value — which looks like the decimal point moving two places right. It's not a separate rule — it's the same multiplication, done mentally.</div>
+
+  <div class="we-block">
+    <div class="we-header">Worked example — decimal to percentage</div>
+    <div class="we-body">
+      <div class="we-story">Mark and Henry shared a donut. Henry ate 0.4 of it. What percent did each eat?</div>
+      <div class="step-list">
+        <div class="step"><div class="step-num sn-b">1</div><div class="step-text">Henry: 0.4 × 100 = <span class="hl hl-g">40%</span></div></div>
+        <div class="step"><div class="step-num sn-b">2</div><div class="step-text">Mark: 100% − 40% = <span class="hl hl-b">60%</span></div></div>
+      </div>
+      <div class="insight">The whole is always 100%. If you know one person's share, subtract to get the other's.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 4 — REVERSE
+════════════════════════════════════════════ -->
+<div class="content-section" id="sec-reverse">
+  <span class="section-tag tag-concept">Part 3 — Going backwards</span>
+  <h2>Percentage → fraction → decimal</h2>
+
+  <p>Converting <em>to</em> percentage means multiplying by 100. So converting <em>from</em> percentage means dividing by 100. Same road, opposite direction.</p>
+
+  <div class="scale-row">
+    <div class="scale-box sb-green"><div class="scale-num">75%</div><div class="scale-label">percentage</div></div>
+    <div class="scale-arrow"><div class="scale-arrow-text">÷ 100</div></div>
+    <div class="scale-box sb-blue"><div class="scale-num">75/100</div><div class="scale-label">= 3/4 fraction</div></div>
+  </div>
+
+  <div class="we-block">
+    <div class="we-header">Worked example — % to fraction</div>
+    <div class="we-body">
+      <div class="we-story">Convert 54% to a fraction in simplest form.</div>
+      <div class="step-list">
+        <div class="step"><div class="step-num sn-a">1</div><div class="step-text">Write as fraction: <span class="math-inline">54/100</span></div></div>
+        <div class="step"><div class="step-num sn-a">2</div><div class="step-text">Simplify — HCF of 54 and 100 is 2: <span class="hl hl-g">27/50</span></div></div>
+      </div>
+      <span class="ans-pill">27/50</span>
+    </div>
+  </div>
+
+  <div class="warn-box" style="margin-top:1rem">
+    <div class="warn-title">Watch out — "fraction percent" is a trap</div>
+    <span class="hl hl-a">1/2%</span> does NOT mean 50%. It means half of one percent — a tiny amount. First convert 1/2 to 0.5, then divide by 100: → <strong>0.005</strong>. Always check whether the % sign comes after a fraction.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 5 — % OF A QUANTITY
+════════════════════════════════════════════ -->
+<div class="content-section" id="sec-of">
+  <span class="section-tag tag-concept">Part 4 — % of a quantity</span>
+  <h2>What does "of" mean in maths?</h2>
+
+  <p>When you see <em>"40% of 500"</em>, the word <strong>of</strong> means multiply.</p>
+
+  <div class="callout callout-purple"><strong>Why?</strong> 40% means 40 for every 100. In 500, there are five "hundreds." 40 × 5 = 200. The formula 40/100 × 500 does this exact counting — it's not arbitrary.</div>
+
+  <div class="think-box">
+    <div class="think-title">Think before calculating</div>
+    Your friend wants 40% of ₹500. Before using any formula — is 40% more or less than half? Half of 500 is 250, so the answer should be less than 250. Now calculate and check: 40/100 × 500 = 200. Checks out.
+  </div>
+
+  <h3>Live calculator — see the percentage move</h3>
+  <div class="interactive-block">
+    <div class="slider-row">
+      <label>Percentage</label>
+      <input type="range" min="1" max="100" value="40" id="calc-pct" step="1">
+      <span class="slider-val" id="cv-pct">40%</span>
+    </div>
+    <div class="slider-row">
+      <label>Total amount</label>
+      <input type="range" min="100" max="2000" value="500" id="calc-tot" step="50">
+      <span class="slider-val" id="cv-tot">₹500</span>
+    </div>
+    <div class="hr-light"></div>
+    <div class="live-label" id="cv-label">40% of ₹500</div>
+    <div class="live-result" id="cv-result">= ₹200</div>
+    <div class="live-calc" id="cv-calc">40/100 × 500 = 200</div>
+  </div>
+
+  <div class="we-block">
+    <div class="we-header">Worked example — % of a quantity</div>
+    <div class="we-body">
+      <div class="we-story">In a hall of 600 seats, 75% were filled. How many seats were vacant?</div>
+      <div class="step-list">
+        <div class="step"><div class="step-num sn-g">1</div><div class="step-text"><strong>Think first:</strong> 75% filled means 25% vacant. (75 + 25 = 100)</div></div>
+        <div class="step"><div class="step-num sn-g">2</div><div class="step-text"><strong>Find 25% of 600:</strong> 25/100 × 600 = <span class="hl hl-g">150 vacant seats</span></div></div>
+      </div>
+      <div class="insight">Working with the complement (100% − given%) often saves a step.</div>
+      <span class="ans-pill">150 seats vacant</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 6 — SUMMARY
+════════════════════════════════════════════ -->
+<div class="content-section" id="sec-summary">
+  <span class="section-tag tag-concept">Part 5 — All conversions</span>
+  <h2>One rule to remember</h2>
+  <div class="conv-grid">
+    <div class="conv-card"><div class="conv-title">Fraction → Percentage</div><div class="conv-rule">× 100</div><div class="conv-note">Scale to find "out of 100"</div></div>
+    <div class="conv-card"><div class="conv-title">Percentage → Fraction</div><div class="conv-rule">÷ 100, simplify</div><div class="conv-note">Write over 100, reduce HCF</div></div>
+    <div class="conv-card"><div class="conv-title">Decimal → Percentage</div><div class="conv-rule">× 100 (shift right ×2)</div><div class="conv-note">Same as fraction rule</div></div>
+    <div class="conv-card"><div class="conv-title">Percentage → Decimal</div><div class="conv-rule">÷ 100 (shift left ×2)</div><div class="conv-note">Opposite direction</div></div>
+  </div>
+  <div class="callout callout-blue"><strong>One rule:</strong> Going towards percentage → multiply by 100. Going away from percentage → divide by 100.</div>
+
+  <h3>Quick sense-check — try these before moving on</h3>
+  <div class="check-box"><strong>Q1:</strong> Arjun scored 18/20, Priya scored 45/50. Who scored higher percentage-wise?<div class="check-hint">Hint: Scale both to 100 before comparing.</div></div>
+  <div class="check-box"><strong>Q2:</strong> A shopkeeper offers 30% off a ₹200 shirt. Without calculating — is the discount more or less than ₹50?<div class="check-hint">Hint: 25% of 200 = 50. Is 30% more or less than 25%?</div></div>
+  <div class="check-box"><strong>Q3:</strong> If 1% of a number is 7, what is 100% of that number? What is 35%?<div class="check-hint">Hint: You already know one piece. Build from it.</div></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 7 — WORKED EXAMPLES
+════════════════════════════════════════════ -->
+<div class="content-section" id="sec-worked">
+  <span class="section-tag tag-worked">Worked examples</span>
+  <h2>5 model problems — read the thinking, not just the steps</h2>
+
+  <div class="we-block">
+    <div class="we-header">Example 1 — Fraction to percentage (beginner)</div>
+    <div class="we-body">
+      <div class="we-story">Riya's cricket team won 9 out of 15 matches this season. What percentage did they win?</div>
+      <div class="step-list">
+        <div class="step"><div class="step-num sn-g">1</div><div class="step-text"><strong>Sense check first:</strong> 9/15 = 3/5. Is this more than half? Yes. Answer should be above 50%.</div></div>
+        <div class="step"><div class="step-num sn-g">2</div><div class="step-text"><strong>Convert:</strong> <span class="math-inline">9/15 × 100 = 60%</span></div></div>
+      </div>
+      <div class="insight">Simplifying 9/15 to 3/5 first makes the multiplication easier. Always look for that shortcut.</div>
+      <span class="ans-pill">60% — above 50% as expected</span>
+    </div>
+  </div>
+
+  <div class="we-block">
+    <div class="we-header">Example 2 — Finding % of a quantity (beginner)</div>
+    <div class="we-body">
+      <div class="we-story">A shopkeeper has 240 mangoes. During a sale, 35% were sold by noon. How many mangoes were sold?</div>
+      <div class="step-list">
+        <div class="step"><div class="step-num sn-b">1</div><div class="step-text"><strong>Estimate first:</strong> 35% ≈ one-third. One-third of 240 ≈ 80. Answer should be near 80.</div></div>
+        <div class="step"><div class="step-num sn-b">2</div><div class="step-text"><strong>Calculate:</strong> <span class="math-inline">35/100 × 240 = 84</span></div></div>
+      </div>
+      <div class="insight">A rough estimate before calculating is not optional — it's how you catch mistakes.</div>
+      <span class="ans-pill">84 mangoes — close to estimate of 80</span>
+    </div>
+  </div>
+
+  <div class="we-block">
+    <div class="we-header">Example 3 — Reverse percentage (intermediate)</div>
+    <div class="we-body">
+      <div class="we-story">30% of students who tried out were selected. If 48 were selected, how many tried out in total?</div>
+      <div class="step-list">
+        <div class="step"><div class="step-num sn-a">1</div><div class="step-text"><strong>Identify the structure:</strong> 30% of [Total] = 48. We know the part, not the whole.</div></div>
+        <div class="step"><div class="step-num sn-a">2</div><div class="step-text"><strong>Rearrange:</strong> Total = 48 × 100/30 = <span class="math-inline">160</span></div></div>
+        <div class="step"><div class="step-num sn-a">3</div><div class="step-text"><strong>Check:</strong> 30% of 160 = 48. ✓</div></div>
+      </div>
+      <div class="insight insight-a">When you know the % and the result but not the whole — divide, don't multiply. You're working backwards.</div>
+      <span class="ans-pill">160 students tried out</span>
+    </div>
+  </div>
+
+  <div class="we-block">
+    <div class="we-header">Example 4 — Percentage change (intermediate)</div>
+    <div class="we-body">
+      <div class="we-story">A cycle costs ₹4,000 and is sold for ₹3,400 after a festival discount. What is the percentage discount?</div>
+      <div class="step-list">
+        <div class="step"><div class="step-num sn-b">1</div><div class="step-text"><strong>Find the change:</strong> 4000 − 3400 = ₹600</div></div>
+        <div class="step"><div class="step-num sn-b">2</div><div class="step-text"><strong>Express over original:</strong> <span class="math-inline">600/4000 × 100 = 15%</span></div></div>
+      </div>
+      <div class="insight">% change = (Change ÷ Original) × 100. Always divide by the starting value — not the new one.</div>
+      <div class="warn-box"><div class="warn-title">Common trap</div>Writing 600/3400. That divides by the new price, giving a wrong answer.</div>
+      <span class="ans-pill">15% discount</span>
+    </div>
+  </div>
+
+  <div class="we-block">
+    <div class="we-header">Example 5 — Two-step reverse (advanced)</div>
+    <div class="we-body">
+      <div class="we-story">Meera's salary was increased by 20%. Her new salary is ₹18,000. What was her original salary? By what percentage should the new salary be reduced to return to the original?</div>
+      <div class="step-list">
+        <div class="step"><div class="step-num sn-a">1</div><div class="step-text"><strong>Part A:</strong> New = 120% of Original. So <span class="math-inline">120/100 × Original = 18000</span> → Original = <span class="hl hl-g">₹15,000</span></div></div>
+        <div class="step"><div class="step-num sn-a">2</div><div class="step-text"><strong>Part B:</strong> Reduction needed = 18000 − 15000 = 3000. % of new salary = <span class="math-inline">3000/18000 × 100 = 16.67%</span></div></div>
+      </div>
+      <div class="insight insight-p"><strong>Critical insight:</strong> A 20% increase is NOT reversed by a 20% decrease. After a rise, the base is larger — so a smaller percentage is needed to bring it back. This surprises most students.</div>
+      <span class="ans-pill">Original: ₹15,000 · Reduction needed: 16.67%</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 8 — BEGINNER QUESTIONS
+════════════════════════════════════════════ -->
+<div class="content-section" id="sec-beginner">
+  <span class="section-tag tag-beginner">Practice — Beginner</span>
+  <div class="ladder">
+    <div class="ladder-seg ls-b"><div class="ls-title">Beginner</div><div class="ls-sub">Q 1–6</div></div>
+    <div class="ladder-seg ls-i"><div class="ls-title">Intermediate</div><div class="ls-sub">Q 7–12</div></div>
+    <div class="ladder-seg ls-a"><div class="ls-title">Advanced</div><div class="ls-sub">Q 13–17</div></div>
+    <div class="ladder-seg ls-ch"><div class="ls-title">Challenge</div><div class="ls-sub">Q 18–21</div></div>
+  </div>
+
+  <div class="level-header">
+    <span class="level-badge lb-b">Beginner — single step</span>
+    <span class="level-desc">One operation. Build confidence.</span>
+  </div>
+
+  <div class="q-block" data-qid="1"><div class="q-num">Question 1</div><div class="q-text">Aditya's school bag weighs 6 kg. His books alone weigh 4.5 kg. What percentage of the bag's total weight is taken up by the books?</div></div>
+  <div class="q-block" data-qid="2"><div class="q-num">Question 2</div><div class="q-text">During a cricket match, Rohit faced 50 balls and hit the boundary 12 times. What percentage of the balls he faced resulted in a boundary?</div></div>
+  <div class="q-block" data-qid="3"><div class="q-num">Question 3</div><div class="q-text">A mobile phone has 64 GB of storage. Priya has used 48 GB. What percentage of storage is still free?</div></div>
+  <div class="q-block" data-qid="4"><div class="q-num">Question 4</div><div class="q-text">A juice carton contains 250 ml. Aman drinks 30% of it. How many ml does he drink? How many ml are left?</div></div>
+  <div class="q-block" data-qid="5"><div class="q-num">Question 5</div><div class="q-text">Out of 40 students in a class, 16 are in the school football team. What percentage of students are NOT in the football team?</div></div>
+  <div class="q-block" data-qid="6"><div class="q-num">Question 6</div><div class="q-text">A shopkeeper bought 200 apples. By evening, 15% had gone bad and were thrown away. How many apples are still good?</div></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 9 — INTERMEDIATE
+════════════════════════════════════════════ -->
+<div class="content-section" id="sec-intermediate">
+  <span class="section-tag tag-intermediate">Practice — Intermediate</span>
+
+  <div class="level-header">
+    <span class="level-badge lb-i">Intermediate — two steps, real context</span>
+    <span class="level-desc">Read carefully. Set up before you calculate.</span>
+  </div>
+
+  <div class="q-block" data-qid="7"><div class="q-num">Question 7</div><div class="q-text">Shreya scored 68 marks in Hindi (out of 80) and 75 marks in Maths (out of 100). In which subject did she perform better percentage-wise? By how many percentage points?</div></div>
+  <div class="q-block" data-qid="8"><div class="q-num">Question 8</div><div class="q-text">A T-shirt originally costs ₹800. A shop offers a 25% discount. Aryan has ₹610. Can he afford it after the discount? If yes, how much money will he have left?</div></div>
+  <div class="q-block" data-qid="9"><div class="q-num">Question 9</div><div class="q-text">In a school of 1,200 students, 55% are boys. During an inter-school event, 40% of the boys and 30% of the girls participated. How many students participated in total?</div></div>
+  <div class="q-block" data-qid="10"><div class="q-num">Question 10</div><div class="q-text">Neha's weekly pocket money is ₹350. She spends 40% on snacks, 20% on stationery, and saves the rest. How much does she save each week? How much will she save in 4 weeks?</div></div>
+  <div class="q-block" data-qid="11"><div class="q-num">Question 11</div><div class="q-text">A number is increased by 30% and the result is 260. What was the original number?<div class="q-hint">Think: 260 represents 130% of what number?</div></div></div>
+  <div class="q-block" data-qid="12"><div class="q-num">Question 12</div><div class="q-text">In a fruit basket, 40% are oranges, 35% are apples, and the rest are bananas. If there are 18 bananas, how many fruits are in the basket altogether? How many oranges are there?</div></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 10 — ADVANCED
+════════════════════════════════════════════ -->
+<div class="content-section" id="sec-advanced">
+  <span class="section-tag tag-advanced">Practice — Advanced</span>
+
+  <div class="level-header">
+    <span class="level-badge lb-a">Advanced — multi-step, unfamiliar setups</span>
+    <span class="level-desc">Structure your approach. Work in stages.</span>
+  </div>
+
+  <div class="q-block" data-qid="13"><div class="q-num">Question 13</div><div class="q-text">A shopkeeper bought a bat for ₹500 and a ball for ₹200. He sold the bat at 20% profit and the ball at 10% loss. Did he make an overall profit or loss? What was the overall percentage on his total investment?</div></div>
+  <div class="q-block" data-qid="14"><div class="q-num">Question 14</div><div class="q-text">Vikram's salary increased by 10% in Year 1 and then decreased by 10% in Year 2. He thinks his salary is back to what it was. Is he right? Show working to explain why or why not.</div></div>
+  <div class="q-block" data-qid="15"><div class="q-num">Question 15</div><div class="q-text">In an election, three candidates — Arora, Batra, and Chandra — contested. Arora got 45%, Batra got 33%, and the rest went to Chandra. If Arora won by 3,600 votes over Chandra, find the total votes cast and how many Batra received.</div></div>
+  <div class="q-block" data-qid="16"><div class="q-num">Question 16</div><div class="q-text">A water tank is 80% full. After 60 litres are removed, it is 50% full. What is the total capacity of the tank? How many litres were in it originally?</div></div>
+  <div class="q-block" data-qid="17"><div class="q-num">Question 17</div><div class="q-text">In a class test, girls averaged 72% and boys averaged 64%. The overall class average was 69%. What fraction of the class are girls? Express as a percentage.<div class="q-hint">Hint: Let number of girls = g, boys = b. Set up an equation using total marks.</div></div></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 11 — CHALLENGE
+════════════════════════════════════════════ -->
+<div class="content-section" id="sec-challenge">
+  <span class="section-tag tag-challenge">Challenge set — Olympiad-style</span>
+
+  <div class="level-header">
+    <span class="level-badge lb-ch">Challenge — cannot be solved by direct formula</span>
+    <span class="level-desc">Read carefully. Plan before you calculate.</span>
+  </div>
+
+  <div class="q-block" data-qid="18"><div class="q-num">Question 18</div><div class="q-text">A trader marks goods 40% above cost price and offers a 20% discount on the marked price. Does he profit or lose? If Riya pays ₹1,680 for a bag, what was the original cost price?<div class="q-hint">Find what % of cost price the selling price represents before finding the cost.</div></div></div>
+  <div class="q-block" data-qid="19"><div class="q-num">Question 19</div><div class="q-text">In a survey of 800 people, 60% prefer tea over coffee. Of those who prefer tea, 25% only drink green tea. Of those who prefer coffee, 40% occasionally drink tea too. How many people in the survey drink tea in some form?</div></div>
+  <div class="q-block" data-qid="20"><div class="q-num">Question 20</div><div class="q-text">Aman, Bina, and Chintu share a prize. Aman gets 50% of the total. Bina gets 60% of what remains after Aman's share. Chintu gets the rest, which is ₹2,400. What is the total prize? What percentage of the total does Bina receive?<div class="q-hint">Work from Chintu's share backwards — what % of total is ₹2,400?</div></div></div>
+  <div class="q-block" data-qid="21"><div class="q-num">Question 21</div><div class="q-text">The price of a scooter is increased by 25%. By what percentage must the new price be reduced to return to the original? Also — if the price is increased by 25% then again by 20%, what single percentage increase from the original does this represent?<div class="q-hint">Part A tests reverse thinking. Part B — think carefully about what the base is each time.</div></div></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 12 — ANSWERS
+════════════════════════════════════════════ -->
+<div class="content-section" id="sec-answers">
+  <span class="section-tag tag-answers">Answer key</span>
+  <h2>Answers with key reasoning</h2>
+  <p style="font-size:14px;color:var(--text-muted);margin-bottom:1.25rem">Click any answer to reveal. Try the question yourself first.</p>
+  <div id="answers-container"></div>
+</div>
+
+</main>
+
+<script>
+/* ── 100-square ── */
+const gridEl = document.getElementById('main-grid');
+const cells = [];
+for (let i = 0; i < 100; i++) {
+  const c = document.createElement('div');
+  c.className = 'hcell hc-empty';
+  gridEl.appendChild(c);
+  cells.push(c);
+}
+function updateGrid(v) {
+  v = Math.min(100, Math.max(0, parseInt(v)));
+  cells.forEach((c, i) => { c.className = 'hcell ' + (i < v ? 'hc-filled' : 'hc-empty'); });
+  document.getElementById('sq-val').textContent = v + '%';
+  document.getElementById('sq-big').textContent = v + ' out of 100';
+  document.getElementById('sq-sub').textContent = '= ' + v + '% shaded';
+  document.getElementById('gl-filled').textContent = v + ' filled = ' + v + '%';
+  document.getElementById('gl-empty').textContent = (100 - v) + ' empty = ' + (100 - v) + '%';
+}
+updateGrid(30);
+document.getElementById('sq-slide').addEventListener('input', function () { updateGrid(this.value); });
+
+/* ── Live calculator ── */
+function updateCalc() {
+  const p = parseInt(document.getElementById('calc-pct').value);
+  const t = parseInt(document.getElementById('calc-tot').value);
+  const r = Math.round(p / 100 * t);
+  document.getElementById('cv-pct').textContent = p + '%';
+  document.getElementById('cv-tot').textContent = '₹' + t;
+  document.getElementById('cv-label').textContent = p + '% of ₹' + t;
+  document.getElementById('cv-result').textContent = '= ₹' + r;
+  document.getElementById('cv-calc').textContent = p + '/100 × ' + t + ' = ' + r;
+}
+document.getElementById('calc-pct').addEventListener('input', updateCalc);
+document.getElementById('calc-tot').addEventListener('input', updateCalc);
+updateCalc();
+
+/* ── Answer key ── */
+const answers = [
+  { q: 'Q1 — Book weight', a: '75%', r: '4.5 ÷ 6 × 100 = 75%. More than three-quarters of the bag is books.' },
+  { q: 'Q2 — Rohit\'s boundaries', a: '24%', r: '12 ÷ 50 × 100 = 24%. Fewer than 1 in 4 balls reached the boundary.' },
+  { q: 'Q3 — Phone storage', a: '25% free', r: 'Used = 48/64 × 100 = 75%. Free = 100 − 75 = 25%. Or directly: 16/64 × 100 = 25%.' },
+  { q: 'Q4 — Juice carton', a: '75 ml drunk, 175 ml left', r: '30% of 250 = 75. Left = 250 − 75 = 175. Check: 75 + 175 = 250. ✓' },
+  { q: 'Q5 — Football team', a: '60% not in team', r: 'In team = 16/40 × 100 = 40%. Not in team = 100 − 40 = 60%.' },
+  { q: 'Q6 — Good apples', a: '170 apples', r: '15% of 200 = 30 gone bad. 200 − 30 = 170. Or: 85% of 200 = 170 directly.' },
+  { q: 'Q7 — Shreya\'s subjects', a: 'Hindi: 85%, Maths: 75%. Hindi better by 10 points.', r: 'Hindi: 68/80 × 100 = 85%. Maths: 75/100 = 75%. Never compare raw scores — always convert to a common base first.' },
+  { q: 'Q8 — T-shirt discount', a: 'Yes. ₹10 left.', r: '25% of 800 = 200. Sale price = 600. Aryan has 610 > 600. Left: 610 − 600 = ₹10.' },
+  { q: 'Q9 — School event', a: '426 students', r: 'Boys = 55% of 1200 = 660. Girls = 540. Boys participated = 40% of 660 = 264. Girls = 30% of 540 = 162. Total = 264 + 162 = 426.' },
+  { q: 'Q10 — Neha\'s savings', a: '₹140/week, ₹560 in 4 weeks', r: 'Spent = 60% (40 + 20). Saved = 40% of 350 = ₹140. Over 4 weeks: 140 × 4 = ₹560.' },
+  { q: 'Q11 — Reverse increase', a: '200', r: '130% of x = 260 → x = 260 × 100/130 = 200. Always identify what percentage the given number represents.' },
+  { q: 'Q12 — Fruit basket', a: '72 fruits total, 28.8 oranges', r: 'Bananas = 100 − 40 − 35 = 25% of total. 25% = 18 → total = 72. Oranges = 40% of 72 = 28.8. Note: if answers must be whole numbers, check whether the problem has a rounding issue.' },
+  { q: 'Q13 — Bat and ball', a: 'Overall profit of ₹80 = 11.4%', r: 'Bat SP = 600 (20% profit on 500). Ball SP = 180 (10% loss on 200). Revenue = 780. Cost = 700. Profit = 80. % = 80/700 × 100 ≈ 11.4%.' },
+  { q: 'Q14 — Vikram\'s salary', a: 'No — ends up 1% lower.', r: 'Start ₹100 → +10% → ₹110 → −10% of 110 → ₹99. The base changes, so equal % changes don\'t cancel.' },
+  { q: 'Q15 — Election', a: 'Total = 15,652 votes approx. Batra ≈ 5,165.', r: 'Chandra = 22%. Arora − Chandra = 23%. 23% = 3600 → total = 3600/0.23 ≈ 15,652. Batra = 33% of total.' },
+  { q: 'Q16 — Water tank', a: 'Capacity = 200 L. Originally had 160 L.', r: '(80% − 50%) = 30% of capacity = 60 L → capacity = 200 L. Original = 80% of 200 = 160 L.' },
+  { q: 'Q17 — Class average', a: '62.5% of class are girls', r: '72g + 64b = 69(g+b) → 3g = 5b → g/b = 5/3. Girls = 5/(5+3) = 5/8 = 62.5%.' },
+  { q: 'Q18 — Trader markup', a: 'Profit of 12%. Cost price = ₹1,500.', r: 'Mark up 40% → MP = 140% of CP. Discount 20% → SP = 80% of MP = 112% of CP. Profit = 12%. 1680 = 112% of CP → CP = ₹1,500.' },
+  { q: 'Q19 — Tea survey', a: '608 people drink tea in some form', r: 'Tea lovers = 480. Coffee lovers = 320. Of coffee lovers, 40% also drink tea = 128. Total who drink tea = 480 + 128 = 608.' },
+  { q: 'Q20 — Prize sharing', a: 'Total = ₹12,000. Bina gets 30%.', r: 'Aman = 50%. Bina = 60% of remaining 50% = 30%. Chintu = 20% of total. 20% = 2400 → total = ₹12,000.' },
+  { q: 'Q21 — Scooter price', a: 'Part A: 20% reduction. Part B: 50% total increase.', r: 'Part A: to reverse +25%, reduce by 25/125 × 100 = 20%. Part B: 100 × 1.25 × 1.20 = 150. Net = 50% increase.' }
+];
+
+const ac = document.getElementById('answers-container');
+answers.forEach((item, i) => {
+  const wrap = document.createElement('div');
+  wrap.className = 'ans-wrap';
+  const hdr = document.createElement('div');
+  hdr.className = 'ans-hdr';
+  hdr.innerHTML = `<span>${item.q}</span><span class="ans-chevron">▼</span>`;
+  const body = document.createElement('div');
+  body.className = 'ans-body';
+  body.innerHTML = `<div class="ans-val">${item.a}</div><div class="ans-reason">${item.r}</div>`;
+  hdr.onclick = () => {
+    const open = body.classList.toggle('open');
+    hdr.classList.toggle('open', open);
+  };
+  wrap.appendChild(hdr);
+  wrap.appendChild(body);
+  ac.appendChild(wrap);
+});
+
+/* ── Progress tracker ── */
+let attempted = new Set();
+document.querySelectorAll('.q-block[data-qid]').forEach(el => {
+  el.addEventListener('click', () => {
+    attempted.add(el.dataset.qid);
+    const pct = Math.round(attempted.size / 21 * 100);
+    document.getElementById('prog-bar').style.width = pct + '%';
+    document.getElementById('prog-label').textContent =
+      'Progress — ' + attempted.size + ' of 21 questions attempted';
+  });
+});
+
+/* ── Active nav on scroll ── */
+const sections = ['sec-what','sec-scaling','sec-decimals','sec-reverse','sec-of','sec-summary','sec-worked','sec-beginner','sec-intermediate','sec-advanced','sec-challenge','sec-answers'];
+const navLinks = document.querySelectorAll('.nav-link');
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+window.addEventListener('scroll', () => {
+  let current = sections[0];
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < 120) current = id;
+  });
+  navLinks.forEach((l, i) => {
+    l.classList.toggle('active', sections[i] === current);
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
