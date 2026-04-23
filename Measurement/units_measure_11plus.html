@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Units of Measure & Conversions — 11+ GL Assessment Revision</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --navy: #0f1f3d;
+  --blue: #1d4ed8;
+  --blue-mid: #2563eb;
+  --blue-lt: #eff6ff;
+  --blue-bd: #bfdbfe;
+  --teal: #0f766e;
+  --teal-lt: #f0fdfa;
+  --teal-bd: #99f6e4;
+  --green: #15803d;
+  --green-lt: #f0fdf4;
+  --green-bd: #bbf7d0;
+  --amber: #b45309;
+  --amber-lt: #fffbeb;
+  --amber-bd: #fde68a;
+  --red: #dc2626;
+  --red-lt: #fef2f2;
+  --rose: #be123c;
+  --rose-lt: #fff1f2;
+  --rose-bd: #fecdd3;
+  --plum: #6d28d9;
+  --plum-lt: #f5f3ff;
+  --plum-bd: #ddd6fe;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-400: #94a3b8;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --font: 'Outfit', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: #eef2f7;
+  color: var(--gray-800);
+  line-height: 1.65;
+  font-size: 16px;
+}
+
+/* ── HEADER ── */
+.page-header {
+  background: var(--navy);
+  color: white;
+  padding: 40px 24px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(37,99,235,0.35) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 80%, rgba(15,118,110,0.25) 0%, transparent 50%);
+}
+.page-header::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    -45deg, transparent 0, transparent 18px,
+    rgba(255,255,255,0.025) 18px, rgba(255,255,255,0.025) 19px
+  );
+}
+.page-header > * { position: relative; z-index: 1; }
+.page-header h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; letter-spacing: -0.5px; }
+.page-header .sub { opacity: 0.75; font-size: 1rem; margin-top: 6px; font-weight: 500; }
+.badge-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+.badge { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); }
+
+/* ── LAYOUT ── */
+.container { max-width: 900px; margin: 0 auto; padding: 28px 16px 80px; }
+
+/* ── QUICK REF ── */
+.qref {
+  background: white; border-radius: 16px;
+  border: 2px solid var(--blue-bd);
+  padding: 22px 24px; margin-bottom: 32px;
+  box-shadow: 0 4px 20px rgba(29,78,216,0.08);
+}
+.qref h2 { color: var(--blue); font-size: 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 14px; }
+.qref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+.qref-item { background: var(--blue-lt); border: 1px solid var(--blue-bd); border-radius: 9px; padding: 10px 14px; }
+.qref-item .ql { font-size: 0.7rem; font-weight: 800; color: var(--blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+.qref-item .qv { font-family: var(--mono); font-size: 0.88rem; color: var(--navy); }
+
+/* ── SECTION ── */
+.section {
+  background: white; border-radius: 16px;
+  padding: 28px 24px; margin-bottom: 26px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  border: 1px solid var(--gray-200);
+}
+.sec-title {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 1.3rem; font-weight: 900; color: var(--navy);
+  margin-bottom: 20px; padding-bottom: 14px;
+  border-bottom: 2px solid var(--gray-100);
+}
+.sec-num {
+  display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--navy); color: white;
+  font-weight: 900; font-size: 0.9rem; flex-shrink: 0;
+}
+
+p { margin-bottom: 12px; }
+
+/* ── CONTENT BOXES ── */
+.box { border-radius: 10px; padding: 14px 18px; margin: 14px 0; }
+.box-title { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+.box-formula { background: var(--blue-lt); border-left: 4px solid var(--blue-mid); }
+.box-formula .box-title { color: var(--blue-mid); }
+.box-formula .fm { font-family: var(--mono); font-size: 0.9rem; color: var(--navy); margin-bottom: 4px; }
+.box-example { background: var(--green-lt); border-left: 4px solid var(--green); }
+.box-example .box-title { color: var(--green); }
+.box-example .step { font-size: 0.93rem; margin-bottom: 3px; }
+.box-example .step b { font-weight: 700; }
+.box-example .ans { font-family: var(--mono); font-weight: 700; color: var(--green); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--green-bd); }
+.box-warning { background: var(--amber-lt); border-left: 4px solid var(--amber); }
+.box-warning .box-title { color: var(--amber); }
+.box-note { background: var(--plum-lt); border-left: 4px solid var(--plum); }
+.box-note .box-title { color: var(--plum); }
+.box-teal { background: var(--teal-lt); border-left: 4px solid var(--teal); }
+.box-teal .box-title { color: var(--teal); }
+
+/* ── CONVERSION CHAIN VISUAL ── */
+.chain { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
+.chain-unit {
+  background: var(--navy); color: white;
+  padding: 8px 16px; border-radius: 8px;
+  font-weight: 800; font-size: 0.95rem;
+}
+.chain-arrow {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 2px; font-size: 0.72rem; font-weight: 700;
+}
+.chain-arrow .up { color: var(--green); }
+.chain-arrow .dn { color: var(--red); }
+.chain-arrow .sym { font-size: 1.1rem; color: var(--gray-400); }
+
+/* ── TABLE ── */
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9rem; }
+th { background: var(--navy); color: white; padding: 9px 13px; text-align: left; font-weight: 700; }
+td { padding: 8px 13px; border-bottom: 1px solid var(--gray-200); }
+tr:nth-child(even) td { background: var(--gray-50); }
+
+/* ── PRACTICE ── */
+.practice { margin-top: 28px; border-top: 2px dashed var(--gray-200); padding-top: 20px; }
+.practice h3 { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: 16px; }
+.level-block { margin-bottom: 18px; }
+.level-tag {
+  display: inline-block; padding: 3px 13px; border-radius: 20px;
+  font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.lv-easy { background: #dcfce7; color: #15803d; }
+.lv-inter { background: #dbeafe; color: #1d4ed8; }
+.lv-adv { background: #fef9c3; color: #92400e; }
+.lv-chal { background: #fce7f3; color: #9d174d; }
+
+.q-block {
+  margin-bottom: 12px; padding: 14px 16px;
+  background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 10px;
+}
+.q-text { font-weight: 600; font-size: 0.95rem; margin-bottom: 10px; }
+.q-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.q-in {
+  border: 2px solid var(--gray-200); border-radius: 7px;
+  padding: 8px 12px; font-family: var(--mono); font-size: 0.93rem;
+  width: 130px; outline: none; transition: border-color 0.15s;
+  color: var(--gray-800); background: white;
+}
+.q-in:focus { border-color: var(--blue-mid); }
+.q-unit { font-size: 0.82rem; color: var(--gray-600); font-weight: 700; }
+.q-btn {
+  background: var(--blue-mid); color: white; border: none;
+  border-radius: 7px; padding: 8px 18px;
+  font-family: var(--font); font-weight: 800; font-size: 0.88rem;
+  cursor: pointer; transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+.q-btn:hover { background: #1d4ed8; }
+.q-btn:active { transform: scale(0.97); }
+.q-fb {
+  margin-top: 9px; padding: 9px 13px; border-radius: 7px;
+  font-size: 0.88rem; font-weight: 600; display: none;
+}
+.fb-ok { background: var(--green-lt); border: 1px solid var(--green-bd); color: var(--green); }
+.fb-no { background: var(--red-lt); border: 1px solid #fecaca; color: var(--red); }
+
+/* ── MASTERY ── */
+.mastery {
+  background: var(--navy); border-radius: 16px;
+  padding: 28px 24px; margin-bottom: 26px; color: white;
+}
+.mastery h2 { font-size: 1.4rem; font-weight: 900; margin-bottom: 5px; }
+.mastery .msub { opacity: 0.7; font-size: 0.9rem; margin-bottom: 22px; }
+.mastery .q-block { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); }
+.mastery .q-text { color: white; }
+.mastery .q-in { background: rgba(255,255,255,0.95); }
+.mastery .q-unit { color: rgba(255,255,255,0.65); }
+#btn-submit {
+  width: 100%; margin-top: 20px; padding: 13px;
+  background: #16a34a; color: white; border: none; border-radius: 9px;
+  font-family: var(--font); font-weight: 900; font-size: 1rem;
+  cursor: pointer; transition: background 0.15s;
+}
+#btn-submit:hover { background: #15803d; }
+.score-box {
+  margin-top: 18px; padding: 18px 20px; background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
+  text-align: center; display: none;
+}
+.score-num { font-size: 2.8rem; font-weight: 900; }
+.score-msg { font-size: 0.95rem; opacity: 0.85; margin-top: 4px; }
+
+code { font-family: var(--mono); background: rgba(29,78,216,0.1); padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
+hr.dashed { border: none; border-top: 2px dashed var(--gray-200); margin: 18px 0; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>📏 Units of Measure &amp; Conversions</h1>
+  <div class="sub">Complete Revision Notes for 11+ GL Assessment</div>
+  <div class="badge-row">
+    <span class="badge">📐 Length · Mass · Capacity</span>
+    <span class="badge">⏱ Time &amp; Clocks</span>
+    <span class="badge">📦 Area &amp; Volume Units</span>
+    <span class="badge">🎯 GL Standard</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- QUICK REFERENCE -->
+<div class="qref">
+  <h2>⚡ Quick Reference Card</h2>
+  <div class="qref-grid">
+    <div class="qref-item"><div class="ql">Length</div><div class="qv">×10: mm→cm<br>×100: cm→m<br>×1000: m→km</div></div>
+    <div class="qref-item"><div class="ql">Mass</div><div class="qv">×1000: g→kg<br>×1000: kg→t<br>×1000: mg→g</div></div>
+    <div class="qref-item"><div class="ql">Capacity</div><div class="qv">×10: ml→cl<br>×100: cl→l<br>×1000: ml→l</div></div>
+    <div class="qref-item"><div class="ql">Time</div><div class="qv">60s=1min<br>60min=1hr<br>24hr=1day</div></div>
+    <div class="qref-item"><div class="ql">Area trap</div><div class="qv">1m²=10,000cm²<br>1cm²=100mm²</div></div>
+    <div class="qref-item"><div class="ql">Volume trap</div><div class="qv">1m³=1,000,000cm³<br>1cm³=1,000mm³</div></div>
+    <div class="qref-item"><div class="ql">Imperial</div><div class="qv">5 miles≈8km<br>1 gal≈4.5l<br>1 pint≈568ml</div></div>
+    <div class="qref-item"><div class="ql">Rule</div><div class="qv">Big→Small: ×<br>Small→Big: ÷</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 1: METRIC LENGTH -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">1</span>Metric Length — Complete Conversion Chain</div>
+
+  <table>
+    <tr><th>Unit</th><th>Symbol</th><th>Real-World Anchor</th></tr>
+    <tr><td>Millimetre</td><td>mm</td><td>Thickness of a fingernail / credit card</td></tr>
+    <tr><td>Centimetre</td><td>cm</td><td>Width of your little finger</td></tr>
+    <tr><td>Metre</td><td>m</td><td>Height of a door</td></tr>
+    <tr><td>Kilometre</td><td>km</td><td>Distance between two villages</td></tr>
+  </table>
+
+  <div class="box box-formula">
+    <div class="box-title">📐 The Golden Rule — Big to Small: Multiply · Small to Big: Divide</div>
+    <div class="fm">mm ×10→ cm ×100→ m ×1000→ km</div>
+    <div class="fm">mm ÷10← cm ÷100← m ÷1000← km</div>
+    <div class="fm" style="margin-top:8px;opacity:0.8;">Compound jumps: mm→m (÷1000) · cm→km (÷100,000) · mm→km (÷1,000,000)</div>
+  </div>
+
+  <div class="chain">
+    <div class="chain-unit">mm</div>
+    <div class="chain-arrow"><span class="up">×10 →</span><span class="sym">↔</span><span class="dn">← ÷10</span></div>
+    <div class="chain-unit">cm</div>
+    <div class="chain-arrow"><span class="up">×100 →</span><span class="sym">↔</span><span class="dn">← ÷100</span></div>
+    <div class="chain-unit">m</div>
+    <div class="chain-arrow"><span class="up">×1000 →</span><span class="sym">↔</span><span class="dn">← ÷1000</span></div>
+    <div class="chain-unit">km</div>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example 1 — Simple Conversion (cm → m)</div>
+    <div class="step"><b>Question:</b> Convert 850 cm to metres.</div>
+    <div class="step"><b>Direction:</b> cm → m means small to big → divide</div>
+    <div class="step"><b>Conversion factor:</b> 100 cm = 1 m</div>
+    <div class="step"><b>Calculation:</b> 850 ÷ 100 = 8.5</div>
+    <div class="ans">✅ 850 cm = 8.5 m</div>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example 2 — Decimal Conversion (km → m)</div>
+    <div class="step"><b>Question:</b> Convert 3.75 km to metres.</div>
+    <div class="step"><b>Direction:</b> km → m means big to small → multiply</div>
+    <div class="step"><b>Calculation:</b> 3.75 × 1000 = 3750</div>
+    <div class="ans">✅ 3.75 km = 3750 m</div>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example 3 — Compound Jump (mm → km)</div>
+    <div class="step"><b>Question:</b> Convert 3,500,000 mm to km.</div>
+    <div class="step"><b>Method A (two hops):</b></div>
+    <div class="step">Step 1: mm → m: 3,500,000 ÷ 1,000 = 3,500 m</div>
+    <div class="step">Step 2: m → km: 3,500 ÷ 1,000 = 3.5 km</div>
+    <div class="step"><b>Method B (direct):</b> 3,500,000 ÷ 1,000,000 = 3.5 km</div>
+    <div class="ans">✅ 3,500,000 mm = 3.5 km</div>
+  </div>
+
+  <div class="box box-teal">
+    <div class="box-title">🏃 Context Problem — Running Track</div>
+    <div class="step"><b>Question:</b> A running track is 400 m long. How many km is 6 laps?</div>
+    <div class="step"><b>Step 1:</b> Total metres = 6 × 400 = 2,400 m</div>
+    <div class="step"><b>Step 2:</b> m → km: 2,400 ÷ 1,000 = 2.4 km</div>
+    <div class="ans">✅ 6 laps = 2.4 km</div>
+  </div>
+
+  <div class="box box-note">
+    <div class="box-title">💡 Mixed Units — Exam Trap</div>
+    <p>Questions like "2 m 45 cm" mean you must add 200 cm + 45 cm = 245 cm. Always convert to one unit before calculating.</p>
+  </div>
+
+  <!-- PRACTICE -->
+  <div class="practice">
+    <h3>📝 Practice — Metric Length</h3>
+
+    <div class="level-block">
+      <div class="level-tag lv-easy">Easy</div>
+      <div class="q-block">
+        <div class="q-text">Q1. Convert 5 cm to mm.</div>
+        <div class="q-row"><input class="q-in" type="number" id="l1"><span class="q-unit">mm</span><button class="q-btn" onclick="chk('l1',50,'cm→mm: multiply by 10. 5×10=50 mm.')">Check</button></div>
+        <div class="q-fb" id="l1_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q2. Convert 300 cm to metres.</div>
+        <div class="q-row"><input class="q-in" type="number" id="l2"><span class="q-unit">m</span><button class="q-btn" onclick="chk('l2',3,'cm→m: divide by 100. 300÷100=3 m.')">Check</button></div>
+        <div class="q-fb" id="l2_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q3. Convert 2 km to metres.</div>
+        <div class="q-row"><input class="q-in" type="number" id="l3"><span class="q-unit">m</span><button class="q-btn" onclick="chk('l3',2000,'km→m: multiply by 1000. 2×1000=2000 m.')">Check</button></div>
+        <div class="q-fb" id="l3_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-inter">Intermediate</div>
+      <div class="q-block">
+        <div class="q-text">Q4. Convert 3.5 m to cm.</div>
+        <div class="q-row"><input class="q-in" type="number" id="l4"><span class="q-unit">cm</span><button class="q-btn" onclick="chk('l4',350,'m→cm: multiply by 100. 3.5×100=350 cm.')">Check</button></div>
+        <div class="q-fb" id="l4_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q5. A fence is 2 m 35 cm long. Express the total length in cm.</div>
+        <div class="q-row"><input class="q-in" type="number" id="l5"><span class="q-unit">cm</span><button class="q-btn" onclick="chk('l5',235,'2 m = 200 cm. 200 + 35 = 235 cm.')">Check</button></div>
+        <div class="q-fb" id="l5_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q6. Convert 4500 m to km.</div>
+        <div class="q-row"><input class="q-in" type="number" id="l6"><span class="q-unit">km</span><button class="q-btn" onclick="chk('l6',4.5,'m→km: divide by 1000. 4500÷1000=4.5 km.')">Check</button></div>
+        <div class="q-fb" id="l6_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-adv">Advanced</div>
+      <div class="q-block">
+        <div class="q-text">Q7. Convert 45,000 mm to metres.</div>
+        <div class="q-row"><input class="q-in" type="number" id="l7"><span class="q-unit">m</span><button class="q-btn" onclick="chk('l7',45,'mm→m: divide by 1000. 45,000÷1000=45 m.')">Check</button></div>
+        <div class="q-fb" id="l7_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q8. A swimming pool is 25 m long. Sarah swims 40 lengths. How far in km?</div>
+        <div class="q-row"><input class="q-in" type="number" id="l8"><span class="q-unit">km</span><button class="q-btn" onclick="chk('l8',1,'40 × 25 = 1000 m. 1000 ÷ 1000 = 1 km.')">Check</button></div>
+        <div class="q-fb" id="l8_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q9. Convert 2.3 km to cm.</div>
+        <div class="q-row"><input class="q-in" type="number" id="l9"><span class="q-unit">cm</span><button class="q-btn" onclick="chk('l9',230000,'km→m: ×1000=2300 m. m→cm: ×100=230,000 cm.')">Check</button></div>
+        <div class="q-fb" id="l9_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-chal">Challenging</div>
+      <div class="q-block">
+        <div class="q-text">Q10. A garden path is 1 km 200 m 50 cm long. Express the total in cm.</div>
+        <div class="q-row"><input class="q-in" type="number" id="l10"><span class="q-unit">cm</span><button class="q-btn" onclick="chk('l10',120050,'1km=100,000cm. 200m=20,000cm. 50cm=50cm. Total=120,050 cm.')">Check</button></div>
+        <div class="q-fb" id="l10_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q11. Convert 8,500,000 mm to km.</div>
+        <div class="q-row"><input class="q-in" type="number" id="l11"><span class="q-unit">km</span><button class="q-btn" onclick="chk('l11',8.5,'mm→km: divide by 1,000,000. 8,500,000÷1,000,000=8.5 km.')">Check</button></div>
+        <div class="q-fb" id="l11_fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 2: METRIC MASS -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">2</span>Metric Mass (Weight)</div>
+
+  <table>
+    <tr><th>Unit</th><th>Symbol</th><th>Real-World Anchor</th></tr>
+    <tr><td>Milligram</td><td>mg</td><td>A grain of salt</td></tr>
+    <tr><td>Gram</td><td>g</td><td>A paperclip</td></tr>
+    <tr><td>Kilogram</td><td>kg</td><td>A bag of sugar</td></tr>
+    <tr><td>Tonne</td><td>t</td><td>A small car</td></tr>
+  </table>
+
+  <div class="box box-formula">
+    <div class="box-title">📐 Conversion Chain</div>
+    <div class="fm">mg ×1000→ g ×1000→ kg ×1000→ t</div>
+    <div class="fm">mg ÷1000← g ÷1000← kg ÷1000← t</div>
+  </div>
+
+  <div class="chain">
+    <div class="chain-unit">mg</div>
+    <div class="chain-arrow"><span class="up">×1000 →</span><span class="sym">↔</span><span class="dn">← ÷1000</span></div>
+    <div class="chain-unit">g</div>
+    <div class="chain-arrow"><span class="up">×1000 →</span><span class="sym">↔</span><span class="dn">← ÷1000</span></div>
+    <div class="chain-unit">kg</div>
+    <div class="chain-arrow"><span class="up">×1000 →</span><span class="sym">↔</span><span class="dn">← ÷1000</span></div>
+    <div class="chain-unit">t</div>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example 1</div>
+    <div class="step"><b>Question:</b> Convert 4.5 kg to grams.</div>
+    <div class="step"><b>Direction:</b> kg → g means big to small → multiply by 1000</div>
+    <div class="step"><b>Calculation:</b> 4.5 × 1000 = 4500</div>
+    <div class="ans">✅ 4.5 kg = 4500 g</div>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example 2 — Mixed Units</div>
+    <div class="step"><b>Question:</b> A parcel weighs 2 kg 350 g. Express in grams.</div>
+    <div class="step"><b>Step 1:</b> Convert 2 kg to g: 2 × 1000 = 2000 g</div>
+    <div class="step"><b>Step 2:</b> Add remaining grams: 2000 + 350 = 2350 g</div>
+    <div class="ans">✅ 2 kg 350 g = 2350 g</div>
+  </div>
+
+  <div class="box box-teal">
+    <div class="box-title">🚚 Context Problem — Truck Load</div>
+    <div class="step"><b>Question:</b> A truck carries 12 boxes each weighing 45 kg. Does it exceed a 0.5 tonne limit?</div>
+    <div class="step"><b>Step 1:</b> Total mass = 12 × 45 = 540 kg</div>
+    <div class="step"><b>Step 2:</b> Convert limit: 0.5 t = 0.5 × 1000 = 500 kg</div>
+    <div class="step"><b>Step 3:</b> Compare: 540 kg &gt; 500 kg</div>
+    <div class="ans">✅ Yes — the truck exceeds the limit by 40 kg.</div>
+  </div>
+
+  <div class="practice">
+    <h3>📝 Practice — Metric Mass</h3>
+
+    <div class="level-block">
+      <div class="level-tag lv-easy">Easy</div>
+      <div class="q-block">
+        <div class="q-text">Q1. Convert 3 kg to grams.</div>
+        <div class="q-row"><input class="q-in" type="number" id="m1"><span class="q-unit">g</span><button class="q-btn" onclick="chk('m1',3000,'kg→g: multiply by 1000. 3×1000=3000 g.')">Check</button></div>
+        <div class="q-fb" id="m1_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q2. Convert 5000 g to kg.</div>
+        <div class="q-row"><input class="q-in" type="number" id="m2"><span class="q-unit">kg</span><button class="q-btn" onclick="chk('m2',5,'g→kg: divide by 1000. 5000÷1000=5 kg.')">Check</button></div>
+        <div class="q-fb" id="m2_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q3. Convert 2 tonnes to kg.</div>
+        <div class="q-row"><input class="q-in" type="number" id="m3"><span class="q-unit">kg</span><button class="q-btn" onclick="chk('m3',2000,'t→kg: multiply by 1000. 2×1000=2000 kg.')">Check</button></div>
+        <div class="q-fb" id="m3_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-inter">Intermediate</div>
+      <div class="q-block">
+        <div class="q-text">Q4. A parcel weighs 3 kg 750 g. Express the total in grams.</div>
+        <div class="q-row"><input class="q-in" type="number" id="m4"><span class="q-unit">g</span><button class="q-btn" onclick="chk('m4',3750,'3kg=3000g. 3000+750=3750 g.')">Check</button></div>
+        <div class="q-fb" id="m4_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q5. Convert 2500 kg to tonnes.</div>
+        <div class="q-row"><input class="q-in" type="number" id="m5"><span class="q-unit">t</span><button class="q-btn" onclick="chk('m5',2.5,'kg→t: divide by 1000. 2500÷1000=2.5 t.')">Check</button></div>
+        <div class="q-fb" id="m5_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q6. Convert 8500 g to kg.</div>
+        <div class="q-row"><input class="q-in" type="number" id="m6"><span class="q-unit">kg</span><button class="q-btn" onclick="chk('m6',8.5,'8500÷1000=8.5 kg.')">Check</button></div>
+        <div class="q-fb" id="m6_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-adv">Advanced</div>
+      <div class="q-block">
+        <div class="q-text">Q7. A lift has a maximum load of 1.5 tonnes. 8 people with average mass 85 kg board it. Is the limit exceeded?</div>
+        <div class="q-row">
+          <label style="font-weight:700;cursor:pointer;color:var(--gray-700);font-size:0.9rem;"><input type="radio" name="m7r" value="yes"> Yes</label>
+          <label style="font-weight:700;cursor:pointer;color:var(--gray-700);font-size:0.9rem;margin-left:14px;"><input type="radio" name="m7r" value="no"> No</label>
+          <button class="q-btn" style="margin-left:8px;" onclick="chkRadio('m7r','no','8×85=680 kg. Limit=1500 kg. 680 kg &lt; 1500 kg — limit is NOT exceeded.')">Check</button>
+        </div>
+        <div class="q-fb" id="m7r_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q8. A recipe needs 0.75 kg of flour. How many grams is that?</div>
+        <div class="q-row"><input class="q-in" type="number" id="m8"><span class="q-unit">g</span><button class="q-btn" onclick="chk('m8',750,'0.75×1000=750 g.')">Check</button></div>
+        <div class="q-fb" id="m8_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-chal">Challenging</div>
+      <div class="q-block">
+        <div class="q-text">Q9. A warehouse stores 15 crates. Each crate holds 48 bags of 2.5 kg each. What is the total mass in tonnes?</div>
+        <div class="q-row"><input class="q-in" type="number" id="m9"><span class="q-unit">t</span><button class="q-btn" onclick="chk('m9',1.8,'15×48=720 bags. 720×2.5=1800 kg. 1800÷1000=1.8 t.')">Check</button></div>
+        <div class="q-fb" id="m9_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q10. Express 3 t 250 kg 500 g in grams.</div>
+        <div class="q-row"><input class="q-in" type="number" id="m10"><span class="q-unit">g</span><button class="q-btn" onclick="chk('m10',3250500,'3t=3,000,000g. 250kg=250,000g. 500g=500g. Total=3,250,500 g.')">Check</button></div>
+        <div class="q-fb" id="m10_fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 3: CAPACITY -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">3</span>Metric Capacity — Complete Chain Including Centilitres</div>
+
+  <div class="box box-formula">
+    <div class="box-title">📐 Key Rules — All Directions</div>
+    <div class="fm">10 ml = 1 cl &nbsp;&nbsp;·&nbsp;&nbsp; 100 cl = 1 litre &nbsp;&nbsp;·&nbsp;&nbsp; 1000 ml = 1 litre</div>
+    <div class="fm" style="margin-top:6px;">ml ×10→ cl ×100→ litre &nbsp;&nbsp; | &nbsp;&nbsp; litre ÷100→ cl ÷10→ ml</div>
+    <div class="fm" style="margin-top:6px;">ml ×1000→ litre (direct) &nbsp;&nbsp; | &nbsp;&nbsp; litre ÷1000→ ml (direct)</div>
+  </div>
+
+  <div class="chain">
+    <div class="chain-unit">ml</div>
+    <div class="chain-arrow"><span class="up">×10 →</span><span class="sym">↔</span><span class="dn">← ÷10</span></div>
+    <div class="chain-unit">cl</div>
+    <div class="chain-arrow"><span class="up">×100 →</span><span class="sym">↔</span><span class="dn">← ÷100</span></div>
+    <div class="chain-unit">litre</div>
+  </div>
+
+  <div class="box box-note">
+    <div class="box-title">🔗 Cross-Reference — Volume Topic</div>
+    <p><strong>1 cm³ = 1 ml</strong> exactly. So if you calculate a volume in cm³, you already know the capacity in ml. To convert to litres: divide by 1000. This links directly to the Volume topic.</p>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example 1 — cl → litre</div>
+    <div class="step"><b>Question:</b> A bottle holds 75 cl. How many litres is that?</div>
+    <div class="step"><b>Direction:</b> cl → litre: small to big → divide by 100</div>
+    <div class="step"><b>Calculation:</b> 75 ÷ 100 = 0.75 litres</div>
+    <div class="ans">✅ 75 cl = 0.75 litres</div>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example 2 — ml → cl</div>
+    <div class="step"><b>Question:</b> A medicine dose is 150 ml. How many cl?</div>
+    <div class="step"><b>Direction:</b> ml → cl: divide by 10</div>
+    <div class="step"><b>Calculation:</b> 150 ÷ 10 = 15 cl</div>
+    <div class="ans">✅ 150 ml = 15 cl</div>
+  </div>
+
+  <div class="box box-teal">
+    <div class="box-title">🥤 Context Problem — Filling Glasses</div>
+    <div class="step"><b>Question:</b> A jug holds 2.5 litres. How many 250 ml glasses can be filled?</div>
+    <div class="step"><b>Step 1:</b> Convert 2.5 litres to ml: 2.5 × 1000 = 2500 ml</div>
+    <div class="step"><b>Step 2:</b> Divide: 2500 ÷ 250 = 10</div>
+    <div class="ans">✅ 10 glasses can be filled.</div>
+  </div>
+
+  <div class="practice">
+    <h3>📝 Practice — Capacity</h3>
+
+    <div class="level-block">
+      <div class="level-tag lv-easy">Easy</div>
+      <div class="q-block">
+        <div class="q-text">Q1. Convert 50 ml to cl.</div>
+        <div class="q-row"><input class="q-in" type="number" id="c1"><span class="q-unit">cl</span><button class="q-btn" onclick="chk('c1',5,'ml→cl: divide by 10. 50÷10=5 cl.')">Check</button></div>
+        <div class="q-fb" id="c1_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q2. Convert 3 litres to ml.</div>
+        <div class="q-row"><input class="q-in" type="number" id="c2"><span class="q-unit">ml</span><button class="q-btn" onclick="chk('c2',3000,'litre→ml: multiply by 1000. 3×1000=3000 ml.')">Check</button></div>
+        <div class="q-fb" id="c2_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q3. Convert 200 cl to litres.</div>
+        <div class="q-row"><input class="q-in" type="number" id="c3"><span class="q-unit">litres</span><button class="q-btn" onclick="chk('c3',2,'cl→litre: divide by 100. 200÷100=2 litres.')">Check</button></div>
+        <div class="q-fb" id="c3_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-inter">Intermediate</div>
+      <div class="q-block">
+        <div class="q-text">Q4. Convert 1.5 litres to cl.</div>
+        <div class="q-row"><input class="q-in" type="number" id="c4"><span class="q-unit">cl</span><button class="q-btn" onclick="chk('c4',150,'litre→cl: multiply by 100. 1.5×100=150 cl.')">Check</button></div>
+        <div class="q-fb" id="c4_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q5. A can holds 33 cl. How many ml is that?</div>
+        <div class="q-row"><input class="q-in" type="number" id="c5"><span class="q-unit">ml</span><button class="q-btn" onclick="chk('c5',330,'cl→ml: multiply by 10. 33×10=330 ml.')">Check</button></div>
+        <div class="q-fb" id="c5_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q6. A bottle holds 750 ml. How many cl is that?</div>
+        <div class="q-row"><input class="q-in" type="number" id="c6"><span class="q-unit">cl</span><button class="q-btn" onclick="chk('c6',75,'750÷10=75 cl.')">Check</button></div>
+        <div class="q-fb" id="c6_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-adv">Advanced</div>
+      <div class="q-block">
+        <div class="q-text">Q7. A tank has volume 8000 cm³. How many litres of liquid does it hold?</div>
+        <div class="q-row"><input class="q-in" type="number" id="c7"><span class="q-unit">litres</span><button class="q-btn" onclick="chk('c7',8,'1cm³=1ml. 8000ml÷1000=8 litres.')">Check</button></div>
+        <div class="q-fb" id="c7_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q8. A recipe needs 1.2 litres of milk. How many cl is that?</div>
+        <div class="q-row"><input class="q-in" type="number" id="c8"><span class="q-unit">cl</span><button class="q-btn" onclick="chk('c8',120,'1.2×100=120 cl.')">Check</button></div>
+        <div class="q-fb" id="c8_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-chal">Challenging</div>
+      <div class="q-block">
+        <div class="q-text">Q9. A tank is 40cm × 25cm × 30cm. How many 500 ml bottles can be filled from it?</div>
+        <div class="q-row"><input class="q-in" type="number" id="c9"><span class="q-unit">bottles</span><button class="q-btn" onclick="chk('c9',60,'Volume=40×25×30=30,000cm³=30,000ml. 30,000÷500=60 bottles.')">Check</button></div>
+        <div class="q-fb" id="c9_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q10. Express 2 litres 35 cl 5 ml in ml.</div>
+        <div class="q-row"><input class="q-in" type="number" id="c10"><span class="q-unit">ml</span><button class="q-btn" onclick="chk('c10',2355,'2l=2000ml. 35cl=350ml. 5ml=5ml. Total=2355 ml.')">Check</button></div>
+        <div class="q-fb" id="c10_fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 4: TIME -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">4</span>Time Units — Full Section</div>
+
+  <div class="box box-warning">
+    <div class="box-title">⚠️ Critical: Time Is NOT Base-10!</div>
+    <p>Every other metric conversion uses ×10 or ×1000. Time uses <strong>60</strong> (seconds↔minutes, minutes↔hours) and <strong>24</strong> (hours↔days). You <em>cannot</em> move a decimal point. Always write out the steps.</p>
+  </div>
+
+  <div class="box box-formula">
+    <div class="box-title">📐 Conversion Chain</div>
+    <div class="fm">60 seconds = 1 minute</div>
+    <div class="fm">60 minutes = 1 hour</div>
+    <div class="fm">24 hours = 1 day &nbsp;&nbsp;·&nbsp;&nbsp; 7 days = 1 week &nbsp;&nbsp;·&nbsp;&nbsp; 365 days = 1 year</div>
+  </div>
+
+  <div class="box box-formula">
+    <div class="box-title">📐 12-Hour ↔ 24-Hour Clock Rules</div>
+    <div class="fm">am times: 24hr = 12hr (no change). e.g. 08:20 = 8:20 am</div>
+    <div class="fm">pm times: 24hr = 12hr time + 12. e.g. 3:45 pm → 3:45 + 12:00 = 15:45</div>
+    <div class="fm">24hr → 12hr: if ≥ 13:00, subtract 12 and add pm. e.g. 19:30 → 7:30 pm</div>
+    <div class="fm">Midnight = 00:00 &nbsp;&nbsp;·&nbsp;&nbsp; Noon = 12:00</div>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example 1 — Clock Conversion</div>
+    <div class="step"><b>Q:</b> Convert 3:45 pm to 24-hour clock.</div>
+    <div class="step"><b>Rule:</b> pm → add 12 to the hours</div>
+    <div class="step"><b>Calculation:</b> 3 + 12 = 15 → 15:45</div>
+    <div class="ans">✅ 3:45 pm = 15:45</div>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example 2 — Time Difference (No Borrowing)</div>
+    <div class="step"><b>Q:</b> A train leaves at 09:47 and arrives at 12:15. How long is the journey?</div>
+    <div class="step"><b>Method — Count On:</b></div>
+    <div class="step">09:47 → 10:00 = 13 minutes</div>
+    <div class="step">10:00 → 12:00 = 2 hours</div>
+    <div class="step">12:00 → 12:15 = 15 minutes</div>
+    <div class="step"><b>Total:</b> 2 hours + 13 + 15 minutes = 2 hours 28 minutes</div>
+    <div class="ans">✅ Journey time = 2 hours 28 minutes</div>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example 3 — Adding Time (Crossing Hours)</div>
+    <div class="step"><b>Q:</b> A film starts at 7:35 pm and lasts 1 hour 55 minutes. When does it end?</div>
+    <div class="step"><b>Step 1:</b> Add minutes: 35 + 55 = 90 minutes = 1 hour 30 minutes</div>
+    <div class="step"><b>Step 2:</b> Add hours: 7 pm + 1 hour (from film) + 1 hour (from minutes) = 9 pm</div>
+    <div class="step"><b>Step 3:</b> Add remaining 30 minutes: 9:00 pm + 0:30 = 9:30 pm</div>
+    <div class="ans">✅ Film ends at 9:30 pm (21:30)</div>
+  </div>
+
+  <div class="box box-warning">
+    <div class="box-title">⚠️ Common Traps</div>
+    <p><strong>Borrowing across noon/midnight:</strong> If a journey crosses noon or midnight, be careful with am/pm switching. Use 24-hour clock to avoid errors.<br>
+    <strong>Wrong subtraction:</strong> 12:15 − 09:47 ≠ 2:68. You must use "count on" or borrow 60 minutes, not 10 or 100.<br>
+    <strong>Midnight:</strong> 11:50 pm to 00:30 am = 40 minutes, not 11 hours 20 minutes.</p>
+  </div>
+
+  <div class="practice">
+    <h3>📝 Practice — Time</h3>
+
+    <div class="level-block">
+      <div class="level-tag lv-easy">Easy</div>
+      <div class="q-block">
+        <div class="q-text">Q1. Convert 6:30 pm to 24-hour clock. Give answer as a 4-digit number (e.g. 1830).</div>
+        <div class="q-row"><input class="q-in" type="number" id="t1"><button class="q-btn" onclick="chk('t1',1830,'pm: add 12 to hours. 6+12=18. Answer: 18:30 → 1830.')">Check</button></div>
+        <div class="q-fb" id="t1_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q2. Convert 14:20 to 12-hour clock. How many minutes past what hour pm? Enter the minutes (e.g. if 2:20 pm enter 20).</div>
+        <div class="q-row"><input class="q-in" type="number" id="t2"><span class="q-unit">mins past 2 pm</span><button class="q-btn" onclick="chk('t2',20,'14:20 → 14-12=2. So 2:20 pm. 20 minutes past 2 pm.')">Check</button></div>
+        <div class="q-fb" id="t2_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q3. How many seconds are in 3 minutes?</div>
+        <div class="q-row"><input class="q-in" type="number" id="t3"><span class="q-unit">seconds</span><button class="q-btn" onclick="chk('t3',180,'3×60=180 seconds.')">Check</button></div>
+        <div class="q-fb" id="t3_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-inter">Intermediate</div>
+      <div class="q-block">
+        <div class="q-text">Q4. A bus leaves at 08:15 and arrives at 09:50. How many minutes is the journey?</div>
+        <div class="q-row"><input class="q-in" type="number" id="t4"><span class="q-unit">minutes</span><button class="q-btn" onclick="chk('t4',95,'08:15→09:15=60min. 09:15→09:50=35min. Total=95 minutes.')">Check</button></div>
+        <div class="q-fb" id="t4_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q5. Convert 11:45 pm to 24-hour clock (4-digit number).</div>
+        <div class="q-row"><input class="q-in" type="number" id="t5"><button class="q-btn" onclick="chk('t5',2345,'11+12=23. Answer: 23:45 → 2345.')">Check</button></div>
+        <div class="q-fb" id="t5_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q6. How many minutes are in 2.5 hours?</div>
+        <div class="q-row"><input class="q-in" type="number" id="t6"><span class="q-unit">minutes</span><button class="q-btn" onclick="chk('t6',150,'2.5×60=150 minutes.')">Check</button></div>
+        <div class="q-fb" id="t6_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-adv">Advanced</div>
+      <div class="q-block">
+        <div class="q-text">Q7. A film starts at 7:45 pm and lasts 2 hours 20 minutes. What time does it end? Enter as 24-hour (4-digit).</div>
+        <div class="q-row"><input class="q-in" type="number" id="t7"><button class="q-btn" onclick="chk('t7',2205,'7:45pm=19:45. Add 2h20m: 19:45+2:20=22:05. → 2205.')">Check</button></div>
+        <div class="q-fb" id="t7_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q8. Train departs 11:38, arrives 14:07. Journey time in minutes?</div>
+        <div class="q-row"><input class="q-in" type="number" id="t8"><span class="q-unit">minutes</span><button class="q-btn" onclick="chk('t8',149,'11:38→12:00=22min. 12:00→14:00=120min. 14:00→14:07=7min. Total=149 min.')">Check</button></div>
+        <div class="q-fb" id="t8_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-chal">Challenging</div>
+      <div class="q-block">
+        <div class="q-text">Q9. An event starts at 11:50 pm and lasts 1 hour 25 minutes. What time does it end (24-hour, 4-digit)?</div>
+        <div class="q-row"><input class="q-in" type="number" id="t9"><button class="q-btn" onclick="chk('t9',115,'23:50 + 1h25m. 23:50+0:10=00:00. Remaining=1h15m. End=01:15. → 0115.')">Check</button></div>
+        <div class="q-fb" id="t9_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q10. How many seconds are in 1 hour 12 minutes 30 seconds?</div>
+        <div class="q-row"><input class="q-in" type="number" id="t10"><span class="q-unit">seconds</span><button class="q-btn" onclick="chk('t10',4350,'1hr=3600s. 12min=720s. 30s. Total=3600+720+30=4350 s.')">Check</button></div>
+        <div class="q-fb" id="t10_fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 5: AREA UNITS -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">5</span>Area Unit Conversion — The Squared Trap</div>
+
+  <p>When you convert a <em>length</em>, you multiply or divide by the linear scale factor. But <strong>area has two dimensions</strong>, so you must square the scale factor.</p>
+
+  <div class="box box-warning">
+    <div class="box-title">⚠️ The Most Common Exam Mistake</div>
+    <p>Students see "1 m = 100 cm" and write "1 m² = 100 cm²". This is <strong>wrong</strong>. Because area is length × width, both dimensions convert: 100 cm × 100 cm = 10,000 cm². So <strong>1 m² = 10,000 cm²</strong>.</p>
+  </div>
+
+  <div class="box box-formula">
+    <div class="box-title">📐 Area Conversion Table</div>
+    <div class="fm">1 cm² = 100 mm² &nbsp;&nbsp; (because 10 × 10 = 100)</div>
+    <div class="fm">1 m² = 10,000 cm² &nbsp;&nbsp; (because 100 × 100 = 10,000)</div>
+    <div class="fm">1 km² = 1,000,000 m² &nbsp;&nbsp; (because 1000 × 1000 = 1,000,000)</div>
+    <div class="fm" style="margin-top:8px;opacity:0.8;">Rule: Area scale factor = (linear scale factor)²</div>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example 1 — m² to cm²</div>
+    <div class="step"><b>Question:</b> Convert 3.5 m² to cm².</div>
+    <div class="step"><b>Scale factor:</b> 1 m² = 10,000 cm²</div>
+    <div class="step"><b>Direction:</b> m² → cm²: big to small → multiply</div>
+    <div class="step"><b>Calculation:</b> 3.5 × 10,000 = 35,000</div>
+    <div class="ans">✅ 3.5 m² = 35,000 cm²</div>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example 2 — cm² to m²</div>
+    <div class="step"><b>Question:</b> Convert 75,000 cm² to m².</div>
+    <div class="step"><b>Scale factor:</b> 1 m² = 10,000 cm²</div>
+    <div class="step"><b>Direction:</b> cm² → m²: small to big → divide</div>
+    <div class="step"><b>Calculation:</b> 75,000 ÷ 10,000 = 7.5</div>
+    <div class="ans">✅ 75,000 cm² = 7.5 m²</div>
+  </div>
+
+  <div class="practice">
+    <h3>📝 Practice — Area Units</h3>
+
+    <div class="level-block">
+      <div class="level-tag lv-easy">Easy</div>
+      <div class="q-block">
+        <div class="q-text">Q1. How many cm² are in 1 m²?</div>
+        <div class="q-row"><input class="q-in" type="number" id="a1"><span class="q-unit">cm²</span><button class="q-btn" onclick="chk('a1',10000,'1m=100cm. Area: 100×100=10,000 cm².')">Check</button></div>
+        <div class="q-fb" id="a1_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q2. How many mm² are in 1 cm²?</div>
+        <div class="q-row"><input class="q-in" type="number" id="a2"><span class="q-unit">mm²</span><button class="q-btn" onclick="chk('a2',100,'1cm=10mm. Area: 10×10=100 mm².')">Check</button></div>
+        <div class="q-fb" id="a2_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-inter">Intermediate</div>
+      <div class="q-block">
+        <div class="q-text">Q3. Convert 2 m² to cm².</div>
+        <div class="q-row"><input class="q-in" type="number" id="a3"><span class="q-unit">cm²</span><button class="q-btn" onclick="chk('a3',20000,'2×10,000=20,000 cm².')">Check</button></div>
+        <div class="q-fb" id="a3_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q4. Convert 50,000 cm² to m².</div>
+        <div class="q-row"><input class="q-in" type="number" id="a4"><span class="q-unit">m²</span><button class="q-btn" onclick="chk('a4',5,'50,000÷10,000=5 m².')">Check</button></div>
+        <div class="q-fb" id="a4_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q5. Convert 450 mm² to cm².</div>
+        <div class="q-row"><input class="q-in" type="number" id="a5"><span class="q-unit">cm²</span><button class="q-btn" onclick="chk('a5',4.5,'450÷100=4.5 cm².')">Check</button></div>
+        <div class="q-fb" id="a5_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-adv">Advanced</div>
+      <div class="q-block">
+        <div class="q-text">Q6. A room floor is 4.5 m². How many cm² is that?</div>
+        <div class="q-row"><input class="q-in" type="number" id="a6"><span class="q-unit">cm²</span><button class="q-btn" onclick="chk('a6',45000,'4.5×10,000=45,000 cm².')">Check</button></div>
+        <div class="q-fb" id="a6_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q7. A tile is 20cm × 15cm. What is its area in mm²?</div>
+        <div class="q-row"><input class="q-in" type="number" id="a7"><span class="q-unit">mm²</span><button class="q-btn" onclick="chk('a7',30000,'Area=20×15=300cm². 300×100=30,000 mm².')">Check</button></div>
+        <div class="q-fb" id="a7_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-chal">Challenging</div>
+      <div class="q-block">
+        <div class="q-text">Q8. A field is 1.2 km². How many m² is that?</div>
+        <div class="q-row"><input class="q-in" type="number" id="a8"><span class="q-unit">m²</span><button class="q-btn" onclick="chk('a8',1200000,'1km²=1,000,000m². 1.2×1,000,000=1,200,000 m².')">Check</button></div>
+        <div class="q-fb" id="a8_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q9. A rectangle is 2.5 m long and 80 cm wide. Find its area in cm².</div>
+        <div class="q-row"><input class="q-in" type="number" id="a9"><span class="q-unit">cm²</span><button class="q-btn" onclick="chk('a9',20000,'2.5m=250cm. 250×80=20,000 cm².')">Check</button></div>
+        <div class="q-fb" id="a9_fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 6: VOLUME UNITS -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">6</span>Volume Unit Conversion — The Cubed Trap</div>
+
+  <p>Volume has <em>three</em> dimensions, so when converting units you must <strong>cube</strong> the linear scale factor — not square it, not use it directly.</p>
+
+  <div class="box box-warning">
+    <div class="box-title">⚠️ The Cubed Trap</div>
+    <p><strong>1 m = 100 cm — but 1 m³ = 1,000,000 cm³</strong> (because 100 × 100 × 100 = 1,000,000). Students who write 1 m³ = 100 cm³ or 10,000 cm³ lose all the marks. Always cube the linear factor.</p>
+  </div>
+
+  <div class="box box-formula">
+    <div class="box-title">📐 Volume Conversion Table</div>
+    <div class="fm">1 cm³ = 1,000 mm³ &nbsp;&nbsp; (because 10³ = 1,000)</div>
+    <div class="fm">1 m³ = 1,000,000 cm³ &nbsp;&nbsp; (because 100³ = 1,000,000)</div>
+    <div class="fm">1 km³ = 1,000,000,000 m³ &nbsp;&nbsp; (because 1000³ = 1 billion)</div>
+    <div class="fm" style="margin-top:8px;opacity:0.8;">Rule: Volume scale factor = (linear scale factor)³</div>
+  </div>
+
+  <div class="box box-note">
+    <div class="box-title">🔗 Reminder — Capacity Link</div>
+    <p>1 cm³ = 1 ml &nbsp;&nbsp;·&nbsp;&nbsp; 1000 cm³ = 1 litre &nbsp;&nbsp;·&nbsp;&nbsp; 1 m³ = 1,000,000 ml = 1,000 litres</p>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example 1 — m³ to cm³</div>
+    <div class="step"><b>Question:</b> Convert 2.5 m³ to cm³.</div>
+    <div class="step"><b>Scale factor:</b> 1 m³ = 1,000,000 cm³</div>
+    <div class="step"><b>Calculation:</b> 2.5 × 1,000,000 = 2,500,000</div>
+    <div class="ans">✅ 2.5 m³ = 2,500,000 cm³</div>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example 2 — cm³ to mm³</div>
+    <div class="step"><b>Question:</b> Convert 4 cm³ to mm³.</div>
+    <div class="step"><b>Scale factor:</b> 1 cm³ = 1,000 mm³</div>
+    <div class="step"><b>Calculation:</b> 4 × 1,000 = 4,000</div>
+    <div class="ans">✅ 4 cm³ = 4,000 mm³</div>
+  </div>
+
+  <div class="practice">
+    <h3>📝 Practice — Volume Units</h3>
+
+    <div class="level-block">
+      <div class="level-tag lv-easy">Easy</div>
+      <div class="q-block">
+        <div class="q-text">Q1. How many cm³ are in 1 m³?</div>
+        <div class="q-row"><input class="q-in" type="number" id="v1"><span class="q-unit">cm³</span><button class="q-btn" onclick="chk('v1',1000000,'100³=1,000,000 cm³.')">Check</button></div>
+        <div class="q-fb" id="v1_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q2. How many mm³ are in 1 cm³?</div>
+        <div class="q-row"><input class="q-in" type="number" id="v2"><span class="q-unit">mm³</span><button class="q-btn" onclick="chk('v2',1000,'10³=1,000 mm³.')">Check</button></div>
+        <div class="q-fb" id="v2_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-inter">Intermediate</div>
+      <div class="q-block">
+        <div class="q-text">Q3. Convert 3 m³ to cm³.</div>
+        <div class="q-row"><input class="q-in" type="number" id="v3"><span class="q-unit">cm³</span><button class="q-btn" onclick="chk('v3',3000000,'3×1,000,000=3,000,000 cm³.')">Check</button></div>
+        <div class="q-fb" id="v3_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q4. Convert 5,000 mm³ to cm³.</div>
+        <div class="q-row"><input class="q-in" type="number" id="v4"><span class="q-unit">cm³</span><button class="q-btn" onclick="chk('v4',5,'5,000÷1,000=5 cm³.')">Check</button></div>
+        <div class="q-fb" id="v4_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q5. Convert 1.5 m³ to cm³.</div>
+        <div class="q-row"><input class="q-in" type="number" id="v5"><span class="q-unit">cm³</span><button class="q-btn" onclick="chk('v5',1500000,'1.5×1,000,000=1,500,000 cm³.')">Check</button></div>
+        <div class="q-fb" id="v5_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-adv">Advanced</div>
+      <div class="q-block">
+        <div class="q-text">Q6. Convert 4,500,000 cm³ to m³.</div>
+        <div class="q-row"><input class="q-in" type="number" id="v6"><span class="q-unit">m³</span><button class="q-btn" onclick="chk('v6',4.5,'4,500,000÷1,000,000=4.5 m³.')">Check</button></div>
+        <div class="q-fb" id="v6_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q7. A box is 0.5 m × 0.5 m × 0.5 m. What is its volume in cm³?</div>
+        <div class="q-row"><input class="q-in" type="number" id="v7"><span class="q-unit">cm³</span><button class="q-btn" onclick="chk('v7',125000,'50×50×50=125,000 cm³. (Convert 0.5m=50cm first.)')">Check</button></div>
+        <div class="q-fb" id="v7_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-chal">Challenging</div>
+      <div class="q-block">
+        <div class="q-text">Q8. A swimming pool is 25m × 12m × 2m. What is its capacity in litres?</div>
+        <div class="q-row"><input class="q-in" type="number" id="v8"><span class="q-unit">litres</span><button class="q-btn" onclick="chk('v8',600000,'25×12×2=600m³. 1m³=1000 litres. 600×1000=600,000 litres.')">Check</button></div>
+        <div class="q-fb" id="v8_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q9. A cube has side 30 cm. What is its volume in mm³?</div>
+        <div class="q-row"><input class="q-in" type="number" id="v9"><span class="q-unit">mm³</span><button class="q-btn" onclick="chk('v9',27000000,'30cm=300mm. 300³=27,000,000 mm³.')">Check</button></div>
+        <div class="q-fb" id="v9_fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 7: IMPERIAL -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">7</span>Imperial Units — The Need-to-Know List</div>
+
+  <p>The UK officially uses metric, but GL Assessment still tests imperial knowledge. You <strong>must</strong> memorise these.</p>
+
+  <table>
+    <tr><th>Category</th><th>Imperial Facts</th><th>Approx Metric Equivalent</th></tr>
+    <tr><td><b>Length</b></td><td>12 inches = 1 foot<br>3 feet = 1 yard<br>1760 yards = 1 mile</td><td>1 inch ≈ 2.5 cm<br>1 foot ≈ 30 cm<br>5 miles ≈ 8 km</td></tr>
+    <tr><td><b>Mass</b></td><td>16 ounces = 1 pound<br>14 pounds = 1 stone</td><td>1 oz ≈ 28 g<br>1 lb ≈ 450 g<br>1 stone ≈ 6.35 kg</td></tr>
+    <tr><td><b>Capacity</b></td><td>8 pints = 1 gallon<br>1 pint = 568 ml</td><td>1 gallon ≈ 4.5 litres<br>1 pint ≈ just over ½ litre</td></tr>
+  </table>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example — Miles to km</div>
+    <div class="step"><b>Question:</b> A road sign shows 40 miles. Approximately how many km?</div>
+    <div class="step"><b>Rule:</b> 5 miles ≈ 8 km → 1 mile ≈ 1.6 km</div>
+    <div class="step"><b>Calculation:</b> 40 × 1.6 = 64 km &nbsp;&nbsp; (or: 40 ÷ 5 × 8 = 64 km)</div>
+    <div class="ans">✅ 40 miles ≈ 64 km</div>
+  </div>
+
+  <div class="box box-example">
+    <div class="box-title">✏️ Worked Example — Pints to litres</div>
+    <div class="step"><b>Question:</b> A container holds 6 pints. Approximately how many litres?</div>
+    <div class="step"><b>Rule:</b> 8 pints = 1 gallon ≈ 4.5 litres → 1 pint ≈ 4.5 ÷ 8 = 0.5625 litres</div>
+    <div class="step"><b>Approximate method:</b> 6 pints ≈ 6 × 0.568 ≈ 3.4 litres</div>
+    <div class="ans">✅ 6 pints ≈ 3.4 litres (GL papers will give you the conversion factor)</div>
+  </div>
+
+  <div class="practice">
+    <h3>📝 Practice — Imperial Units</h3>
+
+    <div class="level-block">
+      <div class="level-tag lv-easy">Easy</div>
+      <div class="q-block">
+        <div class="q-text">Q1. How many inches are in 2 feet?</div>
+        <div class="q-row"><input class="q-in" type="number" id="i1"><span class="q-unit">inches</span><button class="q-btn" onclick="chk('i1',24,'1 foot=12 inches. 2×12=24 inches.')">Check</button></div>
+        <div class="q-fb" id="i1_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q2. How many pounds are in 3 stone?</div>
+        <div class="q-row"><input class="q-in" type="number" id="i2"><span class="q-unit">pounds</span><button class="q-btn" onclick="chk('i2',42,'1 stone=14 pounds. 3×14=42 pounds.')">Check</button></div>
+        <div class="q-fb" id="i2_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q3. How many pints are in 2 gallons?</div>
+        <div class="q-row"><input class="q-in" type="number" id="i3"><span class="q-unit">pints</span><button class="q-btn" onclick="chk('i3',16,'1 gallon=8 pints. 2×8=16 pints.')">Check</button></div>
+        <div class="q-fb" id="i3_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-inter">Intermediate</div>
+      <div class="q-block">
+        <div class="q-text">Q4. Using 5 miles ≈ 8 km, convert 15 miles to km.</div>
+        <div class="q-row"><input class="q-in" type="number" id="i4"><span class="q-unit">km</span><button class="q-btn" onclick="chk('i4',24,'15÷5×8=24 km.')">Check</button></div>
+        <div class="q-fb" id="i4_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q5. Using 5 miles ≈ 8 km, convert 56 km to miles.</div>
+        <div class="q-row"><input class="q-in" type="number" id="i5"><span class="q-unit">miles</span><button class="q-btn" onclick="chk('i5',35,'56÷8×5=35 miles.')">Check</button></div>
+        <div class="q-fb" id="i5_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-adv">Advanced</div>
+      <div class="q-block">
+        <div class="q-text">Q6. A person weighs 9 stone 6 pounds. What is this in total pounds?</div>
+        <div class="q-row"><input class="q-in" type="number" id="i6"><span class="q-unit">pounds</span><button class="q-btn" onclick="chk('i6',132,'9 stone=9×14=126 lb. 126+6=132 lb.')">Check</button></div>
+        <div class="q-fb" id="i6_fb"></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-tag lv-chal">Challenging</div>
+      <div class="q-block">
+        <div class="q-text">Q7. Using 1 gallon ≈ 4.5 litres, a car's fuel tank holds 12 gallons. How many litres is that?</div>
+        <div class="q-row"><input class="q-in" type="number" id="i7"><span class="q-unit">litres</span><button class="q-btn" onclick="chk('i7',54,'12×4.5=54 litres.')">Check</button></div>
+        <div class="q-fb" id="i7_fb"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Q8. A room is 15 feet wide. Using 1 foot ≈ 30 cm, how wide is it in metres?</div>
+        <div class="q-row"><input class="q-in" type="number" id="i8"><span class="q-unit">m</span><button class="q-btn" onclick="chk('i8',4.5,'15×30=450cm. 450÷100=4.5 m.')">Check</button></div>
+        <div class="q-fb" id="i8_fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MASTERY TEST -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="mastery">
+  <h2>🏆 Final Mastery Test</h2>
+  <div class="msub">Mixed questions from all 7 sections — check each, then submit for your score.</div>
+
+  <div class="q-block">
+    <div class="q-text">M1. Convert 6,500,000 mm to km.</div>
+    <div class="q-row"><input class="q-in" type="number" id="MT1"><span class="q-unit">km</span><button class="q-btn" onclick="mchk('MT1',6.5,'mm→km: divide by 1,000,000. 6,500,000÷1,000,000=6.5 km.')">Check</button></div>
+    <div class="q-fb" id="MT1_fb"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text">M2. A shelf is 1 m 85 cm long. Express in cm.</div>
+    <div class="q-row"><input class="q-in" type="number" id="MT2"><span class="q-unit">cm</span><button class="q-btn" onclick="mchk('MT2',185,'1m=100cm. 100+85=185 cm.')">Check</button></div>
+    <div class="q-fb" id="MT2_fb"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text">M3. A sack weighs 4 kg 250 g. Express in grams.</div>
+    <div class="q-row"><input class="q-in" type="number" id="MT3"><span class="q-unit">g</span><button class="q-btn" onclick="mchk('MT3',4250,'4×1000=4000. 4000+250=4250 g.')">Check</button></div>
+    <div class="q-fb" id="MT3_fb"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text">M4. Convert 85 cl to ml.</div>
+    <div class="q-row"><input class="q-in" type="number" id="MT4"><span class="q-unit">ml</span><button class="q-btn" onclick="mchk('MT4',850,'cl→ml: ×10. 85×10=850 ml.')">Check</button></div>
+    <div class="q-fb" id="MT4_fb"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text">M5. Convert 22:35 to 12-hour clock. What are the minutes? (e.g. if 10:35 pm enter 35)</div>
+    <div class="q-row"><input class="q-in" type="number" id="MT5"><span class="q-unit">mins past 10 pm</span><button class="q-btn" onclick="mchk('MT5',35,'22:35→22-12=10. So 10:35 pm. 35 minutes.')">Check</button></div>
+    <div class="q-fb" id="MT5_fb"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text">M6. A train departs 10:42 and arrives 13:08. Journey time in minutes?</div>
+    <div class="q-row"><input class="q-in" type="number" id="MT6"><span class="q-unit">minutes</span><button class="q-btn" onclick="mchk('MT6',146,'10:42→11:00=18min. 11:00→13:00=120min. 13:00→13:08=8min. Total=146 min.')">Check</button></div>
+    <div class="q-fb" id="MT6_fb"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text">M7. How many cm² are in 3.5 m²?</div>
+    <div class="q-row"><input class="q-in" type="number" id="MT7"><span class="q-unit">cm²</span><button class="q-btn" onclick="mchk('MT7',35000,'1m²=10,000cm². 3.5×10,000=35,000 cm².')">Check</button></div>
+    <div class="q-fb" id="MT7_fb"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text">M8. Convert 4,000,000 cm³ to m³.</div>
+    <div class="q-row"><input class="q-in" type="number" id="MT8"><span class="q-unit">m³</span><button class="q-btn" onclick="mchk('MT8',4,'4,000,000÷1,000,000=4 m³.')">Check</button></div>
+    <div class="q-fb" id="MT8_fb"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text">M9. Using 5 miles = 8 km, convert 100 km to miles.</div>
+    <div class="q-row"><input class="q-in" type="number" id="MT9"><span class="q-unit">miles</span><button class="q-btn" onclick="mchk('MT9',62.5,'100÷8×5=62.5 miles.')">Check</button></div>
+    <div class="q-fb" id="MT9_fb"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text">M10. A jug holds 3.5 litres. How many 175 ml glasses can be completely filled?</div>
+    <div class="q-row"><input class="q-in" type="number" id="MT10"><span class="q-unit">glasses</span><button class="q-btn" onclick="mchk('MT10',20,'3.5×1000=3500ml. 3500÷175=20.')">Check</button></div>
+    <div class="q-fb" id="MT10_fb"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text">M11. A cube has side 0.4 m. What is its volume in cm³?</div>
+    <div class="q-row"><input class="q-in" type="number" id="MT11"><span class="q-unit">cm³</span><button class="q-btn" onclick="mchk('MT11',64000,'0.4m=40cm. 40³=64,000 cm³.')">Check</button></div>
+    <div class="q-fb" id="MT11_fb"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text">M12. An event starts at 11:55 pm and lasts 1 hr 20 mins. What time does it end? (24hr, 4-digit)</div>
+    <div class="q-row"><input class="q-in" type="number" id="MT12"><button class="q-btn" onclick="mchk('MT12',115,'23:55+1h20m: 23:55+5min=00:00; remaining=1h15m; end=01:15 → 0115.')">Check</button></div>
+    <div class="q-fb" id="MT12_fb"></div>
+  </div>
+
+  <button id="btn-submit" onclick="submitMastery()">📊 See My Final Score</button>
+  <div class="score-box" id="score-box">
+    <div class="score-num" id="score-num"></div>
+    <div class="score-msg" id="score-msg"></div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+const masteryAnswers = {
+  MT1:6.5, MT2:185, MT3:4250, MT4:850, MT5:35, MT6:146,
+  MT7:35000, MT8:4, MT9:62.5, MT10:20, MT11:64000, MT12:115
+};
+const masteryExpl = {
+  MT1:'mm→km: ÷1,000,000. 6,500,000÷1,000,000=6.5 km.',
+  MT2:'1m=100cm. 100+85=185 cm.',
+  MT3:'4×1000=4000. 4000+250=4250 g.',
+  MT4:'cl→ml: ×10. 85×10=850 ml.',
+  MT5:'22:35→22-12=10:35 pm. 35 minutes past 10 pm.',
+  MT6:'10:42→11:00=18min, 11:00→13:00=120min, 13:00→13:08=8min. Total=146.',
+  MT7:'1m²=10,000cm². 3.5×10,000=35,000 cm².',
+  MT8:'4,000,000÷1,000,000=4 m³.',
+  MT9:'100÷8×5=62.5 miles.',
+  MT10:'3500ml÷175=20 glasses.',
+  MT11:'0.4m=40cm. 40³=64,000 cm³.',
+  MT12:'23:55+1h20m crosses midnight: end=01:15 → 0115.'
+};
+const masteryChecked = {};
+
+function r2(n){ return Math.round(n*100)/100; }
+
+function chk(id, correct, expl){
+  const inp = document.getElementById(id);
+  const fb = document.getElementById(id+'_fb');
+  if(!inp || !fb) return;
+  const val = parseFloat(inp.value);
+  if(isNaN(val)){ fb.textContent='⚠️ Please enter a number.'; fb.className='q-fb fb-no'; fb.style.display='block'; return; }
+  if(r2(val)===r2(correct)){
+    fb.textContent='✅ Correct! '+expl;
+    fb.className='q-fb fb-ok';
+  } else {
+    fb.textContent='❌ Incorrect. Correct answer: '+correct+'. Explanation: '+expl;
+    fb.className='q-fb fb-no';
+  }
+  fb.style.display='block';
+}
+
+function chkRadio(name, correct, expl){
+  const radios = document.getElementsByName(name);
+  let selected = null;
+  for(const r of radios){ if(r.checked){ selected = r.value; break; } }
+  const fb = document.getElementById(name+'_fb');
+  if(!selected){ fb.textContent='⚠️ Please select an option.'; fb.className='q-fb fb-no'; fb.style.display='block'; return; }
+  if(selected===correct){
+    fb.textContent='✅ Correct! '+expl;
+    fb.className='q-fb fb-ok';
+  } else {
+    fb.textContent='❌ Incorrect. Correct answer: '+correct+'. Explanation: '+expl;
+    fb.className='q-fb fb-no';
+  }
+  fb.style.display='block';
+}
+
+function mchk(id, correct, expl){
+  const inp = document.getElementById(id);
+  const fb = document.getElementById(id+'_fb');
+  if(!inp || !fb) return;
+  const val = parseFloat(inp.value);
+  if(isNaN(val)){ fb.textContent='⚠️ Please enter a number.'; fb.className='q-fb fb-no'; fb.style.display='block'; return; }
+  const ok = r2(val)===r2(correct);
+  masteryChecked[id] = ok;
+  if(ok){
+    fb.textContent='✅ Correct! '+expl;
+    fb.className='q-fb fb-ok';
+  } else {
+    fb.textContent='❌ Incorrect. Correct answer: '+correct+'. Explanation: '+expl;
+    fb.className='q-fb fb-no';
+  }
+  fb.style.display='block';
+}
+
+function submitMastery(){
+  const ids = Object.keys(masteryAnswers);
+  for(const id of ids){
+    if(!(id in masteryChecked)){
+      const inp = document.getElementById(id);
+      if(inp){
+        const val = parseFloat(inp.value);
+        if(!isNaN(val)){
+          const ok = r2(val)===r2(masteryAnswers[id]);
+          masteryChecked[id]=ok;
+          const fb = document.getElementById(id+'_fb');
+          if(fb){
+            fb.textContent = ok ? '✅ Correct! '+masteryExpl[id] : '❌ Incorrect. Correct answer: '+masteryAnswers[id]+'. Explanation: '+masteryExpl[id];
+            fb.className = 'q-fb '+(ok?'fb-ok':'fb-no');
+            fb.style.display='block';
+          }
+        } else { masteryChecked[id]=false; }
+      }
+    }
+  }
+  const correct = Object.values(masteryChecked).filter(Boolean).length;
+  const total = ids.length;
+  const pct = Math.round((correct/total)*100);
+  let msg = '';
+  if(pct>=92) msg='🌟 Outstanding — you are fully exam ready!';
+  else if(pct>=75) msg='✅ Great work! Revisit any topics you missed.';
+  else if(pct>=55) msg='📖 Solid effort — re-read the tricky sections.';
+  else msg='💪 Keep going — work through each section again carefully.';
+  document.getElementById('score-num').textContent = correct+' / '+total+' ('+pct+'%)';
+  document.getElementById('score-msg').textContent = msg;
+  document.getElementById('score-box').style.display='block';
+  document.getElementById('score-box').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

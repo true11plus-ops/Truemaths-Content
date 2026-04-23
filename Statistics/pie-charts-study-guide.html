@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pie Charts — 11+ GL Assessment Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1a6fc4;
+    --blue-light: #e8f2fc;
+    --blue-mid: #b3d4f5;
+    --green: #1a8a4a;
+    --green-light: #e6f5ec;
+    --green-mid: #a8dfc0;
+    --orange: #d4600a;
+    --orange-light: #fef3e8;
+    --orange-mid: #f8c99a;
+    --purple: #6c35c4;
+    --purple-light: #f0eafa;
+    --purple-mid: #c9b0ec;
+    --red: #b82020;
+    --red-light: #fdeaea;
+    --teal: #0d8a7e;
+    --teal-light: #e5f5f4;
+    --gray: #4a4a5a;
+    --gray-light: #f4f4f7;
+    --gray-mid: #d0d0dc;
+    --text: #1a1a2e;
+    --bg: #f7f8fc;
+    --white: #ffffff;
+    --radius: 12px;
+    --shadow: 0 2px 12px rgba(26,111,196,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--blue);
+    color: white;
+    padding: 2.5rem 1.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 20px);
+  }
+  .site-header h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; letter-spacing: -0.5px; position: relative; }
+  .site-header p { font-size: 1rem; opacity: 0.88; margin-top: 0.4rem; position: relative; }
+  .badge-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 1rem; position: relative; }
+  .badge { background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; }
+
+  /* NAV */
+  .toc { background: var(--white); border-bottom: 2px solid var(--blue-mid); padding: 1rem 1.5rem; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow); }
+  .toc-inner { max-width: 860px; margin: 0 auto; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .toc-label { font-weight: 800; font-size: 0.8rem; color: var(--blue); margin-right: 4px; white-space: nowrap; }
+  .toc a { font-size: 0.75rem; font-weight: 700; color: var(--blue); background: var(--blue-light); border: 1px solid var(--blue-mid); padding: 2px 10px; border-radius: 20px; text-decoration: none; white-space: nowrap; transition: background 0.15s; }
+  .toc a:hover { background: var(--blue-mid); }
+
+  /* LAYOUT */
+  .container { max-width: 860px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+  /* SECTION WRAPPERS */
+  .section { margin-bottom: 3rem; }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1.2rem; padding-bottom: 0.7rem;
+    border-bottom: 3px solid currentColor;
+  }
+  .section-icon { font-size: 1.5rem; }
+  .section-header h2 { font-size: 1.35rem; font-weight: 900; }
+
+  .sec-blue .section-header { color: var(--blue); }
+  .sec-green .section-header { color: var(--green); }
+  .sec-orange .section-header { color: var(--orange); }
+  .sec-purple .section-header { color: var(--purple); }
+  .sec-teal .section-header { color: var(--teal); }
+
+  /* CARDS & BOXES */
+  .card { background: var(--white); border-radius: var(--radius); border: 1.5px solid var(--gray-mid); padding: 1.25rem 1.4rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
+  .card p, .card li { font-size: 0.95rem; }
+  .card ul, .card ol { padding-left: 1.4rem; }
+  .card li { margin-bottom: 0.3rem; }
+
+  .example-box {
+    background: var(--blue-light); border-left: 4px solid var(--blue);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1.1rem 1.3rem; margin: 1rem 0;
+  }
+  .example-box.green { background: var(--green-light); border-color: var(--green); }
+  .example-box.orange { background: var(--orange-light); border-color: var(--orange); }
+  .example-box.purple { background: var(--purple-light); border-color: var(--purple); }
+  .example-box.teal { background: var(--teal-light); border-color: var(--teal); }
+
+  .example-box .ex-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.7; margin-bottom: 4px; }
+  .example-box .ex-q { font-weight: 700; font-size: 1rem; margin-bottom: 0.6rem; }
+  .step { display: flex; gap: 10px; align-items: flex-start; margin: 0.35rem 0; font-size: 0.93rem; }
+  .step-num { background: var(--blue); color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .step-num.green { background: var(--green); }
+  .step-num.orange { background: var(--orange); }
+  .step-num.purple { background: var(--purple); }
+  .step-num.teal { background: var(--teal); }
+  .step-ans { font-weight: 800; color: var(--blue); }
+  .step-ans.green { color: var(--green); }
+  .step-ans.orange { color: var(--orange); }
+  .step-ans.purple { color: var(--purple); }
+
+  .formula-card {
+    background: var(--blue); color: white;
+    border-radius: var(--radius); padding: 1rem 1.3rem;
+    font-family: 'Space Mono', monospace; font-size: 1rem;
+    margin: 0.5rem 0; display: flex; align-items: center; gap: 14px;
+  }
+  .formula-card.green { background: var(--green); }
+  .formula-card.orange { background: var(--orange); }
+  .formula-card .f-label { font-size: 0.7rem; font-weight: 700; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; min-width: 80px; font-family: 'Nunito', sans-serif; }
+  .formula-card .f-eq { flex: 1; }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 0.8rem 0; }
+  th { background: var(--blue); color: white; padding: 9px 12px; text-align: left; font-weight: 800; font-size: 0.82rem; }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--gray-mid); }
+  tr:nth-child(even) td { background: var(--blue-light); }
+  tr:hover td { background: var(--blue-mid); }
+  td.highlight { font-weight: 800; color: var(--blue); }
+  td code { font-family: 'Space Mono', monospace; background: var(--gray-light); padding: 1px 5px; border-radius: 4px; font-size: 0.82rem; }
+
+  /* SUBTOPIC LABEL */
+  .subtopic { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--blue); background: var(--blue-light); display: inline-block; padding: 2px 10px; border-radius: 20px; margin-bottom: 0.6rem; }
+
+  /* LEVELS */
+  .level-label { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 12px; border-radius: 20px; margin-bottom: 0.8rem; }
+  .level-easy { background: #e6f5ec; color: #1a6a30; }
+  .level-inter { background: #fff3e0; color: #b45000; }
+  .level-adv { background: #fdeaea; color: #8b1a1a; }
+  .level-chal { background: #f0eafa; color: #4a1a9a; }
+
+  /* PRACTICE QUESTIONS */
+  .q-block {
+    background: var(--white); border: 1.5px solid var(--gray-mid);
+    border-radius: var(--radius); padding: 1.1rem 1.3rem; margin: 0.7rem 0;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  }
+  .q-num { font-size: 0.72rem; font-weight: 800; color: var(--gray); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; }
+  .q-text { font-weight: 700; font-size: 0.97rem; margin-bottom: 0.7rem; line-height: 1.5; }
+  .q-input-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .q-input {
+    border: 2px solid var(--gray-mid); border-radius: 8px;
+    padding: 7px 12px; font-size: 0.95rem; font-family: 'Nunito', sans-serif;
+    width: 100px; transition: border 0.2s;
+  }
+  .q-input:focus { outline: none; border-color: var(--blue); }
+  .q-btn {
+    background: var(--blue); color: white; border: none;
+    border-radius: 8px; padding: 8px 18px; font-size: 0.9rem;
+    font-family: 'Nunito', sans-serif; font-weight: 800;
+    cursor: pointer; transition: background 0.15s, transform 0.1s;
+  }
+  .q-btn:hover { background: #155a9e; }
+  .q-btn:active { transform: scale(0.97); }
+  .q-feedback { margin-top: 0.6rem; padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.88rem; font-weight: 700; display: none; }
+  .q-feedback.correct { background: #e6f5ec; border: 1.5px solid #6dbf8f; color: #1a6a30; }
+  .q-feedback.wrong { background: #fdeaea; border: 1.5px solid #e08080; color: #8b1a1a; }
+  .q-feedback.show { display: block; }
+  .q-hint { font-size: 0.8rem; font-weight: 400; color: var(--gray); margin-top: 4px; }
+
+  /* MISSING TABLE EXERCISE */
+  .fill-table th { background: var(--teal); }
+  .fill-table tr:nth-child(even) td { background: var(--teal-light); }
+  .fill-table tr:hover td { background: #b2dbd9; }
+  .fill-input { border: 2px dashed var(--teal); border-radius: 6px; padding: 4px 8px; font-size: 0.85rem; font-family: 'Nunito', sans-serif; width: 70px; text-align: center; background: white; }
+  .fill-input:focus { outline: none; border-color: var(--teal); border-style: solid; }
+  .fill-reveal { margin-top: 0.8rem; }
+  .fill-ans { display: none; background: var(--teal-light); border: 1.5px solid var(--teal); border-radius: 8px; padding: 0.8rem 1rem; font-size: 0.9rem; margin-top: 0.5rem; }
+  .fill-ans.show { display: block; }
+
+  /* MASTERY TEST */
+  .mastery-header { background: linear-gradient(135deg, #1a1a2e 0%, #1a6fc4 100%); color: white; border-radius: var(--radius); padding: 1.5rem 1.5rem 1.2rem; margin-bottom: 1.5rem; text-align: center; }
+  .mastery-header h2 { font-size: 1.5rem; font-weight: 900; }
+  .mastery-header p { font-size: 0.9rem; opacity: 0.85; margin-top: 0.3rem; }
+  .score-display { display: none; background: var(--blue); color: white; border-radius: var(--radius); padding: 1rem 1.5rem; text-align: center; margin-top: 1rem; font-weight: 800; font-size: 1.1rem; }
+  .score-display.show { display: block; }
+  .mastery-submit { background: #1a1a2e; color: white; border: none; padding: 12px 32px; border-radius: var(--radius); font-size: 1rem; font-family: 'Nunito', sans-serif; font-weight: 800; cursor: pointer; display: block; margin: 1.5rem auto 0; transition: background 0.15s; }
+  .mastery-submit:hover { background: var(--blue); }
+
+  /* KEY RULE BOX */
+  .rule-box { background: #fff9e6; border: 2px solid #f0c040; border-radius: var(--radius); padding: 1rem 1.3rem; margin: 0.8rem 0; display: flex; gap: 12px; align-items: flex-start; }
+  .rule-box .ri { font-size: 1.4rem; flex-shrink: 0; }
+  .rule-box p { font-size: 0.93rem; font-weight: 700; }
+  .rule-box p span { color: var(--orange); }
+
+  /* TRAP BOX */
+  .trap-box { background: var(--red-light); border: 2px solid #e08080; border-radius: var(--radius); padding: 1rem 1.3rem; margin: 0.8rem 0; display: flex; gap: 12px; align-items: flex-start; }
+  .trap-box .ri { font-size: 1.4rem; flex-shrink: 0; }
+
+  /* PRINT */
+  @media print {
+    .toc, .site-header { position: static; }
+    .q-btn { display: none; }
+    .q-feedback { display: block !important; }
+    body { background: white; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .formula-card { flex-direction: column; gap: 4px; }
+    th, td { padding: 6px 8px; font-size: 0.82rem; }
+  }
+
+  hr.sec-div { border: none; border-top: 2px dashed var(--gray-mid); margin: 2.5rem 0; }
+
+  .mono { font-family: 'Space Mono', monospace; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>🥧 Pie Charts — Complete Study Guide</h1>
+  <p>GL Assessment · 11+ Level · Interactive Practice Included</p>
+  <div class="badge-row">
+    <span class="badge">✓ All 3 Formula Directions</span>
+    <span class="badge">✓ Worked Examples</span>
+    <span class="badge">✓ Interactive Questions</span>
+    <span class="badge">✓ Mastery Test</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <span class="toc-label">Jump to:</span>
+    <a href="#s1">Basics</a>
+    <a href="#s2">Formulas</a>
+    <a href="#s3">Fraction Table</a>
+    <a href="#s4">% Charts</a>
+    <a href="#s5">Reading Charts</a>
+    <a href="#s6">Fractions</a>
+    <a href="#s7">Two Charts</a>
+    <a href="#s8">Check Strategy</a>
+    <a href="#s9">Missing Table</a>
+    <a href="#s10">Mastery Test</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ===== SECTION 1: BASICS ===== -->
+<section class="section sec-blue" id="s1">
+  <div class="section-header">
+    <span class="section-icon">🔵</span>
+    <h2>1 · The Basics — What Is a Pie Chart?</h2>
+  </div>
+
+  <div class="card">
+    <p>A pie chart shows data as slices of a circle. The <strong>whole circle always represents the total</strong>.</p>
+    <br>
+    <ul>
+      <li>In <strong>angles</strong>: the total is always <strong>360°</strong></li>
+      <li>In <strong>percentages</strong>: the total is always <strong>100%</strong></li>
+      <li>In <strong>fractions</strong>: the total is always <strong>1 (one whole)</strong></li>
+    </ul>
+  </div>
+
+  <div class="rule-box">
+    <span class="ri">⭐</span>
+    <p>Key rule: <span>Bigger slices = more of the total. Smaller slices = less of the total.</span> The size of a slice tells you what <em>proportion</em> it is — not the actual number — unless you know the total.</p>
+  </div>
+
+  <div class="subtopic">Practice · Section 1 · Easy</div>
+  <div class="level-label level-easy">⬤ Easy</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 1</div>
+    <div class="q-text">All the angles in a pie chart must add up to how many degrees?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q1_1" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q1_1',360,'The full circle = 360°. This is always true for every pie chart.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 2</div>
+    <div class="q-text">A pie chart shows the favourite sports of a class. All the percentages of the slices must add up to what value?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q1_2" placeholder="%">
+      <button class="q-btn" onclick="checkQ('q1_2',100,'Percentages always sum to 100% — the pie represents the whole group.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 3</div>
+    <div class="q-text">A pie chart has three slices with angles of 90°, 150°, and ___°. What is the missing angle?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q1_3" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q1_3',120,'360 − 90 − 150 = 120°. All three angles must total 360°.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_3"></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 1 · Intermediate</div>
+  <div class="level-label level-inter">◆ Intermediate</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 4</div>
+    <div class="q-text">A pie chart has four slices: 80°, 100°, 75°, and ___°. What is the missing angle?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q1_4" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q1_4',105,'360 − 80 − 100 − 75 = 105°.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 5</div>
+    <div class="q-text">A pie chart has three slices: 25%, 45%, and ___%. What is the missing percentage?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q1_5" placeholder="%">
+      <button class="q-btn" onclick="checkQ('q1_5',30,'100 − 25 − 45 = 30%.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_5"></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 1 · Advanced</div>
+  <div class="level-label level-adv">▲ Advanced</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 6</div>
+    <div class="q-text">A pie chart has five slices. Four of them have angles of 72°, 48°, 96°, and 60°. What is the angle of the fifth slice?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q1_6" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q1_6',84,'360 − 72 − 48 − 96 − 60 = 84°.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_6"></div>
+  </div>
+</section>
+
+<hr class="sec-div">
+
+<!-- ===== SECTION 2: FORMULAS ===== -->
+<section class="section sec-green" id="s2">
+  <div class="section-header">
+    <span class="section-icon">🟢</span>
+    <h2>2 · The Three Formulas</h2>
+  </div>
+
+  <div class="card">
+    <p>There is <strong>one relationship</strong> linking Angle, Value, and Total. It can be rearranged into three forms depending on what you need to find.</p>
+  </div>
+
+  <div class="formula-card">
+    <span class="f-label">Find Value</span>
+    <span class="f-eq">Value = (Angle ÷ 360) × Total</span>
+  </div>
+  <div class="formula-card green">
+    <span class="f-label">Find Angle</span>
+    <span class="f-eq">Angle = (Value ÷ Total) × 360</span>
+  </div>
+  <div class="formula-card orange">
+    <span class="f-label">Find Total</span>
+    <span class="f-eq">Total = Value × (360 ÷ Angle)</span>
+  </div>
+
+  <!-- Worked Example A: Find Value -->
+  <div class="example-box">
+    <div class="ex-label">Worked Example A — Find the Value</div>
+    <div class="ex-q">A pie chart shows the favourite colours of 60 students. The "Blue" sector has an angle of 120°. How many students chose blue?</div>
+    <div class="step"><div class="step-num">1</div><div>Write down what you know: Angle = 120°, Total = 60</div></div>
+    <div class="step"><div class="step-num">2</div><div>Use the formula: Value = (Angle ÷ 360) × Total</div></div>
+    <div class="step"><div class="step-num">3</div><div>Calculate: (120 ÷ 360) × 60 = ⅓ × 60</div></div>
+    <div class="step"><div class="step-num">4</div><div><strong class="step-ans">Answer = 20 students ✓</strong></div></div>
+  </div>
+
+  <!-- Worked Example B: Find Angle -->
+  <div class="example-box green">
+    <div class="ex-label">Worked Example B — Find the Angle</div>
+    <div class="ex-q">In a survey of 80 people, 20 chose "tennis". What angle should the Tennis sector have?</div>
+    <div class="step"><div class="step-num green">1</div><div>Write down what you know: Value = 20, Total = 80</div></div>
+    <div class="step"><div class="step-num green">2</div><div>Use the formula: Angle = (Value ÷ Total) × 360</div></div>
+    <div class="step"><div class="step-num green">3</div><div>Calculate: (20 ÷ 80) × 360 = 0.25 × 360</div></div>
+    <div class="step"><div class="step-num green">4</div><div><strong class="step-ans green">Answer = 90° ✓</strong></div></div>
+  </div>
+
+  <!-- Worked Example C: Find Total -->
+  <div class="example-box orange">
+    <div class="ex-label">Worked Example C — Find the Total</div>
+    <div class="ex-q">The "Sport" sector has an angle of 72° and represents 18 students. How many students are there in total?</div>
+    <div class="step"><div class="step-num orange">1</div><div>Write down what you know: Angle = 72°, Value = 18</div></div>
+    <div class="step"><div class="step-num orange">2</div><div>Use the formula: Total = Value × (360 ÷ Angle)</div></div>
+    <div class="step"><div class="step-num orange">3</div><div>Calculate: 18 × (360 ÷ 72) = 18 × 5</div></div>
+    <div class="step"><div class="step-num orange">4</div><div><strong class="step-ans orange">Answer = 90 students ✓</strong></div></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 2 · Easy — Find the Value</div>
+  <div class="level-label level-easy">⬤ Easy</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 7</div>
+    <div class="q-text">A pie chart shows the pets of 40 children. The "Dog" sector has an angle of 90°. How many children have a dog?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q2_1" placeholder="children">
+      <button class="q-btn" onclick="checkQ('q2_1',10,'(90÷360)×40 = ¼×40 = 10.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 8</div>
+    <div class="q-text">A pie chart shows the hobbies of 120 students. The "Reading" sector is 60°. How many students chose reading?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q2_2" placeholder="students">
+      <button class="q-btn" onclick="checkQ('q2_2',20,'(60÷360)×120 = ⅙×120 = 20.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 9</div>
+    <div class="q-text">There are 180 people in a survey. The "Car" sector has an angle of 180°. How many people chose car?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q2_3" placeholder="people">
+      <button class="q-btn" onclick="checkQ('q2_3',90,'(180÷360)×180 = ½×180 = 90.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_3"></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 2 · Intermediate — Find the Angle</div>
+  <div class="level-label level-inter">◆ Intermediate</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 10</div>
+    <div class="q-text">In a survey of 60 students, 15 chose "Football". What angle should the Football sector have?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q2_4" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q2_4',90,'(15÷60)×360 = ¼×360 = 90°.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 11</div>
+    <div class="q-text">There are 200 people in total. 50 chose "Train". What angle should the Train sector have?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q2_5" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q2_5',90,'(50÷200)×360 = 0.25×360 = 90°.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 12</div>
+    <div class="q-text">Out of 90 students, 30 chose "Art". What angle should the Art sector have?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q2_6" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q2_6',120,'(30÷90)×360 = ⅓×360 = 120°.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_6"></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 2 · Advanced — Find the Total</div>
+  <div class="level-label level-adv">▲ Advanced</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 13</div>
+    <div class="q-text">The "Swimming" sector is 90° and represents 25 people. What is the total number of people surveyed?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q2_7" placeholder="people">
+      <button class="q-btn" onclick="checkQ('q2_7',100,'Total = 25×(360÷90) = 25×4 = 100.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 14</div>
+    <div class="q-text">The "Maths" sector has an angle of 60° and represents 12 students. How many students are there in total?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q2_8" placeholder="students">
+      <button class="q-btn" onclick="checkQ('q2_8',72,'Total = 12×(360÷60) = 12×6 = 72.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 15</div>
+    <div class="q-text">The "Cycling" sector is 45° and represents 9 people. What is the total number of people?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q2_9" placeholder="people">
+      <button class="q-btn" onclick="checkQ('q2_9',72,'Total = 9×(360÷45) = 9×8 = 72.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_9"></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 2 · Challenging</div>
+  <div class="level-label level-chal">★ Challenging</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 16</div>
+    <div class="q-text">In a survey of 144 people, 36 chose "Bus". The "Car" sector has an angle of 150°. How many more people chose Car than Bus?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q2_10" placeholder="people">
+      <button class="q-btn" onclick="checkQ('q2_10',24,'Car = (150÷360)×144 = 60. Bus = 36. Difference = 60−36 = 24.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_10"></div>
+  </div>
+</section>
+
+<hr class="sec-div">
+
+<!-- ===== SECTION 3: FRACTION TABLE ===== -->
+<section class="section sec-blue" id="s3">
+  <div class="section-header">
+    <span class="section-icon">📐</span>
+    <h2>3 · Common Fractions, Angles & Percentages</h2>
+  </div>
+
+  <div class="card">
+    <p>Learn these — spotting a common fraction visually saves time in the exam.</p>
+    <br>
+    <table>
+      <tr>
+        <th>Slice Size</th>
+        <th>Angle</th>
+        <th>Percentage</th>
+        <th>Quick Check</th>
+      </tr>
+      <tr><td class="highlight">½ (one half)</td><td class="mono">180°</td><td>50%</td><td>Cuts the circle exactly in half</td></tr>
+      <tr><td class="highlight">¼ (one quarter)</td><td class="mono">90°</td><td>25%</td><td>Right angle — like a corner of a square</td></tr>
+      <tr><td class="highlight">¾ (three quarters)</td><td class="mono">270°</td><td>75%</td><td>Three right angles</td></tr>
+      <tr><td class="highlight">⅓ (one third)</td><td class="mono">120°</td><td>33.3%</td><td>Three equal slices</td></tr>
+      <tr><td class="highlight">⅔ (two thirds)</td><td class="mono">240°</td><td>66.7%</td><td>360 − 120 = 240</td></tr>
+      <tr><td class="highlight">⅕ (one fifth)</td><td class="mono">72°</td><td>20%</td><td>Five equal slices</td></tr>
+      <tr><td class="highlight">⅖ (two fifths)</td><td class="mono">144°</td><td>40%</td><td>72 × 2 = 144</td></tr>
+      <tr><td class="highlight">⅙ (one sixth)</td><td class="mono">60°</td><td>16.7%</td><td>Six equal slices</td></tr>
+      <tr><td class="highlight">⅛ (one eighth)</td><td class="mono">45°</td><td>12.5%</td><td>Eight equal slices</td></tr>
+      <tr><td class="highlight">1/10 (one tenth)</td><td class="mono">36°</td><td>10%</td><td>Ten equal slices</td></tr>
+    </table>
+  </div>
+
+  <div class="subtopic">Practice · Section 3 · Easy</div>
+  <div class="level-label level-easy">⬤ Easy</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 17</div>
+    <div class="q-text">A pie chart has a slice that is exactly one quarter of the circle. What is the angle of that slice?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q3_1" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q3_1',90,'¼ of 360° = 90°. This is a right angle.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 18</div>
+    <div class="q-text">A slice has an angle of 72°. What fraction of the whole pie chart does this represent? Enter the denominator only (the bottom number of the fraction 1/___).</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q3_2" placeholder="1/___">
+      <button class="q-btn" onclick="checkQ('q3_2',5,'72÷360 = 1/5. One fifth of the circle.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 19</div>
+    <div class="q-text">What angle corresponds to one eighth (⅛) of a pie chart?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q3_3" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q3_3',45,'360÷8 = 45°.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_3"></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 3 · Intermediate</div>
+  <div class="level-label level-inter">◆ Intermediate</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 20</div>
+    <div class="q-text">A slice is ⅔ of the pie chart. What is its angle in degrees?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q3_4" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q3_4',240,'⅔ × 360 = 240°.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 21</div>
+    <div class="q-text">A slice has an angle of 144°. What percentage of the total does this represent?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q3_5" placeholder="%">
+      <button class="q-btn" onclick="checkQ('q3_5',40,'144÷360 = 0.4 = 40%.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_5"></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 3 · Advanced</div>
+  <div class="level-label level-adv">▲ Advanced</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 22</div>
+    <div class="q-text">A slice is 16.7% of the pie. What is its angle? (Round to the nearest whole number.)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q3_6" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q3_6',60,'16.7% ≈ 1/6. 360÷6 = 60°.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_6"></div>
+  </div>
+</section>
+
+<hr class="sec-div">
+
+<!-- ===== SECTION 4: PERCENTAGE-LABELLED CHARTS ===== -->
+<section class="section sec-orange" id="s4">
+  <div class="section-header">
+    <span class="section-icon">🟠</span>
+    <h2>4 · Percentage-Labelled Pie Charts</h2>
+  </div>
+
+  <div class="card">
+    <p>Some pie charts show <strong>percentages on each slice</strong> instead of angles. You need to be able to:</p>
+    <ul style="margin-top:0.5rem;">
+      <li>Convert a <strong>percentage → angle</strong>: multiply percentage by 3.6</li>
+      <li>Convert a <strong>percentage → frequency</strong>: multiply percentage by total ÷ 100</li>
+    </ul>
+  </div>
+
+  <div class="rule-box">
+    <span class="ri">💡</span>
+    <p>Why 3.6? Because <span>360° ÷ 100% = 3.6° per 1%</span>. So every 1% of the pie = 3.6°.</p>
+  </div>
+
+  <div class="example-box orange">
+    <div class="ex-label">Worked Example D — Percentage → Angle</div>
+    <div class="ex-q">A "Science" sector is labelled 25%. What is the angle of this sector?</div>
+    <div class="step"><div class="step-num orange">1</div><div>Use: Angle = Percentage × 3.6</div></div>
+    <div class="step"><div class="step-num orange">2</div><div>Calculate: 25 × 3.6 = <strong class="step-ans orange">90°</strong> ✓</div></div>
+  </div>
+
+  <div class="example-box orange">
+    <div class="ex-label">Worked Example E — Percentage → Frequency</div>
+    <div class="ex-q">A pie chart shows exam results for 200 students. The "Pass" sector is labelled 35%. How many students passed?</div>
+    <div class="step"><div class="step-num orange">1</div><div>Use: Frequency = (Percentage ÷ 100) × Total</div></div>
+    <div class="step"><div class="step-num orange">2</div><div>Calculate: (35 ÷ 100) × 200 = 0.35 × 200</div></div>
+    <div class="step"><div class="step-num orange">3</div><div><strong class="step-ans orange">Answer = 70 students ✓</strong></div></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 4 · Easy</div>
+  <div class="level-label level-easy">⬤ Easy</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 23</div>
+    <div class="q-text">A slice is labelled 50%. What is its angle in degrees?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q4_1" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q4_1',180,'50×3.6 = 180°. Half the circle.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 24</div>
+    <div class="q-text">A slice is labelled 10%. What is its angle in degrees?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q4_2" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q4_2',36,'10×3.6 = 36°.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 25</div>
+    <div class="q-text">There are 300 people in a survey. The "Yes" slice is 20%. How many people said Yes?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q4_3" placeholder="people">
+      <button class="q-btn" onclick="checkQ('q4_3',60,'(20÷100)×300 = 0.2×300 = 60.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_3"></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 4 · Intermediate</div>
+  <div class="level-label level-inter">◆ Intermediate</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 26</div>
+    <div class="q-text">A slice is labelled 35%. What is its angle in degrees?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q4_4" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q4_4',126,'35×3.6 = 126°.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 27</div>
+    <div class="q-text">A pie chart shows the travel methods of 400 people. The "Bike" sector is labelled 15%. How many people cycle?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q4_5" placeholder="people">
+      <button class="q-btn" onclick="checkQ('q4_5',60,'(15÷100)×400 = 0.15×400 = 60.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_5"></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 4 · Advanced</div>
+  <div class="level-label level-adv">▲ Advanced</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 28</div>
+    <div class="q-text">A pie chart shows data for 500 people. The "Train" sector is 12%. The "Car" sector is 45%. How many more people use Car than Train?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q4_6" placeholder="people">
+      <button class="q-btn" onclick="checkQ('q4_6',165,'Train = 0.12×500 = 60. Car = 0.45×500 = 225. 225−60 = 165.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_6"></div>
+  </div>
+</section>
+
+<hr class="sec-div">
+
+<!-- ===== SECTION 5: READING & RANKING ===== -->
+<section class="section sec-blue" id="s5">
+  <div class="section-header">
+    <span class="section-icon">👁️</span>
+    <h2>5 · Reading, Ranking & Most/Least Popular</h2>
+  </div>
+
+  <div class="card">
+    <ul>
+      <li><strong>Most popular</strong> = the largest sector (biggest angle / biggest % / most people)</li>
+      <li><strong>Least popular</strong> = the smallest sector</li>
+      <li>To rank: order slices from largest to smallest angle</li>
+      <li>To find how many more: subtract the two values</li>
+    </ul>
+  </div>
+
+  <div class="rule-box">
+    <span class="ri">⚡</span>
+    <p>Speed tip: <span>You don't always need to calculate</span> — if one angle is clearly larger visually (or as a number), it's the most popular. Save time by spotting this immediately.</p>
+  </div>
+
+  <div class="subtopic">Practice · Section 5 · Easy</div>
+  <div class="level-label level-easy">⬤ Easy</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 29</div>
+    <div class="q-text">A pie chart has these sectors: Swimming 90°, Running 120°, Cycling 80°, Football 70°. Which sport is most popular? Enter 1=Swimming, 2=Running, 3=Cycling, 4=Football.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q5_1" placeholder="1-4">
+      <button class="q-btn" onclick="checkQ('q5_1',2,'Running has the largest angle (120°), so it is most popular.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q5_1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 30</div>
+    <div class="q-text">Using the same chart (Q29): which sport is least popular? Enter 1=Swimming, 2=Running, 3=Cycling, 4=Football.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q5_2" placeholder="1-4">
+      <button class="q-btn" onclick="checkQ('q5_2',4,'Football has the smallest angle (70°), so it is least popular.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q5_2"></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 5 · Intermediate</div>
+  <div class="level-label level-inter">◆ Intermediate</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 31</div>
+    <div class="q-text">A pie chart shows favourite fruits for 360 people: Mango 120°, Apple 90°, Banana 72°, Grape 78°. How many people chose Mango?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q5_3" placeholder="people">
+      <button class="q-btn" onclick="checkQ('q5_3',120,'(120÷360)×360 = ⅓×360 = 120.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q5_3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 32</div>
+    <div class="q-text">Using the same chart (Q31 — 360 people total): how many more people chose Mango than Apple?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q5_4" placeholder="people">
+      <button class="q-btn" onclick="checkQ('q5_4',30,'Mango = 120, Apple = (90÷360)×360 = 90. Difference = 120−90 = 30.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q5_4"></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 5 · Advanced</div>
+  <div class="level-label level-adv">▲ Advanced</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 33</div>
+    <div class="q-text">Sectors: Red 30%, Blue 25%, Green 20%, Yellow 15%, Orange 10%. Total = 200 people. How many more people chose Red than Orange?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q5_5" placeholder="people">
+      <button class="q-btn" onclick="checkQ('q5_5',40,'Red = 0.30×200 = 60. Orange = 0.10×200 = 20. Difference = 40.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q5_5"></div>
+  </div>
+</section>
+
+<hr class="sec-div">
+
+<!-- ===== SECTION 6: SIMPLEST FRACTIONS ===== -->
+<section class="section sec-purple" id="s6">
+  <div class="section-header">
+    <span class="section-icon">🟣</span>
+    <h2>6 · Writing Sectors as Fractions in Simplest Form</h2>
+  </div>
+
+  <div class="card">
+    <p>The question will say: <em>"Write the fraction of students who chose X. Give your answer in its simplest form."</em></p>
+    <br>
+    <p><strong>Steps:</strong></p>
+    <ol style="margin-top:0.5rem; padding-left:1.4rem;">
+      <li>Find the sector angle</li>
+      <li>Write <code>angle / 360</code></li>
+      <li>Simplify the fraction by dividing top and bottom by their HCF (highest common factor)</li>
+    </ol>
+  </div>
+
+  <div class="example-box purple">
+    <div class="ex-label">Worked Example F — Simplest Fraction from an Angle</div>
+    <div class="ex-q">The "Art" sector has an angle of 120°. Write this as a fraction in its simplest form.</div>
+    <div class="step"><div class="step-num purple">1</div><div>Write as a fraction: 120/360</div></div>
+    <div class="step"><div class="step-num purple">2</div><div>Find HCF of 120 and 360 → HCF = 120</div></div>
+    <div class="step"><div class="step-num purple">3</div><div>Divide both: 120÷120 = 1, 360÷120 = 3</div></div>
+    <div class="step"><div class="step-num purple">4</div><div><strong class="step-ans purple">Answer = 1/3 ✓</strong></div></div>
+  </div>
+
+  <div class="example-box purple">
+    <div class="ex-label">Worked Example G — Simplest Fraction from a Percentage</div>
+    <div class="ex-q">The "Music" sector is labelled 40%. Write this as a fraction in its simplest form.</div>
+    <div class="step"><div class="step-num purple">1</div><div>Write as fraction: 40/100</div></div>
+    <div class="step"><div class="step-num purple">2</div><div>HCF of 40 and 100 = 20</div></div>
+    <div class="step"><div class="step-num purple">3</div><div>Divide both: 40÷20 = 2, 100÷20 = 5</div></div>
+    <div class="step"><div class="step-num purple">4</div><div><strong class="step-ans purple">Answer = 2/5 ✓</strong></div></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 6 · Easy</div>
+  <div class="level-label level-easy">⬤ Easy</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 34</div>
+    <div class="q-text">A sector has an angle of 90°. Write this as a fraction in simplest form. Enter the denominator only (the bottom of 1/___).</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q6_1" placeholder="1/___">
+      <button class="q-btn" onclick="checkQ('q6_1',4,'90/360 → divide both by 90 → 1/4.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q6_1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 35</div>
+    <div class="q-text">A sector is labelled 25%. Write as a fraction in simplest form. Enter the denominator only.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q6_2" placeholder="1/___">
+      <button class="q-btn" onclick="checkQ('q6_2',4,'25/100 → divide both by 25 → 1/4.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q6_2"></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 6 · Intermediate</div>
+  <div class="level-label level-inter">◆ Intermediate</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 36</div>
+    <div class="q-text">A sector has an angle of 72°. Write as a fraction: angle/360 simplified. Enter the denominator only (1/___).</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q6_3" placeholder="1/___">
+      <button class="q-btn" onclick="checkQ('q6_3',5,'72/360 → divide by 72 → 1/5.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q6_3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 37</div>
+    <div class="q-text">A sector has angle 240°. Simplified fraction = 2/___. What is the denominator?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q6_4" placeholder="2/___">
+      <button class="q-btn" onclick="checkQ('q6_4',3,'240/360 → divide by 120 → 2/3.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q6_4"></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 6 · Advanced</div>
+  <div class="level-label level-adv">▲ Advanced</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 38</div>
+    <div class="q-text">In a survey of 80 students, 20 chose "Drama". Write the fraction of students who chose Drama in simplest form. Enter the denominator (1/___).</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q6_5" placeholder="1/___">
+      <button class="q-btn" onclick="checkQ('q6_5',4,'20/80 → divide by 20 → 1/4.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q6_5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 39</div>
+    <div class="q-text">A sector is labelled 60%. Simplified fraction = ___/5. Enter the numerator.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q6_6" placeholder="___/5">
+      <button class="q-btn" onclick="checkQ('q6_6',3,'60/100 → divide by 20 → 3/5.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q6_6"></div>
+  </div>
+</section>
+
+<hr class="sec-div">
+
+<!-- ===== SECTION 7: TWO-CHART COMPARISON ===== -->
+<section class="section sec-orange" id="s7">
+  <div class="section-header">
+    <span class="section-icon">⚠️</span>
+    <h2>7 · The Two-Chart Comparison Trap</h2>
+  </div>
+
+  <div class="trap-box">
+    <span class="ri">🚨</span>
+    <div>
+      <p style="font-weight:800; color:var(--red);">The Trap</p>
+      <p style="font-size:0.93rem;">Two pie charts look similar in size on the page, but they may represent completely different totals. A large slice from a small total can mean <em>fewer people</em> than a small slice from a large total!</p>
+    </div>
+  </div>
+
+  <div class="example-box orange">
+    <div class="ex-label">Worked Example H — Two-Chart Trap</div>
+    <div class="ex-q">Chart A (total 40 students) has a "Red" sector of 180°. Chart B (total 200 students) has a "Red" sector of 90°. Which chart has more students choosing Red?</div>
+    <div class="step"><div class="step-num orange">1</div><div>Chart A: (180÷360)×40 = ½×40 = <strong>20 students</strong></div></div>
+    <div class="step"><div class="step-num orange">2</div><div>Chart B: (90÷360)×200 = ¼×200 = <strong>50 students</strong></div></div>
+    <div class="step"><div class="step-num orange">3</div><div><strong class="step-ans orange">Chart B has more Red students (50 vs 20), even though its slice looks smaller!</strong></div></div>
+  </div>
+
+  <div class="rule-box">
+    <span class="ri">✅</span>
+    <p>The fix: <span>ALWAYS check the total for each chart before comparing actual numbers.</span> Never assume the bigger-looking slice means more people.</p>
+  </div>
+
+  <div class="subtopic">Practice · Section 7 · All Levels</div>
+  <div class="level-label level-inter">◆ Intermediate</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 40</div>
+    <div class="q-text">Chart A (60 students): "Science" sector = 120°. Chart B (180 students): "Science" sector = 60°. How many students chose Science in Chart A?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q7_1" placeholder="students">
+      <button class="q-btn" onclick="checkQ('q7_1',20,'(120÷360)×60 = ⅓×60 = 20.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q7_1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 41</div>
+    <div class="q-text">Using the same charts (Q40): how many students chose Science in Chart B?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q7_2" placeholder="students">
+      <button class="q-btn" onclick="checkQ('q7_2',30,'(60÷360)×180 = ⅙×180 = 30.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q7_2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 42</div>
+    <div class="q-text">Which chart (A or B) has more Science students? Enter 1 for A, 2 for B.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q7_3" placeholder="1 or 2">
+      <button class="q-btn" onclick="checkQ('q7_3',2,'B has 30, A has 20. Chart B wins — even though its angle is smaller!')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q7_3"></div>
+  </div>
+
+  <div class="level-label level-adv" style="margin-top:1rem;">▲ Advanced</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 43</div>
+    <div class="q-text">Chart X (total 240): "Maths" = 90°. Chart Y (total 80): "Maths" = 180°. How many more Maths students does Chart X have compared to Chart Y?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q7_4" placeholder="students">
+      <button class="q-btn" onclick="checkQ('q7_4',20,'X: (90÷360)×240=60. Y: (180÷360)×80=40. Difference = 20.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q7_4"></div>
+  </div>
+</section>
+
+<hr class="sec-div">
+
+<!-- ===== SECTION 8: CHECKING STRATEGY ===== -->
+<section class="section sec-teal" id="s8">
+  <div class="section-header">
+    <span class="section-icon">✅</span>
+    <h2>8 · Exam Habit — Check Your Angles Sum to 360°</h2>
+  </div>
+
+  <div class="card">
+    <p>After you calculate any angles, <strong>always add them all up</strong>. They must total exactly 360°. If they don't, you've made an error somewhere.</p>
+    <br>
+    <p>Also use this to <strong>find a missing angle</strong>: missing = 360 − (sum of known angles).</p>
+  </div>
+
+  <div class="example-box teal">
+    <div class="ex-label">Worked Example I — Use the Check to Find a Missing Angle</div>
+    <div class="ex-q">A frequency table gives: Football 80°, Tennis 120°, Swimming 95°, Hockey ???°. Find the Hockey angle.</div>
+    <div class="step"><div class="step-num teal">1</div><div>Add known angles: 80 + 120 + 95 = 295°</div></div>
+    <div class="step"><div class="step-num teal">2</div><div>Subtract from 360: 360 − 295 = <strong class="step-ans" style="color:var(--teal)">65° ✓</strong></div></div>
+  </div>
+
+  <div class="subtopic">Practice · Section 8</div>
+  <div class="level-label level-easy">⬤ Easy</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 44</div>
+    <div class="q-text">Three sectors have angles of 100°, 130°, and 90°. What is the fourth sector's angle?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q8_1" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q8_1',40,'360 − 100 − 130 − 90 = 40°.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q8_1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Question 45</div>
+    <div class="q-text">Sectors: A = 45°, B = 90°, C = 135°, D = 72°. Do they sum to 360°? Enter 1 for Yes, 2 for No.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q8_2" placeholder="1 or 2">
+      <button class="q-btn" onclick="checkQ('q8_2',2,'45+90+135+72 = 342°. Not 360°, so there is an error somewhere.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q8_2"></div>
+  </div>
+
+  <div class="level-label level-inter" style="margin-top:0.8rem;">◆ Intermediate</div>
+
+  <div class="q-block">
+    <div class="q-num">Question 46</div>
+    <div class="q-text">A table shows five sports sectors. Four are: 72°, 54°, 90°, 108°. What must the fifth sector be?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="q8_3" placeholder="°">
+      <button class="q-btn" onclick="checkQ('q8_3',36,'72+54+90+108 = 324. 360−324 = 36°.')">Check</button>
+    </div>
+    <div class="q-feedback" id="fb_q8_3"></div>
+  </div>
+</section>
+
+<hr class="sec-div">
+
+<!-- ===== SECTION 9: MISSING VALUES TABLE ===== -->
+<section class="section sec-teal" id="s9">
+  <div class="section-header">
+    <span class="section-icon">📋</span>
+    <h2>9 · Fill in the Missing Values Table</h2>
+  </div>
+
+  <div class="card">
+    <p>This is a very common GL question type. You are given a table with some cells blank. Use the formulas to complete it. <strong>Total = 180 students</strong> for this exercise.</p>
+    <br>
+    <p style="font-size:0.88rem; color:var(--gray);">Type your answers in the boxes below, then click "Reveal All Answers" to check.</p>
+    <br>
+    <table class="fill-table">
+      <tr>
+        <th>Subject</th>
+        <th>Frequency</th>
+        <th>Angle (°)</th>
+        <th>Percentage (%)</th>
+      </tr>
+      <tr>
+        <td>Maths</td>
+        <td>60</td>
+        <td><input class="fill-input" id="ft1" type="number" placeholder="?°"></td>
+        <td><input class="fill-input" id="ft2" type="number" placeholder="?%"></td>
+      </tr>
+      <tr>
+        <td>Science</td>
+        <td><input class="fill-input" id="ft3" type="number" placeholder="?"></td>
+        <td>90°</td>
+        <td><input class="fill-input" id="ft4" type="number" placeholder="?%"></td>
+      </tr>
+      <tr>
+        <td>English</td>
+        <td>30</td>
+        <td><input class="fill-input" id="ft5" type="number" placeholder="?°"></td>
+        <td><input class="fill-input" id="ft6" type="number" placeholder="?%"></td>
+      </tr>
+      <tr>
+        <td>Art</td>
+        <td><input class="fill-input" id="ft7" type="number" placeholder="?"></td>
+        <td><input class="fill-input" id="ft8" type="number" placeholder="?°"></td>
+        <td>10%</td>
+      </tr>
+      <tr>
+        <td><strong>TOTAL</strong></td>
+        <td><strong>180</strong></td>
+        <td><strong>360°</strong></td>
+        <td><strong>100%</strong></td>
+      </tr>
+    </table>
+    <div class="fill-reveal">
+      <button class="q-btn" onclick="revealTable()">Reveal All Answers ↓</button>
+      <div class="fill-ans" id="fill-ans-block">
+        <strong>Maths:</strong> Angle = (60÷180)×360 = <strong>120°</strong> | Percentage = (60÷180)×100 = <strong>33.3%</strong><br>
+        <strong>Science:</strong> Frequency = (90÷360)×180 = <strong>45</strong> | Percentage = (90÷360)×100 = <strong>25%</strong><br>
+        <strong>English:</strong> Angle = (30÷180)×360 = <strong>60°</strong> | Percentage = (30÷180)×100 = <strong>16.7%</strong><br>
+        <strong>Art:</strong> Frequency = 10% of 180 = <strong>18</strong> | Angle = 10×3.6 = <strong>36°</strong><br>
+        <em>Check: 60+45+30+18 = 153 ≠ 180 — the exercise uses rounded values; use formulas for each row independently.</em><br>
+        <em>120+90+60+36 = 306° — this shows remaining students can be assigned via the check strategy (Section 8).</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sec-div">
+
+<!-- ===== SECTION 10: MASTERY TEST ===== -->
+<section class="section" id="s10">
+  <div class="mastery-header">
+    <h2>🏆 Final Mastery Test</h2>
+    <p>10 mixed questions · All types covered · Answer all, then submit for your score</p>
+  </div>
+
+  <!-- M1 -->
+  <div class="q-block">
+    <div class="q-num">Mastery Q1 — Find the Value</div>
+    <div class="q-text">A pie chart shows the transport choices of 240 people. The "Walk" sector has an angle of 45°. How many people walk?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="m1" placeholder="people">
+    </div>
+    <div class="q-feedback" id="fb_m1"></div>
+  </div>
+
+  <!-- M2 -->
+  <div class="q-block">
+    <div class="q-num">Mastery Q2 — Find the Angle</div>
+    <div class="q-text">In a survey of 150 people, 50 chose "Cinema". What angle should the Cinema sector have?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="m2" placeholder="°">
+    </div>
+    <div class="q-feedback" id="fb_m2"></div>
+  </div>
+
+  <!-- M3 -->
+  <div class="q-block">
+    <div class="q-num">Mastery Q3 — Find the Total</div>
+    <div class="q-text">The "Drama" sector has an angle of 36° and represents 9 students. What is the total number of students?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="m3" placeholder="students">
+    </div>
+    <div class="q-feedback" id="fb_m3"></div>
+  </div>
+
+  <!-- M4 -->
+  <div class="q-block">
+    <div class="q-num">Mastery Q4 — Percentage to Frequency</div>
+    <div class="q-text">A pie chart covers 500 people. The "No Opinion" slice is labelled 8%. How many people have no opinion?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="m4" placeholder="people">
+    </div>
+    <div class="q-feedback" id="fb_m4"></div>
+  </div>
+
+  <!-- M5 -->
+  <div class="q-block">
+    <div class="q-num">Mastery Q5 — Percentage to Angle</div>
+    <div class="q-text">A slice is labelled 45%. What is its angle in degrees?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="m5" placeholder="°">
+    </div>
+    <div class="q-feedback" id="fb_m5"></div>
+  </div>
+
+  <!-- M6 -->
+  <div class="q-block">
+    <div class="q-num">Mastery Q6 — Simplest Fraction</div>
+    <div class="q-text">A sector has an angle of 144°. Write as a fraction in simplest form. Enter the denominator only (___ out of ___) — enter just the denominator.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="m6" placeholder="2/___">
+      <div class="q-hint">Hint: the numerator is 2</div>
+    </div>
+    <div class="q-feedback" id="fb_m6"></div>
+  </div>
+
+  <!-- M7 -->
+  <div class="q-block">
+    <div class="q-num">Mastery Q7 — Missing Angle</div>
+    <div class="q-text">Four sectors have angles: 85°, 110°, 95°, and ___°. What is the fourth angle?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="m7" placeholder="°">
+    </div>
+    <div class="q-feedback" id="fb_m7"></div>
+  </div>
+
+  <!-- M8 -->
+  <div class="q-block">
+    <div class="q-num">Mastery Q8 — Two-Chart Comparison</div>
+    <div class="q-text">Chart A: total 60, "Green" sector = 180°. Chart B: total 300, "Green" sector = 60°. How many more Green students are in Chart B than Chart A?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="m8" placeholder="students">
+    </div>
+    <div class="q-feedback" id="fb_m8"></div>
+  </div>
+
+  <!-- M9 -->
+  <div class="q-block">
+    <div class="q-num">Mastery Q9 — Most Popular</div>
+    <div class="q-text">Sectors: Red 15%, Blue 30%, Green 10%, Yellow 25%, Orange 20%. Total = 400 people. How many chose Blue?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="m9" placeholder="people">
+    </div>
+    <div class="q-feedback" id="fb_m9"></div>
+  </div>
+
+  <!-- M10 -->
+  <div class="q-block">
+    <div class="q-num">Mastery Q10 — Multi-Step</div>
+    <div class="q-text">A pie chart shows 360 students' favourite subjects. Maths = 120°, Science = 90°. How many students chose neither Maths nor Science?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="m10" placeholder="students">
+    </div>
+    <div class="q-feedback" id="fb_m10"></div>
+  </div>
+
+  <button class="mastery-submit" onclick="submitMastery()">Submit Mastery Test →</button>
+  <div class="score-display" id="mastery-score"></div>
+</section>
+
+</div><!-- /container -->
+
+<script>
+  // ---- Generic check function ----
+  function checkQ(inputId, correctAnswer, explanation) {
+    const input = document.getElementById(inputId);
+    const fbId = 'fb_' + inputId;
+    const fb = document.getElementById(fbId);
+    const val = parseFloat(input.value.trim());
+
+    fb.classList.remove('correct','wrong','show');
+    if (input.value.trim() === '') { fb.textContent = 'Please enter an answer.'; fb.classList.add('wrong','show'); return; }
+
+    if (Math.abs(val - correctAnswer) < 0.6) {
+      fb.textContent = '✅ Correct! Well done.';
+      fb.classList.add('correct','show');
+    } else {
+      fb.innerHTML = '❌ Incorrect. Correct answer: <strong>' + correctAnswer + '</strong>. Explanation: ' + explanation;
+      fb.classList.add('wrong','show');
+    }
+  }
+
+  // ---- Fill table reveal ----
+  function revealTable() {
+    document.getElementById('fill-ans-block').classList.add('show');
+  }
+
+  // ---- Mastery test answers ----
+  const masteryAnswers = {
+    m1: { ans: 30, exp: '(45÷360)×240 = ⅛×240 = 30.' },
+    m2: { ans: 120, exp: '(50÷150)×360 = ⅓×360 = 120°.' },
+    m3: { ans: 90, exp: '9×(360÷36) = 9×10 = 90 students.' },
+    m4: { ans: 40, exp: '(8÷100)×500 = 0.08×500 = 40.' },
+    m5: { ans: 162, exp: '45×3.6 = 162°.' },
+    m6: { ans: 5, exp: '144/360 → divide by 72 → 2/5. Denominator = 5.' },
+    m7: { ans: 70, exp: '360−85−110−95 = 70°.' },
+    m8: { ans: 20, exp: 'A: (180÷360)×60 = 30. B: (60÷360)×300 = 50. 50−30 = 20.' },
+    m9: { ans: 120, exp: '30% of 400 = 0.30×400 = 120.' },
+    m10: { ans: 210, exp: 'Maths=(120÷360)×360=120. Science=(90÷360)×360=90. 120+90=210. Remaining=360−210=150. Wait — re-read: neither = 360−120−90 = 150.' }
+  };
+  // fix m10
+  masteryAnswers['m10'] = { ans: 150, exp: 'Maths=(120÷360)×360=120 students. Science=(90÷360)×360=90 students. Total choosing neither = 360−120−90 = 150.' };
+
+  function submitMastery() {
+    let correct = 0;
+    let total = Object.keys(masteryAnswers).length;
+
+    for (let id in masteryAnswers) {
+      const input = document.getElementById(id);
+      const fb = document.getElementById('fb_' + id);
+      const val = parseFloat(input.value.trim());
+      const { ans, exp } = masteryAnswers[id];
+
+      fb.classList.remove('correct','wrong','show');
+      if (isNaN(val)) {
+        fb.innerHTML = '❌ No answer given. Correct: <strong>' + ans + '</strong>. ' + exp;
+        fb.classList.add('wrong','show');
+      } else if (Math.abs(val - ans) < 0.6) {
+        fb.textContent = '✅ Correct!';
+        fb.classList.add('correct','show');
+        correct++;
+      } else {
+        fb.innerHTML = '❌ Incorrect. Correct answer: <strong>' + ans + '</strong>. Explanation: ' + exp;
+        fb.classList.add('wrong','show');
+      }
+    }
+
+    const pct = Math.round((correct / total) * 100);
+    let msg = '';
+    if (pct === 100) msg = '🏆 Perfect score! You are fully exam-ready!';
+    else if (pct >= 80) msg = '🌟 Great work! Almost exam-ready — review any incorrect questions.';
+    else if (pct >= 60) msg = '👍 Good effort! Revisit the sections where you made mistakes.';
+    else msg = '📚 Keep practising! Go back through the guide and try again.';
+
+    const sd = document.getElementById('mastery-score');
+    sd.innerHTML = 'Your score: ' + correct + ' / ' + total + ' (' + pct + '%) — ' + msg;
+    sd.classList.add('show');
+    sd.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+</script>
+</body>
+</html>

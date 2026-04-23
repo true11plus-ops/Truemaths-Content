@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GL 11+ Angles Revision Sheet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=DM+Mono&display=swap');
+
+  :root {
+    --ink: #1a1a2e;
+    --paper: #fdfaf5;
+    --rule-blue: #1a5fa8;
+    --rule-blue-light: #deeaf8;
+    --rule-green: #1a7a4a;
+    --rule-green-light: #d6f0e2;
+    --rule-amber: #b56a00;
+    --rule-amber-light: #fef0d0;
+    --rule-red: #b52a1a;
+    --rule-red-light: #fde8e5;
+    --rule-purple: #5a2da8;
+    --rule-purple-light: #ece6f8;
+    --rule-teal: #0d7d84;
+    --rule-teal-light: #d4f1f3;
+    --border: #d4cfc4;
+    --muted: #6b6560;
+    --heading-serif: 'DM Serif Display', serif;
+    --body: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--body);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .page-header .tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .4rem;
+  }
+  .page-header h1 {
+    font-family: var(--heading-serif);
+    font-size: 2.4rem;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: .4rem;
+  }
+  .page-header .subtitle { color: var(--muted); font-size: 14px; }
+
+  /* ── SECTION WRAPPERS ── */
+  section { margin-bottom: 2.8rem; }
+  .section-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-bottom: .5rem;
+  }
+  h2 {
+    font-family: var(--heading-serif);
+    font-size: 1.55rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 1rem 0 .4rem;
+  }
+  p { margin-bottom: .6rem; }
+  ul, ol { padding-left: 1.3rem; margin-bottom: .6rem; }
+  li { margin-bottom: .2rem; }
+
+  /* ── RULE BOX ── */
+  .rule-box {
+    border-left: 4px solid;
+    padding: .7rem 1rem;
+    border-radius: 0 6px 6px 0;
+    margin: .8rem 0;
+    font-size: 14.5px;
+  }
+  .rule-box.blue  { border-color: var(--rule-blue);   background: var(--rule-blue-light);   color: #0d3566; }
+  .rule-box.green { border-color: var(--rule-green);  background: var(--rule-green-light);  color: #0d4028; }
+  .rule-box.amber { border-color: var(--rule-amber);  background: var(--rule-amber-light);  color: #5a3500; }
+  .rule-box.red   { border-color: var(--rule-red);    background: var(--rule-red-light);    color: #5a1510; }
+  .rule-box.purple{ border-color: var(--rule-purple); background: var(--rule-purple-light); color: #2d1460; }
+  .rule-box.teal  { border-color: var(--rule-teal);   background: var(--rule-teal-light);   color: #05424a; }
+  .rule-box strong { font-weight: 600; }
+
+  /* ── WORKED EXAMPLE ── */
+  .worked {
+    background: #f4f1eb;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: .9rem 1.1rem;
+    margin: .8rem 0;
+    font-size: 14px;
+  }
+  .worked .ex-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .3rem;
+  }
+
+  /* ── ANGLE TYPE GRID ── */
+  .angle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 1rem 0;
+  }
+  .angle-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .8rem;
+    text-align: center;
+  }
+  .angle-card svg { display: block; margin: 0 auto 8px; }
+  .angle-card .aname { font-weight: 600; font-size: 14px; }
+  .angle-card .arange { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* ── PARALLEL LINES GRID ── */
+  .parallel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 1rem 0;
+  }
+  .parallel-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .parallel-card .pc-head {
+    padding: .5rem .8rem;
+    font-weight: 600;
+    font-size: 13.5px;
+  }
+  .parallel-card.z .pc-head  { background: var(--rule-blue-light);   color: var(--rule-blue); }
+  .parallel-card.f .pc-head  { background: var(--rule-green-light);  color: var(--rule-green); }
+  .parallel-card.c .pc-head  { background: var(--rule-amber-light);  color: var(--rule-amber); }
+  .parallel-card .pc-body { padding: .6rem .8rem; font-size: 13px; }
+  .parallel-card .pc-rule { font-size: 12.5px; font-style: italic; margin-top: .4rem; }
+
+  /* ── TRIANGLE GRID ── */
+  .tri-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 1rem 0;
+  }
+  .tri-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: .7rem;
+    text-align: center;
+    font-size: 13px;
+  }
+  .tri-card svg { display: block; margin: 0 auto 6px; }
+  .tri-card .tname { font-weight: 600; }
+
+  /* ── POLYGON TABLE ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: .8rem 0;
+  }
+  th {
+    background: var(--ink);
+    color: white;
+    padding: .5rem .75rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12.5px;
+    letter-spacing: .03em;
+  }
+  td {
+    padding: .45rem .75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  tr:nth-child(even) td { background: #f7f4ee; }
+  .formula {
+    font-family: var(--mono);
+    background: var(--rule-purple-light);
+    color: var(--rule-purple);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  /* ── NOTATION ── */
+  .notation-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    align-items: center;
+    gap: 12px;
+    padding: .6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .notation-row:last-child { border-bottom: none; }
+  .notation-symbol {
+    font-family: var(--mono);
+    font-size: 22px;
+    text-align: center;
+    color: var(--rule-purple);
+  }
+
+  /* ── PROTRACTOR ── */
+  .mistake-list li {
+    padding: .25rem 0;
+    padding-left: .5rem;
+    border-left: 3px solid var(--rule-red);
+    margin-bottom: 6px;
+    list-style: none;
+  }
+
+  /* ── COMPASS ── */
+  .compass-wrap {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+  }
+
+  /* ── STRATEGY STEPS ── */
+  .strategy-steps { counter-reset: step; list-style: none; padding: 0; }
+  .strategy-steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: .6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .strategy-steps li:last-child { border-bottom: none; }
+  .strategy-steps li::before {
+    content: counter(step);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── PRACTICE ── */
+  .practice-q {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 1rem;
+  }
+  .practice-q .q-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .4rem;
+  }
+  details {
+    margin-top: .7rem;
+    border-top: 1px dashed var(--border);
+    padding-top: .6rem;
+  }
+  summary {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--rule-blue);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: '▶'; font-size: 10px; transition: transform .2s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  .answer {
+    background: #f0f8ff;
+    border: 1px solid #b8d8f5;
+    border-radius: 6px;
+    padding: .7rem .9rem;
+    margin-top: .6rem;
+    font-size: 14px;
+  }
+  .answer .step { margin-bottom: .25rem; }
+  .answer .final {
+    font-weight: 600;
+    color: var(--rule-blue);
+    margin-top: .4rem;
+  }
+
+  /* ── MULTI STEP Q ── */
+  .msq {
+    border-left: 4px solid var(--rule-purple);
+    background: var(--rule-purple-light);
+    border-radius: 0 8px 8px 0;
+    padding: .8rem 1rem;
+    margin-bottom: 1rem;
+  }
+  .msq .q-num { font-weight: 600; color: var(--rule-purple); font-size: 13px; margin-bottom: .3rem; }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  /* ── HIGHLIGHT ── */
+  .hl-blue   { color: var(--rule-blue);   font-weight: 600; }
+  .hl-green  { color: var(--rule-green);  font-weight: 600; }
+  .hl-amber  { color: var(--rule-amber);  font-weight: 600; }
+  .hl-red    { color: var(--rule-red);    font-weight: 600; }
+  .hl-purple { color: var(--rule-purple); font-weight: 600; }
+
+  /* ── PRINT ── */
+  @media print {
+    body { max-width: 100%; padding: 1rem; font-size: 13px; }
+    section { page-break-inside: avoid; margin-bottom: 2rem; }
+    details { border: 1px solid #ccc; }
+    summary { pointer-events: none; }
+    details[open] .answer { display: block; }
+    .angle-grid, .parallel-grid, .tri-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════
+     HEADER
+═════════════════════════════════════════════════ -->
+<header class="page-header">
+  <div class="tag">GL Assessment 11+ · Year 6 · Geometry</div>
+  <h1>Angles — Complete Revision Sheet</h1>
+  <div class="subtitle">Covers all GL syllabus topics · Diagrams · Worked examples · Exam-style practice</div>
+</header>
+
+
+<!-- ════════════════════════════════════════════════
+     SECTION 1 — ANGLE TYPES
+═════════════════════════════════════════════════ -->
+<section id="s1">
+  <div class="section-label" style="background:#deeaf8;color:#1a5fa8;">Section 1</div>
+  <h2>Angle Types</h2>
+  <p>Angles are measured in <strong>degrees (°)</strong>. There are six types you need to know for GL.</p>
+
+  <div class="angle-grid">
+
+    <!-- Acute -->
+    <div class="angle-card">
+      <svg width="90" height="80" viewBox="0 0 90 80">
+        <line x1="10" y1="70" x2="80" y2="70" stroke="#1a5fa8" stroke-width="2"/>
+        <line x1="10" y1="70" x2="55" y2="15" stroke="#1a5fa8" stroke-width="2"/>
+        <path d="M30,70 A20,20 0 0,0 19.5,46" fill="none" stroke="#e85d04" stroke-width="2"/>
+        <text x="34" y="62" font-size="11" fill="#e85d04" font-family="DM Sans,sans-serif">45°</text>
+      </svg>
+      <div class="aname" style="color:#1a5fa8;">Acute</div>
+      <div class="arange">Greater than 0° and less than 90°</div>
+    </div>
+
+    <!-- Right angle -->
+    <div class="angle-card">
+      <svg width="90" height="80" viewBox="0 0 90 80">
+        <line x1="10" y1="70" x2="80" y2="70" stroke="#1a7a4a" stroke-width="2"/>
+        <line x1="10" y1="70" x2="10" y2="10" stroke="#1a7a4a" stroke-width="2"/>
+        <rect x="10" y="55" width="15" height="15" fill="none" stroke="#e85d04" stroke-width="2"/>
+      </svg>
+      <div class="aname" style="color:#1a7a4a;">Right Angle</div>
+      <div class="arange">Exactly 90°</div>
+    </div>
+
+    <!-- Obtuse -->
+    <div class="angle-card">
+      <svg width="90" height="80" viewBox="0 0 90 80">
+        <line x1="10" y1="70" x2="80" y2="70" stroke="#b56a00" stroke-width="2"/>
+        <line x1="10" y1="70" x2="70" y2="20" stroke="#b56a00" stroke-width="2"/>
+        <path d="M35,70 A25,25 0 0,0 12,47" fill="none" stroke="#e85d04" stroke-width="2"/>
+        <text x="22" y="60" font-size="11" fill="#e85d04" font-family="DM Sans,sans-serif">120°</text>
+      </svg>
+      <div class="aname" style="color:#b56a00;">Obtuse</div>
+      <div class="arange">Greater than 90°, less than 180°</div>
+    </div>
+
+    <!-- Straight line -->
+    <div class="angle-card">
+      <svg width="90" height="80" viewBox="0 0 90 80">
+        <line x1="5" y1="50" x2="85" y2="50" stroke="#b52a1a" stroke-width="2"/>
+        <circle cx="45" cy="50" r="3" fill="#b52a1a"/>
+        <path d="M25,50 A20,20 0 0,0 65,50" fill="none" stroke="#e85d04" stroke-width="2"/>
+        <text x="38" y="40" font-size="11" fill="#e85d04" font-family="DM Sans,sans-serif">180°</text>
+      </svg>
+      <div class="aname" style="color:#b52a1a;">Straight Line</div>
+      <div class="arange">Exactly 180°</div>
+    </div>
+
+    <!-- Reflex -->
+    <div class="angle-card">
+      <svg width="90" height="80" viewBox="0 0 90 80">
+        <line x1="45" y1="45" x2="80" y2="45" stroke="#5a2da8" stroke-width="2"/>
+        <line x1="45" y1="45" x2="45" y2="12" stroke="#5a2da8" stroke-width="2"/>
+        <path d="M65,45 A20,20 0 1,1 45,25" fill="none" stroke="#e85d04" stroke-width="2"/>
+        <text x="8" y="72" font-size="11" fill="#e85d04" font-family="DM Sans,sans-serif">270°</text>
+      </svg>
+      <div class="aname" style="color:#5a2da8;">Reflex</div>
+      <div class="arange">Greater than 180°, less than 360°</div>
+    </div>
+
+    <!-- Full turn -->
+    <div class="angle-card">
+      <svg width="90" height="80" viewBox="0 0 90 80">
+        <circle cx="45" cy="42" r="28" fill="none" stroke="#0d7d84" stroke-width="2" stroke-dasharray="5 3"/>
+        <line x1="45" y1="42" x2="73" y2="42" stroke="#0d7d84" stroke-width="2"/>
+        <text x="28" y="46" font-size="11" fill="#e85d04" font-family="DM Sans,sans-serif">360°</text>
+      </svg>
+      <div class="aname" style="color:#0d7d84;">Full Turn</div>
+      <div class="arange">Exactly 360°</div>
+    </div>
+
+  </div>
+
+  <div class="rule-box blue">
+    <strong>Memory trick:</strong> Acute &lt; 90° · Right = 90° · Obtuse: 90°–180° · Straight = 180° · Reflex: 180°–360° · Full turn = 360°
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     SECTION 2 — STRAIGHT LINES AND AROUND A POINT
+═════════════════════════════════════════════════ -->
+<section id="s2">
+  <div class="section-label" style="background:#d6f0e2;color:#1a7a4a;">Section 2</div>
+  <h2>Angles on Straight Lines &amp; Around a Point</h2>
+
+  <h3>Angles on a straight line</h3>
+  <div class="rule-box green">
+    All angles on one side of a straight line add up to <strong>180°</strong>.
+  </div>
+
+  <svg width="320" height="90" viewBox="0 0 320 90" style="display:block;margin:0.6rem 0;">
+    <line x1="10" y1="60" x2="310" y2="60" stroke="#1a1a2e" stroke-width="2"/>
+    <line x1="110" y1="60" x2="160" y2="15" stroke="#1a7a4a" stroke-width="2.5"/>
+    <line x1="210" y1="60" x2="245" y2="15" stroke="#1a7a4a" stroke-width="2.5"/>
+    <!-- arc a -->
+    <path d="M135,60 A25,25 0 0,0 114,38" fill="none" stroke="#1a5fa8" stroke-width="2"/>
+    <text x="115" y="52" font-size="12" fill="#1a5fa8" font-family="DM Sans,sans-serif" font-weight="600">a</text>
+    <!-- arc b -->
+    <path d="M160,60 A25,25 0 0,0 216,56" fill="none" stroke="#b56a00" stroke-width="2"/>
+    <text x="180" y="54" font-size="12" fill="#b56a00" font-family="DM Sans,sans-serif" font-weight="600">b</text>
+    <!-- arc c -->
+    <path d="M234,60 A20,20 0 0,0 243,41" fill="none" stroke="#b52a1a" stroke-width="2"/>
+    <text x="243" y="55" font-size="12" fill="#b52a1a" font-family="DM Sans,sans-serif" font-weight="600">c</text>
+    <text x="60" y="80" font-size="12" fill="#555" font-family="DM Sans,sans-serif">a + b + c = 180°</text>
+  </svg>
+
+  <div class="worked">
+    <div class="ex-label">Worked Example</div>
+    <p>Two angles on a straight line are <strong>65°</strong> and <strong>x</strong>. Find x.</p>
+    <p>x = 180° − 65° = <strong>115°</strong></p>
+  </div>
+
+  <h3>Angles around a point</h3>
+  <div class="rule-box green">
+    All angles meeting at a single point add up to <strong>360°</strong>.
+  </div>
+
+  <svg width="200" height="130" viewBox="0 0 200 130" style="display:block;margin:0.6rem 0;">
+    <line x1="100" y1="65" x2="170" y2="65" stroke="#1a1a2e" stroke-width="2"/>
+    <line x1="100" y1="65" x2="100" y2="10" stroke="#1a1a2e" stroke-width="2"/>
+    <line x1="100" y1="65" x2="30" y2="65" stroke="#1a1a2e" stroke-width="2"/>
+    <line x1="100" y1="65" x2="100" y2="120" stroke="#1a1a2e" stroke-width="2"/>
+    <line x1="100" y1="65" x2="150" y2="20" stroke="#1a7a4a" stroke-width="2"/>
+    <text x="128" y="55" font-size="11" fill="#1a5fa8" font-family="DM Sans,sans-serif" font-weight="600">90°</text>
+    <text x="58" y="50" font-size="11" fill="#b56a00" font-family="DM Sans,sans-serif" font-weight="600">90°</text>
+    <text x="60" y="90" font-size="11" fill="#b52a1a" font-family="DM Sans,sans-serif" font-weight="600">90°</text>
+    <text x="118" y="100" font-size="11" fill="#5a2da8" font-family="DM Sans,sans-serif" font-weight="600">90°</text>
+    <text x="20" y="125" font-size="12" fill="#555" font-family="DM Sans,sans-serif">All angles = 360°</text>
+  </svg>
+
+  <h3>Vertically opposite angles</h3>
+  <div class="rule-box green">
+    When two straight lines cross, the angles <strong>opposite each other are equal</strong>.
+  </div>
+
+  <svg width="220" height="110" viewBox="0 0 220 110" style="display:block;margin:0.6rem 0;">
+    <line x1="10" y1="20" x2="210" y2="90" stroke="#1a1a2e" stroke-width="2"/>
+    <line x1="10" y1="90" x2="210" y2="20" stroke="#1a1a2e" stroke-width="2"/>
+    <!-- intersection at ~110,55 -->
+    <path d="M125,55 A18,18 0 0,0 108,44" fill="#fde8e5" stroke="#b52a1a" stroke-width="1.5"/>
+    <path d="M95,55 A18,18 0 0,0 112,66" fill="#fde8e5" stroke="#b52a1a" stroke-width="1.5"/>
+    <path d="M125,55 A18,18 0 0,1 112,66" fill="#deeaf8" stroke="#1a5fa8" stroke-width="1.5"/>
+    <path d="M95,55 A18,18 0 0,1 108,44" fill="#deeaf8" stroke="#1a5fa8" stroke-width="1.5"/>
+    <text x="72" y="50" font-size="12" fill="#b52a1a" font-family="DM Sans,sans-serif" font-weight="600">a</text>
+    <text x="128" y="68" font-size="12" fill="#b52a1a" font-family="DM Sans,sans-serif" font-weight="600">a</text>
+    <text x="128" y="48" font-size="12" fill="#1a5fa8" font-family="DM Sans,sans-serif" font-weight="600">b</text>
+    <text x="72" y="70" font-size="12" fill="#1a5fa8" font-family="DM Sans,sans-serif" font-weight="600">b</text>
+    <text x="10" y="108" font-size="12" fill="#555" font-family="DM Sans,sans-serif">Red a = Red a · Blue b = Blue b</text>
+  </svg>
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     SECTION 3 — PARALLEL LINES
+═════════════════════════════════════════════════ -->
+<section id="s3">
+  <div class="section-label" style="background:#deeaf8;color:#1a5fa8;">Section 3</div>
+  <h2>Parallel Lines &amp; Angle Pairs</h2>
+  <p>When a <strong>transversal</strong> (a line) crosses two parallel lines, three special angle pairs are formed. Parallel lines are shown with small arrows (→) on each line.</p>
+
+  <div class="parallel-grid">
+
+    <!-- Z angles -->
+    <div class="parallel-card z">
+      <div class="pc-head">Z-angles (Alternate)</div>
+      <svg width="100%" height="130" viewBox="0 0 160 130">
+        <!-- parallel lines -->
+        <line x1="10" y1="35" x2="150" y2="35" stroke="#888" stroke-width="1.5"/>
+        <line x1="10" y1="95" x2="150" y2="95" stroke="#888" stroke-width="1.5"/>
+        <!-- arrows -->
+        <text x="120" y="30" font-size="14" fill="#888">→</text>
+        <text x="120" y="90" font-size="14" fill="#888">→</text>
+        <!-- transversal -->
+        <line x1="45" y1="10" x2="115" y2="120" stroke="#1a1a2e" stroke-width="2"/>
+        <!-- angle arcs -->
+        <path d="M67,35 A18,18 0 0,0 56,53" fill="#b3cde8" stroke="#1a5fa8" stroke-width="1.5"/>
+        <path d="M93,95 A18,18 0 0,0 82,77" fill="#b3cde8" stroke="#1a5fa8" stroke-width="1.5"/>
+        <text x="54" y="52" font-size="13" fill="#1a5fa8" font-family="DM Sans,sans-serif" font-weight="700">a</text>
+        <text x="83" y="94" font-size="13" fill="#1a5fa8" font-family="DM Sans,sans-serif" font-weight="700">a</text>
+      </svg>
+      <div class="pc-body">
+        Alternate angles are between the parallel lines, on <strong>opposite sides</strong> of the transversal. They form a Z shape.
+        <div class="pc-rule" style="color:#1a5fa8;">Rule: Alternate angles are <strong>equal</strong>.</div>
+      </div>
+    </div>
+
+    <!-- F angles -->
+    <div class="parallel-card f">
+      <div class="pc-head">F-angles (Corresponding)</div>
+      <svg width="100%" height="130" viewBox="0 0 160 130">
+        <line x1="10" y1="35" x2="150" y2="35" stroke="#888" stroke-width="1.5"/>
+        <line x1="10" y1="95" x2="150" y2="95" stroke="#888" stroke-width="1.5"/>
+        <text x="120" y="30" font-size="14" fill="#888">→</text>
+        <text x="120" y="90" font-size="14" fill="#888">→</text>
+        <line x1="55" y1="5" x2="85" y2="125" stroke="#1a1a2e" stroke-width="2"/>
+        <!-- same side, above each line -->
+        <path d="M73,35 A18,18 0 0,1 62,18" fill="#b3dcc9" stroke="#1a7a4a" stroke-width="1.5"/>
+        <path d="M81,95 A18,18 0 0,1 70,78" fill="#b3dcc9" stroke="#1a7a4a" stroke-width="1.5"/>
+        <text x="60" y="30" font-size="13" fill="#1a7a4a" font-family="DM Sans,sans-serif" font-weight="700">b</text>
+        <text x="68" y="90" font-size="13" fill="#1a7a4a" font-family="DM Sans,sans-serif" font-weight="700">b</text>
+      </svg>
+      <div class="pc-body">
+        Corresponding angles are in the <strong>same position</strong> at each intersection. They form an F shape.
+        <div class="pc-rule" style="color:#1a7a4a;">Rule: Corresponding angles are <strong>equal</strong>.</div>
+      </div>
+    </div>
+
+    <!-- C angles -->
+    <div class="parallel-card c">
+      <div class="pc-head">C-angles (Co-interior)</div>
+      <svg width="100%" height="130" viewBox="0 0 160 130">
+        <line x1="10" y1="35" x2="150" y2="35" stroke="#888" stroke-width="1.5"/>
+        <line x1="10" y1="95" x2="150" y2="95" stroke="#888" stroke-width="1.5"/>
+        <text x="120" y="30" font-size="14" fill="#888">→</text>
+        <text x="120" y="90" font-size="14" fill="#888">→</text>
+        <line x1="45" y1="5" x2="75" y2="125" stroke="#1a1a2e" stroke-width="2"/>
+        <!-- co-interior: both between lines, same side -->
+        <path d="M62,35 A18,18 0 0,1 55,52" fill="#fae0a8" stroke="#b56a00" stroke-width="1.5"/>
+        <path d="M68,95 A18,18 0 0,0 62,78" fill="#fae0a8" stroke="#b56a00" stroke-width="1.5"/>
+        <text x="43" y="52" font-size="13" fill="#b56a00" font-family="DM Sans,sans-serif" font-weight="700">c</text>
+        <text x="55" y="93" font-size="13" fill="#b56a00" font-family="DM Sans,sans-serif" font-weight="700">d</text>
+        <text x="12" y="120" font-size="11" fill="#b56a00" font-family="DM Sans,sans-serif">c + d = 180°</text>
+      </svg>
+      <div class="pc-body">
+        Co-interior angles are <strong>both between</strong> the parallel lines on the <strong>same side</strong>. They form a C shape.
+        <div class="pc-rule" style="color:#b56a00;">Rule: Co-interior angles add up to <strong>180°</strong>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="worked">
+    <div class="ex-label">Worked Example — Z-angles</div>
+    <p>Two parallel lines are cut by a transversal. One alternate angle is <strong>48°</strong>. Find the other alternate angle.</p>
+    <p>Alternate angles are equal → the other angle = <strong>48°</strong></p>
+  </div>
+
+  <div class="worked">
+    <div class="ex-label">Worked Example — C-angles</div>
+    <p>Two co-interior angles are <strong>112°</strong> and <strong>x</strong>. Find x.</p>
+    <p>x = 180° − 112° = <strong>68°</strong></p>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     SECTION 4 — TRIANGLES
+═════════════════════════════════════════════════ -->
+<section id="s4">
+  <div class="section-label" style="background:#d6f0e2;color:#1a7a4a;">Section 4</div>
+  <h2>Angles in Triangles</h2>
+
+  <div class="rule-box green">
+    The interior angles of <strong>any triangle</strong> always add up to <strong>180°</strong>.
+  </div>
+
+  <div class="tri-grid">
+
+    <!-- Equilateral -->
+    <div class="tri-card">
+      <svg width="85" height="75" viewBox="0 0 85 75">
+        <polygon points="42,5 78,70 6,70" fill="#d6f0e2" stroke="#1a7a4a" stroke-width="2"/>
+        <text x="34" y="68" font-size="10" fill="#1a7a4a" font-family="DM Sans,sans-serif">60°</text>
+        <text x="58" y="68" font-size="10" fill="#1a7a4a" font-family="DM Sans,sans-serif">60°</text>
+        <text x="36" y="22" font-size="10" fill="#1a7a4a" font-family="DM Sans,sans-serif">60°</text>
+        <!-- tick marks -->
+        <line x1="30" y1="36" x2="34" y2="40" stroke="#1a7a4a" stroke-width="1.5"/>
+        <line x1="55" y1="40" x2="59" y2="36" stroke="#1a7a4a" stroke-width="1.5"/>
+        <line x1="40" y1="68" x2="46" y2="68" stroke="#1a7a4a" stroke-width="1.5"/>
+      </svg>
+      <div class="tname" style="color:#1a7a4a;">Equilateral</div>
+      <div style="font-size:12px;color:#555;">All angles 60°. All sides equal.</div>
+    </div>
+
+    <!-- Isosceles -->
+    <div class="tri-card">
+      <svg width="85" height="75" viewBox="0 0 85 75">
+        <polygon points="42,5 75,70 9,70" fill="#deeaf8" stroke="#1a5fa8" stroke-width="2"/>
+        <text x="11" y="68" font-size="10" fill="#1a5fa8" font-family="DM Sans,sans-serif">70°</text>
+        <text x="58" y="68" font-size="10" fill="#1a5fa8" font-family="DM Sans,sans-serif">70°</text>
+        <text x="36" y="25" font-size="10" fill="#b56a00" font-family="DM Sans,sans-serif">40°</text>
+        <!-- double ticks -->
+        <line x1="26" y1="38" x2="30" y2="42" stroke="#1a5fa8" stroke-width="1.5"/>
+        <line x1="28" y1="35" x2="32" y2="39" stroke="#1a5fa8" stroke-width="1.5"/>
+        <line x1="55" y1="42" x2="59" y2="38" stroke="#1a5fa8" stroke-width="1.5"/>
+        <line x1="53" y1="39" x2="57" y2="35" stroke="#1a5fa8" stroke-width="1.5"/>
+      </svg>
+      <div class="tname" style="color:#1a5fa8;">Isosceles</div>
+      <div style="font-size:12px;color:#555;">Two equal sides → two equal base angles.</div>
+    </div>
+
+    <!-- Right-angled -->
+    <div class="tri-card">
+      <svg width="85" height="75" viewBox="0 0 85 75">
+        <polygon points="10,70 10,5 78,70" fill="#ece6f8" stroke="#5a2da8" stroke-width="2"/>
+        <rect x="10" y="55" width="15" height="15" fill="none" stroke="#5a2da8" stroke-width="1.5"/>
+        <text x="12" y="30" font-size="10" fill="#5a2da8" font-family="DM Sans,sans-serif">55°</text>
+        <text x="38" y="68" font-size="10" fill="#5a2da8" font-family="DM Sans,sans-serif">35°</text>
+        <text x="13" y="63" font-size="9" fill="#5a2da8" font-family="DM Sans,sans-serif">90°</text>
+      </svg>
+      <div class="tname" style="color:#5a2da8;">Right-angled</div>
+      <div style="font-size:12px;color:#555;">One angle = 90°. Other two sum to 90°.</div>
+    </div>
+
+    <!-- Scalene -->
+    <div class="tri-card">
+      <svg width="85" height="75" viewBox="0 0 85 75">
+        <polygon points="15,65 72,65 50,10" fill="#fef0d0" stroke="#b56a00" stroke-width="2"/>
+        <text x="16" y="63" font-size="10" fill="#b56a00" font-family="DM Sans,sans-serif">55°</text>
+        <text x="57" y="63" font-size="10" fill="#b56a00" font-family="DM Sans,sans-serif">80°</text>
+        <text x="44" y="25" font-size="10" fill="#b56a00" font-family="DM Sans,sans-serif">45°</text>
+      </svg>
+      <div class="tname" style="color:#b56a00;">Scalene</div>
+      <div style="font-size:12px;color:#555;">All sides and angles different.</div>
+    </div>
+
+  </div>
+
+  <h3>Exterior Angle Rule (advanced shortcut)</h3>
+  <div class="rule-box amber">
+    The <strong>exterior angle</strong> of a triangle equals the sum of the <strong>two opposite interior angles</strong>.
+  </div>
+
+  <svg width="320" height="100" viewBox="0 0 320 100" style="display:block;margin:0.6rem 0;">
+    <!-- triangle -->
+    <polygon points="30,80 200,80 120,20" fill="#fef0d0" stroke="#b56a00" stroke-width="2"/>
+    <!-- extended line -->
+    <line x1="200" y1="80" x2="290" y2="80" stroke="#1a1a2e" stroke-width="2" stroke-dasharray="5 3"/>
+    <!-- exterior angle arc -->
+    <path d="M220,80 A20,20 0 0,0 208,62" fill="none" stroke="#b52a1a" stroke-width="2"/>
+    <text x="224" y="73" font-size="12" fill="#b52a1a" font-family="DM Sans,sans-serif" font-weight="700">e</text>
+    <!-- interior labels -->
+    <text x="30" y="78" font-size="12" fill="#b56a00" font-family="DM Sans,sans-serif" font-weight="700">a</text>
+    <text x="115" y="18" font-size="12" fill="#b56a00" font-family="DM Sans,sans-serif" font-weight="700">b</text>
+    <!-- formula -->
+    <text x="10" y="98" font-size="13" fill="#555" font-family="DM Sans,sans-serif">e = a + b</text>
+  </svg>
+
+  <div class="worked">
+    <div class="ex-label">Worked Example</div>
+    <p>A triangle has interior angles 40° and 65°. Find the exterior angle at the third vertex.</p>
+    <p>Exterior angle = 40° + 65° = <strong>105°</strong></p>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     SECTION 5 — QUADRILATERALS & POLYGONS
+═════════════════════════════════════════════════ -->
+<section id="s5">
+  <div class="section-label" style="background:#ece6f8;color:#5a2da8;">Section 5</div>
+  <h2>Quadrilaterals &amp; Polygons</h2>
+
+  <div class="rule-box purple">
+    <strong>General formula:</strong> Interior angle sum of any polygon with <em>n</em> sides = <span class="formula">(n − 2) × 180°</span>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Shape</th>
+        <th>Sides (n)</th>
+        <th>Angle sum</th>
+        <th>Each angle (regular)</th>
+        <th>Special properties</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Triangle</td>
+        <td>3</td>
+        <td>180°</td>
+        <td>60°</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Square / Rectangle</td>
+        <td>4</td>
+        <td>360°</td>
+        <td>90° each</td>
+        <td>All right angles</td>
+      </tr>
+      <tr>
+        <td>Parallelogram</td>
+        <td>4</td>
+        <td>360°</td>
+        <td>Varies</td>
+        <td>Opposite angles equal; co-interior pairs = 180°</td>
+      </tr>
+      <tr>
+        <td>Rhombus</td>
+        <td>4</td>
+        <td>360°</td>
+        <td>Varies</td>
+        <td>Opposite angles equal; diagonals bisect at 90°</td>
+      </tr>
+      <tr>
+        <td>Trapezium</td>
+        <td>4</td>
+        <td>360°</td>
+        <td>Varies</td>
+        <td>One pair of parallel sides; co-interior pairs = 180°</td>
+      </tr>
+      <tr>
+        <td>Kite</td>
+        <td>4</td>
+        <td>360°</td>
+        <td>Varies</td>
+        <td>One pair of opposite angles equal; diagonals meet at 90°</td>
+      </tr>
+      <tr>
+        <td>Pentagon</td>
+        <td>5</td>
+        <td>540°</td>
+        <td>108°</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Hexagon</td>
+        <td>6</td>
+        <td>720°</td>
+        <td>120°</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Octagon</td>
+        <td>8</td>
+        <td>1080°</td>
+        <td>135°</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="rule-box purple">
+    <strong>Exterior angles:</strong> The exterior angles of <em>any</em> polygon always add up to <strong>360°</strong>, regardless of the number of sides.
+  </div>
+
+  <div class="worked">
+    <div class="ex-label">Worked Example — Missing angle in a quadrilateral</div>
+    <p>A quadrilateral has angles 95°, 110°, 75°, and <em>x</em>. Find <em>x</em>.</p>
+    <p>Total = 360° (all quadrilaterals)</p>
+    <p>x = 360° − 95° − 110° − 75° = <strong>80°</strong></p>
+  </div>
+
+  <div class="worked">
+    <div class="ex-label">Worked Example — Regular polygon each angle</div>
+    <p>Find each interior angle of a regular hexagon.</p>
+    <p>Angle sum = (6 − 2) × 180° = 4 × 180° = 720°</p>
+    <p>Each angle = 720° ÷ 6 = <strong>120°</strong></p>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     SECTION 6 — ANGLE NOTATION
+═════════════════════════════════════════════════ -->
+<section id="s6">
+  <div class="section-label" style="background:#d4f1f3;color:#0d7d84;">Section 6</div>
+  <h2>Angle Notation</h2>
+  <p>GL exam diagrams always label angles using letters and specific notation. You must be able to read and write these.</p>
+
+  <div class="notation-row">
+    <div class="notation-symbol">∠ABC</div>
+    <div>
+      <strong>Three-letter notation.</strong> The middle letter (B) is always the <em>vertex</em> — the point where the angle actually is. A and C are points on the two arms. Read as "angle ABC" or "the angle at B".
+    </div>
+  </div>
+  <div class="notation-row">
+    <div class="notation-symbol" style="font-size:28px;">⌒</div>
+    <div>
+      <strong>Arc symbol.</strong> A small arc drawn between two lines in a diagram marks the angle being referred to. Two arcs of the same style mean those two angles are equal.
+    </div>
+  </div>
+  <div class="notation-row">
+    <div class="notation-symbol" style="font-size:18px;">⊓</div>
+    <div>
+      <strong>Right-angle square.</strong> A small square in the corner of an angle always means exactly 90°. You do not need to measure it.
+    </div>
+  </div>
+  <div class="notation-row">
+    <div class="notation-symbol" style="font-size:18px;">→→</div>
+    <div>
+      <strong>Parallel line arrows.</strong> Single arrows (→) on two lines mean they are parallel. Double arrows (→→) mean a different pair of parallel lines in the same diagram.
+    </div>
+  </div>
+  <div class="notation-row">
+    <div class="notation-symbol" style="font-size:16px;">| ||</div>
+    <div>
+      <strong>Tick marks on sides.</strong> One tick mark on each of two sides means those sides are equal in length. Two ticks means another pair of equal sides.
+    </div>
+  </div>
+
+  <svg width="280" height="120" viewBox="0 0 280 120" style="display:block;margin:1rem 0;">
+    <!-- triangle ABC -->
+    <polygon points="30,100 180,100 100,20" fill="none" stroke="#1a1a2e" stroke-width="2"/>
+    <!-- labels -->
+    <text x="22" y="115" font-size="13" fill="#1a1a2e" font-family="DM Sans,sans-serif" font-weight="600">A</text>
+    <text x="183" y="115" font-size="13" fill="#1a1a2e" font-family="DM Sans,sans-serif" font-weight="600">B</text>
+    <text x="96" y="14" font-size="13" fill="#1a1a2e" font-family="DM Sans,sans-serif" font-weight="600">C</text>
+    <!-- angle arc at B -->
+    <path d="M163,100 A20,20 0 0,0 152,85" fill="none" stroke="#b52a1a" stroke-width="2"/>
+    <text x="148" y="98" font-size="11" fill="#b52a1a" font-family="DM Sans,sans-serif">∠ABC</text>
+    <!-- angle arc at A -->
+    <path d="M50,100 A22,22 0 0,0 44,79" fill="none" stroke="#1a5fa8" stroke-width="2"/>
+    <text x="52" y="88" font-size="11" fill="#1a5fa8" font-family="DM Sans,sans-serif">∠BAC</text>
+    <!-- annotation -->
+    <text x="200" y="60" font-size="12" fill="#555" font-family="DM Sans,sans-serif">B is the vertex</text>
+    <text x="200" y="76" font-size="12" fill="#555" font-family="DM Sans,sans-serif">of angle ABC</text>
+  </svg>
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     SECTION 7 — PROTRACTOR SKILLS
+═════════════════════════════════════════════════ -->
+<section id="s7">
+  <div class="section-label" style="background:#fef0d0;color:#b56a00;">Section 7</div>
+  <h2>Protractor Skills</h2>
+
+  <h3>How to measure an angle</h3>
+  <ol>
+    <li>Place the centre hole of the protractor exactly on the <strong>vertex</strong> (the point of the angle).</li>
+    <li>Line up the <strong>baseline (0°)</strong> of the protractor with one arm of the angle.</li>
+    <li>Read off the scale where the <strong>second arm</strong> crosses — use the scale starting from 0° on your baseline side.</li>
+    <li>Check: does your answer match the type of angle you can see? (Acute should be &lt; 90°, obtuse &gt; 90°.)</li>
+  </ol>
+
+  <h3>How to draw an angle of a given size</h3>
+  <ol>
+    <li>Draw a straight line and mark the vertex point.</li>
+    <li>Place the protractor centre on the vertex, baseline on the line.</li>
+    <li>Make a dot at the required degree mark on the correct scale.</li>
+    <li>Remove the protractor and draw a line from the vertex through the dot.</li>
+    <li>Label the angle.</li>
+  </ol>
+
+  <h3>Common mistakes to avoid</h3>
+  <ul class="mistake-list">
+    <li><strong>Wrong scale:</strong> Protractors have two scales (inner and outer). Always start from 0° on the arm of your angle — don't just read the nearest number.</li>
+    <li><strong>Centre not on vertex:</strong> Even 1 mm off gives a wrong reading. Take care to position it precisely.</li>
+    <li><strong>Not checking the angle type:</strong> If you get 140° for what looks like an acute angle, you've read the wrong scale — subtract from 180°.</li>
+    <li><strong>Reflex angles:</strong> Protractors only go to 180°. For a reflex angle, measure the smaller angle and subtract from 360°.</li>
+  </ul>
+
+  <div class="rule-box amber">
+    <strong>Quick check rule:</strong> Acute angle → answer must be &lt; 90°. Obtuse → between 90° and 180°. If your reading doesn't fit the visible angle type, you've read the wrong scale.
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     SECTION 8 — COMPASS & DIRECTION
+═════════════════════════════════════════════════ -->
+<section id="s8">
+  <div class="section-label" style="background:#fde8e5;color:#b52a1a;">Section 8</div>
+  <h2>Compass Directions &amp; Turns</h2>
+
+  <div class="compass-wrap">
+
+    <svg width="160" height="160" viewBox="0 0 160 160" style="flex-shrink:0;">
+      <!-- circle -->
+      <circle cx="80" cy="80" r="70" fill="none" stroke="#ccc" stroke-width="1"/>
+      <!-- main axes -->
+      <line x1="80" y1="10" x2="80" y2="150" stroke="#1a1a2e" stroke-width="1.5"/>
+      <line x1="10" y1="80" x2="150" y2="80" stroke="#1a1a2e" stroke-width="1.5"/>
+      <!-- diagonals -->
+      <line x1="30" y1="30" x2="130" y2="130" stroke="#aaa" stroke-width="1" stroke-dasharray="3 3"/>
+      <line x1="130" y1="30" x2="30" y2="130" stroke="#aaa" stroke-width="1" stroke-dasharray="3 3"/>
+      <!-- labels -->
+      <text x="72" y="8" font-size="14" font-weight="700" fill="#b52a1a" font-family="DM Sans,sans-serif">N</text>
+      <text x="72" y="158" font-size="14" font-weight="700" fill="#1a1a2e" font-family="DM Sans,sans-serif">S</text>
+      <text x="148" y="85" font-size="14" font-weight="700" fill="#1a1a2e" font-family="DM Sans,sans-serif">E</text>
+      <text x="5" y="85" font-size="14" font-weight="700" fill="#1a1a2e" font-family="DM Sans,sans-serif">W</text>
+      <text x="120" y="28" font-size="11" fill="#888" font-family="DM Sans,sans-serif">NE</text>
+      <text x="18" y="28" font-size="11" fill="#888" font-family="DM Sans,sans-serif">NW</text>
+      <text x="118" y="148" font-size="11" fill="#888" font-family="DM Sans,sans-serif">SE</text>
+      <text x="20" y="148" font-size="11" fill="#888" font-family="DM Sans,sans-serif">SW</text>
+      <!-- angle arcs -->
+      <path d="M80,18 A62,62 0 0,1 142,80" fill="none" stroke="#1a5fa8" stroke-width="1.5" stroke-dasharray="4 2"/>
+      <text x="108" y="38" font-size="11" fill="#1a5fa8" font-family="DM Sans,sans-serif">90°</text>
+    </svg>
+
+    <div style="flex:1; min-width:200px;">
+      <h3>Key angle facts</h3>
+      <ul>
+        <li>N to E (clockwise) = <strong>90°</strong></li>
+        <li>N to S (clockwise) = <strong>180°</strong></li>
+        <li>N to W (clockwise) = <strong>270°</strong></li>
+        <li>Full turn back to N = <strong>360°</strong></li>
+        <li>N to NE (clockwise) = <strong>45°</strong></li>
+      </ul>
+
+      <div class="rule-box red" style="margin-top:.8rem;">
+        Turns are measured <strong>clockwise</strong> from North. A <em>right turn</em> = 90°. A <em>half turn</em> = 180°.
+      </div>
+    </div>
+  </div>
+
+  <div class="worked">
+    <div class="ex-label">Sample Problem</div>
+    <p>Tom faces North and turns clockwise to face South-East. How many degrees has he turned?</p>
+    <p>North → East = 90°. East → South-East = 45°. Total = 90° + 45° = <strong>135°</strong></p>
+  </div>
+
+  <div class="worked">
+    <div class="ex-label">Sample Problem 2</div>
+    <p>A ship faces West. It turns 90° anti-clockwise. What direction does it now face?</p>
+    <p>Turning anti-clockwise from West by 90° → <strong>South</strong></p>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     SECTION 9 — EXAM STRATEGY
+═════════════════════════════════════════════════ -->
+<section id="s9">
+  <div class="section-label" style="background:#d4f1f3;color:#0d7d84;">Section 9</div>
+  <h2>Exam Problem-Solving Strategy</h2>
+  <p>GL angle questions always involve a labelled diagram. Follow this sequence every time:</p>
+
+  <ol class="strategy-steps">
+    <li><strong>Read the whole question first.</strong> Identify what angle you're asked to find and label it clearly on the diagram (write a letter if there isn't one already).</li>
+    <li><strong>Identify the shapes.</strong> Is there a triangle? Parallel lines? A polygon? Each shape type has its own angle rules — know which applies.</li>
+    <li><strong>Spot the markings.</strong> Look for: right-angle squares (90°), tick marks (equal sides → isosceles triangle), arrows (parallel lines).</li>
+    <li><strong>Write down every rule you use.</strong> GL awards method marks. Always write, for example, "angles in a triangle = 180°" before you calculate.</li>
+    <li><strong>Work step-by-step.</strong> Find intermediate angles before the final answer. Label each one on the diagram as you go.</li>
+    <li><strong>Check your answer.</strong> Does the angle look right for its type? Do all the angles in the shape still add up correctly?</li>
+  </ol>
+
+  <div class="rule-box teal">
+    <strong>The golden rule:</strong> Never guess. Every angle in a GL question can be found using a rule. If you're stuck, write down <em>all</em> the facts you know about the diagram — the next step will usually become clear.
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     SECTION 10 — DIAGRAM PRACTICE (3 visual Qs)
+═════════════════════════════════════════════════ -->
+<section id="s10">
+  <div class="section-label" style="background:#deeaf8;color:#1a5fa8;">Section 10</div>
+  <h2>Labelled Diagram Practice</h2>
+  <p>Find the missing angle in each diagram. Show your reasoning.</p>
+
+  <!-- Q1 -->
+  <div class="practice-q">
+    <div class="q-label">Diagram Question 1 — Angles on a straight line</div>
+    <svg width="340" height="100" viewBox="0 0 340 100" style="display:block;margin:.6rem 0;">
+      <line x1="10" y1="70" x2="330" y2="70" stroke="#1a1a2e" stroke-width="2"/>
+      <line x1="100" y1="70" x2="140" y2="15" stroke="#1a7a4a" stroke-width="2"/>
+      <line x1="220" y1="70" x2="260" y2="15" stroke="#1a7a4a" stroke-width="2"/>
+      <!-- known angles -->
+      <path d="M120,70 A22,22 0 0,0 103,51" fill="#d6f0e2" stroke="#1a7a4a" stroke-width="1.5"/>
+      <text x="104" y="62" font-size="12" fill="#1a7a4a" font-family="DM Sans,sans-serif" font-weight="600">72°</text>
+      <path d="M244,70 A22,22 0 0,0 226,52" fill="#d6f0e2" stroke="#1a7a4a" stroke-width="1.5"/>
+      <text x="228" y="62" font-size="12" fill="#1a7a4a" font-family="DM Sans,sans-serif" font-weight="600">55°</text>
+      <!-- unknown -->
+      <path d="M160,70 A22,22 0 0,0 225,67" fill="#fef0d0" stroke="#b56a00" stroke-width="1.5"/>
+      <text x="188" y="63" font-size="13" fill="#b56a00" font-family="DM Sans,sans-serif" font-weight="700">x = ?</text>
+    </svg>
+    <p style="font-size:14px;">Three angles meet on a straight line. Two are 72° and 55°. Find <em>x</em>.</p>
+    <details>
+      <summary>Show Answer</summary>
+      <div class="answer">
+        <div class="step">Angles on a straight line sum to 180°.</div>
+        <div class="step">x = 180° − 72° − 55°</div>
+        <div class="final">x = 53°</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Q2 -->
+  <div class="practice-q">
+    <div class="q-label">Diagram Question 2 — Isosceles triangle</div>
+    <svg width="280" height="130" viewBox="0 0 280 130" style="display:block;margin:.6rem 0;">
+      <polygon points="140,10 30,120 250,120" fill="#deeaf8" stroke="#1a5fa8" stroke-width="2"/>
+      <!-- tick marks on equal sides -->
+      <line x1="81" y1="62" x2="88" y2="69" stroke="#1a5fa8" stroke-width="2"/>
+      <line x1="76" y1="67" x2="83" y2="74" stroke="#1a5fa8" stroke-width="2"/>
+      <line x1="199" y1="69" x2="192" y2="62" stroke="#1a5fa8" stroke-width="2"/>
+      <line x1="204" y1="74" x2="197" y2="67" stroke="#1a5fa8" stroke-width="2"/>
+      <!-- apex angle -->
+      <path d="M128,26 A20,20 0 0,0 153,27" fill="none" stroke="#b52a1a" stroke-width="2"/>
+      <text x="132" y="42" font-size="12" fill="#b52a1a" font-family="DM Sans,sans-serif" font-weight="600">40°</text>
+      <!-- base angles -->
+      <path d="M52,120 A22,22 0 0,0 47,98" fill="#fef0d0" stroke="#b56a00" stroke-width="1.5"/>
+      <text x="52" y="112" font-size="13" fill="#b56a00" font-family="DM Sans,sans-serif" font-weight="700">x</text>
+      <path d="M228,120 A22,22 0 0,1 233,98" fill="#fef0d0" stroke="#b56a00" stroke-width="1.5"/>
+      <text x="218" y="112" font-size="13" fill="#b56a00" font-family="DM Sans,sans-serif" font-weight="700">x</text>
+    </svg>
+    <p style="font-size:14px;">An isosceles triangle has an apex angle of 40°. Find each base angle <em>x</em>.</p>
+    <details>
+      <summary>Show Answer</summary>
+      <div class="answer">
+        <div class="step">Angles in a triangle sum to 180°.</div>
+        <div class="step">The two base angles are equal (isosceles triangle).</div>
+        <div class="step">2x = 180° − 40° = 140°</div>
+        <div class="final">x = 70°</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Q3 -->
+  <div class="practice-q">
+    <div class="q-label">Diagram Question 3 — Parallel lines (Z-angle)</div>
+    <svg width="300" height="140" viewBox="0 0 300 140" style="display:block;margin:.6rem 0;">
+      <!-- parallel lines -->
+      <line x1="10" y1="30" x2="290" y2="30" stroke="#888" stroke-width="1.5"/>
+      <line x1="10" y1="110" x2="290" y2="110" stroke="#888" stroke-width="1.5"/>
+      <!-- arrows -->
+      <text x="250" y="26" font-size="14" fill="#888">→</text>
+      <text x="250" y="106" font-size="14" fill="#888">→</text>
+      <!-- transversal -->
+      <line x1="60" y1="5" x2="240" y2="135" stroke="#1a1a2e" stroke-width="2"/>
+      <!-- upper angle known -->
+      <path d="M128,30 A24,24 0 0,0 113,53" fill="#deeaf8" stroke="#1a5fa8" stroke-width="1.5"/>
+      <text x="108" y="48" font-size="12" fill="#1a5fa8" font-family="DM Sans,sans-serif" font-weight="600">63°</text>
+      <!-- lower angle unknown -->
+      <path d="M181,110 A24,24 0 0,0 170,90" fill="#fef0d0" stroke="#b56a00" stroke-width="1.5"/>
+      <text x="160" y="100" font-size="13" fill="#b56a00" font-family="DM Sans,sans-serif" font-weight="700">y = ?</text>
+    </svg>
+    <p style="font-size:14px;">Two parallel lines are cut by a transversal. The upper alternate angle is 63°. Find <em>y</em>.</p>
+    <details>
+      <summary>Show Answer</summary>
+      <div class="answer">
+        <div class="step">Alternate angles (Z-angles) are equal when lines are parallel.</div>
+        <div class="final">y = 63°</div>
+      </div>
+    </details>
+  </div>
+
+</section>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════
+     SECTION 11 — MULTI-STEP PRACTICE
+═════════════════════════════════════════════════ -->
+<section id="s11">
+  <div class="section-label" style="background:#ece6f8;color:#5a2da8;">Section 11</div>
+  <h2>Multi-Step Integrated Practice</h2>
+  <p>These questions mix several rules together — just like the real GL exam.</p>
+
+  <!-- Q1 -->
+  <div class="msq">
+    <div class="q-num">Question 1</div>
+    <p>Two angles on a straight line are in the ratio 2 : 3. Find both angles.</p>
+  </div>
+  <details>
+    <summary>Show Worked Solution</summary>
+    <div class="answer">
+      <div class="step">Angles on a straight line = 180°.</div>
+      <div class="step">Ratio 2 : 3 → 5 parts total. One part = 180° ÷ 5 = 36°.</div>
+      <div class="final">Angles are 2 × 36° = 72° and 3 × 36° = 108°.</div>
+    </div>
+  </details>
+
+  <!-- Q2 -->
+  <div class="msq" style="margin-top:1rem;">
+    <div class="q-num">Question 2</div>
+    <p>In a triangle, one angle is 90° and another is twice the third angle. Find all three angles.</p>
+  </div>
+  <details>
+    <summary>Show Worked Solution</summary>
+    <div class="answer">
+      <div class="step">Let the smaller unknown angle = x. Then the other = 2x.</div>
+      <div class="step">x + 2x + 90° = 180° (angle sum of triangle)</div>
+      <div class="step">3x = 90° → x = 30°</div>
+      <div class="final">The three angles are 90°, 60°, and 30°.</div>
+    </div>
+  </details>
+
+  <!-- Q3 -->
+  <div class="msq" style="margin-top:1rem;">
+    <div class="q-num">Question 3</div>
+    <p>A quadrilateral has angles 3x, 2x, x, and 90°. Find x and state the four angles.</p>
+  </div>
+  <details>
+    <summary>Show Worked Solution</summary>
+    <div class="answer">
+      <div class="step">Interior angles of a quadrilateral sum to 360°.</div>
+      <div class="step">3x + 2x + x + 90° = 360°</div>
+      <div class="step">6x = 270° → x = 45°</div>
+      <div class="final">The four angles are: 135°, 90°, 45°, and 90°.</div>
+    </div>
+  </details>
+
+  <!-- Q4 -->
+  <div class="msq" style="margin-top:1rem;">
+    <div class="q-num">Question 4</div>
+    <p>Two parallel lines are crossed by a transversal. One co-interior angle is (3x + 10)° and the other is (2x + 20)°. Find x and both angles.</p>
+  </div>
+  <details>
+    <summary>Show Worked Solution</summary>
+    <div class="answer">
+      <div class="step">Co-interior (C) angles sum to 180°.</div>
+      <div class="step">(3x + 10) + (2x + 20) = 180°</div>
+      <div class="step">5x + 30 = 180° → 5x = 150° → x = 30°</div>
+      <div class="final">Angles: 3(30) + 10 = 100° and 2(30) + 20 = 80°. Check: 100 + 80 = 180° ✓</div>
+    </div>
+  </details>
+
+  <!-- Q5 -->
+  <div class="msq" style="margin-top:1rem;">
+    <div class="q-num">Question 5</div>
+    <p>A straight line crosses two sides of a triangle, creating an exterior angle of 115°. One of the non-adjacent interior angles of the triangle is 48°. Find the other non-adjacent interior angle, and then find all three interior angles of the triangle.</p>
+  </div>
+  <details>
+    <summary>Show Worked Solution</summary>
+    <div class="answer">
+      <div class="step">Exterior angle = sum of two non-adjacent interior angles.</div>
+      <div class="step">48° + second angle = 115°</div>
+      <div class="step">Second non-adjacent angle = 115° − 48° = 67°</div>
+      <div class="step">Third (interior) angle = 180° − 115° = 65° (angles on a straight line)</div>
+      <div class="final">Three interior angles: 48°, 67°, and 65°. Check: 48 + 67 + 65 = 180° ✓</div>
+    </div>
+  </details>
+
+</section>
+
+<!-- ── FOOTER ── -->
+<div style="margin-top:3rem;padding-top:1rem;border-top:2px solid var(--ink);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);">
+  <span>GL 11+ Revision · Angles</span>
+  <span>Covers KS2 Year 6 statutory geometry curriculum</span>
+</div>
+
+</body>
+</html>

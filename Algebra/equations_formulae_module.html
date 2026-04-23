@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Equations & Formulae — TrueMaths 11+ Module</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --navy:    #0d1f3c;
+    --blue:    #1e40af;
+    --blue-l:  #eff6ff;
+    --blue-m:  #bfdbfe;
+    --teal:    #0d7c6e;
+    --teal-l:  #f0fdfa;
+    --teal-m:  #99f6e4;
+    --purple:  #6d28d9;
+    --purp-l:  #f5f3ff;
+    --purp-m:  #c4b5fd;
+    --rose:    #be123c;
+    --rose-l:  #fff1f2;
+    --rose-m:  #fecdd3;
+    --amber:   #b45309;
+    --amb-l:   #fffbeb;
+    --amb-m:   #fde68a;
+    --green:   #15803d;
+    --grn-l:   #f0fdf4;
+    --grn-m:   #bbf7d0;
+    --sky:     #0369a1;
+    --sky-l:   #f0f9ff;
+    --orange:  #c2410c;
+    --org-l:   #fff7ed;
+    --slate:   #1e293b;
+    --s100:    #f1f5f9;
+    --s200:    #e2e8f0;
+    --s300:    #cbd5e1;
+    --s500:    #64748b;
+    --s50:     #f8fafc;
+    --white:   #fff;
+    --r:       13px;
+    --rs:      8px;
+    --sh:      0 2px 18px rgba(13,31,60,.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--s50);
+    color: var(--slate);
+    font-size: 15.5px;
+    line-height: 1.76;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0d1f3c 0%, #1e3a72 45%, #1e1060 100%);
+    padding: 44px 32px 38px;
+    color: white; position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 82% 18%, rgba(109,40,217,.32) 0%, transparent 52%),
+                radial-gradient(ellipse at 8%  88%, rgba(30,64,175,.28) 0%, transparent 44%);
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.22);
+    color: #bfdbfe; font-size: 11px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 14px;
+    position: relative; z-index: 1;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(26px, 5vw, 42px); line-height: 1.15;
+    position: relative; z-index: 1;
+  }
+  .hero h1 em { font-style: italic; color: #a5b4fc; }
+  .hero p { margin-top: 10px; font-size: 15px; opacity: .72; max-width: 580px; position: relative; z-index: 1; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; position: relative; z-index: 1; }
+  .chip {
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+    color: white; font-size: 12.5px; padding: 4px 14px; border-radius: 20px;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    background: white; border-bottom: 2px solid var(--s200);
+    padding: 0 18px; display: flex; flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 1px 8px rgba(0,0,0,.055);
+  }
+  .nav a {
+    display: inline-block; padding: 12px 12px;
+    font-size: 12px; font-weight: 700; color: var(--s500);
+    text-decoration: none; border-bottom: 3px solid transparent;
+    white-space: nowrap; transition: all .18s;
+  }
+  .nav a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+
+  /* ── CARD ── */
+  .wrap { max-width: 940px; margin: 0 auto; padding: 28px 16px 64px; }
+  .card {
+    background: white; border-radius: var(--r);
+    box-shadow: var(--sh); margin-bottom: 24px; overflow: hidden;
+  }
+  .card-head {
+    padding: 17px 26px 14px;
+    border-bottom: 2px solid var(--s100);
+    display: flex; align-items: center; gap: 13px;
+  }
+  .cnum {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px; flex-shrink: 0;
+  }
+  .card-head h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px; color: var(--navy);
+  }
+  .card-body { padding: 22px 26px; }
+
+  .tb .cnum { background: var(--blue-l); color: var(--blue); }
+  .tt .cnum { background: var(--teal-l); color: var(--teal); }
+  .tp .cnum { background: var(--purp-l); color: var(--purple); }
+  .tr .cnum { background: var(--rose-l); color: var(--rose); }
+  .ta .cnum { background: var(--amb-l);  color: var(--amber); }
+  .tg .cnum { background: var(--grn-l);  color: var(--green); }
+  .ts .cnum { background: var(--sky-l);  color: var(--sky); }
+
+  /* ── CALLOUTS ── */
+  .box {
+    border-radius: var(--rs); padding: 12px 16px; margin: 12px 0;
+    display: flex; gap: 11px; align-items: flex-start;
+    font-size: 14px; line-height: 1.68;
+  }
+  .bico { font-size: 17px; line-height: 1.65; flex-shrink: 0; }
+  .bbody { flex: 1; }
+  .bbody b { display: block; margin-bottom: 2px; font-size: 12.5px; letter-spacing: .04em; text-transform: uppercase; }
+  .tip  { background: var(--sky-l);   border-left: 4px solid var(--sky); }
+  .warn { background: var(--amb-l);   border-left: 4px solid var(--amber); }
+  .trap { background: var(--rose-l);  border-left: 4px solid var(--rose); }
+  .def  { background: var(--blue-l);  border-left: 4px solid var(--blue); }
+  .key  { background: var(--grn-l);   border-left: 4px solid var(--green); }
+  .pur  { background: var(--purp-l);  border-left: 4px solid var(--purple); }
+
+  /* ── WORKED EXAMPLE ── */
+  .eg {
+    background: var(--s100); border: 1.5px solid var(--s200);
+    border-radius: var(--rs); padding: 16px 20px; margin: 12px 0;
+  }
+  .eg-lbl {
+    font-size: 11px; font-weight: 700; letter-spacing: .09em;
+    text-transform: uppercase; color: var(--s500); margin-bottom: 10px;
+  }
+  .eg p, .eg li { font-size: 14px; margin-bottom: 4px; }
+  .eg ol, .eg ul { padding-left: 20px; }
+
+  /* ── ANNOTATED STEPS ── */
+  .step-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 14px; }
+  .step-table td { padding: 7px 12px; vertical-align: middle; }
+  .step-table tr:nth-child(even) td { background: rgba(255,255,255,.6); }
+  .step-table .math { font-family: 'DM Mono', monospace; font-weight: 600; color: var(--navy); font-size: 15px; }
+  .step-table .note { color: var(--s500); font-size: 13px; font-style: italic; padding-left: 14px; }
+  .step-table .arrow { color: var(--blue); font-weight: 700; font-size: 14px; text-align: center; width: 30px; }
+  .step-table .final .math { color: var(--green); }
+  .step-table .final td { background: var(--grn-l) !important; }
+
+  /* ── FORMULA BAR ── */
+  .fml {
+    background: var(--navy); color: white;
+    border-radius: var(--rs); padding: 13px 20px; margin: 12px 0;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(14px, 2.3vw, 19px); letter-spacing: .05em;
+  }
+  .fml .hl  { color: #a5b4fc; }
+  .fml .hl2 { color: #6ee7b7; }
+  .fml .hl3 { color: #fcd34d; }
+
+  /* ── VOCAB TABLE ── */
+  .vtbl { width: 100%; border-collapse: collapse; font-size: 14px; margin: 12px 0; }
+  .vtbl th { background: var(--navy); color: white; padding: 9px 14px; text-align: left; font-weight: 600; }
+  .vtbl td { padding: 8px 14px; border: 1px solid var(--s200); vertical-align: top; }
+  .vtbl tr:nth-child(even) td { background: var(--s100); }
+  .vtbl .key-word { font-weight: 700; color: var(--blue); font-family: 'DM Mono', monospace; font-size: 13px; }
+  .vtbl .ex { color: var(--s500); font-size: 13px; }
+
+  /* ── TYPE BADGE ── */
+  .type-badge {
+    display: inline-block;
+    padding: 4px 14px; border-radius: 20px;
+    font-size: 12px; font-weight: 700; letter-spacing: .04em;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+
+  /* ── TWO-COL METHODS ── */
+  .methods { display: flex; flex-wrap: wrap; gap: 14px; margin: 12px 0; }
+  .method {
+    flex: 1; min-width: 200px;
+    border: 1.5px solid var(--s200); border-radius: var(--rs);
+    overflow: hidden;
+  }
+  .method-head {
+    padding: 8px 14px;
+    font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  }
+  .method-body { padding: 12px 14px; font-size: 14px; }
+
+  /* ── STEPS LIST ── */
+  .steps { counter-reset: s; list-style: none; padding: 0; }
+  .steps li {
+    counter-increment: s; display: flex; gap: 12px;
+    margin-bottom: 11px; align-items: flex-start; font-size: 14px;
+  }
+  .steps li::before {
+    content: counter(s);
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--blue); color: white;
+    font-size: 12px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  /* ── INLINE MATH ── */
+  .m   { font-family: 'DM Mono', monospace; font-size: .88em; background: var(--s100); padding: 1px 5px; border-radius: 4px; }
+  .ans { font-weight: 700; color: var(--blue); font-family: 'DM Mono', monospace; }
+
+  /* ── COLLAPSIBLE ── */
+  details {
+    border: 1.5px solid var(--s200); border-radius: var(--rs);
+    margin-top: 9px; overflow: hidden;
+  }
+  summary {
+    padding: 11px 15px; cursor: pointer;
+    font-weight: 700; font-size: 13.5px;
+    background: var(--s100); color: var(--navy);
+    list-style: none; display: flex; align-items: center; gap: 8px;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: '▶'; font-size: 9px; transition: transform .2s; color: var(--blue); }
+  details[open] summary::before { transform: rotate(90deg); }
+  details[open] summary { background: var(--blue-l); color: var(--blue); }
+  .abody { padding: 14px 17px; font-size: 14px; }
+  .abody p, .abody li { margin-bottom: 4px; }
+  .abody ol { padding-left: 20px; }
+
+  /* ── PRACTICE ── */
+  .pq { border: 1.5px solid var(--s200); border-radius: var(--rs); margin-bottom: 13px; overflow: hidden; }
+  .pq-top { padding: 13px 17px; display: flex; gap: 11px; align-items: flex-start; background: white; }
+  .pqn {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; flex-shrink: 0; margin-top: 2px;
+  }
+  .pq-txt { font-size: 14.5px; flex: 1; line-height: 1.68; }
+  .pq-badge {
+    font-size: 10.5px; font-weight: 700; letter-spacing: .06em;
+    text-transform: uppercase; padding: 3px 9px; border-radius: 10px;
+    flex-shrink: 0; margin-top: 3px; white-space: nowrap;
+  }
+  .easy .pqn, .easy .pq-badge { background: var(--grn-l);  color: var(--green); }
+  .med  .pqn, .med  .pq-badge { background: var(--amb-l);  color: var(--amber); }
+  .hard .pqn, .hard .pq-badge { background: var(--rose-l); color: var(--rose); }
+
+  /* ── UTIL ── */
+  h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin: 18px 0 7px; }
+  h4 { font-size: 14.5px; font-weight: 600; margin: 12px 0 5px; color: var(--slate); }
+  p  { margin-bottom: 8px; font-size: 14.5px; }
+  ul, ol { padding-left: 20px; margin-bottom: 8px; }
+  li { font-size: 14.5px; margin-bottom: 3px; }
+  .row { display: flex; flex-wrap: wrap; gap: 14px; }
+  .col { flex: 1; min-width: 195px; }
+  hr  { border: none; border-top: 1.5px dashed var(--s200); margin: 16px 0; }
+  .mt { margin-top: 14px; }
+
+  @media (max-width: 580px) {
+    .card-body { padding: 16px 13px; }
+    .card-head { padding: 14px 15px; }
+    .nav { display: none; }
+    .step-table .note { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-tag">TrueMaths · 11+ Module</div>
+  <h1>Simple Equations<br><em>&amp; Formulae</em></h1>
+  <p>Complete GL Assessment preparation — from vocabulary foundations to unknowns on both sides, word problems, and GL-style multi-step questions.</p>
+  <div class="chips">
+    <span class="chip">🏫 QE Barnet Level</span>
+    <span class="chip">📐 GL Assessment</span>
+    <span class="chip">All 4 Equation Types</span>
+    <span class="chip">8 Graded Questions</span>
+  </div>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <a href="#s1">1. Vocabulary</a>
+  <a href="#s2">2. Balance Rule</a>
+  <a href="#s3">3. Equation Types</a>
+  <a href="#s4">4. Substitution</a>
+  <a href="#s5">5. Rearranging</a>
+  <a href="#s6">6. Word Problems</a>
+  <a href="#s7">7. Geometry</a>
+  <a href="#s8">8. Inequalities</a>
+  <a href="#s9">9. Practice</a>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════════ 1. VOCABULARY ══════════ -->
+<div class="card tb" id="s1">
+  <div class="card-head"><div class="cnum">1</div><h2>Vocabulary Foundation</h2></div>
+  <div class="card-body">
+
+    <h3>Three-Way Distinction</h3>
+    <table class="vtbl">
+      <thead><tr><th>Term</th><th>Definition</th><th>Example</th><th>What GL asks you to do</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="key-word">Expression</span></td>
+          <td>A group of terms — no equals sign</td>
+          <td><span class="ex">3x + 5</span></td>
+          <td>"Write an expression for the perimeter." → just write the algebra, don't solve</td>
+        </tr>
+        <tr>
+          <td><span class="key-word">Equation</span></td>
+          <td>Two expressions set equal to each other</td>
+          <td><span class="ex">3x + 5 = 20</span></td>
+          <td>"Solve the equation." → find the value of the unknown</td>
+        </tr>
+        <tr>
+          <td><span class="key-word">Formula</span></td>
+          <td>A rule linking two or more variables</td>
+          <td><span class="ex">A = l × w</span></td>
+          <td>"Use the formula to find A." → substitute values in</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Key Terms</h3>
+    <div class="row">
+      <div class="col">
+        <div class="box def">
+          <div class="bico">📖</div>
+          <div class="bbody">
+            <b>Variable</b> A letter standing for an unknown number. In <span class="m">3x + 5</span>, the variable is <strong>x</strong>.
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="box def">
+          <div class="bico">📖</div>
+          <div class="bbody">
+            <b>Coefficient</b> The number multiplying the variable. In <span class="m">3x + 5</span>, the coefficient is <strong>3</strong>.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="box def">
+          <div class="bico">📖</div>
+          <div class="bbody">
+            <b>Constant</b> A fixed number with no variable. In <span class="m">3x + 5</span>, the constant is <strong>5</strong>.
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="box def">
+          <div class="bico">📖</div>
+          <div class="bbody">
+            <b>Subject of a formula</b> The variable on its own on one side. In <span class="m">A = l × w</span>, the subject is <strong>A</strong>.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Word-to-Algebra Translation</h3>
+    <table class="vtbl">
+      <thead><tr><th>English phrase</th><th>Operation</th><th>Example translation</th></tr></thead>
+      <tbody>
+        <tr><td>sum of, more than, increased by, added to</td><td style="text-align:center;font-size:18px;font-family:'DM Mono',monospace">+</td><td><span class="ex">"x increased by 4" → x + 4</span></td></tr>
+        <tr><td>difference, less than, decreased by, subtracted from</td><td style="text-align:center;font-size:18px;font-family:'DM Mono',monospace">−</td><td><span class="ex">"3 less than x" → x − 3</span></td></tr>
+        <tr><td>product, times, multiplied by, double/triple</td><td style="text-align:center;font-size:18px;font-family:'DM Mono',monospace">×</td><td><span class="ex">"double y" → 2y</span></td></tr>
+        <tr><td>quotient, divided by, shared equally, per</td><td style="text-align:center;font-size:18px;font-family:'DM Mono',monospace">÷</td><td><span class="ex">"p divided by 4" → p/4</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="box trap">
+      <div class="bico">🎯</div>
+      <div class="bbody">
+        <b>Exam Trap: Word Order in Subtraction</b>
+        "3 less than x" means start with x and take away 3 → <strong>x − 3</strong>. NOT 3 − x.<br>
+        "10 subtracted from p" → <strong>p − 10</strong>. NOT 10 − p.<br>
+        Rule: the thing being reduced comes first in the algebra.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 2. BALANCE RULE ══════════ -->
+<div class="card tt" id="s2">
+  <div class="card-head"><div class="cnum">2</div><h2>Inverse Operations &amp; The Balance Rule</h2></div>
+  <div class="card-body">
+
+    <div class="box def">
+      <div class="bico">⚖️</div>
+      <div class="bbody">
+        <b>The Balance Rule</b>
+        An equation is like a set of scales — both sides are equal. Whatever operation you perform on one side, you <em>must</em> perform identically on the other side to keep the balance.
+      </div>
+    </div>
+
+    <h3>Inverse Operation Pairs</h3>
+    <div class="row">
+      <div class="col">
+        <div class="box tip" style="height:calc(100% - 4px)">
+          <div class="bico">↔️</div>
+          <div class="bbody">
+            Addition ↔ Subtraction<br>
+            Multiplication ↔ Division<br>
+            Squaring ↔ Square root<br>
+            Cubing ↔ Cube root
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="box tip" style="height:calc(100% - 4px)">
+          <div class="bico">💡</div>
+          <div class="bbody">
+            <b>Goal: Isolate the Variable</b>
+            Work backwards through the operations applied to x. Undo the <em>last</em> operation first (the one farthest from x), then the one before it.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Worked Example — Two-Step Equation</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ Solve: 4x − 7 = 13</div>
+      <table class="step-table">
+        <tr>
+          <td class="math">4x − 7 = 13</td>
+          <td class="arrow">→</td>
+          <td class="note">Starting equation</td>
+        </tr>
+        <tr>
+          <td class="math">4x = 20</td>
+          <td class="arrow">→</td>
+          <td class="note">Add 7 to both sides (undo the subtraction of 7)</td>
+        </tr>
+        <tr class="final">
+          <td class="math">x = 5</td>
+          <td class="arrow">→</td>
+          <td class="note">Divide both sides by 4 (undo the multiplication by 4)</td>
+        </tr>
+      </table>
+      <div class="box key" style="margin-top:10px">
+        <div class="bico">✅</div>
+        <div class="bbody">
+          <b>Check (always do this in the exam!)</b>
+          Substitute x = 5 back in: 4(5) − 7 = 20 − 7 = 13 ✓ Both sides equal — correct!
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 3. EQUATION TYPES ══════════ -->
+<div class="card tp" id="s3">
+  <div class="card-head"><div class="cnum">3</div><h2>Equation Type Progression</h2></div>
+  <div class="card-body">
+
+    <!-- TYPE 1 -->
+    <span class="type-badge" style="background:var(--blue-l);color:var(--blue)">Type 1 — One/Two-Step (no brackets, no fractions)</span>
+    <p>These are the most straightforward: apply one or two inverse operations to isolate x.</p>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Example A: Solve 3x + 8 = 23</div>
+      <table class="step-table">
+        <tr><td class="math">3x + 8 = 23</td><td class="arrow">→</td><td class="note">Starting equation</td></tr>
+        <tr><td class="math">3x = 15</td><td class="arrow">→</td><td class="note">Subtract 8 from both sides</td></tr>
+        <tr class="final"><td class="math">x = 5</td><td class="arrow">→</td><td class="note">Divide both sides by 3</td></tr>
+      </table>
+    </div>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Example B: Solve 4x − 7 = 13 (with full check)</div>
+      <table class="step-table">
+        <tr><td class="math">4x − 7 = 13</td><td class="arrow">→</td><td class="note">Starting equation</td></tr>
+        <tr><td class="math">4x = 20</td><td class="arrow">→</td><td class="note">Add 7 to both sides</td></tr>
+        <tr class="final"><td class="math">x = 5</td><td class="arrow">→</td><td class="note">Divide both sides by 4</td></tr>
+      </table>
+      <p style="font-size:13px;color:var(--s500);margin-top:8px">Check: 4(5) − 7 = 13 ✓</p>
+    </div>
+
+    <hr>
+
+    <!-- TYPE 2 -->
+    <span class="type-badge" style="background:var(--purp-l);color:var(--purple)">Type 2 — Equations with Brackets</span>
+    <p>Two valid methods exist. Both always reach the same answer — use whichever feels cleaner.</p>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Example A: Solve 3(2x − 1) = 15</div>
+      <div class="methods">
+        <div class="method">
+          <div class="method-head" style="background:var(--blue-l);color:var(--blue)">Method 1: Expand First</div>
+          <div class="method-body">
+            <table class="step-table">
+              <tr><td class="math">3(2x − 1) = 15</td></tr>
+              <tr><td class="math">6x − 3 = 15</td><td class="note">Expand: 3×2x and 3×(−1)</td></tr>
+              <tr><td class="math">6x = 18</td><td class="note">Add 3 to both sides</td></tr>
+              <tr class="final"><td class="math">x = 3</td><td class="note">Divide by 6</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="method">
+          <div class="method-head" style="background:var(--purp-l);color:var(--purple)">Method 2: Divide First</div>
+          <div class="method-body">
+            <table class="step-table">
+              <tr><td class="math">3(2x − 1) = 15</td></tr>
+              <tr><td class="math">2x − 1 = 5</td><td class="note">Divide both sides by 3</td></tr>
+              <tr><td class="math">2x = 6</td><td class="note">Add 1 to both sides</td></tr>
+              <tr class="final"><td class="math">x = 3</td><td class="note">Divide by 2</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--s500)">Check: 3(2×3 − 1) = 3(5) = 15 ✓</p>
+    </div>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Example B: Solve 2(x + 5) = 18</div>
+      <table class="step-table">
+        <tr><td class="math">2(x + 5) = 18</td><td class="arrow">→</td><td class="note">Divide both sides by 2 (cleaner here)</td></tr>
+        <tr><td class="math">x + 5 = 9</td><td class="arrow">→</td><td class="note">Subtract 5 from both sides</td></tr>
+        <tr class="final"><td class="math">x = 4</td><td class="arrow">→</td><td class="note">Done</td></tr>
+      </table>
+      <p style="font-size:13px;color:var(--s500)">Check: 2(4 + 5) = 2(9) = 18 ✓</p>
+    </div>
+
+    <div class="box warn">
+      <div class="bico">⚠️</div>
+      <div class="bbody">
+        <b>Common Mistake: Forgetting to Multiply All Terms</b>
+        When expanding, <em>every</em> term inside the bracket gets multiplied. <span class="m">3(2x − 1) = 6x − 3</span>, not <span class="m">6x − 1</span>. Always check both terms.
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- TYPE 3 -->
+    <span class="type-badge" style="background:var(--rose-l);color:var(--rose)">Type 3 — Unknowns on Both Sides ⭐ Most Tested</span>
+    <p>Collect all the <em>x</em> terms on one side and all the number terms on the other.</p>
+
+    <ul class="steps" style="margin-bottom:10px">
+      <li>If x appears on the right, subtract the smaller x term from <em>both sides</em> first.</li>
+      <li>Then collect the number terms on the opposite side.</li>
+      <li>Solve the resulting one-step equation.</li>
+    </ul>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Example A: Solve 5x + 3 = 2x + 12</div>
+      <table class="step-table">
+        <tr><td class="math">5x + 3 = 2x + 12</td><td class="arrow">→</td><td class="note">x appears on both sides</td></tr>
+        <tr><td class="math">3x + 3 = 12</td><td class="arrow">→</td><td class="note">Subtract 2x from both sides (removes x from right)</td></tr>
+        <tr><td class="math">3x = 9</td><td class="arrow">→</td><td class="note">Subtract 3 from both sides</td></tr>
+        <tr class="final"><td class="math">x = 3</td><td class="arrow">→</td><td class="note">Divide both sides by 3</td></tr>
+      </table>
+      <p style="font-size:13px;color:var(--s500)">Check: LHS = 5(3)+3 = 18 &nbsp; RHS = 2(3)+12 = 18 ✓</p>
+    </div>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Example B: Solve 3x + 2 = x + 10</div>
+      <table class="step-table">
+        <tr><td class="math">3x + 2 = x + 10</td><td class="arrow">→</td><td class="note">Subtract x from both sides</td></tr>
+        <tr><td class="math">2x + 2 = 10</td><td class="arrow">→</td><td class="note">Subtract 2 from both sides</td></tr>
+        <tr><td class="math">2x = 8</td><td class="arrow">→</td><td class="note">Now a simple one-step equation</td></tr>
+        <tr class="final"><td class="math">x = 4</td><td class="arrow">→</td><td class="note">Divide both sides by 2</td></tr>
+      </table>
+      <p style="font-size:13px;color:var(--s500)">Check: LHS = 3(4)+2 = 14 &nbsp; RHS = 4+10 = 14 ✓</p>
+    </div>
+
+    <div class="box warn">
+      <div class="bico">⚠️</div>
+      <div class="bbody">
+        <b>Common Mistake: Subtracting from the Wrong Side</b>
+        Always subtract the <em>smaller</em> x coefficient so you end up with a positive x term. In <span class="m">3x + 2 = x + 10</span>, subtract x (smaller) not 3x. If you subtract 3x you get <span class="m">2 = −2x + 10</span> — this works but is harder and trips many students up.
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- TYPE 4 -->
+    <span class="type-badge" style="background:var(--teal-l);color:var(--teal)">Type 4 — Equations with Fractions</span>
+    <p>Always clear the fraction first by multiplying both sides by the denominator. Then solve as normal.</p>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Example A: Solve x/3 + 4 = 7</div>
+      <table class="step-table">
+        <tr><td class="math">x/3 + 4 = 7</td><td class="arrow">→</td><td class="note">Denominator is 3 — multiply everything by 3</td></tr>
+        <tr><td class="math">x + 12 = 21</td><td class="arrow">→</td><td class="note">3 × (x/3) = x &nbsp; and &nbsp; 3 × 4 = 12 &nbsp; and &nbsp; 3 × 7 = 21</td></tr>
+        <tr class="final"><td class="math">x = 9</td><td class="arrow">→</td><td class="note">Subtract 12 from both sides</td></tr>
+      </table>
+      <p style="font-size:13px;color:var(--s500)">Check: 9/3 + 4 = 3 + 4 = 7 ✓</p>
+    </div>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Example B: Solve (x + 1)/2 = 5</div>
+      <table class="step-table">
+        <tr><td class="math">(x + 1)/2 = 5</td><td class="arrow">→</td><td class="note">Multiply both sides by 2</td></tr>
+        <tr><td class="math">x + 1 = 10</td><td class="arrow">→</td><td class="note">Fraction cleared — the whole bracket × 2</td></tr>
+        <tr class="final"><td class="math">x = 9</td><td class="arrow">→</td><td class="note">Subtract 1 from both sides</td></tr>
+      </table>
+      <p style="font-size:13px;color:var(--s500)">Check: (9+1)/2 = 10/2 = 5 ✓</p>
+    </div>
+
+    <div class="box tip">
+      <div class="bico">💡</div>
+      <div class="bbody">
+        <b>Always Clear Fractions First</b>
+        Before doing anything else, multiply both sides by the denominator. This turns the equation into a standard type you already know how to solve. Never try to work with the fraction in place — it wastes time and causes errors.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 4. SUBSTITUTION ══════════ -->
+<div class="card ta" id="s4">
+  <div class="card-head"><div class="cnum">4</div><h2>Substitution</h2></div>
+  <div class="card-body">
+
+    <p>Substitution means replacing a letter with a given number to calculate the value of an expression or formula. Always use brackets when substituting a negative number.</p>
+
+    <h3>Level 1 — Simple Positive Single Variable</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ C = 2d + 5. Find C when d = 4.</div>
+      <table class="step-table">
+        <tr><td class="math">C = 2d + 5</td><td class="arrow">→</td><td class="note">Replace d with 4</td></tr>
+        <tr><td class="math">C = 2(4) + 5</td><td class="arrow">→</td><td class="note">Multiply first (order of operations)</td></tr>
+        <tr class="final"><td class="math">C = 13</td><td class="arrow">→</td><td class="note">8 + 5 = 13</td></tr>
+      </table>
+    </div>
+
+    <h3>Level 2 — Substitution with Negative Values</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ Find the value of 3a − b when a = −2, b = 5</div>
+      <table class="step-table">
+        <tr><td class="math">3a − b</td><td class="arrow">→</td><td class="note">Replace a with (−2) and b with 5 — always use brackets</td></tr>
+        <tr><td class="math">= 3(−2) − (5)</td><td class="arrow">→</td><td class="note">3 × (−2) = −6 (positive × negative = negative)</td></tr>
+        <tr><td class="math">= −6 − 5</td><td class="arrow">→</td><td class="note">Negative minus positive = more negative</td></tr>
+        <tr class="final"><td class="math">= −11</td><td class="arrow">→</td><td class="note">Final answer</td></tr>
+      </table>
+    </div>
+
+    <div class="box warn">
+      <div class="bico">⚠️</div>
+      <div class="bbody">
+        <b>Always Use Brackets with Negatives</b>
+        Writing 3(−2) makes it clear you are multiplying 3 by negative 2. Writing 3 × −2 without brackets is ambiguous and leads to sign errors. Use brackets every time.
+      </div>
+    </div>
+
+    <h3>Level 3 — Two-Variable Formula</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ v = u + at. Find v when u = 10, a = −3, t = 4</div>
+      <table class="step-table">
+        <tr><td class="math">v = u + at</td><td class="arrow">→</td><td class="note">Replace each variable with its value</td></tr>
+        <tr><td class="math">v = 10 + (−3)(4)</td><td class="arrow">→</td><td class="note">a = −3, t = 4: note (−3)(4) = −12</td></tr>
+        <tr><td class="math">v = 10 + (−12)</td><td class="arrow">→</td><td class="note">Adding a negative = subtracting</td></tr>
+        <tr class="final"><td class="math">v = −2</td><td class="arrow">→</td><td class="note">10 − 12 = −2</td></tr>
+      </table>
+    </div>
+
+    <h3>Level 4 — Formula with Powers</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ A = 3r². Find A when r = 5</div>
+      <table class="step-table">
+        <tr><td class="math">A = 3r²</td><td class="arrow">→</td><td class="note">Replace r with 5</td></tr>
+        <tr><td class="math">A = 3 × 5²</td><td class="arrow">→</td><td class="note">Square 5 FIRST (powers before multiplication)</td></tr>
+        <tr><td class="math">A = 3 × 25</td><td class="arrow">→</td><td class="note">5² = 25</td></tr>
+        <tr class="final"><td class="math">A = 75</td><td class="arrow">→</td><td class="note">3 × 25 = 75</td></tr>
+      </table>
+    </div>
+
+    <div class="box trap">
+      <div class="bico">🎯</div>
+      <div class="bbody">
+        <b>Exam Trap: Squaring a Negative</b>
+        If r = −3, then r² = (−3)² = (−3) × (−3) = <strong>+9</strong>, not −9.<br>
+        Negative × negative = positive. Always write the brackets: (−3)², never just −3².
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 5. REARRANGING ══════════ -->
+<div class="card ts" id="s5">
+  <div class="card-head"><div class="cnum">5</div><h2>Rearranging Formulae — Changing the Subject</h2></div>
+  <div class="card-body">
+
+    <div class="box def">
+      <div class="bico">📖</div>
+      <div class="bbody">
+        <b>Key Concept</b>
+        Rearranging a formula uses <em>exactly the same inverse-operation method</em> as solving an equation — the only difference is that you work with letters instead of numbers. The goal is to isolate the target variable on one side.
+      </div>
+    </div>
+
+    <h3>One-Step Rearrangement</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ Make s the subject of P = 4s</div>
+      <table class="step-table">
+        <tr><td class="math">P = 4s</td><td class="arrow">→</td><td class="note">Want s on its own</td></tr>
+        <tr class="final"><td class="math">s = P/4</td><td class="arrow">→</td><td class="note">Divide both sides by 4</td></tr>
+      </table>
+    </div>
+
+    <h3>Two-Step Rearrangement</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ Make r the subject of C = 2r + 5</div>
+      <table class="step-table">
+        <tr><td class="math">C = 2r + 5</td><td class="arrow">→</td><td class="note">r is buried — undo what's been done to it</td></tr>
+        <tr><td class="math">C − 5 = 2r</td><td class="arrow">→</td><td class="note">Subtract 5 from both sides (undo +5)</td></tr>
+        <tr class="final"><td class="math">r = (C − 5)/2</td><td class="arrow">→</td><td class="note">Divide both sides by 2 (undo ×2)</td></tr>
+      </table>
+      <p style="font-size:13px;color:var(--s500)">Verify: if C = 11 → r = (11−5)/2 = 3. Check: 2(3)+5 = 11 ✓</p>
+    </div>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Make a the subject of v = u + at</div>
+      <table class="step-table">
+        <tr><td class="math">v = u + at</td><td class="arrow">→</td><td class="note">Want a on its own</td></tr>
+        <tr><td class="math">v − u = at</td><td class="arrow">→</td><td class="note">Subtract u from both sides</td></tr>
+        <tr class="final"><td class="math">a = (v − u)/t</td><td class="arrow">→</td><td class="note">Divide both sides by t</td></tr>
+      </table>
+    </div>
+
+    <div class="box tip">
+      <div class="bico">💡</div>
+      <div class="bbody">
+        <b>Same Method as Solving Equations</b>
+        The process is identical — just swap the numbers for letters. Ask yourself: "What is being done to the variable I want, and in what order?" Then undo those operations in reverse order.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 6. WORD PROBLEMS ══════════ -->
+<div class="card tg" id="s6">
+  <div class="card-head"><div class="cnum">6</div><h2>Forming &amp; Solving from Word Problems</h2></div>
+  <div class="card-body">
+
+    <div class="fml">
+      Stage 1: <span class="hl">Define</span> &nbsp;→&nbsp;
+      Stage 2: <span class="hl2">Form</span> &nbsp;→&nbsp;
+      Stage 3: <span class="hl3">Solve</span> &nbsp;→&nbsp;
+      Stage 4: <span style="color:#f9a8d4">Answer in context</span>
+    </div>
+
+    <div class="box def">
+      <div class="bico">📋</div>
+      <div class="bbody">
+        <b>The Four-Stage Process</b>
+        <ul style="margin-top:5px;padding-left:18px">
+          <li><strong>Define:</strong> Write "Let x = …" — name your unknown clearly</li>
+          <li><strong>Form:</strong> Translate the problem sentence by sentence into an equation</li>
+          <li><strong>Solve:</strong> Use your equation techniques to find x</li>
+          <li><strong>Answer:</strong> Write a sentence using the context (include units)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Worked Example 1 — Age Problem</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ "Sam is 3 times as old as his brother. Their ages add up to 24. Find both ages."</div>
+      <ol>
+        <li><strong>Define:</strong> Let the brother's age = x. Then Sam's age = 3x.</li>
+        <li><strong>Form:</strong> Together they sum to 24 → x + 3x = 24</li>
+        <li><strong>Solve:</strong>
+          <table class="step-table" style="margin-top:6px">
+            <tr><td class="math">4x = 24</td><td class="arrow">→</td><td class="note">Simplify x + 3x</td></tr>
+            <tr class="final"><td class="math">x = 6</td><td class="arrow">→</td><td class="note">Divide by 4</td></tr>
+          </table>
+        </li>
+        <li><strong>Answer:</strong> Brother is 6 years old. Sam is 3 × 6 = <span class="ans">18 years old</span>.</li>
+        <li><em>Check:</em> 6 + 18 = 24 ✓</li>
+      </ol>
+    </div>
+
+    <h3>Worked Example 2 — Geometry Context</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ "A rectangle has length (2x + 3) and width x. The perimeter is 36. Find x and the area."</div>
+      <ol>
+        <li><strong>Define:</strong> Let width = x. Then length = 2x + 3.</li>
+        <li><strong>Form:</strong> Perimeter of rectangle = 2(length + width)
+          <br>→ 2(2x + 3 + x) = 36
+        </li>
+        <li><strong>Solve:</strong>
+          <table class="step-table" style="margin-top:6px">
+            <tr><td class="math">2(3x + 3) = 36</td><td class="arrow">→</td><td class="note">Simplify 2x+3+x = 3x+3 inside brackets</td></tr>
+            <tr><td class="math">3x + 3 = 18</td><td class="arrow">→</td><td class="note">Divide both sides by 2</td></tr>
+            <tr><td class="math">3x = 15</td><td class="arrow">→</td><td class="note">Subtract 3</td></tr>
+            <tr class="final"><td class="math">x = 5</td><td class="arrow">→</td><td class="note">Divide by 3</td></tr>
+          </table>
+        </li>
+        <li><strong>Answer:</strong> Width = 5, Length = 2(5)+3 = 13.
+          <br>Area = 5 × 13 = <span class="ans">65 square units</span>.</li>
+        <li><em>Check perimeter:</em> 2(13 + 5) = 2(18) = 36 ✓</li>
+      </ol>
+    </div>
+
+    <h3>Worked Example 3 — Cost/Quantity Problem</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ "Pens cost 30p more than pencils. Together one pen and one pencil cost £1.50. Find the cost of each."</div>
+      <ol>
+        <li><strong>Define:</strong> Let the cost of a pencil = x pence. Then the cost of a pen = x + 30.</li>
+        <li><strong>Form:</strong> One of each costs 150p → x + (x + 30) = 150</li>
+        <li><strong>Solve:</strong>
+          <table class="step-table" style="margin-top:6px">
+            <tr><td class="math">2x + 30 = 150</td><td class="arrow">→</td><td class="note">Simplify left side</td></tr>
+            <tr><td class="math">2x = 120</td><td class="arrow">→</td><td class="note">Subtract 30</td></tr>
+            <tr class="final"><td class="math">x = 60</td><td class="arrow">→</td><td class="note">Divide by 2</td></tr>
+          </table>
+        </li>
+        <li><strong>Answer:</strong> Pencil costs <span class="ans">60p</span>. Pen costs 60 + 30 = <span class="ans">90p</span>.</li>
+        <li><em>Check:</em> 60 + 90 = 150p = £1.50 ✓</li>
+      </ol>
+    </div>
+
+    <div class="box tip">
+      <div class="bico">💡</div>
+      <div class="bbody">
+        <b>Always Match Your Units</b>
+        In Example 3, the problem mixed pence and pounds. Convert everything to the same unit before forming the equation. £1.50 = 150p — define x in pence and work in pence throughout.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 7. GEOMETRY EXPRESSIONS ══════════ -->
+<div class="card tr" id="s7">
+  <div class="card-head"><div class="cnum">7</div><h2>Geometry Expressions — Algebra in Shape Problems</h2></div>
+  <div class="card-body">
+
+    <p>GL papers regularly give shapes with algebraic side lengths and ask you to write expressions, form equations, and solve them.</p>
+
+    <h3>Worked Example 1 — Rectangle</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ Rectangle with sides (3x + 1) and (x + 2). Write the perimeter expression, then solve if perimeter = 30.</div>
+      <ol>
+        <li><strong>Write perimeter expression:</strong>
+          <br>P = 2(3x + 1) + 2(x + 2) = 6x + 2 + 2x + 4 = <span class="ans">8x + 6</span>
+        </li>
+        <li><strong>Form the equation:</strong> 8x + 6 = 30</li>
+        <li><strong>Solve:</strong>
+          <table class="step-table" style="margin-top:6px">
+            <tr><td class="math">8x + 6 = 30</td></tr>
+            <tr><td class="math">8x = 24</td><td class="note">Subtract 6</td></tr>
+            <tr class="final"><td class="math">x = 3</td><td class="note">Divide by 8</td></tr>
+          </table>
+        </li>
+        <li><strong>Dimensions:</strong> Length = 3(3)+1 = 10, Width = 3+2 = 5.</li>
+        <li><em>Check area:</em> 10 × 5 = 50 square units. Check perimeter: 2(10+5) = 30 ✓</li>
+      </ol>
+    </div>
+
+    <h3>Worked Example 2 — Equilateral Triangle</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ Equilateral triangle with side (2x − 4). Perimeter = 30. Find x and verify the side is positive.</div>
+      <ol>
+        <li><strong>Form equation:</strong> All 3 sides equal → 3(2x − 4) = 30</li>
+        <li><strong>Solve:</strong>
+          <table class="step-table" style="margin-top:6px">
+            <tr><td class="math">3(2x − 4) = 30</td></tr>
+            <tr><td class="math">2x − 4 = 10</td><td class="note">Divide both sides by 3</td></tr>
+            <tr><td class="math">2x = 14</td><td class="note">Add 4</td></tr>
+            <tr class="final"><td class="math">x = 7</td><td class="note">Divide by 2</td></tr>
+          </table>
+        </li>
+        <li><strong>Side length:</strong> 2(7) − 4 = 14 − 4 = <span class="ans">10 units</span></li>
+        <li><strong>Positive check:</strong> 10 &gt; 0 ✓ Valid answer.</li>
+        <li><em>Check perimeter:</em> 3 × 10 = 30 ✓</li>
+      </ol>
+    </div>
+
+    <div class="box trap">
+      <div class="bico">🎯</div>
+      <div class="bbody">
+        <b>Exam Trap: Always Check the Side Length is Positive</b>
+        If x = 2 and the side is (2x − 6), the side = 2(2) − 6 = −2. A negative length is impossible — this means you've made an error. Re-check your equation. GL setters sometimes use this to catch students who solve correctly but don't verify.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 8. INEQUALITIES ══════════ -->
+<div class="card ta" id="s8">
+  <div class="card-head"><div class="cnum">8</div><h2>Simple Inequalities — QE Top-End Awareness</h2></div>
+  <div class="card-body">
+
+    <div class="box pur">
+      <div class="bico">🌟</div>
+      <div class="bbody">
+        <b>Top-End Only</b>
+        Simple inequalities appear in the hardest questions on QE-level GL papers. The method is identical to solving equations — with one important extra rule.
+      </div>
+    </div>
+
+    <h3>Inequality Symbols</h3>
+    <table class="vtbl">
+      <thead><tr><th>Symbol</th><th>Meaning</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td style="font-size:18px;font-family:'DM Mono',monospace">&gt;</td><td>greater than</td><td>x &gt; 3 means x is any number above 3 (not including 3)</td></tr>
+        <tr><td style="font-size:18px;font-family:'DM Mono',monospace">&lt;</td><td>less than</td><td>x &lt; 7 means x is any number below 7</td></tr>
+        <tr><td style="font-size:18px;font-family:'DM Mono',monospace">≥</td><td>greater than or equal to</td><td>x ≥ 5 includes 5 itself</td></tr>
+        <tr><td style="font-size:18px;font-family:'DM Mono',monospace">≤</td><td>less than or equal to</td><td>x ≤ 10 includes 10 itself</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Solving an Inequality</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ Solve: 2x + 1 &lt; 9</div>
+      <table class="step-table">
+        <tr><td class="math">2x + 1 &lt; 9</td><td class="arrow">→</td><td class="note">Treat the &lt; sign exactly like an = sign</td></tr>
+        <tr><td class="math">2x &lt; 8</td><td class="arrow">→</td><td class="note">Subtract 1 from both sides</td></tr>
+        <tr class="final"><td class="math">x &lt; 4</td><td class="arrow">→</td><td class="note">Divide both sides by 2</td></tr>
+      </table>
+      <p style="font-size:13.5px;margin-top:8px">Answer: x can be any number less than 4 (e.g., 3, 3.5, −10, but NOT 4 itself).</p>
+    </div>
+
+    <div class="box warn">
+      <div class="bico">⚠️</div>
+      <div class="bbody">
+        <b>Key Rule: Multiplying/Dividing by a Negative Flips the Sign</b>
+        If you ever divide or multiply both sides by a <em>negative</em> number, the inequality sign reverses direction: &lt; becomes &gt;. This is awareness-level only for 11+ — avoid it by always keeping x positive where possible.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 9. PRACTICE ══════════ -->
+<div class="card tg" id="s9">
+  <div class="card-head"><div class="cnum">9</div><h2>Graded Practice Questions</h2></div>
+  <div class="card-body">
+
+    <p>Work each question independently before revealing the answer. Difficulty rises from Q1 to Q8.</p>
+
+    <!-- Q1 -->
+    <div class="pq easy">
+      <div class="pq-top">
+        <div class="pqn">1</div>
+        <div class="pq-txt">Solve: <strong>5x + 9 = 34</strong>. Show your working and verify your answer.</div>
+        <div class="pq-badge">Easy · Two-step</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <p>5x + 9 = 34</p>
+          <p>5x = 25 (subtract 9 from both sides)</p>
+          <p><span class="ans">x = 5</span> (divide both sides by 5)</p>
+          <p>Check: 5(5) + 9 = 25 + 9 = 34 ✓</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q2 -->
+    <div class="pq easy">
+      <div class="pq-top">
+        <div class="pqn">2</div>
+        <div class="pq-txt">Solve: <strong>4(3x − 2) = 28</strong>. Show both possible methods.</div>
+        <div class="pq-badge">Easy · Brackets</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <p><strong>Method 1 (divide first):</strong></p>
+          <p>3x − 2 = 7 (÷4 both sides) → 3x = 9 → <span class="ans">x = 3</span></p>
+          <p><strong>Method 2 (expand first):</strong></p>
+          <p>12x − 8 = 28 → 12x = 36 → <span class="ans">x = 3</span></p>
+          <p>Check: 4(3×3 − 2) = 4(7) = 28 ✓</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q3 -->
+    <div class="pq med">
+      <div class="pq-top">
+        <div class="pqn">3</div>
+        <div class="pq-txt">Solve: <strong>7x − 4 = 4x + 11</strong>. Collect like terms systematically.</div>
+        <div class="pq-badge">Medium · Both sides</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <p>7x − 4 = 4x + 11</p>
+          <p>3x − 4 = 11 (subtract 4x from both sides)</p>
+          <p>3x = 15 (add 4 to both sides)</p>
+          <p><span class="ans">x = 5</span> (divide by 3)</p>
+          <p>Check: LHS = 7(5)−4 = 31 &nbsp; RHS = 4(5)+11 = 31 ✓</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q4 -->
+    <div class="pq med">
+      <div class="pq-top">
+        <div class="pqn">4</div>
+        <div class="pq-txt">Solve: <strong>(2x − 3)/4 = 5</strong>. Clear the fraction first.</div>
+        <div class="pq-badge">Medium · Fractions</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <p>(2x − 3)/4 = 5</p>
+          <p>2x − 3 = 20 (multiply both sides by 4)</p>
+          <p>2x = 23 (add 3)</p>
+          <p><span class="ans">x = 11.5</span> (divide by 2)</p>
+          <p>Check: (2×11.5 − 3)/4 = (23−3)/4 = 20/4 = 5 ✓</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q5 -->
+    <div class="pq med">
+      <div class="pq-top">
+        <div class="pqn">5</div>
+        <div class="pq-txt">Given the formula <strong>T = 2p − q²</strong>, find T when p = −3 and q = 4. Show your bracket placement clearly.</div>
+        <div class="pq-badge">Medium · Substitution with negatives</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <p>T = 2p − q²</p>
+          <p>T = 2(−3) − (4)²</p>
+          <p>T = −6 − 16</p>
+          <p><span class="ans">T = −22</span></p>
+          <p>Note: (4)² = 16 (positive, because 4 is positive here). 2(−3) = −6.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q6 -->
+    <div class="pq med">
+      <div class="pq-top">
+        <div class="pqn">6</div>
+        <div class="pq-txt">Make <strong>u</strong> the subject of the formula <strong>v = u + at</strong>. Then make <strong>t</strong> the subject.</div>
+        <div class="pq-badge">Medium · Rearranging</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <p><strong>Make u the subject:</strong></p>
+          <p>v = u + at → v − at = u → <span class="ans">u = v − at</span></p>
+          <p><strong>Make t the subject:</strong></p>
+          <p>v = u + at → v − u = at → <span class="ans">t = (v − u)/a</span></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q7 -->
+    <div class="pq med">
+      <div class="pq-top">
+        <div class="pqn">7</div>
+        <div class="pq-txt">An isosceles triangle has two equal sides of length <strong>(3x + 5)</strong> and a base of <strong>(x + 2)</strong>. The perimeter is 47. Find x and state all three side lengths.</div>
+        <div class="pq-badge">Medium · Geometry word problem</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <p>Perimeter = 2(3x + 5) + (x + 2) = 47</p>
+          <p>6x + 10 + x + 2 = 47</p>
+          <p>7x + 12 = 47</p>
+          <p>7x = 35</p>
+          <p><span class="ans">x = 5</span></p>
+          <p>Equal sides: 3(5)+5 = <span class="ans">20 units each</span></p>
+          <p>Base: 5+2 = <span class="ans">7 units</span></p>
+          <p>Check: 20 + 20 + 7 = 47 ✓ All sides positive ✓</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q8 -->
+    <div class="pq hard">
+      <div class="pq-top">
+        <div class="pqn">8</div>
+        <div class="pq-txt">
+          <strong>GL Multi-step:</strong> "Three friends — Amir, Bella, and Cara — collect stickers. Bella has twice as many as Amir. Cara has 8 fewer than Bella. Together they have 92 stickers."<br>
+          (a) Write an expression for each person's count in terms of x (let Amir = x).<br>
+          (b) Form and solve an equation to find x.<br>
+          (c) State how many stickers each person has.<br>
+          (d) If they share all stickers equally between the three of them, how many does each receive?
+        </div>
+        <div class="pq-badge">Hard · Multi-step GL-style</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <p><strong>(a) Expressions:</strong></p>
+          <ul>
+            <li>Amir = x</li>
+            <li>Bella = 2x</li>
+            <li>Cara = 2x − 8</li>
+          </ul>
+          <p><strong>(b) Equation:</strong></p>
+          <p>x + 2x + (2x − 8) = 92</p>
+          <p>5x − 8 = 92</p>
+          <p>5x = 100</p>
+          <p><span class="ans">x = 20</span></p>
+          <p><strong>(c) Sticker counts:</strong></p>
+          <ul>
+            <li>Amir: <span class="ans">20</span></li>
+            <li>Bella: <span class="ans">40</span></li>
+            <li>Cara: 2(20) − 8 = <span class="ans">32</span></li>
+          </ul>
+          <p>Check: 20 + 40 + 32 = 92 ✓</p>
+          <p><strong>(d) Equal share:</strong> 92 ÷ 3 = <span class="ans">30 remainder 2</span> — they cannot share equally! Each gets 30 with 2 left over. (Or if the question expects a decimal: 30.67 each — state this and note it doesn't divide evenly.)</p>
+        </div>
+      </details>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<div style="text-align:center;padding:18px 0 8px;color:var(--s500);font-size:13px">
+  <strong style="color:var(--navy)">TrueMaths</strong> · 11+ GL Assessment Module · Simple Equations &amp; Formulae<br>
+  <span style="font-size:12px">Targeting Queen Elizabeth's School, Barnet and similar selective grammar schools</span>
+</div>
+
+</div><!-- /wrap -->
+</body>
+</html>

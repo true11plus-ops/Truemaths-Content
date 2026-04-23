@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Place Value & Reading Large Numbers — TrueMaths 11+</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:    #0f2b4a;
+    --blue:    #1a5fa8;
+    --blue-lt: #ddeeff;
+    --teal:    #0e7c7b;
+    --teal-lt: #d6f2f2;
+    --amber:   #c97b00;
+    --amber-lt:#fff3d6;
+    --red:     #b72b2b;
+    --red-lt:  #fdecea;
+    --green:   #1e6e3b;
+    --green-lt:#e3f5ea;
+    --ink:     #1a1a2e;
+    --muted:   #5a6070;
+    --border:  #dde3ed;
+    --bg:      #f7f9fc;
+    --white:   #ffffff;
+    --serif:   'DM Serif Display', Georgia, serif;
+    --sans:    'DM Sans', system-ui, sans-serif;
+    --mono:    'DM Mono', 'Courier New', monospace;
+    --radius:  10px;
+    --shadow:  0 2px 12px rgba(15,43,74,0.09);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── Layout ── */
+  .page-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* ── Page header ── */
+  .page-header {
+    background: var(--navy);
+    color: var(--white);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem 2rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg, transparent, transparent 40px,
+      rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 80px
+    );
+  }
+  .topic-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #7bb8f0;
+    margin-bottom: .5rem;
+  }
+  .page-title {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    line-height: 1.15;
+    color: var(--white);
+    margin-bottom: .75rem;
+  }
+  .page-meta { font-size: 14px; color: #a8c4e0; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .page-meta span::before { content: '• '; }
+  .page-meta span:first-child::before { content: ''; }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow);
+  }
+  .toc-title { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: .75rem; }
+  .toc ol { padding-left: 1.25rem; }
+  .toc li { font-size: 14px; padding: 2px 0; }
+  .toc a { color: var(--blue); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* ── Sections ── */
+  .section { margin-bottom: 3rem; }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    padding-bottom: .5rem;
+    border-bottom: 3px solid var(--blue-lt);
+    scroll-margin-top: 1.5rem;
+  }
+  .section-intro { margin-bottom: 1.25rem; color: var(--ink); }
+
+  /* ── Key Rule callout ── */
+  .rule-box {
+    background: var(--amber-lt);
+    border-left: 4px solid var(--amber);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+  }
+  .rule-box .rule-label {
+    font-size: 11px; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--amber); margin-bottom: .35rem;
+  }
+  .rule-box p { font-size: 15px; margin: 0; }
+
+  /* ── Tip box ── */
+  .tip-box {
+    background: var(--teal-lt);
+    border-left: 4px solid var(--teal);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+  }
+  .tip-box .tip-label {
+    font-size: 11px; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--teal); margin-bottom: .35rem;
+  }
+  .tip-box p { font-size: 15px; margin: 0; }
+
+  /* ── Warning / mistake box ── */
+  .mistake-box {
+    background: var(--red-lt);
+    border-left: 4px solid var(--red);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+  }
+  .mistake-box .mistake-label {
+    font-size: 11px; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--red); margin-bottom: .35rem;
+  }
+  .mistake-box p { font-size: 15px; margin: 0; }
+
+  /* ── Place value chart ── */
+  .pv-table-wrap { overflow-x: auto; margin: 1.25rem 0; }
+  .pv-table {
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 600px;
+    width: 100%;
+  }
+  .pv-table th {
+    background: var(--navy);
+    color: var(--white);
+    padding: 9px 10px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+  }
+  .pv-table td {
+    padding: 9px 10px;
+    text-align: center;
+    border: 1px solid var(--border);
+    font-family: var(--mono);
+  }
+  .pv-table tr:nth-child(even) td { background: #f3f7fc; }
+  .pv-table td.period-label {
+    background: var(--blue-lt);
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--blue);
+    text-align: left;
+    padding-left: 12px;
+    border: 1px solid #b8d0ed;
+  }
+  .pv-table td.dp { background: #fffbe6; border: 2px solid #f0cc6b; font-weight: 600; }
+  .pv-table th.period-group { background: #1a3d64; }
+  .pv-table th.dec-group { background: #0e5958; }
+  .digit-highlight { 
+    display: inline-block; background: var(--amber); color: var(--white);
+    border-radius: 4px; padding: 1px 7px; font-weight: 600;
+  }
+  .digit-box {
+    display: inline-block;
+    width: 36px; height: 36px; line-height: 36px;
+    text-align: center;
+    background: var(--blue-lt);
+    color: var(--navy);
+    font-family: var(--mono);
+    font-size: 18px; font-weight: 600;
+    border-radius: 6px;
+    border: 1.5px solid #99bfe0;
+  }
+  .digit-box.active {
+    background: var(--amber);
+    color: var(--white);
+    border-color: var(--amber);
+  }
+  .digit-row { display: flex; gap: 3px; align-items: center; flex-wrap: wrap; }
+  .dot-sep { font-size: 22px; font-weight: 700; color: var(--navy); line-height: 36px; }
+
+  /* ── Worked examples ── */
+  .example {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin: 1.25rem 0;
+    box-shadow: var(--shadow);
+  }
+  .example-label {
+    font-size: 11px; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--blue); margin-bottom: .5rem;
+  }
+  .example-q { font-size: 16px; font-weight: 600; margin-bottom: 1rem; color: var(--navy); }
+  .step { display: flex; gap: 12px; margin-bottom: .65rem; align-items: flex-start; }
+  .step-num {
+    background: var(--navy);
+    color: var(--white);
+    font-size: 12px; font-weight: 600;
+    min-width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .step-body { font-size: 15px; line-height: 1.6; }
+  .step-body strong { color: var(--navy); }
+  .answer-box {
+    background: var(--green-lt);
+    border: 1.5px solid #6ec99a;
+    border-radius: 8px;
+    padding: .65rem 1rem;
+    margin-top: .75rem;
+    font-size: 15px; font-weight: 600; color: var(--green);
+  }
+  .answer-box span { font-weight: 400; color: var(--ink); }
+
+  /* ── Number line ── */
+  .nl-wrap { margin: 1.25rem 0; }
+  .nl-svg { width: 100%; height: 70px; overflow: visible; }
+
+  /* ── Ordering comparison ── */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin: 1rem 0;
+  }
+  .compare-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: .75rem 1rem;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 18px; font-weight: 600;
+  }
+  .compare-card .rank { font-family: var(--sans); font-size: 11px; font-weight: 600; color: var(--muted); margin-top: 4px; }
+  .compare-card.first { border-color: var(--green); background: var(--green-lt); color: var(--green); }
+  .compare-card.last  { border-color: #e07979; background: var(--red-lt); color: var(--red); }
+
+  /* ── Power of 10 digit shift ── */
+  .shift-demo {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+  }
+  .shift-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+  .shift-row:last-child { margin-bottom: 0; }
+  .shift-label { font-size: 13px; color: var(--muted); min-width: 110px; }
+  .shift-result { font-size: 15px; font-weight: 600; color: var(--green); margin-left: 8px; font-family: var(--mono); }
+  .arrow-badge {
+    background: var(--blue);
+    color: var(--white);
+    font-size: 12px; font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  /* ── Rounding number line ── */
+  .round-scale {
+    position: relative;
+    height: 60px;
+    margin: 1.5rem 1rem;
+  }
+  .round-scale .line {
+    position: absolute;
+    top: 28px; left: 0; right: 0;
+    height: 3px;
+    background: var(--navy);
+    border-radius: 2px;
+  }
+  .tick {
+    position: absolute;
+    top: 18px;
+    display: flex; flex-direction: column; align-items: center;
+    transform: translateX(-50%);
+  }
+  .tick .t-mark { width: 2px; height: 22px; background: var(--navy); }
+  .tick .t-label { font-size: 13px; font-weight: 600; font-family: var(--mono); margin-top: 4px; }
+  .tick.midpoint .t-mark { background: var(--amber); }
+  .tick.midpoint .t-label { color: var(--amber); }
+  .point-marker {
+    position: absolute;
+    top: 14px;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .point-marker .p-dot {
+    width: 16px; height: 16px;
+    background: var(--blue);
+    border-radius: 50%;
+    border: 2.5px solid var(--white);
+    box-shadow: 0 0 0 2px var(--blue);
+  }
+  .point-marker .p-label { font-size: 12px; font-weight: 600; color: var(--blue); margin-top: 28px; white-space: nowrap; }
+
+  /* ── Practice questions ── */
+  .questions-section {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-top: 2.5rem;
+    color: var(--white);
+  }
+  .questions-section .section-title {
+    color: var(--white);
+    border-bottom-color: rgba(255,255,255,0.15);
+    margin-bottom: 1.5rem;
+  }
+  .q-item {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.25rem;
+    margin-bottom: .85rem;
+  }
+  .q-num { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #7bb8f0; margin-bottom: .4rem; }
+  .q-text { font-size: 15px; line-height: 1.6; }
+  .q-options { margin-top: .65rem; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .q-opt {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-family: var(--mono);
+    cursor: default;
+  }
+
+  /* ── Answers ── */
+  .answers-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    box-shadow: var(--shadow);
+  }
+  details summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--blue);
+    list-style: none;
+    display: flex; align-items: center; gap: 8px;
+    padding: .5rem 0;
+  }
+  details summary::before { content: '▶'; font-size: 12px; transition: transform .2s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  .answer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-top: 1rem; }
+  .ans-item {
+    background: var(--green-lt);
+    border: 1px solid #8fdab4;
+    border-radius: 8px;
+    padding: .75rem 1rem;
+    font-size: 14px;
+  }
+  .ans-item .ans-q { font-weight: 600; color: var(--green); margin-bottom: 3px; }
+  .ans-item .ans-a { color: var(--ink); }
+
+  /* ── Inline code / number ── */
+  code { font-family: var(--mono); background: #eef3fb; padding: 1px 6px; border-radius: 4px; font-size: .95em; }
+  strong { font-weight: 600; }
+
+  /* ── Divider ── */
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+  @media (max-width: 600px) {
+    .page-title { font-size: 1.6rem; }
+    .section-title { font-size: 1.3rem; }
+    .q-options { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- ── Page Header ── -->
+  <header class="page-header">
+    <p class="topic-label">Number &amp; Place Value · GL Assessment 11+</p>
+    <h1 class="page-title">Place Value &amp;<br>Reading Large Numbers</h1>
+    <div class="page-meta">
+      <span>Ages 9–11</span>
+      <span>GL Assessment format</span>
+      <span>Core topic</span>
+      <span>Includes worked examples &amp; practice questions</span>
+    </div>
+  </header>
+
+  <!-- ── Table of Contents ── -->
+  <nav class="toc">
+    <p class="toc-title">What's in this lesson</p>
+    <ol>
+      <li><a href="#s1">The place value chart — units to millions &amp; decimals</a></li>
+      <li><a href="#s2">Reading and writing large numbers</a></li>
+      <li><a href="#s3">Ordering and comparing numbers including decimals</a></li>
+      <li><a href="#s4">Multiplying and dividing by powers of 10</a></li>
+      <li><a href="#s5">Rounding — nearest 10, 100, 1000 and decimal places</a></li>
+      <li><a href="#s6">Practice questions (GL Assessment style)</a></li>
+    </ol>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════
+       SECTION 1 — Place Value Chart
+  ══════════════════════════════════════════ -->
+  <section class="section" id="s1">
+    <h2 class="section-title">1. The Place Value Chart</h2>
+
+    <p class="section-intro">Every digit in a number has two things: a <strong>face value</strong> (the digit itself) and a <strong>place value</strong> (what it is worth because of its position). Move one column to the left and the value is ten times bigger. Move one column to the right and it is ten times smaller.</p>
+
+    <div class="rule-box">
+      <p class="rule-label">Key Rule</p>
+      <p>Each column is <strong>10 times the value</strong> of the column to its right. The decimal point separates whole numbers from parts of a number.</p>
+    </div>
+
+    <!-- Full chart -->
+    <div class="pv-table-wrap">
+      <table class="pv-table">
+        <thead>
+          <tr>
+            <th class="period-group">Millions</th>
+            <th class="period-group">Hundred Thousands</th>
+            <th class="period-group">Ten Thousands</th>
+            <th class="period-group">Thousands</th>
+            <th class="period-group">Hundreds</th>
+            <th class="period-group">Tens</th>
+            <th class="period-group">Ones / Units</th>
+            <th style="background:#1a1a1a;color:#f0cc6b;font-weight:700;">•</th>
+            <th class="dec-group">Tenths</th>
+            <th class="dec-group">Hundredths</th>
+            <th class="dec-group">Thousandths</th>
+          </tr>
+          <tr>
+            <th>1,000,000</th>
+            <th>100,000</th>
+            <th>10,000</th>
+            <th>1,000</th>
+            <th>100</th>
+            <th>10</th>
+            <th>1</th>
+            <th style="background:#1a1a1a;color:#f0cc6b;">.</th>
+            <th>1/10</th>
+            <th>1/100</th>
+            <th>1/1000</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>4</td><td>7</td><td>2</td><td>8</td><td>3</td><td>9</td><td>5</td>
+            <td class="dp">.</td>
+            <td>6</td><td>0</td><td>2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>In the number <strong>4,728,395.602</strong>:</p>
+    <ul style="padding-left:1.4rem; line-height:2;">
+      <li>The digit <strong>4</strong> is in the millions column → worth <strong>4,000,000</strong></li>
+      <li>The digit <strong>7</strong> is in the hundred-thousands column → worth <strong>700,000</strong></li>
+      <li>The digit <strong>9</strong> is in the tens column → worth <strong>90</strong></li>
+      <li>The digit <strong>6</strong> is in the tenths column → worth <strong>0.6</strong></li>
+      <li>The digit <strong>2</strong> is in the thousandths column → worth <strong>0.002</strong></li>
+    </ul>
+
+    <div class="tip-box">
+      <p class="tip-label">Tip — Decimals</p>
+      <p><strong>Tenths</strong> are bigger than hundredths (1/10 &gt; 1/100). Think of sharing a pizza: one slice out of 10 is bigger than one slice out of 100.</p>
+    </div>
+
+    <!-- Worked examples -->
+    <div class="example">
+      <p class="example-label">Worked example 1</p>
+      <p class="example-q">What is the value of the digit 8 in the number 384,506?</p>
+      <div class="step"><span class="step-num">1</span><div class="step-body">Place the number into the chart: <br>
+        <div style="margin-top:8px;" class="digit-row">
+          <div class="digit-box">3</div>
+          <div class="digit-box active">8</div>
+          <div class="digit-box">4</div>
+          <div class="digit-box">5</div>
+          <div class="digit-box">0</div>
+          <div class="digit-box">6</div>
+        </div>
+        <div class="digit-row" style="margin-top:4px; gap:3px;">
+          <div style="width:36px;text-align:center;font-size:11px;color:var(--muted);">HTh</div>
+          <div style="width:36px;text-align:center;font-size:11px;color:var(--amber);font-weight:600;">TTh</div>
+          <div style="width:36px;text-align:center;font-size:11px;color:var(--muted);">Th</div>
+          <div style="width:36px;text-align:center;font-size:11px;color:var(--muted);">H</div>
+          <div style="width:36px;text-align:center;font-size:11px;color:var(--muted);">T</div>
+          <div style="width:36px;text-align:center;font-size:11px;color:var(--muted);">O</div>
+        </div>
+      </div></div>
+      <div class="step"><span class="step-num">2</span><div class="step-body">The digit 8 is in the <strong>ten-thousands</strong> column.</div></div>
+      <div class="step"><span class="step-num">3</span><div class="step-body">Multiply: <strong>8 × 10,000 = 80,000</strong></div></div>
+      <div class="answer-box">Answer: <span>The value of the digit 8 is <strong>80,000</strong> (eighty thousand).</span></div>
+    </div>
+
+    <div class="example">
+      <p class="example-label">Worked example 2</p>
+      <p class="example-q">What is the value of the digit 3 in the number 5.037?</p>
+      <div class="step"><span class="step-num">1</span><div class="step-body">The number has a decimal point. Write it in the chart:
+        <div style="margin-top:8px;" class="digit-row">
+          <div class="digit-box">5</div>
+          <div class="dot-sep">.</div>
+          <div class="digit-box">0</div>
+          <div class="digit-box active">3</div>
+          <div class="digit-box">7</div>
+        </div>
+        <div class="digit-row" style="margin-top:4px; gap:3px;">
+          <div style="width:36px;text-align:center;font-size:11px;color:var(--muted);">Ones</div>
+          <div style="width:10px;"></div>
+          <div style="width:36px;text-align:center;font-size:11px;color:var(--muted);">Tenths</div>
+          <div style="width:36px;text-align:center;font-size:11px;color:var(--amber);font-weight:600;">Hths</div>
+          <div style="width:36px;text-align:center;font-size:11px;color:var(--muted);">Thths</div>
+        </div>
+      </div></div>
+      <div class="step"><span class="step-num">2</span><div class="step-body">The digit 3 is in the <strong>hundredths</strong> column.</div></div>
+      <div class="step"><span class="step-num">3</span><div class="step-body">Its value is <strong>3 × 1/100 = 3/100 = 0.03</strong></div></div>
+      <div class="answer-box">Answer: <span>The value of the digit 3 is <strong>0.03</strong> (three hundredths).</span></div>
+    </div>
+
+    <div class="mistake-box">
+      <p class="mistake-label">Common mistake</p>
+      <p>Students often confuse <strong>face value</strong> and <strong>place value</strong>. In 5,307: the face value of 3 is 3, but its place value is 300. Always ask: <em>"Which column is it sitting in?"</em></p>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       SECTION 2 — Reading & Writing
+  ══════════════════════════════════════════ -->
+  <section class="section" id="s2">
+    <h2 class="section-title">2. Reading and Writing Large Numbers</h2>
+
+    <p class="section-intro">In the UK, we use commas to separate every group of three digits, counting from the right. This makes large numbers much easier to read.</p>
+
+    <div class="rule-box">
+      <p class="rule-label">Key Rule</p>
+      <p>Group digits in threes from the right: <strong>Millions | Thousands | Ones</strong>. Write commas between groups. Say each group's number then its group name.</p>
+    </div>
+
+    <div class="pv-table-wrap">
+      <table class="pv-table">
+        <thead>
+          <tr>
+            <th>Millions</th><th>Hundred-Thousands</th><th>Ten-Thousands</th>
+            <th>Thousands</th><th>Hundreds</th><th>Tens</th><th>Ones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>—</td><td>—</td><td>—</td><td>—</td><td>3</td><td>5</td><td>2</td></tr>
+          <tr><td>—</td><td>—</td><td>—</td><td>4</td><td>0</td><td>0</td><td>7</td></tr>
+          <tr><td>—</td><td>2</td><td>8</td><td>5</td><td>6</td><td>3</td><td>1</td></tr>
+          <tr><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>5</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul style="padding-left:1.4rem;line-height:2;margin-top:.75rem;">
+      <li><code>352</code> → three hundred and fifty-two</li>
+      <li><code>4,007</code> → four thousand and seven</li>
+      <li><code>285,631</code> → two hundred and eighty-five thousand, six hundred and thirty-one</li>
+      <li><code>3,040,050</code> → three million, forty thousand and fifty</li>
+    </ul>
+
+    <div class="tip-box">
+      <p class="tip-label">Tip — zeros as placeholders</p>
+      <p>Never drop zeros in the middle of a number. <strong>3,040,050</strong> has three zeros that act as placeholders. Without them, the other digits would shift into wrong columns.</p>
+    </div>
+
+    <div class="example">
+      <p class="example-label">Worked example 3</p>
+      <p class="example-q">Write "five million, two hundred and six thousand, and forty" in digits.</p>
+      <div class="step"><span class="step-num">1</span><div class="step-body">Identify the parts: <strong>5 million</strong> + <strong>206 thousand</strong> + <strong>40</strong>.</div></div>
+      <div class="step"><span class="step-num">2</span><div class="step-body">Millions group: <strong>5</strong>. Thousands group: <strong>206</strong>. Ones group: <strong>040</strong> (we must use 3 digits, so add a leading zero).</div></div>
+      <div class="step"><span class="step-num">3</span><div class="step-body">Combine with commas: <strong>5,206,040</strong>.</div></div>
+      <div class="answer-box">Answer: <span><strong>5,206,040</strong></span></div>
+    </div>
+
+    <div class="example">
+      <p class="example-label">Worked example 4</p>
+      <p class="example-q">Write 2,070,305 in words.</p>
+      <div class="step"><span class="step-num">1</span><div class="step-body">Split into groups: <strong>2</strong> | <strong>070</strong> | <strong>305</strong></div></div>
+      <div class="step"><span class="step-num">2</span><div class="step-body">Millions: <em>two million</em>. Thousands: <em>seventy thousand</em>. Ones: <em>three hundred and five</em>.</div></div>
+      <div class="step"><span class="step-num">3</span><div class="step-body">Join: <em>two million, seventy thousand, three hundred and five.</em></div></div>
+      <div class="answer-box">Answer: <span>Two million, seventy thousand, three hundred and five.</span></div>
+    </div>
+
+    <div class="mistake-box">
+      <p class="mistake-label">Common mistake</p>
+      <p>Forgetting the word <strong>"and"</strong> before the last part (e.g. "three hundred <em>and</em> five"). Also watch out for numbers like 4,007 — say "four thousand <strong>and</strong> seven", not "four thousand seven hundred".</p>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       SECTION 3 — Ordering & Comparing
+  ══════════════════════════════════════════ -->
+  <section class="section" id="s3">
+    <h2 class="section-title">3. Ordering and Comparing Numbers</h2>
+
+    <p class="section-intro">To compare numbers we use the symbols <strong>&lt;</strong> (less than), <strong>&gt;</strong> (greater than) and <strong>=</strong> (equal to). We always compare the highest place value column first and work right.</p>
+
+    <div class="rule-box">
+      <p class="rule-label">Key Rule — Comparing decimals</p>
+      <p>Line up the decimal points. Compare digit by digit from left to right. <strong>Do not count the number of digits after the decimal point</strong> — 0.3 is bigger than 0.29 because 3 tenths &gt; 2 tenths.</p>
+    </div>
+
+    <p style="margin-bottom:.75rem;">Consider ordering: <strong>0.3 &nbsp; 0.29 &nbsp; 0.305</strong></p>
+
+    <div class="pv-table-wrap">
+      <table class="pv-table">
+        <thead>
+          <tr><th>Number</th><th>Ones</th><th style="background:#0e5958">.</th><th style="background:#0e5958">Tenths</th><th style="background:#0e5958">Hundredths</th><th style="background:#0e5958">Thousandths</th></tr>
+        </thead>
+        <tbody>
+          <tr><td style="font-weight:600; font-family:var(--mono);">0.3</td><td>0</td><td class="dp">.</td><td style="background:#ddf4e5;font-weight:700;">3</td><td>0</td><td>0</td></tr>
+          <tr><td style="font-weight:600; font-family:var(--mono);">0.29</td><td>0</td><td class="dp">.</td><td style="background:#fdecea;font-weight:700;">2</td><td>9</td><td>0</td></tr>
+          <tr><td style="font-weight:600; font-family:var(--mono);">0.305</td><td>0</td><td class="dp">.</td><td style="background:#fff8e1;font-weight:700;">3</td><td>0</td><td>5</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin:.75rem 0;">Compare tenths column first: <code>0.3</code> and <code>0.305</code> both have 3 tenths → tie. Go to hundredths: <code>0.3</code> has 0, <code>0.305</code> has 0 → tie. Thousandths: <code>0.3</code> has 0, <code>0.305</code> has 5 → so <strong>0.305 &gt; 0.3</strong>.</p>
+
+    <p><strong>Smallest to largest:</strong></p>
+    <div class="compare-grid">
+      <div class="compare-card first">0.29<div class="rank">1st — smallest</div></div>
+      <div class="compare-card">0.3<div class="rank">2nd</div></div>
+      <div class="compare-card last">0.305<div class="rank">3rd — largest</div></div>
+    </div>
+
+    <div class="tip-box">
+      <p class="tip-label">Tip — Pad with zeros</p>
+      <p>Add trailing zeros to make all numbers the same length, then compare like whole numbers:<br>
+      0.300 &nbsp; 0.290 &nbsp; 0.305 → compare 300, 290, 305 → order: 290, 300, 305.</p>
+    </div>
+
+    <div class="example">
+      <p class="example-label">Worked example 5</p>
+      <p class="example-q">Put these numbers in ascending order (smallest first): &nbsp;3.07 &nbsp; 3.7 &nbsp; 3.071 &nbsp; 3.1</p>
+      <div class="step"><span class="step-num">1</span><div class="step-body">Pad to 3 decimal places: <code>3.070</code> &nbsp; <code>3.700</code> &nbsp; <code>3.071</code> &nbsp; <code>3.100</code></div></div>
+      <div class="step"><span class="step-num">2</span><div class="step-body">Ones all the same (3). Compare tenths: 0, 7, 0, 1 → order tenths: 0, 0, 1, 7.</div></div>
+      <div class="step"><span class="step-num">3</span><div class="step-body">Two numbers have 0 tenths (3.070 and 3.071). Compare hundredths: both have 7. Compare thousandths: 0 vs 1 → 3.070 &lt; 3.071.</div></div>
+      <div class="answer-box">Answer: <span><strong>3.07, 3.071, 3.1, 3.7</strong></span></div>
+    </div>
+
+    <div class="example">
+      <p class="example-label">Worked example 6</p>
+      <p class="example-q">Insert &lt; or &gt; between 406,219 and 406,912.</p>
+      <div class="step"><span class="step-num">1</span><div class="step-body">Both numbers have <strong>4</strong> in the hundred-thousands and <strong>0</strong> in the ten-thousands and <strong>6</strong> in the thousands. Move to hundreds.</div></div>
+      <div class="step"><span class="step-num">2</span><div class="step-body">First number: hundreds digit is <strong>2</strong>. Second number: hundreds digit is <strong>9</strong>.</div></div>
+      <div class="step"><span class="step-num">3</span><div class="step-body">2 &lt; 9, so the first number is smaller.</div></div>
+      <div class="answer-box">Answer: <span>406,219 <strong>&lt;</strong> 406,912</span></div>
+    </div>
+
+    <div class="mistake-box">
+      <p class="mistake-label">Common mistake</p>
+      <p>Thinking 0.29 &gt; 0.3 because 29 &gt; 3. Remember: compare column by column, not by the length of the number. The more decimal digits a number has does <em>not</em> make it bigger.</p>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       SECTION 4 — Powers of 10
+  ══════════════════════════════════════════ -->
+  <section class="section" id="s4">
+    <h2 class="section-title">4. Multiplying and Dividing by Powers of 10</h2>
+
+    <p class="section-intro">When you multiply or divide by 10, 100 or 1000, the digits themselves stay the same — they just shift their position in the place value chart.</p>
+
+    <div class="rule-box">
+      <p class="rule-label">Key Rule — the digit shift</p>
+      <p>
+        <strong>× 10</strong> → digits shift <strong>one place to the left</strong> (number gets bigger)<br>
+        <strong>× 100</strong> → digits shift <strong>two places to the left</strong><br>
+        <strong>× 1000</strong> → digits shift <strong>three places to the left</strong><br>
+        <strong>÷ 10, ÷ 100, ÷ 1000</strong> → digits shift right by 1, 2 or 3 places (number gets smaller)
+      </p>
+    </div>
+
+    <div class="shift-demo">
+      <div class="shift-row">
+        <span class="shift-label">5.6 × 10</span>
+        <span class="arrow-badge">shift left 1</span>
+        <span class="shift-result">= 56</span>
+      </div>
+      <div class="shift-row">
+        <span class="shift-label">5.6 × 100</span>
+        <span class="arrow-badge">shift left 2</span>
+        <span class="shift-result">= 560</span>
+      </div>
+      <div class="shift-row">
+        <span class="shift-label">5.6 × 1000</span>
+        <span class="arrow-badge">shift left 3</span>
+        <span class="shift-result">= 5,600</span>
+      </div>
+      <hr style="border:none;border-top:1px solid var(--border);margin:.75rem 0;">
+      <div class="shift-row">
+        <span class="shift-label">3,400 ÷ 10</span>
+        <span class="arrow-badge" style="background:var(--teal);">shift right 1</span>
+        <span class="shift-result">= 340</span>
+      </div>
+      <div class="shift-row">
+        <span class="shift-label">3,400 ÷ 100</span>
+        <span class="arrow-badge" style="background:var(--teal);">shift right 2</span>
+        <span class="shift-result">= 34</span>
+      </div>
+      <div class="shift-row">
+        <span class="shift-label">3,400 ÷ 1,000</span>
+        <span class="arrow-badge" style="background:var(--teal);">shift right 3</span>
+        <span class="shift-result">= 3.4</span>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <p class="tip-label">Tip — it's the digits that move, not the decimal point</p>
+      <p>Think of the decimal point as fixed on the page. The digits slide left or right past it. In <code>3,400 ÷ 1000</code>: the digits 3–4–0–0 all shift three places right, so 3 ends up in the ones column and 4 in the tenths → <strong>3.4</strong>.</p>
+    </div>
+
+    <div class="example">
+      <p class="example-label">Worked example 7</p>
+      <p class="example-q">Calculate 0.47 × 1,000.</p>
+      <div class="step"><span class="step-num">1</span><div class="step-body">Multiplying by 1,000 means shift all digits <strong>3 places to the left</strong>.</div></div>
+      <div class="step"><span class="step-num">2</span><div class="step-body">0.47 has 4 in the tenths and 7 in the hundredths. After shifting 3 left: 4 goes to the hundreds column, 7 to the tens column.</div></div>
+      <div class="step"><span class="step-num">3</span><div class="step-body">Result: <strong>470</strong>. (Add a zero to fill the empty ones column.)</div></div>
+      <div class="answer-box">Answer: <span>0.47 × 1,000 = <strong>470</strong></span></div>
+    </div>
+
+    <div class="example">
+      <p class="example-label">Worked example 8</p>
+      <p class="example-q">A factory makes 235 screws per minute. It runs for 100 minutes. How many screws is that? Then, 10 screws are packed in each box — how many boxes are needed?</p>
+      <div class="step"><span class="step-num">1</span><div class="step-body">Screws made: <code>235 × 100</code> → shift left 2 → <strong>23,500 screws</strong>.</div></div>
+      <div class="step"><span class="step-num">2</span><div class="step-body">Boxes needed: <code>23,500 ÷ 10</code> → shift right 1 → <strong>2,350 boxes</strong>.</div></div>
+      <div class="answer-box">Answer: <span>23,500 screws; 2,350 boxes needed.</span></div>
+    </div>
+
+    <div class="mistake-box">
+      <p class="mistake-label">Common mistake</p>
+      <p>"Adding zeros" works for whole numbers (<code>35 × 10 = 350</code>) but <strong>fails for decimals</strong> (<code>3.5 × 10 ≠ 3.50</code> — it equals <strong>35</strong>). Always use the digit-shift method.</p>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       SECTION 5 — Rounding
+  ══════════════════════════════════════════ -->
+  <section class="section" id="s5">
+    <h2 class="section-title">5. Rounding Numbers</h2>
+
+    <p class="section-intro">Rounding makes numbers simpler while keeping them close to their exact value. GL Assessment tests rounding to the nearest 10, 100, 1,000 and to decimal places.</p>
+
+    <div class="rule-box">
+      <p class="rule-label">The Rounding Rule</p>
+      <p>Look at the digit <strong>immediately to the right</strong> of the column you are rounding to.<br>
+      • If it is <strong>5 or more</strong> → round <strong>up</strong><br>
+      • If it is <strong>4 or less</strong> → round <strong>down</strong> (keep the digit the same)</p>
+    </div>
+
+    <!-- Rounding examples table -->
+    <div class="pv-table-wrap">
+      <table class="pv-table">
+        <thead><tr><th>Number</th><th>Rounding to</th><th>Look at digit</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>3,467</td><td>nearest 10</td><td>7 → round up</td><td><strong>3,470</strong></td></tr>
+          <tr><td>3,467</td><td>nearest 100</td><td>6 → round up</td><td><strong>3,500</strong></td></tr>
+          <tr><td>3,467</td><td>nearest 1,000</td><td>4 → round down</td><td><strong>3,000</strong></td></tr>
+          <tr><td>0.836</td><td>1 decimal place</td><td>3 → round down</td><td><strong>0.8</strong></td></tr>
+          <tr><td>0.836</td><td>2 decimal places</td><td>6 → round up</td><td><strong>0.84</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Number line visual for 350 -->
+    <p style="margin-top:1.25rem;"><strong>Visualising rounding on a number line</strong> — rounding 374 to the nearest 100:</p>
+    <svg class="nl-svg" viewBox="0 0 700 70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Number line showing 374 is closer to 400 than 300">
+      <line x1="60" y1="35" x2="640" y2="35" stroke="#0f2b4a" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- ticks -->
+      <line x1="60" y1="22" x2="60" y2="48" stroke="#0f2b4a" stroke-width="2"/>
+      <line x1="350" y1="22" x2="350" y2="48" stroke="#c97b00" stroke-width="2"/>
+      <line x1="640" y1="22" x2="640" y2="48" stroke="#0f2b4a" stroke-width="2"/>
+      <!-- labels -->
+      <text x="60" y="62" text-anchor="middle" font-family="DM Mono,monospace" font-size="14" fill="#0f2b4a" font-weight="600">300</text>
+      <text x="350" y="62" text-anchor="middle" font-family="DM Mono,monospace" font-size="13" fill="#c97b00" font-weight="600">350</text>
+      <text x="640" y="62" text-anchor="middle" font-family="DM Mono,monospace" font-size="14" fill="#0f2b4a" font-weight="600">400</text>
+      <!-- midpoint label -->
+      <text x="350" y="16" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#c97b00">(halfway)</text>
+      <!-- 374 marker -->
+      <circle cx="508" cy="35" r="8" fill="#1a5fa8" stroke="white" stroke-width="2"/>
+      <text x="508" y="18" text-anchor="middle" font-family="DM Mono,monospace" font-size="13" fill="#1a5fa8" font-weight="700">374</text>
+      <!-- arrow -->
+      <text x="574" y="39" font-family="DM Sans,sans-serif" font-size="12" fill="#1e6e3b" font-weight="600">→ rounds to 400</text>
+    </svg>
+
+    <!-- Boundary case -->
+    <div class="rule-box" style="border-color:#b72b2b; background:#fdecea;">
+      <p class="rule-label" style="color:#b72b2b;">Boundary case — exactly halfway</p>
+      <p>When a number is <strong>exactly</strong> on the halfway point (e.g. 250 when rounding to the nearest 100, or 3,500 when rounding to the nearest 1,000), the rule is always to <strong>round up</strong>.<br><br>
+      So: 250 → <strong>300</strong> &nbsp;|&nbsp; 3,500 → <strong>4,000</strong> &nbsp;|&nbsp; 0.45 to 1 d.p. → <strong>0.5</strong></p>
+    </div>
+
+    <div class="example">
+      <p class="example-label">Worked example 9</p>
+      <p class="example-q">Round 47,836 to the nearest 1,000.</p>
+      <div class="step"><span class="step-num">1</span><div class="step-body">Identify the thousands digit: <strong>7</strong> (in 47,836).</div></div>
+      <div class="step"><span class="step-num">2</span><div class="step-body">Look at the digit to its right (hundreds): <strong>8</strong>.</div></div>
+      <div class="step"><span class="step-num">3</span><div class="step-body">8 ≥ 5 → round up. The thousands digit goes from 7 to 8. Replace all digits to the right with zeros.</div></div>
+      <div class="answer-box">Answer: <span>47,836 rounded to nearest 1,000 = <strong>48,000</strong></span></div>
+    </div>
+
+    <div class="example">
+      <p class="example-label">Worked example 10</p>
+      <p class="example-q">Round 6.349 to 2 decimal places.</p>
+      <div class="step"><span class="step-num">1</span><div class="step-body">Rounding to 2 d.p. means we keep two digits after the decimal point. The second decimal place is the hundredths column: digit is <strong>4</strong>.</div></div>
+      <div class="step"><span class="step-num">2</span><div class="step-body">Look at the digit to the right (thousandths): <strong>9</strong>.</div></div>
+      <div class="step"><span class="step-num">3</span><div class="step-body">9 ≥ 5 → round up. Hundredths digit goes from 4 to 5. Drop the thousandths digit.</div></div>
+      <div class="answer-box">Answer: <span>6.349 rounded to 2 d.p. = <strong>6.35</strong></span></div>
+    </div>
+
+    <div class="example">
+      <p class="example-label">Worked example 11 — estimation</p>
+      <p class="example-q">Estimate 4,871 + 3,214 by rounding each number to the nearest 1,000.</p>
+      <div class="step"><span class="step-num">1</span><div class="step-body">Round 4,871: hundreds digit is 8 ≥ 5 → round up → <strong>5,000</strong>.</div></div>
+      <div class="step"><span class="step-num">2</span><div class="step-body">Round 3,214: hundreds digit is 2 &lt; 5 → round down → <strong>3,000</strong>.</div></div>
+      <div class="step"><span class="step-num">3</span><div class="step-body">Estimate: 5,000 + 3,000 = <strong>8,000</strong>. (Exact answer: 8,085 — very close!)</div></div>
+      <div class="answer-box">Answer: <span>Estimated answer = <strong>8,000</strong></span></div>
+    </div>
+
+    <div class="mistake-box">
+      <p class="mistake-label">Common mistake — chain rounding</p>
+      <p>Always round from the <strong>original number</strong>. Do not round 3,461 to the nearest 10 first (3,460) and then use that to round to the nearest 100 (3,500 — wrong!). The correct answer from the original is <strong>3,500</strong>... wait — 3,461 → hundreds digit 4 → round down → <strong>3,400</strong>. Chain rounding gives the wrong answer.</p>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 6 — Practice Questions
+  ══════════════════════════════════════════ -->
+  <section class="questions-section" id="s6">
+    <h2 class="section-title">Practice Questions — GL Assessment Style</h2>
+
+    <!-- Q1 -->
+    <div class="q-item">
+      <p class="q-num">Question 1 — Digit identification</p>
+      <p class="q-text">Which digit is in the ten-thousands place of <strong>472,839</strong>?</p>
+      <div class="q-options">
+        <div class="q-opt">A) &nbsp;4</div>
+        <div class="q-opt">B) &nbsp;7</div>
+        <div class="q-opt">C) &nbsp;2</div>
+        <div class="q-opt">D) &nbsp;8</div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="q-item">
+      <p class="q-num">Question 2 — Place value</p>
+      <p class="q-text">What is the value of the digit <strong>6</strong> in the number <strong>3,265,104</strong>?</p>
+      <div class="q-options">
+        <div class="q-opt">A) &nbsp;6,000</div>
+        <div class="q-opt">B) &nbsp;600</div>
+        <div class="q-opt">C) &nbsp;60,000</div>
+        <div class="q-opt">D) &nbsp;6,000,000</div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="q-item">
+      <p class="q-num">Question 3 — Missing digit</p>
+      <p class="q-text">Find the missing digit: &nbsp; <strong>7 ☐ 4,500</strong> rounded to the nearest 10,000 is <strong>760,000</strong>. What is the missing digit?</p>
+    </div>
+
+    <!-- Q4 -->
+    <div class="q-item">
+      <p class="q-num">Question 4 — Ordering decimals</p>
+      <p class="q-text">Put the following numbers in <strong>descending order</strong> (largest first):<br>
+      <span style="font-family:var(--mono);font-size:17px;letter-spacing:.05em;">0.52 &nbsp;&nbsp; 0.5 &nbsp;&nbsp; 0.519 &nbsp;&nbsp; 0.6 &nbsp;&nbsp; 0.509</span></p>
+    </div>
+
+    <!-- Q5 -->
+    <div class="q-item">
+      <p class="q-num">Question 5 — Powers of 10</p>
+      <p class="q-text">A scientist measures a cell as <strong>0.035 mm</strong> wide. How wide is it in micrometres, given that <strong>1 mm = 1,000 micrometres</strong>?</p>
+    </div>
+
+    <!-- Q6 -->
+    <div class="q-item">
+      <p class="q-num">Question 6 — Rounding (boundary case)</p>
+      <p class="q-text">A school tuck shop sold <strong>1,250</strong> items in a term. A pupil rounds this to the nearest 100 and says the answer is 1,200. Are they correct? Give a reason.</p>
+    </div>
+
+    <!-- Q7 -->
+    <div class="q-item">
+      <p class="q-num">Question 7 — Word problem (place value in context)</p>
+      <p class="q-text">A charity raises <strong>£304,072</strong>. The local newspaper rounds this amount to the nearest thousand for a headline. What figure should the headline show?</p>
+      <div class="q-options">
+        <div class="q-opt">A) &nbsp;£300,000</div>
+        <div class="q-opt">B) &nbsp;£304,000</div>
+        <div class="q-opt">C) &nbsp;£305,000</div>
+        <div class="q-opt">D) &nbsp;£310,000</div>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="q-item">
+      <p class="q-num">Question 8 — Missing digit problem</p>
+      <p class="q-text">The number below has one digit hidden. The number rounded to the nearest 100 is <strong>5,700</strong> and rounded to the nearest 1,000 is <strong>6,000</strong>.<br><br>
+      <span style="font-family:var(--mono);font-size:20px;letter-spacing:.1em;">5, ☐ 8 3</span><br><br>
+      What is the hidden digit?</p>
+    </div>
+
+    <!-- Q9 -->
+    <div class="q-item">
+      <p class="q-num">Question 9 — Multiply/divide by powers of 10</p>
+      <p class="q-text">A bottle of juice holds <strong>1.25 litres</strong>. A factory fills <strong>10,000</strong> bottles. How many litres of juice does the factory use in total?</p>
+    </div>
+
+    <!-- Q10 -->
+    <div class="q-item">
+      <p class="q-num">Question 10 — Reading and writing / comparison</p>
+      <p class="q-text">Match each number in words to its digit form. Then write them in ascending order.<br><br>
+      (a) Four million and fifty &nbsp;&nbsp; (b) Four hundred and five thousand &nbsp;&nbsp; (c) Forty thousand and five</p>
+    </div>
+  </section>
+
+  <!-- ── Answers ── -->
+  <div class="answers-section">
+    <details>
+      <summary>Show all answers &amp; explanations</summary>
+      <div class="answer-grid">
+        <div class="ans-item">
+          <div class="ans-q">Q1 — Answer: B) 7</div>
+          <div class="ans-a">472,839: count from right — ones(9), tens(3), hundreds(8), thousands(2), ten-thousands(7). The ten-thousands digit is <strong>7</strong>.</div>
+        </div>
+        <div class="ans-item">
+          <div class="ans-q">Q2 — Answer: C) 60,000</div>
+          <div class="ans-a">3,265,104: the 6 is in the ten-thousands column (3 | 265 | 104). 6 × 10,000 = <strong>60,000</strong>.</div>
+        </div>
+        <div class="ans-item">
+          <div class="ans-q">Q3 — Answer: 5</div>
+          <div class="ans-a">The number is 7☐4,500. Rounded to nearest 10,000 → 760,000. The ten-thousands digit must be 5 or 6. For the round-up to give 760,000, the ten-thousands digit is 5 → 5 ≥ 5 → round up → <strong>754,500 → 760,000</strong>. Missing digit = <strong>5</strong>.</div>
+        </div>
+        <div class="ans-item">
+          <div class="ans-q">Q4 — Descending order</div>
+          <div class="ans-a">Pad: 0.600, 0.520, 0.519, 0.509, 0.500. Order largest first: <strong>0.6, 0.52, 0.519, 0.509, 0.5</strong>.</div>
+        </div>
+        <div class="ans-item">
+          <div class="ans-q">Q5 — Answer: 35 micrometres</div>
+          <div class="ans-a">0.035 × 1,000 → shift digits left 3 places → <strong>35 micrometres</strong>.</div>
+        </div>
+        <div class="ans-item">
+          <div class="ans-q">Q6 — Answer: No, it is 1,300</div>
+          <div class="ans-a">1,250 is exactly halfway between 1,200 and 1,300. The rounding rule says round up when exactly halfway. So 1,250 → nearest 100 = <strong>1,300</strong>. The pupil is wrong.</div>
+        </div>
+        <div class="ans-item">
+          <div class="ans-q">Q7 — Answer: B) £304,000</div>
+          <div class="ans-a">£304,072: thousands digit is 4. Look at hundreds digit: 0 &lt; 5 → round down. Result: <strong>£304,000</strong>.</div>
+        </div>
+        <div class="ans-item">
+          <div class="ans-q">Q8 — Answer: 6</div>
+          <div class="ans-a">The number is 5,☐83. Rounded to nearest 100 = 5,700 → hundreds digit rounds to 7. That means the real hundreds digit is 6 or 7. Rounded to nearest 1,000 = 6,000 → thousands digit rounds up → must be ≥ 5. If ☐ = 6: 5,683 → nearest 100 = 5,700 ✓; nearest 1,000 = 6,000 ✓. Missing digit = <strong>6</strong>.</div>
+        </div>
+        <div class="ans-item">
+          <div class="ans-q">Q9 — Answer: 12,500 litres</div>
+          <div class="ans-a">1.25 × 10,000 → shift left 4 places → <strong>12,500 litres</strong>.</div>
+        </div>
+        <div class="ans-item">
+          <div class="ans-q">Q10 — Ascending order</div>
+          <div class="ans-a">(a) 4,000,050 &nbsp; (b) 405,000 &nbsp; (c) 40,005.<br>Ascending: <strong>40,005 → 405,000 → 4,000,050</strong>.</div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <p style="margin-top:2rem;font-size:13px;color:var(--muted);text-align:center;">TrueMaths · 11+ GL Assessment Preparation · Place Value &amp; Reading Large Numbers</p>
+
+</div>
+</body>
+</html>

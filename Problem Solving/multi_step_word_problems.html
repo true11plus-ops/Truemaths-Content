@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Step Word Problems — 11+ GL Assessment</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,600;1,300&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  --ink: #1c1410;
+  --bg: #f5f0e8;
+  --cream: #faf7f2;
+  --rule: #d9d0c0;
+  --mid: #5a4e3c;
+  --pale: #ede8dc;
+
+  --a: #b84020; /* framework A — red-orange */
+  --b: #2060a0; /* framework B — blue */
+  --c: #1a7a40; /* framework C — green */
+  --d: #7040a0; /* framework D — purple */
+  --e: #b07000; /* framework E — amber */
+  --f: #c03060; /* framework F — rose */
+  --g: #20808a; /* framework G — teal */
+  --h: #406010; /* framework H — olive */
+
+  --correct: #155724;
+  --correct-bg: #d4edda;
+  --wrong: #842029;
+  --wrong-bg: #f8d7da;
+
+  --shadow: 0 3px 16px rgba(28,20,16,0.12);
+  --shadow-lg: 0 6px 32px rgba(28,20,16,0.18);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  font-family:'Source Serif 4',Georgia,serif;
+  font-weight:300;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.75;
+  font-size:16px;
+}
+
+/* ── HEADER ── */
+header{
+  background:var(--ink);
+  color:var(--cream);
+  padding:56px 32px 48px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+header::before{
+  content:'';position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.04) 39px,rgba(255,255,255,0.04) 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,0.04) 39px,rgba(255,255,255,0.04) 40px);
+}
+header h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,5vw,3.4rem);
+  font-weight:900;
+  letter-spacing:-1px;
+  position:relative;
+  line-height:1.1;
+}
+header .subtitle{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.78rem;
+  opacity:0.5;
+  margin-top:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  position:relative;
+}
+
+/* ── STICKY NAV ── */
+nav{
+  position:sticky;top:0;z-index:200;
+  background:var(--ink);
+  border-bottom:2px solid rgba(255,255,255,0.1);
+  padding:0 20px;
+  display:flex;
+  align-items:center;
+  gap:0;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+nav::-webkit-scrollbar{display:none;}
+nav a{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.68rem;
+  color:rgba(250,247,242,0.55);
+  text-decoration:none;
+  padding:12px 14px;
+  white-space:nowrap;
+  letter-spacing:0.5px;
+  border-bottom:2px solid transparent;
+  transition:all 0.2s;
+  display:block;
+}
+nav a:hover{color:var(--cream);border-bottom-color:var(--cream);}
+
+/* ── LAYOUT ── */
+main{max-width:960px;margin:0 auto;padding:40px 24px 100px;}
+
+section{margin-bottom:72px;}
+
+h2{
+  font-family:'Playfair Display',serif;
+  font-size:1.85rem;
+  font-weight:700;
+  margin-bottom:8px;
+  padding-bottom:12px;
+  border-bottom:3px solid var(--ink);
+}
+h3{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;
+  font-weight:700;
+  margin:28px 0 10px;
+}
+p{margin-bottom:14px;}
+
+/* ── FRAMEWORK COLOUR STRIPE ── */
+.fw{border-left:5px solid;border-radius:2px;}
+.fw-a{border-color:var(--a);}
+.fw-b{border-color:var(--b);}
+.fw-c{border-color:var(--c);}
+.fw-d{border-color:var(--d);}
+.fw-e{border-color:var(--e);}
+.fw-f{border-color:var(--f);}
+.fw-g{border-color:var(--g);}
+.fw-h{border-color:var(--h);}
+
+.fw-header{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:20px;
+}
+.fw-badge{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.72rem;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  padding:4px 14px;
+  border-radius:20px;
+  color:#fff;
+}
+.badge-a{background:var(--a);}
+.badge-b{background:var(--b);}
+.badge-c{background:var(--c);}
+.badge-d{background:var(--d);}
+.badge-e{background:var(--e);}
+.badge-f{background:var(--f);}
+.badge-g{background:var(--g);}
+.badge-h{background:var(--h);}
+
+/* ── EXPLANATION BOX ── */
+.explain{
+  background:var(--cream);
+  border-radius:10px;
+  padding:22px 26px;
+  margin:16px 0;
+  box-shadow:var(--shadow);
+}
+
+/* ── WORKED EXAMPLE ── */
+.worked{
+  background:var(--cream);
+  border-radius:10px;
+  padding:24px 28px;
+  margin:18px 0;
+  box-shadow:var(--shadow);
+  position:relative;
+}
+.worked .wlabel{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.68rem;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  color:var(--mid);
+  margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;
+}
+.worked .wlabel::after{
+  content:'';flex:1;height:1px;background:var(--rule);
+}
+.worked .question-text{
+  font-style:italic;
+  font-size:0.97rem;
+  background:var(--pale);
+  border-radius:6px;
+  padding:12px 16px;
+  margin-bottom:18px;
+  line-height:1.65;
+}
+.step{
+  display:flex;gap:16px;margin:10px 0;align-items:flex-start;
+}
+.sn{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--ink);color:#fff;
+  font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:600;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:2px;
+}
+.sn.check-sn{background:#666;}
+.sbody{flex:1;}
+.calc{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.9rem;
+  background:var(--pale);
+  padding:5px 11px;
+  border-radius:5px;
+  display:inline-block;
+  margin:3px 0;
+}
+.ans{
+  font-family:'Playfair Display',serif;
+  font-weight:700;
+  font-size:1.05rem;
+  margin-top:8px;
+}
+
+/* ── FORMULA / RULE BOX ── */
+.rule-box{
+  background:var(--ink);
+  color:var(--cream);
+  border-radius:8px;
+  padding:16px 22px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.88rem;
+  margin:16px 0;
+  line-height:1.7;
+}
+.rule-box span{display:block;font-size:0.72rem;opacity:0.5;margin-top:4px;}
+
+/* ── CALLOUT ── */
+.callout{
+  border-radius:8px;
+  padding:14px 18px;
+  margin:14px 0;
+  font-size:0.92rem;
+  line-height:1.6;
+}
+.callout.warn{background:#fff4e0;border-left:4px solid #e08020;}
+.callout.tip {background:#e6f4ea;border-left:4px solid var(--c);}
+.callout.info{background:#e8f0fb;border-left:4px solid var(--b);}
+.callout.trap{background:#fdecea;border-left:4px solid var(--a);}
+.callout strong{font-weight:600;}
+
+/* ── CONVERSION TABLE ── */
+.conv-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.9rem;}
+.conv-table th{
+  background:var(--ink);color:var(--cream);
+  padding:9px 14px;
+  font-family:'JetBrains Mono',monospace;font-size:0.78rem;
+  text-align:left;
+}
+.conv-table td{
+  padding:9px 14px;
+  border-bottom:1px solid var(--rule);
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.85rem;
+}
+.conv-table tr:last-child td{border-bottom:none;}
+.conv-table tr:nth-child(even) td{background:var(--pale);}
+
+/* ── RUCSAC TABLE ── */
+.rucsac{
+  width:100%;border-collapse:collapse;margin:16px 0;
+  box-shadow:var(--shadow);border-radius:8px;overflow:hidden;
+}
+.rucsac th{
+  background:var(--ink);color:var(--cream);
+  padding:10px 16px;
+  font-family:'JetBrains Mono',monospace;font-size:0.78rem;
+  text-align:left;
+}
+.rucsac td{
+  padding:12px 16px;
+  border-bottom:1px solid var(--rule);
+  vertical-align:top;
+  font-size:0.92rem;
+}
+.rucsac td:first-child{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:600;font-size:0.85rem;
+  white-space:nowrap;
+  width:120px;
+}
+.rucsac tr:last-child td{border-bottom:none;}
+.rucsac tr:nth-child(even) td{background:var(--pale);}
+
+/* ── DIFFICULTY BADGE ── */
+.diff-row{display:flex;align-items:center;gap:10px;margin:28px 0 12px;}
+.diff-badge{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;
+  padding:4px 12px;border-radius:20px;font-weight:600;
+}
+.diff-easy        {background:#d4edda;color:#155724;}
+.diff-intermediate{background:#cce5ff;color:#004085;}
+.diff-advanced    {background:#fff3cd;color:#856404;}
+.diff-challenging {background:#f8d7da;color:#721c24;}
+
+/* ── QUESTION CARD ── */
+.qcard{
+  background:var(--cream);
+  border-radius:10px;
+  padding:20px 24px;
+  margin:12px 0;
+  box-shadow:var(--shadow);
+  border:1px solid var(--rule);
+}
+.qcard .qt{font-size:0.96rem;margin-bottom:14px;line-height:1.65;}
+.qcard .qt em{color:var(--mid);font-size:0.9rem;}
+.qrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.qinput{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.92rem;
+  padding:8px 14px;
+  border:2px solid var(--rule);
+  border-radius:6px;
+  outline:none;
+  width:130px;
+  background:var(--bg);
+  transition:border-color 0.2s;
+}
+.qinput:focus{border-color:var(--ink);}
+.qinput.wide{width:200px;}
+.qbtn{
+  font-family:'Source Serif 4',serif;
+  font-weight:600;font-size:0.88rem;
+  padding:8px 20px;
+  border:none;border-radius:6px;
+  background:var(--ink);color:#fff;
+  cursor:pointer;transition:background 0.2s,transform 0.1s;
+}
+.qbtn:hover{background:#3a3028;}
+.qbtn:active{transform:scale(0.97);}
+.qfb{
+  margin-top:12px;padding:10px 14px;
+  border-radius:6px;font-size:0.88rem;
+  display:none;line-height:1.55;
+}
+.qfb.correct{background:var(--correct-bg);color:var(--correct);border:1px solid #b8d8c0;display:block;}
+.qfb.wrong  {background:var(--wrong-bg);  color:var(--wrong);  border:1px solid #f0b8bc;display:block;}
+
+/* ── MASTERY SECTION ── */
+.mastery-wrap{
+  background:var(--ink);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:var(--shadow-lg);
+}
+.mastery-head{padding:28px 32px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.mastery-head h2{color:var(--cream);border-bottom:none;font-size:1.5rem;}
+.mastery-head p{color:rgba(250,247,242,0.6);font-size:0.9rem;margin-top:8px;margin-bottom:0;}
+.mastery-body{background:var(--cream);padding:28px 32px;}
+.submit-btn{
+  display:block;margin:28px auto 0;
+  font-family:'Playfair Display',serif;font-weight:700;
+  font-size:1rem;padding:14px 44px;
+  border:none;border-radius:8px;
+  background:var(--a);color:#fff;
+  cursor:pointer;transition:background 0.2s;
+}
+.submit-btn:hover{background:#8c2e14;}
+#mastery-score{
+  display:none;margin-top:24px;
+  padding:24px;background:var(--pale);
+  border-radius:8px;text-align:center;
+  font-family:'Playfair Display',serif;
+}
+#mastery-score .big{font-size:2.2rem;font-weight:700;margin-bottom:8px;}
+#mastery-score .msg{font-size:1rem;font-family:'Source Serif 4',serif;font-weight:300;opacity:0.75;}
+
+/* ── TRAP SECTION ── */
+.trap-box{
+  background:var(--cream);border-radius:10px;
+  padding:24px 28px;margin:18px 0;
+  box-shadow:var(--shadow);
+  border:2px solid var(--a);
+}
+.trap-wrong{
+  background:#fdecea;border-radius:6px;
+  padding:12px 16px;margin:10px 0;
+  font-size:0.9rem;border-left:4px solid var(--wrong);
+  position:relative;
+}
+.trap-wrong::before{
+  content:'✗ WRONG STOP';
+  font-family:'JetBrains Mono',monospace;font-size:0.65rem;
+  color:var(--wrong);display:block;margin-bottom:4px;font-weight:600;
+}
+.trap-right{
+  background:#d4edda;border-radius:6px;
+  padding:12px 16px;margin:10px 0;
+  font-size:0.9rem;border-left:4px solid var(--correct);
+}
+.trap-right::before{
+  content:'✓ CORRECT CONTINUATION';
+  font-family:'JetBrains Mono',monospace;font-size:0.65rem;
+  color:var(--correct);display:block;margin-bottom:4px;font-weight:600;
+}
+
+hr.sec-rule{border:none;border-top:2px solid var(--rule);margin:60px 0 40px;}
+
+@media(max-width:600px){
+  main{padding:24px 14px 60px;}
+  .mastery-head,.mastery-body{padding:20px 18px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Multi-Step Word Problems</h1>
+  <div class="subtitle">11+ GL Assessment Mathematics — Complete Study Guide</div>
+</header>
+
+<nav>
+  <a href="#rucsac">RUCSAC</a>
+  <a href="#conv">Units</a>
+  <a href="#fw-a">A: Cost</a>
+  <a href="#fw-b">B: Mean</a>
+  <a href="#fw-c">C: Ratio</a>
+  <a href="#fw-d">D: Time</a>
+  <a href="#fw-e">E: Conversion</a>
+  <a href="#fw-f">F: %/Fractions</a>
+  <a href="#fw-g">G: Area/Cost</a>
+  <a href="#fw-h">H: Profit</a>
+  <a href="#trap">Answer Trap</a>
+  <a href="#est">Estimation</a>
+  <a href="#mcq">MCQ Strategy</a>
+  <a href="#practice">Practice</a>
+  <a href="#mastery">Mastery Test</a>
+</nav>
+
+<main>
+
+<!-- ═══════════════ RUCSAC ═══════════════ -->
+<section id="rucsac">
+<h2>1. The RUCSAC Strategy</h2>
+<p>Every multi-step problem can be solved with this six-step framework. Never skip straight to calculating — reading and understanding first will save you from expensive errors.</p>
+
+<table class="rucsac">
+<tr><th>Letter</th><th>Step</th><th>What to do</th></tr>
+<tr><td>R — Read</td><td>Read twice</td><td>Read the whole question. Underline the <em>final</em> question sentence — this tells you exactly what your answer must be.</td></tr>
+<tr><td>U — Understand</td><td>Find knowns & unknowns</td><td>Circle every number given. Write "?" next to what you need to find. Watch for hidden information (e.g. "he had £20 left" is also a number).</td></tr>
+<tr><td>C — Choose</td><td>Pick your operations</td><td>Decide which operations (+, −, ×, ÷) you need. Multi-step problems always need at least two. Identify the correct <em>order</em>.</td></tr>
+<tr><td>S — Solve</td><td>Calculate step by step</td><td>Label each sub-answer ("Step 1: Total cost = ..."). Do not combine steps in your head.</td></tr>
+<tr><td>A — Answer</td><td>Answer the right question</td><td>Check your final line answers what was underlined in step R. (Did they ask for change, not cost?)</td></tr>
+<tr><td>C — Check</td><td>Estimate to verify</td><td>Round your numbers, re-calculate roughly, confirm your answer is in the right ballpark.</td></tr>
+</table>
+
+<div class="worked">
+<div class="wlabel">RUCSAC Fully Demonstrated</div>
+<div class="question-text">Lena buys 4 notebooks at £1.85 each and 3 pens at £0.75 each. She pays with a £10 note. How much change does she receive?</div>
+
+<div class="step"><div class="sn">R</div><div class="sbody"><strong>Read:</strong> Underline "How much change does she receive?" — the answer must be in £, and it's about change, not total cost.</div></div>
+<div class="step"><div class="sn">U</div><div class="sbody"><strong>Understand:</strong> Knowns: 4 notebooks @ £1.85, 3 pens @ £0.75, pays with £10. Unknown: Change returned.</div></div>
+<div class="step"><div class="sn">C</div><div class="sbody"><strong>Choose:</strong> Step 1 needs × (cost of notebooks). Step 2 needs × (cost of pens). Step 3 needs + (total). Step 4 needs − (change).</div></div>
+<div class="step"><div class="sn">S</div><div class="sbody">
+  <strong>Solve:</strong><br>
+  Step 1: <span class="calc">4 × £1.85 = £7.40</span><br>
+  Step 2: <span class="calc">3 × £0.75 = £2.25</span><br>
+  Step 3: <span class="calc">£7.40 + £2.25 = £9.65</span><br>
+  Step 4: <span class="calc">£10.00 − £9.65 = £0.35</span>
+</div></div>
+<div class="step"><div class="sn">A</div><div class="sbody"><strong>Answer:</strong> The question asked for change. Our final step gives change. ✓ <span class="ans">Change = £0.35</span></div></div>
+<div class="step"><div class="sn check-sn">C</div><div class="sbody"><strong>Check (estimate):</strong> Notebooks ≈ 4 × £2 = £8. Pens ≈ 3 × £1 = £3. Total ≈ £11. But she only paid £10 — so our estimate suggests about £0–£1 change. Our answer of £0.35 is in that zone. ✓</div></div>
+</div>
+</section>
+
+<!-- ═══════════════ UNIT CONVERSION TABLE ═══════════════ -->
+<section id="conv">
+<h2>2. Unit Conversion Reference</h2>
+<p>Many multi-step problems mix units within the same question. Always convert to a single unit <em>before</em> you start calculating.</p>
+
+<table class="conv-table">
+<tr><th>Measure</th><th>Conversions</th><th>Direction tip</th></tr>
+<tr><td>Length</td><td>10 mm = 1 cm &nbsp;|&nbsp; 100 cm = 1 m &nbsp;|&nbsp; 1000 m = 1 km</td><td>Larger unit → multiply going down, divide going up</td></tr>
+<tr><td>Mass</td><td>1000 g = 1 kg</td><td>g → kg: divide by 1000 &nbsp;|&nbsp; kg → g: multiply by 1000</td></tr>
+<tr><td>Volume</td><td>1000 ml = 1 litre</td><td>ml → l: divide by 1000 &nbsp;|&nbsp; l → ml: multiply by 1000</td></tr>
+<tr><td>Time</td><td>60 sec = 1 min &nbsp;|&nbsp; 60 min = 1 hr &nbsp;|&nbsp; 24 hr = 1 day</td><td>Always convert to minutes for elapsed-time problems</td></tr>
+</table>
+
+<div class="callout warn"><strong>⚠ Rule:</strong> Convert ALL units to the same type at the start of Step S. Never calculate with mixed units.</div>
+</section>
+
+<hr class="sec-rule">
+
+<!-- ═══════════════ FRAMEWORK A ═══════════════ -->
+<section id="fw-a">
+<div class="fw-header">
+  <span class="fw-badge badge-a">Framework A</span>
+  <h2 style="border:none;padding:0;margin:0;">Total Cost & Change</h2>
+</div>
+<div class="explain">
+  <strong>The scenario:</strong> You buy several items at different prices and pay with a note or card. The question asks for the change, the total, or how many of something you can afford.
+</div>
+
+<div class="rule-box">
+  Step 1: Cost of each item type = Quantity × Price per item<br>
+  Step 2: Subtotal = add all item costs<br>
+  Step 3: Change = Amount paid − Subtotal
+  <span>Watch out: the question may ask for change, not total cost.</span>
+</div>
+
+<div class="worked fw fw-a">
+<div class="wlabel">Worked Example A</div>
+<div class="question-text">Mia buys 3 sandwiches at £2.40 each, 2 juices at £1.15 each, and a bag of crisps for £0.85. She pays with a £20 note. How much change does she get?</div>
+<div class="step"><div class="sn">1</div><div class="sbody">Sandwiches: <span class="calc">3 × £2.40 = £7.20</span></div></div>
+<div class="step"><div class="sn">2</div><div class="sbody">Juices: <span class="calc">2 × £1.15 = £2.30</span></div></div>
+<div class="step"><div class="sn">3</div><div class="sbody">Crisps: <span class="calc">1 × £0.85 = £0.85</span></div></div>
+<div class="step"><div class="sn">4</div><div class="sbody">Subtotal: <span class="calc">£7.20 + £2.30 + £0.85 = £10.35</span></div></div>
+<div class="step"><div class="sn">5</div><div class="sbody">Change: <span class="calc">£20.00 − £10.35 = £9.65</span><div class="ans">Change = £9.65</div></div></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-easy">Easy</span></div>
+<div class="qcard">
+  <div class="qt">Raj buys 5 apples at 30p each and pays with £2. How much change does he receive? <em>(Give answer in pence)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="qa1" placeholder="pence"><button class="qbtn" onclick="chk('qa1','50','5×30p=150p. Change=200p−150p=50p.')">Check</button></div>
+  <div class="qfb" id="fb-qa1"></div>
+</div>
+<div class="qcard">
+  <div class="qt">A magazine costs £2.50 and a newspaper costs £1.20. Tom buys one of each and pays with a £5 note. What is his change?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qa2" placeholder="£"><button class="qbtn" onclick="chk('qa2','1.30','Total=£2.50+£1.20=£3.70. Change=£5.00−£3.70=£1.30.')">Check</button></div>
+  <div class="qfb" id="fb-qa2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-intermediate">Intermediate</span></div>
+<div class="qcard">
+  <div class="qt">A school trip costs £6.50 per child. There are 32 children. The school pays with a cheque for £220. How much change does the school receive?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qa3" placeholder="£"><button class="qbtn" onclick="chk('qa3','12','32×£6.50=£208. Change=£220−£208=£12.')">Check</button></div>
+  <div class="qfb" id="fb-qa3"></div>
+</div>
+<div class="qcard">
+  <div class="qt">Emma buys 4 books at £3.75 each and 2 pens at £1.40 each. She also gets a 50p discount coupon. She pays with £20. How much change does Emma get?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qa4" placeholder="£"><button class="qbtn" onclick="chk('qa4','2.70','Books=4×£3.75=£15.00. Pens=2×£1.40=£2.80. Subtotal=£17.80. After 50p coupon=£17.30. Change=£20−£17.30=£2.70.')">Check</button></div>
+  <div class="qfb" id="fb-qa4"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-advanced">Advanced</span></div>
+<div class="qcard">
+  <div class="qt">Three friends share a restaurant bill equally. They ordered: 2 pizzas at £8.99 each, 3 pasta dishes at £7.50 each, and 4 drinks at £2.25 each. How much does each friend pay? <em>(Round to nearest penny)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="qa5" placeholder="£"><button class="qbtn" onclick="chk('qa5','16.49','Pizzas=2×£8.99=£17.98. Pasta=3×£7.50=£22.50. Drinks=4×£2.25=£9.00. Total=£49.48. Per person=£49.48÷3=£16.49.')">Check</button></div>
+  <div class="qfb" id="fb-qa5"></div>
+</div>
+</section>
+
+<hr class="sec-rule">
+
+<!-- ═══════════════ FRAMEWORK B ═══════════════ -->
+<section id="fw-b">
+<div class="fw-header">
+  <span class="fw-badge badge-b">Framework B</span>
+  <h2 style="border:none;padding:0;margin:0;">Reverse Mean</h2>
+</div>
+<div class="explain">
+  <strong>The scenario:</strong> You know the mean of a set of numbers, but one value is missing. Or you know a current mean and need to find what score will raise it to a new target.
+</div>
+<div class="rule-box">
+  Key identity: Total = Mean × Count<br><br>
+  Step 1: Current Total = Current Mean × Current Count<br>
+  Step 2: Target Total = Target Mean × New Count<br>
+  Step 3: Missing value = Target Total − Current Total
+</div>
+
+<div class="worked fw fw-b">
+<div class="wlabel">Worked Example B</div>
+<div class="question-text">After 4 tests, Priya's mean score is 73. What score must she get on her 5th test to raise her mean to 75?</div>
+<div class="step"><div class="sn">1</div><div class="sbody">Current total: <span class="calc">73 × 4 = 292</span></div></div>
+<div class="step"><div class="sn">2</div><div class="sbody">Target total (5 tests at mean 75): <span class="calc">75 × 5 = 375</span></div></div>
+<div class="step"><div class="sn">3</div><div class="sbody">Required score: <span class="calc">375 − 292 = 83</span><div class="ans">Priya needs 83 on her 5th test.</div></div></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-easy">Easy</span></div>
+<div class="qcard">
+  <div class="qt">The mean of four numbers is 9. Three of them are 7, 10, and 11. What is the fourth number?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qb1" placeholder=""><button class="qbtn" onclick="chk('qb1','8','Total=9×4=36. Known sum=7+10+11=28. Missing=36−28=8.')">Check</button></div>
+  <div class="qfb" id="fb-qb1"></div>
+</div>
+<div class="qcard">
+  <div class="qt">The mean of 5, 8, 12, and x is 9. Find x.</div>
+  <div class="qrow"><input class="qinput" type="text" id="qb2" placeholder=""><button class="qbtn" onclick="chk('qb2','11','Total=9×4=36. Known=5+8+12=25. x=36−25=11.')">Check</button></div>
+  <div class="qfb" id="fb-qb2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-intermediate">Intermediate</span></div>
+<div class="qcard">
+  <div class="qt">After 3 matches, a football team's mean goals per game is 2. How many goals must they score in their 4th match so the mean rises to 3?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qb3" placeholder="goals"><button class="qbtn" onclick="chk('qb3','6','Current total=2×3=6. Target total=3×4=12. Need=12−6=6 goals.')">Check</button></div>
+  <div class="qfb" id="fb-qb3"></div>
+</div>
+<div class="qcard">
+  <div class="qt">Six students' mean height is 148 cm. A seventh student joins and the new mean is 149 cm. How tall is the seventh student?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qb4" placeholder="cm"><button class="qbtn" onclick="chk('qb4','155','Old total=148×6=888. New total=149×7=1043. 7th student=1043−888=155 cm.')">Check</button></div>
+  <div class="qfb" id="fb-qb4"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-advanced">Advanced</span></div>
+<div class="qcard">
+  <div class="qt">The mean of eight numbers is 14. When one number is removed, the mean of the remaining seven is 13. What was the number removed?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qb5" placeholder=""><button class="qbtn" onclick="chk('qb5','21','Total of 8=14×8=112. Total of 7=13×7=91. Removed=112−91=21.')">Check</button></div>
+  <div class="qfb" id="fb-qb5"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-challenging">Challenging</span></div>
+<div class="qcard">
+  <div class="qt">A class of 20 students has a mean test mark of 64. A second class of 30 students has a mean of 72. What is the overall mean mark for all 50 students? <em>(Give to 1 decimal place)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="qb6" placeholder=""><button class="qbtn" onclick="chk('qb6','68.8','Class 1 total=20×64=1280. Class 2 total=30×72=2160. Grand total=3440. Mean=3440÷50=68.8.')">Check</button></div>
+  <div class="qfb" id="fb-qb6"></div>
+</div>
+</section>
+
+<hr class="sec-rule">
+
+<!-- ═══════════════ FRAMEWORK C ═══════════════ -->
+<section id="fw-c">
+<div class="fw-header">
+  <span class="fw-badge badge-c">Framework C</span>
+  <h2 style="border:none;padding:0;margin:0;">Shared Ratio</h2>
+</div>
+<div class="explain">
+  <strong>The scenario:</strong> A total amount is split between people or groups in a given ratio. Then one or both parties do something with their share (spend, save, give away). You need to find a final balance.
+</div>
+<div class="rule-box">
+  Step 1: Total parts = add ratio numbers (e.g. 3:2 → 5 parts)<br>
+  Step 2: Value of 1 part = Total ÷ Total parts<br>
+  Step 3: Each share = parts × value of 1 part<br>
+  Step 4: Apply what they spend/save to get final amount
+</div>
+
+<div class="worked fw fw-c">
+<div class="wlabel">Worked Example C</div>
+<div class="question-text">£240 is shared between Ali and Beth in the ratio 3:5. Ali spends £30 of his share. How much does Ali have left?</div>
+<div class="step"><div class="sn">1</div><div class="sbody">Total parts: <span class="calc">3 + 5 = 8 parts</span></div></div>
+<div class="step"><div class="sn">2</div><div class="sbody">Value of 1 part: <span class="calc">£240 ÷ 8 = £30</span></div></div>
+<div class="step"><div class="sn">3</div><div class="sbody">Ali's share (3 parts): <span class="calc">3 × £30 = £90</span></div></div>
+<div class="step"><div class="sn">4</div><div class="sbody">After spending: <span class="calc">£90 − £30 = £60</span><div class="ans">Ali has £60 left.</div></div></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-easy">Easy</span></div>
+<div class="qcard">
+  <div class="qt">£120 is shared in the ratio 1:3. What is the larger share?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qc1" placeholder="£"><button class="qbtn" onclick="chk('qc1','90','1+3=4 parts. 1 part=£30. Larger share=3×£30=£90.')">Check</button></div>
+  <div class="qfb" id="fb-qc1"></div>
+</div>
+<div class="qcard">
+  <div class="qt">£350 is shared between Sam and Jo in the ratio 2:3. How much does Jo receive?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qc2" placeholder="£"><button class="qbtn" onclick="chk('qc2','210','2+3=5 parts. 1 part=£70. Jo (3 parts)=£210.')">Check</button></div>
+  <div class="qfb" id="fb-qc2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-intermediate">Intermediate</span></div>
+<div class="qcard">
+  <div class="qt">£180 is shared between three friends in the ratio 2:3:4. The friend with the largest share spends half of it. How much does that friend have left?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qc3" placeholder="£"><button class="qbtn" onclick="chk('qc3','40','2+3+4=9 parts. 1 part=£20. Largest share=4×£20=£80. Half of £80=£40.')">Check</button></div>
+  <div class="qfb" id="fb-qc3"></div>
+</div>
+<div class="qcard">
+  <div class="qt">A prize of £500 is shared between winner and runner-up in the ratio 7:3. The runner-up donates £25 to charity. How much does the runner-up keep?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qc4" placeholder="£"><button class="qbtn" onclick="chk('qc4','125','7+3=10 parts. 1 part=£50. Runner-up=3×£50=£150. Keep=£150−£25=£125.')">Check</button></div>
+  <div class="qfb" id="fb-qc4"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-advanced">Advanced</span></div>
+<div class="qcard">
+  <div class="qt">Red and blue paint are mixed in ratio 3:7 to make 5 litres of purple paint. Red paint costs £4 per litre and blue costs £2.50 per litre. What is the total cost of paint used?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qc5" placeholder="£"><button class="qbtn" onclick="chk('qc5','14.75','Total 10 parts. 1 part=0.5L. Red=1.5L×£4=£6. Blue=3.5L×£2.50=£8.75. Total=£14.75.')">Check</button></div>
+  <div class="qfb" id="fb-qc5"></div>
+</div>
+</section>
+
+<hr class="sec-rule">
+
+<!-- ═══════════════ FRAMEWORK D ═══════════════ -->
+<section id="fw-d">
+<div class="fw-header">
+  <span class="fw-badge badge-d">Framework D</span>
+  <h2 style="border:none;padding:0;margin:0;">Time & Elapsed Time</h2>
+</div>
+<div class="explain">
+  <strong>The scenario:</strong> A question involves a start time and end time, a journey with multiple legs, a timetable, or converting between 12-hour (am/pm) and 24-hour clock. You must find duration, arrival time, or departure time.
+</div>
+<div class="rule-box">
+  12-hour → 24-hour: pm times: add 12 (except 12pm = 12:00). am times: keep as-is (except 12am = 00:00)<br>
+  Elapsed time: End time − Start time (use number line for times crossing the hour)<br>
+  Journey total: add each leg's duration, then add to start time
+</div>
+
+<div class="worked fw fw-d">
+<div class="wlabel">Worked Example D</div>
+<div class="question-text">A train leaves at 09:47 and arrives at 12:23. It stops for 18 minutes at an intermediate station. How long is the train actually moving?</div>
+<div class="step"><div class="sn">1</div><div class="sbody">Total journey time: <span class="calc">12:23 − 09:47</span>
+  <br>From 09:47 → 10:00 = 13 min
+  <br>From 10:00 → 12:00 = 120 min
+  <br>From 12:00 → 12:23 = 23 min
+  <br><span class="calc">13 + 120 + 23 = 156 minutes</span>
+</div></div>
+<div class="step"><div class="sn">2</div><div class="sbody">Subtract stop time: <span class="calc">156 − 18 = 138 minutes</span></div></div>
+<div class="step"><div class="sn">3</div><div class="sbody">Convert: <span class="calc">138 min = 2 hours 18 minutes</span><div class="ans">The train is moving for 2 hours 18 minutes.</div></div></div>
+</div>
+
+<div class="callout tip"><strong>Tip — Number line method:</strong> For awkward times like 09:47, count up in chunks: to the next hour, then full hours, then remaining minutes. Never subtract time like ordinary numbers.</div>
+
+<div class="diff-row"><span class="diff-badge diff-easy">Easy</span></div>
+<div class="qcard">
+  <div class="qt">A film starts at 2:15 pm and lasts 1 hour 45 minutes. What time does it end? <em>(Give in 24-hour clock, e.g. 16:00)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="qd1" placeholder="HH:MM"><button class="qbtn" onclick="chk('qd1','16:00','2:15 pm = 14:15. 14:15 + 1hr 45min = 16:00.')">Check</button></div>
+  <div class="qfb" id="fb-qd1"></div>
+</div>
+<div class="qcard">
+  <div class="qt">Convert 7:30 pm to 24-hour clock.</div>
+  <div class="qrow"><input class="qinput wide" type="text" id="qd2" placeholder="HH:MM"><button class="qbtn" onclick="chk('qd2','19:30','pm: add 12 to hours. 7+12=19. Answer: 19:30.')">Check</button></div>
+  <div class="qfb" id="fb-qd2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-intermediate">Intermediate</span></div>
+<div class="qcard">
+  <div class="qt">A bus departs at 08:35. It travels for 42 minutes, waits 8 minutes at a stop, then travels a further 25 minutes. What time does it arrive? <em>(24-hour clock)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="qd3" placeholder="HH:MM"><button class="qbtn" onclick="chk('qd3','09:50','Total=42+8+25=75 minutes. 08:35+75min=08:35+1hr15min=09:50.')">Check</button></div>
+  <div class="qfb" id="fb-qd3"></div>
+</div>
+<div class="qcard">
+  <div class="qt">A train arrives at 14:12. The journey took 2 hours and 38 minutes. What time did it depart? <em>(24-hour clock)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="qd4" placeholder="HH:MM"><button class="qbtn" onclick="chk('qd4','11:34','14:12 − 2hr 38min. 14:12 − 2hr = 12:12. 12:12 − 38min = 11:34.')">Check</button></div>
+  <div class="qfb" id="fb-qd4"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-advanced">Advanced</span></div>
+<div class="qcard">
+  <div class="qt">A runner starts at 10:52 am. She completes 3 laps. Lap 1: 7 min 45 sec. Lap 2: 8 min 10 sec. Lap 3: 7 min 30 sec. What time does she finish? <em>(Give as HH:MM:SS in 24-hour clock)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="qd5" placeholder="HH:MM:SS"><button class="qbtn" onclick="chk('qd5','11:15:25','Total: 7m45s+8m10s+7m30s=23m25s. 10:52:00+23m25s=11:15:25.')">Check</button></div>
+  <div class="qfb" id="fb-qd5"></div>
+</div>
+</section>
+
+<hr class="sec-rule">
+
+<!-- ═══════════════ FRAMEWORK E ═══════════════ -->
+<section id="fw-e">
+<div class="fw-header">
+  <span class="fw-badge badge-e">Framework E</span>
+  <h2 style="border:none;padding:0;margin:0;">Unit Conversion Chain</h2>
+</div>
+<div class="explain">
+  <strong>The scenario:</strong> A problem gives measurements in mixed units (e.g. a fence length in metres but planks measured in centimetres). You must convert first, then calculate.
+</div>
+<div class="rule-box">
+  Step 1: Identify ALL units used in the problem<br>
+  Step 2: Convert everything to ONE unit before doing anything else<br>
+  Step 3: Calculate as normal<br>
+  Step 4: Convert final answer to the unit requested
+</div>
+
+<div class="worked fw fw-e">
+<div class="wlabel">Worked Example E</div>
+<div class="question-text">A fence is 7.5 m long. Each plank is 25 cm wide. How many planks are needed to build the fence?</div>
+<div class="step"><div class="sn">1</div><div class="sbody">Convert fence length to cm: <span class="calc">7.5 m = 7.5 × 100 = 750 cm</span></div></div>
+<div class="step"><div class="sn">2</div><div class="sbody">Number of planks: <span class="calc">750 ÷ 25 = 30</span><div class="ans">30 planks are needed.</div></div></div>
+</div>
+
+<div class="worked fw fw-e">
+<div class="wlabel">Worked Example E2 — Mass conversion</div>
+<div class="question-text">A recipe uses 1.2 kg of flour. A bag holds 750 g. How many bags are needed? Will any flour be left over?</div>
+<div class="step"><div class="sn">1</div><div class="sbody">Convert 1.2 kg to grams: <span class="calc">1.2 × 1000 = 1200 g</span></div></div>
+<div class="step"><div class="sn">2</div><div class="sbody">Bags: <span class="calc">1200 ÷ 750 = 1.6 → need 2 bags</span> (must round up — can't buy 0.6 of a bag)</div></div>
+<div class="step"><div class="sn">3</div><div class="sbody">Flour left over: <span class="calc">2 × 750 g = 1500 g used. 1500 − 1200 = 300 g remaining</span><div class="ans">2 bags needed; 300 g left over.</div></div></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-easy">Easy</span></div>
+<div class="qcard">
+  <div class="qt">A ribbon is 3.5 m long. It is cut into pieces each 50 cm long. How many pieces can be cut?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qe1" placeholder="pieces"><button class="qbtn" onclick="chk('qe1','7','3.5m=350cm. 350÷50=7 pieces.')">Check</button></div>
+  <div class="qfb" id="fb-qe1"></div>
+</div>
+<div class="qcard">
+  <div class="qt">A jug holds 2.5 litres of juice. How many 250 ml glasses can be filled?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qe2" placeholder="glasses"><button class="qbtn" onclick="chk('qe2','10','2.5L=2500ml. 2500÷250=10 glasses.')">Check</button></div>
+  <div class="qfb" id="fb-qe2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-intermediate">Intermediate</span></div>
+<div class="qcard">
+  <div class="qt">A path is 4.8 m long and 1.2 m wide. Square paving stones measure 40 cm × 40 cm. How many stones are needed to cover the path exactly?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qe3" placeholder="stones"><button class="qbtn" onclick="chk('qe3','36','Convert: 4.8m=480cm, 1.2m=120cm. Along length: 480÷40=12. Along width: 120÷40=3. Total=12×3=36.')">Check</button></div>
+  <div class="qfb" id="fb-qe3"></div>
+</div>
+<div class="qcard">
+  <div class="qt">Tom runs 2.4 km on Monday and 1850 m on Tuesday. What is the total distance in km?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qe4" placeholder="km"><button class="qbtn" onclick="chk('qe4','4.25','1850m=1.85km. Total=2.4+1.85=4.25km.')">Check</button></div>
+  <div class="qfb" id="fb-qe4"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-advanced">Advanced</span></div>
+<div class="qcard">
+  <div class="qt">A swimming pool is 25 m long and holds 450,000 litres. If the pool is 2 m deep and 10 m wide, and 1 m³ = 1000 litres, what is the volume in m³? Does this match the capacity given?</div>
+  <div class="qrow"><input class="qinput wide" type="text" id="qe5" placeholder="m³"><button class="qbtn" onclick="chk('qe5','500','Volume=25×10×2=500m³. Capacity=500×1000=500,000L. Given is 450,000L — so no, it does not match. Answer for volume only: 500.')">Check</button></div>
+  <div class="qfb" id="fb-qe5"></div>
+</div>
+</section>
+
+<hr class="sec-rule">
+
+<!-- ═══════════════ FRAMEWORK F ═══════════════ -->
+<section id="fw-f">
+<div class="fw-header">
+  <span class="fw-badge badge-f">Framework F</span>
+  <h2 style="border:none;padding:0;margin:0;">Percentage & Fraction Chains</h2>
+</div>
+<div class="explain">
+  <strong>The scenario:</strong> A price changes by a percentage more than once (e.g. a sale price is then reduced further). Or a fraction of a remaining amount must be found. Each step uses the <em>result of the previous step</em>, not the original value.
+</div>
+<div class="rule-box">
+  Percentage of an amount: Amount × (percentage ÷ 100)<br>
+  After a reduction: New value = Original × (1 − rate/100)<br>
+  After an increase:  New value = Original × (1 + rate/100)<br>
+  Successive changes: ALWAYS apply to the running total, not the starting value.
+</div>
+
+<div class="worked fw fw-f">
+<div class="wlabel">Worked Example F — Successive Percentage</div>
+<div class="question-text">A jacket costs £80. It is reduced by 20% in a sale. The next week, the sale price is reduced by a further 10%. What is the final price?</div>
+<div class="step"><div class="sn">1</div><div class="sbody">First reduction (20%): <span class="calc">£80 × 0.80 = £64</span></div></div>
+<div class="step"><div class="sn">2</div><div class="sbody">Second reduction (10% of £64, not £80): <span class="calc">£64 × 0.90 = £57.60</span><div class="ans">Final price = £57.60</div></div></div>
+<div class="callout warn" style="margin-top:12px;"><strong>Common error:</strong> Adding both percentages (20% + 10% = 30%) and taking 30% off £80 gives £56 — this is WRONG because the second 10% is off the reduced price, not the original.</div>
+</div>
+
+<div class="worked fw fw-f">
+<div class="wlabel">Worked Example F2 — Fraction of a Remainder</div>
+<div class="question-text">Zara has 60 sweets. She gives ¼ to her sister. Then she gives ⅓ of what remains to her brother. How many sweets does Zara have left?</div>
+<div class="step"><div class="sn">1</div><div class="sbody">Gives to sister: <span class="calc">¼ × 60 = 15 sweets</span>. Remaining: <span class="calc">60 − 15 = 45</span></div></div>
+<div class="step"><div class="sn">2</div><div class="sbody">Gives to brother (⅓ of 45): <span class="calc">45 ÷ 3 = 15 sweets</span>. Remaining: <span class="calc">45 − 15 = 30</span><div class="ans">Zara has 30 sweets left.</div></div></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-easy">Easy</span></div>
+<div class="qcard">
+  <div class="qt">A shirt costs £40. It is reduced by 15% in a sale. What is the sale price?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qf1" placeholder="£"><button class="qbtn" onclick="chk('qf1','34','15% of £40=£6. Sale price=£40−£6=£34.')">Check</button></div>
+  <div class="qfb" id="fb-qf1"></div>
+</div>
+<div class="qcard">
+  <div class="qt">There are 120 pupils. ⅓ go on a trip. How many stay behind?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qf2" placeholder="pupils"><button class="qbtn" onclick="chk('qf2','80','⅓×120=40 go. 120−40=80 stay.')">Check</button></div>
+  <div class="qfb" id="fb-qf2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-intermediate">Intermediate</span></div>
+<div class="qcard">
+  <div class="qt">A laptop costs £600. VAT of 20% is added, then a loyalty discount of 5% is removed. What is the final price?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qf3" placeholder="£"><button class="qbtn" onclick="chk('qf3','684','After VAT: £600×1.20=£720. After 5% discount: £720×0.95=£684.')">Check</button></div>
+  <div class="qfb" id="fb-qf3"></div>
+</div>
+<div class="qcard">
+  <div class="qt">Leo has 200 cards. He gives ¼ to a friend. Of the rest, he sells ⅖. How many does he have left?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qf4" placeholder="cards"><button class="qbtn" onclick="chk('qf4','90','Gives: ¼×200=50. Remaining=150. Sells: ⅖×150=60. Left=150−60=90.')">Check</button></div>
+  <div class="qfb" id="fb-qf4"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-advanced">Advanced</span></div>
+<div class="qcard">
+  <div class="qt">A TV costs £900. It is reduced by 30%, then the reduced price is increased by 10% due to an error. What is the final price? Is the final price higher or lower than the original? <em>Type the final price only (£)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="qf5" placeholder="£"><button class="qbtn" onclick="chk('qf5','693','After 30% off: £900×0.70=£630. After 10% increase: £630×1.10=£693. Lower than original £900.')">Check</button></div>
+  <div class="qfb" id="fb-qf5"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-challenging">Challenging</span></div>
+<div class="qcard">
+  <div class="qt">A shop increases all prices by 25%, then offers a 20% discount on all items. A customer claims "the item is back to its original price." Are they correct? What is the final price of an item originally costing £200? <em>Type the final price</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="qf6" placeholder="£"><button class="qbtn" onclick="chk('qf6','200','After 25% increase: £200×1.25=£250. After 20% discount: £250×0.80=£200. Yes, the customer is correct. Final price=£200.')">Check</button></div>
+  <div class="qfb" id="fb-qf6"></div>
+</div>
+</section>
+
+<hr class="sec-rule">
+
+<!-- ═══════════════ FRAMEWORK G ═══════════════ -->
+<section id="fw-g">
+<div class="fw-header">
+  <span class="fw-badge badge-g">Framework G</span>
+  <h2 style="border:none;padding:0;margin:0;">Perimeter, Area & Cost</h2>
+</div>
+<div class="explain">
+  <strong>The scenario:</strong> A geometry problem (shape dimensions) leads to a real-world cost. Key step: when calculating "how many bags/tiles/rolls", always <strong>round UP</strong> because you cannot buy a fraction of a bag.
+</div>
+<div class="rule-box">
+  Rectangle: Area = Length × Width &nbsp;|&nbsp; Perimeter = 2(L + W)<br>
+  Triangle: Area = ½ × base × height<br>
+  After area: Bags needed = Area ÷ Coverage per bag → ROUND UP<br>
+  Cost = Bags (rounded up) × Price per bag
+</div>
+
+<div class="worked fw fw-g">
+<div class="wlabel">Worked Example G</div>
+<div class="question-text">A rectangular lawn is 14 m long and 9 m wide. A bag of fertiliser covers 15 m² and costs £3.50. How much will it cost to fertilise the entire lawn?</div>
+<div class="step"><div class="sn">1</div><div class="sbody">Area: <span class="calc">14 × 9 = 126 m²</span></div></div>
+<div class="step"><div class="sn">2</div><div class="sbody">Bags needed: <span class="calc">126 ÷ 15 = 8.4 → round UP to 9 bags</span></div></div>
+<div class="step"><div class="sn">3</div><div class="sbody">Cost: <span class="calc">9 × £3.50 = £31.50</span><div class="ans">Cost = £31.50</div></div></div>
+<div class="callout warn" style="margin-top:12px;"><strong>Do NOT use 8.4 bags</strong> — you must buy whole bags. Round up regardless of how small the decimal is.</div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-easy">Easy</span></div>
+<div class="qcard">
+  <div class="qt">A room is 5 m long and 4 m wide. Carpet costs £12 per m². What is the total cost?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qg1" placeholder="£"><button class="qbtn" onclick="chk('qg1','240','Area=5×4=20m². Cost=20×£12=£240.')">Check</button></div>
+  <div class="qfb" id="fb-qg1"></div>
+</div>
+<div class="qcard">
+  <div class="qt">A square garden has side length 8 m. What is its perimeter?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qg2" placeholder="m"><button class="qbtn" onclick="chk('qg2','32','Perimeter of square=4×8=32m.')">Check</button></div>
+  <div class="qfb" id="fb-qg2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-intermediate">Intermediate</span></div>
+<div class="qcard">
+  <div class="qt">A path is 12 m long and 1.5 m wide. Square tiles are 50 cm × 50 cm and cost £2.80 each. What is the total cost of tiles? <em>(Convert units first)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="qg3" placeholder="£"><button class="qbtn" onclick="chk('qg3','201.60','Path area=12×1.5=18m². Each tile=0.5×0.5=0.25m². Tiles=18÷0.25=72. Cost=72×£2.80=£201.60.')">Check</button></div>
+  <div class="qfb" id="fb-qg3"></div>
+</div>
+<div class="qcard">
+  <div class="qt">A triangular flowerbed has base 8 m and height 5 m. Mulch costs £4.50 per m². What does it cost to cover the flowerbed?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qg4" placeholder="£"><button class="qbtn" onclick="chk('qg4','90','Area=½×8×5=20m². Cost=20×£4.50=£90.')">Check</button></div>
+  <div class="qfb" id="fb-qg4"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-advanced">Advanced</span></div>
+<div class="qcard">
+  <div class="qt">A rectangular garden is 11 m × 7 m. A path 1 m wide runs all the way round the inside edge. Grass seed covers 8 m² per bag and costs £4.20 per bag. What is the cost to seed the inner lawn only?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qg5" placeholder="£"><button class="qbtn" onclick="chk('qg5','25.20','Inner lawn=(11−2)×(7−2)=9×5=45m². Bags=45÷8=5.625→6 bags. Cost=6×£4.20=£25.20.')">Check</button></div>
+  <div class="qfb" id="fb-qg5"></div>
+</div>
+</section>
+
+<hr class="sec-rule">
+
+<!-- ═══════════════ FRAMEWORK H ═══════════════ -->
+<section id="fw-h">
+<div class="fw-header">
+  <span class="fw-badge badge-h">Framework H</span>
+  <h2 style="border:none;padding:0;margin:0;">Profit, Loss & Discount</h2>
+</div>
+<div class="explain">
+  <strong>The scenario:</strong> An item has an original cost (paid by the seller) and a selling price (paid by the buyer). Profit = Selling Price − Cost Price. A discount reduces the selling price. You may need to find the profit after discount.
+</div>
+<div class="rule-box">
+  Profit = Selling Price − Cost Price (if positive = profit; if negative = loss)<br>
+  Discount amount = Original price × (discount % ÷ 100)<br>
+  Sale price = Original price − Discount amount<br>
+  Profit % = (Profit ÷ Cost Price) × 100
+</div>
+
+<div class="worked fw fw-h">
+<div class="wlabel">Worked Example H</div>
+<div class="question-text">A trader buys a vase for £24 and sells it for £45. He later reduces his selling price by 20%. What is his profit after the reduction?</div>
+<div class="step"><div class="sn">1</div><div class="sbody">Discounted selling price: <span class="calc">£45 × 0.80 = £36</span></div></div>
+<div class="step"><div class="sn">2</div><div class="sbody">Profit: <span class="calc">£36 − £24 = £12</span><div class="ans">Profit after discount = £12</div></div></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-easy">Easy</span></div>
+<div class="qcard">
+  <div class="qt">A book costs £5 to produce and sells for £8. What is the profit?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qh1" placeholder="£"><button class="qbtn" onclick="chk('qh1','3','Profit=£8−£5=£3.')">Check</button></div>
+  <div class="qfb" id="fb-qh1"></div>
+</div>
+<div class="qcard">
+  <div class="qt">A toy costs £12 in a shop. It is reduced by 25% in a sale. What is the sale price?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qh2" placeholder="£"><button class="qbtn" onclick="chk('qh2','9','25% of £12=£3. Sale price=£12−£3=£9.')">Check</button></div>
+  <div class="qfb" id="fb-qh2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-intermediate">Intermediate</span></div>
+<div class="qcard">
+  <div class="qt">A market trader buys 50 mugs at £2 each. He sells 40 of them at £4.50 each and throws away the rest. What is his total profit?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qh3" placeholder="£"><button class="qbtn" onclick="chk('qh3','80','Cost=50×£2=£100. Revenue=40×£4.50=£180. Profit=£180−£100=£80.')">Check</button></div>
+  <div class="qfb" id="fb-qh3"></div>
+</div>
+<div class="qcard">
+  <div class="qt">A phone's original price is £360. A shop offers 15% discount. The phone cost the shop £280. What is the shop's profit after the discount?</div>
+  <div class="qrow"><input class="qinput" type="text" id="qh4" placeholder="£"><button class="qbtn" onclick="chk('qh4','26','Discount=15% of £360=£54. Sale price=£360−£54=£306. Profit=£306−£280=£26.')">Check</button></div>
+  <div class="qfb" id="fb-qh4"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-advanced">Advanced</span></div>
+<div class="qcard">
+  <div class="qt">A farmer buys 200 kg of apples at 60p per kg. He sells ¾ of them at £1.20 per kg and the rest at 40p per kg (reduced for bruised ones). Calculate his overall profit or loss in £.</div>
+  <div class="qrow"><input class="qinput" type="text" id="qh5" placeholder="profit or loss £"><button class="qbtn" onclick="chk('qh5','80','Cost=200×£0.60=£120. Good apples=150kg×£1.20=£180. Bruised=50kg×£0.40=£20. Revenue=£200. Profit=£200−£120=£80.')">Check</button></div>
+  <div class="qfb" id="fb-qh5"></div>
+</div>
+</section>
+
+<hr class="sec-rule">
+
+<!-- ═══════════════ FINAL ANSWER TRAP ═══════════════ -->
+<section id="trap">
+<h2>The "Final Answer Trap"</h2>
+<p>GL Assessment problems are deliberately designed so that an intermediate result <em>looks</em> like the final answer. Always check: have I answered what was actually asked?</p>
+
+<div class="trap-box">
+<div class="wlabel" style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--mid);margin-bottom:14px;">Trap Example 1 — Area vs Cost</div>
+<div class="question-text" style="font-style:italic;font-size:0.96rem;background:var(--pale);border-radius:6px;padding:12px 16px;margin-bottom:14px;">A rectangular garden is 10 m by 6 m. Grass seed covers 12 m² per bag and costs £4.99 per bag. How much does it cost to seed the whole garden?</div>
+
+<div class="trap-wrong">
+  Student calculates: 10 × 6 = 60 m²… and writes 60 m² as their answer.<br>
+  <strong>Wrong</strong> — the question asked for the cost, not the area.
+</div>
+<div class="trap-right">
+  Correct continuation:<br>
+  Step 2: 60 ÷ 12 = 5 bags<br>
+  Step 3: 5 × £4.99 = <strong>£24.95</strong> ← this is the actual answer
+</div>
+</div>
+
+<div class="trap-box" style="margin-top:24px;">
+<div class="wlabel" style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--mid);margin-bottom:14px;">Trap Example 2 — Total vs Change</div>
+<div class="question-text" style="font-style:italic;font-size:0.96rem;background:var(--pale);border-radius:6px;padding:12px 16px;margin-bottom:14px;">Ben buys 3 books at £4.50 each and pays with £20. How much change does he receive?</div>
+
+<div class="trap-wrong">
+  Student calculates: 3 × £4.50 = £13.50… and writes £13.50 as their answer.<br>
+  <strong>Wrong</strong> — the question asked for change, not the total cost.
+</div>
+<div class="trap-right">
+  Correct continuation:<br>
+  Step 2: £20.00 − £13.50 = <strong>£6.50</strong> ← the actual answer
+</div>
+</div>
+
+<div class="callout trap"><strong>🚨 Prevention rule:</strong> After every calculation, look back at the underlined question. Ask: "Does my current number directly answer this sentence?" If not — keep going.</div>
+</section>
+
+<hr class="sec-rule">
+
+<!-- ═══════════════ ESTIMATION ═══════════════ -->
+<section id="est">
+<h2>Estimation & Checking</h2>
+<p>After solving, round the numbers and re-calculate quickly. If your estimate and your exact answer are far apart, you have likely made an error.</p>
+
+<div class="worked">
+<div class="wlabel">Estimation Example 1</div>
+<p><strong>Problem:</strong> 4 notebooks at £1.85 + 3 pens at £0.75 = ? Change from £10</p>
+<div class="step"><div class="sn">E</div><div class="sbody">Round: 4 × £2 = £8. 3 × £1 = £3. Total ≈ £11. Change from £10 ≈ −£1 (not possible — so total must be under £10). Exact answer £0.35 — plausible. ✓</div></div>
+</div>
+
+<div class="worked">
+<div class="wlabel">Estimation Example 2</div>
+<p><strong>Problem:</strong> A lawn 14 m × 9 m. Bags cover 15 m². Bags needed?</p>
+<div class="step"><div class="sn">E</div><div class="sbody">Round: 15 × 10 = 150 m². ÷ 15 ≈ 10 bags. Exact answer was 9 bags. In same ballpark. ✓</div></div>
+</div>
+
+<div class="callout tip"><strong>Tip:</strong> In MCQ, use estimation to eliminate 2–3 options immediately. You rarely need to calculate all options precisely.</div>
+</section>
+
+<hr class="sec-rule">
+
+<!-- ═══════════════ MCQ STRATEGY ═══════════════ -->
+<section id="mcq">
+<h2>MCQ Strategy for GL Assessment</h2>
+<p>GL papers are <strong>multiple choice</strong>. This changes your approach in three key ways.</p>
+
+<div class="explain">
+<h3 style="margin-top:0;">1. Eliminate First</h3>
+<p>Before calculating, look at the answer options. If the question asks for a cost in pounds, eliminate any answer that is negative or clearly too large/small. Often you can go from 5 options to 2 before doing any arithmetic.</p>
+
+<h3>2. Back-Substitute</h3>
+<p>If you are unsure, try plugging each remaining answer back into the question. E.g. "If the answer is £6.50, does £20 − £6.50 = £13.50, and is 3 × £4.50 = £13.50? Yes — so £6.50 is correct." This avoids solving the whole problem from scratch.</p>
+
+<h3>3. Check Units</h3>
+<p>Confirm the answer option is in the same unit as the question. If the question asks "How many metres?", an option like 350 cm is a distractor — it may be the right number but the wrong unit.</p>
+
+<h3>4. Time Management</h3>
+<p>50 questions in 50 minutes = 1 minute per question. Multi-step problems may need 90 seconds. Skip and return — but always make a guess before moving on, since there is no penalty for wrong answers in GL papers.</p>
+</div>
+</section>
+
+<hr class="sec-rule">
+
+<!-- ═══════════════ PRACTICE SET ═══════════════ -->
+<section id="practice">
+<h2>Practice Question Set</h2>
+<p>These 12 questions span all eight frameworks across four difficulty levels. Work through each one independently before clicking Check.</p>
+
+<div class="diff-row"><span class="diff-badge diff-easy">Easy — E1</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Framework A.</strong> Zara buys 6 oranges at 45p each. She pays with £3. How much change does she get? <em>(answer in pence)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="pq1" placeholder="pence"><button class="qbtn" onclick="chk('pq1','30','6×45p=270p. Change=300p−270p=30p.')">Check</button></div>
+  <div class="qfb" id="fb-pq1"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-easy">Easy — E2</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Framework C.</strong> £80 is shared in ratio 3:1. What is the smaller share?</div>
+  <div class="qrow"><input class="qinput" type="text" id="pq2" placeholder="£"><button class="qbtn" onclick="chk('pq2','20','3+1=4 parts. 1 part=£20. Smaller share=1×£20=£20.')">Check</button></div>
+  <div class="qfb" id="fb-pq2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-easy">Easy — E3</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Framework H.</strong> A toy costs £8 to make and sells for £15. What is the profit?</div>
+  <div class="qrow"><input class="qinput" type="text" id="pq3" placeholder="£"><button class="qbtn" onclick="chk('pq3','7','Profit=£15−£8=£7.')">Check</button></div>
+  <div class="qfb" id="fb-pq3"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-intermediate">Intermediate — I1</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Framework D.</strong> A coach departs at 09:20. It arrives 2 hours and 55 minutes later. What is the arrival time? <em>(24-hour clock)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="pq4" placeholder="HH:MM"><button class="qbtn" onclick="chk('pq4','12:15','09:20 + 2hr = 11:20. 11:20 + 55min = 12:15.')">Check</button></div>
+  <div class="qfb" id="fb-pq4"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-intermediate">Intermediate — I2</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Framework F.</strong> A price of £200 is increased by 10%, then reduced by 10%. What is the final price?</div>
+  <div class="qrow"><input class="qinput" type="text" id="pq5" placeholder="£"><button class="qbtn" onclick="chk('pq5','198','After 10% increase: £200×1.10=£220. After 10% decrease: £220×0.90=£198. NOT £200 — the percentages are of different amounts.')">Check</button></div>
+  <div class="qfb" id="fb-pq5"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-intermediate">Intermediate — I3</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Framework E.</strong> A carpet roll is 25 m long. A room needs 650 cm of carpet. How many complete rooms can be carpeted from one roll?</div>
+  <div class="qrow"><input class="qinput" type="text" id="pq6" placeholder="rooms"><button class="qbtn" onclick="chk('pq6','3','25m=2500cm. 2500÷650=3.84→ 3 complete rooms (must round DOWN for complete rooms).')">Check</button></div>
+  <div class="qfb" id="fb-pq6"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-intermediate">Intermediate — I4</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Framework B.</strong> After 5 tests, Amy's mean score is 68. What must she score on her 6th test to bring her mean up to 70?</div>
+  <div class="qrow"><input class="qinput" type="text" id="pq7" placeholder="marks"><button class="qbtn" onclick="chk('pq7','80','Current total=68×5=340. Target total=70×6=420. Need=420−340=80.')">Check</button></div>
+  <div class="qfb" id="fb-pq7"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-advanced">Advanced — A1</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Framework G.</strong> A rectangular pool is 20 m long and 8 m wide. Tiles are 40 cm × 40 cm and cost £1.50 each. What is the total cost to tile the pool floor? <em>(Convert units first)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="pq8" placeholder="£"><button class="qbtn" onclick="chk('pq8','1500','Pool area=20×8=160m². Each tile=0.4×0.4=0.16m². Tiles=160÷0.16=1000. Cost=1000×£1.50=£1500.')">Check</button></div>
+  <div class="qfb" id="fb-pq8"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-advanced">Advanced — A2</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Framework C + F.</strong> £360 is shared between Kim and Dan in ratio 5:4. Kim then spends 30% of her share. How much does Kim have left?</div>
+  <div class="qrow"><input class="qinput" type="text" id="pq9" placeholder="£"><button class="qbtn" onclick="chk('pq9','140','5+4=9 parts. 1 part=£40. Kim=5×£40=£200. Spends 30%: £200×0.30=£60. Kim left=£200−£60=£140.')">Check</button></div>
+  <div class="qfb" id="fb-pq9"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-advanced">Advanced — A3</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Framework H + E.</strong> A trader buys 5 kg of strawberries at £3.20 per kg. He sells them in 250 g punnets at £1.10 each. If he sells all of them, what is his profit?</div>
+  <div class="qrow"><input class="qinput" type="text" id="pq10" placeholder="£"><button class="qbtn" onclick="chk('pq10','6','Cost=5×£3.20=£16. Punnets=5000g÷250g=20 punnets. Revenue=20×£1.10=£22. Profit=£22−£16=£6.')">Check</button></div>
+  <div class="qfb" id="fb-pq10"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-challenging">Challenging — C1 (Final Answer Trap)</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Multi-framework.</strong> A hall is 15 m × 10 m. A 2 m wide border of tiles runs around the inside edge (not a lawn — it's tiles on the floor border only, the inner area is wooden floor). Each tile is 50 cm × 50 cm and costs £3.20. What is the total cost of tiles for the border?</div>
+  <div class="qrow"><input class="qinput wide" type="text" id="pq11" placeholder="£"><button class="qbtn" onclick="chk('pq11','1075.20','Total area=15×10=150m². Inner floor=(15−2×2)×(10−2×2)=11×6=66m². Border area=150−66=84m². Tile area=0.5×0.5=0.25m². Tiles=84÷0.25=336. Cost=336×£3.20=£1075.20.')">Check</button></div>
+  <div class="qfb" id="fb-pq11"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge diff-challenging">Challenging — C2</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Multi-framework.</strong> Three runners have a mean time of 48 minutes for a 10 km race. A fourth runner joins and the new mean is 45 minutes. The fourth runner started 8 minutes late — what was her actual running time (ignoring the late start)?</div>
+  <div class="qrow"><input class="qinput" type="text" id="pq12" placeholder="minutes"><button class="qbtn" onclick="chk('pq12','28','Old total=48×3=144min. New total=45×4=180min. 4th runner=180−144=36min. Actual running time=36−8=28 minutes.')">Check</button></div>
+  <div class="qfb" id="fb-pq12"></div>
+</div>
+</section>
+
+<hr class="sec-rule">
+
+<!-- ═══════════════ MASTERY TEST ═══════════════ -->
+<section id="mastery">
+<div class="mastery-wrap">
+<div class="mastery-head">
+  <h2>Final Mastery Test</h2>
+  <p>8 mixed questions across all frameworks. Answer each one, then click "See My Score" at the bottom.</p>
+</div>
+<div class="mastery-body">
+
+<div class="qcard">
+  <div class="qt"><strong>M1 — Framework A.</strong> A bakery sells loaves at £1.65 each and rolls at 35p each. A customer buys 3 loaves and 8 rolls and pays with a £10 note. How much change does the customer receive?</div>
+  <div class="qrow"><input class="qinput" type="text" id="m1" placeholder="£"><button class="qbtn" onclick="chkM('m1','2.25','Loaves=3×£1.65=£4.95. Rolls=8×£0.35=£2.80. Total=£7.75. Change=£10−£7.75=£2.25.')">Check</button></div>
+  <div class="qfb" id="fb-m1"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt"><strong>M2 — Framework B.</strong> The mean of 7 numbers is 11. Six of them are: 8, 14, 9, 13, 10, 12. What is the seventh number?</div>
+  <div class="qrow"><input class="qinput" type="text" id="m2" placeholder=""><button class="qbtn" onclick="chkM('m2','11','Total=11×7=77. Known=8+14+9+13+10+12=66. 7th=77−66=11.')">Check</button></div>
+  <div class="qfb" id="fb-m2"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt"><strong>M3 — Framework D.</strong> A film starts at 19:45 and lasts 2 hours 35 minutes. What time does it end? <em>(24-hour clock)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="m3" placeholder="HH:MM"><button class="qbtn" onclick="chkM('m3','22:20','19:45+2hr=21:45. 21:45+35min=22:20.')">Check</button></div>
+  <div class="qfb" id="fb-m3"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt"><strong>M4 — Framework E.</strong> A length of string is 4.5 m. It is cut into pieces of 30 cm each. How many pieces are cut, and how much string (in cm) is left over?<br><em>Type as: pieces,cm (e.g. 10,20)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="m4" placeholder="pieces,cm"><button class="qbtn" onclick="chkM('m4','15,0','4.5m=450cm. 450÷30=15 pieces exactly. 0 cm left over.')">Check</button></div>
+  <div class="qfb" id="fb-m4"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt"><strong>M5 — Framework F.</strong> A coat costs £150. It is reduced by 40% in January. In February, the January price is increased by 25%. What is the February price?</div>
+  <div class="qrow"><input class="qinput" type="text" id="m5" placeholder="£"><button class="qbtn" onclick="chkM('m5','112.50','After 40% off: £150×0.60=£90. After 25% increase: £90×1.25=£112.50.')">Check</button></div>
+  <div class="qfb" id="fb-m5"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt"><strong>M6 — Framework G.</strong> A rectangular room is 6.5 m × 4 m. Underlay costs £3.50 per m² and carpet costs £12 per m². What is the combined cost of underlay and carpet for the whole room?</div>
+  <div class="qrow"><input class="qinput" type="text" id="m6" placeholder="£"><button class="qbtn" onclick="chkM('m6','403','Area=6.5×4=26m². Underlay=26×£3.50=£91. Carpet=26×£12=£312. Total=£91+£312=£403.')">Check</button></div>
+  <div class="qfb" id="fb-m6"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt"><strong>M7 — Framework C.</strong> £480 is shared between three people in the ratio 1:2:3. The person with the largest share gives ¼ of their share to a charity. How much does that person have left?</div>
+  <div class="qrow"><input class="qinput" type="text" id="m7" placeholder="£"><button class="qbtn" onclick="chkM('m7','180','1+2+3=6 parts. 1 part=£80. Largest=3×£80=£240. Gives ¼: £240÷4=£60. Left=£240−£60=£180.')">Check</button></div>
+  <div class="qfb" id="fb-m7"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt"><strong>M8 — Framework H (Multi-step).</strong> A trader buys 120 scarves at £4 each. He sells 90 of them at £9 each. He discounts the remaining scarves by 50% and sells them all. What is his total profit?</div>
+  <div class="qrow"><input class="qinput" type="text" id="m8" placeholder="£"><button class="qbtn" onclick="chkM('m8','390','Cost=120×£4=£480. Revenue1=90×£9=£810. Discounted price=£9×0.50=£4.50. Revenue2=30×£4.50=£135. Total revenue=£945. Profit=£945−£480=£465. Wait: 810+135=945. 945-480=465.')">Check</button></div>
+  <div class="qfb" id="fb-m8"></div>
+</div>
+
+<div id="mastery-score">
+  <div class="big" id="score-display"></div>
+  <div class="msg" id="score-msg"></div>
+</div>
+
+<button class="submit-btn" id="submit-btn" onclick="showScore()">📊 See My Score</button>
+</div>
+</div>
+</section>
+
+</main>
+
+<script>
+// ─── GENERIC CHECK ───
+function normalise(s){return s.trim().toLowerCase().replace(/\s+/g,'').replace(/^£/,'');}
+function numClose(a,b){
+  var na=parseFloat(a),nb=parseFloat(b);
+  return !isNaN(na)&&!isNaN(nb)&&Math.abs(na-nb)<0.06;
+}
+function chk(id,correct,expl){
+  var inp=document.getElementById(id);
+  var fb=document.getElementById('fb-'+id);
+  var s=normalise(inp.value);
+  var c=normalise(String(correct));
+  var ok=s===c||numClose(s,c)||(s.replace(/,/g,'')===c.replace(/,/g,''));
+  fb.className='qfb '+(ok?'correct':'wrong');
+  if(ok){fb.innerHTML='✅ Correct! '+expl;}
+  else{fb.innerHTML='❌ Incorrect. Correct answer: <strong>'+correct+'</strong>. '+expl;}
+}
+
+// ─── MASTERY CHECK ───
+var masteryIds=['m1','m2','m3','m4','m5','m6','m7','m8'];
+var masteryData={
+  m1:{ans:'2.25',expl:'Loaves=3×£1.65=£4.95. Rolls=8×35p=£2.80. Total=£7.75. Change=£10−£7.75=£2.25.'},
+  m2:{ans:'11',expl:'Total=11×7=77. Known sum=66. 7th=77−66=11.'},
+  m3:{ans:'22:20',expl:'19:45+2hr35min. 19:45→21:45→22:20.'},
+  m4:{ans:'15,0',expl:'4.5m=450cm. 450÷30=15 pieces, 0 cm left over.'},
+  m5:{ans:'112.50',expl:'After 40% off: £90. After 25% up: £90×1.25=£112.50.'},
+  m6:{ans:'403',expl:'Area=6.5×4=26m². Underlay=£91. Carpet=£312. Total=£403.'},
+  m7:{ans:'180',expl:'Largest share=£240. Gives ¼=£60. Left=£180.'},
+  m8:{ans:'465',expl:'Cost=£480. Revenue=90×£9+30×£4.50=£810+£135=£945. Profit=£465.'}
+};
+function chkM(id,correct,expl){
+  chk(id,correct,expl);
+}
+function showScore(){
+  var score=0;
+  masteryIds.forEach(function(id){
+    var fb=document.getElementById('fb-'+id);
+    if(fb&&fb.classList.contains('correct'))score++;
+  });
+  var el=document.getElementById('mastery-score');
+  el.style.display='block';
+  document.getElementById('score-display').textContent='Score: '+score+' / '+masteryIds.length;
+  var msgs=['Keep going — review each framework carefully.',
+            'You are building a solid foundation!',
+            'Good work — focus on any you missed.',
+            'Great score! Almost there.',
+            '🌟 Perfect! You are ready for the 11+!'];
+  var idx=Math.min(Math.floor(score/2),msgs.length-1);
+  if(score===masteryIds.length)idx=4;
+  document.getElementById('score-msg').textContent=msgs[idx];
+  document.getElementById('submit-btn').style.display='none';
+}
+</script>
+</body>
+</html>

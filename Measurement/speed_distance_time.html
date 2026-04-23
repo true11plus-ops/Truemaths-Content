@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speed, Distance & Time — 11+ GL Assessment</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap');
+
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface2: #22263a;
+  --border: #2e3348;
+  --text: #e8eaf2;
+  --muted: #7a80a0;
+  --speed: #f97316;
+  --dist: #3b82f6;
+  --time: #22c55e;
+  --accent: #a855f7;
+  --danger: #ef4444;
+  --warn: #f59e0b;
+  --correct-bg: #052e16;
+  --correct-border: #16a34a;
+  --wrong-bg: #2d0a0a;
+  --wrong-border: #dc2626;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 16px;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, #0f1117 0%, #1a1030 50%, #0f1117 100%);
+  padding: 60px 32px 52px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(168,85,247,0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(59,130,246,0.10) 0%, transparent 50%);
+}
+.header-badges {
+  display: flex; gap: 10px; justify-content: center;
+  margin-bottom: 20px; position: relative;
+}
+.hbadge {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.72rem; font-weight: 500;
+  padding: 4px 14px; border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+.hb-s { background: rgba(249,115,22,0.2); color: var(--speed); border: 1px solid rgba(249,115,22,0.4); }
+.hb-d { background: rgba(59,130,246,0.2); color: var(--dist); border: 1px solid rgba(59,130,246,0.4); }
+.hb-t { background: rgba(34,197,94,0.2); color: var(--time); border: 1px solid rgba(34,197,94,0.4); }
+header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--speed), var(--accent), var(--dist));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  line-height: 1.1;
+}
+header p {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 12px;
+  position: relative;
+  letter-spacing: 1px;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  display: flex; gap: 0; overflow-x: auto;
+  position: sticky; top: 0; z-index: 200;
+  scrollbar-width: none;
+}
+nav::-webkit-scrollbar { display: none; }
+nav a {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.67rem; letter-spacing: 0.5px;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 12px 14px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  display: block;
+}
+nav a:hover { color: var(--text); border-bottom-color: var(--accent); }
+
+/* ── LAYOUT ── */
+main { max-width: 960px; margin: 0 auto; padding: 48px 24px 100px; }
+section { margin-bottom: 80px; }
+
+h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.7rem; font-weight: 700;
+  margin-bottom: 8px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+  display: flex; align-items: center; gap: 12px;
+}
+.sec-num {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 2px 10px; border-radius: 12px;
+}
+h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem; font-weight: 700;
+  margin: 28px 0 12px;
+  color: var(--text);
+}
+p { margin-bottom: 14px; }
+
+/* ── FORMULA TRIANGLE ── */
+.triangle-section {
+  display: flex; flex-wrap: wrap; gap: 40px;
+  align-items: flex-start;
+  margin: 28px 0;
+}
+.triangle-wrap {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 16px;
+  flex-shrink: 0;
+}
+.triangle-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.72rem; color: var(--muted);
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.css-triangle {
+  width: 200px;
+  position: relative;
+}
+.tri-top {
+  width: 0; height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 80px solid var(--accent);
+  position: relative;
+  margin: 0 auto;
+  filter: drop-shadow(0 0 12px rgba(168,85,247,0.4));
+}
+.tri-bottom {
+  display: flex; width: 200px;
+}
+.tri-left {
+  width: 100px; height: 80px;
+  background: var(--dist);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  filter: drop-shadow(0 0 8px rgba(59,130,246,0.4));
+}
+.tri-right {
+  width: 100px; height: 80px;
+  background: var(--time);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  filter: drop-shadow(0 0 8px rgba(34,197,94,0.4));
+}
+.tri-label-d {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) translateY(25px);
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4rem; font-weight: 800;
+  color: #fff;
+  pointer-events: none;
+}
+.tri-label-s {
+  position: absolute;
+  top: 35%; left: 25%;
+  transform: translate(-50%, -50%);
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem; font-weight: 800;
+  color: #fff;
+}
+.tri-label-t {
+  position: absolute;
+  top: 35%; right: 18%;
+  transform: translate(50%, -50%);
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem; font-weight: 800;
+  color: #fff;
+}
+.tri-container {
+  position: relative;
+  width: 200px; height: 160px;
+}
+.tri-seg-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 80px;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  padding-top: 24px;
+}
+.tri-seg-left {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100px; height: 80px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  background: var(--dist);
+  display: flex; align-items: center; justify-content: center;
+}
+.tri-seg-right {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 100px; height: 80px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  background: var(--time);
+  display: flex; align-items: center; justify-content: center;
+}
+.tri-letter {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.6rem; font-weight: 800;
+  color: rgba(255,255,255,0.95);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  pointer-events: none;
+  position: absolute;
+}
+.tri-letter.D { top: 22px; left: 50%; transform: translateX(-50%); }
+.tri-letter.S { bottom: 18px; left: 28px; }
+.tri-letter.T { bottom: 18px; right: 28px; }
+
+.tri-divider-h {
+  position: absolute;
+  bottom: 80px; left: 0; right: 0;
+  height: 2px; background: rgba(255,255,255,0.3);
+}
+.tri-divider-v {
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 2px; height: 80px;
+  background: rgba(255,255,255,0.3);
+}
+.formulas-list {
+  flex: 1; min-width: 240px;
+  display: flex; flex-direction: column; gap: 12px;
+  padding-top: 8px;
+}
+.formula-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 18px;
+  display: flex; gap: 14px; align-items: center;
+}
+.formula-card .fc-cover {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.72rem; color: var(--muted);
+  min-width: 80px;
+}
+.formula-card .fc-formula {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.05rem; font-weight: 700;
+}
+.fc-d { color: var(--accent); }
+.fc-s { color: var(--speed); }
+.fc-t { color: var(--time); }
+
+/* ── WORKED EXAMPLE BOX ── */
+.worked {
+  background: var(--surface);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 22px 26px;
+  margin: 18px 0;
+  box-shadow: var(--shadow);
+}
+.worked.w-speed { border-left-color: var(--speed); }
+.worked.w-dist  { border-left-color: var(--dist); }
+.worked.w-time  { border-left-color: var(--time); }
+.worked.w-avg   { border-left-color: var(--warn); }
+.worked.w-two   { border-left-color: var(--accent); }
+
+.wlabel {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.wlabel::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.qtext {
+  font-style: italic;
+  background: var(--surface2);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  font-size: 0.95rem;
+  border-left: 3px solid var(--border);
+}
+.step {
+  display: flex; gap: 14px;
+  margin: 10px 0; align-items: flex-start;
+}
+.sn {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.72rem; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+.sbody { flex: 1; }
+.sbody strong { font-weight: 500; color: var(--text); }
+.calc {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.88rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 4px 10px; border-radius: 5px;
+  display: inline-block; margin: 3px 2px;
+}
+.ans {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.05rem; font-weight: 700;
+  color: var(--accent);
+  margin-top: 8px;
+  display: block;
+}
+.ans.a-s { color: var(--speed); }
+.ans.a-d { color: var(--dist); }
+.ans.a-t { color: var(--time); }
+.ans.a-avg { color: var(--warn); }
+
+/* ── WRONG / RIGHT BOXES ── */
+.wrong-box {
+  background: var(--wrong-bg);
+  border: 1px solid var(--wrong-border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 14px 0;
+  position: relative;
+}
+.wrong-box::before {
+  content: '✗  WRONG METHOD — DO NOT DO THIS';
+  display: block;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  color: var(--danger);
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+.right-box {
+  background: var(--correct-bg);
+  border: 1px solid var(--correct-border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 14px 0;
+}
+.right-box::before {
+  content: '✓  CORRECT METHOD';
+  display: block;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  color: var(--time);
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+/* ── CALLOUTS ── */
+.callout {
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.callout.warn  { background: rgba(245,158,11,0.1); border-left: 4px solid var(--warn); }
+.callout.tip   { background: rgba(34,197,94,0.08); border-left: 4px solid var(--time); }
+.callout.info  { background: rgba(59,130,246,0.08); border-left: 4px solid var(--dist); }
+.callout.danger{ background: rgba(239,68,68,0.08); border-left: 4px solid var(--danger); }
+.callout strong { font-weight: 500; }
+
+/* ── CONVERSION TABLE ── */
+.conv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px; margin: 16px 0;
+}
+.conv-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 18px;
+  text-align: center;
+}
+.conv-card .cc-val {
+  font-family: 'Fira Code', monospace;
+  font-size: 1rem; font-weight: 500;
+  color: var(--warn);
+  display: block; margin-bottom: 4px;
+}
+.conv-card .cc-label {
+  font-size: 0.82rem; color: var(--muted);
+}
+
+/* ── DIAGRAM (two objects) ── */
+.diagram {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin: 16px 0;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.82rem;
+}
+.diagram .road {
+  display: flex; align-items: center;
+  gap: 0; margin: 12px 0;
+  position: relative;
+}
+.road-line {
+  flex: 1; height: 3px;
+  background: linear-gradient(90deg, var(--border), var(--muted), var(--border));
+  border-radius: 2px;
+}
+.obj-a {
+  background: var(--speed);
+  color: #000; font-weight: 600;
+  padding: 4px 10px; border-radius: 6px;
+  white-space: nowrap; font-size: 0.78rem;
+}
+.obj-b {
+  background: var(--dist);
+  color: #fff; font-weight: 600;
+  padding: 4px 10px; border-radius: 6px;
+  white-space: nowrap; font-size: 0.78rem;
+}
+.arrow-r { color: var(--speed); font-size: 1.2rem; margin: 0 4px; }
+.arrow-l { color: var(--dist); font-size: 1.2rem; margin: 0 4px; }
+.dist-label {
+  text-align: center; color: var(--muted);
+  font-size: 0.78rem; margin: 4px 0;
+}
+
+/* ── DIFFICULTY BADGE ── */
+.diff-row {
+  display: flex; align-items: center; gap: 10px;
+  margin: 32px 0 14px;
+}
+.diff-badge {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase; letter-spacing: 1px;
+  padding: 4px 12px; border-radius: 20px; font-weight: 500;
+}
+.d-easy   { background: rgba(34,197,94,0.15);   color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+.d-int    { background: rgba(59,130,246,0.15);   color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+.d-adv    { background: rgba(245,158,11,0.15);   color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+.d-chal   { background: rgba(239,68,68,0.15);    color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+
+/* ── QUESTION CARD ── */
+.qcard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 12px 0;
+  transition: border-color 0.2s;
+}
+.qcard:hover { border-color: rgba(168,85,247,0.3); }
+.qt {
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+  line-height: 1.65;
+  color: var(--text);
+}
+.qt em { color: var(--muted); font-size: 0.88rem; }
+.qt code {
+  font-family: 'Fira Code', monospace;
+  background: var(--surface2);
+  padding: 2px 6px; border-radius: 4px;
+  font-size: 0.88rem;
+}
+.qrow {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.qinput {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.92rem;
+  padding: 8px 14px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface2);
+  color: var(--text);
+  outline: none;
+  width: 130px;
+  transition: border-color 0.2s;
+}
+.qinput:focus { border-color: var(--accent); }
+.qinput.wide { width: 180px; }
+.qbtn {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500; font-size: 0.88rem;
+  padding: 8px 20px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: rgba(168,85,247,0.15);
+  color: var(--accent);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.qbtn:hover { background: rgba(168,85,247,0.3); }
+.qbtn:active { transform: scale(0.97); }
+.qfb {
+  margin-top: 12px; padding: 10px 14px;
+  border-radius: 6px; font-size: 0.88rem;
+  display: none; line-height: 1.55;
+}
+.qfb.correct {
+  background: var(--correct-bg);
+  border: 1px solid var(--correct-border);
+  color: #4ade80;
+  display: block;
+}
+.qfb.wrong {
+  background: var(--wrong-bg);
+  border: 1px solid var(--wrong-border);
+  color: #f87171;
+  display: block;
+}
+
+/* ── RULE BOX ── */
+.rule-box {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.88rem;
+  margin: 16px 0;
+  line-height: 1.8;
+  color: var(--text);
+}
+.rule-box .rb-title {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  display: block;
+}
+.rule-box span.hl { color: var(--warn); }
+
+/* ── MASTERY SECTION ── */
+.mastery-wrap {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+}
+.mastery-head {
+  background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(59,130,246,0.15));
+  padding: 28px 32px;
+  border-bottom: 1px solid var(--border);
+}
+.mastery-head h2 {
+  border-bottom: none; padding: 0; margin: 0;
+  color: var(--text);
+}
+.mastery-head p {
+  color: var(--muted); font-size: 0.88rem;
+  margin: 8px 0 0;
+}
+.mastery-body { padding: 28px 32px; }
+.score-btn {
+  display: block; margin: 28px auto 0;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 1rem;
+  padding: 14px 44px;
+  border: none; border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--dist));
+  color: #fff; cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  box-shadow: 0 4px 20px rgba(168,85,247,0.4);
+}
+.score-btn:hover { opacity: 0.9; }
+.score-btn:active { transform: scale(0.97); }
+#mastery-score {
+  display: none;
+  margin-top: 24px;
+  padding: 28px;
+  background: var(--surface2);
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+#score-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.8rem; font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--dist));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+#score-msg {
+  color: var(--muted); font-size: 0.95rem; margin-top: 8px;
+}
+
+hr.sr { border: none; border-top: 1px solid var(--border); margin: 64px 0 48px; }
+
+@media (max-width: 600px) {
+  main { padding: 28px 16px 60px; }
+  .mastery-head, .mastery-body { padding: 20px 18px; }
+  .triangle-section { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badges">
+    <span class="hbadge hb-s">Speed</span>
+    <span class="hbadge hb-d">Distance</span>
+    <span class="hbadge hb-t">Time</span>
+  </div>
+  <h1>Speed, Distance & Time</h1>
+  <p>11+ GL Assessment Mathematics · Complete Interactive Study Guide</p>
+</header>
+
+<nav>
+  <a href="#s1">Triangle</a>
+  <a href="#s2">Three Formulas</a>
+  <a href="#s3">Decimal Trap</a>
+  <a href="#s4">Unit Chains</a>
+  <a href="#s5">Average Speed</a>
+  <a href="#s6">Two Objects</a>
+  <a href="#s7">Missing Leg</a>
+  <a href="#s8">m/s ↔ km/h</a>
+  <a href="#s9">Estimation</a>
+  <a href="#s10">Practice</a>
+  <a href="#mastery">Mastery Test</a>
+</nav>
+
+<main>
+
+<!-- ════════════════════════════════════════
+     SECTION 1: FORMULA TRIANGLE
+════════════════════════════════════════ -->
+<section id="s1">
+<h2><span class="sec-num">01</span> The Formula Triangle</h2>
+<p>Cover the letter you want to find. The remaining two letters show the operation.</p>
+
+<div class="triangle-section">
+  <div class="triangle-wrap">
+    <div class="triangle-label">Cover D → S × T</div>
+    <div class="tri-container">
+      <div class="tri-seg-top"></div>
+      <div class="tri-seg-left"></div>
+      <div class="tri-seg-right"></div>
+      <div class="tri-divider-h"></div>
+      <div class="tri-divider-v"></div>
+      <span class="tri-letter D">D</span>
+      <span class="tri-letter S">S</span>
+      <span class="tri-letter T">T</span>
+    </div>
+    <div class="triangle-label">Cover S → D ÷ T &nbsp;|&nbsp; Cover T → D ÷ S</div>
+  </div>
+
+  <div class="formulas-list">
+    <div class="formula-card">
+      <span class="fc-cover">Cover D →</span>
+      <span class="fc-formula fc-d">D = S × T</span>
+    </div>
+    <div class="formula-card">
+      <span class="fc-cover">Cover S →</span>
+      <span class="fc-formula fc-s">S = D ÷ T</span>
+    </div>
+    <div class="formula-card">
+      <span class="fc-cover">Cover T →</span>
+      <span class="fc-formula fc-t">T = D ÷ S</span>
+    </div>
+  </div>
+</div>
+
+<div class="callout warn">
+  <strong>⚠ Units must match:</strong> If speed is in km/h, then distance must be in km and time must be in hours. Mixing units is the #1 cause of wrong answers.
+</div>
+</section>
+
+<hr class="sr">
+
+<!-- ════════════════════════════════════════
+     SECTION 2: THREE WORKED EXAMPLES
+════════════════════════════════════════ -->
+<section id="s2">
+<h2><span class="sec-num">02</span> Worked Example for Each Formula</h2>
+
+<h3 style="color:var(--accent);">2a. Finding Distance — D = S × T</h3>
+<div class="worked w-dist">
+  <div class="wlabel">Worked Example A</div>
+  <div class="qtext">A car travels at 60 km/h for 2.5 hours. How far does it travel?</div>
+  <div class="step"><div class="sn">1</div><div class="sbody"><strong>Identify:</strong> S = 60 km/h, T = 2.5 h, find D</div></div>
+  <div class="step"><div class="sn">2</div><div class="sbody"><strong>Formula:</strong> D = S × T</div></div>
+  <div class="step"><div class="sn">3</div><div class="sbody"><strong>Calculate:</strong> <span class="calc">D = 60 × 2.5 = 150 km</span><span class="ans a-d">Distance = 150 km</span></div></div>
+</div>
+
+<h3 style="color:var(--speed);">2b. Finding Speed — S = D ÷ T</h3>
+<div class="worked w-speed">
+  <div class="wlabel">Worked Example B</div>
+  <div class="qtext">A car travels 150 km in 2.5 hours. What is its average speed?</div>
+  <div class="step"><div class="sn">1</div><div class="sbody"><strong>Identify:</strong> D = 150 km, T = 2.5 h, find S</div></div>
+  <div class="step"><div class="sn">2</div><div class="sbody"><strong>Formula:</strong> S = D ÷ T</div></div>
+  <div class="step"><div class="sn">3</div><div class="sbody"><strong>Calculate:</strong> <span class="calc">S = 150 ÷ 2.5 = 60 km/h</span><span class="ans a-s">Speed = 60 km/h</span></div></div>
+</div>
+
+<h3 style="color:var(--time);">2c. Finding Time — T = D ÷ S</h3>
+<div class="worked w-time">
+  <div class="wlabel">Worked Example C</div>
+  <div class="qtext">A train travels 180 km at 60 km/h. How long does the journey take? Give your answer in hours and minutes.</div>
+  <div class="step"><div class="sn">1</div><div class="sbody"><strong>Identify:</strong> D = 180 km, S = 60 km/h, find T</div></div>
+  <div class="step"><div class="sn">2</div><div class="sbody"><strong>Formula:</strong> T = D ÷ S</div></div>
+  <div class="step"><div class="sn">3</div><div class="sbody"><strong>Calculate:</strong> <span class="calc">T = 180 ÷ 60 = 3.0 hours</span></div></div>
+  <div class="step"><div class="sn">4</div><div class="sbody"><strong>Convert to h and min:</strong> <span class="calc">3.0 h = 3 hours 0 minutes</span><span class="ans a-t">Time = 3 hours 0 minutes</span></div></div>
+</div>
+
+<!-- QUESTIONS AFTER S2 -->
+<div class="diff-row"><span class="diff-badge d-easy">Easy</span></div>
+
+<div class="qcard">
+  <div class="qt">A cyclist rides at <code>50 km/h</code> for <code>3 hours</code>. How far does she travel? <em>(answer in km)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s2e1" placeholder="km"><button class="qbtn" onclick="chk('s2e1','150','D = S × T = 50 × 3 = 150 km.')">Check</button></div>
+  <div class="qfb" id="fb-s2e1"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">A runner covers <code>240 m</code> in <code>4 minutes</code>. What is her speed in metres per minute?</div>
+  <div class="qrow"><input class="qinput" type="text" id="s2e2" placeholder="m/min"><button class="qbtn" onclick="chk('s2e2','60','S = D ÷ T = 240 ÷ 4 = 60 m/min.')">Check</button></div>
+  <div class="qfb" id="fb-s2e2"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">A train travels <code>120 km</code> at <code>40 km/h</code>. How many hours does the journey take?</div>
+  <div class="qrow"><input class="qinput" type="text" id="s2e3" placeholder="hours"><button class="qbtn" onclick="chk('s2e3','3','T = D ÷ S = 120 ÷ 40 = 3 hours.')">Check</button></div>
+  <div class="qfb" id="fb-s2e3"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-int">Intermediate</span></div>
+
+<div class="qcard">
+  <div class="qt">A bus travels at <code>48 km/h</code> for <code>2.5 hours</code>. How far does it go? <em>(km)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s2i1" placeholder="km"><button class="qbtn" onclick="chk('s2i1','120','D = 48 × 2.5 = 120 km.')">Check</button></div>
+  <div class="qfb" id="fb-s2i1"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">A boat travels <code>91 km</code> in <code>3.5 hours</code>. What is its speed? <em>(km/h)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s2i2" placeholder="km/h"><button class="qbtn" onclick="chk('s2i2','26','S = 91 ÷ 3.5 = 26 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-s2i2"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">A journey of <code>330 km</code> is made at <code>60 km/h</code>. How long does it take? Give in hours and minutes <em>(e.g. 5:30)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="s2i3" placeholder="H:MM"><button class="qbtn" onclick="chk('s2i3','5:30','T = 330 ÷ 60 = 5.5 h = 5 hours 30 minutes.')">Check</button></div>
+  <div class="qfb" id="fb-s2i3"></div>
+</div>
+</section>
+
+<hr class="sr">
+
+<!-- ════════════════════════════════════════
+     SECTION 3: DECIMAL TRAP
+════════════════════════════════════════ -->
+<section id="s3">
+<h2><span class="sec-num">03</span> The Decimal Trap</h2>
+<p>Time is almost always given in minutes in GL problems, but the formula needs hours. Converting incorrectly is the most common way to lose marks on this topic.</p>
+
+<div class="conv-grid">
+  <div class="conv-card">
+    <span class="cc-val">15 min = 0.25 h</span>
+    <span class="cc-label">15 ÷ 60 = 0.25</span>
+  </div>
+  <div class="conv-card">
+    <span class="cc-val">30 min = 0.5 h</span>
+    <span class="cc-label">30 ÷ 60 = 0.5</span>
+  </div>
+  <div class="conv-card">
+    <span class="cc-val">45 min = 0.75 h</span>
+    <span class="cc-label">45 ÷ 60 = 0.75</span>
+  </div>
+  <div class="conv-card">
+    <span class="cc-val">Any mins ÷ 60 = hours</span>
+    <span class="cc-label">General rule</span>
+  </div>
+</div>
+
+<div class="worked">
+  <div class="wlabel">Decimal Trap — Full Worked Example</div>
+  <div class="qtext">A cyclist rides at 18 km/h for 40 minutes. How far does she travel?</div>
+
+  <div class="wrong-box">
+    <div class="step"><div class="sn">✗</div><div class="sbody"><strong>Wrong:</strong> D = 18 × 40 = 720 km<br><em style="color:var(--muted);font-size:0.88rem;">Error: used minutes as if they were hours. 720 km on a bicycle is impossible!</em></div></div>
+  </div>
+
+  <div class="right-box">
+    <div class="step"><div class="sn">1</div><div class="sbody"><strong>Convert first:</strong> <span class="calc">40 min ÷ 60 = 0.667 h</span></div></div>
+    <div class="step"><div class="sn">2</div><div class="sbody"><strong>Apply formula:</strong> <span class="calc">D = 18 × 0.667 = 12 km</span><span class="ans">Distance = 12 km ✓</span></div></div>
+  </div>
+
+  <div class="callout tip"><strong>Sanity check:</strong> At 18 km/h you cover 18 km in a full hour. In 40 minutes (⅔ of an hour) you'd cover ⅔ × 18 = 12 km. ✓</div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-easy">Easy</span></div>
+
+<div class="qcard">
+  <div class="qt">Convert <code>30 minutes</code> to decimal hours. <em>(e.g. type 0.5)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s3e1" placeholder="hours"><button class="qbtn" onclick="chk('s3e1','0.5','30 ÷ 60 = 0.5 hours.')">Check</button></div>
+  <div class="qfb" id="fb-s3e1"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">Convert <code>45 minutes</code> to decimal hours.</div>
+  <div class="qrow"><input class="qinput" type="text" id="s3e2" placeholder="hours"><button class="qbtn" onclick="chk('s3e2','0.75','45 ÷ 60 = 0.75 hours.')">Check</button></div>
+  <div class="qfb" id="fb-s3e2"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">A car travels at <code>30 km/h</code> for <code>90 minutes</code>. How far does it travel? <em>(km)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s3e3" placeholder="km"><button class="qbtn" onclick="chk('s3e3','45','Convert: 90 min ÷ 60 = 1.5 h. D = 30 × 1.5 = 45 km.')">Check</button></div>
+  <div class="qfb" id="fb-s3e3"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-int">Intermediate</span></div>
+
+<div class="qcard">
+  <div class="qt">A train moves at <code>18 km/h</code> for <code>20 minutes</code>. How far does it travel? <em>(km)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s3i1" placeholder="km"><button class="qbtn" onclick="chk('s3i1','6','20 min = 20/60 = 1/3 h. D = 18 × (1/3) = 6 km.')">Check</button></div>
+  <div class="qfb" id="fb-s3i1"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">A bus travels <code>15 km</code> in <code>30 minutes</code>. What is its speed in km/h?</div>
+  <div class="qrow"><input class="qinput" type="text" id="s3i2" placeholder="km/h"><button class="qbtn" onclick="chk('s3i2','30','30 min = 0.5 h. S = 15 ÷ 0.5 = 30 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-s3i2"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">A runner covers <code>5 km</code> in <code>15 minutes</code>. What is her speed in km/h?</div>
+  <div class="qrow"><input class="qinput" type="text" id="s3i3" placeholder="km/h"><button class="qbtn" onclick="chk('s3i3','20','15 min = 0.25 h. S = 5 ÷ 0.25 = 20 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-s3i3"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-adv">Advanced</span></div>
+
+<div class="qcard">
+  <div class="qt">How many minutes does it take to travel <code>24 km</code> at <code>64 km/h</code>? <em>(Give answer in whole minutes)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s3a1" placeholder="minutes"><button class="qbtn" onclick="chk('s3a1','22.5','T = 24 ÷ 64 = 0.375 h. 0.375 × 60 = 22.5 minutes.')">Check</button></div>
+  <div class="qfb" id="fb-s3a1"></div>
+</div>
+</section>
+
+<hr class="sr">
+
+<!-- ════════════════════════════════════════
+     SECTION 4: UNIT CONVERSION CHAIN
+════════════════════════════════════════ -->
+<section id="s4">
+<h2><span class="sec-num">04</span> Unit Conversion Chain</h2>
+<p>When the speed unit and the answer unit don't match, you must convert at either the start or end. Always label each step.</p>
+
+<div class="worked">
+  <div class="wlabel">Worked Example — km/h → metres</div>
+  <div class="qtext">A train travels at 90 km/h. How many metres does it travel in 5 minutes?</div>
+  <div class="step"><div class="sn">1</div><div class="sbody"><strong>Convert time to hours:</strong> <span class="calc">5 min ÷ 60 = 1/12 h ≈ 0.0833 h</span></div></div>
+  <div class="step"><div class="sn">2</div><div class="sbody"><strong>Find distance in km:</strong> <span class="calc">D = 90 × (5/60) = 90 × 0.0833 = 7.5 km</span></div></div>
+  <div class="step"><div class="sn">3</div><div class="sbody"><strong>Convert km → metres:</strong> <span class="calc">7.5 × 1,000 = 7,500 m</span><span class="ans">Distance = 7,500 metres</span></div></div>
+</div>
+
+<div class="rule-box">
+  <span class="rb-title">Unit Conversion Quick Reference</span>
+  km → m: <span class="hl">× 1,000</span> &nbsp;&nbsp;|&nbsp;&nbsp; m → km: <span class="hl">÷ 1,000</span><br>
+  hours → minutes: <span class="hl">× 60</span> &nbsp;&nbsp;|&nbsp;&nbsp; minutes → hours: <span class="hl">÷ 60</span><br>
+  minutes → seconds: <span class="hl">× 60</span> &nbsp;&nbsp;|&nbsp;&nbsp; hours → seconds: <span class="hl">× 3,600</span>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-int">Intermediate</span></div>
+
+<div class="qcard">
+  <div class="qt">A car travels at <code>120 km/h</code>. How many metres does it travel in <code>3 minutes</code>?</div>
+  <div class="qrow"><input class="qinput wide" type="text" id="s4i1" placeholder="metres"><button class="qbtn" onclick="chk('s4i1','6000','3 min = 3/60 h. D = 120 × (3/60) = 6 km = 6,000 m.')">Check</button></div>
+  <div class="qfb" id="fb-s4i1"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">A rocket travels at <code>3 km per second</code>. How many km does it travel in <code>5 minutes</code>?</div>
+  <div class="qrow"><input class="qinput" type="text" id="s4i2" placeholder="km"><button class="qbtn" onclick="chk('s4i2','900','5 min = 300 seconds. D = 3 × 300 = 900 km.')">Check</button></div>
+  <div class="qfb" id="fb-s4i2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-adv">Advanced</span></div>
+
+<div class="qcard">
+  <div class="qt">A plane flies at <code>900 km/h</code>. How many metres does it travel each second? <em>(Round to nearest whole number)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s4a1" placeholder="m/s"><button class="qbtn" onclick="chk('s4a1','250','900 km/h = 900,000 m per hour. Per second: 900,000 ÷ 3,600 = 250 m/s.')">Check</button></div>
+  <div class="qfb" id="fb-s4a1"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-chal">Challenging</span></div>
+
+<div class="qcard">
+  <div class="qt">A snail moves at <code>0.05 km/h</code>. How many centimetres does it travel in <code>10 minutes</code>?</div>
+  <div class="qrow"><input class="qinput wide" type="text" id="s4c1" placeholder="cm"><button class="qbtn" onclick="chk('s4c1','833','10 min = 1/6 h. D = 0.05 × (1/6) = 0.00833 km. Convert: 0.00833 × 100,000 = 833 cm.')">Check</button></div>
+  <div class="qfb" id="fb-s4c1"></div>
+</div>
+</section>
+
+<hr class="sr">
+
+<!-- ════════════════════════════════════════
+     SECTION 5: AVERAGE SPEED
+════════════════════════════════════════ -->
+<section id="s5">
+<h2><span class="sec-num">05</span> Average Speed</h2>
+<p>When a journey has multiple legs at different speeds, you <strong>cannot</strong> simply average the speeds. You must use total distance ÷ total time.</p>
+
+<div class="worked w-avg">
+  <div class="wlabel">Why Averaging Speeds is WRONG</div>
+  <div class="qtext">A car travels 120 km at 60 km/h, then 270 km at 90 km/h. What is the average speed for the whole journey?</div>
+
+  <div class="wrong-box">
+    <span style="color:var(--muted);font-size:0.9rem;">Wrong approach: average the two speeds</span><br>
+    <span class="calc">(60 + 90) ÷ 2 = 75 km/h ✗</span>
+    <br><em style="color:var(--muted);font-size:0.85rem;">This gives 75 km/h — but the correct answer is different, because the car spent different amounts of time at each speed.</em>
+  </div>
+
+  <div class="right-box">
+    <div class="step"><div class="sn">1</div><div class="sbody"><strong>Total Distance:</strong> <span class="calc">120 + 270 = 390 km</span></div></div>
+    <div class="step"><div class="sn">2</div><div class="sbody"><strong>Time for leg 1:</strong> <span class="calc">T₁ = 120 ÷ 60 = 2 h</span></div></div>
+    <div class="step"><div class="sn">3</div><div class="sbody"><strong>Time for leg 2:</strong> <span class="calc">T₂ = 270 ÷ 90 = 3 h</span></div></div>
+    <div class="step"><div class="sn">4</div><div class="sbody"><strong>Total Time:</strong> <span class="calc">2 + 3 = 5 h</span></div></div>
+    <div class="step"><div class="sn">5</div><div class="sbody"><strong>Average Speed:</strong> <span class="calc">390 ÷ 5 = 78 km/h</span><span class="ans a-avg">Average Speed = 78 km/h (not 75!)</span></div></div>
+  </div>
+</div>
+
+<div class="rule-box">
+  <span class="rb-title">The Golden Rule</span>
+  Average Speed = <span class="hl">Total Distance ÷ Total Time</span><br>
+  NEVER = (Speed 1 + Speed 2) ÷ 2
+</div>
+
+<div class="diff-row"><span class="diff-badge d-int">Intermediate</span></div>
+
+<div class="qcard">
+  <div class="qt">A cyclist rides <code>100 km</code> at <code>50 km/h</code>, then <code>100 km</code> at <code>100 km/h</code>. What is the average speed for the whole journey? <em>(km/h)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="s5i1" placeholder="km/h"><button class="qbtn" onclick="chk('s5i1','66.67','T₁=100/50=2h, T₂=100/100=1h. Total: 200km in 3h. Avg = 200/3 = 66.67 km/h. Note: (50+100)/2=75 is wrong!')">Check</button></div>
+  <div class="qfb" id="fb-s5i1"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">A runner runs <code>6 km</code> at <code>12 km/h</code> then <code>4 km</code> at <code>8 km/h</code>. What is her average speed? <em>(km/h, to 2 d.p.)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="s5i2" placeholder="km/h"><button class="qbtn" onclick="chk('s5i2','10','T₁=6/12=0.5h, T₂=4/8=0.5h. Total: 10km in 1h. Avg=10/1=10 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-s5i2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-adv">Advanced</span></div>
+
+<div class="qcard">
+  <div class="qt">A car completes a <code>240 km</code> journey at <code>80 km/h</code>, then a <code>180 km</code> return trip at <code>90 km/h</code>. What is the average speed for the entire round trip? <em>(to 2 d.p., km/h)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="s5a1" placeholder="km/h"><button class="qbtn" onclick="chk('s5a1','84','T₁=240/80=3h, T₂=180/90=2h. Total=420km in 5h. Avg=420÷5=84 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-s5a1"></div>
+</div>
+</section>
+
+<hr class="sr">
+
+<!-- ════════════════════════════════════════
+     SECTION 6: TWO-OBJECT PROBLEMS
+════════════════════════════════════════ -->
+<section id="s6">
+<h2><span class="sec-num">06</span> Two-Object Problems</h2>
+<p>When two objects move relative to each other, you calculate a <em>relative speed</em> — either the sum or the difference of their speeds.</p>
+
+<h3>6a. Moving TOWARD Each Other — Closing Speed = Sum of Speeds</h3>
+<div class="worked w-two">
+  <div class="wlabel">Worked Example — Toward</div>
+  <div class="qtext">Town A and Town B are 200 km apart. Car X leaves A at 60 km/h heading toward B. Car Y leaves B at 40 km/h heading toward A. How long before they meet?</div>
+  <div class="diagram">
+    <div class="dist-label">← 200 km total distance →</div>
+    <div class="road">
+      <div class="obj-a">Car X 60 km/h</div>
+      <span class="arrow-r">→</span>
+      <div class="road-line"></div>
+      <span class="arrow-l">←</span>
+      <div class="obj-b">Car Y 40 km/h</div>
+    </div>
+    <div class="dist-label">They are closing the gap at (60 + 40) = 100 km/h</div>
+  </div>
+  <div class="step"><div class="sn">1</div><div class="sbody"><strong>Closing speed:</strong> <span class="calc">60 + 40 = 100 km/h</span></div></div>
+  <div class="step"><div class="sn">2</div><div class="sbody"><strong>Time to meet:</strong> <span class="calc">T = 200 ÷ 100 = 2 hours</span><span class="ans">They meet after 2 hours.</span></div></div>
+</div>
+
+<h3>6b. Moving in the SAME Direction — Relative Speed = Difference of Speeds</h3>
+<div class="worked w-two">
+  <div class="wlabel">Worked Example — Same Direction</div>
+  <div class="qtext">Car A travels at 80 km/h. Car B is 60 km ahead, traveling in the same direction at 50 km/h. How long until Car A catches Car B?</div>
+  <div class="diagram">
+    <div class="dist-label">Car B is 60 km ahead →</div>
+    <div class="road">
+      <div class="obj-a">Car A 80 km/h</div>
+      <span class="arrow-r">→</span>
+      <div class="road-line"></div>
+      <div class="obj-b">Car B 50 km/h</div>
+      <span class="arrow-r" style="color:var(--dist);">→</span>
+    </div>
+    <div class="dist-label">A closes the gap at (80 − 50) = 30 km/h</div>
+  </div>
+  <div class="step"><div class="sn">1</div><div class="sbody"><strong>Relative speed (closing):</strong> <span class="calc">80 − 50 = 30 km/h</span></div></div>
+  <div class="step"><div class="sn">2</div><div class="sbody"><strong>Time to catch up:</strong> <span class="calc">T = 60 ÷ 30 = 2 hours</span><span class="ans">Car A catches Car B after 2 hours.</span></div></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-int">Intermediate</span></div>
+
+<div class="qcard">
+  <div class="qt">Two trains start <code>300 km</code> apart, heading toward each other. Train A travels at <code>70 km/h</code> and Train B at <code>50 km/h</code>. How long until they meet? <em>(hours)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s6i1" placeholder="hours"><button class="qbtn" onclick="chk('s6i1','2.5','Closing speed = 70 + 50 = 120 km/h. T = 300 ÷ 120 = 2.5 hours.')">Check</button></div>
+  <div class="qfb" id="fb-s6i1"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">Car A travels at <code>90 km/h</code>. Car B is <code>90 km</code> ahead in the same direction at <code>60 km/h</code>. How long until A catches B? <em>(hours)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s6i2" placeholder="hours"><button class="qbtn" onclick="chk('s6i2','3','Relative speed = 90 − 60 = 30 km/h. T = 90 ÷ 30 = 3 hours.')">Check</button></div>
+  <div class="qfb" id="fb-s6i2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-adv">Advanced</span></div>
+
+<div class="qcard">
+  <div class="qt">Two cities are <code>360 km</code> apart. Train X leaves City 1 at <code>65 km/h</code>; Train Y leaves City 2 simultaneously at <code>55 km/h</code> heading toward each other. How far from City 1 do they meet? <em>(km)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s6a1" placeholder="km"><button class="qbtn" onclick="chk('s6a1','195','They meet after 360/(65+55) = 3h. Distance by Train X = 65×3 = 195 km from City 1.')">Check</button></div>
+  <div class="qfb" id="fb-s6a1"></div>
+</div>
+</section>
+
+<hr class="sr">
+
+<!-- ════════════════════════════════════════
+     SECTION 7: MISSING LEG
+════════════════════════════════════════ -->
+<section id="s7">
+<h2><span class="sec-num">07</span> The Missing-Leg Problem</h2>
+<p>A journey has two stages. You know the total time, plus the full details of one stage. You must find the speed or distance of the other stage — using the formula twice in sequence.</p>
+
+<div class="worked">
+  <div class="wlabel">Worked Example — Find Speed of Leg 2</div>
+  <div class="qtext">A journey takes 3 hours in total. In the first part, a car travels 120 km at 60 km/h. In the second part, it travels 90 km. What is the speed during the second part?</div>
+  <div class="step"><div class="sn">1</div><div class="sbody"><strong>Time for Leg 1:</strong> <span class="calc">T₁ = 120 ÷ 60 = 2 hours</span></div></div>
+  <div class="step"><div class="sn">2</div><div class="sbody"><strong>Time for Leg 2:</strong> <span class="calc">T₂ = Total − T₁ = 3 − 2 = 1 hour</span></div></div>
+  <div class="step"><div class="sn">3</div><div class="sbody"><strong>Speed for Leg 2:</strong> <span class="calc">S₂ = D₂ ÷ T₂ = 90 ÷ 1 = 90 km/h</span><span class="ans">Speed in second part = 90 km/h</span></div></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-adv">Advanced</span></div>
+
+<div class="qcard">
+  <div class="qt">A total journey takes <code>4 hours</code>. Leg 1: <code>150 km at 75 km/h</code>. Leg 2 is at <code>60 km/h</code>. What is the distance of Leg 2? <em>(km)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s7a1" placeholder="km"><button class="qbtn" onclick="chk('s7a1','120','T₁ = 150/75 = 2h. T₂ = 4−2 = 2h. D₂ = 60×2 = 120 km.')">Check</button></div>
+  <div class="qfb" id="fb-s7a1"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">A journey totals <code>5 hours</code>. Leg 1 is <code>200 km at 80 km/h</code>. Leg 2 is <code>135 km</code>. What is the speed of Leg 2? <em>(km/h)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s7a2" placeholder="km/h"><button class="qbtn" onclick="chk('s7a2','54','T₁ = 200/80 = 2.5h. T₂ = 5−2.5 = 2.5h. S₂ = 135 ÷ 2.5 = 54 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-s7a2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-chal">Challenging</span></div>
+
+<div class="qcard">
+  <div class="qt">A car's total journey is <code>350 km</code> in <code>4 hours</code>. Leg 1 is <code>200 km at 80 km/h</code>. What is the average speed for Leg 2 only? <em>(km/h)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s7c1" placeholder="km/h"><button class="qbtn" onclick="chk('s7c1','100','T₁=200/80=2.5h. T₂=4−2.5=1.5h. D₂=350−200=150km. S₂=150÷1.5=100 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-s7c1"></div>
+</div>
+</section>
+
+<hr class="sr">
+
+<!-- ════════════════════════════════════════
+     SECTION 8: m/s ↔ km/h
+════════════════════════════════════════ -->
+<section id="s8">
+<h2><span class="sec-num">08</span> Converting m/s ↔ km/h</h2>
+
+<div class="rule-box">
+  <span class="rb-title">Standard Conversion</span>
+  m/s → km/h: <span class="hl">multiply by 3.6</span><br>
+  km/h → m/s: <span class="hl">divide by 3.6</span><br><br>
+  Why 3.6? Because 1 km/h = 1000 m ÷ 3600 s = 1/3.6 m/s. So 1 m/s = 3.6 km/h.
+</div>
+
+<div class="worked">
+  <div class="wlabel">Worked Example — m/s to km/h</div>
+  <div class="qtext">A sprinter runs at 15 m/s. What is this in km/h?</div>
+  <div class="step"><div class="sn">1</div><div class="sbody"><strong>Apply rule:</strong> <span class="calc">15 × 3.6 = 54 km/h</span><span class="ans">15 m/s = 54 km/h</span></div></div>
+</div>
+
+<div class="worked">
+  <div class="wlabel">Worked Example — km/h to m/s</div>
+  <div class="qtext">A car travels at 72 km/h. What is this in m/s?</div>
+  <div class="step"><div class="sn">1</div><div class="sbody"><strong>Apply rule:</strong> <span class="calc">72 ÷ 3.6 = 20 m/s</span><span class="ans">72 km/h = 20 m/s</span></div></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-easy">Easy</span></div>
+
+<div class="qcard">
+  <div class="qt">Convert <code>20 m/s</code> to km/h.</div>
+  <div class="qrow"><input class="qinput" type="text" id="s8e1" placeholder="km/h"><button class="qbtn" onclick="chk('s8e1','72','20 × 3.6 = 72 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-s8e1"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">Convert <code>54 km/h</code> to m/s.</div>
+  <div class="qrow"><input class="qinput" type="text" id="s8e2" placeholder="m/s"><button class="qbtn" onclick="chk('s8e2','15','54 ÷ 3.6 = 15 m/s.')">Check</button></div>
+  <div class="qfb" id="fb-s8e2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-int">Intermediate</span></div>
+
+<div class="qcard">
+  <div class="qt">A cheetah runs at <code>25 m/s</code>. What is this in km/h?</div>
+  <div class="qrow"><input class="qinput" type="text" id="s8i1" placeholder="km/h"><button class="qbtn" onclick="chk('s8i1','90','25 × 3.6 = 90 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-s8i1"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">A motorway speed limit is <code>112 km/h</code>. What is this in m/s? <em>(to 1 d.p.)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s8i2" placeholder="m/s"><button class="qbtn" onclick="chk('s8i2','31.1','112 ÷ 3.6 = 31.11... ≈ 31.1 m/s.')">Check</button></div>
+  <div class="qfb" id="fb-s8i2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-adv">Advanced</span></div>
+
+<div class="qcard">
+  <div class="qt">A ball rolls at <code>45 m/s</code>. How far does it travel in <code>30 seconds</code>? Give your answer in km.</div>
+  <div class="qrow"><input class="qinput" type="text" id="s8a1" placeholder="km"><button class="qbtn" onclick="chk('s8a1','1.35','D = 45 m/s × 30 s = 1,350 m = 1.35 km.')">Check</button></div>
+  <div class="qfb" id="fb-s8a1"></div>
+</div>
+</section>
+
+<hr class="sr">
+
+<!-- ════════════════════════════════════════
+     SECTION 9: ESTIMATION & SANITY CHECK
+════════════════════════════════════════ -->
+<section id="s9">
+<h2><span class="sec-num">09</span> Estimation & Sanity Checking</h2>
+
+<div class="worked">
+  <div class="wlabel">The General Principle — Distance per Minute</div>
+  <p style="margin-bottom:14px;">You can always derive how far something travels per minute from its km/h speed:</p>
+  <div class="step"><div class="sn">1</div><div class="sbody"><strong>Starting from S km/h:</strong> this means S km in 60 minutes.</div></div>
+  <div class="step"><div class="sn">2</div><div class="sbody"><strong>Per minute:</strong> <span class="calc">S ÷ 60 km per minute</span></div></div>
+  <div class="step"><div class="sn">3</div><div class="sbody"><strong>Example:</strong> At 90 km/h → <span class="calc">90 ÷ 60 = 1.5 km per minute</span>. In 5 minutes: <span class="calc">1.5 × 5 = 7.5 km</span> ✓ (matches our unit chain example)</div></div>
+</div>
+
+<div class="worked">
+  <div class="wlabel">Using Estimation to Eliminate MCQ Options</div>
+  <p>Question: A car at 108 km/h — how far in 10 minutes?</p>
+  <div class="step"><div class="sn">E</div><div class="sbody"><strong>Quick estimate:</strong> Round to 100 km/h. Per minute = 100÷60 ≈ 1.67 km. In 10 min ≈ 17 km.</div></div>
+  <div class="step"><div class="sn">✗</div><div class="sbody">Options like 180 km (used 10 as hours!) or 1.8 km (forgot ×10) are immediately eliminated.</div></div>
+  <div class="step"><div class="sn">✓</div><div class="sbody">Exact answer: 108 × (10/60) = 18 km. Our estimate of ≈17 km confirms this is in range. ✓</div></div>
+</div>
+
+<div class="callout tip"><strong>The 60 mph benchmark (derivable, not memorised):</strong> 60 mph ÷ 60 = 1 mile per minute. This works for ANY speed: speed (mph) ÷ 60 = miles per minute.</div>
+
+<div class="diff-row"><span class="diff-badge d-easy">Easy</span></div>
+
+<div class="qcard">
+  <div class="qt">At <code>60 km/h</code>, how many km does a car travel per minute?</div>
+  <div class="qrow"><input class="qinput" type="text" id="s9e1" placeholder="km/min"><button class="qbtn" onclick="chk('s9e1','1','60 km/h ÷ 60 = 1 km per minute.')">Check</button></div>
+  <div class="qfb" id="fb-s9e1"></div>
+</div>
+
+<div class="qcard">
+  <div class="qt">At <code>120 km/h</code>, how many km does a vehicle travel per minute?</div>
+  <div class="qrow"><input class="qinput" type="text" id="s9e2" placeholder="km/min"><button class="qbtn" onclick="chk('s9e2','2','120 ÷ 60 = 2 km per minute.')">Check</button></div>
+  <div class="qfb" id="fb-s9e2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-int">Intermediate</span></div>
+
+<div class="qcard">
+  <div class="qt">A train is travelling at <code>108 km/h</code>. A student claims it covers <code>18 km</code> in 10 minutes. Is the student correct? <em>(type yes or no)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="s9i1" placeholder="yes or no"><button class="qbtn" onclick="chk('s9i1','yes','108 × (10/60) = 18 km. The student is correct.')">Check</button></div>
+  <div class="qfb" id="fb-s9i1"></div>
+</div>
+</section>
+
+<hr class="sr">
+
+<!-- ════════════════════════════════════════
+     SECTION 10: PRACTICE QUESTIONS
+════════════════════════════════════════ -->
+<section id="s10">
+<h2><span class="sec-num">10</span> Practice Question Set</h2>
+<p>15 questions spanning all techniques across four difficulty levels.</p>
+
+<!-- EASY -->
+<div class="diff-row"><span class="diff-badge d-easy">Easy — E1</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Finding Distance.</strong> A car travels at <code>45 km/h</code> for <code>2 hours</code>. How far does it go? <em>(km)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="pq1" placeholder="km"><button class="qbtn" onclick="chk('pq1','90','D = S × T = 45 × 2 = 90 km.')">Check</button></div>
+  <div class="qfb" id="fb-pq1"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-easy">Easy — E2</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Finding Speed.</strong> A train travels <code>330 km</code> in <code>5.5 hours</code>. What is its speed? <em>(km/h)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="pq2" placeholder="km/h"><button class="qbtn" onclick="chk('pq2','60','S = D ÷ T = 330 ÷ 5.5 = 60 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-pq2"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-easy">Easy — E3</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Finding Time.</strong> How long does it take to drive <code>75 km</code> at <code>30 km/h</code>? Give your answer in minutes.</div>
+  <div class="qrow"><input class="qinput" type="text" id="pq3" placeholder="minutes"><button class="qbtn" onclick="chk('pq3','150','T = 75 ÷ 30 = 2.5 h = 2.5 × 60 = 150 minutes.')">Check</button></div>
+  <div class="qfb" id="fb-pq3"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-easy">Easy — E4</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Conversion.</strong> Convert <code>108 km/h</code> to m/s.</div>
+  <div class="qrow"><input class="qinput" type="text" id="pq4" placeholder="m/s"><button class="qbtn" onclick="chk('pq4','30','108 ÷ 3.6 = 30 m/s.')">Check</button></div>
+  <div class="qfb" id="fb-pq4"></div>
+</div>
+
+<!-- INTERMEDIATE -->
+<div class="diff-row"><span class="diff-badge d-int">Intermediate — I1</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Decimal Trap.</strong> A train travels at <code>18 km/h</code> for <code>20 minutes</code>. How far does it travel? <em>(km)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="pq5" placeholder="km"><button class="qbtn" onclick="chk('pq5','6','20 min = 20/60 h = 1/3 h. D = 18 × (1/3) = 6 km.')">Check</button></div>
+  <div class="qfb" id="fb-pq5"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-int">Intermediate — I2</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Speed from minutes.</strong> A cyclist covers <code>5 km</code> in <code>15 minutes</code>. What is her speed in km/h?</div>
+  <div class="qrow"><input class="qinput" type="text" id="pq6" placeholder="km/h"><button class="qbtn" onclick="chk('pq6','20','15 min = 0.25 h. S = 5 ÷ 0.25 = 20 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-pq6"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-int">Intermediate — I3</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Unit chain.</strong> A car travels at <code>120 km/h</code>. How many metres does it travel in <code>3 minutes</code>?</div>
+  <div class="qrow"><input class="qinput wide" type="text" id="pq7" placeholder="metres"><button class="qbtn" onclick="chk('pq7','6000','3 min = 3/60 h. D = 120 × (3/60) = 6 km = 6,000 m.')">Check</button></div>
+  <div class="qfb" id="fb-pq7"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-int">Intermediate — I4</span></div>
+<div class="qcard">
+  <div class="qt"><strong>m/s conversion.</strong> Convert <code>20 m/s</code> to km/h.</div>
+  <div class="qrow"><input class="qinput" type="text" id="pq8" placeholder="km/h"><button class="qbtn" onclick="chk('pq8','72','20 × 3.6 = 72 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-pq8"></div>
+</div>
+
+<!-- ADVANCED -->
+<div class="diff-row"><span class="diff-badge d-adv">Advanced — A1</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Average Speed.</strong> A car travels <code>100 km at 50 km/h</code>, then <code>100 km at 100 km/h</code>. What is the average speed for the full journey? <em>(km/h, to 2 d.p.)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="pq9" placeholder="km/h"><button class="qbtn" onclick="chk('pq9','66.67','T₁=2h, T₂=1h. Total 200km in 3h. Avg=200/3=66.67 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-pq9"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-adv">Advanced — A2</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Two Objects Toward.</strong> Two trains are <code>300 km</code> apart. Train A travels at <code>70 km/h</code>, Train B at <code>50 km/h</code>, both heading toward each other. How long until they meet? <em>(hours)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="pq10" placeholder="hours"><button class="qbtn" onclick="chk('pq10','2.5','Closing speed = 70 + 50 = 120 km/h. T = 300 ÷ 120 = 2.5 hours.')">Check</button></div>
+  <div class="qfb" id="fb-pq10"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-adv">Advanced — A3</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Missing Leg.</strong> A total journey takes <code>4 hours</code>. Leg 1: <code>150 km at 75 km/h</code>. Leg 2: at <code>60 km/h</code>. How far is Leg 2? <em>(km)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="pq11" placeholder="km"><button class="qbtn" onclick="chk('pq11','120','T₁=150/75=2h. T₂=4−2=2h. D₂=60×2=120 km.')">Check</button></div>
+  <div class="qfb" id="fb-pq11"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-adv">Advanced — A4</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Same Direction Catch-Up.</strong> Motorcycle A travels at <code>90 km/h</code>. Motorcycle B is <code>90 km</code> ahead travelling in the same direction at <code>60 km/h</code>. How long until A catches B? <em>(hours)</em></div>
+  <div class="qrow"><input class="qinput" type="text" id="pq12" placeholder="hours"><button class="qbtn" onclick="chk('pq12','3','Relative speed = 90 − 60 = 30 km/h. T = 90 ÷ 30 = 3 hours.')">Check</button></div>
+  <div class="qfb" id="fb-pq12"></div>
+</div>
+
+<!-- CHALLENGING -->
+<div class="diff-row"><span class="diff-badge d-chal">Challenging — C1</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Speed in unusual units.</strong> A sprinter runs at <code>45 m/s</code>. What is this speed in km/h?</div>
+  <div class="qrow"><input class="qinput" type="text" id="pq13" placeholder="km/h"><button class="qbtn" onclick="chk('pq13','162','45 × 3.6 = 162 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-pq13"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-chal">Challenging — C2</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Multi-step average speed.</strong> A car travels <code>240 km at 80 km/h</code>, then <code>180 km at 90 km/h</code>. What is the average speed for the whole journey? <em>(km/h)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="pq14" placeholder="km/h"><button class="qbtn" onclick="chk('pq14','84','T₁=240/80=3h, T₂=180/90=2h. Total=420km in 5h. Avg=84 km/h.')">Check</button></div>
+  <div class="qfb" id="fb-pq14"></div>
+</div>
+
+<div class="diff-row"><span class="diff-badge d-chal">Challenging — C3</span></div>
+<div class="qcard">
+  <div class="qt"><strong>Combined: two-object + unit conversion.</strong> Two cyclists start <code>54 km</code> apart, heading toward each other. Cyclist A moves at <code>8 m/s</code>, Cyclist B at <code>7 m/s</code>. How many minutes until they meet? <em>(to 1 d.p.)</em></div>
+  <div class="qrow"><input class="qinput wide" type="text" id="pq15" placeholder="minutes"><button class="qbtn" onclick="chk('pq15','60','54 km = 54,000 m. Closing speed = 8+7 = 15 m/s. T = 54,000 ÷ 15 = 3,600 s = 60 minutes.')">Check</button></div>
+  <div class="qfb" id="fb-pq15"></div>
+</div>
+</section>
+
+<hr class="sr">
+
+<!-- ════════════════════════════════════════
+     MASTERY TEST
+════════════════════════════════════════ -->
+<section id="mastery">
+<div class="mastery-wrap">
+  <div class="mastery-head">
+    <h2><span class="sec-num">11</span> Final Mastery Test</h2>
+    <p>8 questions across all techniques. Answer each one, then click "See My Score".</p>
+  </div>
+  <div class="mastery-body">
+
+    <div class="qcard">
+      <div class="qt"><strong>M1 — Distance.</strong> A plane flies at <code>45 km/h</code>... wait — it flies at <code>450 km/h</code> for <code>2 hours</code>. How far does it travel? <em>(km)</em></div>
+      <div class="qrow"><input class="qinput" type="text" id="m1" placeholder="km"><button class="qbtn" onclick="chkM('m1','900','D = 450 × 2 = 900 km.')">Check</button></div>
+      <div class="qfb" id="fb-m1"></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qt"><strong>M2 — Speed.</strong> A boat covers <code>330 km</code> in <code>5.5 hours</code>. What is its speed? <em>(km/h)</em></div>
+      <div class="qrow"><input class="qinput" type="text" id="m2" placeholder="km/h"><button class="qbtn" onclick="chkM('m2','60','S = 330 ÷ 5.5 = 60 km/h.')">Check</button></div>
+      <div class="qfb" id="fb-m2"></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qt"><strong>M3 — Time with conversion.</strong> How many minutes does it take to travel <code>75 km</code> at <code>30 km/h</code>?</div>
+      <div class="qrow"><input class="qinput" type="text" id="m3" placeholder="minutes"><button class="qbtn" onclick="chkM('m3','150','T = 75/30 = 2.5 h = 2.5 × 60 = 150 minutes.')">Check</button></div>
+      <div class="qfb" id="fb-m3"></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qt"><strong>M4 — Decimal Trap.</strong> A cyclist rides at <code>24 km/h</code> for <code>45 minutes</code>. How far does she travel? <em>(km)</em></div>
+      <div class="qrow"><input class="qinput" type="text" id="m4" placeholder="km"><button class="qbtn" onclick="chkM('m4','18','45 min = 0.75 h. D = 24 × 0.75 = 18 km.')">Check</button></div>
+      <div class="qfb" id="fb-m4"></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qt"><strong>M5 — Unit Chain.</strong> A train travels at <code>108 km/h</code>. How many metres does it travel in <code>10 minutes</code>?</div>
+      <div class="qrow"><input class="qinput wide" type="text" id="m5" placeholder="metres"><button class="qbtn" onclick="chkM('m5','18000','10 min = 1/6 h. D = 108 × (1/6) = 18 km = 18,000 m.')">Check</button></div>
+      <div class="qfb" id="fb-m5"></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qt"><strong>M6 — Average Speed.</strong> A car drives <code>200 km at 80 km/h</code>, then <code>150 km at 75 km/h</code>. What is the average speed for the whole trip? <em>(km/h, to 2 d.p.)</em></div>
+      <div class="qrow"><input class="qinput wide" type="text" id="m6" placeholder="km/h"><button class="qbtn" onclick="chkM('m6','77.78','T₁=200/80=2.5h, T₂=150/75=2h. Total=350km in 4.5h. Avg=350÷4.5≈77.78 km/h.')">Check</button></div>
+      <div class="qfb" id="fb-m6"></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qt"><strong>M7 — Two Objects.</strong> Two cities are <code>360 km</code> apart. Train X departs at <code>65 km/h</code>, Train Y at <code>55 km/h</code>, heading toward each other simultaneously. How long until they meet? <em>(hours)</em></div>
+      <div class="qrow"><input class="qinput" type="text" id="m7" placeholder="hours"><button class="qbtn" onclick="chkM('m7','3','Closing speed = 65 + 55 = 120 km/h. T = 360 ÷ 120 = 3 hours.')">Check</button></div>
+      <div class="qfb" id="fb-m7"></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qt"><strong>M8 — m/s to km/h.</strong> A racing car travels at <code>25 m/s</code>. What is this in km/h?</div>
+      <div class="qrow"><input class="qinput" type="text" id="m8" placeholder="km/h"><button class="qbtn" onclick="chkM('m8','90','25 × 3.6 = 90 km/h.')">Check</button></div>
+      <div class="qfb" id="fb-m8"></div>
+    </div>
+
+    <div id="mastery-score">
+      <div id="score-num"></div>
+      <div id="score-msg"></div>
+    </div>
+
+    <button class="score-btn" id="score-btn" onclick="showScore()">📊 See My Score</button>
+  </div>
+</div>
+</section>
+
+</main>
+
+<script>
+// ── NORMALISE ──
+function norm(s){
+  return s.trim().toLowerCase().replace(/\s+/g,'').replace(/^£/,'');
+}
+
+// ── NUMERIC COMPARISON with tolerance 0.06 ──
+function numOk(a,b){
+  var na=parseFloat(a), nb=parseFloat(b);
+  if(isNaN(na)||isNaN(nb)) return false;
+  return Math.abs(na-nb) < 0.06;
+}
+
+// ── TIME FORMAT comparison HH:MM or H:MM ──
+function timeOk(a,b){
+  return norm(a)===norm(b);
+}
+
+// ── MAIN CHECK FUNCTION ──
+function chk(id, correct, expl){
+  var inp = document.getElementById(id);
+  var fb  = document.getElementById('fb-'+id);
+  var sv  = norm(inp.value);
+  var cv  = norm(String(correct));
+  var ok  = sv===cv || numOk(sv,cv);
+  // also accept alternate forms for fractions/time
+  if(!ok && sv.replace(/,/g,'')===cv.replace(/,/g,'')) ok=true;
+  fb.className = 'qfb ' + (ok ? 'correct' : 'wrong');
+  if(ok){
+    fb.innerHTML = '✅ Correct! ' + expl;
+  } else {
+    fb.innerHTML = '❌ Incorrect. Correct answer: <strong>'+correct+'</strong>. '+expl;
+  }
+}
+
+// ── MASTERY ──
+var masteryIds = ['m1','m2','m3','m4','m5','m6','m7','m8'];
+function chkM(id, correct, expl){
+  chk(id, correct, expl);
+}
+function showScore(){
+  var score = 0;
+  masteryIds.forEach(function(id){
+    var fb = document.getElementById('fb-'+id);
+    if(fb && fb.classList.contains('correct')) score++;
+  });
+  var el = document.getElementById('mastery-score');
+  el.style.display = 'block';
+  document.getElementById('score-num').textContent = score + ' / ' + masteryIds.length;
+  var msgs = [
+    'Keep going — review each technique carefully.',
+    'A solid start. Focus on your weak spots.',
+    'Good work! You\'re building strong foundations.',
+    'Excellent! Almost exam-ready.',
+    '🌟 Perfect score! You have mastered Speed, Distance & Time.'
+  ];
+  var idx = Math.min(Math.floor(score / 2), msgs.length - 1);
+  if(score === masteryIds.length) idx = 4;
+  document.getElementById('score-msg').textContent = msgs[idx];
+  document.getElementById('score-btn').style.display = 'none';
+}
+</script>
+</body>
+</html>

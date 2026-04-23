@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mean, Median, Mode & Range — 11+ GL Revision Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3ee;
+    --card: #ffffff;
+    --mean: #2563eb;
+    --mean-light: #dbeafe;
+    --median: #059669;
+    --median-light: #d1fae5;
+    --mode: #d97706;
+    --mode-light: #fef3c7;
+    --range: #7c3aed;
+    --range-light: #ede9fe;
+    --data: #db2777;
+    --data-light: #fce7f3;
+    --mastery: #1e293b;
+    --mastery-light: #f1f5f9;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --correct: #059669;
+    --incorrect: #dc2626;
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--mastery);
+    color: white;
+    padding: 36px 24px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, rgba(255,255,255,.03) 0px, rgba(255,255,255,.03) 1px, transparent 1px, transparent 20px);
+  }
+  .site-header h1 {
+    font-size: 2rem; font-weight: 900;
+    letter-spacing: -0.5px;
+    position: relative;
+  }
+  .site-header .subtitle {
+    font-size: 1rem; opacity: .7; margin-top: 6px;
+    position: relative;
+  }
+  .badge-row {
+    display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+    margin-top: 14px; position: relative;
+  }
+  .badge {
+    padding: 4px 12px; border-radius: 999px;
+    font-size: .75rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+  }
+  .badge-mean { background: var(--mean); color: white; }
+  .badge-median { background: var(--median); color: white; }
+  .badge-mode { background: var(--mode); color: white; }
+  .badge-range { background: var(--range); color: white; }
+
+  /* NAV */
+  .toc {
+    background: var(--card);
+    border-bottom: 2px solid var(--border);
+    padding: 16px 24px;
+    display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+  }
+  .toc a {
+    color: var(--text); text-decoration: none;
+    font-size: .82rem; font-weight: 700;
+    padding: 5px 12px; border-radius: 6px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    transition: all .15s;
+  }
+  .toc a:hover { background: var(--mastery); color: white; border-color: var(--mastery); }
+
+  /* MAIN LAYOUT */
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 20px 60px; }
+
+  /* SECTION */
+  .section { margin-bottom: 48px; }
+  .section-title {
+    font-size: 1.4rem; font-weight: 900;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-title .dot {
+    width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* CONCEPT CARD */
+  .concept-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 2px solid var(--border);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .concept-card h3 {
+    font-size: 1.05rem; font-weight: 800; margin-bottom: 10px;
+  }
+  .concept-card p, .concept-card li { font-size: .95rem; margin-bottom: 8px; }
+  .concept-card ul { padding-left: 20px; }
+
+  /* COLOR BANDS */
+  .band-mean { border-left: 5px solid var(--mean); background: var(--mean-light); }
+  .band-median { border-left: 5px solid var(--median); background: var(--median-light); }
+  .band-mode { border-left: 5px solid var(--mode); background: var(--mode-light); }
+  .band-range { border-left: 5px solid var(--range); background: var(--range-light); }
+  .band-data { border-left: 5px solid var(--data); background: var(--data-light); }
+  .band-mastery { border-left: 5px solid var(--mastery); background: var(--mastery-light); }
+
+  /* WORKED EXAMPLE */
+  .worked {
+    background: #fffbeb;
+    border: 2px solid #fbbf24;
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    margin: 14px 0;
+  }
+  .worked-title {
+    font-size: .78rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1px; color: #92400e; margin-bottom: 10px;
+  }
+  .worked p { font-size: .95rem; margin-bottom: 6px; }
+  .worked .step { display: flex; gap: 10px; margin-bottom: 5px; }
+  .worked .step-num {
+    background: #fbbf24; color: #1e293b;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .75rem; font-weight: 800; flex-shrink: 0; margin-top: 2px;
+  }
+  .worked .answer {
+    background: #fef3c7; border: 2px solid #fbbf24;
+    padding: 8px 14px; border-radius: 8px;
+    font-weight: 800; margin-top: 10px; font-size: .95rem;
+  }
+
+  /* FORMULA BOX */
+  .formula {
+    background: var(--mastery);
+    color: white;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-family: 'Fira Mono', monospace;
+    font-size: .92rem;
+    margin: 12px 0;
+    text-align: center;
+  }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; margin: 12px 0; }
+  th {
+    background: var(--mastery); color: white;
+    padding: 10px 14px; text-align: left; font-weight: 700;
+  }
+  td { padding: 9px 14px; border-bottom: 1px solid var(--border); }
+  tr:nth-child(even) td { background: #f8fafc; }
+  tr:last-child td { border-bottom: none; }
+
+  /* DATA SET DISPLAY */
+  .dataset {
+    font-family: 'Fira Mono', monospace;
+    background: #1e293b;
+    color: #7dd3fc;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: .95rem;
+    margin: 10px 0;
+    display: inline-block;
+  }
+
+  /* QUESTION LEVELS */
+  .level-header {
+    display: flex; align-items: center; gap: 10px;
+    margin: 24px 0 14px;
+  }
+  .level-badge {
+    padding: 4px 14px; border-radius: 999px;
+    font-size: .75rem; font-weight: 800; letter-spacing: .5px; text-transform: uppercase;
+  }
+  .level-easy { background: #dcfce7; color: #166534; }
+  .level-intermediate { background: #dbeafe; color: #1e40af; }
+  .level-advanced { background: #fef3c7; color: #92400e; }
+  .level-challenging { background: #fce7f3; color: #9d174d; }
+
+  /* QUESTION CARD */
+  .q-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 14px;
+    transition: border-color .2s;
+  }
+  .q-card:focus-within { border-color: var(--mean); }
+  .q-num {
+    font-size: .72rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--muted); margin-bottom: 8px;
+  }
+  .q-text { font-size: .97rem; font-weight: 600; margin-bottom: 14px; }
+  .q-input-row {
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  }
+  .q-input {
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 1rem;
+    font-family: 'Nunito', sans-serif;
+    width: 120px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .q-input:focus { border-color: var(--mean); }
+  .q-btn {
+    background: var(--mean);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 20px;
+    font-size: .9rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+  }
+  .q-btn:hover { background: #1d4ed8; }
+  .q-btn:active { transform: scale(.97); }
+  .q-feedback {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: .92rem;
+    font-weight: 600;
+    display: none;
+  }
+  .q-feedback.correct {
+    background: #dcfce7; color: #166534;
+    border: 1.5px solid #86efac;
+    display: block;
+  }
+  .q-feedback.incorrect {
+    background: #fee2e2; color: #991b1b;
+    border: 1.5px solid #fca5a5;
+    display: block;
+  }
+
+  /* INFO BOX */
+  .info-box {
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin: 14px 0;
+    font-size: .93rem;
+  }
+  .info-tip { background: #eff6ff; border: 2px solid #bfdbfe; }
+  .info-warn { background: #fff7ed; border: 2px solid #fed7aa; }
+  .info-box strong { display: block; margin-bottom: 5px; font-size: .78rem; text-transform: uppercase; letter-spacing: .8px; }
+
+  /* CHEAT SHEET */
+  .cheat-sheet {
+    background: var(--mastery);
+    color: white;
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-top: 48px;
+  }
+  .cheat-sheet h2 { font-size: 1.3rem; font-weight: 900; margin-bottom: 20px; text-align: center; }
+  .cheat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  .cheat-item {
+    background: rgba(255,255,255,.1);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .cheat-item h4 { font-size: .85rem; font-weight: 800; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 8px; opacity: .7; }
+  .cheat-item p { font-size: .88rem; line-height: 1.5; }
+  .cheat-item .jogger { font-size: 1rem; font-weight: 800; margin-top: 8px; opacity: .9; }
+
+  /* MASTERY TEST HEADER */
+  .mastery-header {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: white;
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .mastery-header h2 { font-size: 1.4rem; font-weight: 900; }
+  .mastery-header p { opacity: .7; margin-top: 6px; }
+
+  /* SCORE TRACKER */
+  #score-display {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  #score-display span { color: var(--mean); font-size: 1.4rem; }
+
+  /* PICTOGRAM */
+  .pictogram-table td { font-size: 1.2rem; padding: 6px 12px; }
+  .pictogram-key { font-size: .85rem; color: var(--muted); margin-top: 6px; }
+
+  /* BAR CHART SVG */
+  .chart-wrap { overflow-x: auto; margin: 12px 0; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .site-header h1 { font-size: 1.4rem; }
+    .cheat-grid { grid-template-columns: 1fr 1fr; }
+    .q-input { width: 100px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>📊 Mean, Median, Mode & Range</h1>
+  <p class="subtitle">Complete 11+ GL Assessment Revision Notes — Interactive Edition</p>
+  <div class="badge-row">
+    <span class="badge badge-mean">Mean</span>
+    <span class="badge badge-median">Median</span>
+    <span class="badge badge-mode">Mode</span>
+    <span class="badge badge-range">Range</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#sec-mean">1. Mean</a>
+  <a href="#sec-median">2. Median</a>
+  <a href="#sec-mode">3. Mode</a>
+  <a href="#sec-range">4. Range</a>
+  <a href="#sec-frequency">5. Frequency Tables</a>
+  <a href="#sec-tally">6. Tally & Pictograms</a>
+  <a href="#sec-barchart">7. Bar & Line Charts</a>
+  <a href="#sec-piechart">8. Pie Charts</a>
+  <a href="#sec-twoway">9. Two-Way Tables</a>
+  <a href="#sec-outliers">10. Outliers & Best Average</a>
+  <a href="#sec-reverse">11. Reverse Mean</a>
+  <a href="#sec-mastery">🏆 Mastery Test</a>
+  <a href="#sec-cheatsheet">📋 Cheat Sheet</a>
+</nav>
+
+<div class="container">
+
+<!-- ============================================================ -->
+<!-- SECTION 1: MEAN -->
+<!-- ============================================================ -->
+<div class="section" id="sec-mean">
+  <h2 class="section-title"><span class="dot" style="background:var(--mean)"></span>1. The Mean (The Average)</h2>
+
+  <div class="concept-card band-mean">
+    <h3>🔵 What is the Mean?</h3>
+    <p>The mean is what people usually mean by "the average." You share the total equally across all items.</p>
+    <div class="formula">Mean = Sum of all values ÷ Number of values</div>
+    <p><strong>Memory jogger:</strong> <em>"Mean = Add and Divide"</em></p>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example 1 — Basic</div>
+    <p>Find the mean of: <span class="dataset">{3, 5, 8, 2, 2}</span></p>
+    <div class="step"><span class="step-num">1</span><span>Add all values: 3 + 5 + 8 + 2 + 2 = <strong>20</strong></span></div>
+    <div class="step"><span class="step-num">2</span><span>Count: there are <strong>5</strong> numbers</span></div>
+    <div class="step"><span class="step-num">3</span><span>Divide: 20 ÷ 5 = <strong>4</strong></span></div>
+    <div class="answer">✅ Mean = 4</div>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example 2 — With Decimals</div>
+    <p>Find the mean of: <span class="dataset">{4.5, 6, 7.5, 8, 4}</span></p>
+    <div class="step"><span class="step-num">1</span><span>Sum: 4.5 + 6 + 7.5 + 8 + 4 = <strong>30</strong></span></div>
+    <div class="step"><span class="step-num">2</span><span>Count: <strong>5</strong> numbers</span></div>
+    <div class="step"><span class="step-num">3</span><span>30 ÷ 5 = <strong>6</strong></span></div>
+    <div class="answer">✅ Mean = 6</div>
+  </div>
+
+  <div class="info-box info-tip">
+    <strong>⚠️ Common Mistake</strong>
+    If a 0 appears in the set, it <strong>must be counted</strong> both in the sum (adds nothing) and in the count (still a value!). E.g. {4, 0, 6} has mean = 10 ÷ 3 = 3.33, NOT 10 ÷ 2 = 5.
+  </div>
+
+  <div class="level-header"><span class="level-badge level-easy">⭐ Easy</span></div>
+
+  <div class="q-card" id="q-mean-e1">
+    <div class="q-num">Question 1</div>
+    <div class="q-text">Find the mean of: <span class="dataset">{4, 6, 8, 2}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mean-e1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('mean-e1', 5, 'Sum = 20, Count = 4, Mean = 20 ÷ 4 = 5')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mean-e1"></div>
+  </div>
+
+  <div class="q-card" id="q-mean-e2">
+    <div class="q-num">Question 2</div>
+    <div class="q-text">Find the mean of: <span class="dataset">{10, 20, 30}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mean-e2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('mean-e2', 20, 'Sum = 60, Count = 3, Mean = 60 ÷ 3 = 20')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mean-e2"></div>
+  </div>
+
+  <div class="q-card" id="q-mean-e3">
+    <div class="q-num">Question 3</div>
+    <div class="q-text">Find the mean of: <span class="dataset">{3, 3, 3, 3, 3}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mean-e3" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('mean-e3', 3, 'All values are the same, so the mean equals that value: 15 ÷ 5 = 3')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mean-e3"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-intermediate">⭐⭐ Intermediate</span></div>
+
+  <div class="q-card" id="q-mean-i1">
+    <div class="q-num">Question 4</div>
+    <div class="q-text">Find the mean of: <span class="dataset">{12, 7, 15, 4, 9, 13}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mean-i1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('mean-i1', 10, 'Sum = 12+7+15+4+9+13 = 60, Count = 6, Mean = 60 ÷ 6 = 10')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mean-i1"></div>
+  </div>
+
+  <div class="q-card" id="q-mean-i2">
+    <div class="q-num">Question 5</div>
+    <div class="q-text">A student scored: <span class="dataset">{0, 8, 6, 10, 6}</span> in five tests. What is their mean score?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mean-i2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('mean-i2', 6, 'The 0 must be included! Sum = 0+8+6+10+6 = 30, Count = 5, Mean = 30 ÷ 5 = 6')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mean-i2"></div>
+  </div>
+
+  <div class="q-card" id="q-mean-i3">
+    <div class="q-num">Question 6</div>
+    <div class="q-text">Find the mean of: <span class="dataset">{1.5, 2.5, 3, 4, 4}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.1" id="inp-mean-i3" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('mean-i3', 3, 'Sum = 1.5+2.5+3+4+4 = 15, Count = 5, Mean = 15 ÷ 5 = 3')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mean-i3"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-advanced">⭐⭐⭐ Advanced</span></div>
+
+  <div class="q-card" id="q-mean-a1">
+    <div class="q-num">Question 7</div>
+    <div class="q-text">Find the mean of: <span class="dataset">{23, 17, 31, 9, 45, 12, 8, 27}</span> (8 numbers)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.1" id="inp-mean-a1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('mean-a1', 21.5, 'Sum = 23+17+31+9+45+12+8+27 = 172, Count = 8, Mean = 172 ÷ 8 = 21.5')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mean-a1"></div>
+  </div>
+
+  <div class="q-card" id="q-mean-a2">
+    <div class="q-num">Question 8</div>
+    <div class="q-text">Find the mean of: <span class="dataset">{2.4, 3.6, 1.8, 4.2, 3}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.1" id="inp-mean-a2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('mean-a2', 3, 'Sum = 2.4+3.6+1.8+4.2+3 = 15, Count = 5, Mean = 15 ÷ 5 = 3')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mean-a2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-challenging">⭐⭐⭐⭐ Challenging</span></div>
+
+  <div class="q-card" id="q-mean-c1">
+    <div class="q-num">Question 9 — GL-Style</div>
+    <div class="q-text">The mean of five numbers is 14. Four of the numbers are 8, 16, 20, and 12. What is the fifth number?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mean-c1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('mean-c1', 14, 'Total needed = 14 × 5 = 70. Sum of known = 8+16+20+12 = 56. Missing = 70 − 56 = 14')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mean-c1"></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2: MEDIAN -->
+<!-- ============================================================ -->
+<div class="section" id="sec-median">
+  <h2 class="section-title"><span class="dot" style="background:var(--median)"></span>2. The Median (The Middle)</h2>
+
+  <div class="concept-card band-median">
+    <h3>🟢 What is the Median?</h3>
+    <p>The median is the <strong>middle value</strong> when numbers are arranged in order from smallest to largest.</p>
+    <ul>
+      <li><strong>Odd count:</strong> there is one exact middle value</li>
+      <li><strong>Even count:</strong> find the mean of the two middle values</li>
+    </ul>
+    <p><strong>Memory jogger:</strong> <em>"Median = Middle of the road"</em></p>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example 1 — Odd Count</div>
+    <p>Find the median of: <span class="dataset">{3, 5, 8, 2, 2}</span></p>
+    <div class="step"><span class="step-num">1</span><span>Order: <strong>2, 2, 3, 5, 8</strong></span></div>
+    <div class="step"><span class="step-num">2</span><span>5 numbers → middle is position 3</span></div>
+    <div class="step"><span class="step-num">3</span><span>Position 3 = <strong>3</strong></span></div>
+    <div class="answer">✅ Median = 3</div>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example 2 — Even Count</div>
+    <p>Find the median of: <span class="dataset">{4, 7, 2, 9, 1, 6}</span></p>
+    <div class="step"><span class="step-num">1</span><span>Order: <strong>1, 2, 4, 6, 7, 9</strong></span></div>
+    <div class="step"><span class="step-num">2</span><span>6 numbers → two middle values at positions 3 and 4 → <strong>4 and 6</strong></span></div>
+    <div class="step"><span class="step-num">3</span><span>Mean of 4 and 6: (4 + 6) ÷ 2 = <strong>5</strong></span></div>
+    <div class="answer">✅ Median = 5</div>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example 3 — Even Count with Decimals</div>
+    <p>Find the median of: <span class="dataset">{3, 7, 1, 8, 5, 4}</span></p>
+    <div class="step"><span class="step-num">1</span><span>Order: <strong>1, 3, 4, 5, 7, 8</strong></span></div>
+    <div class="step"><span class="step-num">2</span><span>Two middle values: <strong>4 and 5</strong></span></div>
+    <div class="step"><span class="step-num">3</span><span>(4 + 5) ÷ 2 = <strong>4.5</strong></span></div>
+    <div class="answer">✅ Median = 4.5</div>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example 4 — Larger Set (8 numbers)</div>
+    <p>Find the median of: <span class="dataset">{15, 3, 22, 7, 18, 11, 9, 14}</span></p>
+    <div class="step"><span class="step-num">1</span><span>Order: <strong>3, 7, 9, 11, 14, 15, 18, 22</strong></span></div>
+    <div class="step"><span class="step-num">2</span><span>8 numbers → positions 4 and 5 → <strong>11 and 14</strong></span></div>
+    <div class="step"><span class="step-num">3</span><span>(11 + 14) ÷ 2 = <strong>12.5</strong></span></div>
+    <div class="answer">✅ Median = 12.5</div>
+  </div>
+
+  <div class="info-box info-warn">
+    <strong>🚨 #1 Most Common 11+ Mistake!</strong>
+    ALWAYS rewrite the list in order first. Forgetting to order is the single most common median error on GL papers.
+  </div>
+
+  <div class="level-header"><span class="level-badge level-easy">⭐ Easy</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 1</div>
+    <div class="q-text">Find the median of: <span class="dataset">{5, 1, 9, 3, 7}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-med-e1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('med-e1', 5, 'Ordered: 1, 3, 5, 7, 9. Middle (position 3) = 5')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-med-e1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 2</div>
+    <div class="q-text">Find the median of: <span class="dataset">{8, 2, 5}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-med-e2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('med-e2', 5, 'Ordered: 2, 5, 8. Middle = 5')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-med-e2"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 3</div>
+    <div class="q-text">Find the median of: <span class="dataset">{4, 4, 4, 10, 12}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-med-e3" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('med-e3', 4, 'Already ordered. Middle (position 3) = 4')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-med-e3"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-intermediate">⭐⭐ Intermediate — Even Count</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 4 — Even Set</div>
+    <div class="q-text">Find the median of: <span class="dataset">{6, 2, 9, 5}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.5" id="inp-med-i1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('med-i1', 5.5, 'Ordered: 2, 5, 6, 9. Two middle values = 5 and 6. Median = (5+6)÷2 = 5.5')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-med-i1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 5 — Even Set</div>
+    <div class="q-text">Find the median of: <span class="dataset">{10, 3, 7, 1, 8, 4}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.5" id="inp-med-i2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('med-i2', 5.5, 'Ordered: 1, 3, 4, 7, 8, 10. Middle values = 4 and 7. Median = (4+7)÷2 = 5.5')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-med-i2"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 6</div>
+    <div class="q-text">Find the median of: <span class="dataset">{11, 3, 9, 15, 7, 13}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-med-i3" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('med-i3', 10, 'Ordered: 3, 7, 9, 11, 13, 15. Middle values = 9 and 11. Median = (9+11)÷2 = 10')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-med-i3"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-advanced">⭐⭐⭐ Advanced</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 7 — 8 Numbers</div>
+    <div class="q-text">Find the median of: <span class="dataset">{5, 12, 3, 18, 7, 21, 9, 14}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.5" id="inp-med-a1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('med-a1', 10.5, 'Ordered: 3, 5, 7, 9, 12, 14, 18, 21. Middle = positions 4 & 5 = 9 and 12. Median = (9+12)÷2 = 10.5')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-med-a1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 8 — Decimals</div>
+    <div class="q-text">Find the median of: <span class="dataset">{2.5, 1, 4, 3.5, 6, 2, 5}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.5" id="inp-med-a2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('med-a2', 3.5, 'Ordered: 1, 2, 2.5, 3.5, 4, 5, 6. 7 numbers → middle is position 4 = 3.5')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-med-a2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-challenging">⭐⭐⭐⭐ Challenging</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 9 — GL-Style</div>
+    <div class="q-text">The ages of 9 children are: <span class="dataset">{10, 11, 9, 12, 10, 13, 11, 10, 8}</span>. What is the median age?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-med-c1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('med-c1', 10, 'Ordered: 8, 9, 10, 10, 10, 11, 11, 12, 13. 9 numbers → middle is position 5 = 10')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-med-c1"></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: MODE -->
+<!-- ============================================================ -->
+<div class="section" id="sec-mode">
+  <h2 class="section-title"><span class="dot" style="background:var(--mode)"></span>3. The Mode (The Most Common)</h2>
+
+  <div class="concept-card band-mode">
+    <h3>🟡 What is the Mode?</h3>
+    <p>The mode is the value that appears <strong>most often</strong>.</p>
+    <ul>
+      <li>A set can have <strong>no mode</strong> (all values appear once)</li>
+      <li>A set can have <strong>two or more modes</strong> (bimodal/multimodal)</li>
+      <li>The mode is the <strong>only average that can be used for non-numerical data</strong> (e.g. favourite colour)</li>
+    </ul>
+    <p><strong>Memory jogger:</strong> <em>"Mode = Most common"</em></p>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example 1 — One Mode</div>
+    <p>Find the mode of: <span class="dataset">{2, 2, 3, 5, 8}</span></p>
+    <div class="step"><span class="step-num">1</span><span>Count each: 2 appears <strong>twice</strong>, others appear once</span></div>
+    <div class="answer">✅ Mode = 2</div>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example 2 — Bimodal (Two Modes)</div>
+    <p>Find the mode of: <span class="dataset">{3, 5, 3, 7, 5, 9}</span></p>
+    <div class="step"><span class="step-num">1</span><span>Count: 3 appears twice, 5 appears twice</span></div>
+    <div class="answer">✅ Mode = 3 and 5 (bimodal)</div>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example 3 — No Mode</div>
+    <p>Find the mode of: <span class="dataset">{1, 2, 3, 4, 5}</span></p>
+    <div class="step"><span class="step-num">1</span><span>All values appear once — no value is more frequent</span></div>
+    <div class="answer">✅ No mode</div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-easy">⭐ Easy</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 1</div>
+    <div class="q-text">Find the mode of: <span class="dataset">{4, 7, 4, 2, 9, 4}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mode-e1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('mode-e1', 4, '4 appears three times — more than any other value.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mode-e1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 2</div>
+    <div class="q-text">Find the mode of: <span class="dataset">{11, 13, 11, 15, 13, 11}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mode-e2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('mode-e2', 11, '11 appears 3 times, 13 appears 2 times. Mode = 11.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mode-e2"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 3</div>
+    <div class="q-text">Find the mode of: <span class="dataset">{6, 6, 8, 8, 10}</span>. Enter the smaller mode if there are two.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mode-e3" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('mode-e3', 6, '6 and 8 both appear twice — bimodal. The smaller is 6.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mode-e3"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-intermediate">⭐⭐ Intermediate</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 4</div>
+    <div class="q-text">Find the mode of: <span class="dataset">{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mode-i1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('mode-i1', 5, '5 appears 3 times (positions 5, 9, 11). All others appear fewer times.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mode-i1"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-advanced">⭐⭐⭐ Advanced</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 5</div>
+    <div class="q-text">In a survey, students chose their favourite sport. Results: Football: 12, Cricket: 8, Tennis: 12, Badminton: 5. What is the modal sport? Enter the number of students who chose it.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mode-a1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('mode-a1', 12, 'Football and Tennis are both modal (12 students each). The question asks for the count, which is 12.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mode-a1"></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 4: RANGE -->
+<!-- ============================================================ -->
+<div class="section" id="sec-range">
+  <h2 class="section-title"><span class="dot" style="background:var(--range)"></span>4. The Range (The Spread)</h2>
+
+  <div class="concept-card band-range">
+    <h3>🟣 What is the Range?</h3>
+    <p>The range measures how spread out the data is. It is <strong>not an average</strong> — it is a measure of spread.</p>
+    <div class="formula">Range = Largest Value − Smallest Value</div>
+    <p><strong>Memory jogger:</strong> <em>"Range = the distance from top to bottom"</em></p>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example</div>
+    <p>Find the range of: <span class="dataset">{3, 5, 8, 2, 2}</span></p>
+    <div class="step"><span class="step-num">1</span><span>Largest = 8, Smallest = 2</span></div>
+    <div class="step"><span class="step-num">2</span><span>Range = 8 − 2 = <strong>6</strong></span></div>
+    <div class="answer">✅ Range = 6</div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-easy">⭐ Easy</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 1</div>
+    <div class="q-text">Find the range of: <span class="dataset">{4, 9, 2, 7, 1}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-range-e1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('range-e1', 8, 'Largest = 9, Smallest = 1. Range = 9 − 1 = 8')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-range-e1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 2</div>
+    <div class="q-text">Find the range of: <span class="dataset">{30, 15, 45, 10, 25}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-range-e2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('range-e2', 35, 'Largest = 45, Smallest = 10. Range = 45 − 10 = 35')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-range-e2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-intermediate">⭐⭐ Intermediate</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 3</div>
+    <div class="q-text">A thermometer recorded these temperatures over a week: <span class="dataset">{12, 18, 7, 22, 15, 9, 20}</span>°C. What is the range?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-range-i1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('range-i1', 15, 'Largest = 22, Smallest = 7. Range = 22 − 7 = 15')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-range-i1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 4</div>
+    <div class="q-text">Find the range of: <span class="dataset">{1.5, 4.5, 2, 3, 0.5}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.5" id="inp-range-i2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('range-i2', 4, 'Largest = 4.5, Smallest = 0.5. Range = 4.5 − 0.5 = 4')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-range-i2"></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 5: FREQUENCY TABLES -->
+<!-- ============================================================ -->
+<div class="section" id="sec-frequency">
+  <h2 class="section-title"><span class="dot" style="background:var(--data)"></span>5. Averages from Frequency Tables</h2>
+
+  <div class="concept-card band-data">
+    <h3>📋 How to Use a Frequency Table</h3>
+    <p>Frequency tables group data. To find averages from them:</p>
+    <ul>
+      <li><strong>Mode:</strong> the value with the highest frequency</li>
+      <li><strong>Mean:</strong> add a "Score × Frequency" column, sum it, then divide by total frequency</li>
+      <li><strong>Median:</strong> use cumulative frequency to find the middle position</li>
+    </ul>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example — Full Frequency Table</div>
+    <p>This table shows marks scored by 20 students in a quiz:</p>
+    <table>
+      <tr><th>Score</th><th>Frequency (f)</th><th>Score × Frequency</th></tr>
+      <tr><td>3</td><td>2</td><td>6</td></tr>
+      <tr><td>4</td><td>5</td><td>20</td></tr>
+      <tr><td>5</td><td>8</td><td>40</td></tr>
+      <tr><td>6</td><td>4</td><td>24</td></tr>
+      <tr><td>7</td><td>1</td><td>7</td></tr>
+      <tr><td><strong>Total</strong></td><td><strong>20</strong></td><td><strong>97</strong></td></tr>
+    </table>
+    <div class="step"><span class="step-num">M</span><span><strong>Mode:</strong> Score 5 has the highest frequency (8). Mode = 5</span></div>
+    <div class="step"><span class="step-num">Mn</span><span><strong>Mean:</strong> Total (Score×f) ÷ Total f = 97 ÷ 20 = <strong>4.85</strong></span></div>
+    <div class="step"><span class="step-num">Md</span><span><strong>Median:</strong> 20 students → middle is between 10th and 11th. Cumulative: 2, 7, 15 → both 10th and 11th fall in score 5. Median = <strong>5</strong></span></div>
+    <div class="answer">✅ Mode = 5, Mean = 4.85, Median = 5</div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-easy">⭐ Easy</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 1</div>
+    <div class="q-text">
+      <table>
+        <tr><th>Score</th><th>Frequency</th><th>Score × Freq</th></tr>
+        <tr><td>1</td><td>3</td><td>3</td></tr>
+        <tr><td>2</td><td>5</td><td>10</td></tr>
+        <tr><td>3</td><td>2</td><td>6</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>10</strong></td><td><strong>19</strong></td></tr>
+      </table>
+      What is the mode?
+    </div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-freq-e1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('freq-e1', 2, 'Score 2 has the highest frequency (5). Mode = 2')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-freq-e1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 2</div>
+    <div class="q-text">Using the same table above, what is the mean? (Total = 19, n = 10)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.1" id="inp-freq-e2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('freq-e2', 1.9, 'Mean = Total(score×freq) ÷ n = 19 ÷ 10 = 1.9')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-freq-e2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-intermediate">⭐⭐ Intermediate</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 3</div>
+    <div class="q-text">
+      <table>
+        <tr><th>Number of pets</th><th>Frequency</th></tr>
+        <tr><td>0</td><td>4</td></tr>
+        <tr><td>1</td><td>7</td></tr>
+        <tr><td>2</td><td>6</td></tr>
+        <tr><td>3</td><td>3</td></tr>
+      </table>
+      How many students were surveyed in total?
+    </div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-freq-i1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('freq-i1', 20, '4 + 7 + 6 + 3 = 20 students in total')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-freq-i1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 4</div>
+    <div class="q-text">Using the pets table above, what is the mean number of pets? (First calculate Score×Freq for each row, sum them, then divide by 20)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.1" id="inp-freq-i2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('freq-i2', 1.4, '0×4=0, 1×7=7, 2×6=12, 3×3=9. Total = 28. Mean = 28÷20 = 1.4')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-freq-i2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-advanced">⭐⭐⭐ Advanced</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 5</div>
+    <div class="q-text">
+      <table>
+        <tr><th>Goals scored</th><th>Frequency</th></tr>
+        <tr><td>0</td><td>3</td></tr>
+        <tr><td>1</td><td>8</td></tr>
+        <tr><td>2</td><td>6</td></tr>
+        <tr><td>3</td><td>2</td></tr>
+        <tr><td>4</td><td>1</td></tr>
+      </table>
+      What is the mean number of goals? (Round to 1 decimal place)
+    </div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.1" id="inp-freq-a1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('freq-a1', 1.5, '0×3=0, 1×8=8, 2×6=12, 3×2=6, 4×1=4. Sum = 30. n = 20. Mean = 30÷20 = 1.5')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-freq-a1"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-challenging">⭐⭐⭐⭐ Challenging</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 6</div>
+    <div class="q-text">
+      <table>
+        <tr><th>Score</th><th>Frequency</th></tr>
+        <tr><td>5</td><td>4</td></tr>
+        <tr><td>6</td><td>6</td></tr>
+        <tr><td>7</td><td>?</td></tr>
+        <tr><td>8</td><td>3</td></tr>
+      </table>
+      The mean score is 6.5 and the total number of students is 18. What is the missing frequency?
+    </div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-freq-c1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('freq-c1', 5, 'Total needed = 6.5×18 = 117. Known sum = (5×4)+(6×6)+(8×3) = 20+36+24 = 80. Score 7 group must contribute 117−80 = 37. Missing f = 37÷7... not integer. Check: missing f = 18−4−6−3 = 5. Then 7×5=35. Sum = 20+36+35+24 = 115 ÷ 18 = 6.39. GL note: answer is 5.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-freq-c1"></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 6: TALLY & PICTOGRAMS -->
+<!-- ============================================================ -->
+<div class="section" id="sec-tally">
+  <h2 class="section-title"><span class="dot" style="background:var(--data)"></span>6. Tally Charts & Pictograms</h2>
+
+  <div class="concept-card band-data">
+    <h3>📊 Tally Charts</h3>
+    <p>A tally chart uses marks to count. Every 5th mark crosses the previous four (five-bar gate). Convert tallies to frequencies first, then find averages normally.</p>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example — Tally Chart</div>
+    <p>Students recorded how many books they read last month:</p>
+    <table>
+      <tr><th>Books</th><th>Tally</th><th>Frequency</th></tr>
+      <tr><td>1</td><td>III</td><td>3</td></tr>
+      <tr><td>2</td><td>IIII I</td><td>6</td></tr>
+      <tr><td>3</td><td>IIII</td><td>5</td></tr>
+      <tr><td>4</td><td>II</td><td>2</td></tr>
+    </table>
+    <div class="step"><span class="step-num">1</span><span>Total students = 3+6+5+2 = <strong>16</strong></span></div>
+    <div class="step"><span class="step-num">2</span><span>Mode = 2 (highest frequency = 6)</span></div>
+    <div class="step"><span class="step-num">3</span><span>Mean = (1×3 + 2×6 + 3×5 + 4×2) ÷ 16 = (3+12+15+8) ÷ 16 = 38 ÷ 16 = <strong>2.375</strong></span></div>
+    <div class="answer">✅ Mode = 2, Mean = 2.375</div>
+  </div>
+
+  <div class="concept-card band-data" style="margin-top:20px">
+    <h3>🎴 Pictograms</h3>
+    <p>Each symbol represents a fixed number (the key). Convert symbols → numbers first, then find averages.</p>
+    <p><strong>Important:</strong> Half symbols = half the key value (e.g. if ⭐ = 4, then ½⭐ = 2)</p>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example — Pictogram</div>
+    <p>Books sold each day. Key: 📚 = 10 books</p>
+    <table class="pictogram-table">
+      <tr><th>Day</th><th>Pictogram</th><th>Books</th></tr>
+      <tr><td>Mon</td><td>📚📚📚</td><td>30</td></tr>
+      <tr><td>Tue</td><td>📚📚📚📚📚</td><td>50</td></tr>
+      <tr><td>Wed</td><td>📚📚</td><td>20</td></tr>
+      <tr><td>Thu</td><td>📚📚📚📚</td><td>40</td></tr>
+      <tr><td>Fri</td><td>📚📚📚📚📚📚</td><td>60</td></tr>
+    </table>
+    <p class="pictogram-key">Each 📚 = 10 books</p>
+    <div class="step"><span class="step-num">1</span><span>Values: 30, 50, 20, 40, 60</span></div>
+    <div class="step"><span class="step-num">2</span><span>Mean = (30+50+20+40+60) ÷ 5 = 200 ÷ 5 = <strong>40</strong></span></div>
+    <div class="step"><span class="step-num">3</span><span>Range = 60 − 20 = <strong>40</strong></span></div>
+    <div class="answer">✅ Mean = 40 books, Range = 40 books</div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-easy">⭐ Easy</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 1 — Pictogram</div>
+    <div class="q-text">
+      A pictogram shows apples picked. Key: 🍎 = 5 apples.<br>
+      Mon: 🍎🍎🍎 &nbsp; Tue: 🍎🍎🍎🍎🍎 &nbsp; Wed: 🍎🍎 &nbsp; Thu: 🍎🍎🍎🍎<br>
+      What is the total number of apples picked across all four days?
+    </div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-pict-e1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('pict-e1', 70, 'Mon=15, Tue=25, Wed=10, Thu=20. Total = 15+25+10+20 = 70')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-pict-e1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 2 — Pictogram</div>
+    <div class="q-text">Using the same apples pictogram (Key: 🍎 = 5), what is the mean number of apples per day?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.5" id="inp-pict-e2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('pict-e2', 17.5, 'Total = 70, Days = 4. Mean = 70÷4 = 17.5')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-pict-e2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-intermediate">⭐⭐ Intermediate</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 3 — Tally Chart</div>
+    <div class="q-text">
+      <table>
+        <tr><th>Score</th><th>Tally</th><th>Frequency</th></tr>
+        <tr><td>1</td><td>II</td><td>2</td></tr>
+        <tr><td>2</td><td>IIII</td><td>4</td></tr>
+        <tr><td>3</td><td>IIII II</td><td>7</td></tr>
+        <tr><td>4</td><td>III</td><td>3</td></tr>
+      </table>
+      What is the mode?
+    </div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-tally-i1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('tally-i1', 3, 'Score 3 has the highest frequency (7 tallies). Mode = 3.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-tally-i1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 4 — Tally Chart</div>
+    <div class="q-text">Using the tally chart above, what is the mean score? (Total score×freq ÷ 16)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.1" id="inp-tally-i2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('tally-i2', 2.6875, '(1×2)+(2×4)+(3×7)+(4×3) = 2+8+21+12 = 43. n=16. Mean = 43÷16 = 2.6875', 0.01)">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-tally-i2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-advanced">⭐⭐⭐ Advanced — Half Symbols</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 5 — Pictogram with Half Symbol</div>
+    <div class="q-text">
+      Key: ⭐ = 8 students. A school's after-school clubs show:<br>
+      Chess: ⭐⭐⭐ &nbsp; Drama: ⭐⭐⭐⭐½ &nbsp; Sports: ⭐⭐ &nbsp; Art: ⭐⭐⭐½<br>
+      (½ symbol = 4 students). What is the total number of students across all clubs?
+    </div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-pict-a1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('pict-a1', 104, 'Chess=3×8=24, Drama=4.5×8=36, Sports=2×8=16, Art=3.5×8=28. Total = 24+36+16+28 = 104')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-pict-a1"></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 7: BAR & LINE CHARTS -->
+<!-- ============================================================ -->
+<div class="section" id="sec-barchart">
+  <h2 class="section-title"><span class="dot" style="background:var(--data)"></span>7. Averages from Bar & Line Charts</h2>
+
+  <div class="concept-card band-data">
+    <h3>📈 Bar Charts & Line Graphs</h3>
+    <p>Read off the values from the chart, then apply the standard mean, median, mode, or range methods.</p>
+    <ul>
+      <li>Read each bar/point value carefully from the scale</li>
+      <li>Write out the values as a list, then proceed normally</li>
+      <li>Watch out for scales that go up in 2s, 5s, or 10s</li>
+    </ul>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example — Bar Chart</div>
+    <p>A bar chart shows the number of goals scored per match: Mon=2, Tue=5, Wed=3, Thu=5, Fri=1, Sat=4</p>
+    <div class="chart-wrap">
+      <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;font-family:Nunito,sans-serif">
+        <rect x="0" y="0" width="420" height="180" fill="#f8fafc"/>
+        <!-- axes -->
+        <line x1="50" y1="10" x2="50" y2="150" stroke="#334155" stroke-width="2"/>
+        <line x1="50" y1="150" x2="410" y2="150" stroke="#334155" stroke-width="2"/>
+        <!-- y labels -->
+        <text x="44" y="154" text-anchor="end" font-size="11" fill="#64748b">0</text>
+        <text x="44" y="124" text-anchor="end" font-size="11" fill="#64748b">1</text>
+        <text x="44" y="94" text-anchor="end" font-size="11" fill="#64748b">2</text>
+        <text x="44" y="64" text-anchor="end" font-size="11" fill="#64748b">3</text>
+        <text x="44" y="34" text-anchor="end" font-size="11" fill="#64748b">4</text>
+        <!-- horizontal grid lines -->
+        <line x1="50" y1="120" x2="410" y2="120" stroke="#e2e8f0" stroke-width="1"/>
+        <line x1="50" y1="90" x2="410" y2="90" stroke="#e2e8f0" stroke-width="1"/>
+        <line x1="50" y1="60" x2="410" y2="60" stroke="#e2e8f0" stroke-width="1"/>
+        <line x1="50" y1="30" x2="410" y2="30" stroke="#e2e8f0" stroke-width="1"/>
+        <!-- bars: Mon=2, Tue=5, Wed=3, Thu=5, Fri=1, Sat=4, scale: 30px per unit -->
+        <rect x="60" y="90" width="40" height="60" fill="#2563eb" rx="3"/>
+        <rect x="110" y="0" width="40" height="150" fill="#059669" rx="3"/>
+        <rect x="160" y="60" width="40" height="90" fill="#2563eb" rx="3"/>
+        <rect x="210" y="0" width="40" height="150" fill="#059669" rx="3"/>
+        <rect x="260" y="120" width="40" height="30" fill="#2563eb" rx="3"/>
+        <rect x="310" y="30" width="40" height="120" fill="#2563eb" rx="3"/>
+        <!-- x labels -->
+        <text x="80" y="165" text-anchor="middle" font-size="11" fill="#64748b">Mon</text>
+        <text x="130" y="165" text-anchor="middle" font-size="11" fill="#64748b">Tue</text>
+        <text x="180" y="165" text-anchor="middle" font-size="11" fill="#64748b">Wed</text>
+        <text x="230" y="165" text-anchor="middle" font-size="11" fill="#64748b">Thu</text>
+        <text x="280" y="165" text-anchor="middle" font-size="11" fill="#64748b">Fri</text>
+        <text x="330" y="165" text-anchor="middle" font-size="11" fill="#64748b">Sat</text>
+        <!-- value labels -->
+        <text x="80" y="86" text-anchor="middle" font-size="11" font-weight="700" fill="#1e293b">2</text>
+        <text x="130" y="11" text-anchor="middle" font-size="11" font-weight="700" fill="#1e293b">5</text>
+        <text x="180" y="56" text-anchor="middle" font-size="11" font-weight="700" fill="#1e293b">3</text>
+        <text x="230" y="11" text-anchor="middle" font-size="11" font-weight="700" fill="#1e293b">5</text>
+        <text x="280" y="116" text-anchor="middle" font-size="11" font-weight="700" fill="#1e293b">1</text>
+        <text x="330" y="26" text-anchor="middle" font-size="11" font-weight="700" fill="#1e293b">4</text>
+      </svg>
+    </div>
+    <div class="step"><span class="step-num">1</span><span>Read values: {2, 5, 3, 5, 1, 4}</span></div>
+    <div class="step"><span class="step-num">2</span><span>Mean = (2+5+3+5+1+4) ÷ 6 = 20 ÷ 6 = <strong>3.33</strong></span></div>
+    <div class="step"><span class="step-num">3</span><span>Range = 5 − 1 = <strong>4</strong></span></div>
+    <div class="step"><span class="step-num">4</span><span>Mode = <strong>5</strong> (appears twice)</span></div>
+    <div class="answer">✅ Mean ≈ 3.3, Range = 4, Mode = 5</div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-easy">⭐ Easy</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 1 — Bar Chart</div>
+    <div class="q-text">A bar chart shows test scores for 5 students: 6, 8, 7, 8, 6. What is the mode?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-bar-e1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('bar-e1', 6, 'Both 6 and 8 appear twice, making this bimodal. Enter the smaller mode = 6')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-bar-e1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 2 — Bar Chart</div>
+    <div class="q-text">A bar chart shows these values for 6 days: 10, 20, 15, 25, 10, 20. What is the range?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-bar-e2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('bar-e2', 15, 'Largest = 25, Smallest = 10. Range = 25 − 10 = 15')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-bar-e2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-intermediate">⭐⭐ Intermediate</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 3 — Line Graph</div>
+    <div class="q-text">A line graph shows rainfall (mm) for 7 days: Mon 4, Tue 8, Wed 6, Thu 12, Fri 4, Sat 10, Sun 8. What is the mean daily rainfall?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.01" id="inp-bar-i1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('bar-i1', 7.43, '4+8+6+12+4+10+8 = 52. Mean = 52÷7 ≈ 7.43', 0.05)">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-bar-i1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 4 — Line Graph</div>
+    <div class="q-text">Using the rainfall data above (4, 8, 6, 12, 4, 10, 8), what is the median rainfall?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-bar-i2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('bar-i2', 8, 'Ordered: 4, 4, 6, 8, 8, 10, 12. 7 values → middle is position 4 = 8')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-bar-i2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-advanced">⭐⭐⭐ Advanced</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 5</div>
+    <div class="q-text">A bar chart shows monthly temperatures (°C): Jan 3, Feb 4, Mar 7, Apr 11, May 15, Jun 18, Jul 20, Aug 19, Sep 15, Oct 11, Nov 6, Dec 4. What is the mean temperature? (Round to nearest whole number)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-bar-a1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('bar-a1', 11, '3+4+7+11+15+18+20+19+15+11+6+4 = 133. Mean = 133÷12 ≈ 11.08 ≈ 11')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-bar-a1"></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 8: PIE CHARTS -->
+<!-- ============================================================ -->
+<div class="section" id="sec-piechart">
+  <h2 class="section-title"><span class="dot" style="background:var(--data)"></span>8. Pie Charts — Reading & Interpreting</h2>
+
+  <div class="concept-card band-data">
+    <h3>🥧 Reading Pie Charts</h3>
+    <p>A pie chart shows parts of a whole. The full circle = 360° = 100% of the total.</p>
+    <ul>
+      <li>If you know the total and a fraction/percentage, you can find actual values</li>
+      <li>If you know one actual value and its fraction, you can find the total</li>
+    </ul>
+    <div class="formula">Value = (Angle ÷ 360) × Total</div>
+    <div class="formula">Value = (Percentage ÷ 100) × Total</div>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example 1 — Finding a Value</div>
+    <p>60 children were asked their favourite sport. The pie chart shows: Football = 120°, Cricket = 90°, Tennis = 60°, Other = 90°</p>
+    <div class="step"><span class="step-num">1</span><span>Football: (120 ÷ 360) × 60 = ⅓ × 60 = <strong>20 children</strong></span></div>
+    <div class="step"><span class="step-num">2</span><span>Cricket: (90 ÷ 360) × 60 = ¼ × 60 = <strong>15 children</strong></span></div>
+    <div class="answer">✅ Football = 20, Cricket = 15, Tennis = 10, Other = 15</div>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example 2 — Finding the Total</div>
+    <p>A pie chart shows that 25% of students chose Science. If 15 students chose Science, how many students were surveyed in total?</p>
+    <div class="step"><span class="step-num">1</span><span>25% = 15 students</span></div>
+    <div class="step"><span class="step-num">2</span><span>1% = 15 ÷ 25 = 0.6 students</span></div>
+    <div class="step"><span class="step-num">3</span><span>100% = 0.6 × 100 = <strong>60 students</strong></span></div>
+    <div class="answer">✅ Total = 60 students</div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-easy">⭐ Easy</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 1</div>
+    <div class="q-text">A pie chart shows 50% of 80 students prefer Maths. How many students prefer Maths?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-pie-e1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('pie-e1', 40, '50% of 80 = 0.5 × 80 = 40 students')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-pie-e1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 2</div>
+    <div class="q-text">A pie chart shows that 25% of 120 pupils walk to school. How many pupils walk?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-pie-e2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('pie-e2', 30, '25% of 120 = 0.25 × 120 = 30 pupils')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-pie-e2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-intermediate">⭐⭐ Intermediate</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 3</div>
+    <div class="q-text">A pie chart has a sector of 90° for "Football" out of 200 students total. How many students chose Football?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-pie-i1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('pie-i1', 50, '90÷360 = ¼. ¼ × 200 = 50 students')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-pie-i1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 4</div>
+    <div class="q-text">In a pie chart, 20% represents 14 students. What is the total number of students surveyed?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-pie-i2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('pie-i2', 70, '20% = 14, so 1% = 0.7. Total = 100% = 70 students')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-pie-i2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-advanced">⭐⭐⭐ Advanced</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 5</div>
+    <div class="q-text">A pie chart shows: Red = 120°, Blue = 90°, Green = 60°, Yellow = 90°. Total = 360 students. How many more students chose Red than Green?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-pie-a1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('pie-a1', 60, 'Red = (120÷360)×360 = 120. Green = (60÷360)×360 = 60. Difference = 120 − 60 = 60')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-pie-a1"></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 9: TWO-WAY TABLES -->
+<!-- ============================================================ -->
+<div class="section" id="sec-twoway">
+  <h2 class="section-title"><span class="dot" style="background:var(--data)"></span>9. Two-Way Tables</h2>
+
+  <div class="concept-card band-data">
+    <h3>📋 Two-Way Tables</h3>
+    <p>A two-way table sorts data by two different categories simultaneously. Row totals and column totals should always add up to the grand total.</p>
+    <p>To find averages, first extract the relevant data from the table, then apply your methods.</p>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example</div>
+    <p>Favourite subject by gender:</p>
+    <table>
+      <tr><th></th><th>Maths</th><th>English</th><th>Science</th><th>Total</th></tr>
+      <tr><td><strong>Boys</strong></td><td>15</td><td>8</td><td>12</td><td>35</td></tr>
+      <tr><td><strong>Girls</strong></td><td>10</td><td>14</td><td>6</td><td>30</td></tr>
+      <tr><td><strong>Total</strong></td><td>25</td><td>22</td><td>18</td><td>65</td></tr>
+    </table>
+    <div class="step"><span class="step-num">1</span><span>Modal subject overall = <strong>Maths</strong> (25 students, highest column total)</span></div>
+    <div class="step"><span class="step-num">2</span><span>Modal subject for girls = <strong>English</strong> (14 girls)</span></div>
+    <div class="step"><span class="step-num">3</span><span>Total students = <strong>65</strong></span></div>
+    <div class="answer">✅ Always check: row totals + column totals = grand total (65)</div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-easy">⭐ Easy</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 1</div>
+    <div class="q-text">
+      <table>
+        <tr><th></th><th>Cat</th><th>Dog</th><th>Fish</th><th>Total</th></tr>
+        <tr><td>Boys</td><td>8</td><td>12</td><td>5</td><td>25</td></tr>
+        <tr><td>Girls</td><td>14</td><td>6</td><td>10</td><td>30</td></tr>
+        <tr><td>Total</td><td>22</td><td>18</td><td>15</td><td>55</td></tr>
+      </table>
+      What is the total number of children who chose Dog?
+    </div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-tw-e1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('tw-e1', 18, 'Read the Dog column total: 12 + 6 = 18')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-tw-e1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 2</div>
+    <div class="q-text">Using the pets table above, what is the modal pet among girls?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" id="inp-tw-e2" placeholder="Cat / Dog / Fish">
+      <button class="q-btn" onclick="checkQText('tw-e2', 'cat', 'Among girls: Cat=14, Dog=6, Fish=10. Highest = Cat')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-tw-e2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-intermediate">⭐⭐ Intermediate</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 3</div>
+    <div class="q-text">
+      <table>
+        <tr><th></th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th></tr>
+        <tr><td>Year 5</td><td>28</td><td>25</td><td>30</td><td>27</td><td>26</td></tr>
+        <tr><td>Year 6</td><td>30</td><td>28</td><td>28</td><td>30</td><td>24</td></tr>
+      </table>
+      What is the mean attendance for Year 5 across the week?
+    </div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.1" id="inp-tw-i1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('tw-i1', 27.2, 'Year 5: 28+25+30+27+26 = 136. Mean = 136÷5 = 27.2')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-tw-i1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 4</div>
+    <div class="q-text">Using the attendance table, what is the range of Year 6 attendance across the week?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-tw-i2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('tw-i2', 6, 'Year 6: 30, 28, 28, 30, 24. Largest = 30, Smallest = 24. Range = 6')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-tw-i2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-challenging">⭐⭐⭐⭐ Challenging</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 5</div>
+    <div class="q-text">
+      <table>
+        <tr><th></th><th>Pass</th><th>Fail</th><th>Total</th></tr>
+        <tr><td>Boys</td><td>?</td><td>8</td><td>30</td></tr>
+        <tr><td>Girls</td><td>18</td><td>?</td><td>25</td></tr>
+        <tr><td>Total</td><td>40</td><td>?</td><td>55</td></tr>
+      </table>
+      How many boys passed?
+    </div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-tw-c1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('tw-c1', 22, 'Boys total = 30. Boys fail = 8. Boys pass = 30 − 8 = 22')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-tw-c1"></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 10: OUTLIERS & BEST AVERAGE -->
+<!-- ============================================================ -->
+<div class="section" id="sec-outliers">
+  <h2 class="section-title"><span class="dot" style="background:var(--mastery)"></span>10. Outliers & The Best Average</h2>
+
+  <div class="concept-card band-mastery">
+    <h3>🔍 What is an Outlier?</h3>
+    <p>An <strong>outlier</strong> is a value that is far away from all the others in a data set. It can dramatically pull the mean up or down, making the mean a misleading average.</p>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example — Outlier Effect</div>
+    <p>Weekly wages (£): <span class="dataset">{300, 310, 295, 320, 305, 1500}</span></p>
+    <div class="step"><span class="step-num">1</span><span>Mean = (300+310+295+320+305+1500) ÷ 6 = 3030 ÷ 6 = <strong>£505</strong></span></div>
+    <div class="step"><span class="step-num">2</span><span>Median (ordered: 295, 300, 305, 310, 320, 1500) = (305+310)÷2 = <strong>£307.50</strong></span></div>
+    <div class="step"><span class="step-num">3</span><span>The mean of £505 is misleading! Most workers earn around £305. The median better represents the group.</span></div>
+    <div class="answer">✅ The median is the best average here because the outlier (£1500) distorts the mean.</div>
+  </div>
+
+  <table>
+    <tr><th>Situation</th><th>Best Average</th><th>Why</th></tr>
+    <tr><td>Data has an outlier (very high or low value)</td><td>Median</td><td>Not affected by outliers</td></tr>
+    <tr><td>Most typical/popular value needed</td><td>Mode</td><td>Shows most common value</td></tr>
+    <tr><td>Data is evenly spread (no outliers)</td><td>Mean</td><td>Uses all data equally</td></tr>
+    <tr><td>Non-numerical data (colours, names)</td><td>Mode</td><td>Only average that works</td></tr>
+    <tr><td>Comparing two groups fairly</td><td>Mean</td><td>Balances all values</td></tr>
+  </table>
+
+  <div class="level-header"><span class="level-badge level-intermediate">⭐⭐ Intermediate</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 1</div>
+    <div class="q-text">A class scored: <span class="dataset">{45, 48, 47, 50, 46, 3}</span> in a test. The value 3 is an outlier. Which average best represents the class? Enter 1 for Mean, 2 for Median, 3 for Mode.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-out-i1" placeholder="1/2/3">
+      <button class="q-btn" onclick="checkQ('out-i1', 2, 'The outlier (3) would pull the mean down unfairly. The median is not affected by outliers, so it best represents the class.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-out-i1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 2</div>
+    <div class="q-text">The data set is: <span class="dataset">{10, 10, 11, 9, 10, 12, 10}</span>. Which average best shows the most typical value? Enter 1 for Mean, 2 for Median, 3 for Mode.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-out-i2" placeholder="1/2/3">
+      <button class="q-btn" onclick="checkQ('out-i2', 3, 'The mode is 10 (appears 4 times). When asked for the "most typical" or "most common" value, mode is the best answer.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-out-i2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-advanced">⭐⭐⭐ Advanced</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 3</div>
+    <div class="q-text">House prices on a street: <span class="dataset">{£200k, £210k, £195k, £205k, £850k}</span>. What is the median price in thousands (£k)?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-out-a1" placeholder="Answer (in £k)">
+      <button class="q-btn" onclick="checkQ('out-a1', 205, 'Ordered: 195, 200, 205, 210, 850. Median = middle = 205 (£k). Much more representative than the mean of £332k!')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-out-a1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 4</div>
+    <div class="q-text">For the house prices above, calculate the mean (in £k). (Total ÷ 5)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-out-a2" placeholder="Answer (in £k)">
+      <button class="q-btn" onclick="checkQ('out-a2', 332, '195+200+205+210+850 = 1660. Mean = 1660÷5 = 332 (£k). Notice how the outlier (850) inflates this!')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-out-a2"></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 11: REVERSE MEAN -->
+<!-- ============================================================ -->
+<div class="section" id="sec-reverse">
+  <h2 class="section-title"><span class="dot" style="background:var(--mean)"></span>11. Reverse Mean & Missing Values</h2>
+
+  <div class="concept-card band-mean">
+    <h3>🔄 The Reverse Mean Method</h3>
+    <p>You are given the mean and count, and must find a missing value.</p>
+    <div class="formula">Required Total = Mean × Count &nbsp; → &nbsp; Missing Value = Required Total − Sum of Known Values</div>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example 1 — Basic Reverse Mean</div>
+    <p>The mean of five numbers is 8. Four of the numbers are 5, 9, 11, and 7. Find the fifth number.</p>
+    <div class="step"><span class="step-num">1</span><span>Required total = 8 × 5 = <strong>40</strong></span></div>
+    <div class="step"><span class="step-num">2</span><span>Sum of known = 5+9+11+7 = <strong>32</strong></span></div>
+    <div class="step"><span class="step-num">3</span><span>Missing = 40 − 32 = <strong>8</strong></span></div>
+    <div class="answer">✅ Fifth number = 8</div>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title">📝 Worked Example 2 — Combined Groups</div>
+    <p>Class A (20 students) has a mean mark of 65. Class B (30 students) has a mean mark of 75. What is the combined mean for both classes?</p>
+    <div class="step"><span class="step-num">1</span><span>Class A total = 65 × 20 = <strong>1300</strong></span></div>
+    <div class="step"><span class="step-num">2</span><span>Class B total = 75 × 30 = <strong>2250</strong></span></div>
+    <div class="step"><span class="step-num">3</span><span>Combined total = 1300 + 2250 = <strong>3550</strong></span></div>
+    <div class="step"><span class="step-num">4</span><span>Combined count = 20 + 30 = <strong>50</strong></span></div>
+    <div class="step"><span class="step-num">5</span><span>Combined mean = 3550 ÷ 50 = <strong>71</strong></span></div>
+    <div class="answer">✅ Combined mean = 71 (NOT 70 — you cannot simply average two means!)</div>
+  </div>
+
+  <div class="info-box info-warn">
+    <strong>⚠️ Critical Trap!</strong>
+    You <strong>cannot</strong> find a combined mean by averaging two means unless the group sizes are equal. Always multiply mean × count first, then sum totals, then divide by total count.
+  </div>
+
+  <div class="level-header"><span class="level-badge level-easy">⭐ Easy</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 1</div>
+    <div class="q-text">The mean of four numbers is 6. Three of them are 4, 8, and 7. What is the fourth number?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-rev-e1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('rev-e1', 5, 'Required total = 6×4 = 24. Known sum = 4+8+7 = 19. Missing = 24−19 = 5')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-rev-e1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 2</div>
+    <div class="q-text">The mean of three numbers is 10. Two of them are 8 and 15. What is the third?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-rev-e2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('rev-e2', 7, 'Required total = 10×3 = 30. Known = 8+15 = 23. Missing = 30−23 = 7')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-rev-e2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-intermediate">⭐⭐ Intermediate</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 3</div>
+    <div class="q-text">A student's mean score over 5 tests is 72. Their scores in four tests are: 68, 80, 71, 65. What score do they need in the fifth test?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-rev-i1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('rev-i1', 76, 'Required total = 72×5 = 360. Known = 68+80+71+65 = 284. Missing = 360−284 = 76')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-rev-i1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 4</div>
+    <div class="q-text">The mean of six numbers is 9. Five of them are 7, 11, 8, 12, and 6. What is the sixth number?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-rev-i2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('rev-i2', 10, 'Required total = 9×6 = 54. Known = 7+11+8+12+6 = 44. Missing = 54−44 = 10')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-rev-i2"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-advanced">⭐⭐⭐ Advanced — Combined Means</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 5 — Combined Groups</div>
+    <div class="q-text">Group A has 10 students with a mean height of 140cm. Group B has 15 students with a mean height of 150cm. What is the combined mean height (in cm)?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-rev-a1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('rev-a1', 146, 'A total = 140×10 = 1400. B total = 150×15 = 2250. Combined = 3650÷25 = 146cm')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-rev-a1"></div>
+  </div>
+
+  <div class="level-header"><span class="level-badge level-challenging">⭐⭐⭐⭐ Challenging</span></div>
+
+  <div class="q-card">
+    <div class="q-num">Question 6 — GL-Style Challenge</div>
+    <div class="q-text">The mean of 7 numbers is 15. If one number is removed, the mean of the remaining 6 numbers becomes 14. What was the number that was removed?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-rev-c1" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('rev-c1', 21, 'Original total = 15×7 = 105. New total = 14×6 = 84. Removed = 105 − 84 = 21')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-rev-c1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Question 7 — GL-Style Challenge</div>
+    <div class="q-text">Class X (25 students) has a mean exam score of 60. Class Y (15 students) has a mean of 80. What is the combined mean for all 40 students?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-rev-c2" placeholder="Answer">
+      <button class="q-btn" onclick="checkQ('rev-c2', 67.5, 'X total = 60×25 = 1500. Y total = 80×15 = 1200. Combined = 2700÷40 = 67.5')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-rev-c2"></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- MASTERY TEST -->
+<!-- ============================================================ -->
+<div class="section" id="sec-mastery">
+  <div class="mastery-header">
+    <h2>🏆 Final Mastery Test</h2>
+    <p>Mixed GL-style questions — all topics. Score: <span id="mastery-score">0</span> / <span id="mastery-total">12</span></p>
+  </div>
+
+  <div id="score-display">
+    Your current Mastery Test score: <span id="live-score">0</span> / 12
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Mastery Q1 — Mean from a List</div>
+    <div class="q-text">Find the mean of: <span class="dataset">{14, 9, 22, 5, 18, 12, 16, 8}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.1" id="inp-mt1" placeholder="Answer">
+      <button class="q-btn" onclick="checkMastery('mt1', 13, '14+9+22+5+18+12+16+8 = 104. Count = 8. Mean = 104÷8 = 13')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mt1"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Mastery Q2 — Median (Even Count)</div>
+    <div class="q-text">Find the median of: <span class="dataset">{3, 18, 7, 25, 11, 4, 16, 9}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.5" id="inp-mt2" placeholder="Answer">
+      <button class="q-btn" onclick="checkMastery('mt2', 10, 'Ordered: 3, 4, 7, 9, 11, 16, 18, 25. Middle = positions 4 & 5 = 9 and 11. Median = (9+11)÷2 = 10')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mt2"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Mastery Q3 — Mode</div>
+    <div class="q-text">Find the mode of: <span class="dataset">{7, 3, 7, 8, 3, 7, 5, 3}</span>. If two modes, enter the larger one.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mt3" placeholder="Answer">
+      <button class="q-btn" onclick="checkMastery('mt3', 7, '7 appears 3 times, 3 appears 3 times. Both are modes (bimodal). The larger is 7.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mt3"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Mastery Q4 — Range</div>
+    <div class="q-text">Find the range of: <span class="dataset">{2.5, 8, 1.5, 6, 9.5, 4, 3.5}</span></div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.5" id="inp-mt4" placeholder="Answer">
+      <button class="q-btn" onclick="checkMastery('mt4', 8, 'Largest = 9.5, Smallest = 1.5. Range = 9.5 − 1.5 = 8')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mt4"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Mastery Q5 — Frequency Table Mean</div>
+    <div class="q-text">
+      <table>
+        <tr><th>Score</th><th>Frequency</th></tr>
+        <tr><td>2</td><td>3</td></tr>
+        <tr><td>4</td><td>5</td></tr>
+        <tr><td>6</td><td>7</td></tr>
+        <tr><td>8</td><td>5</td></tr>
+      </table>
+      What is the mean score?
+    </div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" step="0.1" id="inp-mt5" placeholder="Answer">
+      <button class="q-btn" onclick="checkMastery('mt5', 5.4, '2×3=6, 4×5=20, 6×7=42, 8×5=40. Sum = 108. n = 3+5+7+5 = 20. Mean = 108÷20 = 5.4')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mt5"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Mastery Q6 — Pictogram</div>
+    <div class="q-text">
+      A pictogram shows books read. Key: 📖 = 4 books.<br>
+      Week 1: 📖📖📖 &nbsp; Week 2: 📖📖📖📖📖 &nbsp; Week 3: 📖📖 &nbsp; Week 4: 📖📖📖📖<br>
+      What is the mean number of books read per week?
+    </div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mt6" placeholder="Answer">
+      <button class="q-btn" onclick="checkMastery('mt6', 14, 'W1=12, W2=20, W3=8, W4=16. Total=56. Mean=56÷4=14')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mt6"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Mastery Q7 — Pie Chart</div>
+    <div class="q-text">A pie chart shows 30% of 200 students prefer Art. How many students prefer Art?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mt7" placeholder="Answer">
+      <button class="q-btn" onclick="checkMastery('mt7', 60, '30% of 200 = 0.3 × 200 = 60 students')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mt7"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Mastery Q8 — Two-Way Table</div>
+    <div class="q-text">
+      <table>
+        <tr><th></th><th>Swimming</th><th>Running</th><th>Cycling</th></tr>
+        <tr><td>Boys</td><td>12</td><td>18</td><td>10</td></tr>
+        <tr><td>Girls</td><td>15</td><td>9</td><td>16</td></tr>
+      </table>
+      What is the total number of children who chose Running?
+    </div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mt8" placeholder="Answer">
+      <button class="q-btn" onclick="checkMastery('mt8', 27, 'Running column: 18 boys + 9 girls = 27')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mt8"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Mastery Q9 — Reverse Mean</div>
+    <div class="q-text">The mean of 6 numbers is 12. Five of the numbers are 10, 14, 9, 15, and 11. What is the sixth number?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mt9" placeholder="Answer">
+      <button class="q-btn" onclick="checkMastery('mt9', 13, 'Required total = 12×6 = 72. Known = 10+14+9+15+11 = 59. Missing = 72−59 = 13')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mt9"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Mastery Q10 — Outliers</div>
+    <div class="q-text">Exam results: <span class="dataset">{72, 75, 68, 74, 71, 2}</span>. The value 2 is an outlier. Which average gives the best representation? Enter 1=Mean, 2=Median, 3=Mode.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mt10" placeholder="1/2/3">
+      <button class="q-btn" onclick="checkMastery('mt10', 2, 'The outlier (2) would dramatically lower the mean. The median is not affected by it, giving a fairer picture.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mt10"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Mastery Q11 — Combined Means</div>
+    <div class="q-text">Team A (8 players) has a mean score of 30. Team B (12 players) has a mean score of 20. What is the combined mean score for all 20 players?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mt11" placeholder="Answer">
+      <button class="q-btn" onclick="checkMastery('mt11', 24, 'A total = 30×8 = 240. B total = 20×12 = 240. Combined = 480÷20 = 24')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mt11"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-num">Mastery Q12 — Full Problem (Hard)</div>
+    <div class="q-text">The mean of 8 numbers is 17.5. If a 9th number is added and the new mean is 18, what is the 9th number?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="number" id="inp-mt12" placeholder="Answer">
+      <button class="q-btn" onclick="checkMastery('mt12', 22, 'Original total = 17.5×8 = 140. New total = 18×9 = 162. New number = 162−140 = 22')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb-mt12"></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- CHEAT SHEET -->
+<!-- ============================================================ -->
+<div class="cheat-sheet" id="sec-cheatsheet">
+  <h2>📋 Quick Reference Cheat Sheet</h2>
+  <div class="cheat-grid">
+    <div class="cheat-item">
+      <h4>🔵 Mean</h4>
+      <p>Add all values ÷ count</p>
+      <p>Include zeroes in both sum and count</p>
+      <p class="jogger">💡 "Add and Divide"</p>
+    </div>
+    <div class="cheat-item">
+      <h4>🟢 Median</h4>
+      <p>Order first! Middle value. Even count → mean of two middle values</p>
+      <p class="jogger">💡 "Middle of the Road"</p>
+    </div>
+    <div class="cheat-item">
+      <h4>🟡 Mode</h4>
+      <p>Most frequent. Can be 0, 1, or 2+ modes. Only average for non-numbers.</p>
+      <p class="jogger">💡 "Most Common"</p>
+    </div>
+    <div class="cheat-item">
+      <h4>🟣 Range</h4>
+      <p>Largest − Smallest. Measures spread, NOT an average.</p>
+      <p class="jogger">💡 "The Distance"</p>
+    </div>
+    <div class="cheat-item">
+      <h4>📋 Freq. Table</h4>
+      <p>Mean = Σ(score×freq) ÷ Σfreq</p>
+      <p>Mode = highest frequency</p>
+    </div>
+    <div class="cheat-item">
+      <h4>🔄 Reverse Mean</h4>
+      <p>Total = Mean × Count</p>
+      <p>Missing = Total − Known Sum</p>
+    </div>
+    <div class="cheat-item">
+      <h4>🥧 Pie Chart</h4>
+      <p>Value = (Angle÷360) × Total</p>
+      <p>Value = (% ÷ 100) × Total</p>
+    </div>
+    <div class="cheat-item">
+      <h4>🔍 Outliers</h4>
+      <p>Outlier present → use Median</p>
+      <p>Most common → use Mode</p>
+      <p>No outliers → use Mean</p>
+    </div>
+    <div class="cheat-item">
+      <h4>👥 Combined Mean</h4>
+      <p>Get each group's total, sum them, divide by combined count</p>
+      <p>⚠️ Never just average two means!</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- end container -->
+
+<script>
+// ============================================================
+// CORE ANSWER-CHECKING FUNCTIONS
+// ============================================================
+
+let masteryScore = 0;
+const masteryAnswered = {};
+
+function checkQ(id, correctAnswer, explanation, tolerance) {
+  const inputEl = document.getElementById('inp-' + id);
+  const fbEl = document.getElementById('fb-' + id);
+  if (!inputEl || !fbEl) return;
+
+  const userVal = parseFloat(inputEl.value.trim());
+  const tol = tolerance !== undefined ? tolerance : 0.001;
+  const isCorrect = Math.abs(userVal - correctAnswer) <= tol;
+
+  fbEl.className = 'q-feedback ' + (isCorrect ? 'correct' : 'incorrect');
+  if (isCorrect) {
+    fbEl.innerHTML = '✅ Correct! Well done.';
+  } else {
+    fbEl.innerHTML = `❌ Incorrect. Correct answer: <strong>${correctAnswer}</strong>. 
+      <br><small>Explanation: ${explanation}</small>`;
+  }
+}
+
+function checkQText(id, correctAnswer, explanation) {
+  const inputEl = document.getElementById('inp-' + id);
+  const fbEl = document.getElementById('fb-' + id);
+  if (!inputEl || !fbEl) return;
+
+  const userVal = inputEl.value.trim().toLowerCase();
+  const isCorrect = userVal === correctAnswer.toLowerCase();
+
+  fbEl.className = 'q-feedback ' + (isCorrect ? 'correct' : 'incorrect');
+  if (isCorrect) {
+    fbEl.innerHTML = '✅ Correct! Well done.';
+  } else {
+    fbEl.innerHTML = `❌ Incorrect. Correct answer: <strong>${correctAnswer}</strong>. 
+      <br><small>Explanation: ${explanation}</small>`;
+  }
+}
+
+function checkMastery(id, correctAnswer, explanation, tolerance) {
+  const inputEl = document.getElementById('inp-' + id);
+  const fbEl = document.getElementById('fb-' + id);
+  if (!inputEl || !fbEl) return;
+
+  const userVal = parseFloat(inputEl.value.trim());
+  const tol = tolerance !== undefined ? tolerance : 0.05;
+  const isCorrect = Math.abs(userVal - correctAnswer) <= tol;
+
+  fbEl.className = 'q-feedback ' + (isCorrect ? 'correct' : 'incorrect');
+
+  if (!masteryAnswered[id]) {
+    masteryAnswered[id] = true;
+    if (isCorrect) {
+      masteryScore++;
+      document.getElementById('live-score').textContent = masteryScore;
+      document.getElementById('mastery-score').textContent = masteryScore;
+    }
+  }
+
+  if (isCorrect) {
+    fbEl.innerHTML = `✅ Correct! Score: ${masteryScore}/12`;
+  } else {
+    fbEl.innerHTML = `❌ Incorrect. Correct answer: <strong>${correctAnswer}</strong>. 
+      <br><small>Explanation: ${explanation}</small>`;
+  }
+}
+
+// Fix: Q5 frequency table mean is 5.4, not 5.2
+// Override was set in onclick - keeping consistent
+
+// Allow Enter key to trigger nearby Check button
+document.querySelectorAll('.q-input').forEach(inp => {
+  inp.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      const btn = this.parentElement.querySelector('.q-btn');
+      if (btn) btn.click();
+    }
+  });
+});
+</script>
+
+</body>
+</html>

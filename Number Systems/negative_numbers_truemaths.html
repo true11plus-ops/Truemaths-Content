@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Negative Numbers — TrueMaths 11+ GL Assessment</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:ital,wght@0,700;1,400&display=swap');
+
+  :root {
+    --navy:   #1a2744;
+    --blue:   #2563eb;
+    --sky:    #e8f0fe;
+    --teal:   #0d9488;
+    --teal-lt:#d1faf5;
+    --amber:  #d97706;
+    --amber-lt:#fef3c7;
+    --red:    #dc2626;
+    --red-lt: #fee2e2;
+    --green:  #16a34a;
+    --green-lt:#dcfce7;
+    --purple: #7c3aed;
+    --purple-lt:#ede9fe;
+    --grey:   #f1f5f9;
+    --text:   #1e293b;
+    --muted:  #64748b;
+    --border: #e2e8f0;
+    --white:  #ffffff;
+    --radius: 12px;
+    --shadow: 0 2px 12px rgba(26,39,68,.10);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #f8fafc;
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, var(--navy) 0%, #243b6e 100%);
+    color: white;
+    padding: 48px 32px 40px;
+    text-align: center;
+  }
+  .page-header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .page-header h1 {
+    font-family: 'Merriweather', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .page-header p {
+    font-size: 17px;
+    opacity: .85;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+  /* ── NAV ── */
+  .toc {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin: 36px auto;
+    max-width: 900px;
+  }
+  .toc h2 { font-size: 17px; color: var(--navy); margin-bottom: 14px; font-weight: 800; }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin-bottom: 6px; }
+  .toc a { color: var(--blue); text-decoration: none; font-weight: 600; font-size: 15px; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* ── SECTIONS ── */
+  section {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 36px 40px;
+    margin-bottom: 32px;
+  }
+  @media(max-width:640px){ section { padding: 24px 18px; } }
+
+  .section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    background: var(--navy);
+    color: white;
+    border-radius: 50%;
+    font-weight: 800;
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+  section h2 {
+    font-family: 'Merriweather', serif;
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--sky);
+  }
+  section h3 {
+    font-size: 17px;
+    color: var(--navy);
+    margin: 24px 0 10px;
+    font-weight: 800;
+  }
+  p { margin-bottom: 12px; }
+
+  /* ── CALLOUT BOXES ── */
+  .rule-box {
+    background: var(--amber-lt);
+    border-left: 5px solid var(--amber);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .rule-box strong { color: var(--amber); display: block; margin-bottom: 4px; font-size: 13px; letter-spacing: .05em; text-transform: uppercase; }
+
+  .tip-box {
+    background: var(--teal-lt);
+    border-left: 5px solid var(--teal);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .tip-box strong { color: var(--teal); display: block; margin-bottom: 4px; font-size: 13px; letter-spacing: .05em; text-transform: uppercase; }
+
+  .mistake-box {
+    background: var(--red-lt);
+    border-left: 5px solid var(--red);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .mistake-box strong { color: var(--red); display: block; margin-bottom: 4px; font-size: 13px; letter-spacing: .05em; text-transform: uppercase; }
+
+  .info-box {
+    background: var(--sky);
+    border-left: 5px solid var(--blue);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .info-box strong { color: var(--blue); display: block; margin-bottom: 4px; font-size: 13px; letter-spacing: .05em; text-transform: uppercase; }
+
+  /* ── WORKED EXAMPLES ── */
+  .example {
+    background: var(--purple-lt);
+    border: 2px solid #c4b5fd;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  .example .ex-label {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: 8px;
+  }
+  .example .ex-q {
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 16px;
+    margin-bottom: 14px;
+  }
+  .step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+  }
+  .step-num {
+    background: var(--purple);
+    color: white;
+    border-radius: 50%;
+    width: 24px; height: 24px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-text { flex: 1; }
+  .answer-box {
+    background: var(--green-lt);
+    border: 2px solid #86efac;
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin-top: 12px;
+    font-weight: 700;
+    color: var(--green);
+  }
+
+  /* ── SIGN RULE TABLE ── */
+  .sign-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 15px;
+  }
+  .sign-table th {
+    background: var(--navy);
+    color: white;
+    padding: 10px 14px;
+    text-align: center;
+    font-weight: 700;
+  }
+  .sign-table td {
+    padding: 10px 14px;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .sign-table tr:nth-child(even) td { background: var(--grey); }
+  .pos { color: var(--green); font-weight: 800; font-size: 18px; }
+  .neg { color: var(--red); font-weight: 800; font-size: 18px; }
+
+  /* ── MCQ QUESTIONS ── */
+  .mcq-q {
+    background: var(--grey);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+  }
+  .mcq-q .q-num {
+    font-size: 12px; font-weight: 800; color: var(--blue);
+    text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px;
+  }
+  .mcq-q .q-text { font-weight: 700; color: var(--navy); margin-bottom: 14px; font-size: 16px; }
+  .mcq-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media(max-width: 480px){ .mcq-options { grid-template-columns: 1fr; } }
+  .mcq-opt {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+  }
+  .mcq-opt:hover { border-color: var(--blue); background: var(--sky); }
+  .mcq-opt.correct { border-color: var(--green); background: var(--green-lt); color: var(--green); }
+  .mcq-opt.wrong   { border-color: var(--red);   background: var(--red-lt);   color: var(--red); }
+
+  .answers-section {
+    background: var(--navy);
+    color: white;
+    border-radius: var(--radius);
+    padding: 32px 36px;
+    margin-top: 32px;
+  }
+  .answers-section h3 { color: white; border-bottom: 2px solid rgba(255,255,255,.2); padding-bottom: 10px; margin-bottom: 20px; }
+  .ans-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .ans-item:last-child { border-bottom: none; }
+  .ans-q { font-weight: 800; color: #93c5fd; font-size: 14px; margin-bottom: 4px; }
+  .ans-correct { color: #86efac; font-weight: 700; }
+  .ans-explain { font-size: 14px; opacity: .85; margin-top: 4px; }
+
+  /* ── COORDINATE GRID ── */
+  .svg-wrap { overflow-x: auto; margin: 20px 0; }
+  svg text { font-family: 'Nunito', sans-serif; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--muted);
+    font-size: 14px;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+
+  /* ── MISTAKE GRID ── */
+  .mistake-grid { display: grid; gap: 16px; }
+  .mc-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .mc-header {
+    background: var(--red);
+    color: white;
+    padding: 10px 16px;
+    font-weight: 800;
+    font-size: 14px;
+  }
+  .mc-body { padding: 14px 16px; }
+  .mc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+  @media(max-width: 500px){ .mc-row { grid-template-columns: 1fr; } }
+  .mc-wrong { background: var(--red-lt); border-radius: 6px; padding: 8px 12px; font-size: 14px; }
+  .mc-right { background: var(--green-lt); border-radius: 6px; padding: 8px 12px; font-size: 14px; }
+  .mc-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+  .mc-wrong .mc-label { color: var(--red); }
+  .mc-right .mc-label { color: var(--green); }
+
+  /* ── CONTEXT PROBLEMS ── */
+  .ctx-card {
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .ctx-header {
+    padding: 10px 18px;
+    font-weight: 800;
+    font-size: 14px;
+    color: white;
+  }
+  .ctx-body { padding: 18px; }
+  .ctx-working {
+    background: var(--grey);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 15px;
+    margin: 10px 0;
+  }
+
+  .color-temp  { background: #2563eb; }
+  .color-bank  { background: #16a34a; }
+  .color-sea   { background: #0891b2; }
+  .color-floor { background: #9333ea; }
+  .color-golf  { background: #d97706; }
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header class="page-header">
+  <div class="badge">GL Assessment · 11+ · Ages 9–11</div>
+  <h1>Negative Numbers</h1>
+  <p>Everything you need to master negative numbers for the GL Assessment grammar school entrance exam.</p>
+</header>
+
+<!-- ══ TABLE OF CONTENTS ══ -->
+<div class="toc container">
+  <h2>📚 What's in this guide</h2>
+  <ol>
+    <li><a href="#s1">What are Negative Numbers?</a></li>
+    <li><a href="#s2">Number Lines (interactive reference)</a></li>
+    <li><a href="#s3">Sign Rules for All Four Operations</a></li>
+    <li><a href="#s4">Midpoints &amp; Halfway Values</a></li>
+    <li><a href="#s5">Ordering Negatives (integers, decimals, fractions)</a></li>
+    <li><a href="#s6">Four-Quadrant Coordinates</a></li>
+    <li><a href="#s7">Real-World Context Problems</a></li>
+    <li><a href="#s8">Missing Number Problems</a></li>
+    <li><a href="#s9">Finding the Difference</a></li>
+    <li><a href="#s10">Common Mistakes to Avoid</a></li>
+    <li><a href="#s11">Practice Questions (GL Assessment Style)</a></li>
+  </ol>
+</div>
+
+<div class="container">
+
+<!-- ══ SECTION 1 ══ -->
+<section id="s1">
+  <div class="section-number">1</div>
+  <h2>What are Negative Numbers?</h2>
+  <p>Negative numbers are numbers <strong>less than zero</strong>. They have a minus sign (−) in front of them. You meet them in everyday life all the time — temperatures below freezing, floors below ground level in a car park, bank accounts in debt, or a golf score below par.</p>
+  <p>Numbers <strong>greater than zero</strong> are called <strong>positive numbers</strong>. A number with no sign in front of it is always positive — so 5 means +5.</p>
+  <p>Zero (0) is special: it is <strong>neither positive nor negative</strong>.</p>
+
+  <div class="rule-box">
+    <strong>⭐ Key Rule</strong>
+    The further left a number is on the number line, the <strong>smaller</strong> it is.<br>
+    The further right a number is on the number line, the <strong>larger</strong> it is.<br>
+    So −10 &lt; −3 &lt; 0 &lt; 5 &lt; 12.
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Quick Check</strong>
+    Which is smaller: −6 or −2?<br>
+    −6 is further left on the number line, so <strong>−6 is smaller</strong>. A bigger negative number is actually worth less!
+  </div>
+</section>
+
+<!-- ══ SECTION 2 ══ -->
+<section id="s2">
+  <div class="section-number">2</div>
+  <h2>Number Lines</h2>
+  <p>A number line is your best friend with negative numbers. Always picture one in your head during a question.</p>
+
+  <h3>Standard Number Line (−10 to +10)</h3>
+  <div class="svg-wrap">
+  <svg viewBox="0 0 740 80" width="100%" xmlns="http://www.w3.org/2000/svg">
+    <!-- main line -->
+    <line x1="30" y1="40" x2="710" y2="40" stroke="#1a2744" stroke-width="2.5"/>
+    <!-- arrow right -->
+    <polygon points="710,34 724,40 710,46" fill="#1a2744"/>
+    <!-- arrow left -->
+    <polygon points="30,34 16,40 30,46" fill="#1a2744"/>
+    <!-- tick marks and labels -->
+    <g fill="#1a2744" font-size="12" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="700">
+      <!-- ticks at every unit, label every other -->
+      <!-- positions: x = 30 + (n+10)*33 for n from -10 to 10 -->
+      <!-- n=-10: x=30, n=0: x=360, n=10: x=690 -->
+      <script type="text/javascript"></script>
+    </g>
+    <!-- Draw ticks manually for negative region (red) and positive (blue) -->
+    <!-- Negative ticks: red -->
+    <g stroke="#dc2626" stroke-width="2">
+      <line x1="30"  y1="33" x2="30"  y2="47"/><line x1="63"  y1="35" x2="63"  y2="45"/>
+      <line x1="96"  y1="33" x2="96"  y2="47"/><line x1="129" y1="35" x2="129" y2="45"/>
+      <line x1="162" y1="33" x2="162" y2="47"/><line x1="195" y1="35" x2="195" y2="45"/>
+      <line x1="228" y1="33" x2="228" y2="47"/><line x1="261" y1="35" x2="261" y2="45"/>
+      <line x1="294" y1="33" x2="294" y2="47"/><line x1="327" y1="35" x2="327" y2="45"/>
+    </g>
+    <!-- Zero tick: navy -->
+    <line x1="360" y1="30" x2="360" y2="50" stroke="#1a2744" stroke-width="3"/>
+    <!-- Positive ticks: blue -->
+    <g stroke="#2563eb" stroke-width="2">
+      <line x1="393" y1="35" x2="393" y2="45"/><line x1="426" y1="33" x2="426" y2="47"/>
+      <line x1="459" y1="35" x2="459" y2="45"/><line x1="492" y1="33" x2="492" y2="47"/>
+      <line x1="525" y1="35" x2="525" y2="45"/><line x1="558" y1="33" x2="558" y2="47"/>
+      <line x1="591" y1="35" x2="591" y2="45"/><line x1="624" y1="33" x2="624" y2="47"/>
+      <line x1="657" y1="35" x2="657" y2="45"/><line x1="690" y1="33" x2="690" y2="47"/>
+    </g>
+    <!-- Labels: every even number -->
+    <g font-size="12" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="700">
+      <text x="30"  y="64" fill="#dc2626">−10</text>
+      <text x="96"  y="64" fill="#dc2626">−8</text>
+      <text x="162" y="64" fill="#dc2626">−6</text>
+      <text x="228" y="64" fill="#dc2626">−4</text>
+      <text x="294" y="64" fill="#dc2626">−2</text>
+      <text x="360" y="64" fill="#1a2744">0</text>
+      <text x="426" y="64" fill="#2563eb">2</text>
+      <text x="492" y="64" fill="#2563eb">4</text>
+      <text x="558" y="64" fill="#2563eb">6</text>
+      <text x="624" y="64" fill="#2563eb">8</text>
+      <text x="690" y="64" fill="#2563eb">10</text>
+    </g>
+    <!-- Labels for odd numbers (smaller, grey) -->
+    <g font-size="10" text-anchor="middle" font-family="Nunito,sans-serif" fill="#94a3b8">
+      <text x="63"  y="62">−9</text><text x="129" y="62">−7</text>
+      <text x="195" y="62">−5</text><text x="261" y="62">−3</text>
+      <text x="327" y="62">−1</text><text x="393" y="62">1</text>
+      <text x="459" y="62">3</text><text x="525" y="62">5</text>
+      <text x="591" y="62">7</text><text x="657" y="62">9</text>
+    </g>
+    <text x="372" y="20" font-size="11" fill="#94a3b8" font-family="Nunito,sans-serif">← smaller values | larger values →</text>
+  </svg>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Moving on the number line</strong>
+    When you <strong>add</strong>, move to the <strong>right</strong> (→).<br>
+    When you <strong>subtract</strong>, move to the <strong>left</strong> (←).
+  </div>
+
+  <h3>Worked Example: Using the number line</h3>
+  <div class="example">
+    <div class="ex-label">Worked Example</div>
+    <div class="ex-q">Work out: −5 + 8</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Start at <strong>−5</strong> on the number line.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">We are <em>adding</em> 8, so move <strong>8 spaces to the right</strong>.</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">−5, −4, −3, −2, −1, 0, 1, 2, 3 — we land on <strong>3</strong>.</div></div>
+    <div class="answer-box">✓ Answer: −5 + 8 = <strong>3</strong></div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example</div>
+    <div class="ex-q">Work out: 2 − 9</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Start at <strong>2</strong> on the number line.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">We are <em>subtracting</em> 9, so move <strong>9 spaces to the left</strong>.</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">2, 1, 0, −1, −2, −3, −4, −5, −6, −7 — we land on <strong>−7</strong>.</div></div>
+    <div class="answer-box">✓ Answer: 2 − 9 = <strong>−7</strong></div>
+  </div>
+</section>
+
+<!-- ══ SECTION 3 ══ -->
+<section id="s3">
+  <div class="section-number">3</div>
+  <h2>Sign Rules for All Four Operations</h2>
+
+  <h3>Addition and Subtraction — Two Signs Next to Each Other</h3>
+  <p>Sometimes a calculation has <strong>two signs next to each other</strong>, like 4 + (−2) or −7 − (−3). Use this simple rule:</p>
+
+  <div class="rule-box">
+    <strong>⭐ The Two-Signs Rule</strong>
+    <strong>Same signs → replace with +</strong> (positive)<br>
+    <strong>Different signs → replace with −</strong> (negative)<br><br>
+    + + = + &nbsp;&nbsp; − − = + &nbsp;&nbsp; + − = − &nbsp;&nbsp; − + = −<br>
+    <em>Memory trick: "Same signs, cheer up! Different signs, feel down."</em>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example</div>
+    <div class="ex-q">Work out: −7 − (−3)</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Two signs next to each other: − and −. Same signs → replace with <strong>+</strong>.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Rewrite: −7 <strong>+</strong> 3</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">Start at −7, move 3 right → <strong>−4</strong>.</div></div>
+    <div class="answer-box">✓ Answer: −7 − (−3) = <strong>−4</strong></div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example</div>
+    <div class="ex-q">Work out: 4 + (−9)</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Two signs next to each other: + and −. Different signs → replace with <strong>−</strong>.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Rewrite: 4 <strong>−</strong> 9</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">Start at 4, move 9 left → <strong>−5</strong>.</div></div>
+    <div class="answer-box">✓ Answer: 4 + (−9) = <strong>−5</strong></div>
+  </div>
+
+  <h3>Multiplication and Division — Sign Rules</h3>
+
+  <table class="sign-table">
+    <thead>
+      <tr><th>Calculation</th><th>Signs</th><th>Result sign</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>positive × positive</td><td>same</td><td class="pos">+</td><td>3 × 4 = 12</td></tr>
+      <tr><td>negative × negative</td><td>same</td><td class="pos">+</td><td>−3 × −4 = <strong>+12</strong></td></tr>
+      <tr><td>positive × negative</td><td>different</td><td class="neg">−</td><td>3 × −4 = −12</td></tr>
+      <tr><td>negative × positive</td><td>different</td><td class="neg">−</td><td>−3 × 4 = −12</td></tr>
+      <tr><td>positive ÷ positive</td><td>same</td><td class="pos">+</td><td>12 ÷ 4 = 3</td></tr>
+      <tr><td>negative ÷ negative</td><td>same</td><td class="pos">+</td><td>−12 ÷ −4 = <strong>+3</strong></td></tr>
+      <tr><td>positive ÷ negative</td><td>different</td><td class="neg">−</td><td>12 ÷ −4 = −3</td></tr>
+      <tr><td>negative ÷ positive</td><td>different</td><td class="neg">−</td><td>−12 ÷ 4 = −3</td></tr>
+    </tbody>
+  </table>
+
+  <div class="rule-box">
+    <strong>⭐ The Golden Rule for × and ÷</strong>
+    <strong>Same signs → positive answer.</strong><br>
+    <strong>Different signs → negative answer.</strong>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example</div>
+    <div class="ex-q">Work out: −6 × (−7)</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Ignore the signs first: 6 × 7 = <strong>42</strong>.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Check signs: − and −. <strong>Same signs → positive</strong>.</div></div>
+    <div class="answer-box">✓ Answer: −6 × (−7) = <strong>+42</strong></div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example</div>
+    <div class="ex-q">Work out: −35 ÷ 5</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Ignore the signs first: 35 ÷ 5 = <strong>7</strong>.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Check signs: − and +. <strong>Different signs → negative</strong>.</div></div>
+    <div class="answer-box">✓ Answer: −35 ÷ 5 = <strong>−7</strong></div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example — Three Negatives Multiplied</div>
+    <div class="ex-q">Work out: (−2) × (−3) × (−5)</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Work left to right. First: (−2) × (−3). Same signs → positive: <strong>+6</strong>.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Now: (+6) × (−5). Different signs → negative: <strong>−30</strong>.</div></div>
+    <div class="answer-box">✓ Answer: (−2) × (−3) × (−5) = <strong>−30</strong></div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Shortcut for Multiplying Negatives</strong>
+    Count how many negative signs are being multiplied together.<br>
+    <strong>Even number of negatives → positive answer.</strong><br>
+    <strong>Odd number of negatives → negative answer.</strong><br>
+    Above: 3 negatives (odd) → negative. ✓
+  </div>
+</section>
+
+<!-- ══ SECTION 4 ══ -->
+<section id="s4">
+  <div class="section-number">4</div>
+  <h2>Midpoints &amp; Halfway Values</h2>
+  <p>GL Assessment often asks: <em>"What number is halfway between −9 and 3?"</em> There is a simple two-step method.</p>
+
+  <div class="rule-box">
+    <strong>⭐ Method: Finding the Midpoint</strong>
+    <strong>Step 1:</strong> Add the two numbers together.<br>
+    <strong>Step 2:</strong> Divide by 2.<br>
+    Midpoint = (number 1 + number 2) ÷ 2
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 1</div>
+    <div class="ex-q">What is halfway between −9 and 3?</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Add: −9 + 3 = −6</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Divide by 2: −6 ÷ 2 = <strong>−3</strong></div></div>
+    <div class="answer-box">✓ The midpoint is <strong>−3</strong>.</div>
+  </div>
+
+  <!-- Midpoint number line -->
+  <div class="svg-wrap">
+  <svg viewBox="0 0 540 90" width="100%" xmlns="http://www.w3.org/2000/svg">
+    <line x1="30" y1="45" x2="510" y2="45" stroke="#1a2744" stroke-width="2"/>
+    <polygon points="510,39 524,45 510,51" fill="#1a2744"/>
+    <!-- ticks every 30px = 1 unit, range -10 to 5, total 15 units, start x=30 -->
+    <!-- x = 30 + (n+10)*30, n from -10 to 5 -->
+    <!-- n=-10: x=30; n=-9: x=60; n=0: x=330; n=3: x=420; n=5: x=480 -->
+    <g stroke="#94a3b8" stroke-width="1.5">
+      <line x1="60"  y1="39" x2="60"  y2="51"/>
+      <line x1="90"  y1="39" x2="90"  y2="51"/>
+      <line x1="120" y1="39" x2="120" y2="51"/>
+      <line x1="150" y1="39" x2="150" y2="51"/>
+      <line x1="180" y1="39" x2="180" y2="51"/>
+      <line x1="210" y1="39" x2="210" y2="51"/>
+      <line x1="240" y1="39" x2="240" y2="51"/>
+      <line x1="270" y1="39" x2="270" y2="51"/>
+      <line x1="300" y1="39" x2="300" y2="51"/>
+      <line x1="360" y1="39" x2="360" y2="51"/>
+      <line x1="390" y1="39" x2="390" y2="51"/>
+      <line x1="450" y1="39" x2="450" y2="51"/>
+      <line x1="480" y1="39" x2="480" y2="51"/>
+    </g>
+    <!-- Key points: -9 (x=60), -3 (x=210), 0 (x=330), 3 (x=420) -->
+    <line x1="30"  y1="35" x2="30"  y2="55" stroke="#1a2744" stroke-width="2.5"/>
+    <line x1="60"  y1="33" x2="60"  y2="57" stroke="#dc2626" stroke-width="2.5"/>
+    <line x1="210" y1="33" x2="210" y2="57" stroke="#7c3aed" stroke-width="2.5"/>
+    <line x1="330" y1="33" x2="330" y2="57" stroke="#1a2744" stroke-width="2.5"/>
+    <line x1="420" y1="33" x2="420" y2="57" stroke="#16a34a" stroke-width="2.5"/>
+    <!-- dots -->
+    <circle cx="60" cy="45" r="5" fill="#dc2626"/>
+    <circle cx="210" cy="45" r="5" fill="#7c3aed"/>
+    <circle cx="420" cy="45" r="5" fill="#16a34a"/>
+    <!-- labels -->
+    <text x="60"  y="72" text-anchor="middle" font-size="13" fill="#dc2626" font-family="Nunito,sans-serif" font-weight="800">−9</text>
+    <text x="210" y="72" text-anchor="middle" font-size="13" fill="#7c3aed" font-family="Nunito,sans-serif" font-weight="800">−3</text>
+    <text x="330" y="72" text-anchor="middle" font-size="13" fill="#1a2744" font-family="Nunito,sans-serif" font-weight="800">0</text>
+    <text x="420" y="72" text-anchor="middle" font-size="13" fill="#16a34a" font-family="Nunito,sans-serif" font-weight="800">3</text>
+    <!-- distance arrows -->
+    <line x1="60" y1="20" x2="210" y2="20" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="210" y1="20" x2="420" y2="20" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="135" y="14" text-anchor="middle" font-size="11" fill="#7c3aed" font-family="Nunito,sans-serif">6 units</text>
+    <text x="315" y="14" text-anchor="middle" font-size="11" fill="#7c3aed" font-family="Nunito,sans-serif">6 units</text>
+    <!-- midpoint label -->
+    <text x="210" y="88" text-anchor="middle" font-size="11" fill="#7c3aed" font-family="Nunito,sans-serif" font-weight="700">← midpoint</text>
+  </svg>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 2</div>
+    <div class="ex-q">What is the midpoint of −4 and −12?</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Add: −4 + (−12) = −16</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Divide by 2: −16 ÷ 2 = <strong>−8</strong></div></div>
+    <div class="answer-box">✓ The midpoint is <strong>−8</strong>. (Check: −8 is 4 away from both −4 and −12. ✓)</div>
+  </div>
+</section>
+
+<!-- ══ SECTION 5 ══ -->
+<section id="s5">
+  <div class="section-number">5</div>
+  <h2>Ordering Negative Numbers</h2>
+  <p>GL Assessment asks you to put lists of numbers — including negatives, decimals and fractions — in order from smallest to largest (ascending) or largest to smallest (descending).</p>
+
+  <div class="rule-box">
+    <strong>⭐ Key Idea</strong>
+    Think of the number line. Numbers further <strong>left</strong> are <strong>smaller</strong>.<br>
+    −100 &lt; −10 &lt; −1 &lt; 0 &lt; 1 &lt; 10 &lt; 100
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 1 — Integers</div>
+    <div class="ex-q">Put these numbers in ascending order (smallest first): 4, −2, 0, −3, −5, 1</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Find the most negative (smallest): <strong>−5</strong>.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Then: −3, −2, 0, 1, 4.</div></div>
+    <div class="answer-box">✓ Answer: <strong>−5, −3, −2, 0, 1, 4</strong></div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 2 — Decimals</div>
+    <div class="ex-q">Put in order from smallest to largest: −0.5, −1.2, 0.3, −0.8</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">All negatives are less than 0.3. Among the negatives, the <em>larger</em> the digit, the <em>smaller</em> the number: −1.2 &lt; −0.8 &lt; −0.5.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Then comes 0.3 (the only positive).</div></div>
+    <div class="answer-box">✓ Answer: <strong>−1.2, −0.8, −0.5, 0.3</strong></div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 3 — Fractions and Decimals Mixed</div>
+    <div class="ex-q">Put in order from smallest to largest: −¾, −0.5, −1, 0.2</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Convert everything to decimals: −¾ = −0.75, −0.5 = −0.5, −1 = −1.0, 0.2 = +0.2.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Order the decimals: −1.0 &lt; −0.75 &lt; −0.5 &lt; 0.2.</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">Convert back: −1 &lt; −¾ &lt; −0.5 &lt; 0.2.</div></div>
+    <div class="answer-box">✓ Answer: <strong>−1, −¾, −0.5, 0.2</strong></div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Top tip for fractions</strong>
+    Always convert fractions to decimals before ordering. It avoids confusion every time.
+  </div>
+</section>
+
+<!-- ══ SECTION 6 ══ -->
+<section id="s6">
+  <div class="section-number">6</div>
+  <h2>Four-Quadrant Coordinates</h2>
+  <p>A coordinate grid has two axes. The <strong>x-axis</strong> goes left–right and the <strong>y-axis</strong> goes up–down. Where they cross is called the <strong>origin (0, 0)</strong>.</p>
+  <p>Negative numbers let us use all <strong>four quadrants</strong> — the four regions of the grid.</p>
+
+  <div class="info-box">
+    <strong>📍 How to read a coordinate: (x, y)</strong>
+    Always read <strong>x first</strong> (across), then <strong>y</strong> (up/down).<br>
+    Memory trick: <strong>"Along the corridor, then up (or down) the stairs."</strong><br><br>
+    <strong>Positive x</strong> → right &nbsp;|&nbsp; <strong>Negative x</strong> → left<br>
+    <strong>Positive y</strong> → up &nbsp;|&nbsp; <strong>Negative y</strong> → down
+  </div>
+
+  <div class="svg-wrap">
+  <svg viewBox="0 0 440 440" width="min(100%,440px)" xmlns="http://www.w3.org/2000/svg">
+    <!-- Grid lines -->
+    <g stroke="#e2e8f0" stroke-width="1">
+      <!-- Vertical gridlines x=-5 to 5, step=1, x_pixel = 220 + n*40 -->
+      <line x1="20"  y1="20" x2="20"  y2="420"/>
+      <line x1="60"  y1="20" x2="60"  y2="420"/>
+      <line x1="100" y1="20" x2="100" y2="420"/>
+      <line x1="140" y1="20" x2="140" y2="420"/>
+      <line x1="180" y1="20" x2="180" y2="420"/>
+      <line x1="260" y1="20" x2="260" y2="420"/>
+      <line x1="300" y1="20" x2="300" y2="420"/>
+      <line x1="340" y1="20" x2="340" y2="420"/>
+      <line x1="380" y1="20" x2="380" y2="420"/>
+      <line x1="420" y1="20" x2="420" y2="420"/>
+      <!-- Horizontal gridlines -->
+      <line x1="20" y1="20"  x2="420" y2="20"/>
+      <line x1="20" y1="60"  x2="420" y2="60"/>
+      <line x1="20" y1="100" x2="420" y2="100"/>
+      <line x1="20" y1="140" x2="420" y2="140"/>
+      <line x1="20" y1="180" x2="420" y2="180"/>
+      <line x1="20" y1="260" x2="420" y2="260"/>
+      <line x1="20" y1="300" x2="420" y2="300"/>
+      <line x1="20" y1="340" x2="420" y2="340"/>
+      <line x1="20" y1="380" x2="420" y2="380"/>
+      <line x1="20" y1="420" x2="420" y2="420"/>
+    </g>
+    <!-- Quadrant backgrounds -->
+    <rect x="20"  y="20"  width="200" height="200" fill="#fee2e2" opacity=".35"/>
+    <rect x="220" y="20"  width="200" height="200" fill="#dcfce7" opacity=".35"/>
+    <rect x="20"  y="220" width="200" height="200" fill="#ede9fe" opacity=".35"/>
+    <rect x="220" y="220" width="200" height="200" fill="#e8f0fe" opacity=".35"/>
+    <!-- Quadrant labels -->
+    <text x="110" y="110" text-anchor="middle" font-size="14" fill="#94a3b8" font-family="Nunito,sans-serif" font-weight="700">Q2</text>
+    <text x="330" y="110" text-anchor="middle" font-size="14" fill="#94a3b8" font-family="Nunito,sans-serif" font-weight="700">Q1</text>
+    <text x="110" y="340" text-anchor="middle" font-size="14" fill="#94a3b8" font-family="Nunito,sans-serif" font-weight="700">Q3</text>
+    <text x="330" y="340" text-anchor="middle" font-size="14" fill="#94a3b8" font-family="Nunito,sans-serif" font-weight="700">Q4</text>
+    <!-- Axes -->
+    <line x1="20" y1="220" x2="425" y2="220" stroke="#1a2744" stroke-width="2.5"/>
+    <line x1="220" y1="20" x2="220" y2="425" stroke="#1a2744" stroke-width="2.5"/>
+    <!-- Axis arrows -->
+    <polygon points="425,215 438,220 425,225" fill="#1a2744"/>
+    <polygon points="215,20 220,7 225,20" fill="#1a2744"/>
+    <!-- Axis labels -->
+    <text x="435" y="216" font-size="13" fill="#1a2744" font-family="Nunito,sans-serif" font-weight="700">x</text>
+    <text x="225" y="10" font-size="13" fill="#1a2744" font-family="Nunito,sans-serif" font-weight="700">y</text>
+    <!-- Tick labels on x-axis -->
+    <g font-size="11" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="600">
+      <text x="20"  y="237" fill="#dc2626">−5</text>
+      <text x="60"  y="237" fill="#dc2626">−4</text>
+      <text x="100" y="237" fill="#dc2626">−3</text>
+      <text x="140" y="237" fill="#dc2626">−2</text>
+      <text x="180" y="237" fill="#dc2626">−1</text>
+      <text x="260" y="237" fill="#2563eb">1</text>
+      <text x="300" y="237" fill="#2563eb">2</text>
+      <text x="340" y="237" fill="#2563eb">3</text>
+      <text x="380" y="237" fill="#2563eb">4</text>
+      <text x="418" y="237" fill="#2563eb">5</text>
+      <!-- Tick labels on y-axis -->
+      <text x="207" y="184" fill="#dc2626">1</text>
+      <text x="207" y="144" fill="#dc2626">2</text>
+      <text x="207" y="104" fill="#dc2626">3</text>
+      <text x="207" y="64"  fill="#dc2626">4</text>
+      <text x="207" y="24"  fill="#dc2626">5</text>
+      <text x="207" y="264" fill="#1a2744">−1</text>
+      <text x="207" y="304" fill="#1a2744">−2</text>
+      <text x="207" y="344" fill="#1a2744">−3</text>
+      <text x="207" y="384" fill="#1a2744">−4</text>
+      <text x="207" y="420" fill="#1a2744">−5</text>
+    </g>
+    <!-- Plotted points: A(3,4), B(-2,3), C(-4,-2), D(2,-3) -->
+    <!-- x_pixel = 220 + x*40, y_pixel = 220 - y*40 -->
+    <!-- A(3,4): 220+120=340, 220-160=60 -->
+    <circle cx="340" cy="60" r="7" fill="#16a34a"/>
+    <text x="352" y="56" font-size="13" fill="#16a34a" font-family="Nunito,sans-serif" font-weight="800">A (3, 4)</text>
+    <!-- B(-2,3): 220-80=140, 220-120=100 -->
+    <circle cx="140" cy="100" r="7" fill="#dc2626"/>
+    <text x="148" y="96" font-size="13" fill="#dc2626" font-family="Nunito,sans-serif" font-weight="800">B (−2, 3)</text>
+    <!-- C(-4,-2): 220-160=60, 220+80=300 -->
+    <circle cx="60" cy="300" r="7" fill="#7c3aed"/>
+    <text x="68" y="296" font-size="13" fill="#7c3aed" font-family="Nunito,sans-serif" font-weight="800">C (−4, −2)</text>
+    <!-- D(2,-3): 220+80=300, 220+120=340 -->
+    <circle cx="300" cy="340" r="7" fill="#d97706"/>
+    <text x="308" y="336" font-size="13" fill="#d97706" font-family="Nunito,sans-serif" font-weight="800">D (2, −3)</text>
+    <!-- Origin label -->
+    <text x="226" y="236" font-size="11" fill="#1a2744" font-family="Nunito,sans-serif" font-weight="700">O</text>
+  </svg>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example — Reading Coordinates</div>
+    <div class="ex-q">Read the coordinates of points A, B, C, and D from the grid above.</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text"><strong>A (green):</strong> Go 3 right, 4 up → <strong>(3, 4)</strong> — Q1 (both positive).</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text"><strong>B (red):</strong> Go 2 left, 3 up → <strong>(−2, 3)</strong> — Q2 (negative x, positive y).</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text"><strong>C (purple):</strong> Go 4 left, 2 down → <strong>(−4, −2)</strong> — Q3 (both negative).</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-text"><strong>D (amber):</strong> Go 2 right, 3 down → <strong>(2, −3)</strong> — Q4 (positive x, negative y).</div></div>
+    <div class="answer-box">✓ A(3,4) · B(−2,3) · C(−4,−2) · D(2,−3)</div>
+  </div>
+
+  <div class="info-box">
+    <strong>📐 Which Quadrant?</strong>
+    Q1: (+, +) — top right | Q2: (−, +) — top left<br>
+    Q3: (−, −) — bottom left | Q4: (+, −) — bottom right
+  </div>
+</section>
+
+<!-- ══ SECTION 7 ══ -->
+<section id="s7">
+  <div class="section-number">7</div>
+  <h2>Real-World Context Problems</h2>
+  <p>GL Assessment almost always puts negative numbers into real life. Here are the five most common contexts — learn the approach for each.</p>
+
+  <!-- Temperature -->
+  <div class="ctx-card">
+    <div class="ctx-header color-temp">🌡️ Context 1: Temperature</div>
+    <div class="ctx-body">
+      <p><strong>Problem:</strong> The temperature in Moscow is −14°C. The temperature in London is 3°C. What is the difference in temperature between the two cities?</p>
+      <div class="ctx-working">
+        Difference = higher temperature − lower temperature<br>
+        = 3 − (−14) = 3 + 14 = <strong>17°C</strong>
+      </div>
+      <div class="answer-box">✓ Answer: The difference is <strong>17°C</strong>.</div>
+      <div style="margin-top:12px"><em>The temperature drops from 3°C to 0°C (that's 3 degrees) then from 0°C to −14°C (that's 14 more degrees). Total = 17°C. ✓</em></div>
+    </div>
+  </div>
+
+  <!-- Bank -->
+  <div class="ctx-card">
+    <div class="ctx-header color-bank">🏦 Context 2: Bank Balance / Debt</div>
+    <div class="ctx-body">
+      <p><strong>Problem:</strong> Priya has £−45 in her bank account (she is overdrawn by £45). She earns £120. What is her new balance?</p>
+      <div class="ctx-working">
+        New balance = −45 + 120 = <strong>+£75</strong>
+      </div>
+      <div class="answer-box">✓ Answer: Priya now has <strong>£75</strong> in her account.</div>
+    </div>
+  </div>
+
+  <!-- Sea -->
+  <div class="ctx-card">
+    <div class="ctx-header color-sea">🌊 Context 3: Depth Below Sea Level</div>
+    <div class="ctx-body">
+      <p><strong>Problem:</strong> A submarine is at −120 m (120 metres below sea level). It rises 75 metres. What is its new depth?</p>
+      <div class="ctx-working">
+        New depth = −120 + 75 = <strong>−45 m</strong>
+      </div>
+      <div class="answer-box">✓ Answer: The submarine is now at <strong>−45 m</strong> (45 metres below sea level).</div>
+    </div>
+  </div>
+
+  <!-- Floors -->
+  <div class="ctx-card">
+    <div class="ctx-header color-floor">🏢 Context 4: Floors in a Building</div>
+    <div class="ctx-body">
+      <p><strong>Problem:</strong> A lift starts at floor −3 (underground car park). It goes up 8 floors. What floor does it reach?</p>
+      <div class="ctx-working">
+        Floor = −3 + 8 = <strong>+5</strong>
+      </div>
+      <div class="answer-box">✓ Answer: The lift reaches <strong>floor 5</strong>.</div>
+    </div>
+  </div>
+
+  <!-- Golf -->
+  <div class="ctx-card">
+    <div class="ctx-header color-golf">⛳ Context 5: Golf Scores (Under/Over Par)</div>
+    <div class="ctx-body">
+      <p><strong>Problem:</strong> In golf, a score below par is shown as a negative number (better than average), and above par is positive (worse). Player A scores −5 and Player B scores +2. What is the difference between their scores?</p>
+      <div class="ctx-working">
+        Difference = +2 − (−5) = 2 + 5 = <strong>7</strong>
+      </div>
+      <div class="answer-box">✓ Answer: There are <strong>7 strokes</strong> between them.</div>
+      <p style="margin-top:10px"><em>Note: In golf, the lower (more negative) score wins. Player A is winning by 7 strokes.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 8 ══ -->
+<section id="s8">
+  <div class="section-number">8</div>
+  <h2>Missing Number Problems</h2>
+  <p>GL Assessment uses missing number questions where you must work backwards to find the unknown value. These look like: ___ − 7 = −12 or −4 × ___ = 20.</p>
+
+  <div class="rule-box">
+    <strong>⭐ Method: Inverse Operations</strong>
+    Use the <strong>opposite (inverse) operation</strong> to find the missing number.<br>
+    Addition ↔ Subtraction &nbsp;&nbsp; Multiplication ↔ Division
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 1 — Missing Number with Subtraction</div>
+    <div class="ex-q">___ − 7 = −12. What is the missing number?</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">The inverse of "subtract 7" is "add 7".</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Missing number = −12 + 7 = <strong>−5</strong>.</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">Check: −5 − 7 = −12 ✓</div></div>
+    <div class="answer-box">✓ Answer: <strong>−5</strong></div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 2 — Missing Number with Multiplication</div>
+    <div class="ex-q">−4 × ___ = 20. What is the missing number?</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">The inverse of "multiply by −4" is "divide by −4".</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Missing number = 20 ÷ (−4) = <strong>−5</strong>.</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">Check: −4 × (−5) = +20. Same signs → positive ✓</div></div>
+    <div class="answer-box">✓ Answer: <strong>−5</strong></div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 3 — Missing Number with Addition</div>
+    <div class="ex-q">___ + (−8) = −3. What is the missing number?</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Rewrite: ___ − 8 = −3 (two signs: + and − → −).</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Inverse of "subtract 8" is "add 8".</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">Missing number = −3 + 8 = <strong>5</strong>.</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-text">Check: 5 + (−8) = 5 − 8 = −3 ✓</div></div>
+    <div class="answer-box">✓ Answer: <strong>5</strong></div>
+  </div>
+</section>
+
+<!-- ══ SECTION 9 ══ -->
+<section id="s9">
+  <div class="section-number">9</div>
+  <h2>Finding the Difference</h2>
+  <p>The word <strong>"difference"</strong> in maths always means <strong>subtract the smaller from the larger</strong>. With negative numbers, you must be careful about which is actually smaller.</p>
+
+  <div class="rule-box">
+    <strong>⭐ Method: Finding the Difference</strong>
+    Difference = <strong>larger value − smaller value</strong><br>
+    With negative numbers: the number closer to zero is always the larger one.<br>
+    Always subtract in the direction: higher temperature/value MINUS lower.
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 1</div>
+    <div class="ex-q">Moscow is −14°C. London is 3°C. What is the difference?</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Larger value = 3°C. Smaller value = −14°C.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Difference = 3 − (−14) = 3 + 14 = <strong>17°C</strong>.</div></div>
+    <div class="answer-box">✓ The difference is <strong>17°C</strong>.</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 2</div>
+    <div class="ex-q">What is the difference between −8 and −2?</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Larger value = −2 (it is closer to zero). Smaller value = −8.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Difference = −2 − (−8) = −2 + 8 = <strong>6</strong>.</div></div>
+    <div class="answer-box">✓ The difference is <strong>6</strong>.</div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Quick sense-check</strong>
+    The difference between two numbers is always a <strong>positive number</strong> (a distance can't be negative). If you get a negative answer, you subtracted the wrong way around — swap them!
+  </div>
+</section>
+
+<!-- ══ SECTION 10 ══ -->
+<section id="s10">
+  <div class="section-number">10</div>
+  <h2>Common Mistakes to Avoid</h2>
+  <p>Here are the 6 mistakes GL Assessment students make most often. Study these carefully — knowing the trap means you won't fall into it!</p>
+
+  <div class="mistake-grid">
+
+    <div class="mc-card">
+      <div class="mc-header">❌ Mistake 1: Thinking a bigger negative number is larger</div>
+      <div class="mc-body">
+        <p>Students see −8 and think "8 is bigger than 2, so −8 &gt; 2." Wrong! On the number line, −8 is far to the left.</p>
+        <div class="mc-row">
+          <div class="mc-wrong"><div class="mc-label">✗ Wrong thinking</div>−8 &gt; −2 "because 8 is bigger"</div>
+          <div class="mc-right"><div class="mc-label">✓ Correct</div>−2 &gt; −8 (−2 is closer to zero, so it's larger)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mc-card">
+      <div class="mc-header">❌ Mistake 2: Subtracting a negative makes it more negative</div>
+      <div class="mc-body">
+        <p>Subtracting a negative is the same as <em>adding</em>. Students forget and make the answer smaller instead of bigger.</p>
+        <div class="mc-row">
+          <div class="mc-wrong"><div class="mc-label">✗ Wrong</div>−7 − (−3) = −10<br><small>("subtract 3 from −7")</small></div>
+          <div class="mc-right"><div class="mc-label">✓ Correct</div>−7 − (−3) = −7 + 3 = −4<br><small>(same signs → +)</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mc-card">
+      <div class="mc-header">❌ Mistake 3: Getting the difference direction wrong</div>
+      <div class="mc-body">
+        <p>Students subtract in the wrong order and get a negative difference — but a difference (a distance) is always positive.</p>
+        <div class="mc-row">
+          <div class="mc-wrong"><div class="mc-label">✗ Wrong</div>Difference between 3 and −14: 3 − (−14)... student does (−14) − 3 = −17</div>
+          <div class="mc-right"><div class="mc-label">✓ Correct</div>Difference = larger − smaller = 3 − (−14) = 3 + 14 = 17</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mc-card">
+      <div class="mc-header">❌ Mistake 4: Sign errors when three negatives are multiplied</div>
+      <div class="mc-body">
+        <p>Students cancel all the negatives and give a positive answer, forgetting to check the count carefully.</p>
+        <div class="mc-row">
+          <div class="mc-wrong"><div class="mc-label">✗ Wrong</div>(−2) × (−3) × (−5) = +30<br><small>("all negatives cancel out")</small></div>
+          <div class="mc-right"><div class="mc-label">✓ Correct</div>3 negatives = odd = negative answer: −30<br><small>(−2)(−3) = +6, then 6 × (−5) = −30)</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mc-card">
+      <div class="mc-header">❌ Mistake 5: Confusing "ascending" and "descending" order</div>
+      <div class="mc-body">
+        <p>Ascending = going up = smallest first. Descending = going down = largest first. Students often reverse these.</p>
+        <div class="mc-row">
+          <div class="mc-wrong"><div class="mc-label">✗ Ascending order (wrong)</div>4, 1, 0, −2, −3, −5</div>
+          <div class="mc-right"><div class="mc-label">✓ Ascending order (correct)</div>−5, −3, −2, 0, 1, 4</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mc-card">
+      <div class="mc-header">❌ Mistake 6: Forgetting that negative × negative = positive</div>
+      <div class="mc-body">
+        <p>Students apply "negative" to the answer just because there are negative signs in the question — even when the rule says positive.</p>
+        <div class="mc-row">
+          <div class="mc-wrong"><div class="mc-label">✗ Wrong</div>−6 × (−7) = −42<br><small>("there are minuses so it's negative")</small></div>
+          <div class="mc-right"><div class="mc-label">✓ Correct</div>−6 × (−7) = +42<br><small>(same signs → positive)</small></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ SECTION 11 ══ -->
+<section id="s11">
+  <div class="section-number">11</div>
+  <h2>GL Assessment-Style Practice Questions</h2>
+  <p>These 10 questions use exactly the style, format and difficulty of GL Assessment papers. Each has four options (A–D) with realistic wrong-answer traps. Select your answer, then check the answers section below.</p>
+
+  <div style="margin-bottom:24px">
+
+    <!-- Q1 -->
+    <div class="mcq-q">
+      <div class="q-num">Question 1 — Ordering</div>
+      <div class="q-text">Put these numbers in ascending order (smallest first):<br>−0.5 &nbsp; −1.2 &nbsp; 0.3 &nbsp; −0.8 &nbsp; 0</div>
+      <div class="mcq-options">
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">A) 0.3, 0, −0.5, −0.8, −1.2</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, true)">B) −1.2, −0.8, −0.5, 0, 0.3</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">C) −0.5, −0.8, −1.2, 0, 0.3</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">D) −1.2, −0.5, −0.8, 0, 0.3</button>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="mcq-q">
+      <div class="q-num">Question 2 — Midpoint / Halfway</div>
+      <div class="q-text">What is the midpoint of −11 and 5?</div>
+      <div class="mcq-options">
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">A) −8</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">B) −4</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, true)">C) −3</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">D) 3</button>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="mcq-q">
+      <div class="q-num">Question 3 — Temperature Word Problem</div>
+      <div class="q-text">The temperature in Oslo is −9°C. The temperature in Cairo is 22°C. What is the difference in temperature between the two cities?</div>
+      <div class="mcq-options">
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">A) 13°C</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">B) −31°C</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">C) 13°C</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, true)">D) 31°C</button>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="mcq-q">
+      <div class="q-num">Question 4 — Missing Number</div>
+      <div class="q-text">___ × (−6) = −42. What is the missing number?</div>
+      <div class="mcq-options">
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">A) −7</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, true)">B) 7</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">C) −252</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">D) 252</button>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="mcq-q">
+      <div class="q-num">Question 5 — Coordinates</div>
+      <div class="q-text">Point P is plotted at (−3, −4). In which quadrant does point P lie?</div>
+      <div class="mcq-options">
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">A) Quadrant 1</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">B) Quadrant 2</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, true)">C) Quadrant 3</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">D) Quadrant 4</button>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="mcq-q">
+      <div class="q-num">Question 6 — Bank Balance Word Problem</div>
+      <div class="q-text">Jake's bank account is overdrawn by £63 (balance = −£63). He receives his pocket money of £15 each week for 6 weeks. What is his bank balance after 6 weeks?</div>
+      <div class="mcq-options">
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">A) −£153</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">B) −£48</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">C) £27</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, true)">D) £27</button>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="mcq-q">
+      <div class="q-num">Question 7 — Multiplication Sign Rule</div>
+      <div class="q-text">What is (−3) × (−4) × (−2)?</div>
+      <div class="mcq-options">
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">A) +24</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, true)">B) −24</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">C) +9</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">D) −9</button>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="mcq-q">
+      <div class="q-num">Question 8 — Golf Scores Word Problem</div>
+      <div class="q-text">In a golf tournament, Amy scored −7 (7 under par) and Ben scored +3 (3 over par). How many strokes apart are their scores?</div>
+      <div class="mcq-options">
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">A) 4</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">B) −4</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, true)">C) 10</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">D) −10</button>
+      </div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="mcq-q">
+      <div class="q-num">Question 9 — Missing Number (Subtraction)</div>
+      <div class="q-text">−3 − ___ = 5. What is the missing number?</div>
+      <div class="mcq-options">
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">A) 8</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">B) 2</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, true)">C) −8</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">D) −2</button>
+      </div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="mcq-q">
+      <div class="q-num">Question 10 — Depth / Sea Level Word Problem</div>
+      <div class="q-text">A fish is swimming at −35 m (35 metres below sea level). A seabird is flying at 28 m above sea level. What is the difference in height between the seabird and the fish?</div>
+      <div class="mcq-options">
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">A) 7 m</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">B) −7 m</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, true)">C) 63 m</button>
+        <button class="mcq-opt" onclick="checkAnswer(this, false)">D) −63 m</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ANSWERS -->
+  <div class="answers-section">
+    <h3>📋 Answers &amp; Explanations</h3>
+
+    <div class="ans-item">
+      <div class="ans-q">Q1 — Ordering</div>
+      <div class="ans-correct">Answer: B) −1.2, −0.8, −0.5, 0, 0.3</div>
+      <div class="ans-explain">Negative numbers with larger digits are smaller (further left on the number line). −1.2 &lt; −0.8 &lt; −0.5, then 0, then 0.3.</div>
+    </div>
+
+    <div class="ans-item">
+      <div class="ans-q">Q2 — Midpoint</div>
+      <div class="ans-correct">Answer: C) −3</div>
+      <div class="ans-explain">Midpoint = (−11 + 5) ÷ 2 = −6 ÷ 2 = −3. Check: −3 is 8 units from −11 and 8 units from 5. ✓ Trap: A and B come from adding wrong or dividing wrong.</div>
+    </div>
+
+    <div class="ans-item">
+      <div class="ans-q">Q3 — Temperature</div>
+      <div class="ans-correct">Answer: D) 31°C</div>
+      <div class="ans-explain">Difference = 22 − (−9) = 22 + 9 = 31°C. Trap B gives −31 (wrong direction). Trap A/C gives 13 (subtracting instead of adding after sign rule).</div>
+    </div>
+
+    <div class="ans-item">
+      <div class="ans-q">Q4 — Missing Number</div>
+      <div class="ans-correct">Answer: B) 7</div>
+      <div class="ans-explain">Missing number = −42 ÷ (−6) = +7. Same signs → positive. Check: 7 × (−6) = −42 ✓. Trap A: students forget that −÷− = +.</div>
+    </div>
+
+    <div class="ans-item">
+      <div class="ans-q">Q5 — Coordinates</div>
+      <div class="ans-correct">Answer: C) Quadrant 3</div>
+      <div class="ans-explain">Q3 is where both x and y are negative: (−, −). (−3, −4) is left of centre and below centre → Q3.</div>
+    </div>
+
+    <div class="ans-item">
+      <div class="ans-q">Q6 — Bank Balance</div>
+      <div class="ans-correct">Answer: D) £27</div>
+      <div class="ans-explain">6 weeks × £15 = £90 received. New balance = −63 + 90 = +£27. Trap B only adds £15 once. Trap A subtracts instead of adds.</div>
+    </div>
+
+    <div class="ans-item">
+      <div class="ans-q">Q7 — Three Negatives Multiplied</div>
+      <div class="ans-correct">Answer: B) −24</div>
+      <div class="ans-explain">(−3) × (−4) = +12. Then +12 × (−2) = −24. Three negatives = odd = negative. Trap A is the classic error of thinking all negatives cancel to positive.</div>
+    </div>
+
+    <div class="ans-item">
+      <div class="ans-q">Q8 — Golf Scores</div>
+      <div class="ans-correct">Answer: C) 10</div>
+      <div class="ans-explain">Difference = 3 − (−7) = 3 + 7 = 10 strokes. Trap A (4) comes from 7 − 3, ignoring the negative sign entirely.</div>
+    </div>
+
+    <div class="ans-item">
+      <div class="ans-q">Q9 — Missing Number</div>
+      <div class="ans-correct">Answer: C) −8</div>
+      <div class="ans-explain">Rearrange: missing number = −3 − 5 = −8. Check: −3 − (−8) = −3 + 8 = 5 ✓. Trap A (8) forgets the sign. Trap D (−2) comes from −3 + 5 (adding instead of subtracting).</div>
+    </div>
+
+    <div class="ans-item">
+      <div class="ans-q">Q10 — Depth / Sea Level</div>
+      <div class="ans-correct">Answer: C) 63 m</div>
+      <div class="ans-explain">Difference = 28 − (−35) = 28 + 35 = 63 m. Trap A (7) comes from 35 − 28, ignoring the negative sign. The difference is always positive.</div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<footer>
+  <strong>TrueMaths</strong> · GL Assessment 11+ Preparation · Negative Numbers<br>
+  <span style="opacity:.7">This resource covers all negative number topics tested in GL Assessment grammar school entry exams for ages 9–11.</span>
+</footer>
+
+<script>
+function checkAnswer(btn, isCorrect) {
+  // Find parent options div
+  const optionsDiv = btn.parentElement;
+  const allBtns = optionsDiv.querySelectorAll('.mcq-opt');
+  // Disable all
+  allBtns.forEach(b => {
+    b.style.pointerEvents = 'none';
+    // Mark the correct one green
+    if (b._isCorrect) b.classList.add('correct');
+  });
+  // Mark clicked
+  if (isCorrect) {
+    btn.classList.add('correct');
+  } else {
+    btn.classList.add('wrong');
+    // Reveal correct
+    allBtns.forEach(b => { if (b._isCorrect) b.classList.add('correct'); });
+  }
+}
+
+// Attach isCorrect flag to buttons
+document.querySelectorAll('.mcq-opt').forEach(btn => {
+  btn._isCorrect = btn.getAttribute('onclick').includes('true');
+});
+</script>
+
+</body>
+</html>

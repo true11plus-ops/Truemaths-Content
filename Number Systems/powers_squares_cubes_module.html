@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Powers, Squares & Cubes — TrueMaths 11+ Module</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --navy:   #0e1f3d;
+    --indigo: #3730a3;
+    --indigo-light: #eef2ff;
+    --violet: #6d28d9;
+    --violet-light: #f5f3ff;
+    --rose:   #be123c;
+    --rose-light: #fff1f2;
+    --amber:  #b45309;
+    --amber-light: #fffbeb;
+    --teal:   #0f766e;
+    --teal-light: #f0fdfa;
+    --sky:    #0369a1;
+    --sky-light: #f0f9ff;
+    --green:  #15803d;
+    --green-light: #f0fdf4;
+    --slate:  #334155;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-500: #64748b;
+    --white:  #ffffff;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --shadow: 0 2px 16px rgba(14,31,61,0.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: #f8f9fc;
+    color: var(--slate);
+    line-height: 1.75;
+    font-size: 16px;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #1e3a6e 50%, #2d1b69 100%);
+    padding: 40px 32px 36px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 80% 20%, rgba(109,40,217,0.3) 0%, transparent 50%),
+                      radial-gradient(circle at 10% 80%, rgba(55,48,163,0.25) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #c7d2fe;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 600;
+    line-height: 1.2;
+    position: relative; z-index: 1;
+  }
+  .hero h1 em { font-style: italic; color: #a5b4fc; }
+  .hero p {
+    margin-top: 10px; max-width: 580px;
+    font-size: 15px; opacity: 0.75;
+    position: relative; z-index: 1;
+  }
+  .hero-chips {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 22px; position: relative; z-index: 1;
+  }
+  .chip {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: white; font-size: 13px;
+    padding: 4px 14px; border-radius: 20px;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    background: white;
+    border-bottom: 2px solid var(--slate-200);
+    padding: 0 20px;
+    display: flex; flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+  }
+  .nav a {
+    display: inline-block;
+    padding: 13px 14px;
+    font-size: 12.5px; font-weight: 600;
+    color: var(--slate-500);
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.18s;
+    letter-spacing: 0.01em;
+  }
+  .nav a:hover { color: var(--indigo); border-bottom-color: var(--indigo); }
+
+  /* ── CONTAINER ── */
+  .wrap { max-width: 920px; margin: 0 auto; padding: 30px 18px 64px; }
+
+  /* ── CARD ── */
+  .card {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 26px;
+    overflow: hidden;
+  }
+  .card-head {
+    padding: 18px 26px 15px;
+    border-bottom: 2px solid var(--slate-100);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .card-num {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px; flex-shrink: 0;
+  }
+  .card-head h2 {
+    font-family: 'Lora', serif;
+    font-size: 21px; font-weight: 600;
+    color: var(--navy);
+  }
+  .card-body { padding: 22px 26px; }
+
+  /* theme colours */
+  .t-indigo .card-num { background: var(--indigo-light); color: var(--indigo); }
+  .t-violet .card-num { background: var(--violet-light); color: var(--violet); }
+  .t-teal   .card-num { background: var(--teal-light);   color: var(--teal); }
+  .t-rose   .card-num { background: var(--rose-light);   color: var(--rose); }
+  .t-amber  .card-num { background: var(--amber-light);  color: var(--amber); }
+  .t-sky    .card-num { background: var(--sky-light);    color: var(--sky); }
+  .t-green  .card-num { background: var(--green-light);  color: var(--green); }
+
+  /* ── CALLOUTS ── */
+  .box {
+    border-radius: var(--radius-sm);
+    padding: 13px 17px;
+    margin: 14px 0;
+    display: flex; gap: 11px; align-items: flex-start;
+    font-size: 14.5px; line-height: 1.65;
+  }
+  .box-icon { font-size: 17px; line-height: 1.6; flex-shrink: 0; }
+  .box-body { flex: 1; }
+  .box-body strong { display: block; margin-bottom: 2px; font-size: 13.5px; letter-spacing: 0.02em; text-transform: uppercase; }
+  .tip    { background: var(--sky-light);    border-left: 4px solid var(--sky); }
+  .warn   { background: var(--amber-light);  border-left: 4px solid var(--amber); }
+  .trap   { background: var(--rose-light);   border-left: 4px solid var(--rose); }
+  .define { background: var(--indigo-light); border-left: 4px solid var(--indigo); }
+  .key    { background: var(--green-light);  border-left: 4px solid var(--green); }
+  .purple { background: var(--violet-light); border-left: 4px solid var(--violet); }
+
+  /* ── WORKED EXAMPLE ── */
+  .eg {
+    background: var(--slate-100);
+    border: 1.5px solid var(--slate-200);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px; margin: 14px 0;
+  }
+  .eg-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--slate-500); margin-bottom: 9px;
+  }
+  .eg p, .eg li { font-size: 14.5px; margin-bottom: 5px; }
+  .eg ol, .eg ul { padding-left: 20px; }
+
+  /* ── FORMULA ── */
+  .formula {
+    background: var(--navy);
+    color: white;
+    border-radius: var(--radius-sm);
+    padding: 16px 22px; margin: 14px 0;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(15px, 2.5vw, 20px);
+    letter-spacing: 0.04em;
+  }
+  .formula .hl { color: #a5b4fc; }
+  .formula .hl2 { color: #6ee7b7; }
+
+  /* ── INDEX LAW BLOCK ── */
+  .law {
+    border: 1.5px solid var(--slate-200);
+    border-radius: var(--radius-sm);
+    overflow: hidden; margin: 16px 0;
+  }
+  .law-head {
+    padding: 11px 18px;
+    display: flex; align-items: center; gap: 12px;
+    font-weight: 700; font-size: 15px; color: var(--navy);
+  }
+  .law-body { padding: 0 18px 16px; }
+  .law-num {
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; flex-shrink: 0; color: white;
+  }
+
+  /* ── SQUARES GRID ── */
+  .sq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 8px; margin: 14px 0;
+  }
+  .sq-cell {
+    background: var(--indigo-light);
+    border: 1.5px solid #c7d2fe;
+    border-radius: 8px;
+    padding: 9px 6px;
+    text-align: center;
+    font-size: 13.5px;
+  }
+  .sq-cell .base { font-weight: 700; color: var(--indigo); font-size: 15px; }
+  .sq-cell .result { color: var(--slate-500); font-size: 12.5px; }
+  .sq-cell.bonus { background: var(--violet-light); border-color: #c4b5fd; }
+  .sq-cell.bonus .base { color: var(--violet); }
+
+  /* ── CUBES GRID ── */
+  .cu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 8px; margin: 14px 0;
+  }
+  .cu-cell {
+    background: var(--teal-light);
+    border: 1.5px solid #99f6e4;
+    border-radius: 8px;
+    padding: 9px 6px;
+    text-align: center;
+    font-size: 13.5px;
+  }
+  .cu-cell .base { font-weight: 700; color: var(--teal); font-size: 15px; }
+  .cu-cell .result { color: var(--slate-500); font-size: 12.5px; }
+
+  /* ── POWERS OF 10 TABLE ── */
+  .p10-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 14px; margin: 14px 0;
+  }
+  .p10-table th {
+    background: var(--navy); color: white;
+    padding: 9px 14px; text-align: left; font-weight: 600;
+  }
+  .p10-table td {
+    padding: 8px 14px; border: 1px solid var(--slate-200);
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  }
+  .p10-table tr:nth-child(even) td { background: var(--slate-100); }
+  .p10-table td:last-child { font-family: 'Outfit', sans-serif; color: var(--slate-500); font-size: 13px; }
+
+  /* ── SEQUENCE TABLE ── */
+  .seq-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 14px; margin: 14px 0;
+  }
+  .seq-table th {
+    background: var(--sky); color: white;
+    padding: 9px 14px; text-align: left; font-weight: 600;
+  }
+  .seq-table td {
+    padding: 8px 14px; border: 1px solid var(--slate-200);
+  }
+  .seq-table tr:nth-child(even) td { background: var(--slate-100); }
+  .seq-num { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--navy); }
+
+  /* ── COLLAPSIBLE ── */
+  details {
+    border: 1.5px solid var(--slate-200);
+    border-radius: var(--radius-sm);
+    margin-top: 10px; overflow: hidden;
+  }
+  summary {
+    padding: 11px 16px; cursor: pointer;
+    font-weight: 700; font-size: 13.5px;
+    background: var(--slate-100); color: var(--navy);
+    list-style: none; display: flex; align-items: center; gap: 8px;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: '▶'; font-size: 9px;
+    transition: transform 0.2s; color: var(--indigo);
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details[open] summary { background: var(--indigo-light); color: var(--indigo); }
+  .ans-body { padding: 14px 18px; font-size: 14.5px; }
+  .ans-body p, .ans-body li { margin-bottom: 5px; }
+  .ans-body ol { padding-left: 20px; }
+
+  /* ── PRACTICE ── */
+  .pq {
+    border: 1.5px solid var(--slate-200);
+    border-radius: var(--radius-sm);
+    margin-bottom: 14px; overflow: hidden;
+  }
+  .pq-top {
+    padding: 14px 18px; display: flex;
+    gap: 12px; align-items: flex-start; background: white;
+  }
+  .pq-n {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; flex-shrink: 0; margin-top: 2px;
+  }
+  .pq-text { font-size: 14.5px; flex: 1; line-height: 1.65; }
+  .pq-badge {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 3px 9px; border-radius: 10px;
+    flex-shrink: 0; margin-top: 4px; white-space: nowrap;
+  }
+  .easy .pq-n, .easy .pq-badge { background: var(--green-light); color: var(--green); }
+  .med  .pq-n, .med  .pq-badge { background: var(--amber-light); color: var(--amber); }
+  .hard .pq-n, .hard .pq-badge { background: var(--rose-light);  color: var(--rose); }
+
+  /* ── ESTIMATION DIAGRAM ── */
+  .num-line {
+    display: flex; align-items: center; gap: 0;
+    margin: 14px 0; font-size: 14px;
+    background: var(--slate-100); border-radius: 8px; padding: 14px 18px;
+    flex-wrap: wrap; gap: 6px;
+  }
+  .nl-node {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 4px;
+  }
+  .nl-num { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 15px; color: var(--navy); }
+  .nl-label { font-size: 11px; color: var(--slate-500); }
+  .nl-line {
+    flex: 1; min-width: 40px; height: 3px;
+    background: var(--indigo); border-radius: 2px; margin-bottom: 20px;
+    position: relative;
+  }
+  .nl-mark {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700; font-size: 14px;
+    color: var(--rose); padding: 0 8px; margin-bottom: 20px;
+  }
+
+  /* ── UTILITY ── */
+  h3 { font-size: 16.5px; font-weight: 700; color: var(--navy); margin: 18px 0 7px; }
+  h4 { font-size: 15px; font-weight: 600; color: var(--slate); margin: 12px 0 5px; }
+  p  { margin-bottom: 9px; font-size: 14.5px; }
+  ul, ol { padding-left: 22px; margin-bottom: 9px; }
+  li { font-size: 14.5px; margin-bottom: 3px; }
+  .m  { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
+  .ans { font-weight: 700; color: var(--indigo); }
+  .row { display: flex; flex-wrap: wrap; gap: 14px; }
+  .col { flex: 1; min-width: 200px; }
+  hr  { border: none; border-top: 1.5px dashed var(--slate-200); margin: 18px 0; }
+  .mt { margin-top: 14px; }
+  sup { font-size: 0.7em; }
+
+  @media (max-width: 580px) {
+    .card-body { padding: 16px 14px; }
+    .card-head { padding: 14px 16px; }
+    .nav { display: none; }
+    .sq-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-tag">TrueMaths · 11+ Module</div>
+  <h1>Powers, Squares,<br><em>Cubes &amp; Index Laws</em></h1>
+  <p>Complete GL Assessment preparation — from notation foundations to multi-step exam problems.</p>
+  <div class="hero-chips">
+    <span class="chip">🏫 QE Barnet Level</span>
+    <span class="chip">📐 GL Assessment</span>
+    <span class="chip">Index Laws Included</span>
+    <span class="chip">8 Graded Questions</span>
+  </div>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <a href="#s1">1. Foundations</a>
+  <a href="#s2">2. Index Laws</a>
+  <a href="#s3">3. Squares</a>
+  <a href="#s4">4. Square Roots</a>
+  <a href="#s5">5. Cubes &amp; Cube Roots</a>
+  <a href="#s6">6. Sequences</a>
+  <a href="#s7">7. Powers of 10</a>
+  <a href="#s8">8. Practice</a>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════════════════════ 1. FOUNDATIONS ══════════════════════ -->
+<div class="card t-indigo" id="s1">
+  <div class="card-head">
+    <div class="card-num">1</div>
+    <h2>Foundations: Powers &amp; Notation</h2>
+  </div>
+  <div class="card-body">
+
+    <div class="box define">
+      <div class="box-icon">📖</div>
+      <div class="box-body">
+        <strong>Key Vocabulary</strong>
+        A <b>power</b> (or <b>index</b>) tells you how many times to multiply a number by itself.<br>
+        The <b>base</b> is the main number. The <b>exponent</b> (or index) is the small raised number.
+      </div>
+    </div>
+
+    <div class="formula">
+      <span class="hl">5</span><sup style="font-size:0.65em">3</sup>
+      &nbsp;=&nbsp;
+      <span class="hl">5</span> × <span class="hl">5</span> × <span class="hl">5</span>
+      &nbsp;=&nbsp;
+      <span class="hl2">125</span>
+      <div style="font-size:12px;margin-top:8px;color:#94a3b8">
+        base = 5 &nbsp;·&nbsp; exponent = 3 &nbsp;·&nbsp; value = 125
+      </div>
+    </div>
+
+    <h3>Special Power Rules</h3>
+    <div class="row">
+      <div class="col">
+        <div class="box tip">
+          <div class="box-icon">💡</div>
+          <div class="box-body">
+            <strong>Power of 1</strong>
+            Any number to the power of 1 equals itself.<br>
+            <span class="m">7¹ = 7 &nbsp; 100¹ = 100</span>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="box tip">
+          <div class="box-icon">💡</div>
+          <div class="box-body">
+            <strong>Power of 0</strong>
+            Any number (except 0) to the power of 0 equals 1.<br>
+            <span class="m">7⁰ = 1 &nbsp; 999⁰ = 1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Powers of 10 &amp; Place Value</h3>
+    <p>Each step up multiplies by 10 — this maps directly onto our place value system.</p>
+
+    <div style="overflow-x:auto">
+    <table class="p10-table">
+      <thead><tr><th>Power</th><th>Calculation</th><th>Value</th><th>Place value name</th></tr></thead>
+      <tbody>
+        <tr><td>10¹</td><td>10</td><td>10</td><td>Tens</td></tr>
+        <tr><td>10²</td><td>10 × 10</td><td>100</td><td>Hundreds</td></tr>
+        <tr><td>10³</td><td>10 × 10 × 10</td><td>1,000</td><td>Thousands</td></tr>
+        <tr><td>10⁴</td><td>10 × 10 × 10 × 10</td><td>10,000</td><td>Ten-thousands</td></tr>
+        <tr><td>10⁵</td><td>…</td><td>100,000</td><td>Hundred-thousands</td></tr>
+        <tr><td>10⁶</td><td>…</td><td>1,000,000</td><td>Millions</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="box purple">
+      <div class="box-icon">🌟</div>
+      <div class="box-body">
+        <strong>Top-End Extension: Negative Powers of 10</strong>
+        A negative exponent means <em>divide</em> by 10 for each step. So:<br>
+        <span class="m">10⁻¹ = 1/10 = 0.1</span> (tenths) &nbsp;·&nbsp;
+        <span class="m">10⁻² = 1/100 = 0.01</span> (hundredths)<br>
+        These appear in the hardest GL papers and science contexts.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════ 2. INDEX LAWS ══════════════════════ -->
+<div class="card t-violet" id="s2">
+  <div class="card-head">
+    <div class="card-num">2</div>
+    <h2>Index Laws — The Most Tested Rules</h2>
+  </div>
+  <div class="card-body">
+
+    <div class="box tip">
+      <div class="box-icon">🎯</div>
+      <div class="box-body">
+        <strong>Why Index Laws Matter</strong>
+        GL Assessment frequently presents expressions like <span class="m">3⁵ × 3² = ?</span> or
+        <span class="m">(2³)⁴ = ?</span>. You must be able to simplify these <em>without a calculator</em>.
+        The three laws below cover every case the 11+ will throw at you.
+      </div>
+    </div>
+
+    <!-- LAW 1 -->
+    <div class="law">
+      <div class="law-head" style="background:var(--indigo-light)">
+        <div class="law-num" style="background:var(--indigo)">1</div>
+        Multiplying Powers (Same Base)
+      </div>
+      <div class="law-body">
+        <div class="formula" style="font-size:clamp(14px,2.2vw,18px)">
+          a<sup style="font-size:0.65em">m</sup> × a<sup style="font-size:0.65em">n</sup>
+          &nbsp;=&nbsp;
+          a<sup style="font-size:0.65em"><span class="hl">m + n</span></sup>
+          <div style="font-size:11px;margin-top:6px;color:#94a3b8">ADD the exponents</div>
+        </div>
+        <div class="eg">
+          <div class="eg-label">✏ Worked Example</div>
+          <p><span class="m">3⁵ × 3²</span></p>
+          <p>Same base (3), so add the exponents: <span class="m">5 + 2 = 7</span></p>
+          <p><span class="ans">= 3⁷ = 2187</span></p>
+          <p style="color:var(--slate-500);font-size:13px;margin-top:6px">
+            Why? 3⁵ = 3×3×3×3×3 and 3² = 3×3. Multiplied together that's seven 3s.
+          </p>
+        </div>
+        <div class="box warn">
+          <div class="box-icon">⚠️</div>
+          <div class="box-body">
+            <strong>Common Mistake</strong>
+            <span class="m">3⁵ × 3² ≠ 3¹⁰</span> (don't multiply the exponents here — that's Law 3).
+            Addition only: <span class="m">3⁵ × 3² = 3⁷</span>.
+          </div>
+        </div>
+        <div class="box trap">
+          <div class="box-icon">🎯</div>
+          <div class="box-body">
+            <strong>Exam Trap</strong>
+            This law only works when the <em>base is the same</em>.
+            <span class="m">3⁵ × 4²</span> cannot be simplified using this law — different bases!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAW 2 -->
+    <div class="law">
+      <div class="law-head" style="background:var(--violet-light)">
+        <div class="law-num" style="background:var(--violet)">2</div>
+        Dividing Powers (Same Base)
+      </div>
+      <div class="law-body">
+        <div class="formula" style="font-size:clamp(14px,2.2vw,18px)">
+          a<sup style="font-size:0.65em">m</sup> ÷ a<sup style="font-size:0.65em">n</sup>
+          &nbsp;=&nbsp;
+          a<sup style="font-size:0.65em"><span class="hl">m − n</span></sup>
+          <div style="font-size:11px;margin-top:6px;color:#94a3b8">SUBTRACT the exponents</div>
+        </div>
+        <div class="eg">
+          <div class="eg-label">✏ Worked Example</div>
+          <p><span class="m">2⁸ ÷ 2³</span></p>
+          <p>Same base (2), so subtract the exponents: <span class="m">8 − 3 = 5</span></p>
+          <p><span class="ans">= 2⁵ = 32</span></p>
+        </div>
+        <div class="eg">
+          <div class="eg-label">✏ Special Case — Result is 1</div>
+          <p><span class="m">5⁴ ÷ 5⁴ = 5⁰ = 1</span></p>
+          <p>This is why anything to the power of zero equals 1 — it's just a division law!</p>
+        </div>
+        <div class="box warn">
+          <div class="box-icon">⚠️</div>
+          <div class="box-body">
+            <strong>Common Mistake</strong>
+            <span class="m">2⁸ ÷ 2³ ≠ 2⁵ ÷ 2 = ?</span> — don't divide the exponents.
+            Always subtract: <span class="m">2⁸ ÷ 2³ = 2⁵</span>.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAW 3 -->
+    <div class="law">
+      <div class="law-head" style="background:#faf5ff">
+        <div class="law-num" style="background:#9333ea">3</div>
+        Power of a Power
+      </div>
+      <div class="law-body">
+        <div class="formula" style="font-size:clamp(14px,2.2vw,18px)">
+          (a<sup style="font-size:0.65em">m</sup>)<sup style="font-size:0.65em">n</sup>
+          &nbsp;=&nbsp;
+          a<sup style="font-size:0.65em"><span class="hl">m × n</span></sup>
+          <div style="font-size:11px;margin-top:6px;color:#94a3b8">MULTIPLY the exponents</div>
+        </div>
+        <div class="eg">
+          <div class="eg-label">✏ Worked Example</div>
+          <p><span class="m">(2³)⁴</span></p>
+          <p>A power raised to another power — multiply the exponents: <span class="m">3 × 4 = 12</span></p>
+          <p><span class="ans">= 2¹² = 4096</span></p>
+          <p style="color:var(--slate-500);font-size:13px;margin-top:6px">
+            Why? (2³)⁴ means (2³) × (2³) × (2³) × (2³) — four groups of three 2s = twelve 2s.
+          </p>
+        </div>
+        <div class="box warn">
+          <div class="box-icon">⚠️</div>
+          <div class="box-body">
+            <strong>Common Mistake</strong>
+            <span class="m">(2³)⁴ ≠ 2⁷</span> (don't add — you're not multiplying two separate terms).
+            It's a power <em>of</em> a power: multiply → <span class="m">2¹²</span>.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Reference -->
+    <h3>Quick Reference Summary</h3>
+    <div style="overflow-x:auto">
+    <table class="p10-table">
+      <thead><tr><th>Situation</th><th>Rule</th><th>Memory hook</th></tr></thead>
+      <tbody>
+        <tr><td>aᵐ × aⁿ</td><td>aᵐ⁺ⁿ</td><td>Multiply → Add exponents</td></tr>
+        <tr><td>aᵐ ÷ aⁿ</td><td>aᵐ⁻ⁿ</td><td>Divide → Subtract exponents</td></tr>
+        <tr><td>(aᵐ)ⁿ</td><td>aᵐⁿ</td><td>Power of power → Multiply exponents</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════ 3. SQUARES ══════════════════════ -->
+<div class="card t-indigo" id="s3">
+  <div class="card-head">
+    <div class="card-num">3</div>
+    <h2>Square Numbers</h2>
+  </div>
+  <div class="card-body">
+
+    <p>A <b>square number</b> is the result of multiplying an integer by itself: <span class="m">n × n = n²</span>.
+    Geometrically, it represents the area of a square with side length <span class="m">n</span>.</p>
+
+    <div class="box trap">
+      <div class="box-icon">⚡</div>
+      <div class="box-body">
+        <strong>Exam Critical: Instant Recall Required</strong>
+        GL papers are timed. Not knowing these immediately costs you marks on sequence, geometry, and estimation questions. Memorise 1² to 12² cold — then the bonuses.
+      </div>
+    </div>
+
+    <h3>Must-Know List: 1² to 12²</h3>
+    <div class="sq-grid">
+      <div class="sq-cell"><div class="base">1² = 1</div></div>
+      <div class="sq-cell"><div class="base">2² = 4</div></div>
+      <div class="sq-cell"><div class="base">3² = 9</div></div>
+      <div class="sq-cell"><div class="base">4² = 16</div></div>
+      <div class="sq-cell"><div class="base">5² = 25</div></div>
+      <div class="sq-cell"><div class="base">6² = 36</div></div>
+      <div class="sq-cell"><div class="base">7² = 49</div></div>
+      <div class="sq-cell"><div class="base">8² = 64</div></div>
+      <div class="sq-cell"><div class="base">9² = 81</div></div>
+      <div class="sq-cell"><div class="base">10² = 100</div></div>
+      <div class="sq-cell"><div class="base">11² = 121</div></div>
+      <div class="sq-cell"><div class="base">12² = 144</div></div>
+    </div>
+
+    <h3>Bonus List: 13² to 15²</h3>
+    <div class="sq-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="sq-cell bonus"><div class="base">13² = 169</div></div>
+      <div class="sq-cell bonus"><div class="base">14² = 196</div></div>
+      <div class="sq-cell bonus"><div class="base">15² = 225</div></div>
+    </div>
+
+    <hr>
+    <h3>Geometric Connection</h3>
+    <p>If a square has side length <span class="m">s</span>, its area = <span class="m">s²</span>.
+    Conversely, if you know the area, the side length = √area.</p>
+
+    <h3>🎯 Pythagorean Triple Awareness</h3>
+    <div class="box trap">
+      <div class="box-icon">🎯</div>
+      <div class="box-body">
+        <strong>GL Trap: Pythagorean Triples</strong>
+        These are sets of three integers where a² + b² = c². GL papers use them to test whether you
+        recognise a right triangle without calculation. <b>Memorise both:</b><br><br>
+        <span class="m">3² + 4² = 9 + 16 = 25 = 5²</span> → triple: <b>3, 4, 5</b><br>
+        <span class="m">5² + 12² = 25 + 144 = 169 = 13²</span> → triple: <b>5, 12, 13</b><br><br>
+        Multiples also work: 6, 8, 10 (= 2 × 3,4,5) and 10, 24, 26 (= 2 × 5,12,13).
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════ 4. SQUARE ROOTS ══════════════════════ -->
+<div class="card t-teal" id="s4">
+  <div class="card-head">
+    <div class="card-num">4</div>
+    <h2>Square Roots</h2>
+  </div>
+  <div class="card-body">
+
+    <div class="box define">
+      <div class="box-icon">📖</div>
+      <div class="box-body">
+        <strong>Definition</strong>
+        The square root of a number asks: <em>"What number, multiplied by itself, gives this result?"</em><br>
+        Symbol: √ &nbsp;&nbsp; Example: √49 = 7, because 7 × 7 = 49.
+      </div>
+    </div>
+
+    <h3>The ± Convention</h3>
+    <p>Technically, both <b>+7</b> and <b>−7</b> square to give 49, because (−7) × (−7) = 49 as well.</p>
+
+    <div class="box purple">
+      <div class="box-icon">🌟</div>
+      <div class="box-body">
+        <strong>When GL Asks for "All Possible Values"</strong>
+        If a question says <em>"find all possible values of x if x² = 49"</em>, the answer is
+        <b>x = 7 or x = −7</b> (written as x = ±7). If it just asks for the square root in a
+        length/area context, always give the positive value only — lengths cannot be negative.
+      </div>
+    </div>
+
+    <hr>
+    <h3>GL Context: Area → Perimeter</h3>
+    <div class="eg">
+      <div class="eg-label">✏ Worked Example</div>
+      <p><em>"A square garden has an area of 81 m². What is its perimeter?"</em></p>
+      <ol>
+        <li>Find side length: √81 = <b>9 m</b></li>
+        <li>Perimeter = 4 × side = 4 × 9 = <span class="ans">36 m</span></li>
+      </ol>
+    </div>
+
+    <hr>
+    <h3>Estimation — Perfect Squares</h3>
+    <p>If the number is a perfect square you don't recognise immediately, use this 3-step method:</p>
+
+    <div class="eg">
+      <div class="eg-label">✏ Worked Example — √729</div>
+      <ol>
+        <li><b>Bracket it:</b> 20² = 400 and 30² = 900, so √729 is between 20 and 30.</li>
+        <li><b>Last digit test:</b> 729 ends in 9. Which squares end in 9? Only 3² and 7². So the answer ends in 3 or 7.</li>
+        <li><b>Test both:</b> 23² = 529 (too small). 27² = 729 ✓</li>
+      </ol>
+      <p><span class="ans">√729 = 27</span></p>
+    </div>
+
+    <hr>
+    <h3>Estimation — Non-Perfect Squares (Most Common GL Ask)</h3>
+    <p>GL more often asks: <em>"between which two consecutive integers does √n lie?"</em> This is a different skill.</p>
+
+    <div class="eg">
+      <div class="eg-label">✏ Worked Example — Estimate √50</div>
+      <ol>
+        <li>Find the two perfect squares either side of 50:<br>
+            <span class="m">7² = 49</span> (just below 50) and <span class="m">8² = 64</span> (above 50)</li>
+        <li>So √50 lies between 7 and 8.</li>
+        <li>Since 50 is very close to 49, √50 is just slightly above 7 — approximately 7.07.</li>
+      </ol>
+    </div>
+
+    <div class="num-line">
+      <div class="nl-node">
+        <div class="nl-num">7</div>
+        <div class="nl-label">7² = 49</div>
+      </div>
+      <div class="nl-line"></div>
+      <div class="nl-mark">√50 ≈ here</div>
+      <div class="nl-line" style="flex:4"></div>
+      <div class="nl-node">
+        <div class="nl-num">8</div>
+        <div class="nl-label">8² = 64</div>
+      </div>
+    </div>
+
+    <div class="box tip">
+      <div class="box-icon">💡</div>
+      <div class="box-body">
+        <strong>Strategy: Always check the squares either side</strong>
+        For any √n, find the largest perfect square below n and the smallest above n.
+        The square root lies between those two integers. GL usually only asks for this — not the decimal.
+      </div>
+    </div>
+
+    <div class="eg">
+      <div class="eg-label">✏ Another Example — Between which integers does √130 lie?</div>
+      <p><span class="m">11² = 121</span> and <span class="m">12² = 144</span></p>
+      <p>121 &lt; 130 &lt; 144, so <span class="ans">√130 lies between 11 and 12</span>.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════ 5. CUBES & CUBE ROOTS ══════════════════════ -->
+<div class="card t-teal" id="s5">
+  <div class="card-head">
+    <div class="card-num">5</div>
+    <h2>Cube Numbers &amp; Cube Roots</h2>
+  </div>
+  <div class="card-body">
+
+    <div class="box define">
+      <div class="box-icon">📖</div>
+      <div class="box-body">
+        <strong>Definition</strong>
+        A <b>cube number</b> is n × n × n = n³. Geometrically, it's the volume of a cube with side n.<br>
+        Cube numbers are less common than squares in 11+ papers, but they are directly testable —
+        especially cube root recognition.
+      </div>
+    </div>
+
+    <h3>Must-Know Cube Numbers: 1³ to 5³</h3>
+    <div class="cu-grid">
+      <div class="cu-cell"><div class="base">1³ = 1</div><div class="result">1×1×1</div></div>
+      <div class="cu-cell"><div class="base">2³ = 8</div><div class="result">2×2×2</div></div>
+      <div class="cu-cell"><div class="base">3³ = 27</div><div class="result">3×3×3</div></div>
+      <div class="cu-cell"><div class="base">4³ = 64</div><div class="result">4×4×4</div></div>
+      <div class="cu-cell"><div class="base">5³ = 125</div><div class="result">5×5×5</div></div>
+    </div>
+
+    <div class="box warn">
+      <div class="box-icon">⚠️</div>
+      <div class="box-body">
+        <strong>Watch Out: 64 appears twice!</strong>
+        <span class="m">8² = 64</span> AND <span class="m">4³ = 64</span>.
+        GL setters exploit this. Read the question carefully to know whether square or cube is intended.
+      </div>
+    </div>
+
+    <hr>
+    <h3>Cube Roots: The ∛ Symbol</h3>
+    <p>The cube root is the inverse (opposite) of cubing. It asks: <em>"What number, multiplied by itself three times, gives this result?"</em></p>
+
+    <div class="formula">
+      ∛<span class="hl">27</span> &nbsp;=&nbsp; <span class="hl2">3</span>
+      &nbsp;&nbsp; because &nbsp;&nbsp;
+      <span class="hl2">3</span> × <span class="hl2">3</span> × <span class="hl2">3</span>
+      &nbsp;=&nbsp; <span class="hl">27</span>
+    </div>
+
+    <h3>Must-Know Cube Roots</h3>
+    <div class="cu-grid">
+      <div class="cu-cell"><div class="base">∛1 = 1</div></div>
+      <div class="cu-cell"><div class="base">∛8 = 2</div></div>
+      <div class="cu-cell"><div class="base">∛27 = 3</div></div>
+      <div class="cu-cell"><div class="base">∛64 = 4</div></div>
+      <div class="cu-cell"><div class="base">∛125 = 5</div></div>
+    </div>
+
+    <div class="box tip">
+      <div class="box-icon">💡</div>
+      <div class="box-body">
+        <strong>Unlike square roots, cube roots of positive numbers are always positive.</strong>
+        There is no ± issue — only one value works. (Cube roots of negative numbers exist but are not tested at 11+.)
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════ 6. SEQUENCES ══════════════════════ -->
+<div class="card t-sky" id="s6">
+  <div class="card-head">
+    <div class="card-num">6</div>
+    <h2>Sequence Type Taxonomy</h2>
+  </div>
+  <div class="card-body">
+
+    <p>Powers appear frequently in number sequences. The key skill is <b>recognising the pattern type</b> before trying to find the next term.</p>
+
+    <div style="overflow-x:auto">
+    <table class="seq-table">
+      <thead><tr><th>Sequence type</th><th>Example</th><th>Pattern rule</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>Square numbers</b></td>
+          <td><span class="seq-num">1, 4, 9, 16, 25…</span></td>
+          <td>nth term = n²</td>
+        </tr>
+        <tr>
+          <td><b>Cube numbers</b></td>
+          <td><span class="seq-num">1, 8, 27, 64, 125…</span></td>
+          <td>nth term = n³</td>
+        </tr>
+        <tr>
+          <td><b>Triangular numbers</b></td>
+          <td><span class="seq-num">1, 3, 6, 10, 15, 21…</span></td>
+          <td>Add 1, then 2, then 3… (differences increase by 1)</td>
+        </tr>
+        <tr>
+          <td><b>Modified: n² + 1</b></td>
+          <td><span class="seq-num">2, 5, 10, 17, 26…</span></td>
+          <td>Each term = n² + 1</td>
+        </tr>
+        <tr>
+          <td><b>Modified: n² − n</b></td>
+          <td><span class="seq-num">0, 2, 6, 12, 20…</span></td>
+          <td>Each term = n² − n = n(n−1)</td>
+        </tr>
+        <tr>
+          <td><b>Powers of 2</b></td>
+          <td><span class="seq-num">1, 2, 4, 8, 16, 32…</span></td>
+          <td>Each term doubles (×2 each time)</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <hr>
+    <h3>Strategy: How to Identify an Unknown Sequence</h3>
+    <div class="box key">
+      <div class="box-icon">🧭</div>
+      <div class="box-body">
+        <strong>Three-Question Diagnostic</strong>
+        <ol style="margin-top:6px;padding-left:18px">
+          <li><b>Is it doubling (or tripling)?</b> → Powers of 2 (or 3)</li>
+          <li><b>Are the differences constant?</b> → Linear (arithmetic) sequence — not powers</li>
+          <li><b>Are the differences themselves increasing?</b> → Check if differences are 1,3,5,7… (square pattern) or 1,2,3,4… (triangular pattern)</li>
+        </ol>
+        If the terms themselves look familiar — compare to your square/cube lists directly.
+      </div>
+    </div>
+
+    <h3>Worked Identification Example 1</h3>
+    <div class="eg">
+      <div class="eg-label">✏ Identify and continue: 3, 6, 11, 18, 27…</div>
+      <ol>
+        <li>Find differences: 3, 5, 7, 9 — these are odd numbers (increasing by 2 each time).</li>
+        <li>Differences of differences: 2, 2, 2 — constant. This is a <b>square-based pattern</b>.</li>
+        <li>Compare terms to n²: 1²=1, 2²=4, 3²=9… The terms are n² + 2: 1+2=3, 4+2=6, 9+2=11, 16+2=18, 25+2=27 ✓</li>
+        <li>Next term: 6² + 2 = 36 + 2 = <span class="ans">38</span></li>
+      </ol>
+    </div>
+
+    <h3>Worked Identification Example 2</h3>
+    <div class="eg">
+      <div class="eg-label">✏ Identify: 1, 3, 6, 10, 15…</div>
+      <ol>
+        <li>Differences: 2, 3, 4, 5 — increasing by 1 each time.</li>
+        <li>This is not constant (not linear) and not doubling.</li>
+        <li>Each difference increases by 1 → these are <b>triangular numbers</b>.</li>
+        <li>Next difference = 6, so next term = 15 + 6 = <span class="ans">21</span>.</li>
+        <li>Formula check: triangular number T(n) = n(n+1)/2. T(6) = 6×7/2 = 21 ✓</li>
+      </ol>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════ 7. POWERS OF 10 EXTENDED ══════════════════════ -->
+<div class="card t-amber" id="s7">
+  <div class="card-head">
+    <div class="card-num">7</div>
+    <h2>Powers of 10 — Ordering &amp; Comparison</h2>
+  </div>
+  <div class="card-body">
+
+    <p>GL papers use powers of 10 to test number sense with very large values. The key skill is comparing them without computing the full numbers.</p>
+
+    <h3>Comparing Large Numbers</h3>
+    <div class="eg">
+      <div class="eg-label">✏ Worked Example — Which is larger: 3 × 10⁴ or 2 × 10⁵?</div>
+      <ol>
+        <li>Expand: <span class="m">3 × 10⁴ = 3 × 10,000 = 30,000</span></li>
+        <li>Expand: <span class="m">2 × 10⁵ = 2 × 100,000 = 200,000</span></li>
+        <li>Compare: <span class="ans">2 × 10⁵ is larger</span> (200,000 > 30,000)</li>
+      </ol>
+      <p style="font-size:13px;color:var(--slate-500);margin-top:6px">
+        Shortcut: A higher power of 10 always wins — unless the coefficient (the multiplier) is dramatically different. Always expand to be sure.
+      </p>
+    </div>
+
+    <h3>Ordering Multiple Values</h3>
+    <div class="eg">
+      <div class="eg-label">✏ Worked Example — Order from smallest to largest</div>
+      <p>4 × 10³ &nbsp; · &nbsp; 8 × 10² &nbsp; · &nbsp; 5 × 10³ &nbsp; · &nbsp; 3 × 10⁴</p>
+      <ol>
+        <li>Convert all: 4000, 800, 5000, 30,000</li>
+        <li>Order: <span class="ans">800 &lt; 4000 &lt; 5000 &lt; 30,000</span></li>
+        <li>In original form: <span class="ans">8×10² &lt; 4×10³ &lt; 5×10³ &lt; 3×10⁴</span></li>
+      </ol>
+    </div>
+
+    <div class="box tip">
+      <div class="box-icon">💡</div>
+      <div class="box-body">
+        <strong>Quick Ordering Rule</strong>
+        Compare the powers of 10 first. If the powers differ, the higher power always gives a larger number (as long as the coefficient is a single digit 1–9). Only when the powers are equal do you compare the coefficients.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════ 8. PRACTICE ══════════════════════ -->
+<div class="card t-green" id="s8">
+  <div class="card-head">
+    <div class="card-num">8</div>
+    <h2>Graded Practice Questions</h2>
+  </div>
+  <div class="card-body">
+
+    <p>Work through each question independently before checking the answer. Difficulty increases from Q1 to Q8.</p>
+
+    <!-- Q1 -->
+    <div class="pq easy">
+      <div class="pq-top">
+        <div class="pq-n">1</div>
+        <div class="pq-text">
+          Simplify each expression using index laws. Leave your answer as a power.<br>
+          <b>(a)</b> 5⁴ × 5³ &nbsp;&nbsp; <b>(b)</b> 7⁶ ÷ 7² &nbsp;&nbsp; <b>(c)</b> (3²)⁴
+        </div>
+        <div class="pq-badge">Easy · Index Laws</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="ans-body">
+          <p><b>(a)</b> Same base, multiplying → add exponents: 4 + 3 = <span class="ans">5⁷</span></p>
+          <p><b>(b)</b> Same base, dividing → subtract exponents: 6 − 2 = <span class="ans">7⁴ = 2401</span></p>
+          <p><b>(c)</b> Power of a power → multiply exponents: 2 × 4 = <span class="ans">3⁸ = 6561</span></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q2 -->
+    <div class="pq easy">
+      <div class="pq-top">
+        <div class="pq-n">2</div>
+        <div class="pq-text">
+          <b>True or false?</b> Explain your reasoning for any false statement.<br>
+          <b>(a)</b> 2³ × 2⁵ = 2¹⁵ &nbsp;&nbsp;&nbsp;
+          <b>(b)</b> 4⁶ ÷ 4² = 4³ &nbsp;&nbsp;&nbsp;
+          <b>(c)</b> (6²)³ = 6⁶
+        </div>
+        <div class="pq-badge">Easy · Index Laws</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="ans-body">
+          <p><b>(a) False.</b> Multiplying powers → add, not multiply exponents. 2³ × 2⁵ = <span class="ans">2⁸</span>, not 2¹⁵.</p>
+          <p><b>(b) False.</b> Dividing powers → subtract. 4⁶ ÷ 4² = <span class="ans">4⁴</span>, not 4³.</p>
+          <p><b>(c) True.</b> (6²)³ = 6^(2×3) = <span class="ans">6⁶</span> ✓</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q3 -->
+    <div class="pq easy">
+      <div class="pq-top">
+        <div class="pq-n">3</div>
+        <div class="pq-text">
+          Find the value of: &nbsp; <b>(a)</b> ∛27 &nbsp;&nbsp; <b>(b)</b> ∛125 &nbsp;&nbsp;
+          <b>(c)</b> ∛1 &nbsp;&nbsp; <b>(d)</b> What is the cube root of 64?
+        </div>
+        <div class="pq-badge">Easy · Cube Roots</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="ans-body">
+          <p><b>(a)</b> ∛27 = <span class="ans">3</span> (because 3³ = 27)</p>
+          <p><b>(b)</b> ∛125 = <span class="ans">5</span> (because 5³ = 125)</p>
+          <p><b>(c)</b> ∛1 = <span class="ans">1</span></p>
+          <p><b>(d)</b> ∛64 = <span class="ans">4</span> (because 4³ = 64) — not 8 (that's √64).</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q4 -->
+    <div class="pq easy">
+      <div class="pq-top">
+        <div class="pq-n">4</div>
+        <div class="pq-text">
+          Find <em>all possible values</em> of x in each equation:<br>
+          <b>(a)</b> x² = 36 &nbsp;&nbsp; <b>(b)</b> x² = 121 &nbsp;&nbsp; <b>(c)</b> x² = 144
+        </div>
+        <div class="pq-badge">Easy · ± Square Roots</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="ans-body">
+          <p>Since both positive and negative values square to give the same result:</p>
+          <p><b>(a)</b> x = <span class="ans">+6 or −6</span> (written x = ±6)</p>
+          <p><b>(b)</b> x = <span class="ans">+11 or −11</span> (written x = ±11)</p>
+          <p><b>(c)</b> x = <span class="ans">+12 or −12</span> (written x = ±12)</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q5 -->
+    <div class="pq med">
+      <div class="pq-top">
+        <div class="pq-n">5</div>
+        <div class="pq-text">
+          Between which two consecutive integers does each square root lie? Do not use a calculator.<br>
+          <b>(a)</b> √20 &nbsp;&nbsp; <b>(b)</b> √85 &nbsp;&nbsp; <b>(c)</b> √200
+        </div>
+        <div class="pq-badge">Medium · Estimation</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="ans-body">
+          <p><b>(a)</b> 4² = 16 and 5² = 25. Since 16 &lt; 20 &lt; 25, <span class="ans">√20 is between 4 and 5</span>. (Closer to 4.)</p>
+          <p><b>(b)</b> 9² = 81 and 10² = 100. Since 81 &lt; 85 &lt; 100, <span class="ans">√85 is between 9 and 10</span>. (Closer to 9.)</p>
+          <p><b>(c)</b> 14² = 196 and 15² = 225. Since 196 &lt; 200 &lt; 225, <span class="ans">√200 is between 14 and 15</span>. (Very close to 14.)</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q6 -->
+    <div class="pq med">
+      <div class="pq-top">
+        <div class="pq-n">6</div>
+        <div class="pq-text">
+          Look at this sequence: &nbsp; <b>0, 3, 8, 15, 24…</b><br>
+          (a) What type of sequence is this? &nbsp; (b) Write the next two terms. &nbsp; (c) Write a formula for the nth term.
+        </div>
+        <div class="pq-badge">Medium · Sequences</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="ans-body">
+          <ol>
+            <li>Differences: 3, 5, 7, 9 — odd numbers, increasing by 2. This is a <b>modified square sequence</b>.</li>
+            <li>Compare to n²: 1,4,9,16,25. The terms are each <b>one less</b>: 0=1−1, 3=4−1, 8=9−1, 15=16−1, 24=25−1.</li>
+            <li>Formula: nth term = <span class="ans">n² − 1</span></li>
+            <li>Next two terms: 6²−1 = <span class="ans">35</span>, then 7²−1 = <span class="ans">48</span></li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q7 -->
+    <div class="pq med">
+      <div class="pq-top">
+        <div class="pq-n">7</div>
+        <div class="pq-text">
+          A square room has an area of 196 m².
+          (a) What is the side length of the room?
+          (b) What is the perimeter?
+          (c) Skirting board costs £4.50 per metre. How much does it cost to fit skirting board around the entire room?
+        </div>
+        <div class="pq-badge">Medium · Geometry Application</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="ans-body">
+          <ol>
+            <li>Side = √196 = <span class="ans">14 m</span> (because 14² = 196)</li>
+            <li>Perimeter = 4 × 14 = <span class="ans">56 m</span></li>
+            <li>Cost = 56 × £4.50 = <span class="ans">£252</span></li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q8 -->
+    <div class="pq hard">
+      <div class="pq-top">
+        <div class="pq-n">8</div>
+        <div class="pq-text">
+          <b>GL-Style Multi-Step Problem.</b><br>
+          A storage cube has a volume of 125 cm³. A square tile has an area equal to one face of the cube.
+          (a) What is the side length of the cube?
+          (b) What is the area of one face?
+          (c) Nine of these square tiles are arranged in a 3×3 grid. What is the total area of the grid?
+          (d) Using an index law, express the side length of the 3×3 grid as a power, given that the tile side = 5¹.
+        </div>
+        <div class="pq-badge">Hard · Multi-Step</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="ans-body">
+          <ol>
+            <li>Volume = s³ = 125, so s = ∛125 = <span class="ans">5 cm</span></li>
+            <li>Area of one face = 5² = <span class="ans">25 cm²</span></li>
+            <li>Total area of 3×3 grid = 9 × 25 = <span class="ans">225 cm²</span></li>
+            <li>Side of grid = 3 × 5 = 15 cm. Expressed using index laws:<br>
+                Side = 3¹ × 5¹. The area = (3 × 5)² = 15² = 225 cm². ✓<br>
+                Alternatively: the grid side = 3 × 5¹, and 15² = 225 confirms our answer.
+            </li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<div style="text-align:center;padding:18px 0 8px;color:var(--slate-500);font-size:13px">
+  <strong style="color:var(--navy)">TrueMaths</strong> · 11+ GL Assessment Module · Powers, Squares &amp; Cubes
+  <br><span style="font-size:12px">Targeting Queen Elizabeth's School, Barnet and similar selective grammar schools</span>
+</div>
+
+</div><!-- /wrap -->
+</body>
+</html>

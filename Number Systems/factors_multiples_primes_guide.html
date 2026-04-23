@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Factors, Multiples &amp; Primes — 11+ GL Assessment Complete Guide</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+:root{
+  --bg:#faf9f5;--surface:#ffffff;--ink:#1c1917;--ink2:#44403c;--ink3:#78716c;
+  --border:#e7e5e0;--border2:#d6d3cd;
+  --teal:#0d9488;--teal-l:#f0fdfa;--teal-d:#115e59;
+  --amber:#d97706;--amber-l:#fffbeb;--amber-d:#92400e;
+  --blue:#2563eb;--blue-l:#eff6ff;--blue-d:#1e3a8a;
+  --rose:#e11d48;--rose-l:#fff1f2;--rose-d:#9f1239;
+  --violet:#7c3aed;--violet-l:#f5f3ff;--violet-d:#4c1d95;
+  --green:#16a34a;--green-l:#f0fdf4;--green-d:#14532d;
+  --orange:#ea580c;--orange-l:#fff7ed;--orange-d:#7c2d12;
+  --radius:10px;--radius-lg:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7}
+/* ── HEADER ── */
+.masthead{background:var(--ink);color:#fff;padding:52px 32px 40px;position:relative;overflow:hidden}
+.masthead::after{content:'';position:absolute;right:-60px;top:-60px;width:320px;height:320px;border-radius:50%;border:1px solid rgba(255,255,255,.06);pointer-events:none}
+.masthead::before{content:'';position:absolute;right:40px;top:40px;width:180px;height:180px;border-radius:50%;border:1px solid rgba(255,255,255,.04);pointer-events:none}
+.mast-inner{max-width:880px;margin:0 auto;position:relative}
+.mast-tag{display:inline-block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6ee7b7;background:rgba(110,231,183,.1);border:1px solid rgba(110,231,183,.2);padding:4px 12px;border-radius:20px;margin-bottom:18px;font-family:'JetBrains Mono',monospace}
+.masthead h1{font-family:'Instrument Serif',serif;font-size:clamp(30px,5vw,52px);font-weight:400;line-height:1.1;margin-bottom:12px}
+.masthead h1 em{color:#6ee7b7;font-style:italic}
+.mast-sub{color:rgba(255,255,255,.55);font-size:14px;max-width:500px;line-height:1.65}
+.toc{display:flex;flex-wrap:wrap;gap:7px;margin-top:28px}
+.toc a{font-size:12px;font-weight:500;color:rgba(255,255,255,.6);text-decoration:none;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);padding:5px 12px;border-radius:20px;transition:all .2s}
+.toc a:hover{background:rgba(255,255,255,.13);color:#fff}
+/* ── LAYOUT ── */
+main{max-width:880px;margin:0 auto;padding:48px 24px 80px}
+/* ── SECTION HEADER ── */
+.sh{display:flex;align-items:flex-start;gap:14px;margin:60px 0 26px;padding-bottom:18px;border-bottom:2.5px solid var(--ink)}
+.sn{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.08em;color:#fff;background:var(--ink);padding:4px 9px;border-radius:4px;margin-top:5px;flex-shrink:0}
+.sh h2{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;line-height:1.2}
+.sh h2 span{color:var(--teal)}
+/* ── CONCEPT ── */
+.concept{background:var(--teal-l);border-left:4px solid var(--teal);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;margin-bottom:22px;font-size:14.5px;color:var(--ink2)}
+.concept.amber{background:var(--amber-l);border-left-color:var(--amber)}
+.concept.blue{background:var(--blue-l);border-left-color:var(--blue)}
+.concept.violet{background:var(--violet-l);border-left-color:var(--violet)}
+.concept.rose{background:var(--rose-l);border-left-color:var(--rose)}
+.concept.orange{background:var(--orange-l);border-left-color:var(--orange)}
+/* ── WORKED EXAMPLE ── */
+.we{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:18px}
+.we-head{background:var(--ink);color:#fff;padding:10px 20px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.we-num{font-family:'JetBrains Mono',monospace;background:rgba(255,255,255,.14);border-radius:3px;padding:1px 8px;font-size:10px}
+.we-body{padding:20px 22px}
+.we-q{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.steps{display:flex;flex-direction:column;gap:9px}
+.step{display:flex;align-items:flex-start;gap:12px}
+.sn2{font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--bg);border:1px solid var(--border);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--ink3);margin-top:3px}
+.sc{font-size:14.5px;color:var(--ink);line-height:1.6}
+.calc{font-family:'JetBrains Mono',monospace;font-size:13px;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:2px 8px;display:inline-block}
+.ans{display:inline-block;background:var(--green-l);color:var(--green-d);border:1px solid #86efac;border-radius:4px;font-weight:600;font-size:13px;padding:3px 10px;margin-top:8px;font-family:'JetBrains Mono',monospace}
+.ans.teal{background:var(--teal-l);color:var(--teal-d);border-color:#5eead4}
+/* ── CALLOUT ── */
+.cl{border-radius:var(--radius);padding:13px 17px;margin:14px 0;font-size:14px;display:flex;gap:11px;align-items:flex-start}
+.cl.warn{background:var(--amber-l);border-left:4px solid var(--amber)}
+.cl.info{background:var(--blue-l);border-left:4px solid var(--blue)}
+.cl.ok{background:var(--green-l);border-left:4px solid var(--green)}
+.cl.violet{background:var(--violet-l);border-left:4px solid var(--violet)}
+.cl-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.cl p{color:var(--ink2);line-height:1.6}
+/* ── PRACTICE ── */
+.pset{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 22px;margin:26px 0}
+.ptitle{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px}
+.pq{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:13px 17px;margin-bottom:9px;font-size:14.5px}
+.pq-n{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--blue);font-weight:600;margin-bottom:4px}
+/* ── RAINBOW FACTOR ── */
+.rainbow-wrap{display:flex;flex-direction:column;align-items:center;margin:18px 0;padding:20px 0 10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg)}
+.rainbow-pairs{display:flex;flex-direction:column;align-items:center;gap:0;position:relative;width:100%}
+.rp-row{display:flex;justify-content:space-between;align-items:center;width:260px;position:relative;margin:0}
+.rp-num{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500;width:38px;text-align:center;padding:7px 0;z-index:2;position:relative}
+.rp-arc{position:absolute;left:50%;transform:translateX(-50%);border:2px solid;border-bottom:none;border-radius:120px 120px 0 0;pointer-events:none}
+.factor-list{font-family:'JetBrains Mono',monospace;font-size:14px;background:var(--teal-l);border:1px solid #5eead4;border-radius:var(--radius);padding:10px 16px;margin-top:10px;color:var(--teal-d);text-align:center}
+/* ── FACTOR TREE ── */
+.ftree{display:flex;flex-direction:column;align-items:center;gap:0;margin:18px auto;max-width:360px}
+.ft-row{display:flex;justify-content:center;gap:24px;position:relative;width:100%}
+.ft-node{display:flex;flex-direction:column;align-items:center;gap:0;position:relative}
+.ft-num{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500;background:var(--surface);border:1.5px solid var(--border2);border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
+.ft-num.prime{background:var(--violet-l);border-color:var(--violet);color:var(--violet-d);font-weight:600}
+.ft-line{width:2px;height:22px;background:var(--border2)}
+.ft-fork{display:flex;gap:40px;position:relative}
+.ft-fork::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:calc(100% - 42px);height:1px;background:var(--border2)}
+.ft-branch{display:flex;flex-direction:column;align-items:center}
+.ft-branch-line{width:2px;height:20px;background:var(--border2)}
+/* ── VENN DIAGRAM ── */
+.venn-wrap{display:flex;align-items:center;justify-content:center;margin:20px 0;gap:0;position:relative;min-height:130px}
+.venn-circle{width:200px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;font-size:13px}
+.vc-a{background:rgba(37,99,235,.12);border:2px solid rgba(37,99,235,.35);margin-right:-50px}
+.vc-b{background:rgba(220,38,38,.12);border:2px solid rgba(220,38,38,.35);margin-left:-50px}
+.venn-mid{position:absolute;left:50%;transform:translateX(-50%);z-index:5;text-align:center;width:80px}
+.venn-mid-inner{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;line-height:1.5}
+.vc-label{position:absolute;top:-24px;font-size:12px;font-weight:600;color:var(--ink2)}
+.vc-content{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink2);line-height:1.6;text-align:center;padding:0 8px}
+.vc-a .vc-content{padding-right:50px}
+.vc-b .vc-content{padding-left:50px}
+/* ── PRIME GRID ── */
+.prime-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin:16px 0}
+.pg-cell{font-family:'JetBrains Mono',monospace;font-size:13px;text-align:center;padding:7px 4px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--ink3)}
+.pg-cell.prime{background:var(--violet-l);border-color:var(--violet);color:var(--violet-d);font-weight:600}
+.pg-cell.one{background:var(--bg);color:var(--border2)}
+/* ── SQUARES TABLE ── */
+.sq-table{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0}
+.sq-table th{background:var(--ink);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;padding:9px 12px;text-align:center;font-weight:500;letter-spacing:.04em}
+.sq-table td{font-family:'JetBrains Mono',monospace;font-size:13px;text-align:center;padding:8px 10px;border-bottom:1px solid var(--border)}
+.sq-table tr:nth-child(even) td{background:var(--bg)}
+/* ── DIV RULES ── */
+.div-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:16px 0}
+.div-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+.div-num{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;margin-bottom:4px}
+.div-rule{font-size:14px;color:var(--ink2);margin-bottom:6px;line-height:1.5}
+.div-ex{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green-d);background:var(--green-l);border-radius:4px;padding:3px 8px;display:inline-block}
+/* ── ANSWERS ── */
+details{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:10px}
+summary{background:var(--ink);color:#fff;padding:13px 20px;cursor:pointer;font-size:14px;font-weight:500;display:flex;align-items:center;gap:8px;list-style:none;user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'▼';margin-left:auto;font-size:10px;opacity:.6}
+details[open] summary::after{content:'▲'}
+.ans-body{padding:16px 20px;background:var(--surface);display:flex;flex-direction:column;gap:6px}
+.ai{display:flex;gap:12px;align-items:flex-start;font-size:14px;padding:7px 0;border-bottom:1px solid var(--border)}
+.ai:last-child{border-bottom:none}
+.aq{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink3);min-width:36px}
+.aa{color:var(--green-d);font-weight:600;font-family:'JetBrains Mono',monospace;min-width:60px}
+.ae{color:var(--ink2);font-size:13px;line-height:1.5}
+/* ── WORD PROBLEM ── */
+.wp{background:var(--orange-l);border:1px solid #fed7aa;border-radius:var(--radius-lg);padding:18px 22px;margin-bottom:18px}
+.wp-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-d);margin-bottom:8px}
+.wp-q{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:14px;line-height:1.5}
+/* ── STRATEGY ── */
+.strat{background:var(--violet-l);border:1px solid #c4b5fd;border-radius:var(--radius);padding:16px 20px;margin:16px 0}
+.strat-title{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--violet-d);margin-bottom:10px}
+.strat ol,.strat ul{padding-left:18px}
+.strat li{font-size:14px;margin-bottom:5px;color:#4c1d95;line-height:1.55}
+/* ── CUBES ── */
+.cube-row{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.cube-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;text-align:center;flex:1;min-width:90px}
+.cube-exp{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink3);margin-bottom:2px}
+.cube-val{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;color:var(--orange-d)}
+.cube-vis{display:flex;gap:3px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.cube-sq{width:14px;height:14px;background:var(--orange-l);border:1px solid #fed7aa;border-radius:2px}
+/* ── TIP ── */
+.tip{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:10px;display:flex;gap:13px}
+.tip-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.tip strong{display:block;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.tip p{font-size:13.5px;color:var(--ink2);line-height:1.6}
+@media(max-width:600px){
+  .masthead{padding:36px 20px 28px}
+  .prime-grid{grid-template-columns:repeat(5,1fr)}
+  .div-grid{grid-template-columns:1fr}
+  .ft-fork{gap:20px}
+  .venn-circle{width:160px;height:100px}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="mast-inner">
+    <div class="mast-tag">11+ GL Assessment · Complete Study Guide</div>
+    <h1>Factors, Multiples<br>&amp; <em>Prime Numbers</em></h1>
+    <p class="mast-sub">A comprehensive, examiner-proof guide covering every question type — from basic factors to prime factorisation, Venn diagrams, HCF/LCM of three numbers, and full word problems.</p>
+    <nav class="toc">
+      <a href="#s1">1 · Factors</a>
+      <a href="#s2">2 · Multiples</a>
+      <a href="#s3">3 · Divisibility Rules</a>
+      <a href="#s4">4 · Prime Numbers</a>
+      <a href="#s5">5 · Squares &amp; Roots</a>
+      <a href="#s6">6 · Cube Numbers</a>
+      <a href="#s7">7 · Prime Factorisation</a>
+      <a href="#s8">8 · HCF &amp; LCM</a>
+      <a href="#s9">9 · Word Problems</a>
+      <a href="#s10">10 · Exam Tips</a>
+      <a href="#s11">11 · Answers</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ══ SECTION 1: FACTORS ══ -->
+<div class="sh" id="s1">
+  <span class="sn">01</span>
+  <h2>Factors — <span>Finding &amp; Counting</span></h2>
+</div>
+
+<div class="concept">
+  A <strong>factor</strong> of a number divides into it exactly, leaving no remainder. Factors always come in pairs and are always <em>equal to or smaller than</em> the original number.
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 1</span> Rainbow method — factors of 24</div>
+  <div class="we-body">
+    <div class="we-q">Find all the factors of 24 using the rainbow (pair) method.</div>
+    <div class="rainbow-wrap">
+      <div class="rainbow-pairs" style="height:180px;width:280px;position:relative">
+        <!-- arcs drawn with absolute borders -->
+        <div style="position:absolute;left:14px;right:14px;bottom:40px;height:130px;border:2px solid #e11d48;border-bottom:none;border-radius:120px 120px 0 0;opacity:.7"></div>
+        <div style="position:absolute;left:52px;right:52px;bottom:40px;height:90px;border:2px solid #d97706;border-bottom:none;border-radius:80px 80px 0 0;opacity:.7"></div>
+        <div style="position:absolute;left:90px;right:90px;bottom:40px;height:55px;border:2px solid #16a34a;border-bottom:none;border-radius:50px 50px 0 0;opacity:.7"></div>
+        <div style="position:absolute;left:128px;right:128px;bottom:40px;height:28px;border:2px solid #7c3aed;border-bottom:none;border-radius:24px 24px 0 0;opacity:.7"></div>
+        <!-- numbers row -->
+        <div style="position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:space-between;padding:0 10px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500">1</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500">2</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500">3</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500">4</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500">6</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500">8</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500">12</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500">24</span>
+        </div>
+        <div style="position:absolute;bottom:0px;left:0;right:0;display:flex;justify-content:space-between;padding:0 10px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#e11d48">×24</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#d97706">×12</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#16a34a">×8</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#7c3aed">×6</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#7c3aed">×4</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#16a34a">×3</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#d97706">×2</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#e11d48">×1</span>
+        </div>
+      </div>
+      <div class="factor-list">Factors of 24: {1, 2, 3, 4, 6, 8, 12, 24}</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">Start: <span class="calc">1 × 24 = 24</span>. Write 1 and 24 at the outer ends.</div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">Test 2: <span class="calc">24 ÷ 2 = 12</span> ✓. Add 2 and 12.</div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc">Test 3: <span class="calc">24 ÷ 3 = 8</span> ✓. Add 3 and 8.</div></div>
+      <div class="step"><div class="sn2">4</div><div class="sc">Test 4: <span class="calc">24 ÷ 4 = 6</span> ✓. Add 4 and 6.</div></div>
+      <div class="step"><div class="sn2">5</div><div class="sc">Test 5: <span class="calc">24 ÷ 5 = 4.8</span> ✗. Skip.</div></div>
+      <div class="step"><div class="sn2">6</div><div class="sc">Test 6: already listed (from the pair with 4). When the next test value ≥ the pair you'd get, you're done.</div></div>
+    </div>
+    <div class="ans">8 factors total</div>
+  </div>
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 2</span> Larger number — factors of 84</div>
+  <div class="we-body">
+    <div class="we-q">Find all factors of 84. Use divisibility rules to speed up testing.</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc"><span class="calc">1 × 84</span></div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">84 is even → <span class="calc">2 × 42</span></div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc">8+4=12, divisible by 3 → <span class="calc">3 × 28</span></div></div>
+      <div class="step"><div class="sn2">4</div><div class="sc">Last two digits 84 ÷ 4 = 21 → <span class="calc">4 × 21</span></div></div>
+      <div class="step"><div class="sn2">5</div><div class="sc">Doesn't end in 0 or 5 → 5 ✗</div></div>
+      <div class="step"><div class="sn2">6</div><div class="sc">Even AND divisible by 3 → <span class="calc">6 × 14</span></div></div>
+      <div class="step"><div class="sn2">7</div><div class="sc"><span class="calc">84 ÷ 7 = 12</span> → <span class="calc">7 × 12</span></div></div>
+      <div class="step"><div class="sn2">8</div><div class="sc"><span class="calc">84 ÷ 8 = 10.5</span> ✗</div></div>
+      <div class="step"><div class="sn2">9</div><div class="sc"><span class="calc">84 ÷ 9 = 9.3…</span> ✗ — and next would be 84 ÷ 10 &lt; 9.2, so we're done.</div></div>
+    </div>
+    <div class="factor-list" style="margin-top:12px">Factors of 84: {1, 2, 3, 4, 6, 7, 12, 14, 21, 28, 42, 84}</div>
+    <div class="ans">12 factors total</div>
+  </div>
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 3</span> Counting factors — and the square number rule</div>
+  <div class="we-body">
+    <div class="we-q">How many factors does 36 have? What is special about this count?</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">List pairs: <span class="calc">1×36, 2×18, 3×12, 4×9, 6×6</span></div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">Notice: 6×6 — both numbers in the pair are the same. This only happens for square numbers.</div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc">Full list: {1, 2, 3, 4, 6, 9, 12, 18, 36} → 9 factors.</div></div>
+    </div>
+    <div class="cl violet" style="margin-top:12px">
+      <span class="cl-icon">★</span>
+      <p><strong>Square number rule:</strong> Square numbers always have an <em>odd</em> number of factors. This is because one pair has both numbers equal (e.g. 6×6), so it contributes only one factor to the list rather than two. Non-square numbers always have an even count of factors.</p>
+    </div>
+    <div class="ans">36 has 9 factors (odd — because 36 is a square number)</div>
+  </div>
+</div>
+
+<div class="pset">
+  <div class="ptitle">✏ Practice — Section 1</div>
+  <div class="pq"><div class="pq-n">Q1.1</div>List all the factors of 48 using the rainbow method.</div>
+  <div class="pq"><div class="pq-n">Q1.2</div>Find all factors of 120. How many are there?</div>
+  <div class="pq"><div class="pq-n">Q1.3</div>Which of these have an odd number of factors: 16, 20, 25, 30, 49? What do they have in common?</div>
+  <div class="pq"><div class="pq-n">Q1.4</div>True or false: 7 is a factor of 91. Show your working.</div>
+</div>
+
+<!-- ══ SECTION 2: MULTIPLES ══ -->
+<div class="sh" id="s2">
+  <span class="sn">02</span>
+  <h2>Multiples — <span>Times Tables &amp; Beyond</span></h2>
+</div>
+
+<div class="concept amber">
+  A <strong>multiple</strong> of a number is what you get when you multiply it by any positive integer. Multiples are always <em>equal to or greater than</em> the original number. There are infinitely many multiples of any number.
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 1</span> First ten multiples of 7</div>
+  <div class="we-body">
+    <div class="we-q">List the first ten multiples of 7.</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0">
+      <div style="background:var(--amber-l);border:1px solid #fcd34d;border-radius:7px;padding:8px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--amber-d)">7</div>
+      <div style="background:var(--amber-l);border:1px solid #fcd34d;border-radius:7px;padding:8px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--amber-d)">14</div>
+      <div style="background:var(--amber-l);border:1px solid #fcd34d;border-radius:7px;padding:8px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--amber-d)">21</div>
+      <div style="background:var(--amber-l);border:1px solid #fcd34d;border-radius:7px;padding:8px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--amber-d)">28</div>
+      <div style="background:var(--amber-l);border:1px solid #fcd34d;border-radius:7px;padding:8px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--amber-d)">35</div>
+      <div style="background:var(--amber-l);border:1px solid #fcd34d;border-radius:7px;padding:8px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--amber-d)">42</div>
+      <div style="background:var(--amber-l);border:1px solid #fcd34d;border-radius:7px;padding:8px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--amber-d)">49</div>
+      <div style="background:var(--amber-l);border:1px solid #fcd34d;border-radius:7px;padding:8px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--amber-d)">56</div>
+      <div style="background:var(--amber-l);border:1px solid #fcd34d;border-radius:7px;padding:8px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--amber-d)">63</div>
+      <div style="background:var(--amber-l);border:1px solid #fcd34d;border-radius:7px;padding:8px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--amber-d)">70</div>
+    </div>
+    <div class="sc" style="font-size:14px">Multiples of 7: {7, 14, 21, 28, 35, 42, 49, 56, 63, 70, …}</div>
+  </div>
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 2</span> Is a number a multiple?</div>
+  <div class="we-body">
+    <div class="we-q">Is 126 a multiple of 9?</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">Divide: <span class="calc">126 ÷ 9 = 14</span> exactly (no remainder).</div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">Yes — 126 is a multiple of 9 (it is 9 × 14).</div></div>
+    </div>
+    <div class="cl info" style="margin-top:10px"><span class="cl-icon">ℹ</span><p>Quick check: digit sum of 126 = 1+2+6 = 9, which is divisible by 9 — so 126 is a multiple of 9.</p></div>
+  </div>
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 3</span> Multiples in a range</div>
+  <div class="we-body">
+    <div class="we-q">How many multiples of 8 are there between 50 and 100?</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">First multiple of 8 after 50: <span class="calc">8 × 7 = 56</span>.</div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">List them: 56, 64, 72, 80, 88, 96.</div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc">Next would be 104 — beyond 100, so stop.</div></div>
+    </div>
+    <div class="ans">6 multiples of 8 between 50 and 100</div>
+  </div>
+</div>
+
+<div class="pset">
+  <div class="ptitle">✏ Practice — Section 2</div>
+  <div class="pq"><div class="pq-n">Q2.1</div>List the first eight multiples of 11.</div>
+  <div class="pq"><div class="pq-n">Q2.2</div>Is 144 a multiple of 12? Is it a multiple of 7? Show working.</div>
+  <div class="pq"><div class="pq-n">Q2.3</div>How many multiples of 6 lie between 30 and 80 (not including 30 or 80)?</div>
+  <div class="pq"><div class="pq-n">Q2.4</div>A number is a multiple of both 4 and 6. What is the smallest such number greater than 20?</div>
+</div>
+
+<!-- ══ SECTION 3: DIVISIBILITY RULES ══ -->
+<div class="sh" id="s3">
+  <span class="sn">03</span>
+  <h2>Divisibility <span>Rules</span></h2>
+</div>
+
+<div class="concept blue">
+  Divisibility rules let you check whether a number divides exactly into another <em>without doing the full division</em>. Under exam time pressure, these save crucial seconds.
+</div>
+
+<div class="div-grid">
+  <div class="div-card">
+    <div class="div-num" style="color:var(--teal-d)">÷ 2</div>
+    <div class="div-rule">The last digit is even (0, 2, 4, 6, or 8).</div>
+    <div class="div-ex">346 ✓ (ends in 6) · 573 ✗</div>
+  </div>
+  <div class="div-card">
+    <div class="div-num" style="color:var(--blue-d)">÷ 3</div>
+    <div class="div-rule">The sum of all digits is divisible by 3.</div>
+    <div class="div-ex">417 → 4+1+7=12 ✓ · 514 → 10 ✗</div>
+  </div>
+  <div class="div-card">
+    <div class="div-num" style="color:var(--violet-d)">÷ 4</div>
+    <div class="div-rule">The last two digits form a number divisible by 4.</div>
+    <div class="div-ex">1,332 → 32÷4=8 ✓ · 1,334 → 34÷4=8.5 ✗</div>
+  </div>
+  <div class="div-card">
+    <div class="div-num" style="color:var(--green-d)">÷ 5</div>
+    <div class="div-rule">The last digit is 0 or 5.</div>
+    <div class="div-ex">485 ✓ · 672 ✗</div>
+  </div>
+  <div class="div-card">
+    <div class="div-num" style="color:var(--rose-d)">÷ 6</div>
+    <div class="div-rule">Divisible by BOTH 2 AND 3.</div>
+    <div class="div-ex">612: even ✓, 6+1+2=9 ✓ → ÷6 ✓</div>
+  </div>
+  <div class="div-card">
+    <div class="div-num" style="color:var(--amber-d)">÷ 8</div>
+    <div class="div-rule">The last three digits form a number divisible by 8.</div>
+    <div class="div-ex">5,128 → 128÷8=16 ✓ · 5,124 → 124÷8=15.5 ✗</div>
+  </div>
+  <div class="div-card">
+    <div class="div-num" style="color:var(--orange-d)">÷ 9</div>
+    <div class="div-rule">The sum of all digits is divisible by 9.</div>
+    <div class="div-ex">729 → 7+2+9=18 ✓ · 732 → 12 ✗</div>
+  </div>
+  <div class="div-card">
+    <div class="div-num" style="color:var(--ink2)">÷ 10</div>
+    <div class="div-rule">The last digit is 0.</div>
+    <div class="div-ex">4,560 ✓ · 4,565 ✗</div>
+  </div>
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 1</span> Apply rules to 756</div>
+  <div class="we-body">
+    <div class="we-q">Which of the numbers 2, 3, 4, 5, 6, 8, 9, 10 divide exactly into 756?</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc"><strong>÷2:</strong> Ends in 6 (even) → ✓</div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc"><strong>÷3:</strong> 7+5+6 = 18, divisible by 3 → ✓</div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc"><strong>÷4:</strong> Last two digits = 56; 56 ÷ 4 = 14 → ✓</div></div>
+      <div class="step"><div class="sn2">4</div><div class="sc"><strong>÷5:</strong> Ends in 6, not 0 or 5 → ✗</div></div>
+      <div class="step"><div class="sn2">5</div><div class="sc"><strong>÷6:</strong> Divisible by 2 ✓ and 3 ✓ → ✓</div></div>
+      <div class="step"><div class="sn2">6</div><div class="sc"><strong>÷8:</strong> Last three digits = 756; 756 ÷ 8 = 94.5 → ✗</div></div>
+      <div class="step"><div class="sn2">7</div><div class="sc"><strong>÷9:</strong> Digit sum = 18, divisible by 9 → ✓</div></div>
+      <div class="step"><div class="sn2">8</div><div class="sc"><strong>÷10:</strong> Ends in 6, not 0 → ✗</div></div>
+    </div>
+    <div class="ans">756 is divisible by: 2, 3, 4, 6, 9</div>
+  </div>
+</div>
+
+<div class="pset">
+  <div class="ptitle">✏ Practice — Section 3</div>
+  <div class="pq"><div class="pq-n">Q3.1</div>Which of 2, 3, 4, 5, 6, 8, 9, 10 divide exactly into 360?</div>
+  <div class="pq"><div class="pq-n">Q3.2</div>A number ends in 4 and its digit sum is 15. Which divisibility rules does it satisfy?</div>
+  <div class="pq"><div class="pq-n">Q3.3</div>What is the smallest three-digit number divisible by both 6 and 9?</div>
+  <div class="pq"><div class="pq-n">Q3.4</div>True or false: every number divisible by 6 is also divisible by 12. Give a counterexample if false.</div>
+</div>
+
+<!-- ══ SECTION 4: PRIME NUMBERS ══ -->
+<div class="sh" id="s4">
+  <span class="sn">04</span>
+  <h2>Prime Numbers — <span>Definition &amp; Testing</span></h2>
+</div>
+
+<div class="concept violet">
+  A <strong>prime number</strong> has <em>exactly two factors</em>: 1 and itself. A number with more than two factors is called <strong>composite</strong>.
+</div>
+
+<div class="cl warn" style="margin-bottom:18px">
+  <span class="cl-icon">⚠</span>
+  <div>
+    <p><strong>1 is NOT prime.</strong> It has only one factor (itself), not two. <strong>0 is NOT prime</strong> either — it has infinitely many factors.</p>
+    <p style="margin-top:6px"><strong>2 is the only even prime.</strong> Every other even number has 2 as a factor, giving it at least three factors (1, 2, and itself), making it composite.</p>
+  </div>
+</div>
+
+<h3 style="font-size:16px;font-weight:600;margin:22px 0 12px;color:var(--ink2)">All primes up to 100</h3>
+<div class="prime-grid">
+  <div class="pg-cell one">1</div>
+  <div class="pg-cell prime">2</div>
+  <div class="pg-cell prime">3</div>
+  <div class="pg-cell">4</div>
+  <div class="pg-cell prime">5</div>
+  <div class="pg-cell">6</div>
+  <div class="pg-cell prime">7</div>
+  <div class="pg-cell">8</div>
+  <div class="pg-cell">9</div>
+  <div class="pg-cell">10</div>
+  <div class="pg-cell prime">11</div>
+  <div class="pg-cell">12</div>
+  <div class="pg-cell prime">13</div>
+  <div class="pg-cell">14</div>
+  <div class="pg-cell">15</div>
+  <div class="pg-cell">16</div>
+  <div class="pg-cell prime">17</div>
+  <div class="pg-cell">18</div>
+  <div class="pg-cell prime">19</div>
+  <div class="pg-cell">20</div>
+  <div class="pg-cell">21</div>
+  <div class="pg-cell">22</div>
+  <div class="pg-cell prime">23</div>
+  <div class="pg-cell">24</div>
+  <div class="pg-cell">25</div>
+  <div class="pg-cell">26</div>
+  <div class="pg-cell">27</div>
+  <div class="pg-cell">28</div>
+  <div class="pg-cell prime">29</div>
+  <div class="pg-cell">30</div>
+  <div class="pg-cell prime">31</div>
+  <div class="pg-cell">32</div>
+  <div class="pg-cell">33</div>
+  <div class="pg-cell">34</div>
+  <div class="pg-cell">35</div>
+  <div class="pg-cell">36</div>
+  <div class="pg-cell prime">37</div>
+  <div class="pg-cell">38</div>
+  <div class="pg-cell">39</div>
+  <div class="pg-cell">40</div>
+  <div class="pg-cell prime">41</div>
+  <div class="pg-cell">42</div>
+  <div class="pg-cell prime">43</div>
+  <div class="pg-cell">44</div>
+  <div class="pg-cell">45</div>
+  <div class="pg-cell">46</div>
+  <div class="pg-cell prime">47</div>
+  <div class="pg-cell">48</div>
+  <div class="pg-cell">49</div>
+  <div class="pg-cell">50</div>
+  <div class="pg-cell">51</div>
+  <div class="pg-cell">52</div>
+  <div class="pg-cell prime">53</div>
+  <div class="pg-cell">54</div>
+  <div class="pg-cell">55</div>
+  <div class="pg-cell">56</div>
+  <div class="pg-cell">57</div>
+  <div class="pg-cell">58</div>
+  <div class="pg-cell prime">59</div>
+  <div class="pg-cell">60</div>
+  <div class="pg-cell prime">61</div>
+  <div class="pg-cell">62</div>
+  <div class="pg-cell">63</div>
+  <div class="pg-cell">64</div>
+  <div class="pg-cell">65</div>
+  <div class="pg-cell">66</div>
+  <div class="pg-cell prime">67</div>
+  <div class="pg-cell">68</div>
+  <div class="pg-cell">69</div>
+  <div class="pg-cell">70</div>
+  <div class="pg-cell prime">71</div>
+  <div class="pg-cell">72</div>
+  <div class="pg-cell prime">73</div>
+  <div class="pg-cell">74</div>
+  <div class="pg-cell">75</div>
+  <div class="pg-cell">76</div>
+  <div class="pg-cell">77</div>
+  <div class="pg-cell">78</div>
+  <div class="pg-cell prime">79</div>
+  <div class="pg-cell">80</div>
+  <div class="pg-cell">81</div>
+  <div class="pg-cell">82</div>
+  <div class="pg-cell prime">83</div>
+  <div class="pg-cell">84</div>
+  <div class="pg-cell">85</div>
+  <div class="pg-cell">86</div>
+  <div class="pg-cell">87</div>
+  <div class="pg-cell">88</div>
+  <div class="pg-cell prime">89</div>
+  <div class="pg-cell">90</div>
+  <div class="pg-cell">91</div>
+  <div class="pg-cell">92</div>
+  <div class="pg-cell">93</div>
+  <div class="pg-cell">94</div>
+  <div class="pg-cell">95</div>
+  <div class="pg-cell">96</div>
+  <div class="pg-cell prime">97</div>
+  <div class="pg-cell">98</div>
+  <div class="pg-cell">99</div>
+  <div class="pg-cell">100</div>
+</div>
+<p style="font-size:13px;color:var(--ink3);margin-top:6px">Purple = prime · Grey = composite · Faded = 1 (neither prime nor composite)</p>
+
+<div class="strat" style="margin-top:20px">
+  <div class="strat-title">Method: Testing if a number is prime (trial division up to √n)</div>
+  <ol>
+    <li>Estimate √n. (e.g. for 97: √97 ≈ 9.8, so test primes up to 9.)</li>
+    <li>Try dividing by each prime in order: 2, 3, 5, 7, 11, …</li>
+    <li>If none divide exactly, the number is prime.</li>
+    <li>You only need to test primes (not all numbers) — if 4 doesn't divide it, neither does 8, etc.</li>
+  </ol>
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 1</span> Is 97 prime?</div>
+  <div class="we-body">
+    <div class="we-q">Test whether 97 is a prime number.</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">√97 ≈ 9.8 → test primes up to 9: that's 2, 3, 5, 7.</div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">÷2: 97 is odd → ✗</div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc">÷3: 9+7=16, not divisible by 3 → ✗</div></div>
+      <div class="step"><div class="sn2">4</div><div class="sc">÷5: doesn't end in 0 or 5 → ✗</div></div>
+      <div class="step"><div class="sn2">5</div><div class="sc">÷7: <span class="calc">97 ÷ 7 = 13.8…</span> → ✗</div></div>
+      <div class="step"><div class="sn2">6</div><div class="sc">No prime up to √97 divides it → 97 is prime. ✓</div></div>
+    </div>
+    <div class="ans">97 is prime</div>
+  </div>
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 2</span> Is 91 prime?</div>
+  <div class="we-body">
+    <div class="we-q">Test whether 91 is a prime number. (A common exam trap!)</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">√91 ≈ 9.5 → test 2, 3, 5, 7.</div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">÷2: odd → ✗. ÷3: 9+1=10 → ✗. ÷5: ends in 1 → ✗.</div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc">÷7: <span class="calc">91 ÷ 7 = 13</span> exactly → ✗ — 91 is NOT prime.</div></div>
+    </div>
+    <div class="cl warn" style="margin-top:10px"><span class="cl-icon">⚠</span><p>91 = 7 × 13. This is a classic GL trap — it <em>looks</em> prime but isn't. Always test up to √n.</p></div>
+    <div class="ans" style="background:var(--rose-l);color:var(--rose-d);border-color:#fda4af">91 is NOT prime (= 7 × 13)</div>
+  </div>
+</div>
+
+<div class="pset">
+  <div class="ptitle">✏ Practice — Section 4</div>
+  <div class="pq"><div class="pq-n">Q4.1</div>List all prime numbers between 50 and 70.</div>
+  <div class="pq"><div class="pq-n">Q4.2</div>Test whether each of these is prime: 77, 83, 119, 127.</div>
+  <div class="pq"><div class="pq-n">Q4.3</div>What is the sum of the first five prime numbers?</div>
+  <div class="pq"><div class="pq-n">Q4.4</div>Find two prime numbers that add to give 40. (There is more than one answer.)</div>
+</div>
+
+<!-- ══ SECTION 5: SQUARES ══ -->
+<div class="sh" id="s5">
+  <span class="sn">05</span>
+  <h2>Square Numbers <span>&amp; Square Roots</span></h2>
+</div>
+
+<div class="concept rose">
+  A <strong>square number</strong> is the result of multiplying a whole number by itself. The <strong>square root</strong> of a number is the value that was squared to get it. Square numbers always have an <em>odd</em> number of factors.
+</div>
+
+<table class="sq-table">
+  <thead>
+    <tr><th>n</th><th>n²</th><th>√(n²)</th><th>No. of factors</th><th>Odd count?</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>✓ (1 is a special case)</td></tr>
+    <tr><td>2</td><td>4</td><td>2</td><td>3 — {1,2,4}</td><td>✓</td></tr>
+    <tr><td>3</td><td>9</td><td>3</td><td>3 — {1,3,9}</td><td>✓</td></tr>
+    <tr><td>4</td><td>16</td><td>4</td><td>5 — {1,2,4,8,16}</td><td>✓</td></tr>
+    <tr><td>5</td><td>25</td><td>5</td><td>3 — {1,5,25}</td><td>✓</td></tr>
+    <tr><td>6</td><td>36</td><td>6</td><td>9 — {1,2,3,4,6,9,12,18,36}</td><td>✓</td></tr>
+    <tr><td>7</td><td>49</td><td>7</td><td>3 — {1,7,49}</td><td>✓</td></tr>
+    <tr><td>8</td><td>64</td><td>8</td><td>7 — {1,2,4,8,16,32,64}</td><td>✓</td></tr>
+    <tr><td>9</td><td>81</td><td>9</td><td>5 — {1,3,9,27,81}</td><td>✓</td></tr>
+    <tr><td>10</td><td>100</td><td>10</td><td>9</td><td>✓</td></tr>
+    <tr><td>11</td><td>121</td><td>11</td><td>3</td><td>✓</td></tr>
+    <tr><td>12</td><td>144</td><td>12</td><td>15</td><td>✓</td></tr>
+    <tr><td>13</td><td>169</td><td>13</td><td>3</td><td>✓</td></tr>
+    <tr><td>14</td><td>196</td><td>14</td><td>9</td><td>✓</td></tr>
+    <tr><td>15</td><td>225</td><td>15</td><td>9</td><td>✓</td></tr>
+  </tbody>
+</table>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 1</span> Identifying square numbers</div>
+  <div class="we-body">
+    <div class="we-q">Which numbers in this list are square numbers? 48, 64, 75, 121, 150, 169</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">64 = 8² ✓</div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">121 = 11² ✓</div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc">169 = 13² ✓</div></div>
+      <div class="step"><div class="sn2">4</div><div class="sc">48, 75, 150 — not perfect squares.</div></div>
+    </div>
+    <div class="ans">64, 121, 169</div>
+  </div>
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 2</span> Using the odd-factor trap</div>
+  <div class="we-body">
+    <div class="we-q">A number has exactly 5 factors. Must it be a square number? Give an example.</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">Odd number of factors → must be a square number (since non-squares have even factor counts).</div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">5 factors: could be of the form p⁴ where p is prime. Example: 2⁴ = 16. Factors of 16: {1, 2, 4, 8, 16} → 5 factors. ✓</div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc">Also: 81 = 3⁴. Factors: {1, 3, 9, 27, 81} → 5 factors. ✓</div></div>
+    </div>
+    <div class="ans">Yes — any number with an odd number of factors must be a square number.</div>
+  </div>
+</div>
+
+<div class="pset">
+  <div class="ptitle">✏ Practice — Section 5</div>
+  <div class="pq"><div class="pq-n">Q5.1</div>Write down all square numbers between 100 and 200.</div>
+  <div class="pq"><div class="pq-n">Q5.2</div>What is √196? What is √225?</div>
+  <div class="pq"><div class="pq-n">Q5.3</div>A number between 1 and 100 has exactly 7 factors. Identify it. (Hint: look for a fourth power.)</div>
+  <div class="pq"><div class="pq-n">Q5.4</div>True or false: all square numbers are even. Give a counterexample if false.</div>
+</div>
+
+<!-- ══ SECTION 6: CUBES ══ -->
+<div class="sh" id="s6">
+  <span class="sn">06</span>
+  <h2>Cube Numbers</h2>
+</div>
+
+<div class="concept orange">
+  A <strong>cube number</strong> is the result of multiplying a whole number by itself three times: n³ = n × n × n. The name comes from the volume of a cube with side length n.
+</div>
+
+<div class="cube-row">
+  <div class="cube-card">
+    <div class="cube-exp">1³</div>
+    <div class="cube-val">1</div>
+    <div style="font-size:12px;color:var(--ink3);margin-top:4px">1×1×1</div>
+  </div>
+  <div class="cube-card">
+    <div class="cube-exp">2³</div>
+    <div class="cube-val">8</div>
+    <div style="font-size:12px;color:var(--ink3);margin-top:4px">2×2×2</div>
+  </div>
+  <div class="cube-card">
+    <div class="cube-exp">3³</div>
+    <div class="cube-val">27</div>
+    <div style="font-size:12px;color:var(--ink3);margin-top:4px">3×3×3</div>
+  </div>
+  <div class="cube-card">
+    <div class="cube-exp">4³</div>
+    <div class="cube-val">64</div>
+    <div style="font-size:12px;color:var(--ink3);margin-top:4px">4×4×4</div>
+  </div>
+  <div class="cube-card">
+    <div class="cube-exp">5³</div>
+    <div class="cube-val">125</div>
+    <div style="font-size:12px;color:var(--ink3);margin-top:4px">5×5×5</div>
+  </div>
+  <div class="cube-card">
+    <div class="cube-exp">6³</div>
+    <div class="cube-val">216</div>
+    <div style="font-size:12px;color:var(--ink3);margin-top:4px">6×6×6</div>
+  </div>
+  <div class="cube-card">
+    <div class="cube-exp">10³</div>
+    <div class="cube-val">1000</div>
+    <div style="font-size:12px;color:var(--ink3);margin-top:4px">10×10×10</div>
+  </div>
+</div>
+
+<div class="cl info"><span class="cl-icon">ℹ</span><p>Note that 64 = 2³ = 4² — it is both a cube number <em>and</em> a square number. The next such number is 729 = 3⁶ = 27² = 9³. GL papers love asking which numbers are both square and cube.</p></div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 1</span> Cube and square overlap</div>
+  <div class="we-body">
+    <div class="we-q">Find a number less than 100 that is both a square number and a cube number.</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">Cube numbers up to 100: 1, 8, 27, 64.</div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">Which of these are also square? 1 = 1², 64 = 8².</div></div>
+    </div>
+    <div class="ans">1 and 64 are both square and cube numbers under 100.</div>
+  </div>
+</div>
+
+<div class="pset">
+  <div class="ptitle">✏ Practice — Section 6</div>
+  <div class="pq"><div class="pq-n">Q6.1</div>What is 7³? And 10³?</div>
+  <div class="pq"><div class="pq-n">Q6.2</div>A cube number is between 100 and 200. What is it?</div>
+  <div class="pq"><div class="pq-n">Q6.3</div>Is 216 a cube number? Show your working.</div>
+</div>
+
+<!-- ══ SECTION 7: PRIME FACTORISATION ══ -->
+<div class="sh" id="s7">
+  <span class="sn">07</span>
+  <h2>Prime Factorisation — <span>Factor Trees &amp; Venn Diagrams</span></h2>
+</div>
+
+<div class="concept violet">
+  Every whole number greater than 1 can be written as a product of prime numbers — this is its <strong>prime factorisation</strong>. We build it using a <strong>factor tree</strong>, then write the primes in order using index notation.
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 1</span> Factor tree for 60</div>
+  <div class="we-body">
+    <div class="we-q">Find the prime factorisation of 60.</div>
+    <!-- Factor tree HTML layout -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0;margin:16px auto;width:100%;max-width:380px">
+      <!-- Row 1: 60 -->
+      <div style="display:flex;justify-content:center">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:600;background:var(--surface);border:2px solid var(--border2);border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center">60</div>
+      </div>
+      <!-- lines down -->
+      <div style="display:flex;justify-content:center;gap:80px;position:relative;width:200px">
+        <div style="width:2px;height:24px;background:var(--border2);margin-left:23px;transform:rotate(-20deg);transform-origin:top center"></div>
+        <div style="width:2px;height:24px;background:var(--border2);margin-right:23px;transform:rotate(20deg);transform-origin:top center"></div>
+      </div>
+      <!-- Row 2: 6, 10 -->
+      <div style="display:flex;justify-content:center;gap:80px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:500;background:var(--surface);border:1.5px solid var(--border2);border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center">6</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:500;background:var(--surface);border:1.5px solid var(--border2);border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center">10</div>
+      </div>
+      <!-- lines -->
+      <div style="display:flex;justify-content:space-between;width:240px">
+        <div style="display:flex;gap:30px">
+          <div style="width:2px;height:20px;background:var(--border2);transform:rotate(-15deg);transform-origin:top center"></div>
+          <div style="width:2px;height:20px;background:var(--border2);transform:rotate(15deg);transform-origin:top center"></div>
+        </div>
+        <div style="display:flex;gap:30px">
+          <div style="width:2px;height:20px;background:var(--border2);transform:rotate(-15deg);transform-origin:top center"></div>
+          <div style="width:2px;height:20px;background:var(--border2);transform:rotate(15deg);transform-origin:top center"></div>
+        </div>
+      </div>
+      <!-- Row 3: primes -->
+      <div style="display:flex;justify-content:space-between;width:260px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;background:var(--violet-l);border:2px solid var(--violet);color:var(--violet-d);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center">2</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;background:var(--violet-l);border:2px solid var(--violet);color:var(--violet-d);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center">3</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;background:var(--violet-l);border:2px solid var(--violet);color:var(--violet-d);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center">2</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;background:var(--violet-l);border:2px solid var(--violet);color:var(--violet-d);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center">5</div>
+      </div>
+      <div style="margin-top:16px;text-align:center">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ink2)">60 = 2 × 2 × 3 × 5</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;color:var(--violet-d);margin-top:4px">= 2² × 3 × 5</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 2</span> Factor tree for 36 (repeated prime)</div>
+  <div class="we-body">
+    <div class="we-q">Find the prime factorisation of 36.</div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0;margin:16px auto;width:100%;max-width:320px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:600;background:var(--surface);border:2px solid var(--border2);border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center">36</div>
+      <div style="display:flex;justify-content:center;gap:60px;width:160px">
+        <div style="width:2px;height:22px;background:var(--border2);transform:rotate(-18deg);transform-origin:top center"></div>
+        <div style="width:2px;height:22px;background:var(--border2);transform:rotate(18deg);transform-origin:top center"></div>
+      </div>
+      <div style="display:flex;gap:60px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:16px;background:var(--surface);border:1.5px solid var(--border2);border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center">4</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:16px;background:var(--surface);border:1.5px solid var(--border2);border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center">9</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;width:220px">
+        <div style="display:flex;gap:20px">
+          <div style="width:2px;height:18px;background:var(--border2);transform:rotate(-12deg);transform-origin:top center"></div>
+          <div style="width:2px;height:18px;background:var(--border2);transform:rotate(12deg);transform-origin:top center"></div>
+        </div>
+        <div style="display:flex;gap:20px">
+          <div style="width:2px;height:18px;background:var(--border2);transform:rotate(-12deg);transform-origin:top center"></div>
+          <div style="width:2px;height:18px;background:var(--border2);transform:rotate(12deg);transform-origin:top center"></div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;width:220px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;background:var(--violet-l);border:2px solid var(--violet);color:var(--violet-d);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center">2</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;background:var(--violet-l);border:2px solid var(--violet);color:var(--violet-d);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center">2</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;background:var(--violet-l);border:2px solid var(--violet);color:var(--violet-d);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center">3</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;background:var(--violet-l);border:2px solid var(--violet);color:var(--violet-d);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center">3</div>
+      </div>
+      <div style="margin-top:14px;text-align:center">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ink2)">36 = 2 × 2 × 3 × 3</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;color:var(--violet-d);margin-top:4px">= 2² × 3²</div>
+      </div>
+    </div>
+    <div class="cl violet" style="margin-top:8px"><span class="cl-icon">★</span><p>Notice that 36 is a square number (6²), and its prime factorisation has only even exponents (2² × 3²). This is always true — square numbers have even exponents in their prime factorisation.</p></div>
+  </div>
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 3</span> Factor tree for 72</div>
+  <div class="we-body">
+    <div class="we-q">Find the prime factorisation of 72.</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">Split: <span class="calc">72 = 8 × 9</span></div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">Split 8: <span class="calc">8 = 2 × 4 = 2 × 2 × 2</span></div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc">Split 9: <span class="calc">9 = 3 × 3</span></div></div>
+      <div class="step"><div class="sn2">4</div><div class="sc">Collect all primes: 2, 2, 2, 3, 3</div></div>
+    </div>
+    <div style="text-align:center;margin-top:14px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ink2)">72 = 2 × 2 × 2 × 3 × 3</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:600;color:var(--violet-d);margin-top:4px">= 2³ × 3²</div>
+    </div>
+  </div>
+</div>
+
+<!-- VENN DIAGRAM METHOD -->
+<h3 style="font-size:17px;font-weight:600;margin:28px 0 14px;color:var(--ink)">Using Prime Factorisation to find HCF and LCM — the Venn Method</h3>
+
+<div class="concept violet">
+  Write the prime factorisations of both numbers. Draw a Venn diagram: <strong>shared primes go in the overlap</strong>; primes unique to each number go in the outer sections. <br><br>
+  <strong>HCF</strong> = product of primes in the <em>overlap only</em>.<br>
+  <strong>LCM</strong> = product of <em>all</em> primes in the entire diagram (overlap + both outer sections).
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 4</span> Venn method — HCF and LCM of 36 and 60</div>
+  <div class="we-body">
+    <div class="we-q">Use prime factorisation and a Venn diagram to find HCF(36, 60) and LCM(36, 60).</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">36 = 2² × 3² &nbsp;|&nbsp; 60 = 2² × 3 × 5</div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">Shared primes: both have 2² and 3¹ → these go in the overlap.</div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc">36 only: one extra 3 (since 36 has 3² but 60 only has 3¹).</div></div>
+      <div class="step"><div class="sn2">4</div><div class="sc">60 only: 5.</div></div>
+    </div>
+    <!-- Venn diagram -->
+    <div style="position:relative;height:160px;margin:20px 0;display:flex;align-items:center;justify-content:center">
+      <!-- Left circle -->
+      <div style="position:absolute;left:50%;transform:translateX(-200px);width:220px;height:130px;border-radius:50%;background:rgba(37,99,235,.09);border:2px solid rgba(37,99,235,.35)"></div>
+      <!-- Right circle -->
+      <div style="position:absolute;left:50%;transform:translateX(-20px);width:220px;height:130px;border-radius:50%;background:rgba(220,38,38,.09);border:2px solid rgba(220,38,38,.35)"></div>
+      <!-- Labels -->
+      <div style="position:absolute;left:50%;transform:translateX(-230px);top:16px;font-size:12px;font-weight:600;color:#1e3a8a">36</div>
+      <div style="position:absolute;left:50%;transform:translateX(170px);top:16px;font-size:12px;font-weight:600;color:#9f1239">60</div>
+      <!-- Left content (36 only) -->
+      <div style="position:absolute;left:50%;transform:translateX(-190px);text-align:center;font-family:'JetBrains Mono',monospace;font-size:13px;color:#1e3a8a;font-weight:600">3</div>
+      <!-- Overlap content -->
+      <div style="position:absolute;left:50%;transform:translateX(-50%);text-align:center;z-index:5;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--violet-d);font-weight:700;line-height:1.5">2 × 2<br>× 3</div>
+      <!-- Right content (60 only) -->
+      <div style="position:absolute;left:50%;transform:translateX(130px);text-align:center;font-family:'JetBrains Mono',monospace;font-size:13px;color:#9f1239;font-weight:600">5</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="sn2">5</div><div class="sc"><strong>HCF</strong> = overlap only = <span class="calc">2 × 2 × 3 = 12</span></div></div>
+      <div class="step"><div class="sn2">6</div><div class="sc"><strong>LCM</strong> = everything = <span class="calc">3 × (2 × 2 × 3) × 5 = 3 × 12 × 5 = 180</span></div></div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+      <div class="ans teal">HCF(36, 60) = 12</div>
+      <div class="ans">LCM(36, 60) = 180</div>
+    </div>
+  </div>
+</div>
+
+<div class="pset">
+  <div class="ptitle">✏ Practice — Section 7</div>
+  <div class="pq"><div class="pq-n">Q7.1</div>Draw a factor tree for 84 and write its prime factorisation in index form.</div>
+  <div class="pq"><div class="pq-n">Q7.2</div>Find the prime factorisation of 120.</div>
+  <div class="pq"><div class="pq-n">Q7.3</div>Use the Venn diagram method to find HCF(48, 72) and LCM(48, 72).</div>
+  <div class="pq"><div class="pq-n">Q7.4</div>A number has prime factorisation 2³ × 5². How many factors does it have? (Hint: use the exponents.)</div>
+</div>
+
+<!-- ══ SECTION 8: HCF & LCM ══ -->
+<div class="sh" id="s8">
+  <span class="sn">08</span>
+  <h2>HCF &amp; LCM — <span>Two &amp; Three Numbers</span></h2>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px">
+  <div class="concept" style="margin-bottom:0">
+    <strong>Highest Common Factor (HCF)</strong> — the largest number that divides exactly into all of the given numbers.<br><br>
+    Use for: <em>"largest equal groups"</em>, <em>"longest equal pieces"</em>, <em>"biggest square tiles"</em>.
+  </div>
+  <div class="concept amber" style="margin-bottom:0">
+    <strong>Lowest Common Multiple (LCM)</strong> — the smallest number that all of the given numbers divide into exactly.<br><br>
+    Use for: <em>"when do events next coincide"</em>, <em>"bus timetables"</em>, <em>"shared timing"</em>.
+  </div>
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 1</span> HCF and LCM of two numbers — listing method</div>
+  <div class="we-body">
+    <div class="we-q">Find HCF(18, 30) and LCM(18, 30) by listing.</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">Factors of 18: {1, 2, 3, 6, <strong>9</strong>, 18} &nbsp;|&nbsp; Factors of 30: {1, 2, 3, 5, 6, 10, 15, 30}</div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">Common factors: {1, 2, 3, 6}. Largest = <strong>6</strong>.</div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc">Multiples of 18: 18, 36, 54, <strong>90</strong>, … &nbsp;|&nbsp; Multiples of 30: 30, 60, <strong>90</strong>, …</div></div>
+      <div class="step"><div class="sn2">4</div><div class="sc">First common multiple = <strong>90</strong>.</div></div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+      <div class="ans teal">HCF = 6</div>
+      <div class="ans">LCM = 90</div>
+    </div>
+  </div>
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 2</span> HCF and LCM of two numbers — Venn method</div>
+  <div class="we-body">
+    <div class="we-q">Find HCF(24, 40) and LCM(24, 40) using prime factorisation.</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">24 = 2³ × 3 &nbsp;|&nbsp; 40 = 2³ × 5</div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">Shared: 2³ (three 2s). &nbsp;Unique to 24: 3. &nbsp;Unique to 40: 5.</div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc">HCF = overlap = <span class="calc">2³ = 8</span></div></div>
+      <div class="step"><div class="sn2">4</div><div class="sc">LCM = all = <span class="calc">3 × 2³ × 5 = 3 × 8 × 5 = 120</span></div></div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+      <div class="ans teal">HCF(24, 40) = 8</div>
+      <div class="ans">LCM(24, 40) = 120</div>
+    </div>
+  </div>
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 3</span> HCF and LCM of THREE numbers</div>
+  <div class="we-body">
+    <div class="we-q">Find HCF(12, 18, 24) and LCM(12, 18, 24).</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">12 = 2² × 3 &nbsp;|&nbsp; 18 = 2 × 3² &nbsp;|&nbsp; 24 = 2³ × 3</div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc"><strong>HCF</strong> — take the <em>lowest</em> power of each prime that appears in ALL three: 2¹ (lowest of 2, 1, 3) and 3¹ (lowest of 1, 2, 1).</div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc">HCF = <span class="calc">2¹ × 3¹ = 6</span></div></div>
+      <div class="step"><div class="sn2">4</div><div class="sc"><strong>LCM</strong> — take the <em>highest</em> power of each prime that appears in ANY one: 2³ and 3².</div></div>
+      <div class="step"><div class="sn2">5</div><div class="sc">LCM = <span class="calc">2³ × 3² = 8 × 9 = 72</span></div></div>
+    </div>
+    <div class="cl violet" style="margin-top:12px"><span class="cl-icon">★</span><p><strong>Three-number rule:</strong> HCF → lowest power of shared primes. LCM → highest power of any prime across all numbers.</p></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+      <div class="ans teal">HCF(12, 18, 24) = 6</div>
+      <div class="ans">LCM(12, 18, 24) = 72</div>
+    </div>
+  </div>
+</div>
+
+<div class="we">
+  <div class="we-head"><span class="we-num">Ex 4</span> HCF and LCM of THREE numbers — larger values</div>
+  <div class="we-body">
+    <div class="we-q">Find HCF(30, 42, 66) and LCM(30, 42, 66).</div>
+    <div class="steps">
+      <div class="step"><div class="sn2">1</div><div class="sc">30 = 2 × 3 × 5 &nbsp;|&nbsp; 42 = 2 × 3 × 7 &nbsp;|&nbsp; 66 = 2 × 3 × 11</div></div>
+      <div class="step"><div class="sn2">2</div><div class="sc">Primes in all three: 2¹ and 3¹. HCF = <span class="calc">2 × 3 = 6</span>.</div></div>
+      <div class="step"><div class="sn2">3</div><div class="sc">All primes anywhere: 2, 3, 5, 7, 11. LCM = <span class="calc">2 × 3 × 5 × 7 × 11 = 2310</span>.</div></div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+      <div class="ans teal">HCF = 6</div>
+      <div class="ans">LCM = 2310</div>
+    </div>
+  </div>
+</div>
+
+<div class="pset">
+  <div class="ptitle">✏ Practice — Section 8</div>
+  <div class="pq"><div class="pq-n">Q8.1</div>Find HCF(16, 28) and LCM(16, 28) using any method.</div>
+  <div class="pq"><div class="pq-n">Q8.2</div>Find HCF(45, 75) using the Venn method.</div>
+  <div class="pq"><div class="pq-n">Q8.3</div>Find HCF(6, 10, 15) and LCM(6, 10, 15).</div>
+  <div class="pq"><div class="pq-n">Q8.4</div>Two numbers have HCF = 4 and LCM = 48. One number is 12. What is the other?</div>
+</div>
+
+<!-- ══ SECTION 9: WORD PROBLEMS ══ -->
+<div class="sh" id="s9">
+  <span class="sn">09</span>
+  <h2>Word Problems — <span>HCF &amp; LCM in Context</span></h2>
+</div>
+
+<div class="concept blue">
+  <strong>Spotting whether to use HCF or LCM is the key skill.</strong><br>
+  Use <strong>HCF</strong> when you're dividing or splitting into equal groups — the answer gets smaller.<br>
+  Use <strong>LCM</strong> when events or cycles repeat and you want when they next coincide — the answer gets larger.
+</div>
+
+<div class="wp">
+  <div class="wp-label">HCF Word Problem 1</div>
+  <div class="wp-q">A ribbon 96 cm long is cut into equal pieces with no ribbon wasted. A second ribbon 60 cm long is also cut into equal pieces the same length as the first. What is the longest possible length of each piece?</div>
+  <div class="steps">
+    <div class="step"><div class="sn2">1</div><div class="sc"><em>"Equal pieces, same length, no waste"</em> → HCF problem.</div></div>
+    <div class="step"><div class="sn2">2</div><div class="sc">96 = 2⁵ × 3 &nbsp;|&nbsp; 60 = 2² × 3 × 5</div></div>
+    <div class="step"><div class="sn2">3</div><div class="sc">Shared: 2² and 3. HCF = <span class="calc">4 × 3 = 12</span>.</div></div>
+    <div class="step"><div class="sn2">4</div><div class="sc">Check: 96 ÷ 12 = 8 pieces ✓ &nbsp;|&nbsp; 60 ÷ 12 = 5 pieces ✓</div></div>
+  </div>
+  <div class="ans" style="margin-top:12px">Longest piece = 12 cm</div>
+</div>
+
+<div class="wp">
+  <div class="wp-label">HCF Word Problem 2</div>
+  <div class="wp-q">A hall floor is 560 cm by 420 cm. It will be covered with identical square tiles with no cutting. What is the largest possible side length of each tile?</div>
+  <div class="steps">
+    <div class="step"><div class="sn2">1</div><div class="sc"><em>"Largest square tiles that fit exactly"</em> → HCF of the two dimensions.</div></div>
+    <div class="step"><div class="sn2">2</div><div class="sc">560 = 2⁴ × 5 × 7 &nbsp;|&nbsp; 420 = 2² × 3 × 5 × 7</div></div>
+    <div class="step"><div class="sn2">3</div><div class="sc">Shared: 2², 5, 7. HCF = <span class="calc">4 × 5 × 7 = 140</span>.</div></div>
+  </div>
+  <div class="ans" style="margin-top:12px">Largest tile = 140 cm × 140 cm</div>
+</div>
+
+<div class="wp" style="background:var(--teal-l);border-color:#5eead4">
+  <div class="wp-label" style="color:var(--teal-d)">LCM Word Problem 1</div>
+  <div class="wp-q">Bus A leaves the station every 8 minutes. Bus B leaves every 12 minutes. They both leave at 9:00 am. When is the next time they both leave at the same time?</div>
+  <div class="steps">
+    <div class="step"><div class="sn2">1</div><div class="sc"><em>"When do they next coincide"</em> → LCM problem.</div></div>
+    <div class="step"><div class="sn2">2</div><div class="sc">8 = 2³ &nbsp;|&nbsp; 12 = 2² × 3</div></div>
+    <div class="step"><div class="sn2">3</div><div class="sc">LCM = <span class="calc">2³ × 3 = 24</span> minutes.</div></div>
+    <div class="step"><div class="sn2">4</div><div class="sc">9:00 am + 24 minutes = <strong>9:24 am</strong>.</div></div>
+  </div>
+  <div class="ans teal" style="margin-top:12px">Next coincidence: 9:24 am</div>
+</div>
+
+<div class="wp" style="background:var(--teal-l);border-color:#5eead4">
+  <div class="wp-label" style="color:var(--teal-d)">LCM Word Problem 2</div>
+  <div class="wp-q">Three warning lights flash at different intervals: Light A every 6 seconds, Light B every 8 seconds, Light C every 10 seconds. They all flash together at the start. After how many seconds do they next all flash together?</div>
+  <div class="steps">
+    <div class="step"><div class="sn2">1</div><div class="sc"><em>"Three repeating events — when do they all coincide?"</em> → LCM of 6, 8, and 10.</div></div>
+    <div class="step"><div class="sn2">2</div><div class="sc">6 = 2 × 3 &nbsp;|&nbsp; 8 = 2³ &nbsp;|&nbsp; 10 = 2 × 5</div></div>
+    <div class="step"><div class="sn2">3</div><div class="sc">Highest powers: 2³, 3¹, 5¹. LCM = <span class="calc">8 × 3 × 5 = 120</span>.</div></div>
+  </div>
+  <div class="ans teal" style="margin-top:12px">Next coincidence: after 120 seconds</div>
+</div>
+
+<div class="wp">
+  <div class="wp-label">HCF Word Problem 3 (three numbers)</div>
+  <div class="wp-q">Three pieces of rope measure 48 m, 60 m, and 72 m. They are to be cut into pieces all the same length, with no rope left over. What is the longest possible length of each piece?</div>
+  <div class="steps">
+    <div class="step"><div class="sn2">1</div><div class="sc">HCF(48, 60, 72).</div></div>
+    <div class="step"><div class="sn2">2</div><div class="sc">48 = 2⁴ × 3 &nbsp;|&nbsp; 60 = 2² × 3 × 5 &nbsp;|&nbsp; 72 = 2³ × 3²</div></div>
+    <div class="step"><div class="sn2">3</div><div class="sc">Shared in all three: 2² and 3¹. HCF = <span class="calc">4 × 3 = 12</span>.</div></div>
+  </div>
+  <div class="ans" style="margin-top:12px">Longest piece = 12 m</div>
+</div>
+
+<div class="pset">
+  <div class="ptitle">✏ Practice — Section 9</div>
+  <div class="pq"><div class="pq-n">Q9.1</div>Two pieces of wire are 56 cm and 84 cm. They are cut into equal lengths with no wire wasted. What is the greatest possible length of each piece?</div>
+  <div class="pq"><div class="pq-n">Q9.2</div>A classroom is 480 cm by 360 cm. What is the largest square tile (in cm) that fits the floor exactly with no cutting?</div>
+  <div class="pq"><div class="pq-n">Q9.3</div>Two runners set off together around a track. Runner A completes a lap every 9 minutes, Runner B every 15 minutes. How long before they are at the start line together again?</div>
+  <div class="pq"><div class="pq-n">Q9.4</div>A red light flashes every 4 seconds, a blue light every 6 seconds, and a green light every 10 seconds. They flash together at time zero. After how many seconds do they next all flash simultaneously?</div>
+</div>
+
+<!-- ══ SECTION 10: EXAM TIPS ══ -->
+<div class="sh" id="s10">
+  <span class="sn">10</span>
+  <h2>Targeted <span>Exam Tips</span></h2>
+</div>
+
+<div class="tip"><div class="tip-icon">⚡</div><div><strong>Use divisibility rules before dividing</strong><p>When factorising a number, run through the divisibility rules in order (2, 3, 4, 5, 6, 8, 9) before doing any long division. This tells you immediately which prime factors to try first and avoids wasted calculations.</p></div></div>
+
+<div class="tip"><div class="tip-icon">🌳</div><div><strong>Factor tree: always circle your primes</strong><p>Circle each prime as you reach it so you don't accidentally stop early. A circled number = done. An uncircled number = keep splitting. Your answer is the product of all circled numbers.</p></div></div>
+
+<div class="tip"><div class="tip-icon">🔵</div><div><strong>Listing vs Venn: know when to use each</strong><p>Use <em>listing</em> for small numbers (under 30) where it's fast. Use the <em>Venn / prime factorisation method</em> for larger numbers — it's reliable and impresses examiners. Never try listing multiples for LCM when the numbers are above 20.</p></div></div>
+
+<div class="tip"><div class="tip-icon">⚠</div><div><strong>The square number trap — odd factor count</strong><p>If a question asks "how many factors does X have?" and the answer is odd, then X must be a square number. Conversely, if you're asked to find a number with exactly 7 factors, look for a sixth power of a prime (e.g. 2⁶ = 64). This pattern is a favourite GL trick.</p></div></div>
+
+<div class="tip"><div class="tip-icon">🎯</div><div><strong>HCF or LCM? — the size clue</strong><p>HCF is always ≤ the smallest number given. LCM is always ≥ the largest number given. If your answer to an HCF question is larger than one of the original numbers, you've made an error. Similarly, if your LCM is smaller than the largest number, check again.</p></div></div>
+
+<div class="tip"><div class="tip-icon">🔢</div><div><strong>Three-number HCF/LCM — use exponents carefully</strong><p>HCF: take the <em>lowest</em> exponent of each prime that appears in ALL numbers. LCM: take the <em>highest</em> exponent of each prime that appears in ANY number. Write the factorisations in a column and compare row by row.</p></div></div>
+
+<div class="tip"><div class="tip-icon">🧪</div><div><strong>Testing large primes: always go to √n</strong><p>√100 = 10, √121 = 11, √144 = 12. Know these. If you need to test whether 143 is prime, √143 ≈ 12, so test primes up to 12: 2, 3, 5, 7, 11. (143 = 11 × 13 — not prime.)</p></div></div>
+
+<div class="tip"><div class="tip-icon">📋</div><div><strong>Word problems: underline the key phrase</strong><p>"largest equal pieces / tiles / groups" → HCF. "when do they meet / coincide / next happen together" → LCM. Underline that phrase in the question and write HCF or LCM next to it before calculating.</p></div></div>
+
+<!-- ══ SECTION 11: ANSWERS ══ -->
+<div class="sh" id="s11">
+  <span class="sn">11</span>
+  <h2>Answers to <span>All Practice Questions</span></h2>
+</div>
+
+<div class="cl warn" style="margin-bottom:22px"><span class="cl-icon">⚠</span><p>Attempt every question before opening the answers. For HCF and LCM, verify by checking that your HCF divides both numbers, and that both numbers divide your LCM.</p></div>
+
+<details>
+  <summary>Section 1 — Factors</summary>
+  <div class="ans-body">
+    <div class="ai"><span class="aq">Q1.1</span><span class="aa">{1,2,3,4,6,8,12,16,24,48}</span><span class="ae">10 factors. Pairs: 1×48, 2×24, 3×16, 4×12, 6×8.</span></div>
+    <div class="ai"><span class="aq">Q1.2</span><span class="aa">16 factors</span><span class="ae">120 = {1,2,3,4,5,6,8,10,12,15,20,24,30,40,60,120}. Pairs: 1×120, 2×60, 3×40, 4×30, 5×24, 6×20, 8×15, 10×12.</span></div>
+    <div class="ai"><span class="aq">Q1.3</span><span class="aa">16, 25, 49</span><span class="ae">These are 4², 5², 7² — all square numbers. Square numbers always have an odd number of factors.</span></div>
+    <div class="ai"><span class="aq">Q1.4</span><span class="aa">True</span><span class="ae">91 ÷ 7 = 13 exactly, so 7 is a factor of 91.</span></div>
+  </div>
+</details>
+
+<details>
+  <summary>Section 2 — Multiples</summary>
+  <div class="ans-body">
+    <div class="ai"><span class="aq">Q2.1</span><span class="aa">{11,22,33,44,55,66,77,88}</span><span class="ae">Simply 11 × 1 through 11 × 8.</span></div>
+    <div class="ai"><span class="aq">Q2.2</span><span class="aa">Yes; No</span><span class="ae">144 ÷ 12 = 12 ✓ (multiple of 12). 144 ÷ 7 = 20.57… ✗ (not a multiple of 7).</span></div>
+    <div class="ai"><span class="aq">Q2.3</span><span class="aa">7 multiples</span><span class="ae">36, 42, 48, 54, 60, 66, 72 (not including 30 or 80).</span></div>
+    <div class="ai"><span class="aq">Q2.4</span><span class="aa">24</span><span class="ae">LCM(4,6) = 12. Multiples of 12: 12, 24, … First one greater than 20 is 24.</span></div>
+  </div>
+</details>
+
+<details>
+  <summary>Section 3 — Divisibility Rules</summary>
+  <div class="ans-body">
+    <div class="ai"><span class="aq">Q3.1</span><span class="aa">2,3,4,5,6,8,9,10</span><span class="ae">360: even ✓, 3+6+0=9 ✓, 60÷4=15 ✓, ends in 0 ✓, even+div3 ✓, 360÷8=45 ✓, digit sum 9 ✓, ends in 0 ✓. All eight rules satisfied!</span></div>
+    <div class="ai"><span class="aq">Q3.2</span><span class="aa">÷2, ÷4 (not ÷3, not ÷6)</span><span class="ae">Ends in 4 → ÷2 ✓, ÷4 ✓. Digit sum 15 → divisible by 3 ✓, so ÷3 ✓, and ÷6 ✓ (even + ÷3). Wait — digit sum 15 IS divisible by 3. So: ÷2 ✓, ÷3 ✓, ÷4 check needed (last two digits end in _4, e.g. 24÷4=6 ✓), ÷6 ✓.</span></div>
+    <div class="ai"><span class="aq">Q3.3</span><span class="aa">108</span><span class="ae">LCM(6,9) = 18. First three-digit multiple of 18: 18×6=108. Check: 108÷6=18 ✓, 108÷9=12 ✓.</span></div>
+    <div class="ai"><span class="aq">Q3.4</span><span class="aa">False</span><span class="ae">Counterexample: 6 is divisible by 6 but 6÷12 = 0.5. Also 18: 18÷12 = 1.5.</span></div>
+  </div>
+</details>
+
+<details>
+  <summary>Section 4 — Prime Numbers</summary>
+  <div class="ans-body">
+    <div class="ai"><span class="aq">Q4.1</span><span class="aa">53, 59, 61, 67</span><span class="ae">Check each number between 50 and 70 using trial division up to √70 ≈ 8.4 (test 2,3,5,7).</span></div>
+    <div class="ai"><span class="aq">Q4.2</span><span class="aa">77✗, 83✓, 119✗, 127✓</span><span class="ae">77=7×11; 83 prime (test 2,3,5,7 — none work, √83≈9.1); 119=7×17; 127 prime (√127≈11.3, test 2,3,5,7,11 — none work).</span></div>
+    <div class="ai"><span class="aq">Q4.3</span><span class="aa">28</span><span class="ae">First five primes: 2+3+5+7+11 = 28.</span></div>
+    <div class="ai"><span class="aq">Q4.4</span><span class="aa">Multiple answers</span><span class="ae">e.g. 3+37=40; 11+29=40; 17+23=40. (One number must be 2 if both odd rule followed — but 2+38 doesn't work as 38 isn't prime. All valid pairs use two odd primes.)</span></div>
+  </div>
+</details>
+
+<details>
+  <summary>Section 5 — Square Numbers</summary>
+  <div class="ans-body">
+    <div class="ai"><span class="aq">Q5.1</span><span class="aa">121, 144, 169, 196</span><span class="ae">11²=121, 12²=144, 13²=169, 14²=196. (15²=225 > 200.)</span></div>
+    <div class="ai"><span class="aq">Q5.2</span><span class="aa">√196=14; √225=15</span><span class="ae">Memorise the square table up to 15².</span></div>
+    <div class="ai"><span class="aq">Q5.3</span><span class="aa">64</span><span class="ae">64 = 2⁶. Factors: 1,2,4,8,16,32,64 → 7 factors. (Number of factors = 6+1 = 7 from exponent formula.)</span></div>
+    <div class="ai"><span class="aq">Q5.4</span><span class="aa">False</span><span class="ae">Counterexample: 9 = 3² is an odd square number. Also 25, 49, 81, …</span></div>
+  </div>
+</details>
+
+<details>
+  <summary>Section 6 — Cube Numbers</summary>
+  <div class="ans-body">
+    <div class="ai"><span class="aq">Q6.1</span><span class="aa">343; 1000</span><span class="ae">7³=7×7×7=343. 10³=10×10×10=1000.</span></div>
+    <div class="ai"><span class="aq">Q6.2</span><span class="aa">125</span><span class="ae">5³=125. (4³=64 &lt; 100; 6³=216 > 200.)</span></div>
+    <div class="ai"><span class="aq">Q6.3</span><span class="aa">Yes</span><span class="ae">6³ = 6×6×6 = 36×6 = 216 ✓.</span></div>
+  </div>
+</details>
+
+<details>
+  <summary>Section 7 — Prime Factorisation</summary>
+  <div class="ans-body">
+    <div class="ai"><span class="aq">Q7.1</span><span class="aa">2² × 3 × 7</span><span class="ae">84 = 4×21 = 2×2×3×7. In index form: 2²×3×7.</span></div>
+    <div class="ai"><span class="aq">Q7.2</span><span class="aa">2³ × 3 × 5</span><span class="ae">120 = 8×15 = 2³×3×5.</span></div>
+    <div class="ai"><span class="aq">Q7.3</span><span class="aa">HCF=24, LCM=144</span><span class="ae">48=2⁴×3; 72=2³×3². Shared: 2³ and 3¹ → HCF=8×3=24. All primes: 2⁴ and 3² → LCM=16×9=144.</span></div>
+    <div class="ai"><span class="aq">Q7.4</span><span class="aa">12 factors</span><span class="ae">Formula: (3+1)×(2+1) = 4×3 = 12. (Add 1 to each exponent and multiply.)</span></div>
+  </div>
+</details>
+
+<details>
+  <summary>Section 8 — HCF &amp; LCM</summary>
+  <div class="ans-body">
+    <div class="ai"><span class="aq">Q8.1</span><span class="aa">HCF=4, LCM=112</span><span class="ae">16=2⁴; 28=2²×7. Shared: 2². HCF=4. All: 2⁴×7=112.</span></div>
+    <div class="ai"><span class="aq">Q8.2</span><span class="aa">HCF=15</span><span class="ae">45=3²×5; 75=3×5². Shared: 3¹×5¹=15.</span></div>
+    <div class="ai"><span class="aq">Q8.3</span><span class="aa">HCF=1, LCM=30</span><span class="ae">6=2×3; 10=2×5; 15=3×5. No prime in ALL three → HCF=1. All primes: 2,3,5 → LCM=30.</span></div>
+    <div class="ai"><span class="aq">Q8.4</span><span class="aa">16</span><span class="ae">Use: HCF × LCM = product of two numbers. 4×48 = 12×? → ?=192÷12=16. Check: HCF(12,16)=4 ✓, LCM(12,16)=48 ✓.</span></div>
+  </div>
+</details>
+
+<details>
+  <summary>Section 9 — Word Problems</summary>
+  <div class="ans-body">
+    <div class="ai"><span class="aq">Q9.1</span><span class="aa">28 cm</span><span class="ae">HCF(56,84). 56=2³×7; 84=2²×3×7. HCF=2²×7=28.</span></div>
+    <div class="ai"><span class="aq">Q9.2</span><span class="aa">120 cm</span><span class="ae">HCF(480,360). 480=2⁵×3×5; 360=2³×3²×5. HCF=2³×3×5=120.</span></div>
+    <div class="ai"><span class="aq">Q9.3</span><span class="aa">45 minutes</span><span class="ae">LCM(9,15). 9=3²; 15=3×5. LCM=3²×5=45.</span></div>
+    <div class="ai"><span class="aq">Q9.4</span><span class="aa">60 seconds</span><span class="ae">LCM(4,6,10). 4=2²; 6=2×3; 10=2×5. LCM=2²×3×5=60.</span></div>
+  </div>
+</details>
+
+<div style="margin-top:56px;padding:28px 24px;background:var(--ink);border-radius:var(--radius-lg);color:rgba(255,255,255,.65);font-size:13px;line-height:1.7;text-align:center">
+  <div style="font-family:'Instrument Serif',serif;font-size:20px;color:#fff;margin-bottom:8px">You've completed the guide.</div>
+  Good luck in your 11+ exam. If a word problem ever stumps you, underline the key phrase — equal groups means HCF, coincide again means LCM.
+</div>
+
+</main>
+</body>
+</html>

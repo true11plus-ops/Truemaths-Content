@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volume of 3D Shapes — 11+ GL Assessment Revision</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --navy: #1a2744;
+    --blue: #2563eb;
+    --blue-light: #eff6ff;
+    --blue-border: #bfdbfe;
+    --green: #16a34a;
+    --green-light: #f0fdf4;
+    --green-border: #bbf7d0;
+    --amber: #d97706;
+    --amber-light: #fffbeb;
+    --amber-border: #fde68a;
+    --red: #dc2626;
+    --red-light: #fef2f2;
+    --purple: #7c3aed;
+    --purple-light: #f5f3ff;
+    --purple-border: #ddd6fe;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --font: 'Nunito', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: #f0f4f8;
+    color: var(--gray-800);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  .page-header {
+    background: linear-gradient(135deg, #1a2744 0%, #2563eb 100%);
+    color: white;
+    padding: 36px 24px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 20px);
+  }
+  .page-header h1 { font-size: 2rem; font-weight: 900; letter-spacing: -0.5px; position: relative; }
+  .page-header .subtitle { font-size: 1rem; opacity: 0.85; margin-top: 6px; font-weight: 600; position: relative; }
+  .badge { display: inline-block; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.35); border-radius: 20px; padding: 3px 14px; font-size: 0.8rem; font-weight: 700; margin-top: 10px; position: relative; }
+
+  .container { max-width: 860px; margin: 0 auto; padding: 28px 16px 60px; }
+
+  /* Formula card */
+  .formula-card {
+    background: white;
+    border: 2px solid var(--blue-border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 32px;
+    box-shadow: 0 2px 12px rgba(37,99,235,0.08);
+  }
+  .formula-card h2 { color: var(--blue); font-size: 1.15rem; font-weight: 900; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .formula-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media(max-width:540px) { .formula-grid { grid-template-columns: 1fr; } }
+  .formula-item { background: var(--blue-light); border: 1px solid var(--blue-border); border-radius: 8px; padding: 10px 14px; }
+  .formula-item .label { font-size: 0.75rem; font-weight: 800; color: var(--blue); text-transform: uppercase; letter-spacing: 0.5px; }
+  .formula-item .formula { font-family: var(--mono); font-size: 0.95rem; color: var(--navy); font-weight: 500; margin-top: 2px; }
+
+  /* Section */
+  .section {
+    background: white;
+    border-radius: 14px;
+    padding: 26px 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    border: 1px solid var(--gray-200);
+  }
+  .section-number {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--blue); color: white;
+    width: 30px; height: 30px; border-radius: 50%;
+    font-weight: 900; font-size: 0.85rem; margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .section-title {
+    display: flex; align-items: center;
+    font-size: 1.25rem; font-weight: 900; color: var(--navy);
+    margin-bottom: 18px; padding-bottom: 12px;
+    border-bottom: 2px solid var(--gray-100);
+  }
+
+  p { margin-bottom: 12px; }
+
+  /* Boxes */
+  .box-formula { background: var(--blue-light); border-left: 4px solid var(--blue); border-radius: 8px; padding: 14px 18px; margin: 14px 0; }
+  .box-formula .box-title { color: var(--blue); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .box-formula .formula { font-family: var(--mono); font-size: 1rem; color: var(--navy); }
+
+  .box-example { background: var(--green-light); border-left: 4px solid var(--green); border-radius: 8px; padding: 14px 18px; margin: 14px 0; }
+  .box-example .box-title { color: var(--green); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .box-example .step { margin-bottom: 4px; font-size: 0.95rem; }
+  .box-example .step .label { font-weight: 700; }
+  .box-example .answer { font-family: var(--mono); font-weight: 700; color: var(--green); font-size: 1rem; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--green-border); }
+
+  .box-warning { background: var(--amber-light); border-left: 4px solid var(--amber); border-radius: 8px; padding: 14px 18px; margin: 14px 0; }
+  .box-warning .box-title { color: var(--amber); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+
+  .box-note { background: var(--purple-light); border-left: 4px solid var(--purple); border-radius: 8px; padding: 14px 18px; margin: 14px 0; }
+  .box-note .box-title { color: var(--purple); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+
+  /* Practice section */
+  .practice-section { margin-top: 26px; }
+  .practice-section h3 { font-size: 1rem; font-weight: 900; color: var(--navy); margin-bottom: 14px; padding: 8px 14px; background: var(--gray-100); border-radius: 8px; }
+
+  .level-block { margin-bottom: 20px; }
+  .level-tag {
+    display: inline-block; padding: 3px 12px; border-radius: 20px;
+    font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;
+  }
+  .level-easy { background: #dcfce7; color: #15803d; }
+  .level-intermediate { background: #dbeafe; color: #1d4ed8; }
+  .level-advanced { background: #fef9c3; color: #a16207; }
+  .level-challenging { background: #fce7f3; color: #be185d; }
+
+  .q-block { margin-bottom: 14px; padding: 14px 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 10px; }
+  .q-text { font-weight: 600; margin-bottom: 10px; font-size: 0.95rem; }
+  .q-input-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .q-input {
+    border: 2px solid var(--gray-200); border-radius: 7px; padding: 8px 12px;
+    font-family: var(--mono); font-size: 0.95rem; width: 110px;
+    outline: none; transition: border-color 0.2s;
+    color: var(--gray-800);
+  }
+  .q-input:focus { border-color: var(--blue); }
+  .q-unit { font-size: 0.85rem; color: var(--gray-600); font-weight: 700; }
+  .q-btn {
+    background: var(--blue); color: white; border: none;
+    border-radius: 7px; padding: 8px 18px;
+    font-family: var(--font); font-weight: 800; font-size: 0.9rem;
+    cursor: pointer; transition: background 0.15s, transform 0.1s;
+    white-space: nowrap;
+  }
+  .q-btn:hover { background: #1d4ed8; }
+  .q-btn:active { transform: scale(0.97); }
+  .q-feedback {
+    margin-top: 10px; padding: 10px 14px; border-radius: 7px;
+    font-size: 0.9rem; font-weight: 600; display: none;
+  }
+  .feedback-correct { background: var(--green-light); border: 1px solid var(--green-border); color: var(--green); }
+  .feedback-wrong { background: var(--red-light); border: 1px solid #fecaca; color: var(--red); }
+
+  /* Mastery test */
+  .mastery-section {
+    background: linear-gradient(135deg, #1a2744 0%, #1e3a6e 100%);
+    border-radius: 14px; padding: 26px 24px; margin-bottom: 24px;
+    color: white;
+  }
+  .mastery-section h2 { font-size: 1.3rem; font-weight: 900; margin-bottom: 6px; }
+  .mastery-section .subtitle { opacity: 0.8; font-size: 0.9rem; margin-bottom: 20px; }
+  .mastery-section .q-block { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.15); }
+  .mastery-section .q-text { color: white; }
+  .mastery-section .q-input { background: rgba(255,255,255,0.95); }
+  .mastery-section .q-unit { color: rgba(255,255,255,0.75); }
+
+  .score-display {
+    margin-top: 20px; padding: 16px 20px; background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
+    text-align: center; display: none;
+  }
+  .score-display .score-num { font-size: 2.5rem; font-weight: 900; }
+  .score-display .score-label { font-size: 0.9rem; opacity: 0.8; }
+  #submit-mastery {
+    background: #16a34a; color: white; border: none;
+    border-radius: 8px; padding: 12px 28px;
+    font-family: var(--font); font-weight: 900; font-size: 1rem;
+    cursor: pointer; margin-top: 18px; width: 100%;
+    transition: background 0.15s;
+  }
+  #submit-mastery:hover { background: #15803d; }
+
+  /* Pitfalls */
+  .pitfall-list { list-style: none; padding: 0; }
+  .pitfall-item { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; padding: 12px 14px; background: var(--amber-light); border: 1px solid var(--amber-border); border-radius: 8px; }
+  .pitfall-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .pitfall-text { font-size: 0.95rem; }
+  .pitfall-text strong { color: var(--amber); }
+
+  code { font-family: var(--mono); background: rgba(37,99,235,0.08); padding: 1px 5px; border-radius: 3px; font-size: 0.92em; }
+
+  .divider { border: none; border-top: 2px dashed var(--gray-200); margin: 20px 0; }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9rem; }
+  th { background: var(--navy); color: white; padding: 8px 12px; text-align: left; font-weight: 700; }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--gray-200); }
+  tr:nth-child(even) td { background: var(--gray-50); }
+
+  .side-by-side { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  @media(max-width:540px) { .side-by-side { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>📦 Volume of 3D Shapes</h1>
+  <div class="subtitle">Complete Revision Notes for 11+ GL Assessment</div>
+  <div class="badge">🎯 GL Standard · All Question Types · Interactive Practice</div>
+</div>
+
+<div class="container">
+
+  <!-- FORMULA CARD -->
+  <div class="formula-card">
+    <h2>⚡ Quick Reference — All Formulas</h2>
+    <div class="formula-grid">
+      <div class="formula-item">
+        <div class="label">Cuboid</div>
+        <div class="formula">V = l × w × h</div>
+      </div>
+      <div class="formula-item">
+        <div class="label">Cube</div>
+        <div class="formula">V = s³</div>
+      </div>
+      <div class="formula-item">
+        <div class="label">Triangular Prism</div>
+        <div class="formula">V = ½ × b × h × l</div>
+      </div>
+      <div class="formula-item">
+        <div class="label">Capacity</div>
+        <div class="formula">1 cm³ = 1 ml · 1000 cm³ = 1 litre</div>
+      </div>
+      <div class="formula-item">
+        <div class="label">Units</div>
+        <div class="formula">mm ÷ 10 = cm · cm ÷ 100 = m</div>
+      </div>
+      <div class="formula-item">
+        <div class="label">Missing Dim.</div>
+        <div class="formula">dim = V ÷ (side₁ × side₂)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: CONCEPTUAL FOUNDATION -->
+  <div class="section">
+    <div class="section-title"><span class="section-number">1</span>The Concept of Volume</div>
+
+    <p>Volume answers the question: <strong>how much space does this object take up?</strong> We measure it in <strong>cubic units</strong> — cm³, m³, or mm³.</p>
+
+    <div class="box-note">
+      <div class="box-title">💡 The Unit Cube Model</div>
+      <p>Imagine a tiny cube that is exactly <strong>1 cm × 1 cm × 1 cm</strong>. This cube has a volume of <strong>1 cm³</strong> (one cubic centimetre). If you said "the volume is 60 cm³", that means exactly 60 of those tiny cubes would fit perfectly inside the shape — no gaps, no overlaps.</p>
+    </div>
+
+    <p>This idea of counting unit cubes is what leads us to formulas. If a box is 5 cm long and you can fit 5 cubes in a row, and 3 cm wide meaning 3 rows, and 4 cm tall meaning 4 layers — the total count is <code>5 × 3 × 4 = 60</code>. That's all a volume formula really is.</p>
+
+    <div class="box-warning">
+      <div class="box-title">⚠️ Critical: Always label your answer with the correct unit</div>
+      <p>Volume is always in <strong>cubic</strong> units. Write cm³, not cm or cm². Examiners deduct marks for missing or wrong units.</p>
+    </div>
+
+    <div class="practice-section">
+      <h3>📝 Practice — Section 1: The Concept of Volume</h3>
+
+      <div class="level-block">
+        <div class="level-tag level-easy">Easy</div>
+        <div class="q-block">
+          <div class="q-text">Q1. A small cube is 1 cm × 1 cm × 1 cm. What is its volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q1_1" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q1_1',1,'1 × 1 × 1 = 1 cm³. Each unit cube has a volume of exactly 1 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q1_1_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q2. A box holds exactly 24 unit cubes (each 1 cm³). What is the volume of the box?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q1_2" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q1_2',24,'Volume = number of unit cubes = 24 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q1_2_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q3. A layer of unit cubes is arranged in a 4 × 3 grid. How many cubes are in the layer?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q1_3" placeholder="Answer">
+            <span class="q-unit">cubes</span>
+            <button class="q-btn" onclick="check('q1_3',12,'4 × 3 = 12 cubes per layer.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q1_3_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-intermediate">Intermediate</div>
+        <div class="q-block">
+          <div class="q-text">Q4. A box has 5 layers of cubes. Each layer has 4 × 3 = 12 cubes. What is the total volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q1_4" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q1_4',60,'12 cubes per layer × 5 layers = 60 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q1_4_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q5. Volume is measured in which type of units: square or cubic?</div>
+          <div class="q-input-row" style="align-items:center;gap:12px;">
+            <label style="font-weight:700;cursor:pointer;"><input type="radio" name="q1_5" value="square"> Square</label>
+            <label style="font-weight:700;cursor:pointer;"><input type="radio" name="q1_5" value="cubic"> Cubic</label>
+            <button class="q-btn" onclick="checkRadio('q1_5','cubic','Volume fills 3D space, so it uses cubic units (cm³, m³). Square units (cm²) are for area.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q1_5_fb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: CUBOID -->
+  <div class="section">
+    <div class="section-title"><span class="section-number">2</span>Volume of a Cuboid</div>
+
+    <p>A <strong>cuboid</strong> (also called a rectangular prism) has three different measurements: <strong>length (l)</strong>, <strong>width (w)</strong>, and <strong>height (h)</strong>.</p>
+
+    <div class="box-formula">
+      <div class="box-title">📐 Formula</div>
+      <div class="formula">Volume = length × width × height &nbsp;&nbsp; → &nbsp;&nbsp; V = l × w × h</div>
+    </div>
+
+    <p>Picture the cuboid with length going left–right, width going front–back, and height going up–down. The formula simply counts all unit cubes across all three directions.</p>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Worked Example 1 — Whole Numbers</div>
+      <div class="step"><span class="label">Given:</span> A box with length = 6 cm, width = 4 cm, height = 5 cm</div>
+      <div class="step"><span class="label">Step 1:</span> Write the formula: V = l × w × h</div>
+      <div class="step"><span class="label">Step 2:</span> Substitute values: V = 6 × 4 × 5</div>
+      <div class="step"><span class="label">Step 3:</span> Work left to right: 6 × 4 = 24, then 24 × 5 = 120</div>
+      <div class="answer">✅ V = 120 cm³</div>
+    </div>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Worked Example 2 — Decimal Dimensions</div>
+      <div class="step"><span class="label">Given:</span> A cuboid with length = 2.5 cm, width = 4 cm, height = 3 cm</div>
+      <div class="step"><span class="label">Step 1:</span> V = l × w × h</div>
+      <div class="step"><span class="label">Step 2:</span> V = 2.5 × 4 × 3</div>
+      <div class="step"><span class="label">Step 3:</span> 2.5 × 4 = 10.0, then 10 × 3 = 30</div>
+      <div class="answer">✅ V = 30 cm³</div>
+    </div>
+
+    <div class="practice-section">
+      <h3>📝 Practice — Cuboid Volume</h3>
+
+      <div class="level-block">
+        <div class="level-tag level-easy">Easy</div>
+        <div class="q-block">
+          <div class="q-text">Q1. Find the volume: length = 5 cm, width = 3 cm, height = 4 cm.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q2_1" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q2_1',60,'5 × 3 × 4 = 60 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q2_1_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q2. Find the volume: length = 8 cm, width = 2 cm, height = 7 cm.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q2_2" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q2_2',112,'8 × 2 × 7 = 112 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q2_2_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q3. Find the volume: length = 10 cm, width = 5 cm, height = 3 cm.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q2_3" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q2_3',150,'10 × 5 × 3 = 150 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q2_3_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-intermediate">Intermediate</div>
+        <div class="q-block">
+          <div class="q-text">Q4. A cuboid has length = 4.5 cm, width = 2 cm, height = 6 cm. Find the volume.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q2_4" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q2_4',54,'4.5 × 2 = 9, then 9 × 6 = 54 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q2_4_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q5. A storage box is 12 cm × 8 cm × 5 cm. What is its volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q2_5" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q2_5',480,'12 × 8 = 96, then 96 × 5 = 480 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q2_5_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-advanced">Advanced</div>
+        <div class="q-block">
+          <div class="q-text">Q6. A cuboid has volume 180 cm³ and base area (l × w) = 36 cm². What is the height?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q2_6" placeholder="Answer">
+            <span class="q-unit">cm</span>
+            <button class="q-btn" onclick="check('q2_6',5,'Height = Volume ÷ base area = 180 ÷ 36 = 5 cm.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q2_6_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q7. A rectangular fish tank is 25 cm × 15 cm × 20 cm. What is its volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q2_7" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q2_7',7500,'25 × 15 = 375, then 375 × 20 = 7500 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q2_7_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-challenging">Challenging</div>
+        <div class="q-block">
+          <div class="q-text">Q8. A cuboid has length = 3.5 cm, width = 2.4 cm, and height = 5 cm. What is its volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q2_8" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q2_8',42,'3.5 × 2.4 = 8.4, then 8.4 × 5 = 42 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q2_8_fb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: CUBE -->
+  <div class="section">
+    <div class="section-title"><span class="section-number">3</span>Volume of a Cube</div>
+
+    <p>A <strong>cube</strong> is a special cuboid where <strong>all three dimensions are equal</strong>: length = width = height = side length <strong>s</strong>.</p>
+
+    <div class="box-formula">
+      <div class="box-title">📐 Formula</div>
+      <div class="formula">V = s × s × s = s³</div>
+    </div>
+
+    <p>The notation <strong>s³</strong> is read as "s cubed". This is where the term "cubic" in cubic centimetres comes from!</p>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Worked Example</div>
+      <div class="step"><span class="label">Given:</span> A cube with side length = 4 cm</div>
+      <div class="step"><span class="label">Step 1:</span> V = s³ = 4³</div>
+      <div class="step"><span class="label">Step 2:</span> 4 × 4 = 16, then 16 × 4 = 64</div>
+      <div class="answer">✅ V = 64 cm³</div>
+    </div>
+
+    <div class="practice-section">
+      <h3>📝 Practice — Cube Volume</h3>
+
+      <div class="level-block">
+        <div class="level-tag level-easy">Easy</div>
+        <div class="q-block">
+          <div class="q-text">Q1. A cube has side length 3 cm. What is its volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q3_1" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q3_1',27,'3³ = 3 × 3 × 3 = 27 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q3_1_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q2. A cube has side length 5 cm. What is its volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q3_2" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q3_2',125,'5³ = 5 × 5 × 5 = 125 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q3_2_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q3. A cube has side length 2 cm. What is its volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q3_3" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q3_3',8,'2³ = 2 × 2 × 2 = 8 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q3_3_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-intermediate">Intermediate</div>
+        <div class="q-block">
+          <div class="q-text">Q4. A cube has volume 216 cm³. What is its side length?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q3_4" placeholder="Answer">
+            <span class="q-unit">cm</span>
+            <button class="q-btn" onclick="check('q3_4',6,'We need a number where s³ = 216. 6 × 6 × 6 = 216, so s = 6 cm.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q3_4_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q5. A cube has side length 1.5 cm. What is its volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q3_5" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q3_5',3.375,'1.5 × 1.5 = 2.25, then 2.25 × 1.5 = 3.375 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q3_5_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-advanced">Advanced</div>
+        <div class="q-block">
+          <div class="q-text">Q6. A cube has volume 1000 cm³. What is its side length?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q3_6" placeholder="Answer">
+            <span class="q-unit">cm</span>
+            <button class="q-btn" onclick="check('q3_6',10,'10 × 10 × 10 = 1000, so side = 10 cm.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q3_6_fb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: TRIANGULAR PRISM -->
+  <div class="section">
+    <div class="section-title"><span class="section-number">4</span>Volume of a Triangular Prism</div>
+
+    <p>A <strong>triangular prism</strong> has a triangular cross-section (its face) and a length (also called depth or height of the prism). Think of it like a Toblerone chocolate box.</p>
+
+    <div class="box-note">
+      <div class="box-title">🔑 Identifying the Parts</div>
+      <p><strong>Triangle face:</strong> has a base (b) and a perpendicular height (h) — these are the two measurements of the triangle itself.</p>
+      <p><strong>Length (l):</strong> how long the prism stretches — this is the "depth" of the box, going away from you.</p>
+      <p>Don't confuse the triangle's height with the prism's length. They are different measurements!</p>
+    </div>
+
+    <div class="box-formula">
+      <div class="box-title">📐 Formula</div>
+      <div class="formula">V = ½ × base × height × length</div>
+      <div class="formula" style="margin-top:4px;font-size:0.85rem;opacity:0.8;">V = ½ × b × h × l &nbsp;&nbsp; (where b and h belong to the triangle, l is the prism's length)</div>
+    </div>
+
+    <p>Why ½? Because the area of a triangle is ½ × base × height. Volume = cross-sectional area × length.</p>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Worked Example 1</div>
+      <div class="step"><span class="label">Given:</span> Triangle base = 6 cm, triangle height = 4 cm, prism length = 10 cm</div>
+      <div class="step"><span class="label">Step 1:</span> Area of triangle = ½ × 6 × 4 = 12 cm²</div>
+      <div class="step"><span class="label">Step 2:</span> Volume = triangle area × prism length = 12 × 10</div>
+      <div class="answer">✅ V = 120 cm³</div>
+    </div>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Worked Example 2 — Decimal Dimensions</div>
+      <div class="step"><span class="label">Given:</span> Triangle base = 5 cm, triangle height = 3 cm, prism length = 8.5 cm</div>
+      <div class="step"><span class="label">Step 1:</span> Area of triangle = ½ × 5 × 3 = 7.5 cm²</div>
+      <div class="step"><span class="label">Step 2:</span> Volume = 7.5 × 8.5 = 63.75</div>
+      <div class="answer">✅ V = 63.75 cm³</div>
+    </div>
+
+    <div class="box-warning">
+      <div class="box-title">⚠️ Most Common Mistake — Forgetting the ½</div>
+      <p>Students often compute <code>b × h × l</code> without the ½ and get double the correct answer. Always write ½ × base × height first to get the triangle area, then multiply by the prism's length.</p>
+    </div>
+
+    <div class="practice-section">
+      <h3>📝 Practice — Triangular Prism</h3>
+
+      <div class="level-block">
+        <div class="level-tag level-easy">Easy</div>
+        <div class="q-block">
+          <div class="q-text">Q1. Triangle base = 4 cm, triangle height = 3 cm, prism length = 10 cm. Find the volume.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q4_1" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q4_1',60,'Area of triangle = ½ × 4 × 3 = 6 cm². Volume = 6 × 10 = 60 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q4_1_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q2. Triangle base = 6 cm, triangle height = 5 cm, prism length = 8 cm. Find the volume.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q4_2" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q4_2',120,'½ × 6 × 5 = 15 cm². 15 × 8 = 120 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q4_2_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q3. Triangle base = 8 cm, triangle height = 6 cm, prism length = 5 cm. Find the volume.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q4_3" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q4_3',120,'½ × 8 × 6 = 24 cm². 24 × 5 = 120 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q4_3_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-intermediate">Intermediate</div>
+        <div class="q-block">
+          <div class="q-text">Q4. Triangle base = 9 cm, triangle height = 4 cm, prism length = 7 cm. Find the volume.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q4_4" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q4_4',126,'½ × 9 × 4 = 18 cm². 18 × 7 = 126 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q4_4_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q5. A triangular prism has volume 90 cm³. The triangle area is 9 cm². What is the prism length?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q4_5" placeholder="Answer">
+            <span class="q-unit">cm</span>
+            <button class="q-btn" onclick="check('q4_5',10,'Length = Volume ÷ triangle area = 90 ÷ 9 = 10 cm.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q4_5_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-advanced">Advanced</div>
+        <div class="q-block">
+          <div class="q-text">Q6. Triangle base = 5 cm, triangle height = 3 cm, prism length = 8.5 cm. Find the volume.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q4_6" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q4_6',63.75,'½ × 5 × 3 = 7.5 cm². 7.5 × 8.5 = 63.75 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q4_6_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-challenging">Challenging</div>
+        <div class="q-block">
+          <div class="q-text">Q7. A triangular prism door stop has base 12 cm, height 9 cm, depth 4.5 cm. What is its volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q4_7" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q4_7',243,'½ × 12 × 9 = 54 cm². 54 × 4.5 = 243 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q4_7_fb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: UNIT CONVERSION -->
+  <div class="section">
+    <div class="section-title"><span class="section-number">5</span>Unit Conversion — Fully Worked</div>
+
+    <p><strong>All dimensions must be in the same unit before you calculate.</strong> GL papers regularly give you mixed units to catch students out.</p>
+
+    <div class="box-formula">
+      <div class="box-title">📐 Conversion Rules</div>
+      <div class="formula">mm → cm: divide by 10 &nbsp;&nbsp; (e.g. 50 mm = 5 cm)</div>
+      <div class="formula" style="margin-top:4px;">cm → m: divide by 100 &nbsp;&nbsp; (e.g. 250 cm = 2.5 m)</div>
+      <div class="formula" style="margin-top:4px;">m → cm: multiply by 100 &nbsp;&nbsp; (e.g. 1.2 m = 120 cm)</div>
+    </div>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Worked Example — Mixed Units</div>
+      <div class="step"><span class="label">Given:</span> length = 1.2 m, width = 40 cm, height = 50 mm</div>
+      <div class="step"><span class="label">Step 1:</span> Convert everything to cm (cm is most convenient here)</div>
+      <div class="step">· 1.2 m × 100 = <strong>120 cm</strong></div>
+      <div class="step">· 40 cm = <strong>40 cm</strong> (already in cm)</div>
+      <div class="step">· 50 mm ÷ 10 = <strong>5 cm</strong></div>
+      <div class="step"><span class="label">Step 2:</span> V = 120 × 40 × 5</div>
+      <div class="step"><span class="label">Step 3:</span> 120 × 40 = 4800, then 4800 × 5 = 24 000</div>
+      <div class="answer">✅ V = 24 000 cm³</div>
+    </div>
+
+    <div class="box-warning">
+      <div class="box-title">⚠️ The Classic Trap</div>
+      <p>A student reads "length 1.2 m, width 40 cm, height 50 mm" and just multiplies: 1.2 × 40 × 50 = 2400. This is completely wrong because the units are different. <strong>Always convert first.</strong></p>
+    </div>
+
+    <div class="practice-section">
+      <h3>📝 Practice — Unit Conversion</h3>
+
+      <div class="level-block">
+        <div class="level-tag level-easy">Easy</div>
+        <div class="q-block">
+          <div class="q-text">Q1. Convert 80 mm to cm.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q5_1" placeholder="Answer">
+            <span class="q-unit">cm</span>
+            <button class="q-btn" onclick="check('q5_1',8,'80 mm ÷ 10 = 8 cm.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q5_1_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q2. Convert 2.5 m to cm.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q5_2" placeholder="Answer">
+            <span class="q-unit">cm</span>
+            <button class="q-btn" onclick="check('q5_2',250,'2.5 m × 100 = 250 cm.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q5_2_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-intermediate">Intermediate</div>
+        <div class="q-block">
+          <div class="q-text">Q3. Find the volume: length = 2 m, width = 30 cm, height = 20 cm. Give answer in cm³.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q5_3" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q5_3',120000,'Convert 2 m = 200 cm. Then 200 × 30 × 20 = 120 000 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q5_3_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q4. Find the volume: length = 60 mm, width = 4 cm, height = 5 cm. Give answer in cm³.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q5_4" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q5_4',120,'60 mm = 6 cm. Then 6 × 4 × 5 = 120 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q5_4_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-advanced">Advanced</div>
+        <div class="q-block">
+          <div class="q-text">Q5. A box has length = 1.5 m, width = 80 cm, height = 200 mm. Find the volume in cm³.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q5_5" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q5_5',240000,'1.5 m = 150 cm, 80 cm = 80 cm, 200 mm = 20 cm. 150 × 80 × 20 = 240 000 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q5_5_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-challenging">Challenging</div>
+        <div class="q-block">
+          <div class="q-text">Q6. A box: length = 0.75 m, width = 50 cm, height = 300 mm. What is its volume in cm³?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q5_6" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q5_6',112500,'0.75 m = 75 cm, 300 mm = 30 cm. 75 × 50 × 30 = 112 500 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q5_6_fb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: CAPACITY -->
+  <div class="section">
+    <div class="section-title"><span class="section-number">6</span>Capacity and Liquid Volume</div>
+
+    <p>When a 3D shape holds liquid (a tank, a jug, a pool), we often need to express volume as a <strong>capacity in millilitres or litres</strong>.</p>
+
+    <div class="box-formula">
+      <div class="box-title">📐 Key Relationships</div>
+      <div class="formula">1 cm³ = 1 ml</div>
+      <div class="formula" style="margin-top:4px;">1 litre = 1000 ml = 1000 cm³</div>
+      <div class="formula" style="margin-top:4px;">To convert cm³ → litres: divide by 1000</div>
+    </div>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Worked Example — Litres in a Tank</div>
+      <div class="step"><span class="label">Given:</span> A tank is 30 cm × 20 cm × 15 cm. How many litres does it hold?</div>
+      <div class="step"><span class="label">Step 1:</span> Volume = 30 × 20 × 15 = 9000 cm³</div>
+      <div class="step"><span class="label">Step 2:</span> Since 1000 cm³ = 1 litre: 9000 ÷ 1000 = 9 litres</div>
+      <div class="answer">✅ The tank holds 9 litres.</div>
+    </div>
+
+    <div class="practice-section">
+      <h3>📝 Practice — Capacity</h3>
+
+      <div class="level-block">
+        <div class="level-tag level-easy">Easy</div>
+        <div class="q-block">
+          <div class="q-text">Q1. A container has volume 5000 cm³. How many litres does it hold?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q6_1" placeholder="Answer">
+            <span class="q-unit">litres</span>
+            <button class="q-btn" onclick="check('q6_1',5,'5000 cm³ ÷ 1000 = 5 litres.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q6_1_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q2. How many cm³ are in 3.5 litres?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q6_2" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q6_2',3500,'3.5 litres × 1000 = 3500 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q6_2_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q3. A carton holds 500 ml. How many cm³ is this?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q6_3" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q6_3',500,'1 ml = 1 cm³, so 500 ml = 500 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q6_3_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-intermediate">Intermediate</div>
+        <div class="q-block">
+          <div class="q-text">Q4. A fish tank is 40 cm × 25 cm × 20 cm. How many litres does it hold?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q6_4" placeholder="Answer">
+            <span class="q-unit">litres</span>
+            <button class="q-btn" onclick="check('q6_4',20,'40 × 25 × 20 = 20 000 cm³. ÷ 1000 = 20 litres.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q6_4_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q5. A box is 50 cm × 20 cm × 30 cm. What is its capacity in litres?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q6_5" placeholder="Answer">
+            <span class="q-unit">litres</span>
+            <button class="q-btn" onclick="check('q6_5',30,'50 × 20 × 30 = 30 000 cm³ ÷ 1000 = 30 litres.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q6_5_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-advanced">Advanced</div>
+        <div class="q-block">
+          <div class="q-text">Q6. A tank holds 12 litres when full. Its base is 20 cm × 30 cm. How tall is the tank?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q6_6" placeholder="Answer">
+            <span class="q-unit">cm</span>
+            <button class="q-btn" onclick="check('q6_6',20,'12 litres = 12 000 cm³. Base area = 20 × 30 = 600 cm². Height = 12 000 ÷ 600 = 20 cm.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q6_6_fb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: FILLING PROBLEMS -->
+  <div class="section">
+    <div class="section-title"><span class="section-number">7</span>Filling and Container Problems</div>
+
+    <p>These questions give a container that is <strong>partially filled</strong> and ask how much more liquid is needed, or how high water will rise.</p>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Worked Example — How Much More Water?</div>
+      <div class="step"><span class="label">Given:</span> A tank is 50 cm × 30 cm × 20 cm. It already contains 18 litres of water. How many more litres are needed to fill it completely?</div>
+      <div class="step"><span class="label">Step 1:</span> Total volume = 50 × 30 × 20 = 30 000 cm³</div>
+      <div class="step"><span class="label">Step 2:</span> Convert to litres: 30 000 ÷ 1000 = 30 litres</div>
+      <div class="step"><span class="label">Step 3:</span> Extra water needed = 30 − 18 = 12 litres</div>
+      <div class="answer">✅ 12 more litres are needed.</div>
+    </div>
+
+    <div class="practice-section">
+      <h3>📝 Practice — Container Problems</h3>
+
+      <div class="level-block">
+        <div class="level-tag level-easy">Easy</div>
+        <div class="q-block">
+          <div class="q-text">Q1. A tank holds 15 litres when full. It currently contains 6 litres. How many more litres are needed?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q7_1" placeholder="Answer">
+            <span class="q-unit">litres</span>
+            <button class="q-btn" onclick="check('q7_1',9,'15 − 6 = 9 litres needed.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q7_1_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q2. A box is 20 cm × 10 cm × 10 cm. It holds 1 litre of water. How many more cm³ to fill it?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q7_2" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q7_2',1000,'Total = 20 × 10 × 10 = 2000 cm³. 1 litre = 1000 cm³. Remaining = 2000 − 1000 = 1000 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q7_2_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-intermediate">Intermediate</div>
+        <div class="q-block">
+          <div class="q-text">Q3. A tank 60 cm × 40 cm × 25 cm already has 30 litres. How many more litres to fill it?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q7_3" placeholder="Answer">
+            <span class="q-unit">litres</span>
+            <button class="q-btn" onclick="check('q7_3',30,'Total = 60 × 40 × 25 = 60 000 cm³ = 60 litres. 60 − 30 = 30 litres more.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q7_3_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-advanced">Advanced</div>
+        <div class="q-block">
+          <div class="q-text">Q4. A tank 80 cm × 50 cm × 40 cm is two-thirds full. How many litres of water does it currently contain?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q7_4" placeholder="Answer">
+            <span class="q-unit">litres</span>
+            <button class="q-btn" onclick="check('q7_4',106.67,'Total = 80 × 50 × 40 = 160 000 cm³ = 160 litres. ⅔ × 160 = 106.67 litres.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q7_4_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-challenging">Challenging</div>
+        <div class="q-block">
+          <div class="q-text">Q5. A 30 cm × 20 cm × 15 cm tank is filled to a depth of 10 cm. How many more cm³ are needed to fill the remaining space?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q7_5" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q7_5',3000,'Total = 30 × 20 × 15 = 9000 cm³. Filled part = 30 × 20 × 10 = 6000 cm³. Remaining = 9000 − 6000 = 3000 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q7_5_fb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8: PACKING -->
+  <div class="section">
+    <div class="section-title"><span class="section-number">8</span>Packing Small Cubes into a Larger Box</div>
+
+    <p>These questions ask how many small cubes can be packed into a larger cuboid. The critical technique is to <strong>divide each dimension separately</strong>, then multiply those results together.</p>
+
+    <div class="box-formula">
+      <div class="box-title">📐 Method</div>
+      <div class="formula">Cubes along length = box length ÷ cube side</div>
+      <div class="formula" style="margin-top:4px;">Cubes along width = box width ÷ cube side</div>
+      <div class="formula" style="margin-top:4px;">Cubes along height = box height ÷ cube side</div>
+      <div class="formula" style="margin-top:4px;font-weight:700;">Total = (along length) × (along width) × (along height)</div>
+    </div>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Worked Example</div>
+      <div class="step"><span class="label">Given:</span> How many 2 cm cubes fit into a box that is 10 cm × 8 cm × 6 cm?</div>
+      <div class="step"><span class="label">Step 1:</span> Along the length: 10 ÷ 2 = 5</div>
+      <div class="step"><span class="label">Step 2:</span> Along the width: 8 ÷ 2 = 4</div>
+      <div class="step"><span class="label">Step 3:</span> Along the height: 6 ÷ 2 = 3</div>
+      <div class="step"><span class="label">Step 4:</span> Total = 5 × 4 × 3 = 60</div>
+      <div class="answer">✅ 60 small cubes fit into the box.</div>
+    </div>
+
+    <div class="box-warning">
+      <div class="box-title">⚠️ Common Wrong Method — Do NOT do this!</div>
+      <p>A student divides volumes: box volume = 480 cm³, small cube volume = 8 cm³, so 480 ÷ 8 = 60. This <em>happens</em> to work only when all dimensions divide exactly. If the cube size doesn't divide evenly into all three dimensions, volume-division gives the wrong answer. <strong>Always divide dimensions separately.</strong></p>
+    </div>
+
+    <div class="practice-section">
+      <h3>📝 Practice — Packing</h3>
+
+      <div class="level-block">
+        <div class="level-tag level-easy">Easy</div>
+        <div class="q-block">
+          <div class="q-text">Q1. How many 1 cm cubes fit into a box 5 cm × 3 cm × 4 cm?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q8_1" placeholder="Answer">
+            <span class="q-unit">cubes</span>
+            <button class="q-btn" onclick="check('q8_1',60,'5 ÷ 1 = 5, 3 ÷ 1 = 3, 4 ÷ 1 = 4. Total = 5 × 3 × 4 = 60.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q8_1_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q2. How many 2 cm cubes fit into a box 6 cm × 4 cm × 2 cm?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q8_2" placeholder="Answer">
+            <span class="q-unit">cubes</span>
+            <button class="q-btn" onclick="check('q8_2',6,'6 ÷ 2 = 3, 4 ÷ 2 = 2, 2 ÷ 2 = 1. Total = 3 × 2 × 1 = 6.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q8_2_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-intermediate">Intermediate</div>
+        <div class="q-block">
+          <div class="q-text">Q3. How many 3 cm cubes fit into a box 12 cm × 9 cm × 6 cm?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q8_3" placeholder="Answer">
+            <span class="q-unit">cubes</span>
+            <button class="q-btn" onclick="check('q8_3',24,'12 ÷ 3 = 4, 9 ÷ 3 = 3, 6 ÷ 3 = 2. Total = 4 × 3 × 2 = 24.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q8_3_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q4. How many 4 cm cubes fit into a box 20 cm × 8 cm × 12 cm?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q8_4" placeholder="Answer">
+            <span class="q-unit">cubes</span>
+            <button class="q-btn" onclick="check('q8_4',30,'20 ÷ 4 = 5, 8 ÷ 4 = 2, 12 ÷ 4 = 3. Total = 5 × 2 × 3 = 30.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q8_4_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-advanced">Advanced</div>
+        <div class="q-block">
+          <div class="q-text">Q5. How many 5 cm cubes fit into a box 30 cm × 25 cm × 15 cm?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q8_5" placeholder="Answer">
+            <span class="q-unit">cubes</span>
+            <button class="q-btn" onclick="check('q8_5',90,'30 ÷ 5 = 6, 25 ÷ 5 = 5, 15 ÷ 5 = 3. Total = 6 × 5 × 3 = 90.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q8_5_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-challenging">Challenging</div>
+        <div class="q-block">
+          <div class="q-text">Q6. Small cubes of side 3 cm are packed into a 18 cm × 12 cm × 9 cm box. How many fit?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q8_6" placeholder="Answer">
+            <span class="q-unit">cubes</span>
+            <button class="q-btn" onclick="check('q8_6',72,'18 ÷ 3 = 6, 12 ÷ 3 = 4, 9 ÷ 3 = 3. Total = 6 × 4 × 3 = 72.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q8_6_fb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 9: MISSING DIMENSION -->
+  <div class="section">
+    <div class="section-title"><span class="section-number">9</span>Finding a Missing Dimension</div>
+
+    <p>When the total volume is known and two of the three dimensions are given, you can find the third by working backwards.</p>
+
+    <div class="box-formula">
+      <div class="box-title">📐 Method</div>
+      <div class="formula">Step 1: Multiply the two known sides together</div>
+      <div class="formula" style="margin-top:4px;">Step 2: Missing side = Volume ÷ (product of the two known sides)</div>
+    </div>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Worked Example 1 — Whole Numbers</div>
+      <div class="step"><span class="label">Given:</span> Volume = 240 cm³, length = 8 cm, width = 5 cm. Find the height.</div>
+      <div class="step"><span class="label">Step 1:</span> Multiply known sides: 8 × 5 = 40</div>
+      <div class="step"><span class="label">Step 2:</span> Height = 240 ÷ 40 = 6</div>
+      <div class="answer">✅ Height = 6 cm</div>
+    </div>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Worked Example 2 — Decimal Answer</div>
+      <div class="step"><span class="label">Given:</span> Volume = 90 cm³, length = 6 cm, width = 4 cm. Find the height.</div>
+      <div class="step"><span class="label">Step 1:</span> 6 × 4 = 24</div>
+      <div class="step"><span class="label">Step 2:</span> Height = 90 ÷ 24 = 3.75</div>
+      <div class="answer">✅ Height = 3.75 cm</div>
+    </div>
+
+    <div class="practice-section">
+      <h3>📝 Practice — Missing Dimensions</h3>
+
+      <div class="level-block">
+        <div class="level-tag level-easy">Easy</div>
+        <div class="q-block">
+          <div class="q-text">Q1. Volume = 60 cm³, length = 5 cm, width = 4 cm. Find the height.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q9_1" placeholder="Answer">
+            <span class="q-unit">cm</span>
+            <button class="q-btn" onclick="check('q9_1',3,'5 × 4 = 20. Height = 60 ÷ 20 = 3 cm.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q9_1_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q2. Volume = 120 cm³, length = 6 cm, width = 4 cm. Find the height.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q9_2" placeholder="Answer">
+            <span class="q-unit">cm</span>
+            <button class="q-btn" onclick="check('q9_2',5,'6 × 4 = 24. Height = 120 ÷ 24 = 5 cm.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q9_2_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-intermediate">Intermediate</div>
+        <div class="q-block">
+          <div class="q-text">Q3. Volume = 336 cm³, length = 8 cm, width = 7 cm. Find the height.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q9_3" placeholder="Answer">
+            <span class="q-unit">cm</span>
+            <button class="q-btn" onclick="check('q9_3',6,'8 × 7 = 56. Height = 336 ÷ 56 = 6 cm.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q9_3_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q4. Volume = 105 cm³, length = 7 cm, width = 5 cm. Find the height.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q9_4" placeholder="Answer">
+            <span class="q-unit">cm</span>
+            <button class="q-btn" onclick="check('q9_4',3,'7 × 5 = 35. Height = 105 ÷ 35 = 3 cm.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q9_4_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-advanced">Advanced</div>
+        <div class="q-block">
+          <div class="q-text">Q5. Volume = 90 cm³, length = 6 cm, width = 4 cm. Find the height (decimal answer).</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q9_5" placeholder="Answer">
+            <span class="q-unit">cm</span>
+            <button class="q-btn" onclick="check('q9_5',3.75,'6 × 4 = 24. Height = 90 ÷ 24 = 3.75 cm.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q9_5_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-challenging">Challenging</div>
+        <div class="q-block">
+          <div class="q-text">Q6. A cuboid has volume 2400 cm³. Its length is 20 cm and height is 15 cm. What is its width?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q9_6" placeholder="Answer">
+            <span class="q-unit">cm</span>
+            <button class="q-btn" onclick="check('q9_6',8,'20 × 15 = 300. Width = 2400 ÷ 300 = 8 cm.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q9_6_fb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 10: COMPOUND SHAPES -->
+  <div class="section">
+    <div class="section-title"><span class="section-number">10</span>Compound / L-Shaped Solids</div>
+
+    <p>Some 3D shapes look like two cuboids joined together — often in an L-shape or a step shape. Split them into simpler cuboids, find each volume, then add.</p>
+
+    <div class="box-formula">
+      <div class="box-title">📐 Method</div>
+      <div class="formula">Step 1: Split the shape into two simple cuboids</div>
+      <div class="formula" style="margin-top:4px;">Step 2: Calculate the volume of each cuboid</div>
+      <div class="formula" style="margin-top:4px;">Step 3: Add the two volumes together</div>
+    </div>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Worked Example — L-Shape</div>
+      <div class="step"><span class="label">Given:</span> An L-shaped solid. Imagine a large cuboid 10 cm × 4 cm × 6 cm with a rectangular notch cut from one corner. The notch is 4 cm × 4 cm × 6 cm. Alternatively: think of Piece A (8 cm × 4 cm × 6 cm) joined to Piece B (4 cm × 2 cm × 6 cm).</div>
+      <div class="step"><span class="label">Step 1:</span> Volume of Piece A = 8 × 4 × 6 = 192 cm³</div>
+      <div class="step"><span class="label">Step 2:</span> Volume of Piece B = 4 × 2 × 6 = 48 cm³</div>
+      <div class="step"><span class="label">Step 3:</span> Total = 192 + 48 = 240 cm³</div>
+      <div class="answer">✅ Total Volume = 240 cm³</div>
+    </div>
+
+    <div class="practice-section">
+      <h3>📝 Practice — Compound Shapes</h3>
+
+      <div class="level-block">
+        <div class="level-tag level-easy">Easy</div>
+        <div class="q-block">
+          <div class="q-text">Q1. An L-shape is made of two cuboids: Piece A = 6 cm × 3 cm × 4 cm and Piece B = 2 cm × 3 cm × 4 cm. What is the total volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q10_1" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q10_1',96,'A = 6×3×4 = 72 cm³. B = 2×3×4 = 24 cm³. Total = 72 + 24 = 96 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q10_1_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-intermediate">Intermediate</div>
+        <div class="q-block">
+          <div class="q-text">Q2. A step shape: Piece A = 10 cm × 5 cm × 8 cm, Piece B = 5 cm × 5 cm × 4 cm. Find the total volume.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q10_2" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q10_2',500,'A = 10×5×8 = 400 cm³. B = 5×5×4 = 100 cm³. Total = 400+100 = 500 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q10_2_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q3. An L-solid: Piece A = 12 cm × 3 cm × 5 cm and Piece B = 4 cm × 3 cm × 5 cm. Find total volume.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q10_3" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q10_3',240,'A = 12×3×5 = 180 cm³. B = 4×3×5 = 60 cm³. Total = 240 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q10_3_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-advanced">Advanced</div>
+        <div class="q-block">
+          <div class="q-text">Q4. A solid is made by taking a 10 cm × 8 cm × 6 cm cuboid and removing a 4 cm × 3 cm × 6 cm piece. Find the remaining volume.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q10_4" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q10_4',408,'Full = 10×8×6 = 480 cm³. Removed = 4×3×6 = 72 cm³. Remaining = 480−72 = 408 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q10_4_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-challenging">Challenging</div>
+        <div class="q-block">
+          <div class="q-text">Q5. A staircase shape has 3 steps. Step 1 = 6×4×3 cm, Step 2 = 4×4×3 cm, Step 3 = 2×4×3 cm. Total volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q10_5" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q10_5',144,'72 + 48 + 24 = 144 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q10_5_fb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 11: SCALING -->
+  <div class="section">
+    <div class="section-title"><span class="section-number">11</span>Scaling and Proportion</div>
+
+    <p>What happens to volume when you change the size of a shape? This is a classic GL question type that tests deep understanding rather than formula recall.</p>
+
+    <div class="box-formula">
+      <div class="box-title">📐 Scaling Rules</div>
+      <div class="formula">All dimensions × 2 → Volume × 2³ = Volume × 8</div>
+      <div class="formula" style="margin-top:4px;">All dimensions × 3 → Volume × 3³ = Volume × 27</div>
+      <div class="formula" style="margin-top:4px;">One dimension × 2 → Volume × 2 (only)</div>
+    </div>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Worked Example — Doubling All Dimensions</div>
+      <div class="step"><span class="label">Original:</span> Cuboid 3 cm × 4 cm × 5 cm → V = 60 cm³</div>
+      <div class="step"><span class="label">New dimensions:</span> 6 cm × 8 cm × 10 cm</div>
+      <div class="step"><span class="label">New volume:</span> 6 × 8 × 10 = 480 cm³</div>
+      <div class="step"><span class="label">Ratio:</span> 480 ÷ 60 = 8</div>
+      <div class="answer">✅ Volume multiplied by 8 (= 2³) when all dimensions were doubled.</div>
+    </div>
+
+    <div class="box-note">
+      <div class="box-title">💡 Why does volume multiply by 8?</div>
+      <p>Doubling each of 3 dimensions gives 2 × 2 × 2 = 8 times the original volume. If only one dimension is doubled, the volume doubles. If two dimensions double, volume × 4. This is called the <strong>cube law of scaling</strong>.</p>
+    </div>
+
+    <div class="practice-section">
+      <h3>📝 Practice — Scaling</h3>
+
+      <div class="level-block">
+        <div class="level-tag level-easy">Easy</div>
+        <div class="q-block">
+          <div class="q-text">Q1. A cuboid has volume 30 cm³. All its dimensions are doubled. What is the new volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q11_1" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q11_1',240,'Doubling all 3 dimensions: 30 × 2³ = 30 × 8 = 240 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q11_1_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q2. A cuboid has volume 50 cm³. Its height only is doubled. What is the new volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q11_2" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q11_2',100,'Only one dimension doubled → volume × 2. 50 × 2 = 100 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q11_2_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-intermediate">Intermediate</div>
+        <div class="q-block">
+          <div class="q-text">Q3. A cube has side length 4 cm. All its sides are tripled. What is the new volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q11_3" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q11_3',1728,'Original = 64 cm³. New side = 12 cm. 12³ = 1728 cm³. (Or 64 × 27 = 1728.)')">Check</button>
+          </div>
+          <div class="q-feedback" id="q11_3_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-advanced">Advanced</div>
+        <div class="q-block">
+          <div class="q-text">Q4. A cuboid has volume 120 cm³. Two of its three dimensions are doubled. What is the new volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q11_4" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q11_4',480,'Two dimensions doubled → volume × 2 × 2 = × 4. 120 × 4 = 480 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q11_4_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-challenging">Challenging</div>
+        <div class="q-block">
+          <div class="q-text">Q5. A cuboid is 5 cm × 4 cm × 3 cm. A new cuboid has all dimensions multiplied by 1.5. What is the new volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q11_5" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q11_5',202.5,'Original = 60 cm³. New = 7.5 × 6 × 4.5 = 202.5 cm³. (Or 60 × 1.5³ = 60 × 3.375 = 202.5)')">Check</button>
+          </div>
+          <div class="q-feedback" id="q11_5_fb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 12: SURFACE AREA vs VOLUME -->
+  <div class="section">
+    <div class="section-title"><span class="section-number">12</span>Surface Area vs Volume — Side by Side</div>
+
+    <p>These are two completely different measurements of the same shape. Students regularly confuse them under exam pressure.</p>
+
+    <table>
+      <tr><th>Feature</th><th>Surface Area</th><th>Volume</th></tr>
+      <tr><td>What it measures</td><td>The "skin" or outside</td><td>The "filling" inside</td></tr>
+      <tr><td>Unit</td><td>cm² (square)</td><td>cm³ (cubic)</td></tr>
+      <tr><td>Visual analogy</td><td>Wrapping paper needed</td><td>Sand that fills it</td></tr>
+    </table>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Side-by-Side Calculation — Same Cuboid (5 cm × 3 cm × 4 cm)</div>
+      <div class="side-by-side">
+        <div style="background:var(--blue-light);border-radius:8px;padding:14px;">
+          <div style="font-weight:800;color:var(--blue);margin-bottom:8px;">SURFACE AREA</div>
+          <div>6 faces: top/bottom, front/back, left/right</div>
+          <div>Top + Bottom: 2 × (5 × 3) = 30 cm²</div>
+          <div>Front + Back: 2 × (5 × 4) = 40 cm²</div>
+          <div>Left + Right: 2 × (3 × 4) = 24 cm²</div>
+          <div style="font-weight:800;margin-top:8px;color:var(--blue);">SA = 94 cm²</div>
+        </div>
+        <div style="background:var(--green-light);border-radius:8px;padding:14px;">
+          <div style="font-weight:800;color:var(--green);margin-bottom:8px;">VOLUME</div>
+          <div>V = l × w × h</div>
+          <div>V = 5 × 3 × 4</div>
+          <div>V = 60</div>
+          <div style="height:24px;"></div>
+          <div style="font-weight:800;margin-top:8px;color:var(--green);">V = 60 cm³</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box-warning">
+      <div class="box-title">⚠️ Exam Warning</div>
+      <p>If a question asks for volume, your answer should end in <strong>cm³</strong>. If it asks for surface area, it ends in <strong>cm²</strong>. A wrong unit label tells the examiner you've confused these two concepts — even if your number is right.</p>
+    </div>
+
+    <div class="practice-section">
+      <h3>📝 Practice — Surface Area vs Volume</h3>
+
+      <div class="level-block">
+        <div class="level-tag level-easy">Easy</div>
+        <div class="q-block">
+          <div class="q-text">Q1. A cuboid is 4 cm × 3 cm × 2 cm. What is its VOLUME?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q12_1" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q12_1',24,'V = 4 × 3 × 2 = 24 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q12_1_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q2. Same cuboid (4 cm × 3 cm × 2 cm). What is its SURFACE AREA?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q12_2" placeholder="Answer">
+            <span class="q-unit">cm²</span>
+            <button class="q-btn" onclick="check('q12_2',52,'2×(4×3) + 2×(4×2) + 2×(3×2) = 24 + 16 + 12 = 52 cm².')">Check</button>
+          </div>
+          <div class="q-feedback" id="q12_2_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-intermediate">Intermediate</div>
+        <div class="q-block">
+          <div class="q-text">Q3. A cube has side 5 cm. What is its surface area?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q12_3" placeholder="Answer">
+            <span class="q-unit">cm²</span>
+            <button class="q-btn" onclick="check('q12_3',150,'6 faces, each 5 × 5 = 25 cm². 6 × 25 = 150 cm².')">Check</button>
+          </div>
+          <div class="q-feedback" id="q12_3_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q4. Same cube (side 5 cm). What is its volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q12_4" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q12_4',125,'V = 5³ = 125 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q12_4_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-advanced">Advanced</div>
+        <div class="q-block">
+          <div class="q-text">Q5. A cuboid 10 cm × 6 cm × 4 cm. Find the surface area.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q12_5" placeholder="Answer">
+            <span class="q-unit">cm²</span>
+            <button class="q-btn" onclick="check('q12_5',248,'2×(10×6) + 2×(10×4) + 2×(6×4) = 120+80+48 = 248 cm².')">Check</button>
+          </div>
+          <div class="q-feedback" id="q12_5_fb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 13: FRACTIONS -->
+  <div class="section">
+    <div class="section-title"><span class="section-number">13</span>Decimal and Fractional Dimensions</div>
+
+    <p>GL papers regularly use non-integer dimensions. Don't panic — the method is exactly the same. Just convert fractions to decimals first.</p>
+
+    <div class="box-formula">
+      <div class="box-title">📐 Useful Fraction–Decimal Conversions</div>
+      <div class="formula">¼ = 0.25 &nbsp;&nbsp; ½ = 0.5 &nbsp;&nbsp; ¾ = 0.75</div>
+      <div class="formula" style="margin-top:4px;">⅓ ≈ 0.333 &nbsp;&nbsp; ⅔ ≈ 0.667 &nbsp;&nbsp; ⅕ = 0.2</div>
+    </div>
+
+    <div class="box-example">
+      <div class="box-title">✏️ Worked Example — Fraction to Decimal</div>
+      <div class="step"><span class="label">Given:</span> A cuboid with length = ¾ m, width = 60 cm, height = 40 cm. Find volume in cm³.</div>
+      <div class="step"><span class="label">Step 1:</span> Convert ¾ m to cm: ¾ × 100 = 75 cm</div>
+      <div class="step"><span class="label">Step 2:</span> V = 75 × 60 × 40</div>
+      <div class="step"><span class="label">Step 3:</span> 75 × 60 = 4500, then 4500 × 40 = 180 000</div>
+      <div class="answer">✅ V = 180 000 cm³</div>
+    </div>
+
+    <div class="practice-section">
+      <h3>📝 Practice — Fractions and Decimals</h3>
+
+      <div class="level-block">
+        <div class="level-tag level-easy">Easy</div>
+        <div class="q-block">
+          <div class="q-text">Q1. Convert ¾ m to cm.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q13_1" placeholder="Answer">
+            <span class="q-unit">cm</span>
+            <button class="q-btn" onclick="check('q13_1',75,'¾ × 100 = 75 cm.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q13_1_fb"></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Q2. A cuboid has dimensions 3.5 cm × 2 cm × 4 cm. What is its volume?</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q13_2" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q13_2',28,'3.5 × 2 = 7, then 7 × 4 = 28 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q13_2_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-intermediate">Intermediate</div>
+        <div class="q-block">
+          <div class="q-text">Q3. A box has length = ½ m, width = 30 cm, height = 20 cm. Find volume in cm³.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q13_3" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q13_3',30000,'½ m = 50 cm. 50 × 30 × 20 = 30 000 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q13_3_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-advanced">Advanced</div>
+        <div class="q-block">
+          <div class="q-text">Q4. A cuboid has length 4.5 cm, width 3.5 cm, height 2 cm. Find its volume.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q13_4" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q13_4',31.5,'4.5 × 3.5 = 15.75, then 15.75 × 2 = 31.5 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q13_4_fb"></div>
+        </div>
+      </div>
+
+      <div class="level-block">
+        <div class="level-tag level-challenging">Challenging</div>
+        <div class="q-block">
+          <div class="q-text">Q5. A triangular prism: base = 2.5 cm, height = 1.6 cm, length = 8 cm. Find the volume.</div>
+          <div class="q-input-row">
+            <input class="q-input" type="number" id="q13_5" placeholder="Answer">
+            <span class="q-unit">cm³</span>
+            <button class="q-btn" onclick="check('q13_5',16,'½ × 2.5 × 1.6 = 2 cm². 2 × 8 = 16 cm³.')">Check</button>
+          </div>
+          <div class="q-feedback" id="q13_5_fb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 14: PITFALLS -->
+  <div class="section">
+    <div class="section-title"><span class="section-number">14</span>Common Pitfalls — Consolidated Warning List</div>
+
+    <ul class="pitfall-list">
+      <li class="pitfall-item">
+        <span class="pitfall-icon">⚠️</span>
+        <div class="pitfall-text"><strong>Unit Mismatch:</strong> Never multiply dimensions that are in different units. Always convert everything to the same unit before calculating. 1.2 m × 40 cm × 50 mm must become 120 cm × 40 cm × 5 cm first.</div>
+      </li>
+      <li class="pitfall-item">
+        <span class="pitfall-icon">⚠️</span>
+        <div class="pitfall-text"><strong>Surface Area vs Volume:</strong> Surface area uses cm² and measures the outside. Volume uses cm³ and measures the inside. They need completely different calculations — don't mix up the formulas or the units.</div>
+      </li>
+      <li class="pitfall-item">
+        <span class="pitfall-icon">⚠️</span>
+        <div class="pitfall-text"><strong>Packing — Wrong Method:</strong> Don't divide volumes to find how many cubes fit. Divide each dimension separately, then multiply the three results. Dividing volumes only works by coincidence when dimensions divide exactly.</div>
+      </li>
+      <li class="pitfall-item">
+        <span class="pitfall-icon">⚠️</span>
+        <div class="pitfall-text"><strong>Forgetting ½ in the Triangular Prism:</strong> The formula is ½ × base × height × length. Missing the ½ doubles your answer. Always find the triangle area first (½ × b × h), then multiply by the prism's length.</div>
+      </li>
+      <li class="pitfall-item">
+        <span class="pitfall-icon">⚠️</span>
+        <div class="pitfall-text"><strong>ml and cm³ Confusion:</strong> 1 cm³ = 1 ml. Both are the same size. But 1 litre = 1000 ml = 1000 cm³. Convert to litres by dividing by 1000, not 100 or 10.</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- MASTERY TEST -->
+  <div class="mastery-section">
+    <h2>🏆 Final Mastery Test</h2>
+    <div class="subtitle">Mixed questions — all topics covered. Check each answer as you go, then submit for your total score.</div>
+
+    <div class="q-block">
+      <div class="q-text">M1. Find the volume of a cuboid: 9 cm × 7 cm × 4 cm.</div>
+      <div class="q-input-row">
+        <input class="q-input" type="number" id="m1" placeholder="Answer">
+        <span class="q-unit">cm³</span>
+        <button class="q-btn" onclick="checkMastery('m1',252,'9 × 7 = 63, then 63 × 4 = 252 cm³.')">Check</button>
+      </div>
+      <div class="q-feedback" id="m1_fb"></div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-text">M2. A cube has side 6 cm. What is its volume?</div>
+      <div class="q-input-row">
+        <input class="q-input" type="number" id="m2" placeholder="Answer">
+        <span class="q-unit">cm³</span>
+        <button class="q-btn" onclick="checkMastery('m2',216,'6³ = 6 × 6 × 6 = 216 cm³.')">Check</button>
+      </div>
+      <div class="q-feedback" id="m2_fb"></div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-text">M3. Triangular prism: triangle base = 8 cm, triangle height = 5 cm, prism length = 9 cm. Volume?</div>
+      <div class="q-input-row">
+        <input class="q-input" type="number" id="m3" placeholder="Answer">
+        <span class="q-unit">cm³</span>
+        <button class="q-btn" onclick="checkMastery('m3',180,'½ × 8 × 5 = 20 cm². 20 × 9 = 180 cm³.')">Check</button>
+      </div>
+      <div class="q-feedback" id="m3_fb"></div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-text">M4. A box: length = 1 m, width = 50 cm, height = 300 mm. Find volume in cm³.</div>
+      <div class="q-input-row">
+        <input class="q-input" type="number" id="m4" placeholder="Answer">
+        <span class="q-unit">cm³</span>
+        <button class="q-btn" onclick="checkMastery('m4',150000,'1 m = 100 cm, 300 mm = 30 cm. 100 × 50 × 30 = 150 000 cm³.')">Check</button>
+      </div>
+      <div class="q-feedback" id="m4_fb"></div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-text">M5. A tank is 40 cm × 25 cm × 20 cm. How many litres does it hold?</div>
+      <div class="q-input-row">
+        <input class="q-input" type="number" id="m5" placeholder="Answer">
+        <span class="q-unit">litres</span>
+        <button class="q-btn" onclick="checkMastery('m5',20,'40 × 25 × 20 = 20 000 cm³. ÷ 1000 = 20 litres.')">Check</button>
+      </div>
+      <div class="q-feedback" id="m5_fb"></div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-text">M6. How many 3 cm cubes fit into a box 15 cm × 12 cm × 9 cm?</div>
+      <div class="q-input-row">
+        <input class="q-input" type="number" id="m6" placeholder="Answer">
+        <span class="q-unit">cubes</span>
+        <button class="q-btn" onclick="checkMastery('m6',60,'15÷3=5, 12÷3=4, 9÷3=3. Total = 5 × 4 × 3 = 60.')">Check</button>
+      </div>
+      <div class="q-feedback" id="m6_fb"></div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-text">M7. Volume = 504 cm³, length = 9 cm, width = 7 cm. Find the height.</div>
+      <div class="q-input-row">
+        <input class="q-input" type="number" id="m7" placeholder="Answer">
+        <span class="q-unit">cm</span>
+        <button class="q-btn" onclick="checkMastery('m7',8,'9 × 7 = 63. Height = 504 ÷ 63 = 8 cm.')">Check</button>
+      </div>
+      <div class="q-feedback" id="m7_fb"></div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-text">M8. An L-shape: Piece A = 8 × 5 × 4 cm, Piece B = 3 × 5 × 4 cm. Total volume?</div>
+      <div class="q-input-row">
+        <input class="q-input" type="number" id="m8" placeholder="Answer">
+        <span class="q-unit">cm³</span>
+        <button class="q-btn" onclick="checkMastery('m8',220,'A = 8×5×4 = 160, B = 3×5×4 = 60. Total = 220 cm³.')">Check</button>
+      </div>
+      <div class="q-feedback" id="m8_fb"></div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-text">M9. A cuboid has volume 80 cm³. All its dimensions are doubled. What is the new volume?</div>
+      <div class="q-input-row">
+        <input class="q-input" type="number" id="m9" placeholder="Answer">
+        <span class="q-unit">cm³</span>
+        <button class="q-btn" onclick="checkMastery('m9',640,'Doubling all 3 dimensions multiplies volume by 8. 80 × 8 = 640 cm³.')">Check</button>
+      </div>
+      <div class="q-feedback" id="m9_fb"></div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-text">M10. A tank 50 cm × 30 cm × 20 cm contains 12 litres. How many more litres are needed to fill it?</div>
+      <div class="q-input-row">
+        <input class="q-input" type="number" id="m10" placeholder="Answer">
+        <span class="q-unit">litres</span>
+        <button class="q-btn" onclick="checkMastery('m10',18,'Total = 50×30×20 = 30 000 cm³ = 30 litres. 30 − 12 = 18 more litres.')">Check</button>
+      </div>
+      <div class="q-feedback" id="m10_fb"></div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-text">M11. A triangular prism has base 6 cm, height 4 cm, length 7.5 cm. Find the volume.</div>
+      <div class="q-input-row">
+        <input class="q-input" type="number" id="m11" placeholder="Answer">
+        <span class="q-unit">cm³</span>
+        <button class="q-btn" onclick="checkMastery('m11',90,'½ × 6 × 4 = 12 cm². 12 × 7.5 = 90 cm³.')">Check</button>
+      </div>
+      <div class="q-feedback" id="m11_fb"></div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-text">M12. A cuboid: 3.5 cm × 4 cm × 6 cm. Find its surface area.</div>
+      <div class="q-input-row">
+        <input class="q-input" type="number" id="m12" placeholder="Answer">
+        <span class="q-unit">cm²</span>
+        <button class="q-btn" onclick="checkMastery('m12',115,'2×(3.5×4) + 2×(3.5×6) + 2×(4×6) = 28+42+48 = 118... Recalc: 2×14=28, 2×21=42, 2×24=48. Total = 118 cm².')">Check</button>
+      </div>
+      <div class="q-feedback" id="m12_fb"></div>
+    </div>
+
+    <button id="submit-mastery" onclick="submitMastery()">📊 See My Final Score</button>
+
+    <div class="score-display" id="score-display">
+      <div class="score-num" id="score-num"></div>
+      <div class="score-label" id="score-label"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Fix M12 correct answer
+  const masteryAnswers = {
+    m1: 252, m2: 216, m3: 180, m4: 150000, m5: 20,
+    m6: 60, m7: 8, m8: 220, m9: 640, m10: 18,
+    m11: 90, m12: 118
+  };
+  const masteryExplanations = {
+    m1: '9 × 7 = 63, then 63 × 4 = 252 cm³.',
+    m2: '6³ = 6 × 6 × 6 = 216 cm³.',
+    m3: '½ × 8 × 5 = 20 cm². 20 × 9 = 180 cm³.',
+    m4: '1 m = 100 cm, 300 mm = 30 cm. 100 × 50 × 30 = 150 000 cm³.',
+    m5: '40 × 25 × 20 = 20 000 cm³. ÷ 1000 = 20 litres.',
+    m6: '15÷3=5, 12÷3=4, 9÷3=3. Total = 5 × 4 × 3 = 60.',
+    m7: '9 × 7 = 63. Height = 504 ÷ 63 = 8 cm.',
+    m8: 'A = 8×5×4=160, B = 3×5×4=60. Total = 220 cm³.',
+    m9: 'Doubling all 3 dimensions → volume × 8. 80 × 8 = 640 cm³.',
+    m10: 'Total = 30 000 cm³ = 30 litres. 30 − 12 = 18 more litres.',
+    m11: '½ × 6 × 4 = 12 cm². 12 × 7.5 = 90 cm³.',
+    m12: '2×(3.5×4) + 2×(3.5×6) + 2×(4×6) = 28 + 42 + 48 = 118 cm².'
+  };
+
+  const masteryChecked = {};
+
+  function round2(n) { return Math.round(n * 100) / 100; }
+
+  function check(inputId, correct, explanation) {
+    const input = document.getElementById(inputId);
+    const fb = document.getElementById(inputId + '_fb');
+    const val = parseFloat(input.value);
+    if (isNaN(val)) { fb.textContent = '⚠️ Please enter a number.'; fb.className = 'q-feedback feedback-wrong'; fb.style.display = 'block'; return; }
+    if (round2(val) === round2(correct)) {
+      fb.textContent = '✅ Correct! ' + explanation;
+      fb.className = 'q-feedback feedback-correct';
+    } else {
+      fb.textContent = '❌ Incorrect. Correct answer: ' + correct + '. ' + explanation;
+      fb.className = 'q-feedback feedback-wrong';
+    }
+    fb.style.display = 'block';
+  }
+
+  function checkRadio(name, correct, explanation) {
+    const radios = document.getElementsByName(name);
+    let selected = null;
+    for (const r of radios) { if (r.checked) { selected = r.value; break; } }
+    const fb = document.getElementById(name + '_fb');
+    if (!selected) { fb.textContent = '⚠️ Please select an option.'; fb.className = 'q-feedback feedback-wrong'; fb.style.display = 'block'; return; }
+    if (selected === correct) {
+      fb.textContent = '✅ Correct! ' + explanation;
+      fb.className = 'q-feedback feedback-correct';
+    } else {
+      fb.textContent = '❌ Incorrect. Correct answer: ' + correct + '. ' + explanation;
+      fb.className = 'q-feedback feedback-wrong';
+    }
+    fb.style.display = 'block';
+  }
+
+  function checkMastery(inputId, correct, explanation) {
+    const input = document.getElementById(inputId);
+    const fb = document.getElementById(inputId + '_fb');
+    const val = parseFloat(input.value);
+    if (isNaN(val)) { fb.textContent = '⚠️ Please enter a number.'; fb.className = 'q-feedback feedback-wrong'; fb.style.display = 'block'; return; }
+    const isCorrect = round2(val) === round2(correct);
+    masteryChecked[inputId] = isCorrect;
+    if (isCorrect) {
+      fb.textContent = '✅ Correct! ' + explanation;
+      fb.className = 'q-feedback feedback-correct';
+    } else {
+      fb.textContent = '❌ Incorrect. Correct answer: ' + correct + '. ' + explanation;
+      fb.className = 'q-feedback feedback-wrong';
+    }
+    fb.style.display = 'block';
+  }
+
+  function submitMastery() {
+    // Auto-check any that haven't been checked
+    const ids = Object.keys(masteryAnswers);
+    for (const id of ids) {
+      if (!(id in masteryChecked)) {
+        const input = document.getElementById(id);
+        const val = parseFloat(input.value);
+        if (!isNaN(val)) {
+          masteryChecked[id] = round2(val) === round2(masteryAnswers[id]);
+          // Show feedback
+          const fb = document.getElementById(id + '_fb');
+          if (masteryChecked[id]) {
+            fb.textContent = '✅ Correct! ' + masteryExplanations[id];
+            fb.className = 'q-feedback feedback-correct';
+          } else {
+            fb.textContent = '❌ Incorrect. Correct answer: ' + masteryAnswers[id] + '. ' + masteryExplanations[id];
+            fb.className = 'q-feedback feedback-wrong';
+          }
+          fb.style.display = 'block';
+        } else {
+          masteryChecked[id] = false;
+        }
+      }
+    }
+    const correct = Object.values(masteryChecked).filter(Boolean).length;
+    const total = ids.length;
+    const pct = Math.round((correct / total) * 100);
+    let label = '';
+    if (pct >= 90) label = '🌟 Outstanding! You are exam ready.';
+    else if (pct >= 75) label = '✅ Great work! A couple of topics to revisit.';
+    else if (pct >= 60) label = '📖 Good effort — review the sections you missed.';
+    else label = '💪 Keep going — re-read each section and try again.';
+    document.getElementById('score-num').textContent = correct + ' / ' + total + ' (' + pct + '%)';
+    document.getElementById('score-label').textContent = label;
+    document.getElementById('score-display').style.display = 'block';
+    document.getElementById('score-display').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inverse Operations & Missing Numbers — TrueMaths 11+</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700&display=swap');
+
+:root {
+  --navy:      #1e3a5f;
+  --blue:      #2563eb;
+  --sky:       #dbeafe;
+  --teal:      #0f766e;
+  --teal-lt:   #ccfbf1;
+  --amber:     #b45309;
+  --amber-lt:  #fef3c7;
+  --red:       #b91c1c;
+  --red-lt:    #fee2e2;
+  --green:     #15803d;
+  --green-lt:  #dcfce7;
+  --purple:    #6d28d9;
+  --purple-lt: #ede9fe;
+  --orange:    #c2410c;
+  --orange-lt: #ffedd5;
+  --grey:      #f1f5f9;
+  --border:    #e2e8f0;
+  --text:      #1e293b;
+  --muted:     #64748b;
+  --white:     #ffffff;
+  --r:         12px;
+  --shadow:    0 2px 16px rgba(30,58,95,.10);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  font-family:'Nunito',sans-serif;
+  background:#f0f4f8;
+  color:var(--text);
+  line-height:1.75;
+  font-size:16px;
+}
+
+/* HEADER */
+.page-header{
+  background:linear-gradient(135deg,#1e3a5f 0%,#1e4d8c 60%,#2563eb 100%);
+  color:#fff;
+  padding:52px 24px 44px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.page-header::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(circle at 70% 30%,rgba(255,255,255,.08) 0%,transparent 60%);
+}
+.badge{
+  display:inline-block;
+  background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:20px;
+  padding:4px 18px;
+  font-size:12px;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:18px;
+}
+.page-header h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,5vw,44px);
+  margin-bottom:12px;
+  line-height:1.2;
+}
+.page-header p{
+  font-size:17px;opacity:.88;
+  max-width:640px;margin:0 auto;
+}
+
+/* CONTAINER */
+.wrap{max-width:920px;margin:0 auto;padding:0 18px;}
+
+/* TOC */
+.toc{
+  background:var(--white);
+  border:2px solid var(--border);
+  border-radius:var(--r);
+  padding:28px 32px;
+  margin:36px auto;
+}
+.toc h2{font-size:16px;color:var(--navy);margin-bottom:14px;font-weight:800;}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:5px;}
+.toc a{color:var(--blue);text-decoration:none;font-weight:700;font-size:14.5px;}
+.toc a:hover{text-decoration:underline;}
+
+/* SECTIONS */
+section{
+  background:var(--white);
+  border-radius:var(--r);
+  box-shadow:var(--shadow);
+  padding:38px 42px;
+  margin-bottom:30px;
+}
+@media(max-width:640px){section{padding:24px 18px;}}
+
+.sec-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:34px;
+  background:var(--navy);color:#fff;
+  border-radius:50%;font-weight:800;font-size:14px;
+  margin-bottom:12px;
+}
+section h2{
+  font-family:'Playfair Display',serif;
+  font-size:22px;color:var(--navy);
+  margin-bottom:18px;
+  padding-bottom:12px;
+  border-bottom:3px solid var(--sky);
+}
+section h3{font-size:16px;color:var(--navy);margin:26px 0 10px;font-weight:800;}
+p{margin-bottom:12px;}
+
+/* CALLOUT BOXES */
+.rule-box{background:var(--amber-lt);border-left:5px solid var(--amber);border-radius:8px;padding:16px 20px;margin:18px 0;}
+.rule-box strong{color:var(--amber);display:block;margin-bottom:4px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;}
+.tip-box{background:var(--teal-lt);border-left:5px solid var(--teal);border-radius:8px;padding:16px 20px;margin:18px 0;}
+.tip-box strong{color:var(--teal);display:block;margin-bottom:4px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;}
+.info-box{background:var(--sky);border-left:5px solid var(--blue);border-radius:8px;padding:16px 20px;margin:18px 0;}
+.info-box strong{color:var(--blue);display:block;margin-bottom:4px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;}
+.warn-box{background:var(--orange-lt);border-left:5px solid var(--orange);border-radius:8px;padding:16px 20px;margin:18px 0;}
+.warn-box strong{color:var(--orange);display:block;margin-bottom:4px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;}
+
+/* WORKED EXAMPLES */
+.example{
+  background:var(--purple-lt);
+  border:2px solid #c4b5fd;
+  border-radius:10px;
+  padding:20px 24px;
+  margin:18px 0;
+}
+.ex-label{font-size:11px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;}
+.ex-q{font-weight:700;color:var(--navy);font-size:16px;margin-bottom:14px;}
+.step{display:flex;gap:12px;margin-bottom:8px;align-items:flex-start;}
+.sn{
+  background:var(--purple);color:#fff;
+  border-radius:50%;width:24px;height:24px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;flex-shrink:0;margin-top:2px;
+}
+.st{flex:1;}
+.ans-box{
+  background:var(--green-lt);border:2px solid #86efac;
+  border-radius:8px;padding:10px 16px;
+  margin-top:12px;font-weight:700;color:var(--green);
+}
+.check-box{
+  background:#fef9c3;border:2px solid #fde047;
+  border-radius:8px;padding:10px 16px;
+  margin-top:8px;font-weight:600;color:#713f12;font-size:14px;
+}
+
+/* SVG WRAP */
+.svg-wrap{overflow-x:auto;margin:20px 0;text-align:center;}
+svg text{font-family:'Nunito',sans-serif;}
+
+/* OPERATION PAIRS TABLE */
+.op-table{width:100%;border-collapse:collapse;margin:16px 0;}
+.op-table th{background:var(--navy);color:#fff;padding:10px 16px;font-weight:700;text-align:center;}
+.op-table td{padding:11px 16px;text-align:center;border:1px solid var(--border);font-size:15px;}
+.op-table tr:nth-child(even) td{background:var(--grey);}
+.arrow-cell{font-size:22px;color:var(--blue);font-weight:900;}
+
+/* MISTAKE CARDS */
+.mc-card{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px;}
+.mc-head{background:var(--red);color:#fff;padding:10px 18px;font-weight:800;font-size:14px;}
+.mc-body{padding:16px 18px;}
+.mc-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;}
+@media(max-width:500px){.mc-row{grid-template-columns:1fr;}}
+.mc-wrong{background:var(--red-lt);border-radius:6px;padding:10px 14px;font-size:14px;}
+.mc-right{background:var(--green-lt);border-radius:6px;padding:10px 14px;font-size:14px;}
+.mc-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
+.mc-wrong .mc-lbl{color:var(--red);}
+.mc-right .mc-lbl{color:var(--green);}
+code{background:var(--grey);border-radius:4px;padding:2px 6px;font-family:monospace;font-size:14px;}
+
+/* MCQ */
+.mcq-q{background:var(--grey);border-radius:10px;padding:20px 24px;margin-bottom:20px;border:1px solid var(--border);}
+.q-num{font-size:11px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+.q-text{font-weight:700;color:var(--navy);font-size:16px;margin-bottom:14px;}
+.mcq-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:500px){.mcq-opts{grid-template-columns:1fr;}}
+.mcq-btn{
+  background:#fff;border:2px solid var(--border);border-radius:8px;
+  padding:11px 16px;font-weight:600;cursor:pointer;
+  transition:border-color .18s,background .18s;
+  text-align:left;font-family:'Nunito',sans-serif;
+  font-size:15px;color:var(--text);
+}
+.mcq-btn:hover{border-color:var(--blue);background:var(--sky);}
+.mcq-btn.correct{border-color:var(--green);background:var(--green-lt);color:var(--green);}
+.mcq-btn.wrong{border-color:var(--red);background:var(--red-lt);color:var(--red);}
+
+/* ANSWERS */
+.ans-section{background:var(--navy);color:#fff;border-radius:var(--r);padding:34px 38px;margin-top:32px;}
+.ans-section h3{color:#fff;border-bottom:2px solid rgba(255,255,255,.18);padding-bottom:10px;margin-bottom:20px;font-size:18px;}
+.ai{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.10);}
+.ai:last-child{border-bottom:none;}
+.ai-q{font-size:12px;font-weight:800;color:#93c5fd;margin-bottom:4px;}
+.ai-a{color:#86efac;font-weight:700;}
+.ai-e{font-size:14px;opacity:.84;margin-top:4px;}
+
+footer{text-align:center;padding:32px 18px;color:var(--muted);font-size:14px;border-top:1px solid var(--border);margin-top:10px;}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="badge">GL Assessment · 11+ · Ages 9–11</div>
+  <h1>Inverse Operations &amp;<br>Missing Numbers</h1>
+  <p>Master the art of working backwards — one of the most powerful tools in the whole 11+ exam.</p>
+</header>
+
+<div class="wrap">
+
+<!-- TOC -->
+<div class="toc">
+  <h2>📚 What's in this guide</h2>
+  <ol>
+    <li><a href="#s1">What are Inverse Operations?</a></li>
+    <li><a href="#s2">The Balance Diagram — Why It Works</a></li>
+    <li><a href="#s3">Function Machines</a></li>
+    <li><a href="#s4">Missing Numbers — Standard Position</a></li>
+    <li><a href="#s5">Missing Numbers — Non-Standard Position</a></li>
+    <li><a href="#s6">Two-Step and Three-Step Chains</a></li>
+    <li><a href="#s7">Missing Numbers with Decimals &amp; Fractions</a></li>
+    <li><a href="#s8">Unknowns on Both Sides</a></li>
+    <li><a href="#s9">The Substitution Check Method</a></li>
+    <li><a href="#s10">Common Mistakes to Avoid</a></li>
+    <li><a href="#s11">GL Assessment Practice Questions</a></li>
+  </ol>
+</div>
+
+<!-- ══ S1 ══ -->
+<section id="s1">
+  <div class="sec-num">1</div>
+  <h2>What are Inverse Operations?</h2>
+  <p>Every mathematical operation has an <strong>opposite</strong> — a partner that undoes it completely. We call these <strong>inverse operations</strong>.</p>
+  <p>Think of it like getting dressed in the morning. You put your socks on first, then your shoes. To undo it at the end of the day, you take your shoes off <em>first</em>, then your socks — in reverse order. Inverse operations work exactly the same way: they undo a step by going backwards.</p>
+
+  <table class="op-table">
+    <thead><tr><th>Operation</th><th></th><th>Its Inverse</th><th>Example</th><th>Check (inverse)</th></tr></thead>
+    <tbody>
+      <tr><td>Addition (+)</td><td class="arrow-cell">↔</td><td>Subtraction (−)</td><td>8 + 5 = 13</td><td>13 − 5 = 8 ✓</td></tr>
+      <tr><td>Subtraction (−)</td><td class="arrow-cell">↔</td><td>Addition (+)</td><td>13 − 5 = 8</td><td>8 + 5 = 13 ✓</td></tr>
+      <tr><td>Multiplication (×)</td><td class="arrow-cell">↔</td><td>Division (÷)</td><td>6 × 4 = 24</td><td>24 ÷ 4 = 6 ✓</td></tr>
+      <tr><td>Division (÷)</td><td class="arrow-cell">↔</td><td>Multiplication (×)</td><td>24 ÷ 4 = 6</td><td>6 × 4 = 24 ✓</td></tr>
+    </tbody>
+  </table>
+
+  <div class="rule-box">
+    <strong>⭐ The Big Idea</strong>
+    If you know what happened to a number, you can always find where it started by using the <strong>inverse (opposite) operation</strong>. This is the key to every missing number question you will ever meet.
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Remember</strong>
+    Addition and subtraction are inverses of each other.<br>
+    Multiplication and division are inverses of each other.<br>
+    These two pairs are all you need for 11+ missing number questions!
+  </div>
+</section>
+
+<!-- ══ S2 ══ -->
+<section id="s2">
+  <div class="sec-num">2</div>
+  <h2>The Balance Diagram — Why Inverse Operations Work</h2>
+  <p>An equation is like a perfectly balanced set of weighing scales. Whatever is on the left side equals whatever is on the right side. If you do the same thing to <em>both</em> sides, the scales stay balanced. Inverse operations use this idea to isolate the unknown.</p>
+
+  <div class="svg-wrap">
+  <!-- Balance scale diagram: □ + 4 = 11 → subtract 4 from both sides → □ = 7 -->
+  <svg viewBox="0 0 680 300" width="100%" xmlns="http://www.w3.org/2000/svg">
+    <!-- Stand -->
+    <rect x="330" y="200" width="20" height="80" fill="#94a3b8" rx="4"/>
+    <rect x="290" y="272" width="100" height="14" fill="#64748b" rx="4"/>
+    <!-- Beam -->
+    <rect x="120" y="195" width="440" height="14" fill="#1e3a5f" rx="7"/>
+    <!-- Left pan rope -->
+    <line x1="180" y1="209" x2="180" y2="240" stroke="#64748b" stroke-width="2.5"/>
+    <line x1="150" y1="209" x2="150" y2="240" stroke="#64748b" stroke-width="2.5"/>
+    <!-- Right pan rope -->
+    <line x1="510" y1="209" x2="510" y2="240" stroke="#64748b" stroke-width="2.5"/>
+    <line x1="540" y1="209" x2="540" y2="240" stroke="#64748b" stroke-width="2.5"/>
+    <!-- Left pan -->
+    <ellipse cx="165" cy="243" rx="55" ry="12" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+    <!-- Right pan -->
+    <ellipse cx="525" cy="243" rx="55" ry="12" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+    <!-- Left pan contents: □ + 4 -->
+    <rect x="122" y="210" width="38" height="28" fill="#7c3aed" rx="6"/>
+    <text x="141" y="229" text-anchor="middle" fill="white" font-size="16" font-weight="800">□</text>
+    <text x="163" y="229" text-anchor="middle" fill="#1e3a5f" font-size="16" font-weight="800">+</text>
+    <rect x="172" y="210" width="28" height="28" fill="#2563eb" rx="6"/>
+    <text x="186" y="229" text-anchor="middle" fill="white" font-size="15" font-weight="800">4</text>
+    <!-- Right pan contents: 11 -->
+    <rect x="497" y="210" width="56" height="28" fill="#15803d" rx="6"/>
+    <text x="525" y="229" text-anchor="middle" fill="white" font-size="16" font-weight="800">11</text>
+    <!-- Pivot dot -->
+    <circle cx="340" cy="202" r="9" fill="#1e3a5f"/>
+
+    <!-- Label left -->
+    <text x="165" y="272" text-anchor="middle" font-size="13" fill="#7c3aed" font-weight="700">□ + 4</text>
+    <!-- Label right -->
+    <text x="525" y="272" text-anchor="middle" font-size="13" fill="#15803d" font-weight="700">11</text>
+    <!-- Equals -->
+    <text x="340" y="172" text-anchor="middle" font-size="18" fill="#1e3a5f" font-weight="800">=</text>
+
+    <!-- Subtract 4 from both sides label -->
+    <text x="340" y="295" text-anchor="middle" font-size="13" fill="#b45309" font-weight="700">↓ Subtract 4 from BOTH sides ↓</text>
+
+    <!-- Step 2 row: □ = 7 -->
+    <text x="90" y="295" text-anchor="middle" font-size="13" fill="#7c3aed" font-weight="700">□</text>
+    <text x="160" y="295" text-anchor="middle" font-size="13" fill="#1e3a5f" font-weight="600">= 11 − 4 = 7</text>
+    <text x="525" y="295" text-anchor="middle" font-size="13" fill="#15803d" font-weight="700">11 − 4 = 7</text>
+
+    <!-- Title -->
+    <text x="340" y="30" text-anchor="middle" font-size="15" fill="#1e3a5f" font-weight="800">Equation: □ + 4 = 11</text>
+    <text x="340" y="52" text-anchor="middle" font-size="13" fill="#64748b">"The scales are balanced. Subtract 4 from both sides to find □."</text>
+  </svg>
+  </div>
+
+  <div class="info-box">
+    <strong>📐 The Balance Rule</strong>
+    Whatever you do to one side of an equation, you must do the <strong>same to the other side</strong>.<br>
+    This keeps the scales balanced — and that's exactly what inverse operations do!
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example — Balance Method</div>
+    <div class="ex-q">Solve: □ + 4 = 11</div>
+    <div class="step"><div class="sn">1</div><div class="st">The unknown (□) has 4 <em>added</em> to it. The inverse of adding 4 is <strong>subtracting 4</strong>.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">Subtract 4 from <strong>both sides</strong>: □ + 4 − 4 = 11 − 4</div></div>
+    <div class="step"><div class="sn">3</div><div class="st">The +4 and −4 cancel on the left, leaving: □ = 7</div></div>
+    <div class="ans-box">✓ □ = 7</div>
+    <div class="check-box">🔍 Check: 7 + 4 = 11 ✓ The scales are still balanced!</div>
+  </div>
+</section>
+
+<!-- ══ S3 ══ -->
+<section id="s3">
+  <div class="sec-num">3</div>
+  <h2>Function Machines</h2>
+  <p>A function machine is a diagram used in GL Assessment where a number goes <strong>in</strong>, one or more operations happen inside a "machine box," and a result comes <strong>out</strong>. You might be asked to find the output, the input, or the missing operation.</p>
+
+  <h3>What a function machine looks like</h3>
+  <div class="svg-wrap">
+  <svg viewBox="0 0 500 110" width="min(100%,500px)" xmlns="http://www.w3.org/2000/svg">
+    <!-- Input arrow -->
+    <rect x="10" y="38" width="80" height="34" fill="#dbeafe" rx="8" stroke="#2563eb" stroke-width="2"/>
+    <text x="50" y="59" text-anchor="middle" font-size="15" fill="#1e3a5f" font-weight="800">INPUT</text>
+    <polygon points="95,55 112,48 112,62" fill="#1e3a5f"/>
+    <!-- Machine box -->
+    <rect x="115" y="20" width="170" height="70" fill="#1e3a5f" rx="12" stroke="#1e3a5f"/>
+    <text x="200" y="52" text-anchor="middle" font-size="13" fill="#fbbf24" font-weight="800">OPERATION</text>
+    <text x="200" y="70" text-anchor="middle" font-size="12" fill="rgba(255,255,255,.7)">(e.g. × 3, + 7, − 4)</text>
+    <!-- Cogs decoration -->
+    <circle cx="132" cy="35" r="10" fill="none" stroke="#fbbf24" stroke-width="2"/>
+    <circle cx="268" cy="35" r="10" fill="none" stroke="#fbbf24" stroke-width="2"/>
+    <!-- Output arrow -->
+    <polygon points="290,48 307,55 290,62" fill="#1e3a5f"/>
+    <rect x="310" y="38" width="90" height="34" fill="#dcfce7" rx="8" stroke="#15803d" stroke-width="2"/>
+    <text x="355" y="59" text-anchor="middle" font-size="14" fill="#15803d" font-weight="800">OUTPUT</text>
+    <!-- Labels -->
+    <text x="50"  y="100" text-anchor="middle" font-size="11" fill="#64748b" font-weight="600">Number in</text>
+    <text x="200" y="100" text-anchor="middle" font-size="11" fill="#64748b" font-weight="600">What happens</text>
+    <text x="355" y="100" text-anchor="middle" font-size="11" fill="#64748b" font-weight="600">Result out</text>
+  </svg>
+  </div>
+
+  <h3>Single-Step Function Machines</h3>
+
+  <!-- FM Example 1: Find output -->
+  <div class="example">
+    <div class="ex-label">Worked Example 1 — Find the Output</div>
+    <div class="ex-q">Input: 8 &nbsp;|&nbsp; Operation: × 5 &nbsp;|&nbsp; Output: ?</div>
+    <div class="svg-wrap">
+    <svg viewBox="0 0 420 80" width="min(100%,420px)" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="22" width="70" height="36" fill="#dbeafe" rx="8" stroke="#2563eb" stroke-width="2"/>
+      <text x="45" y="45" text-anchor="middle" font-size="18" fill="#1e3a5f" font-weight="800">8</text>
+      <polygon points="83,40 98,33 98,47" fill="#1e3a5f"/>
+      <rect x="101" y="12" width="130" height="56" fill="#1e3a5f" rx="10"/>
+      <text x="166" y="44" text-anchor="middle" font-size="17" fill="#fbbf24" font-weight="800">× 5</text>
+      <polygon points="234,40 249,33 249,47" fill="#1e3a5f"/>
+      <rect x="252" y="22" width="80" height="36" fill="#dcfce7" rx="8" stroke="#15803d" stroke-width="2.5"/>
+      <text x="292" y="45" text-anchor="middle" font-size="18" fill="#15803d" font-weight="800">?</text>
+      <text x="50"  y="72" text-anchor="middle" font-size="11" fill="#64748b">Input</text>
+      <text x="166" y="72" text-anchor="middle" font-size="11" fill="#64748b">Operation</text>
+      <text x="292" y="72" text-anchor="middle" font-size="11" fill="#64748b">Output</text>
+    </svg>
+    </div>
+    <div class="step"><div class="sn">1</div><div class="st">Apply the operation to the input: 8 × 5 = <strong>40</strong>.</div></div>
+    <div class="ans-box">✓ Output = 40</div>
+  </div>
+
+  <!-- FM Example 2: Find input -->
+  <div class="example">
+    <div class="ex-label">Worked Example 2 — Find the Input (work backwards!)</div>
+    <div class="ex-q">Input: ? &nbsp;|&nbsp; Operation: + 9 &nbsp;|&nbsp; Output: 16</div>
+    <div class="svg-wrap">
+    <svg viewBox="0 0 420 80" width="min(100%,420px)" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="22" width="70" height="36" fill="#ede9fe" rx="8" stroke="#7c3aed" stroke-width="2.5"/>
+      <text x="45" y="45" text-anchor="middle" font-size="18" fill="#7c3aed" font-weight="800">?</text>
+      <polygon points="83,40 98,33 98,47" fill="#1e3a5f"/>
+      <rect x="101" y="12" width="130" height="56" fill="#1e3a5f" rx="10"/>
+      <text x="166" y="44" text-anchor="middle" font-size="17" fill="#fbbf24" font-weight="800">+ 9</text>
+      <polygon points="234,40 249,33 249,47" fill="#1e3a5f"/>
+      <rect x="252" y="22" width="80" height="36" fill="#dcfce7" rx="8" stroke="#15803d" stroke-width="2"/>
+      <text x="292" y="45" text-anchor="middle" font-size="18" fill="#15803d" font-weight="800">16</text>
+      <!-- Backward arrow -->
+      <path d="M 252,65 Q 220,82 190,70 Q 140,50 100,70" fill="none" stroke="#7c3aed" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arr)"/>
+      <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#7c3aed"/></marker></defs>
+      <text x="185" y="80" text-anchor="middle" font-size="11" fill="#7c3aed" font-weight="700">Inverse: − 9</text>
+    </svg>
+    </div>
+    <div class="step"><div class="sn">1</div><div class="st">We know the output (16) and the operation (+9). To find the input, use the <strong>inverse</strong>: − 9.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">Input = 16 − 9 = <strong>7</strong>.</div></div>
+    <div class="ans-box">✓ Input = 7</div>
+    <div class="check-box">🔍 Check: 7 + 9 = 16 ✓</div>
+  </div>
+
+  <!-- FM Example 3: Two-step machine -->
+  <div class="example">
+    <div class="ex-label">Worked Example 3 — Two-Step Function Machine (find the input)</div>
+    <div class="ex-q">Input: ? &nbsp;|&nbsp; Step 1: × 3 &nbsp;|&nbsp; Step 2: − 4 &nbsp;|&nbsp; Output: 11</div>
+    <div class="svg-wrap">
+    <svg viewBox="0 0 580 90" width="min(100%,580px)" xmlns="http://www.w3.org/2000/svg">
+      <!-- Input -->
+      <rect x="5"  y="27" width="60" height="36" fill="#ede9fe" rx="8" stroke="#7c3aed" stroke-width="2.5"/>
+      <text x="35" y="50" text-anchor="middle" font-size="18" fill="#7c3aed" font-weight="800">?</text>
+      <polygon points="68,45 82,38 82,52" fill="#1e3a5f"/>
+      <!-- Box 1 -->
+      <rect x="85" y="17" width="110" height="56" fill="#1e3a5f" rx="10"/>
+      <text x="140" y="42" text-anchor="middle" font-size="13" fill="#93c5fd" font-weight="700">Step 1</text>
+      <text x="140" y="60" text-anchor="middle" font-size="17" fill="#fbbf24" font-weight="800">× 3</text>
+      <polygon points="198,45 212,38 212,52" fill="#1e3a5f"/>
+      <!-- Middle value bubble -->
+      <rect x="215" y="30" width="60" height="30" fill="#fef9c3" rx="6" stroke="#fde047" stroke-width="1.5"/>
+      <text x="245" y="50" text-anchor="middle" font-size="13" fill="#713f12" font-weight="700">?×3</text>
+      <polygon points="278,45 292,38 292,52" fill="#1e3a5f"/>
+      <!-- Box 2 -->
+      <rect x="295" y="17" width="110" height="56" fill="#1e3a5f" rx="10"/>
+      <text x="350" y="42" text-anchor="middle" font-size="13" fill="#93c5fd" font-weight="700">Step 2</text>
+      <text x="350" y="60" text-anchor="middle" font-size="17" fill="#fbbf24" font-weight="800">− 4</text>
+      <polygon points="408,45 422,38 422,52" fill="#1e3a5f"/>
+      <!-- Output -->
+      <rect x="425" y="27" width="60" height="36" fill="#dcfce7" rx="8" stroke="#15803d" stroke-width="2"/>
+      <text x="455" y="50" text-anchor="middle" font-size="18" fill="#15803d" font-weight="800">11</text>
+      <!-- Back arrow -->
+      <path d="M 425,72 Q 350,88 295,72" fill="none" stroke="#c2410c" stroke-width="1.8" stroke-dasharray="5,3"/>
+      <text x="360" y="88" text-anchor="middle" font-size="11" fill="#c2410c" font-weight="700">Inverse: + 4 → gives 15</text>
+      <path d="M 195,72 Q 140,88 85,72" fill="none" stroke="#c2410c" stroke-width="1.8" stroke-dasharray="5,3"/>
+      <text x="145" y="88" text-anchor="middle" font-size="11" fill="#c2410c" font-weight="700">Inverse: ÷ 3 → gives 5</text>
+    </svg>
+    </div>
+    <div class="step"><div class="sn">1</div><div class="st">Work <strong>backwards</strong> from the output. The last operation was −4, so undo it: 11 + 4 = <strong>15</strong>.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">The first operation was ×3, so undo it: 15 ÷ 3 = <strong>5</strong>.</div></div>
+    <div class="ans-box">✓ Input = 5</div>
+    <div class="check-box">🔍 Check: 5 × 3 = 15, then 15 − 4 = 11 ✓</div>
+  </div>
+
+  <!-- FM Example 4: Missing operation -->
+  <div class="example">
+    <div class="ex-label">Worked Example 4 — Find the Missing Operation</div>
+    <div class="ex-q">Input: 20 &nbsp;|&nbsp; Operation: ? &nbsp;|&nbsp; Output: 4</div>
+    <div class="step"><div class="sn">1</div><div class="st">We need to get from 20 to 4. Ask: what single operation on 20 gives 4?</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">20 ÷ 5 = 4, or 20 − 16 = 4. For one-step machines, both are valid — but ÷ 5 is simpler and most likely intended.</div></div>
+    <div class="ans-box">✓ Missing operation: ÷ 5</div>
+    <div class="check-box">🔍 Check: 20 ÷ 5 = 4 ✓</div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Key tip for function machines</strong>
+    If you need to find the <strong>input</strong>, always work <strong>right to left</strong>, applying the <strong>inverse</strong> of each operation in <strong>reverse order</strong>. This is the most important function machine skill for GL Assessment!
+  </div>
+</section>
+
+<!-- ══ S4 ══ -->
+<section id="s4">
+  <div class="sec-num">4</div>
+  <h2>Missing Numbers — Standard Position</h2>
+  <p>In these questions, the unknown (□) is at the <em>start</em> of the calculation. Use the inverse operation to isolate it.</p>
+
+  <div class="rule-box">
+    <strong>⭐ Method for every type</strong>
+    Identify what operation was done to □. Apply the <strong>inverse</strong> operation to the other side. That gives you □.
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Type 1 — Addition: □ + 7 = 15</div>
+    <div class="ex-q">□ + 7 = 15</div>
+    <div class="step"><div class="sn">1</div><div class="st">7 is being <em>added</em> to □. Inverse: <strong>subtract 7</strong>.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">□ = 15 − 7 = <strong>8</strong>.</div></div>
+    <div class="ans-box">✓ □ = 8</div>
+    <div class="check-box">🔍 Check: 8 + 7 = 15 ✓</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Type 2 — Subtraction: □ − 9 = 4</div>
+    <div class="ex-q">□ − 9 = 4</div>
+    <div class="step"><div class="sn">1</div><div class="st">9 is being <em>subtracted from</em> □. Inverse: <strong>add 9</strong>.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">□ = 4 + 9 = <strong>13</strong>.</div></div>
+    <div class="ans-box">✓ □ = 13</div>
+    <div class="check-box">🔍 Check: 13 − 9 = 4 ✓</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Type 3 — Multiplication: □ × 6 = 42</div>
+    <div class="ex-q">□ × 6 = 42</div>
+    <div class="step"><div class="sn">1</div><div class="st">□ is being <em>multiplied</em> by 6. Inverse: <strong>divide by 6</strong>.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">□ = 42 ÷ 6 = <strong>7</strong>.</div></div>
+    <div class="ans-box">✓ □ = 7</div>
+    <div class="check-box">🔍 Check: 7 × 6 = 42 ✓</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Type 4 — Division: □ ÷ 4 = 9</div>
+    <div class="ex-q">□ ÷ 4 = 9</div>
+    <div class="step"><div class="sn">1</div><div class="st">□ is being <em>divided</em> by 4. Inverse: <strong>multiply by 4</strong>.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">□ = 9 × 4 = <strong>36</strong>.</div></div>
+    <div class="ans-box">✓ □ = 36</div>
+    <div class="check-box">🔍 Check: 36 ÷ 4 = 9 ✓</div>
+  </div>
+</section>
+
+<!-- ══ S5 ══ -->
+<section id="s5">
+  <div class="sec-num">5</div>
+  <h2>Missing Numbers — Non-Standard Positions</h2>
+  <p>These are trickier because the unknown isn't at the start. GL Assessment uses these often. You need to think carefully about exactly <em>what role</em> the □ plays in the calculation.</p>
+
+  <div class="example">
+    <div class="ex-label">Type A — Division with unknown divisor: 12 ÷ □ = 3</div>
+    <div class="ex-q">12 ÷ □ = 3</div>
+    <div class="step"><div class="sn">1</div><div class="st">Ask yourself: "12 divided by what number gives 3?" Rearrange using multiplication: □ × 3 = 12.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">Now solve: □ = 12 ÷ 3 = <strong>4</strong>.</div></div>
+    <div class="ans-box">✓ □ = 4</div>
+    <div class="check-box">🔍 Check: 12 ÷ 4 = 3 ✓</div>
+  </div>
+
+  <div class="warn-box">
+    <strong>⚠️ Common trap: 20 − □ = 13</strong>
+    This is one of the most common errors in 11+ papers. Many students write □ = 13 − 20 = −7. That's wrong! Read below carefully.
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Type B — Subtraction with unknown being subtracted: 20 − □ = 13</div>
+    <div class="ex-q">20 − □ = 13</div>
+    <div class="step"><div class="sn">1</div><div class="st">Think of this as: "20 take away <em>something</em> gives 13." The something must be the <strong>difference</strong> between 20 and 13.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">□ = 20 − 13 = <strong>7</strong>. (NOT 13 − 20. We subtract the answer from the starting number.)</div></div>
+    <div class="step"><div class="sn">3</div><div class="st">Another way to see it: add □ to both sides → 20 = 13 + □, so □ = 20 − 13.</div></div>
+    <div class="ans-box">✓ □ = 7</div>
+    <div class="check-box">🔍 Check: 20 − 7 = 13 ✓</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Type C — □ being subtracted in position two: □ − 8 = 4</div>
+    <div class="ex-q">□ − 8 = 4</div>
+    <div class="step"><div class="sn">1</div><div class="st">8 is being subtracted from □. To undo "subtract 8," we <strong>add 8</strong> to both sides.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">□ = 4 + 8 = <strong>12</strong>.</div></div>
+    <div class="ans-box">✓ □ = 12</div>
+    <div class="check-box">🔍 Check: 12 − 8 = 4 ✓</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Type D — Multiplication with unknown as multiplier: 6 × □ = 54</div>
+    <div class="ex-q">6 × □ = 54</div>
+    <div class="step"><div class="sn">1</div><div class="st">6 multiplied by □ gives 54. Inverse of ×6 is ÷6.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">□ = 54 ÷ 6 = <strong>9</strong>.</div></div>
+    <div class="ans-box">✓ □ = 9</div>
+    <div class="check-box">🔍 Check: 6 × 9 = 54 ✓</div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Tip for non-standard positions</strong>
+    When you see <code>a − □ = b</code>, <strong>always</strong> calculate □ = a − b (not b − a).<br>
+    When you see <code>a ÷ □ = b</code>, rearrange to □ × b = a, then divide: □ = a ÷ b.
+  </div>
+</section>
+
+<!-- ══ S6 ══ -->
+<section id="s6">
+  <div class="sec-num">6</div>
+  <h2>Two-Step and Three-Step Missing Number Chains</h2>
+  <p>These questions combine two or three operations. The secret is to <strong>work backwards</strong>, undoing the operations in <em>reverse order</em> — just like the function machine section.</p>
+
+  <div class="rule-box">
+    <strong>⭐ The "Onion" Method</strong>
+    Peel back the operations one at a time, starting from the outermost (last) operation and working inward toward □.<br>
+    Always undo the <strong>last thing that happened</strong> first.
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 1</div>
+    <div class="ex-q">(□ × 3) + 2 = 11</div>
+    <div class="step"><div class="sn">1</div><div class="st">The <em>last</em> operation is +2. Undo it: 11 − 2 = <strong>9</strong>. So now □ × 3 = 9.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">Undo ×3: 9 ÷ 3 = <strong>3</strong>.</div></div>
+    <div class="ans-box">✓ □ = 3</div>
+    <div class="check-box">🔍 Check: (3 × 3) + 2 = 9 + 2 = 11 ✓</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 2</div>
+    <div class="ex-q">3 × □ − 4 = 11</div>
+    <div class="step"><div class="sn">1</div><div class="st">The last operation is −4. Undo it: 11 + 4 = <strong>15</strong>. So now 3 × □ = 15.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">Undo ×3: 15 ÷ 3 = <strong>5</strong>.</div></div>
+    <div class="ans-box">✓ □ = 5</div>
+    <div class="check-box">🔍 Check: 3 × 5 − 4 = 15 − 4 = 11 ✓</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 3</div>
+    <div class="ex-q">□ ÷ 3 + 5 = 11</div>
+    <div class="step"><div class="sn">1</div><div class="st">Last operation is +5. Undo it: 11 − 5 = <strong>6</strong>. So now □ ÷ 3 = 6.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">Undo ÷3: 6 × 3 = <strong>18</strong>.</div></div>
+    <div class="ans-box">✓ □ = 18</div>
+    <div class="check-box">🔍 Check: 18 ÷ 3 + 5 = 6 + 5 = 11 ✓</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 4 — Three-Step Chain</div>
+    <div class="ex-q">(□ + 4) × 2 − 3 = 13</div>
+    <div class="step"><div class="sn">1</div><div class="st">Last operation: −3. Undo it: 13 + 3 = <strong>16</strong>. Now (□ + 4) × 2 = 16.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">Next last operation: ×2. Undo it: 16 ÷ 2 = <strong>8</strong>. Now □ + 4 = 8.</div></div>
+    <div class="step"><div class="sn">3</div><div class="st">Last operation: +4. Undo it: 8 − 4 = <strong>4</strong>.</div></div>
+    <div class="ans-box">✓ □ = 4</div>
+    <div class="check-box">🔍 Check: (4 + 4) × 2 − 3 = 8 × 2 − 3 = 16 − 3 = 13 ✓</div>
+  </div>
+
+  <!-- Visual working-backwards diagram -->
+  <div class="svg-wrap">
+  <svg viewBox="0 0 620 100" width="min(100%,620px)" xmlns="http://www.w3.org/2000/svg">
+    <text x="310" y="18" text-anchor="middle" font-size="13" fill="#1e3a5f" font-weight="800">Working Backwards: (□ × 3) + 2 = 11</text>
+    <!-- Forward: □ → ×3 → +2 → 11 -->
+    <!-- Boxes -->
+    <rect x="10"  y="28" width="55" height="32" fill="#ede9fe" rx="7" stroke="#7c3aed" stroke-width="2"/>
+    <text x="37"  y="49" text-anchor="middle" font-size="16" fill="#7c3aed" font-weight="800">□</text>
+    <polygon points="68,44 80,37 80,51" fill="#94a3b8"/>
+    <rect x="83"  y="22" width="90" height="44" fill="#1e3a5f" rx="8"/>
+    <text x="128" y="48" text-anchor="middle" font-size="15" fill="#fbbf24" font-weight="800">× 3</text>
+    <polygon points="176,44 188,37 188,51" fill="#94a3b8"/>
+    <rect x="191" y="28" width="60" height="32" fill="#fef9c3" rx="7" stroke="#fde047" stroke-width="1.5"/>
+    <text x="221" y="49" text-anchor="middle" font-size="14" fill="#713f12" font-weight="700">□ × 3</text>
+    <polygon points="254,44 266,37 266,51" fill="#94a3b8"/>
+    <rect x="269" y="22" width="90" height="44" fill="#1e3a5f" rx="8"/>
+    <text x="314" y="48" text-anchor="middle" font-size="15" fill="#fbbf24" font-weight="800">+ 2</text>
+    <polygon points="362,44 374,37 374,51" fill="#94a3b8"/>
+    <rect x="377" y="28" width="55" height="32" fill="#dcfce7" rx="7" stroke="#15803d" stroke-width="2"/>
+    <text x="404" y="49" text-anchor="middle" font-size="16" fill="#15803d" font-weight="800">11</text>
+
+    <!-- Backward arrows and labels -->
+    <path d="M 377,72 Q 314,90 269,72" fill="none" stroke="#c2410c" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="323" y="92" text-anchor="middle" font-size="12" fill="#c2410c" font-weight="700">11 − 2 = 9</text>
+    <path d="M 191,72 Q 128,90 83,72" fill="none" stroke="#c2410c" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="137" y="92" text-anchor="middle" font-size="12" fill="#c2410c" font-weight="700">9 ÷ 3 = 3</text>
+  </svg>
+  </div>
+</section>
+
+<!-- ══ S7 ══ -->
+<section id="s7">
+  <div class="sec-num">7</div>
+  <h2>Missing Numbers with Decimals &amp; Fractions</h2>
+  <p>GL Assessment also uses decimals and simple fractions in missing number questions. The method is exactly the same — just be careful with your arithmetic!</p>
+
+  <h3>Decimals</h3>
+  <div class="example">
+    <div class="ex-label">Worked Example 1 — Decimal multiplication</div>
+    <div class="ex-q">□ × 4 = 2.8</div>
+    <div class="step"><div class="sn">1</div><div class="st">□ is multiplied by 4. Inverse: divide by 4.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">□ = 2.8 ÷ 4 = <strong>0.7</strong>. (Think: 28 ÷ 4 = 7, so 2.8 ÷ 4 = 0.7)</div></div>
+    <div class="ans-box">✓ □ = 0.7</div>
+    <div class="check-box">🔍 Check: 0.7 × 4 = 2.8 ✓</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 2 — Decimal addition</div>
+    <div class="ex-q">□ + 3.5 = 8.2</div>
+    <div class="step"><div class="sn">1</div><div class="st">3.5 is added to □. Inverse: subtract 3.5.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">□ = 8.2 − 3.5 = <strong>4.7</strong>.</div></div>
+    <div class="ans-box">✓ □ = 4.7</div>
+    <div class="check-box">🔍 Check: 4.7 + 3.5 = 8.2 ✓</div>
+  </div>
+
+  <h3>Fractions</h3>
+  <div class="tip-box">
+    <strong>💡 Fractions tip</strong>
+    Treat the fraction just like any other number — the inverse operation method is identical. Just make sure to add or subtract fractions carefully using a common denominator when needed.
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 3 — Fraction addition</div>
+    <div class="ex-q">□ + ½ = 2</div>
+    <div class="step"><div class="sn">1</div><div class="st">½ is added to □. Inverse: subtract ½.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">□ = 2 − ½ = 1½ = <strong>1.5</strong>.</div></div>
+    <div class="ans-box">✓ □ = 1½</div>
+    <div class="check-box">🔍 Check: 1½ + ½ = 2 ✓</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 4 — Fraction multiplication</div>
+    <div class="ex-q">□ × ¼ = 3</div>
+    <div class="step"><div class="sn">1</div><div class="st">□ is multiplied by ¼. Inverse: divide by ¼, which is the same as multiplying by 4.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">□ = 3 × 4 = <strong>12</strong>.</div></div>
+    <div class="ans-box">✓ □ = 12</div>
+    <div class="check-box">🔍 Check: 12 × ¼ = 12 ÷ 4 = 3 ✓</div>
+  </div>
+</section>
+
+<!-- ══ S8 ══ -->
+<section id="s8">
+  <div class="sec-num">8</div>
+  <h2>Unknowns on Both Sides</h2>
+  <p>Sometimes a number sentence has operations on <em>both</em> sides, like □ + 9 = 5 + 12. The good news is that these are straightforward — just follow a two-step method.</p>
+
+  <div class="rule-box">
+    <strong>⭐ Method for unknowns on both sides</strong>
+    Step 1: <strong>Simplify the known side</strong> (the side without the □) by working it out.<br>
+    Step 2: <strong>Solve the simpler equation</strong> using inverse operations as normal.
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 1</div>
+    <div class="ex-q">□ + 9 = 5 + 12</div>
+    <div class="step"><div class="sn">1</div><div class="st">Simplify the right side: 5 + 12 = <strong>17</strong>. Rewrite: □ + 9 = 17.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">Solve: □ = 17 − 9 = <strong>8</strong>.</div></div>
+    <div class="ans-box">✓ □ = 8</div>
+    <div class="check-box">🔍 Check: 8 + 9 = 17 = 5 + 12 ✓</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 2</div>
+    <div class="ex-q">□ × 3 = 4 × 9 − 6</div>
+    <div class="step"><div class="sn">1</div><div class="st">Simplify the right side (using order of operations — multiplication first): 4 × 9 = 36, then 36 − 6 = <strong>30</strong>.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">Rewrite: □ × 3 = 30.</div></div>
+    <div class="step"><div class="sn">3</div><div class="st">Solve: □ = 30 ÷ 3 = <strong>10</strong>.</div></div>
+    <div class="ans-box">✓ □ = 10</div>
+    <div class="check-box">🔍 Check: 10 × 3 = 30 = 4 × 9 − 6 ✓</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Worked Example 3</div>
+    <div class="ex-q">24 − □ = 3 × 6 + 1</div>
+    <div class="step"><div class="sn">1</div><div class="st">Simplify the right side: 3 × 6 = 18, then 18 + 1 = <strong>19</strong>.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">Rewrite: 24 − □ = 19.</div></div>
+    <div class="step"><div class="sn">3</div><div class="st">Solve (careful — non-standard position!): □ = 24 − 19 = <strong>5</strong>.</div></div>
+    <div class="ans-box">✓ □ = 5</div>
+    <div class="check-box">🔍 Check: 24 − 5 = 19 = 3 × 6 + 1 ✓</div>
+  </div>
+</section>
+
+<!-- ══ S9 ══ -->
+<section id="s9">
+  <div class="sec-num">9</div>
+  <h2>The Substitution Check Method</h2>
+  <p>After solving any missing number question, you should <strong>always check your answer</strong>. This takes just a few seconds and can save you from losing easy marks.</p>
+
+  <div class="rule-box">
+    <strong>⭐ How to Check: Substitution</strong>
+    Replace the □ in the original question with your answer.<br>
+    Work out both sides of the equation.<br>
+    If both sides are <strong>equal</strong>, your answer is correct. ✓<br>
+    If they don't match, you've made an error — go back and find it!
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Check Example 1 — Substitution works</div>
+    <div class="ex-q">Original question: (□ × 3) + 2 = 11. We got □ = 3.</div>
+    <div class="step"><div class="sn">1</div><div class="st">Replace □ with 3: (3 × 3) + 2</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">Work out the left side: 9 + 2 = <strong>11</strong>.</div></div>
+    <div class="step"><div class="sn">3</div><div class="st">Does 11 = 11? <strong>Yes!</strong> ✓</div></div>
+    <div class="ans-box">✓ Answer confirmed: □ = 3 is correct.</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-label">Check Example 2 — Catching an error</div>
+    <div class="ex-q">Original question: 20 − □ = 13. A student got □ = −7 (incorrect!).</div>
+    <div class="step"><div class="sn">1</div><div class="st">Replace □ with −7: 20 − (−7) = 20 + 7 = <strong>27</strong>.</div></div>
+    <div class="step"><div class="sn">2</div><div class="st">Does 27 = 13? <strong>No!</strong> ✗ The check has caught the error.</div></div>
+    <div class="step"><div class="sn">3</div><div class="st">Correct working: □ = 20 − 13 = 7. Check: 20 − 7 = 13 ✓.</div></div>
+    <div class="ans-box">✓ Correct answer: □ = 7</div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Make checking a habit</strong>
+    In GL Assessment, you only have a few minutes per question. A quick substitution check (5 seconds!) can turn a wrong answer into a right one. Always do it!
+  </div>
+</section>
+
+<!-- ══ S10 ══ -->
+<section id="s10">
+  <div class="sec-num">10</div>
+  <h2>Common Mistakes to Avoid</h2>
+  <p>Here are the 6 mistakes students most often make on this topic in GL Assessment. Knowing these traps before the exam is like having a map of where the pitfalls are!</p>
+
+  <div class="mc-card">
+    <div class="mc-head">❌ Mistake 1: Reversing the subtraction direction in a − □ = b</div>
+    <div class="mc-body">
+      <p>When the unknown is being subtracted, students often subtract the wrong way and end up with a negative number that doesn't make sense.</p>
+      <div class="mc-row">
+        <div class="mc-wrong"><div class="mc-lbl">✗ Wrong working</div>20 − □ = 13<br>□ = 13 − 20 = −7</div>
+        <div class="mc-right"><div class="mc-lbl">✓ Correct working</div>20 − □ = 13<br>□ = 20 − 13 = 7<br><em>(Check: 20 − 7 = 13 ✓)</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mc-card">
+    <div class="mc-head">❌ Mistake 2: Skipping the substitution check</div>
+    <div class="mc-body">
+      <p>Students solve the problem and move on without checking. A quick 5-second check would have revealed the error!</p>
+      <div class="mc-row">
+        <div class="mc-wrong"><div class="mc-lbl">✗ No check</div>□ × 8 = 56 → □ = 6<br><em>(No check done — wrong!)</em></div>
+        <div class="mc-right"><div class="mc-lbl">✓ With check</div>□ = 56 ÷ 8 = 7<br>Check: 7 × 8 = 56 ✓<br><em>(Caught: 6 × 8 = 48 ≠ 56)</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mc-card">
+    <div class="mc-head">❌ Mistake 3: Undoing two-step operations in the wrong order</div>
+    <div class="mc-body">
+      <p>In a two-step problem, students undo the first operation first instead of the last. Always work backwards — undo the last operation first.</p>
+      <div class="mc-row">
+        <div class="mc-wrong"><div class="mc-lbl">✗ Wrong order</div>(□ × 3) + 2 = 11<br>Undo ×3 first: □ = 11 ÷ 3 ≈ 3.67<br>Then undo +2: 3.67 − 2 = 1.67 ✗</div>
+        <div class="mc-right"><div class="mc-lbl">✓ Correct order</div>Undo +2 first: 11 − 2 = 9<br>Undo ×3 next: 9 ÷ 3 = 3<br><em>(Check: (3 × 3) + 2 = 11 ✓)</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mc-card">
+    <div class="mc-head">❌ Mistake 4: Using the wrong inverse operation</div>
+    <div class="mc-body">
+      <p>Students apply the inverse of the wrong operation — for example, subtracting when they should divide.</p>
+      <div class="mc-row">
+        <div class="mc-wrong"><div class="mc-lbl">✗ Wrong inverse</div>□ × 7 = 63<br>Inverse of ×7 is… −7?<br>□ = 63 − 7 = 56 ✗</div>
+        <div class="mc-right"><div class="mc-lbl">✓ Correct inverse</div>Inverse of ×7 is ÷7<br>□ = 63 ÷ 7 = 9<br><em>(Check: 9 × 7 = 63 ✓)</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mc-card">
+    <div class="mc-head">❌ Mistake 5: Not simplifying both sides first when unknowns appear on both sides</div>
+    <div class="mc-body">
+      <p>Students try to solve immediately without simplifying the known side, and make arithmetic errors as a result.</p>
+      <div class="mc-row">
+        <div class="mc-wrong"><div class="mc-lbl">✗ Rushing in</div>□ + 9 = 5 + 12<br>Tries to "undo" the right side piecemeal → confusion</div>
+        <div class="mc-right"><div class="mc-lbl">✓ Simplify first</div>5 + 12 = 17<br>□ + 9 = 17<br>□ = 17 − 9 = 8 ✓</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mc-card">
+    <div class="mc-head">❌ Mistake 6: Working a function machine forwards when you need to go backwards</div>
+    <div class="mc-body">
+      <p>When asked to find the input (not the output), students apply the operations forwards instead of backwards with inverses.</p>
+      <div class="mc-row">
+        <div class="mc-wrong"><div class="mc-lbl">✗ Going forwards</div>? → ×3 → −4 → 11<br>Student does: 11 × 3 − 4 = 29 ✗</div>
+        <div class="mc-right"><div class="mc-lbl">✓ Going backwards</div>Start at 11, undo −4: +4 → 15<br>Undo ×3: ÷3 → 5<br><em>Input = 5. Check: 5×3−4=11 ✓</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ S11 ══ -->
+<section id="s11">
+  <div class="sec-num">11</div>
+  <h2>GL Assessment-Style Practice Questions</h2>
+  <p>These 10 questions match the format, style and difficulty you'll see in the real GL Assessment. Read each question carefully, select your answer, and then check the answers section below. You've got this!</p>
+
+  <!-- Q1 -->
+  <div class="mcq-q">
+    <div class="q-num">Question 1 — Single-step missing number</div>
+    <div class="q-text">□ × 8 = 72. What is the value of □?</div>
+    <div class="mcq-opts">
+      <button class="mcq-btn" onclick="pick(this,false)">A) 8</button>
+      <button class="mcq-btn" onclick="pick(this,false)">B) 64</button>
+      <button class="mcq-btn" onclick="pick(this,true)">C) 9</button>
+      <button class="mcq-btn" onclick="pick(this,false)">D) 576</button>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="mcq-q">
+    <div class="q-num">Question 2 — Non-standard position</div>
+    <div class="q-text">30 − □ = 11. What is the value of □?</div>
+    <div class="mcq-opts">
+      <button class="mcq-btn" onclick="pick(this,false)">A) −19</button>
+      <button class="mcq-btn" onclick="pick(this,false)">B) 41</button>
+      <button class="mcq-btn" onclick="pick(this,true)">C) 19</button>
+      <button class="mcq-btn" onclick="pick(this,false)">D) 21</button>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="mcq-q">
+    <div class="q-num">Question 3 — Two-step chain</div>
+    <div class="q-text">(□ × 4) + 5 = 29. What is □?</div>
+    <div class="mcq-opts">
+      <button class="mcq-btn" onclick="pick(this,false)">A) 8.5</button>
+      <button class="mcq-btn" onclick="pick(this,true)">B) 6</button>
+      <button class="mcq-btn" onclick="pick(this,false)">C) 24</button>
+      <button class="mcq-btn" onclick="pick(this,false)">D) 96</button>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="mcq-q">
+    <div class="q-num">Question 4 — Function machine (find the input)</div>
+    <div class="q-text">A function machine does: INPUT → ÷ 6 → + 3 → OUTPUT = 8. What is the input?</div>
+    <div class="mcq-opts">
+      <button class="mcq-btn" onclick="pick(this,false)">A) 66</button>
+      <button class="mcq-btn" onclick="pick(this,false)">B) 5</button>
+      <button class="mcq-btn" onclick="pick(this,true)">C) 30</button>
+      <button class="mcq-btn" onclick="pick(this,false)">D) 11</button>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="mcq-q">
+    <div class="q-num">Question 5 — Word problem</div>
+    <div class="q-text">Amara thinks of a number. She multiplies it by 5 and then subtracts 7. Her answer is 33. What was Amara's number?</div>
+    <div class="mcq-opts">
+      <button class="mcq-btn" onclick="pick(this,false)">A) 5.2</button>
+      <button class="mcq-btn" onclick="pick(this,false)">B) 130</button>
+      <button class="mcq-btn" onclick="pick(this,false)">C) 26</button>
+      <button class="mcq-btn" onclick="pick(this,true)">D) 8</button>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="mcq-q">
+    <div class="q-num">Question 6 — Missing number with decimals</div>
+    <div class="q-text">□ × 5 = 3.5. What is the value of □?</div>
+    <div class="mcq-opts">
+      <button class="mcq-btn" onclick="pick(this,false)">A) 17.5</button>
+      <button class="mcq-btn" onclick="pick(this,false)">B) 7</button>
+      <button class="mcq-btn" onclick="pick(this,true)">C) 0.7</button>
+      <button class="mcq-btn" onclick="pick(this,false)">D) 0.07</button>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="mcq-q">
+    <div class="q-num">Question 7 — Unknown on both sides</div>
+    <div class="q-text">□ + 14 = 3 × 8 + 2. What is □?</div>
+    <div class="mcq-opts">
+      <button class="mcq-btn" onclick="pick(this,false)">A) 50</button>
+      <button class="mcq-btn" onclick="pick(this,false)">B) 40</button>
+      <button class="mcq-btn" onclick="pick(this,true)">C) 12</button>
+      <button class="mcq-btn" onclick="pick(this,false)">D) 36</button>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="mcq-q">
+    <div class="q-num">Question 8 — Non-standard division</div>
+    <div class="q-text">56 ÷ □ = 7. What is the value of □?</div>
+    <div class="mcq-opts">
+      <button class="mcq-btn" onclick="pick(this,false)">A) 49</button>
+      <button class="mcq-btn" onclick="pick(this,false)">B) 392</button>
+      <button class="mcq-btn" onclick="pick(this,false)">C) 63</button>
+      <button class="mcq-btn" onclick="pick(this,true)">D) 8</button>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="mcq-q">
+    <div class="q-num">Question 9 — Three-step chain word problem</div>
+    <div class="q-text">Marcus thinks of a number, adds 3, doubles the result, and then subtracts 4. His final answer is 18. What was his number?</div>
+    <div class="mcq-opts">
+      <button class="mcq-btn" onclick="pick(this,false)">A) 15</button>
+      <button class="mcq-btn" onclick="pick(this,false)">B) 22</button>
+      <button class="mcq-btn" onclick="pick(this,true)">C) 8</button>
+      <button class="mcq-btn" onclick="pick(this,false)">D) 5</button>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="mcq-q">
+    <div class="q-num">Question 10 — Function machine (find missing operation)</div>
+    <div class="q-text">A function machine has: Input = 24 → [?] → Output = 6. Which operation does the machine perform?</div>
+    <div class="mcq-opts">
+      <button class="mcq-btn" onclick="pick(this,false)">A) − 18</button>
+      <button class="mcq-btn" onclick="pick(this,false)">B) × 4</button>
+      <button class="mcq-btn" onclick="pick(this,true)">C) ÷ 4</button>
+      <button class="mcq-btn" onclick="pick(this,false)">D) + 18</button>
+    </div>
+  </div>
+
+  <!-- ANSWERS -->
+  <div class="ans-section">
+    <h3>📋 Full Answers &amp; Explanations</h3>
+
+    <div class="ai">
+      <div class="ai-q">Q1 — □ × 8 = 72</div>
+      <div class="ai-a">Answer: C) 9</div>
+      <div class="ai-e">Inverse of ×8 is ÷8. □ = 72 ÷ 8 = 9. Trap A: 8 gives 8×8=64≠72. Trap B: 64 is 8², not the answer here. Trap D: 576 = 72×8 (went the wrong direction).</div>
+    </div>
+
+    <div class="ai">
+      <div class="ai-q">Q2 — 30 − □ = 11</div>
+      <div class="ai-a">Answer: C) 19</div>
+      <div class="ai-e">□ = 30 − 11 = 19. Trap A: −19 comes from doing 11 − 30 (wrong direction). Trap B: 41 comes from 30 + 11 (adding instead of using the right method). Trap D: 21 is a simple arithmetic slip.</div>
+    </div>
+
+    <div class="ai">
+      <div class="ai-q">Q3 — (□ × 4) + 5 = 29</div>
+      <div class="ai-a">Answer: B) 6</div>
+      <div class="ai-e">Step 1: undo +5: 29 − 5 = 24. Step 2: undo ×4: 24 ÷ 4 = 6. Trap A: 8.5 comes from undoing ×4 first (29÷4) before dealing with +5 — wrong order. Check: (6×4)+5 = 29 ✓</div>
+    </div>
+
+    <div class="ai">
+      <div class="ai-q">Q4 — Function machine: ÷6 then +3 → output 8</div>
+      <div class="ai-a">Answer: C) 30</div>
+      <div class="ai-e">Work backwards: undo +3: 8 − 3 = 5. Undo ÷6: 5 × 6 = 30. Trap A: 66 comes from applying operations forwards (8×6+3). Trap D: 11 comes from only undoing the last step.</div>
+    </div>
+
+    <div class="ai">
+      <div class="ai-q">Q5 — Word problem: ×5 then −7 → 33</div>
+      <div class="ai-a">Answer: D) 8</div>
+      <div class="ai-e">Work backwards: undo −7: 33 + 7 = 40. Undo ×5: 40 ÷ 5 = 8. Trap C: 26 comes from only adding 7 then dividing by something else. Check: 8×5−7 = 33 ✓</div>
+    </div>
+
+    <div class="ai">
+      <div class="ai-q">Q6 — □ × 5 = 3.5</div>
+      <div class="ai-a">Answer: C) 0.7</div>
+      <div class="ai-e">□ = 3.5 ÷ 5 = 0.7. Think: 35 ÷ 5 = 7, so 3.5 ÷ 5 = 0.7. Trap B: 7 is the answer to 35 ÷ 5 (ignoring the decimal). Trap A: 17.5 comes from multiplying instead of dividing.</div>
+    </div>
+
+    <div class="ai">
+      <div class="ai-q">Q7 — □ + 14 = 3 × 8 + 2</div>
+      <div class="ai-a">Answer: C) 12</div>
+      <div class="ai-e">Simplify right side: 3×8 = 24, then 24+2 = 26. Solve: □ = 26 − 14 = 12. Trap D: 36 is 3×8+12 (adding 14 instead of subtracting). Check: 12+14 = 26 = 3×8+2 ✓</div>
+    </div>
+
+    <div class="ai">
+      <div class="ai-q">Q8 — 56 ÷ □ = 7</div>
+      <div class="ai-a">Answer: D) 8</div>
+      <div class="ai-e">Rearrange: □ × 7 = 56, so □ = 56 ÷ 7 = 8. Trap A: 49 = 7² (confusing the numbers). Trap C: 63 = 56+7. Check: 56 ÷ 8 = 7 ✓</div>
+    </div>
+
+    <div class="ai">
+      <div class="ai-q">Q9 — Word problem: +3, ×2, −4 → 18</div>
+      <div class="ai-a">Answer: C) 8</div>
+      <div class="ai-e">Work backwards: undo −4: 18+4 = 22. Undo ×2: 22÷2 = 11. Undo +3: 11−3 = 8. Check: (8+3)×2−4 = 11×2−4 = 22−4 = 18 ✓. Trap D: 5 comes from undoing in the wrong order.</div>
+    </div>
+
+    <div class="ai">
+      <div class="ai-q">Q10 — Function machine: 24 → [?] → 6</div>
+      <div class="ai-a">Answer: C) ÷ 4</div>
+      <div class="ai-e">24 ÷ 4 = 6 ✓. Trap A: 24 − 18 = 6 also works arithmetically, but GL Assessment prefers the multiplicative operation here since input and output are in a 4:1 ratio. Trap B: 24 × 4 = 96, not 6.</div>
+    </div>
+  </div>
+
+</section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <strong>TrueMaths</strong> · GL Assessment 11+ Preparation · Inverse Operations &amp; Missing Numbers<br>
+  <span style="opacity:.7">Written for students aged 9–11 preparing for grammar school entrance exams.</span>
+</footer>
+
+<script>
+function pick(btn, correct) {
+  const group = btn.closest('.mcq-opts');
+  group.querySelectorAll('.mcq-btn').forEach(b => {
+    b.style.pointerEvents = 'none';
+    if (b._correct) b.classList.add('correct');
+  });
+  if (correct) {
+    btn.classList.add('correct');
+  } else {
+    btn.classList.add('wrong');
+    group.querySelectorAll('.mcq-btn').forEach(b => { if (b._correct) b.classList.add('correct'); });
+  }
+}
+document.querySelectorAll('.mcq-btn').forEach(b => {
+  b._correct = b.getAttribute('onclick').includes('true');
+});
+</script>
+</body>
+</html>

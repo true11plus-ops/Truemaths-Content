@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Problems & Timetables — 11+ GL Assessment Revision</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500;700&display=swap');
+
+:root {
+  --ink: #0d1b2a;
+  --blue: #1e40af;
+  --blue-lt: #eff6ff;
+  --blue-bd: #bfdbfe;
+  --blue-mid: #2563eb;
+  --green: #166534;
+  --green-lt: #f0fdf4;
+  --green-bd: #86efac;
+  --amber: #92400e;
+  --amber-lt: #fffbeb;
+  --amber-bd: #fcd34d;
+  --plum: #5b21b6;
+  --plum-lt: #f5f3ff;
+  --plum-bd: #c4b5fd;
+  --gray-lt: #f8fafc;
+  --gray-bd: #e2e8f0;
+  --gray-mid: #94a3b8;
+  --gray-dk: #475569;
+  --red: #dc2626;
+  --red-lt: #fef2f2;
+  --teal: #0f766e;
+  --teal-lt: #f0fdfa;
+  --font: 'Sora', sans-serif;
+  --mono: 'Fira Code', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: #edf2f7;
+  color: var(--ink);
+  line-height: 1.65;
+  font-size: 15.5px;
+}
+
+/* ─── HEADER ─── */
+.hdr {
+  background: var(--ink);
+  color: white;
+  padding: 38px 24px 30px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hdr::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 40%, rgba(37,99,235,0.4), transparent 55%),
+              radial-gradient(ellipse at 15% 70%, rgba(15,118,110,0.3), transparent 50%);
+}
+.hdr::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(-55deg, transparent 0, transparent 22px, rgba(255,255,255,0.018) 22px, rgba(255,255,255,0.018) 23px);
+}
+.hdr > * { position: relative; z-index: 1; }
+.hdr h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 900; letter-spacing: -0.5px; }
+.hdr .sub { font-size: 0.95rem; opacity: 0.72; margin-top: 6px; }
+.badge-row { display: flex; gap: 7px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+.badge { background: rgba(255,255,255,0.11); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 3px 13px; font-size: 0.75rem; font-weight: 700; }
+
+/* ─── LAYOUT ─── */
+.wrap { max-width: 900px; margin: 0 auto; padding: 26px 14px 80px; }
+
+/* ─── QUICK REF ─── */
+.qref { background: white; border: 2px solid var(--blue-bd); border-radius: 14px; padding: 20px 22px; margin-bottom: 28px; box-shadow: 0 4px 18px rgba(30,64,175,0.08); }
+.qref h2 { color: var(--blue); font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 13px; }
+.qref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 9px; }
+.qi { background: var(--blue-lt); border: 1px solid var(--blue-bd); border-radius: 8px; padding: 10px 13px; }
+.qi .ql { font-size: 0.68rem; font-weight: 800; color: var(--blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+.qi .qv { font-family: var(--mono); font-size: 0.83rem; color: var(--ink); line-height: 1.5; }
+
+/* ─── SDT TRIANGLE ─── */
+.sdt-wrap { display: flex; justify-content: center; margin: 16px 0; }
+.sdt {
+  width: 190px; height: 165px; position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.sdt-tri {
+  width: 0; height: 0;
+  border-left: 95px solid transparent;
+  border-right: 95px solid transparent;
+  border-bottom: 165px solid var(--blue-mid);
+  position: absolute; top: 0; left: 0;
+  opacity: 0.9;
+}
+.sdt-top { position: absolute; top: 28px; left: 50%; transform: translateX(-50%); color: white; font-size: 1.4rem; font-weight: 900; z-index: 2; }
+.sdt-bot { position: absolute; bottom: 8px; width: 100%; display: flex; z-index: 2; }
+.sdt-s { flex: 1; text-align: center; color: white; font-size: 1.1rem; font-weight: 900; padding-bottom: 4px; }
+.sdt-line { position: absolute; bottom: 55%; left: 5%; width: 90%; height: 2px; background: white; opacity: 0.5; z-index: 3; }
+.sdt-vline { position: absolute; bottom: 8px; left: 50%; width: 2px; height: 47%; background: white; opacity: 0.5; z-index: 3; }
+
+/* ─── SECTION ─── */
+.sec { background: white; border-radius: 14px; padding: 26px 22px; margin-bottom: 22px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid var(--gray-bd); }
+.sec-title { display: flex; align-items: center; gap: 11px; font-size: 1.2rem; font-weight: 900; color: var(--ink); margin-bottom: 18px; padding-bottom: 13px; border-bottom: 2px solid var(--gray-lt); }
+.sec-n { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: var(--ink); color: white; font-weight: 900; font-size: 0.85rem; flex-shrink: 0; }
+
+p { margin-bottom: 11px; }
+
+/* ─── BOXES ─── */
+.bx { border-radius: 9px; padding: 13px 16px; margin: 12px 0; }
+.bt { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
+.bx-f { background: var(--blue-lt); border-left: 4px solid var(--blue-mid); }
+.bx-f .bt { color: var(--blue-mid); }
+.bx-f .fm { font-family: var(--mono); font-size: 0.88rem; color: var(--ink); margin-bottom: 3px; }
+.bx-e { background: var(--green-lt); border-left: 4px solid var(--green); }
+.bx-e .bt { color: var(--green); }
+.bx-e .st { font-size: 0.92rem; margin-bottom: 3px; }
+.bx-e .ans { font-family: var(--mono); font-weight: 700; color: var(--green); margin-top: 8px; padding-top: 7px; border-top: 1px solid var(--green-bd); }
+.bx-w { background: var(--amber-lt); border-left: 4px solid #d97706; }
+.bx-w .bt { color: #d97706; }
+.bx-p { background: var(--plum-lt); border-left: 4px solid var(--plum); }
+.bx-p .bt { color: var(--plum); }
+.bx-t { background: var(--teal-lt); border-left: 4px solid var(--teal); }
+.bx-t .bt { color: var(--teal); }
+
+/* ─── TABLES ─── */
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9rem; }
+th { background: var(--ink); color: white; padding: 9px 12px; text-align: center; font-weight: 700; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--gray-bd); text-align: center; }
+tr:nth-child(even) td { background: var(--gray-lt); }
+td:first-child { text-align: left; font-weight: 600; }
+
+/* ─── PRACTICE ─── */
+.prac { margin-top: 26px; border-top: 2px dashed var(--gray-bd); padding-top: 18px; }
+.prac h3 { font-size: 0.95rem; font-weight: 800; color: var(--ink); margin-bottom: 14px; }
+.lvb { margin-bottom: 16px; }
+.ltag { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 9px; }
+.lv1 { background: #dcfce7; color: #166534; }
+.lv2 { background: #dbeafe; color: #1e40af; }
+.lv3 { background: #fef9c3; color: #92400e; }
+.lv4 { background: #fce7f3; color: #9d174d; }
+
+.qb { margin-bottom: 11px; padding: 13px 15px; background: var(--gray-lt); border: 1px solid var(--gray-bd); border-radius: 9px; }
+.qt { font-weight: 600; font-size: 0.92rem; margin-bottom: 9px; }
+.qr { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.qin { border: 2px solid var(--gray-bd); border-radius: 6px; padding: 7px 11px; font-family: var(--mono); font-size: 0.9rem; width: 120px; outline: none; transition: border-color 0.15s; background: white; color: var(--ink); }
+.qin:focus { border-color: var(--blue-mid); }
+.qun { font-size: 0.8rem; color: var(--gray-dk); font-weight: 700; }
+.qbtn { background: var(--blue-mid); color: white; border: none; border-radius: 6px; padding: 7px 16px; font-family: var(--font); font-weight: 800; font-size: 0.85rem; cursor: pointer; transition: background 0.15s, transform 0.1s; white-space: nowrap; }
+.qbtn:hover { background: #1d4ed8; }
+.qbtn:active { transform: scale(0.97); }
+.qfb { margin-top: 8px; padding: 8px 12px; border-radius: 6px; font-size: 0.87rem; font-weight: 600; display: none; }
+.fok { background: var(--green-lt); border: 1px solid var(--green-bd); color: var(--green); }
+.fno { background: var(--red-lt); border: 1px solid #fecaca; color: var(--red); }
+
+/* ─── MASTERY ─── */
+.mast { background: var(--ink); border-radius: 14px; padding: 26px 22px; margin-bottom: 22px; color: white; }
+.mast h2 { font-size: 1.25rem; font-weight: 900; margin-bottom: 5px; }
+.mast .ms { font-size: 0.88rem; opacity: 0.68; margin-bottom: 20px; }
+.mast .qb { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.13); }
+.mast .qt { color: white; }
+.mast .qin { background: rgba(255,255,255,0.94); }
+.mast .qun { color: rgba(255,255,255,0.6); }
+#msubmit { width: 100%; margin-top: 18px; padding: 12px; background: #16a34a; color: white; border: none; border-radius: 8px; font-family: var(--font); font-weight: 900; font-size: 0.98rem; cursor: pointer; transition: background 0.15s; }
+#msubmit:hover { background: #15803d; }
+.sbox { margin-top: 16px; padding: 16px 20px; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.18); border-radius: 9px; text-align: center; display: none; }
+.snum { font-size: 2.6rem; font-weight: 900; }
+.smsg { font-size: 0.9rem; opacity: 0.8; margin-top: 4px; }
+
+/* ─── PITFALLS ─── */
+.plist { list-style: none; padding: 0; }
+.pi { display: flex; gap: 11px; align-items: flex-start; margin-bottom: 10px; padding: 11px 13px; background: var(--amber-lt); border: 1px solid var(--amber-bd); border-radius: 8px; }
+.pi-icon { font-size: 1.1rem; flex-shrink: 0; }
+.pi-txt { font-size: 0.92rem; }
+.pi-txt strong { color: var(--amber); }
+
+code { font-family: var(--mono); background: rgba(30,64,175,0.08); padding: 1px 5px; border-radius: 3px; font-size: 0.88em; }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <h1>⏱ Time Problems &amp; Timetables</h1>
+  <div class="sub">Complete Revision Notes for 11+ GL Assessment</div>
+  <div class="badge-row">
+    <span class="badge">🕐 Clock Systems</span>
+    <span class="badge">⏳ Time Intervals</span>
+    <span class="badge">🚌 Timetables</span>
+    <span class="badge">🚗 Speed · Distance · Time</span>
+    <span class="badge">📅 Calendar</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ─── QUICK REF ─── -->
+<div class="qref">
+  <h2>⚡ Quick Reference Card</h2>
+  <div class="qref-grid">
+    <div class="qi"><div class="ql">pm → 24hr</div><div class="qv">Add 12 to hours<br>3:45 pm → 15:45</div></div>
+    <div class="qi"><div class="ql">24hr → pm</div><div class="qv">Subtract 12<br>19:20 → 7:20 pm</div></div>
+    <div class="qi"><div class="ql">Tricky midday</div><div class="qv">12:00 pm = 12:00<br>12:00 am = 00:00</div></div>
+    <div class="qi"><div class="ql">Time chain</div><div class="qv">60s=1min<br>60min=1hr<br>24hr=1day</div></div>
+    <div class="qi"><div class="ql">Decimal time</div><div class="qv">30min=0.5hr<br>45min=0.75hr<br>NOT 0.45!</div></div>
+    <div class="qi"><div class="ql">SDT triangle</div><div class="qv">D = S × T<br>S = D ÷ T<br>T = D ÷ S</div></div>
+    <div class="qi"><div class="ql">Jump method</div><div class="qv">→ next hour<br>→ full hours<br>→ final mins</div></div>
+    <div class="qi"><div class="ql">Carrying mins</div><div class="qv">90 min = 1hr 30m<br>NOT 1:90!</div></div>
+  </div>
+  <!-- SDT Triangle Visual -->
+  <div style="margin-top:16px;">
+    <div style="font-size:0.7rem;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:0.5px;text-align:center;margin-bottom:8px;">Speed · Distance · Time Triangle</div>
+    <div class="sdt-wrap">
+      <div class="sdt">
+        <div class="sdt-tri"></div>
+        <div class="sdt-top">D</div>
+        <div class="sdt-line"></div>
+        <div class="sdt-vline"></div>
+        <div class="sdt-bot">
+          <div class="sdt-s">S</div>
+          <div class="sdt-s">T</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:0.82rem;color:var(--gray-dk);margin-top:4px;">Cover what you want to find. D = S × T &nbsp;|&nbsp; S = D ÷ T &nbsp;|&nbsp; T = D ÷ S</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- SECTION 1: CLOCK SYSTEMS -->
+<!-- ════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-n">1</span>Clock Systems — 12-Hour and 24-Hour</div>
+
+  <p>The <strong>12-hour clock</strong> uses <strong>am</strong> (midnight to noon) and <strong>pm</strong> (noon to midnight). The <strong>24-hour clock</strong> uses four digits and no am/pm — it runs from 00:00 (midnight) to 23:59.</p>
+
+  <div class="bx bx-f">
+    <div class="bt">📐 Conversion Rules</div>
+    <div class="fm">am times → 24-hr: same digits (just write with leading zero if needed). 8:20 am = 08:20</div>
+    <div class="fm">pm times → 24-hr: add 12 to the hours. 3:45 pm → 3 + 12 = 15 → 15:45</div>
+    <div class="fm">24-hr (≥13:00) → pm: subtract 12. 21:20 → 21 − 12 = 9 → 9:20 pm</div>
+    <div class="fm">24-hr (< 13:00) → am: same digits. 08:20 = 8:20 am</div>
+  </div>
+
+  <div class="bx bx-w">
+    <div class="bt">⚠️ The Four Edge Cases — Read These Carefully</div>
+    <p><strong>12:00 am = 00:00 (midnight).</strong> The day starts at 00:00. 12:00 am is NOT 12:00 in 24-hr.</p>
+    <p><strong>12:00 pm = 12:00 (noon).</strong> Midday stays as 12:00 in 24-hr. It does NOT become 24:00.</p>
+    <p><strong>12:30 pm = 12:30</strong> — it does NOT become 24:30 or 00:30. Times from 12:00 pm to 12:59 pm stay as 12:xx in 24-hr format.</p>
+    <p><strong>12:30 am = 00:30</strong> — it does NOT stay as 12:30. The am rule: 12 am is midnight = 00:00, so 12:30 am = 00:30.</p>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 1 — Simple pm conversion</div>
+    <div class="st"><strong>Q:</strong> Convert 6:45 pm to 24-hour clock.</div>
+    <div class="st">Rule: pm → add 12 to hours</div>
+    <div class="st">6 + 12 = 18</div>
+    <div class="st">Minutes stay the same: 45</div>
+    <div class="ans">✅ 6:45 pm = 18:45</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 2 — Edge case: 12:30 pm</div>
+    <div class="st"><strong>Q:</strong> Convert 12:30 pm to 24-hour clock.</div>
+    <div class="st">Trap: students add 12 → 24:30. WRONG!</div>
+    <div class="st">Rule: 12 pm = noon = 12:00 in 24-hr. Times from 12:00–12:59 pm stay unchanged.</div>
+    <div class="st">12:30 pm → do NOT add 12 → stays as 12:30</div>
+    <div class="ans">✅ 12:30 pm = 12:30</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 3 — Edge case: 12:30 am</div>
+    <div class="st"><strong>Q:</strong> Convert 12:30 am to 24-hour clock.</div>
+    <div class="st">Rule: 12:00 am = midnight = 00:00</div>
+    <div class="st">So 12:30 am = 00:30 (30 minutes after midnight)</div>
+    <div class="st">It does NOT stay as 12:30!</div>
+    <div class="ans">✅ 12:30 am = 00:30</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 4 — 24-hour back to 12-hour</div>
+    <div class="st"><strong>Q:</strong> Convert 22:15 to 12-hour clock.</div>
+    <div class="st">22 ≥ 13, so subtract 12: 22 − 12 = 10</div>
+    <div class="st">Since original was ≥ 12:00, it's pm.</div>
+    <div class="st">Minutes stay: 15</div>
+    <div class="ans">✅ 22:15 = 10:15 pm</div>
+  </div>
+
+  <div class="bx bx-w">
+    <div class="bt">⚠️ Common Mistake — The 12 pm trap</div>
+    <p>12 pm does <em>not</em> mean add 12 to get 24:00. Noon is simply 12:00 in 24-hr. The add-12 rule applies to 1 pm through 11 pm only. Remember: <strong>12 pm → 12:00</strong>, <strong>12 am → 00:00</strong>.</p>
+  </div>
+
+  <!-- PRACTICE SEC 1 -->
+  <div class="prac">
+    <h3>📝 Practice — Clock Systems</h3>
+
+    <div class="lvb">
+      <div class="ltag lv1">Easy</div>
+      <div class="qb">
+        <div class="qt">Q1. Convert 3:20 pm to 24-hour clock. Enter as 4 digits (e.g. 1520).</div>
+        <div class="qr"><input class="qin" type="number" id="c1_1"><button class="qbtn" onclick="chk('c1_1',1520,'pm: add 12 to hours. 3+12=15. Answer: 15:20 → 1520.')">Check</button></div>
+        <div class="qfb" id="c1_1_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q2. Convert 08:45 (24-hr) to 12-hour clock. It is in the morning — enter the minutes only (e.g. if 8:45 am, enter 45).</div>
+        <div class="qr"><input class="qin" type="number" id="c1_2"><span class="qun">mins past 8 am</span><button class="qbtn" onclick="chk('c1_2',45,'08:45 is before 13:00, so it is 8:45 am. 45 minutes past 8.')">Check</button></div>
+        <div class="qfb" id="c1_2_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q3. Convert 7:05 pm to 24-hour clock. Enter as 4 digits.</div>
+        <div class="qr"><input class="qin" type="number" id="c1_3"><button class="qbtn" onclick="chk('c1_3',1905,'7+12=19. 7:05 pm = 19:05 → 1905.')">Check</button></div>
+        <div class="qfb" id="c1_3_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv2">Intermediate</div>
+      <div class="qb">
+        <div class="qt">Q4. Convert 20:35 to 12-hour clock. Enter the hours only (e.g. if 8:35 pm enter 8).</div>
+        <div class="qr"><input class="qin" type="number" id="c1_4"><span class="qun">pm</span><button class="qbtn" onclick="chk('c1_4',8,'20−12=8. So 8:35 pm. Hours = 8.')">Check</button></div>
+        <div class="qfb" id="c1_4_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q5. What is 12:00 pm in 24-hour clock? Enter as 4 digits.</div>
+        <div class="qr"><input class="qin" type="number" id="c1_5"><button class="qbtn" onclick="chk('c1_5',1200,'12:00 pm is noon. In 24-hr it stays as 12:00 → 1200. Do NOT write 2400.')">Check</button></div>
+        <div class="qfb" id="c1_5_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q6. Convert 12:15 am to 24-hour clock. Enter as 4 digits.</div>
+        <div class="qr"><input class="qin" type="number" id="c1_6"><button class="qbtn" onclick="chk('c1_6',15,'12:00 am = midnight = 00:00. So 12:15 am = 00:15 → 0015. Enter 15.')">Check</button></div>
+        <div class="qfb" id="c1_6_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv3">Advanced</div>
+      <div class="qb">
+        <div class="qt">Q7. A train departs at 11:58 pm. What is this in 24-hour clock? Enter as 4 digits.</div>
+        <div class="qr"><input class="qin" type="number" id="c1_7"><button class="qbtn" onclick="chk('c1_7',2358,'11+12=23. 11:58 pm = 23:58 → 2358.')">Check</button></div>
+        <div class="qfb" id="c1_7_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q8. Convert 12:45 pm to 24-hour clock. Enter as 4 digits.</div>
+        <div class="qr"><input class="qin" type="number" id="c1_8"><button class="qbtn" onclick="chk('c1_8',1245,'12:45 pm stays as 12:45 (not 24:45). → 1245.')">Check</button></div>
+        <div class="qfb" id="c1_8_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv4">Challenging</div>
+      <div class="qb">
+        <div class="qt">Q9. A cinema lists a showing at 00:20. What time is this in 12-hour clock? Enter the minutes only (e.g. if 12:20 am enter 20).</div>
+        <div class="qr"><input class="qin" type="number" id="c1_9"><span class="qun">mins past 12 am</span><button class="qbtn" onclick="chk('c1_9',20,'00:20 is 20 minutes after midnight = 12:20 am. Minutes = 20.')">Check</button></div>
+        <div class="qfb" id="c1_9_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q10. How many hours after 23:45 does 02:15 occur? (next day)</div>
+        <div class="qr"><input class="qin" type="number" id="c1_10"><span class="qun">hours</span><button class="qbtn" onclick="chk('c1_10',2.5,'23:45 to 00:00 = 15min. 00:00 to 02:15 = 2h15m. Total = 2h30m = 2.5 hours.')">Check</button></div>
+        <div class="qfb" id="c1_10_fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- SECTION 2: TIME UNIT CONVERSIONS -->
+<!-- ════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-n">2</span>Time Unit Conversions</div>
+
+  <div class="bx bx-w">
+    <div class="bt">⚠️ Critical: Time is NOT base-10</div>
+    <p>Every metric conversion uses ×10 or ×1000. Time uses <strong>60</strong> (seconds↔minutes, minutes↔hours). You cannot shift a decimal point. Always divide by 60 — never by 10 or 100.</p>
+  </div>
+
+  <div class="bx bx-f">
+    <div class="bt">📐 Conversion Chain</div>
+    <div class="fm">60 seconds = 1 minute</div>
+    <div class="fm">60 minutes = 1 hour</div>
+    <div class="fm">24 hours = 1 day</div>
+    <div class="fm">To convert minutes → hours and minutes: divide by 60. Quotient = hours, remainder = minutes.</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example a — Minutes to hours and minutes</div>
+    <div class="st"><strong>Q:</strong> Convert 145 minutes to hours and minutes.</div>
+    <div class="st">Divide by 60: 145 ÷ 60 = 2 remainder 25</div>
+    <div class="st">Quotient 2 = hours. Remainder 25 = minutes.</div>
+    <div class="ans">✅ 145 minutes = 2 hours 25 minutes</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example b — Hours and minutes to minutes</div>
+    <div class="st"><strong>Q:</strong> Convert 2 hours 40 minutes to minutes.</div>
+    <div class="st">2 hours × 60 = 120 minutes</div>
+    <div class="st">120 + 40 = 160 minutes</div>
+    <div class="ans">✅ 2 hours 40 minutes = 160 minutes</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example c — Hours to seconds</div>
+    <div class="st"><strong>Q:</strong> Convert 3 hours to seconds.</div>
+    <div class="st">3 hours × 60 = 180 minutes</div>
+    <div class="st">180 minutes × 60 = 10,800 seconds</div>
+    <div class="ans">✅ 3 hours = 10,800 seconds</div>
+  </div>
+
+  <div class="bx bx-p">
+    <div class="bt">💡 Decimal Time — Essential for Speed Problems</div>
+    <p>When using the Speed/Distance/Time formula, time must be expressed as a <strong>decimal number of hours</strong>.</p>
+    <div style="margin-top:8px;">
+      <div style="font-family:var(--mono);font-size:0.88rem;margin-bottom:3px;">1 hr 30 min = 1 + (30÷60) = 1 + 0.5 = <strong>1.5 hours</strong></div>
+      <div style="font-family:var(--mono);font-size:0.88rem;margin-bottom:3px;">1 hr 45 min = 1 + (45÷60) = 1 + 0.75 = <strong>1.75 hours</strong></div>
+      <div style="font-family:var(--mono);font-size:0.88rem;margin-bottom:3px;">1 hr 20 min = 1 + (20÷60) = 1 + 0.333... ≈ <strong>1.333 hours</strong></div>
+      <div style="font-family:var(--mono);font-size:0.88rem;">2 hr 15 min = 2 + (15÷60) = 2 + 0.25 = <strong>2.25 hours</strong></div>
+    </div>
+  </div>
+
+  <div class="bx bx-w">
+    <div class="bt">⚠️ Most Dangerous Trap — Decimal Time</div>
+    <p>1 hour 30 minutes <strong>≠ 1.30 hours</strong>. It equals <strong>1.5 hours</strong>. If you use 1.30 in an SDT formula, you will get a completely wrong answer. Always convert: minutes ÷ 60.</p>
+  </div>
+
+  <!-- PRACTICE SEC 2 -->
+  <div class="prac">
+    <h3>📝 Practice — Time Unit Conversions</h3>
+
+    <div class="lvb">
+      <div class="ltag lv1">Easy</div>
+      <div class="qb">
+        <div class="qt">Q1. How many minutes are in 3 hours?</div>
+        <div class="qr"><input class="qin" type="number" id="tu1_1"><span class="qun">minutes</span><button class="qbtn" onclick="chk('tu1_1',180,'3 × 60 = 180 minutes.')">Check</button></div>
+        <div class="qfb" id="tu1_1_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q2. How many seconds are in 2 minutes?</div>
+        <div class="qr"><input class="qin" type="number" id="tu1_2"><span class="qun">seconds</span><button class="qbtn" onclick="chk('tu1_2',120,'2 × 60 = 120 seconds.')">Check</button></div>
+        <div class="qfb" id="tu1_2_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q3. How many minutes are in 2 hours 15 minutes?</div>
+        <div class="qr"><input class="qin" type="number" id="tu1_3"><span class="qun">minutes</span><button class="qbtn" onclick="chk('tu1_3',135,'2×60=120. 120+15=135 minutes.')">Check</button></div>
+        <div class="qfb" id="tu1_3_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv2">Intermediate</div>
+      <div class="qb">
+        <div class="qt">Q4. Convert 145 minutes to hours and minutes. Enter the hours only.</div>
+        <div class="qr"><input class="qin" type="number" id="tu1_4"><span class="qun">hours (remainder = minutes)</span><button class="qbtn" onclick="chk('tu1_4',2,'145÷60=2 remainder 25. So 2 hours 25 minutes. Hours = 2.')">Check</button></div>
+        <div class="qfb" id="tu1_4_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q5. Convert 195 minutes to hours and minutes. Enter the minutes part only.</div>
+        <div class="qr"><input class="qin" type="number" id="tu1_5"><span class="qun">minutes (after full hours)</span><button class="qbtn" onclick="chk('tu1_5',15,'195÷60=3 remainder 15. So 3 hours 15 minutes. Minutes part = 15.')">Check</button></div>
+        <div class="qfb" id="tu1_5_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q6. How many seconds are in 1 hour 30 minutes?</div>
+        <div class="qr"><input class="qin" type="number" id="tu1_6"><span class="qun">seconds</span><button class="qbtn" onclick="chk('tu1_6',5400,'1h30m=90min. 90×60=5400 seconds.')">Check</button></div>
+        <div class="qfb" id="tu1_6_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv3">Advanced</div>
+      <div class="qb">
+        <div class="qt">Q7. Express 1 hour 45 minutes as a decimal number of hours.</div>
+        <div class="qr"><input class="qin" type="number" id="tu1_7"><span class="qun">hours</span><button class="qbtn" onclick="chk('tu1_7',1.75,'45÷60=0.75. 1+0.75=1.75 hours.')">Check</button></div>
+        <div class="qfb" id="tu1_7_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q8. Express 2 hours 30 minutes as a decimal number of hours.</div>
+        <div class="qr"><input class="qin" type="number" id="tu1_8"><span class="qun">hours</span><button class="qbtn" onclick="chk('tu1_8',2.5,'30÷60=0.5. 2+0.5=2.5 hours.')">Check</button></div>
+        <div class="qfb" id="tu1_8_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv4">Challenging</div>
+      <div class="qb">
+        <div class="qt">Q9. How many seconds are in 2 hours 25 minutes?</div>
+        <div class="qr"><input class="qin" type="number" id="tu1_9"><span class="qun">seconds</span><button class="qbtn" onclick="chk('tu1_9',8700,'2h25m=145min. 145×60=8700 seconds.')">Check</button></div>
+        <div class="qfb" id="tu1_9_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q10. A race lasts 7400 seconds. How many complete minutes is that?</div>
+        <div class="qr"><input class="qin" type="number" id="tu1_10"><span class="qun">complete minutes</span><button class="qbtn" onclick="chk('tu1_10',123,'7400÷60=123.33... So 123 complete minutes.')">Check</button></div>
+        <div class="qfb" id="tu1_10_fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- SECTION 3: TIME INTERVALS — JUMP METHOD -->
+<!-- ════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-n">3</span>Finding a Time Interval — The Jump Method</div>
+
+  <p>To find the gap between two times, <strong>never subtract like decimals</strong>. Use the Jump Method: break the journey into neat steps.</p>
+
+  <div class="bx bx-f">
+    <div class="bt">📐 The Jump Method — Three Steps</div>
+    <div class="fm">Step 1: Jump to the next whole hour</div>
+    <div class="fm">Step 2: Jump forward in whole hours to the target hour</div>
+    <div class="fm">Step 3: Jump to the exact final minutes</div>
+    <div class="fm">Step 4: Add all jumps together</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 1 — Daytime: 08:15 to 11:40</div>
+    <div class="st">08:15 → 09:00 = <strong>45 minutes</strong></div>
+    <div class="st">09:00 → 11:00 = <strong>2 hours</strong></div>
+    <div class="st">11:00 → 11:40 = <strong>40 minutes</strong></div>
+    <div class="st">Total: 2 hours + 45 min + 40 min = 2 hours + 85 min = 2 hours + 1 hour 25 min</div>
+    <div class="ans">✅ Total journey = 3 hours 25 minutes</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 2 — Crossing Noon: 10:45 to 14:20</div>
+    <div class="st">10:45 → 11:00 = <strong>15 minutes</strong></div>
+    <div class="st">11:00 → 14:00 = <strong>3 hours</strong></div>
+    <div class="st">14:00 → 14:20 = <strong>20 minutes</strong></div>
+    <div class="st">Total: 3 hours + 15 + 20 minutes = 3 hours 35 minutes</div>
+    <div class="ans">✅ Total interval = 3 hours 35 minutes</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 3 — CROSSING MIDNIGHT: Flight departs 22:40, lands 01:15</div>
+    <div class="st">22:40 → 23:00 = <strong>20 minutes</strong></div>
+    <div class="st">23:00 → 00:00 (midnight) = <strong>1 hour</strong></div>
+    <div class="st">00:00 → 01:00 = <strong>1 hour</strong></div>
+    <div class="st">01:00 → 01:15 = <strong>15 minutes</strong></div>
+    <div class="st">Total: 1 + 1 hours + 20 + 15 minutes = 2 hours 35 minutes</div>
+    <div class="ans">✅ Flight duration = 2 hours 35 minutes</div>
+  </div>
+
+  <div class="bx bx-w">
+    <div class="bt">⚠️ Never Subtract Time Like Decimals</div>
+    <p>11:40 − 08:15 looks like 3:25 if you subtract digit by digit. But 3 hours 25 minutes ≠ correct answer above (which was 3 hours 25 minutes — coincidence!). Try 14:20 − 10:45: decimal subtraction gives 3:75 which is meaningless. <strong>Always use the Jump Method.</strong></p>
+  </div>
+
+  <!-- PRACTICE SEC 3 -->
+  <div class="prac">
+    <h3>📝 Practice — Time Intervals</h3>
+
+    <div class="lvb">
+      <div class="ltag lv1">Easy</div>
+      <div class="qb">
+        <div class="qt">Q1. A lesson starts at 09:15 and ends at 10:40. How long is it? Enter total minutes.</div>
+        <div class="qr"><input class="qin" type="number" id="ti1_1"><span class="qun">minutes</span><button class="qbtn" onclick="chk('ti1_1',85,'09:15→10:00=45min. 10:00→10:40=40min. Total=85 minutes.')">Check</button></div>
+        <div class="qfb" id="ti1_1_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q2. From 08:00 to 11:30, how many minutes have passed?</div>
+        <div class="qr"><input class="qin" type="number" id="ti1_2"><span class="qun">minutes</span><button class="qbtn" onclick="chk('ti1_2',210,'08:00→11:00=3hrs=180min. 11:00→11:30=30min. Total=210 min.')">Check</button></div>
+        <div class="qfb" id="ti1_2_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q3. From 07:30 to 09:15, how many minutes?</div>
+        <div class="qr"><input class="qin" type="number" id="ti1_3"><span class="qun">minutes</span><button class="qbtn" onclick="chk('ti1_3',105,'07:30→08:00=30min. 08:00→09:00=60min. 09:00→09:15=15min. Total=105min.')">Check</button></div>
+        <div class="qfb" id="ti1_3_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv2">Intermediate</div>
+      <div class="qb">
+        <div class="qt">Q4. A train departs at 14:35 and arrives at 17:08. Journey time in minutes?</div>
+        <div class="qr"><input class="qin" type="number" id="ti1_4"><span class="qun">minutes</span><button class="qbtn" onclick="chk('ti1_4',153,'14:35→15:00=25min. 15:00→17:00=120min. 17:00→17:08=8min. Total=153min.')">Check</button></div>
+        <div class="qfb" id="ti1_4_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q5. A shop opens at 8:45 am and closes at 6:15 pm. How many minutes is it open?</div>
+        <div class="qr"><input class="qin" type="number" id="ti1_5"><span class="qun">minutes</span><button class="qbtn" onclick="chk('ti1_5',570,'08:45→09:00=15. 09:00→18:00=9hrs=540. 18:00→18:15=15. Total=570min.')">Check</button></div>
+        <div class="qfb" id="ti1_5_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv3">Advanced</div>
+      <div class="qb">
+        <div class="qt">Q6. A flight departs at 21:50 and lands at 02:25 (next day). How many minutes is the flight?</div>
+        <div class="qr"><input class="qin" type="number" id="ti1_6"><span class="qun">minutes</span><button class="qbtn" onclick="chk('ti1_6',275,'21:50→22:00=10. 22:00→00:00=120. 00:00→02:00=120. 02:00→02:25=25. Total=275min.')">Check</button></div>
+        <div class="qfb" id="ti1_6_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q7. From 11:48 to 14:22, how many minutes?</div>
+        <div class="qr"><input class="qin" type="number" id="ti1_7"><span class="qun">minutes</span><button class="qbtn" onclick="chk('ti1_7',154,'11:48→12:00=12min. 12:00→14:00=120min. 14:00→14:22=22min. Total=154min.')">Check</button></div>
+        <div class="qfb" id="ti1_7_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv4">Challenging</div>
+      <div class="qb">
+        <div class="qt">Q8. A night bus departs at 23:17 and arrives at 01:44. Journey time in minutes?</div>
+        <div class="qr"><input class="qin" type="number" id="ti1_8"><span class="qun">minutes</span><button class="qbtn" onclick="chk('ti1_8',147,'23:17→00:00=43min. 00:00→01:44=104min. Total=147min.')">Check</button></div>
+        <div class="qfb" id="ti1_8_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q9. From 09:47 to 13:20, how many minutes?</div>
+        <div class="qr"><input class="qin" type="number" id="ti1_9"><span class="qun">minutes</span><button class="qbtn" onclick="chk('ti1_9',213,'09:47→10:00=13min. 10:00→13:00=180min. 13:00→13:20=20min. Total=213min.')">Check</button></div>
+        <div class="qfb" id="ti1_9_fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- SECTION 4: ADDING A DURATION -->
+<!-- ════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-n">4</span>Adding a Duration to a Start Time</div>
+
+  <p>This is a <strong>different question type</strong> from finding an interval. Here you are given a start time and a duration, and must find the end time.</p>
+
+  <div class="bx bx-f">
+    <div class="bt">📐 Method — Add Hours, Then Add Minutes (with Carrying)</div>
+    <div class="fm">Step 1: Add the hours part of the duration to the start time</div>
+    <div class="fm">Step 2: Add the minutes. If total minutes ≥ 60, carry 1 hour and subtract 60.</div>
+    <div class="fm">Step 3: Check if you cross midnight (00:00) or noon in a 12-hr context.</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 1 — Film ends: 7:35 pm + 1 hour 55 minutes</div>
+    <div class="st"><strong>Q:</strong> A film starts at 7:35 pm and lasts 1 hour 55 minutes. When does it end?</div>
+    <div class="st">Step 1: Add hours: 7 pm + 1 hour = 8 pm (so far: 8:35 pm)</div>
+    <div class="st">Step 2: Add minutes: 35 + 55 = 90 minutes</div>
+    <div class="st">Step 3: 90 minutes = 1 hour 30 minutes → carry 1 hour</div>
+    <div class="st">8 pm + 1 hour (carried) = 9 pm. Remaining minutes = 30.</div>
+    <div class="ans">✅ Film ends at 9:30 pm</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 2 — Bus arrival: 13:47 + 2 hours 38 minutes</div>
+    <div class="st"><strong>Q:</strong> A bus departs at 13:47 and takes 2 hours 38 minutes. Arrival time?</div>
+    <div class="st">Step 1: Add hours: 13 + 2 = 15 (so far: 15:47)</div>
+    <div class="st">Step 2: Add minutes: 47 + 38 = 85 minutes</div>
+    <div class="st">Step 3: 85 minutes = 1 hour 25 minutes → carry 1 hour</div>
+    <div class="st">15 + 1 = 16. Remaining minutes = 25.</div>
+    <div class="ans">✅ Arrival time = 16:25</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 3 — Crossing Midnight: 23:15 + 1 hour 50 minutes</div>
+    <div class="st"><strong>Q:</strong> An event starts at 23:15 and lasts 1 hour 50 minutes. When does it end?</div>
+    <div class="st">Step 1: Add hours: 23 + 1 = 24 → but 24:xx doesn't exist → 00:15 (next day)</div>
+    <div class="st">Step 2: Add minutes: 15 + 50 = 65 minutes</div>
+    <div class="st">Step 3: 65 minutes = 1 hour 5 minutes → carry 1 hour</div>
+    <div class="st">00 + 1 (carried) = 01. Remaining minutes = 5.</div>
+    <div class="ans">✅ Event ends at 01:05 (next day)</div>
+  </div>
+
+  <div class="bx bx-w">
+    <div class="bt">⚠️ The 8:90 pm Mistake</div>
+    <p>Writing 7:35 + 1:55 = 8:90 pm is a very common error. There is no such time as 8:90 pm. <strong>Always convert any minute total over 59</strong> by dividing by 60 and carrying to hours.</p>
+  </div>
+
+  <!-- PRACTICE SEC 4 -->
+  <div class="prac">
+    <h3>📝 Practice — Adding Durations</h3>
+
+    <div class="lvb">
+      <div class="ltag lv1">Easy</div>
+      <div class="qb">
+        <div class="qt">Q1. A lesson starts at 09:10 and lasts 50 minutes. Enter the end time as 4 digits (e.g. 1000).</div>
+        <div class="qr"><input class="qin" type="number" id="ad1_1"><button class="qbtn" onclick="chk('ad1_1',1000,'09:10 + 50min. 10+50=60min=1hr. 09+1=10. End: 10:00 → 1000.')">Check</button></div>
+        <div class="qfb" id="ad1_1_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q2. School starts at 08:45 and lunch is 2 hours 15 minutes later. What time is lunch? Enter as 4 digits.</div>
+        <div class="qr"><input class="qin" type="number" id="ad1_2"><button class="qbtn" onclick="chk('ad1_2',1100,'08:45 + 2h15m. Hours: 08+2=10. Minutes: 45+15=60=1hr carry. 10+1=11. 11:00 → 1100.')">Check</button></div>
+        <div class="qfb" id="ad1_2_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q3. A programme starts at 14:00 and lasts 1 hour 30 minutes. Enter the end time as 4 digits.</div>
+        <div class="qr"><input class="qin" type="number" id="ad1_3"><button class="qbtn" onclick="chk('ad1_3',1530,'14:00 + 1h30m = 15:30 → 1530.')">Check</button></div>
+        <div class="qfb" id="ad1_3_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv2">Intermediate</div>
+      <div class="qb">
+        <div class="qt">Q4. A concert starts at 19:45 and lasts 2 hours 40 minutes. Enter the end time as 4 digits.</div>
+        <div class="qr"><input class="qin" type="number" id="ad1_4"><button class="qbtn" onclick="chk('ad1_4',2225,'19+2=21. 45+40=85min=1h25m carry. 21+1=22. End: 22:25 → 2225.')">Check</button></div>
+        <div class="qfb" id="ad1_4_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q5. A bus departs at 13:47 and takes 2 hours 38 minutes. Arrival time as 4 digits?</div>
+        <div class="qr"><input class="qin" type="number" id="ad1_5"><button class="qbtn" onclick="chk('ad1_5',1625,'13+2=15. 47+38=85min=1h25m. 15+1=16. End: 16:25 → 1625.')">Check</button></div>
+        <div class="qfb" id="ad1_5_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv3">Advanced</div>
+      <div class="qb">
+        <div class="qt">Q6. A film starts at 11:45 am and lasts 2 hours 40 minutes. Enter end time as 4 digits (24-hr).</div>
+        <div class="qr"><input class="qin" type="number" id="ad1_6"><button class="qbtn" onclick="chk('ad1_6',1425,'11:45+2h40m. 11+2=13. 45+40=85min=1h25m. 13+1=14. End: 14:25 → 1425.')">Check</button></div>
+        <div class="qfb" id="ad1_6_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q7. A second film screening starts 30 minutes after 14:25. Enter start time as 4 digits.</div>
+        <div class="qr"><input class="qin" type="number" id="ad1_7"><button class="qbtn" onclick="chk('ad1_7',1455,'14:25 + 30min = 14:55 → 1455.')">Check</button></div>
+        <div class="qfb" id="ad1_7_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv4">Challenging</div>
+      <div class="qb">
+        <div class="qt">Q8. An event starts at 23:15 and lasts 1 hour 50 minutes. Enter the end time as 4 digits (next day).</div>
+        <div class="qr"><input class="qin" type="number" id="ad1_8"><button class="qbtn" onclick="chk('ad1_8',105,'23+1=24→00. 15+50=65min=1h5m. 00+1=01. End: 01:05 → 0105. Enter 105.')">Check</button></div>
+        <div class="qfb" id="ad1_8_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q9. A night shift starts at 22:40 and lasts 9 hours 35 minutes. Enter the end time as 4 digits.</div>
+        <div class="qr"><input class="qin" type="number" id="ad1_9"><button class="qbtn" onclick="chk('ad1_9',815,'22+9=31→07 next day. 40+35=75min=1h15m. 07+1=08. End: 08:15 → 0815. Enter 815.')">Check</button></div>
+        <div class="qfb" id="ad1_9_fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ════════════════════════════════ -->
+<!-- SECTION 5: TIMETABLE READING -->
+<!-- ════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-n">5</span>Timetable Reading — Fully Worked</div>
+
+  <p>Timetables show departure times at each stop for multiple services. You read <strong>across rows</strong> (one service) and <strong>down columns</strong> (one stop).</p>
+
+  <table>
+    <thead>
+      <tr><th>Stop</th><th>Service 1</th><th>Service 2</th><th>Service 3</th><th>Service 4</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>🅐 Ashford</td><td>08:10</td><td>09:10</td><td>10:25</td><td>11:40</td></tr>
+      <tr><td>🅑 Branton</td><td>08:32</td><td>09:32</td><td>10:47</td><td>12:02</td></tr>
+      <tr><td>🅒 Cromwell</td><td>09:05</td><td>10:05</td><td>11:20</td><td>12:35</td></tr>
+      <tr><td>🅓 Dalford</td><td>09:45</td><td>10:45</td><td>12:00</td><td>13:15</td></tr>
+    </tbody>
+  </table>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Type A — Duration: "How long is Service 1 from Ashford to Cromwell?"</div>
+    <div class="st">Read Service 1 column: Ashford 08:10, Cromwell 09:05</div>
+    <div class="st">Jump Method: 08:10 → 09:00 = <strong>50 minutes</strong></div>
+    <div class="st">09:00 → 09:05 = <strong>5 minutes</strong></div>
+    <div class="st">Total: 50 + 5 = <strong>55 minutes</strong></div>
+    <div class="ans">✅ Service 1 takes 55 minutes from Ashford to Cromwell.</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Type B — Arrival Planning: "Latest service to arrive at Dalford by 11:30?"</div>
+    <div class="st">Look at Dalford arrival times: 09:45 / 10:45 / 12:00 / 13:15</div>
+    <div class="st">Need to arrive BY 11:30 → must arrive at or before 11:30</div>
+    <div class="st">09:45 ✅ · 10:45 ✅ · 12:00 ✗ (too late) · 13:15 ✗ (too late)</div>
+    <div class="st">Latest acceptable: <strong>Service 2</strong> (arrives 10:45)</div>
+    <div class="ans">✅ Take Service 2, departing Ashford at 09:10.</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Type C — Wait Time: "James arrives at Branton at 09:40. How long until the next service?"</div>
+    <div class="st">Branton times: 08:32 / 09:32 / 10:47 / 12:02</div>
+    <div class="st">James arrives 09:40. Service at 09:32 has already gone.</div>
+    <div class="st">Next service: 10:47</div>
+    <div class="st">Wait: 09:40 → 10:00 = 20 min. 10:00 → 10:47 = 47 min. Total = <strong>67 minutes</strong></div>
+    <div class="ans">✅ James waits 67 minutes (1 hour 7 minutes).</div>
+  </div>
+
+  <div class="bx bx-w">
+    <div class="bt">⚠️ Common Trap — Departure vs Duration</div>
+    <p>The timetable shows <em>departure times</em>, not journey durations. "09:10" at Ashford means the bus leaves Ashford at 09:10 — it does not mean the journey takes 9 hours 10 minutes. Always use the Jump Method to find duration from two times.</p>
+  </div>
+
+  <!-- PRACTICE SEC 5 -->
+  <div class="prac">
+    <h3>📝 Practice — Timetable Reading</h3>
+
+    <div class="lvb">
+      <div class="ltag lv1">Easy</div>
+      <div class="qb">
+        <div class="qt">Q1. Using the timetable above, how long does Service 2 take from Ashford to Branton? Enter in minutes.</div>
+        <div class="qr"><input class="qin" type="number" id="tt1_1"><span class="qun">minutes</span><button class="qbtn" onclick="chk('tt1_1',22,'Service 2: Ashford 09:10, Branton 09:32. 09:10→09:32=22 minutes.')">Check</button></div>
+        <div class="qfb" id="tt1_1_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q2. What time does Service 3 arrive at Dalford?</div>
+        <div class="qr"><input class="qin" type="number" id="tt1_2"><span class="qun">(4 digits)</span><button class="qbtn" onclick="chk('tt1_2',1200,'Service 3, Dalford row = 12:00 → 1200.')">Check</button></div>
+        <div class="qfb" id="tt1_2_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q3. How many services stop at Cromwell between 09:00 and 11:00?</div>
+        <div class="qr"><input class="qin" type="number" id="tt1_3"><span class="qun">services</span><button class="qbtn" onclick="chk('tt1_3',2,'Cromwell times: 09:05, 10:05, 11:20, 12:35. Between 09:00-11:00: 09:05 and 10:05 = 2 services.')">Check</button></div>
+        <div class="qfb" id="tt1_3_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv2">Intermediate</div>
+      <div class="qb">
+        <div class="qt">Q4. How long does Service 4 take from Ashford to Dalford? Enter in minutes.</div>
+        <div class="qr"><input class="qin" type="number" id="tt1_4"><span class="qun">minutes</span><button class="qbtn" onclick="chk('tt1_4',95,'Service 4: Ashford 11:40, Dalford 13:15. 11:40→12:00=20m. 12:00→13:00=60m. 13:00→13:15=15m. Total=95min.')">Check</button></div>
+        <div class="qfb" id="tt1_4_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q5. Priya needs to be at Cromwell by 10:30. What is the LATEST service number she can take from Ashford?</div>
+        <div class="qr"><input class="qin" type="number" id="tt1_5"><span class="qun">service number</span><button class="qbtn" onclick="chk('tt1_5',2,'Cromwell arrivals: S1=09:05, S2=10:05, S3=11:20. By 10:30: S1 ✓, S2 ✓, S3 ✗. Latest = Service 2.')">Check</button></div>
+        <div class="qfb" id="tt1_5_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv3">Advanced</div>
+      <div class="qb">
+        <div class="qt">Q6. Tom arrives at Branton at 09:35. How many minutes does he wait for the next service?</div>
+        <div class="qr"><input class="qin" type="number" id="tt1_6"><span class="qun">minutes</span><button class="qbtn" onclick="chk('tt1_6',72,'Branton: 08:32 gone. Next: 10:47. Wait: 09:35→10:00=25m. 10:00→10:47=47m. Total=72 min.')">Check</button></div>
+        <div class="qfb" id="tt1_6_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q7. All services take the same time from Cromwell to Dalford. How many minutes is this leg?</div>
+        <div class="qr"><input class="qin" type="number" id="tt1_7"><span class="qun">minutes</span><button class="qbtn" onclick="chk('tt1_7',40,'S1: 09:05→09:45=40min. S2: 10:05→10:45=40min. Confirmed: 40 minutes.')">Check</button></div>
+        <div class="qfb" id="tt1_7_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv4">Challenging</div>
+      <div class="qb">
+        <div class="qt">Q8. A 5th service departs Ashford 45 minutes after Service 4. What time does it reach Dalford? Enter as 4 digits.</div>
+        <div class="qr"><input class="qin" type="number" id="tt1_8"><span class="qun">(4 digits)</span><button class="qbtn" onclick="chk('tt1_8',1400,'S4 departs Ashford 11:40. +45min=12:25. S4 takes 95min total. 12:25+1h35m: 12+1=13. 25+35=60→carry. 13+1=14. 14:00 → 1400.')">Check</button></div>
+        <div class="qfb" id="tt1_8_fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- SECTION 6: SPEED DISTANCE TIME -->
+<!-- ════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-n">6</span>Speed, Distance and Time</div>
+
+  <p>The SDT formula connects three quantities. Cover the one you want to find and the triangle shows you the operation.</p>
+
+  <div style="display:flex;justify-content:center;margin:14px 0;">
+    <div class="sdt" style="width:200px;height:174px;">
+      <div class="sdt-tri" style="border-left:100px solid transparent;border-right:100px solid transparent;border-bottom:174px solid #1e40af;"></div>
+      <div class="sdt-top" style="top:32px;font-size:1.5rem;">D</div>
+      <div class="sdt-line"></div>
+      <div class="sdt-vline"></div>
+      <div class="sdt-bot"><div class="sdt-s" style="font-size:1.2rem;">S</div><div class="sdt-s" style="font-size:1.2rem;">T</div></div>
+    </div>
+  </div>
+  <div style="text-align:center;font-size:0.88rem;color:var(--gray-dk);margin-bottom:14px;">D = S × T &nbsp;·&nbsp; S = D ÷ T &nbsp;·&nbsp; T = D ÷ S</div>
+
+  <div class="bx bx-w">
+    <div class="bt">⚠️ Units Must Match! Always Convert First.</div>
+    <p>If speed is in km/h, time must be in <strong>hours</strong>. If speed is in m/s, time must be in <strong>seconds</strong>. Always convert time to decimal hours before substituting into the formula. 1 hour 30 minutes = <strong>1.5 hours</strong>, NOT 1.30 hours.</p>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example a — Find Distance</div>
+    <div class="st"><strong>Q:</strong> A train travels at 80 km/h for 2.5 hours. How far does it travel?</div>
+    <div class="st">Formula: D = S × T</div>
+    <div class="st">D = 80 × 2.5</div>
+    <div class="st">D = 200 km</div>
+    <div class="ans">✅ Distance = 200 km</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example b — Find Speed (with time conversion)</div>
+    <div class="st"><strong>Q:</strong> A car travels 90 km in 1 hour 30 minutes. What is its speed?</div>
+    <div class="st">Convert time first: 1 hour 30 minutes = 1 + 30/60 = 1.5 hours</div>
+    <div class="st">Formula: S = D ÷ T</div>
+    <div class="st">S = 90 ÷ 1.5</div>
+    <div class="st">S = 60 km/h</div>
+    <div class="ans">✅ Speed = 60 km/h</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example c — Find Time (convert answer to hours and minutes)</div>
+    <div class="st"><strong>Q:</strong> How long does it take to travel 150 km at 60 km/h?</div>
+    <div class="st">Formula: T = D ÷ S</div>
+    <div class="st">T = 150 ÷ 60 = 2.5 hours</div>
+    <div class="st">Convert: 0.5 hours = 0.5 × 60 = 30 minutes</div>
+    <div class="ans">✅ Time = 2 hours 30 minutes</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example d — Multi-step: Which journey is faster?</div>
+    <div class="st"><strong>Q:</strong> Journey A: 120 km in 1.5 hours. Journey B: 200 km in 2.5 hours. Which is faster?</div>
+    <div class="st">Speed A = 120 ÷ 1.5 = 80 km/h</div>
+    <div class="st">Speed B = 200 ÷ 2.5 = 80 km/h</div>
+    <div class="st">Compare: 80 = 80</div>
+    <div class="ans">✅ Both journeys travel at the same speed: 80 km/h.</div>
+  </div>
+
+  <!-- PRACTICE SEC 6 -->
+  <div class="prac">
+    <h3>📝 Practice — Speed, Distance, Time</h3>
+
+    <div class="lvb">
+      <div class="ltag lv1">Easy</div>
+      <div class="qb">
+        <div class="qt">Q1. A car travels at 50 km/h for 3 hours. How far does it travel?</div>
+        <div class="qr"><input class="qin" type="number" id="sdt1_1"><span class="qun">km</span><button class="qbtn" onclick="chk('sdt1_1',150,'D=S×T. D=50×3=150 km.')">Check</button></div>
+        <div class="qfb" id="sdt1_1_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q2. A train goes 180 km in 3 hours. What is its speed?</div>
+        <div class="qr"><input class="qin" type="number" id="sdt1_2"><span class="qun">km/h</span><button class="qbtn" onclick="chk('sdt1_2',60,'S=D÷T. S=180÷3=60 km/h.')">Check</button></div>
+        <div class="qfb" id="sdt1_2_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q3. How many hours does it take to travel 240 km at 80 km/h?</div>
+        <div class="qr"><input class="qin" type="number" id="sdt1_3"><span class="qun">hours</span><button class="qbtn" onclick="chk('sdt1_3',3,'T=D÷S. T=240÷80=3 hours.')">Check</button></div>
+        <div class="qfb" id="sdt1_3_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv2">Intermediate</div>
+      <div class="qb">
+        <div class="qt">Q4. A car travels at 70 km/h for 1 hour 30 minutes. How far does it travel?</div>
+        <div class="qr"><input class="qin" type="number" id="sdt1_4"><span class="qun">km</span><button class="qbtn" onclick="chk('sdt1_4',105,'Convert: 1h30m=1.5hrs. D=70×1.5=105 km.')">Check</button></div>
+        <div class="qfb" id="sdt1_4_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q5. A cyclist covers 36 km in 1 hour 30 minutes. What is her speed in km/h?</div>
+        <div class="qr"><input class="qin" type="number" id="sdt1_5"><span class="qun">km/h</span><button class="qbtn" onclick="chk('sdt1_5',24,'1h30m=1.5hrs. S=36÷1.5=24 km/h.')">Check</button></div>
+        <div class="qfb" id="sdt1_5_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q6. How long does it take to travel 90 km at 60 km/h? Enter total minutes.</div>
+        <div class="qr"><input class="qin" type="number" id="sdt1_6"><span class="qun">minutes</span><button class="qbtn" onclick="chk('sdt1_6',90,'T=90÷60=1.5 hours=90 minutes.')">Check</button></div>
+        <div class="qfb" id="sdt1_6_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv3">Advanced</div>
+      <div class="qb">
+        <div class="qt">Q7. A train travels 280 km in 2 hours 20 minutes. What is its speed? (Round to nearest whole number.)</div>
+        <div class="qr"><input class="qin" type="number" id="sdt1_7"><span class="qun">km/h</span><button class="qbtn" onclick="chk('sdt1_7',120,'2h20m=2+20/60=2.333hrs. S=280÷2.333≈120 km/h.')">Check</button></div>
+        <div class="qfb" id="sdt1_7_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q8. How long does 175 km at 70 km/h take? Enter in minutes.</div>
+        <div class="qr"><input class="qin" type="number" id="sdt1_8"><span class="qun">minutes</span><button class="qbtn" onclick="chk('sdt1_8',150,'T=175÷70=2.5hrs=150 minutes.')">Check</button></div>
+        <div class="qfb" id="sdt1_8_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv4">Challenging</div>
+      <div class="qb">
+        <div class="qt">Q9. Train A travels 120 km in 1.5 hours. Train B travels 200 km in 2h 30min. By how many km/h is the faster one faster?</div>
+        <div class="qr"><input class="qin" type="number" id="sdt1_9"><span class="qun">km/h difference</span><button class="qbtn" onclick="chk('sdt1_9',0,'A=120÷1.5=80km/h. B=200÷2.5=80km/h. Same speed. Difference=0 km/h.')">Check</button></div>
+        <div class="qfb" id="sdt1_9_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q10. A car at 90 km/h departs at 10:00. How many km has it travelled by 11:40? Enter to nearest km.</div>
+        <div class="qr"><input class="qin" type="number" id="sdt1_10"><span class="qun">km</span><button class="qbtn" onclick="chk('sdt1_10',150,'Time=1h40m=1+40/60=1.667hrs. D=90×1.667=150 km.')">Check</button></div>
+        <div class="qfb" id="sdt1_10_fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- SECTION 7: CALENDAR ARITHMETIC -->
+<!-- ════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-n">7</span>Calendar Arithmetic</div>
+
+  <div class="bx bx-f">
+    <div class="bt">📐 Days in Months — Essential Facts</div>
+    <div class="fm">30 days: September, April, June, November ("SAJN" or knuckle trick)</div>
+    <div class="fm">31 days: January, March, May, July, August, October, December</div>
+    <div class="fm">February: 28 days normally; 29 days in a leap year</div>
+    <div class="fm">Leap year: divisible by 4 → 2024, 2028, 2032 ...</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example a — Counting days across months</div>
+    <div class="st"><strong>Q:</strong> How many days from 14th March to 5th May (non-leap year)?</div>
+    <div class="st">Remaining in March: 31 − 14 = 17 days</div>
+    <div class="st">All of April: 30 days</div>
+    <div class="st">Days in May (up to but NOT including 5th): 4 days</div>
+    <div class="st">Total: 17 + 30 + 4 = 51 days</div>
+    <div class="ans">✅ 51 days from 14th March to 5th May</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example b — Finding an end date</div>
+    <div class="st"><strong>Q:</strong> A project starts on 20th November and lasts 75 days. What date does it end?</div>
+    <div class="st">Remaining in November: 30 − 20 = 10 days. Running total: 10</div>
+    <div class="st">All of December: 31 days. Running total: 10 + 31 = 41</div>
+    <div class="st">Need 75 − 41 = 34 more days into January: but January only has 31 days.</div>
+    <div class="st">After January: 41 + 31 = 72. Need 75 − 72 = 3 more days into February.</div>
+    <div class="st">End date: 3rd February</div>
+    <div class="ans">✅ Project ends on 3rd February</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example c — Day of the week cycling</div>
+    <div class="st"><strong>Q:</strong> Today is Monday. What day is it 100 days from now?</div>
+    <div class="st">Days cycle every 7. So find the remainder: 100 ÷ 7 = 14 remainder 2</div>
+    <div class="st">2 days after Monday: Tuesday, Wednesday</div>
+    <div class="ans">✅ 100 days from Monday = Wednesday</div>
+  </div>
+
+  <div class="bx bx-w">
+    <div class="bt">⚠️ Off-by-One Trap — Inclusive vs Exclusive Counting</div>
+    <p>From March 14 to March 20: is that 6 days or 7? If you're counting the <em>gap</em> (intervals between dates), it's 6 days. If you're counting <em>dates including both endpoints</em>, it's 7. GL questions almost always mean the gap (exclusive counting). "How many days from the 1st to the 5th?" = 4 days, not 5.</p>
+  </div>
+
+  <!-- PRACTICE SEC 7 -->
+  <div class="prac">
+    <h3>📝 Practice — Calendar Arithmetic</h3>
+
+    <div class="lvb">
+      <div class="ltag lv1">Easy</div>
+      <div class="qb">
+        <div class="qt">Q1. How many days are in September?</div>
+        <div class="qr"><input class="qin" type="number" id="cal1_1"><span class="qun">days</span><button class="qbtn" onclick="chk('cal1_1',30,'September has 30 days (Sep, Apr, Jun, Nov = 30 days).')">Check</button></div>
+        <div class="qfb" id="cal1_1_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q2. Is 2028 a leap year? Enter 1 for yes, 0 for no.</div>
+        <div class="qr"><input class="qin" type="number" id="cal1_2"><button class="qbtn" onclick="chk('cal1_2',1,'2028÷4=507 exactly. Yes, it is a leap year.')">Check</button></div>
+        <div class="qfb" id="cal1_2_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q3. Today is Tuesday. What day is it 7 days from now?</div>
+        <div class="qr">
+          <select id="cal1_3" style="border:2px solid var(--gray-bd);border-radius:6px;padding:7px 11px;font-family:var(--font);font-size:0.9rem;background:white;color:var(--ink);">
+            <option value="">Select...</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+          </select>
+          <button class="qbtn" onclick="chkSel('cal1_3','Tuesday','7 days = exactly 1 week. Same day: Tuesday.')">Check</button>
+        </div>
+        <div class="qfb" id="cal1_3_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv2">Intermediate</div>
+      <div class="qb">
+        <div class="qt">Q4. How many days from 25th January to 12th March (non-leap year)?</div>
+        <div class="qr"><input class="qin" type="number" id="cal1_4"><span class="qun">days</span><button class="qbtn" onclick="chk('cal1_4',46,'Jan remaining: 31-25=6. All Feb: 28. March: 12 days. Total: 6+28+12=46 days.')">Check</button></div>
+        <div class="qfb" id="cal1_4_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q5. Today is Monday. What day is it 20 days from now?</div>
+        <div class="qr">
+          <select id="cal1_5" style="border:2px solid var(--gray-bd);border-radius:6px;padding:7px 11px;font-family:var(--font);font-size:0.9rem;background:white;color:var(--ink);">
+            <option value="">Select...</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+          </select>
+          <button class="qbtn" onclick="chkSel('cal1_5','Sunday','20÷7=2 remainder 6. Starting from Monday, count 6 forward: Tue, Wed, Thu, Fri, Sat, Sun. Answer: Sunday.')">Check</button>
+        </div>
+        <div class="qfb" id="cal1_5_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv3">Advanced</div>
+      <div class="qb">
+        <div class="qt">Q6. A project starts on 20th November and lasts 75 days. On what day of the month does it end?</div>
+        <div class="qr"><input class="qin" type="number" id="cal1_6"><span class="qun">day of February</span><button class="qbtn" onclick="chk('cal1_6',3,'Nov remaining: 10. Dec: 31. Total: 41. Jan: 31. Total: 72. Need 3 more days in Feb. Ends 3rd February.')">Check</button></div>
+        <div class="qfb" id="cal1_6_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q7. Today is Wednesday 28th February (non-leap year). What day of the week is it 60 days from today?</div>
+        <div class="qr">
+          <select id="cal1_7" style="border:2px solid var(--gray-bd);border-radius:6px;padding:7px 11px;font-family:var(--font);font-size:0.9rem;background:white;color:var(--ink);">
+            <option value="">Select...</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+          </select>
+          <button class="qbtn" onclick="chkSel('cal1_7','Sunday','60÷7=8 remainder 4. From Wednesday, count 4 days forward: +1=Thu, +2=Fri, +3=Sat, +4=Sun. Answer: Sunday.')">Check</button>
+        </div>
+        <div class="qfb" id="cal1_7_fb"></div>
+      </div>
+    </div>
+
+    <div class="lvb">
+      <div class="ltag lv4">Challenging</div>
+      <div class="qb">
+        <div class="qt">Q8. How many days from 15th October to 8th January (non-leap year)? Enter the number.</div>
+        <div class="qr"><input class="qin" type="number" id="cal1_8"><span class="qun">days</span><button class="qbtn" onclick="chk('cal1_8',85,'Oct remaining: 31-15=16. Nov: 30. Dec: 31. Jan: 8. Total: 16+30+31+8=85 days.')">Check</button></div>
+        <div class="qfb" id="cal1_8_fb"></div>
+      </div>
+      <div class="qb">
+        <div class="qt">Q9. Today is Friday. What day of the week will it be 365 days from now (non-leap year)?</div>
+        <div class="qr">
+          <select id="cal1_9" style="border:2px solid var(--gray-bd);border-radius:6px;padding:7px 11px;font-family:var(--font);font-size:0.9rem;background:white;color:var(--ink);">
+            <option value="">Select...</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+          </select>
+          <button class="qbtn" onclick="chkSel('cal1_9','Saturday','365÷7=52 remainder 1. One day after Friday = Saturday.')">Check</button>
+        </div>
+        <div class="qfb" id="cal1_9_fb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- SECTION 8: COMMON PITFALLS -->
+<!-- ════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-n">8</span>Common Pitfalls — Consolidated Warning List</div>
+
+  <ul class="plist">
+    <li class="pi"><span class="pi-icon">⚠️</span><div class="pi-txt"><strong>Decimal subtraction for time intervals:</strong> Never compute 14:20 − 10:45 = 3:75. This is meaningless. Always use the Jump Method — it is the only safe approach.</div></li>
+    <li class="pi"><span class="pi-icon">⚠️</span><div class="pi-txt"><strong>12 pm / 12 am confusion:</strong> 12 pm = noon = 12:00 (do not add 12 → 24:00). 12 am = midnight = 00:00. 12:30 pm = 12:30. 12:30 am = 00:30. Memorise both.</div></li>
+    <li class="pi"><span class="pi-icon">⚠️</span><div class="pi-txt"><strong>Minutes carrying (8:90 mistake):</strong> If you add minutes and get more than 59, you must divide by 60 and carry to hours. 35 + 55 = 90 minutes = 1 hour 30 minutes. Never write 8:90 pm.</div></li>
+    <li class="pi"><span class="pi-icon">⚠️</span><div class="pi-txt"><strong>Decimal time in SDT formula:</strong> 1 hour 30 minutes = 1.5 hours. NOT 1.30 hours. Using 1.30 gives a completely wrong speed or distance. Always convert minutes by dividing by 60.</div></li>
+    <li class="pi"><span class="pi-icon">⚠️</span><div class="pi-txt"><strong>Off-by-one in calendar counting:</strong> From 14th March to 14th March is 0 days, not 1. Count the <em>gap</em> between dates, not the dates themselves. "How many days from 1st to 5th?" = 4 days.</div></li>
+    <li class="pi"><span class="pi-icon">⚠️</span><div class="pi-txt"><strong>Forgetting to convert before SDT:</strong> If the question gives time in minutes and speed in km/h, convert minutes to hours first. 90 minutes = 1.5 hours. Substituting 90 directly gives an answer 60 times too large.</div></li>
+  </ul>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- MASTERY TEST -->
+<!-- ════════════════════════════════ -->
+<div class="mast">
+  <h2>🏆 Final Mastery Test</h2>
+  <div class="ms">Mixed questions from all 7 sections. Check each answer, then submit for your score.</div>
+
+  <div class="qb">
+    <div class="qt">M1. Convert 11:45 pm to 24-hour clock. Enter as 4 digits.</div>
+    <div class="qr"><input class="qin" type="number" id="MT1"><button class="qbtn" onclick="mchk('MT1',2345,'11+12=23. 11:45 pm = 23:45 → 2345.')">Check</button></div>
+    <div class="qfb" id="MT1_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M2. Convert 195 minutes to hours and minutes. Enter the minutes part.</div>
+    <div class="qr"><input class="qin" type="number" id="MT2"><span class="qun">mins (after full hours)</span><button class="qbtn" onclick="mchk('MT2',15,'195÷60=3 remainder 15. So 3 hours 15 minutes. Minutes part = 15.')">Check</button></div>
+    <div class="qfb" id="MT2_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M3. A lesson starts at 09:15 and ends at 10:40. How long in minutes?</div>
+    <div class="qr"><input class="qin" type="number" id="MT3"><span class="qun">minutes</span><button class="qbtn" onclick="mchk('MT3',85,'09:15→10:00=45min. 10:00→10:40=40min. Total=85 minutes.')">Check</button></div>
+    <div class="qfb" id="MT3_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M4. A train departs at 14:35 and arrives at 17:08. Journey time in minutes?</div>
+    <div class="qr"><input class="qin" type="number" id="MT4"><span class="qun">minutes</span><button class="qbtn" onclick="mchk('MT4',153,'14:35→15:00=25m. 15:00→17:00=120m. 17:00→17:08=8m. Total=153 min.')">Check</button></div>
+    <div class="qfb" id="MT4_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M5. A flight departs at 21:50 and lands at 02:25 (next day). Flight time in minutes?</div>
+    <div class="qr"><input class="qin" type="number" id="MT5"><span class="qun">minutes</span><button class="qbtn" onclick="mchk('MT5',275,'21:50→22:00=10m. 22:00→00:00=120m. 00:00→02:00=120m. 02:00→02:25=25m. Total=275 min.')">Check</button></div>
+    <div class="qfb" id="MT5_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M6. A car travels at 70 km/h for 1 hour 30 minutes. How far does it travel?</div>
+    <div class="qr"><input class="qin" type="number" id="MT6"><span class="qun">km</span><button class="qbtn" onclick="mchk('MT6',105,'1h30m=1.5hrs. D=70×1.5=105 km.')">Check</button></div>
+    <div class="qfb" id="MT6_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M7. Express 1 hour 45 minutes as a decimal number of hours.</div>
+    <div class="qr"><input class="qin" type="number" id="MT7"><span class="qun">hours</span><button class="qbtn" onclick="mchk('MT7',1.75,'45÷60=0.75. 1+0.75=1.75 hours.')">Check</button></div>
+    <div class="qfb" id="MT7_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M8. A film starts at 11:45 am, lasts 2 hours 40 minutes. A second screening starts 30 minutes later. When does the second screening start? Enter as 4-digit 24-hr time.</div>
+    <div class="qr"><input class="qin" type="number" id="MT8"><button class="qbtn" onclick="mchk('MT8',1455,'11:45+2h40m: 11+2=13. 45+40=85min=1h25m. 13+1=14:25. +30min=14:55 → 1455.')">Check</button></div>
+    <div class="qfb" id="MT8_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M9. How many days from 25th January to 12th March (non-leap year)?</div>
+    <div class="qr"><input class="qin" type="number" id="MT9"><span class="qun">days</span><button class="qbtn" onclick="mchk('MT9',46,'Jan remaining: 6. Feb: 28. March: 12. Total: 6+28+12=46 days.')">Check</button></div>
+    <div class="qfb" id="MT9_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M10. Today is Wednesday. What day is it 100 days from now?</div>
+    <div class="qr">
+      <select id="MT10sel" style="border:2px solid rgba(255,255,255,0.3);border-radius:6px;padding:7px 11px;font-family:var(--font);font-size:0.9rem;background:rgba(255,255,255,0.94);color:var(--ink);">
+        <option value="">Select...</option>
+        <option value="Monday">Monday</option>
+        <option value="Tuesday">Tuesday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+        <option value="Saturday">Saturday</option>
+        <option value="Sunday">Sunday</option>
+      </select>
+      <button class="qbtn" onclick="mchkSel('MT10sel','MT10','Friday','100÷7=14 remainder 2. Wed+2=Fri. Answer: Friday.')">Check</button>
+    </div>
+    <div class="qfb" id="MT10_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M11. Train A: 120km in 1.5hrs. Train B: 200km in 2hrs 30mins. Which speed is faster? Enter 0 if same speed, or the difference in km/h.</div>
+    <div class="qr"><input class="qin" type="number" id="MT11"><span class="qun">km/h difference (0 if same)</span><button class="qbtn" onclick="mchk('MT11',0,'A=120÷1.5=80km/h. B=200÷2.5=80km/h. Same speed. Difference=0.')">Check</button></div>
+    <div class="qfb" id="MT11_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M12. What is 12:30 am in 24-hour clock? Enter as 4 digits.</div>
+    <div class="qr"><input class="qin" type="number" id="MT12"><button class="qbtn" onclick="mchk('MT12',30,'12:00 am = midnight = 00:00. 12:30 am = 00:30 → 0030. Enter 30.')">Check</button></div>
+    <div class="qfb" id="MT12_fb"></div>
+  </div>
+
+  <button id="msubmit" onclick="submitMastery()">📊 See My Final Score</button>
+  <div class="sbox" id="sbox">
+    <div class="snum" id="snum"></div>
+    <div class="smsg" id="smsg"></div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// ── MASTERY STATE ──
+const mastAns = { MT1:2345,MT2:15,MT3:85,MT4:153,MT5:275,MT6:105,MT7:1.75,MT8:1455,MT9:46,MT11:0,MT12:30 };
+const mastExpl = {
+  MT1:'11+12=23. 11:45 pm = 23:45 → 2345.',
+  MT2:'195÷60=3 remainder 15. Minutes part = 15.',
+  MT3:'09:15→10:00=45m, 10:00→10:40=40m. Total=85 min.',
+  MT4:'14:35→15:00=25m, 15:00→17:00=120m, 17:00→17:08=8m. Total=153 min.',
+  MT5:'21:50→22:00=10m, 22:00→00:00=120m, 00:00→02:25=145m. Total=275 min.',
+  MT6:'1h30m=1.5hrs. D=70×1.5=105 km.',
+  MT7:'45÷60=0.75. 1+0.75=1.75 hours.',
+  MT8:'11:45+2h40m=14:25. +30min=14:55 → 1455.',
+  MT9:'Jan:6, Feb:28, Mar:12. Total=46 days.',
+  MT11:'Train A=80km/h, Train B=80km/h. Same speed. Difference=0.',
+  MT12:'12:00am=midnight=00:00. 12:30am=00:30 → 0030. Enter 30.'
+};
+const mastChecked = {};
+
+function r2(n){ return Math.round(n*1000)/1000; }
+
+function chk(id, correct, expl){
+  const inp = document.getElementById(id);
+  const fb = document.getElementById(id+'_fb');
+  if(!inp||!fb) return;
+  const val = parseFloat(inp.value);
+  if(isNaN(val)){ fb.textContent='⚠️ Please enter a number.'; fb.className='qfb fno'; fb.style.display='block'; return; }
+  if(r2(val)===r2(correct)){
+    fb.textContent='✅ Correct! '+expl; fb.className='qfb fok';
+  } else {
+    fb.textContent='❌ Incorrect. Correct answer: '+correct+'. '+expl; fb.className='qfb fno';
+  }
+  fb.style.display='block';
+}
+
+function chkSel(id, correct, expl){
+  const sel = document.getElementById(id);
+  const fb = document.getElementById(id+'_fb');
+  if(!sel||!fb) return;
+  if(!sel.value){ fb.textContent='⚠️ Please select an option.'; fb.className='qfb fno'; fb.style.display='block'; return; }
+  if(sel.value===correct){
+    fb.textContent='✅ Correct! '+expl; fb.className='qfb fok';
+  } else {
+    fb.textContent='❌ Incorrect. Correct answer: '+correct+'. '+expl; fb.className='qfb fno';
+  }
+  fb.style.display='block';
+}
+
+function mchk(id, correct, expl){
+  const inp = document.getElementById(id);
+  const fb = document.getElementById(id+'_fb');
+  if(!inp||!fb) return;
+  const val = parseFloat(inp.value);
+  if(isNaN(val)){ fb.textContent='⚠️ Please enter a number.'; fb.className='qfb fno'; fb.style.display='block'; return; }
+  const ok = r2(val)===r2(correct);
+  mastChecked[id]=ok;
+  if(ok){ fb.textContent='✅ Correct! '+expl; fb.className='qfb fok'; }
+  else { fb.textContent='❌ Incorrect. Correct answer: '+correct+'. '+expl; fb.className='qfb fno'; }
+  fb.style.display='block';
+}
+
+function mchkSel(selId, trackId, correct, expl){
+  const sel = document.getElementById(selId);
+  const fb = document.getElementById(trackId+'_fb');
+  if(!sel||!fb) return;
+  if(!sel.value){ fb.textContent='⚠️ Please select.'; fb.className='qfb fno'; fb.style.display='block'; return; }
+  const ok = sel.value===correct;
+  mastChecked[trackId]=ok;
+  if(ok){ fb.textContent='✅ Correct! '+expl; fb.className='qfb fok'; }
+  else { fb.textContent='❌ Incorrect. Correct answer: '+correct+'. '+expl; fb.className='qfb fno'; }
+  fb.style.display='block';
+}
+
+// Fix cal1_5 and cal1_7 correct answers
+// cal1_5: Mon + 20days. 20÷7=2r6. Mon+6: Tue,Wed,Thu,Fri,Sat,Sun = Sunday
+// cal1_7: Wed + 60days. 60÷7=8r4. Wed+4: Thu,Fri,Sat,Sun = Sunday
+
+function submitMastery(){
+  // Auto-check unchecked numeric questions
+  const numIds = Object.keys(mastAns);
+  for(const id of numIds){
+    if(!(id in mastChecked)){
+      const inp = document.getElementById(id);
+      if(inp){
+        const val = parseFloat(inp.value);
+        if(!isNaN(val)){
+          const ok = r2(val)===r2(mastAns[id]);
+          mastChecked[id]=ok;
+          const fb = document.getElementById(id+'_fb');
+          if(fb){
+            fb.textContent = ok?'✅ Correct! '+mastExpl[id]:'❌ Incorrect. Correct answer: '+mastAns[id]+'. '+mastExpl[id];
+            fb.className='qfb '+(ok?'fok':'fno');
+            fb.style.display='block';
+          }
+        } else { mastChecked[id]=false; }
+      }
+    }
+  }
+  // Handle MT10 select if not checked
+  if(!('MT10' in mastChecked)){
+    const sel = document.getElementById('MT10sel');
+    if(sel&&sel.value){
+      const ok = sel.value==='Friday';
+      mastChecked['MT10']=ok;
+      const fb = document.getElementById('MT10_fb');
+      if(fb){
+        fb.textContent = ok?'✅ Correct! 100÷7=14r2. Wed+2=Fri.':'❌ Incorrect. Correct answer: Friday. 100÷7=14 remainder 2. 2 days after Wednesday = Friday.';
+        fb.className='qfb '+(ok?'fok':'fno');
+        fb.style.display='block';
+      }
+    } else { mastChecked['MT10']=false; }
+  }
+  const correct = Object.values(mastChecked).filter(Boolean).length;
+  const total = 12;
+  const pct = Math.round((correct/total)*100);
+  let msg='';
+  if(pct>=92) msg='🌟 Outstanding — you are fully exam ready for 11+ Time questions!';
+  else if(pct>=75) msg='✅ Great work! Revisit any sections where you made errors.';
+  else if(pct>=55) msg='📖 Good effort — re-read the Jump Method and SDT sections.';
+  else msg='💪 Keep practising — work through each section again carefully.';
+  document.getElementById('snum').textContent=correct+' / '+total+' ('+pct+'%)';
+  document.getElementById('smsg').textContent=msg;
+  document.getElementById('sbox').style.display='block';
+  document.getElementById('sbox').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Number Sequences & Patterns — TrueMaths 11+ Module</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,700;1,500&family=Fira+Code:wght@400;500;600&display=swap');
+
+  :root {
+    --navy:   #0c1b36;
+    --blue:   #1d4ed8;
+    --blue-l: #eff6ff;
+    --teal:   #0d7c6e;
+    --teal-l: #f0fdfa;
+    --purple: #6d28d9;
+    --purp-l: #f5f3ff;
+    --rose:   #be123c;
+    --rose-l: #fff1f2;
+    --amber:  #b45309;
+    --amb-l:  #fffbeb;
+    --green:  #15803d;
+    --grn-l:  #f0fdf4;
+    --sky:    #0369a1;
+    --sky-l:  #f0f9ff;
+    --orange: #c2410c;
+    --org-l:  #fff7ed;
+    --slate:  #1e293b;
+    --s300:   #cbd5e1;
+    --s200:   #e2e8f0;
+    --s100:   #f1f5f9;
+    --s50:    #f8fafc;
+    --s500:   #64748b;
+    --white:  #fff;
+    --r:      13px;
+    --rs:     8px;
+    --sh:     0 2px 18px rgba(12,27,54,.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--s50);
+    color: var(--slate);
+    font-size: 15.5px;
+    line-height: 1.75;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(140deg, #0c1b36 0%, #1a3a7a 45%, #2e1065 100%);
+    padding: 44px 32px 38px;
+    color: white;
+    position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 85% 15%, rgba(109,40,217,.35) 0%, transparent 55%),
+                radial-gradient(ellipse at 5% 90%,  rgba(29,78,216,.3)  0%, transparent 45%);
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.22);
+    color: #bfdbfe; font-size: 11px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 14px;
+    position: relative; z-index: 1;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 5vw, 42px); line-height: 1.15;
+    position: relative; z-index: 1;
+  }
+  .hero h1 em { font-style: italic; color: #a5b4fc; }
+  .hero p { margin-top: 10px; font-size: 15px; opacity: .72; max-width: 580px; position: relative; z-index: 1; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; position: relative; z-index: 1; }
+  .chip {
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+    color: white; font-size: 12.5px; padding: 4px 14px; border-radius: 20px;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    background: white; border-bottom: 2px solid var(--s200);
+    padding: 0 18px; display: flex; flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 1px 8px rgba(0,0,0,.055);
+  }
+  .nav a {
+    display: inline-block; padding: 12px 13px;
+    font-size: 12px; font-weight: 700; color: var(--s500);
+    text-decoration: none; border-bottom: 3px solid transparent;
+    white-space: nowrap; transition: all .18s; letter-spacing: .01em;
+  }
+  .nav a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+
+  /* ── LAYOUT ── */
+  .wrap { max-width: 940px; margin: 0 auto; padding: 28px 16px 64px; }
+
+  /* ── CARD ── */
+  .card {
+    background: white; border-radius: var(--r);
+    box-shadow: var(--sh); margin-bottom: 24px; overflow: hidden;
+  }
+  .card-head {
+    padding: 17px 26px 14px;
+    border-bottom: 2px solid var(--s100);
+    display: flex; align-items: center; gap: 13px;
+  }
+  .cnum {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px; flex-shrink: 0;
+  }
+  .card-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: var(--navy);
+  }
+  .card-body { padding: 22px 26px; }
+
+  /* colour themes */
+  .tb .cnum { background: var(--blue-l); color: var(--blue); }
+  .tt .cnum { background: var(--teal-l); color: var(--teal); }
+  .tp .cnum { background: var(--purp-l); color: var(--purple); }
+  .tr .cnum { background: var(--rose-l); color: var(--rose); }
+  .ta .cnum { background: var(--amb-l);  color: var(--amber); }
+  .tg .cnum { background: var(--grn-l);  color: var(--green); }
+  .ts .cnum { background: var(--sky-l);  color: var(--sky); }
+  .to .cnum { background: var(--org-l);  color: var(--orange); }
+
+  /* ── CALLOUTS ── */
+  .box {
+    border-radius: var(--rs); padding: 12px 16px; margin: 13px 0;
+    display: flex; gap: 11px; align-items: flex-start;
+    font-size: 14px; line-height: 1.68;
+  }
+  .bico { font-size: 17px; line-height: 1.65; flex-shrink: 0; }
+  .bbody { flex: 1; }
+  .bbody b { display: block; margin-bottom: 2px; font-size: 12.5px; letter-spacing: .04em; text-transform: uppercase; }
+  .tip  { background: var(--sky-l);   border-left: 4px solid var(--sky); }
+  .warn { background: var(--amb-l);   border-left: 4px solid var(--amber); }
+  .trap { background: var(--rose-l);  border-left: 4px solid var(--rose); }
+  .def  { background: var(--blue-l);  border-left: 4px solid var(--blue); }
+  .key  { background: var(--grn-l);   border-left: 4px solid var(--green); }
+  .pur  { background: var(--purp-l);  border-left: 4px solid var(--purple); }
+
+  /* ── WORKED EXAMPLE ── */
+  .eg {
+    background: var(--s100); border: 1.5px solid var(--s200);
+    border-radius: var(--rs); padding: 15px 18px; margin: 12px 0;
+  }
+  .eg-lbl {
+    font-size: 11px; font-weight: 700; letter-spacing: .09em;
+    text-transform: uppercase; color: var(--s500); margin-bottom: 9px;
+  }
+  .eg p, .eg li { font-size: 14px; margin-bottom: 4px; }
+  .eg ol, .eg ul { padding-left: 20px; }
+
+  /* ── FORMULA BAR ── */
+  .fml {
+    background: var(--navy); color: white;
+    border-radius: var(--rs); padding: 14px 20px; margin: 12px 0;
+    text-align: center;
+    font-family: 'Fira Code', monospace;
+    font-size: clamp(14px, 2.3vw, 19px); letter-spacing: .04em;
+  }
+  .fml .hl  { color: #a5b4fc; }
+  .fml .hl2 { color: #6ee7b7; }
+  .fml .hl3 { color: #fcd34d; }
+
+  /* ── STEPS ── */
+  .steps { counter-reset: s; list-style: none; padding: 0; }
+  .steps li {
+    counter-increment: s; display: flex; gap: 13px;
+    margin-bottom: 12px; align-items: flex-start;
+  }
+  .steps li::before {
+    content: counter(s);
+    width: 25px; height: 25px; border-radius: 50%;
+    background: var(--blue); color: white;
+    font-size: 12px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  /* ── SEQUENCE STRIP ── */
+  .seq-strip {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    align-items: center; margin: 10px 0;
+  }
+  .sq { /* sequence box */
+    min-width: 38px; padding: 6px 10px;
+    border-radius: 6px; text-align: center;
+    font-family: 'Fira Code', monospace;
+    font-weight: 600; font-size: 14px;
+  }
+  .sq-b { background: var(--blue-l); color: var(--blue); border: 1.5px solid #bfdbfe; }
+  .sq-t { background: var(--teal-l); color: var(--teal); border: 1.5px solid #99f6e4; }
+  .sq-p { background: var(--purp-l); color: var(--purple); border: 1.5px solid #c4b5fd; }
+  .sq-a { background: var(--amb-l);  color: var(--amber);  border: 1.5px solid #fcd34d; }
+  .sq-g { background: var(--grn-l);  color: var(--green);  border: 1.5px solid #bbf7d0; }
+  .sq-r { background: var(--rose-l); color: var(--rose);   border: 1.5px solid #fecdd3; }
+  .arr  { color: var(--s500); font-size: 13px; }
+
+  /* ── DIFF ROW ── */
+  .diff-row {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding-left: 28px; margin-top: -2px; margin-bottom: 8px;
+  }
+  .diff {
+    min-width: 38px; padding: 3px 8px;
+    border-radius: 20px; text-align: center;
+    font-size: 12px; font-weight: 700;
+    background: #dbeafe; color: #1d4ed8;
+    font-family: 'Fira Code', monospace;
+  }
+  .diff-neg { background: #fce7f3; color: #9d174d; }
+  .diff-lbl { font-size: 12px; color: var(--s500); align-self: center; }
+
+  /* ── TABLE ── */
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 13.5px; margin: 12px 0;
+  }
+  .tbl th {
+    background: var(--navy); color: white;
+    padding: 9px 13px; text-align: center; font-weight: 600;
+  }
+  .tbl td {
+    padding: 8px 13px; border: 1px solid var(--s200);
+    text-align: center; font-family: 'Fira Code', monospace;
+  }
+  .tbl tr:nth-child(even) td { background: var(--s100); }
+  .tbl .hi { background: #dbeafe !important; font-weight: 700; color: var(--blue); }
+  .tbl .hig{ background: var(--grn-l) !important; font-weight: 700; color: var(--green); }
+
+  /* ── DOT TRIANGLE ── */
+  .dot-tri {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 5px; margin: 14px 0;
+  }
+  .dot-row { display: flex; gap: 6px; }
+  .dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--teal); opacity: .85;
+  }
+  .tri-label { font-size: 12px; color: var(--s500); margin-top: 4px; }
+
+  /* ── FUNCTION MACHINE ── */
+  .machine {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: 0; margin: 14px 0;
+  }
+  .m-box {
+    padding: 11px 16px; border-radius: 8px;
+    font-size: 14px; font-weight: 600; text-align: center;
+    min-width: 70px;
+  }
+  .m-in  { background: var(--sky-l);  color: var(--sky);    border: 2px solid var(--sky); }
+  .m-op  { background: var(--purp-l); color: var(--purple); border: 2px solid var(--purple); min-width: 90px; }
+  .m-out { background: var(--grn-l);  color: var(--green);  border: 2px solid var(--green); }
+  .m-arr {
+    font-size: 22px; color: var(--s500); padding: 0 4px; line-height: 1;
+  }
+  .m-rev .m-arr { color: var(--rose); }
+
+  /* ── COLLAPSIBLE ── */
+  details {
+    border: 1.5px solid var(--s200); border-radius: var(--rs);
+    margin-top: 9px; overflow: hidden;
+  }
+  summary {
+    padding: 11px 15px; cursor: pointer;
+    font-weight: 700; font-size: 13.5px;
+    background: var(--s100); color: var(--navy);
+    list-style: none; display: flex; align-items: center; gap: 8px;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: '▶'; font-size: 9px;
+    transition: transform .2s; color: var(--blue);
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details[open] summary { background: var(--blue-l); color: var(--blue); }
+  .abody { padding: 14px 17px; font-size: 14px; }
+  .abody p, .abody li { margin-bottom: 4px; }
+  .abody ol { padding-left: 20px; }
+
+  /* ── PRACTICE ── */
+  .pq { border: 1.5px solid var(--s200); border-radius: var(--rs); margin-bottom: 13px; overflow: hidden; }
+  .pq-top { padding: 13px 17px; display: flex; gap: 11px; align-items: flex-start; background: white; }
+  .pqn {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; flex-shrink: 0; margin-top: 2px;
+  }
+  .pq-txt { font-size: 14.5px; flex: 1; line-height: 1.68; }
+  .pq-badge {
+    font-size: 10.5px; font-weight: 700; letter-spacing: .06em;
+    text-transform: uppercase; padding: 3px 9px; border-radius: 10px;
+    flex-shrink: 0; margin-top: 3px; white-space: nowrap;
+  }
+  .easy .pqn, .easy .pq-badge { background: var(--grn-l);  color: var(--green); }
+  .med  .pqn, .med  .pq-badge { background: var(--amb-l);  color: var(--amber); }
+  .hard .pqn, .hard .pq-badge { background: var(--rose-l); color: var(--rose); }
+
+  /* ── DIAG GRID ── */
+  .diag {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px; margin: 12px 0;
+  }
+  .diag-cell {
+    border: 1.5px solid var(--s200); border-radius: var(--rs);
+    padding: 11px 14px; font-size: 13.5px;
+  }
+  .diag-cell .dc-head {
+    font-weight: 700; font-size: 13px; margin-bottom: 4px; color: var(--navy);
+  }
+
+  /* ── UTILITY ── */
+  h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin: 18px 0 7px; }
+  h4 { font-size: 14.5px; font-weight: 600; margin: 12px 0 5px; }
+  p  { margin-bottom: 8px; font-size: 14.5px; }
+  ul, ol { padding-left: 20px; margin-bottom: 8px; }
+  li { font-size: 14.5px; margin-bottom: 3px; }
+  .m   { font-family: 'Fira Code', monospace; font-size: .9em; }
+  .ans { font-weight: 700; color: var(--blue); }
+  .row { display: flex; flex-wrap: wrap; gap: 13px; }
+  .col { flex: 1; min-width: 195px; }
+  hr   { border: none; border-top: 1.5px dashed var(--s200); margin: 16px 0; }
+
+  @media (max-width: 580px) {
+    .card-body { padding: 16px 13px; }
+    .card-head { padding: 14px 15px; }
+    .nav { display: none; }
+    .diag { grid-template-columns: 1fr; }
+    .machine { gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-tag">TrueMaths · 11+ Module</div>
+  <h1>Number Sequences<br><em>&amp; Patterns</em></h1>
+  <p>Complete GL Assessment preparation — from linear nth terms to non-linear formulas, geometric sequences, function machines, and GL-style exam problems.</p>
+  <div class="chips">
+    <span class="chip">🏫 QE Barnet Level</span>
+    <span class="chip">📐 GL Assessment</span>
+    <span class="chip">nth Term — All Types</span>
+    <span class="chip">8 Graded Questions</span>
+  </div>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <a href="#s1">1. Linear &amp; nth Term</a>
+  <a href="#s2">2. Reverse nth Term</a>
+  <a href="#s3">3. Non-linear Formulas</a>
+  <a href="#s4">4. Special Sequences</a>
+  <a href="#s5">5. Geometric</a>
+  <a href="#s6">6. Two-step &amp; Alternating</a>
+  <a href="#s7">7. Function Machines</a>
+  <a href="#s8">8. Diagnostics</a>
+  <a href="#s9">9. Practice</a>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════════ 1. LINEAR SEQUENCES & nth TERM ══════════ -->
+<div class="card tb" id="s1">
+  <div class="card-head">
+    <div class="cnum">1</div>
+    <h2>Linear (Arithmetic) Sequences &amp; the nth Term</h2>
+  </div>
+  <div class="card-body">
+
+    <div class="box def">
+      <div class="bico">📖</div>
+      <div class="bbody">
+        <b>Definition</b>
+        A <strong>linear</strong> (arithmetic) sequence has a <strong>constant difference</strong> between consecutive terms — the same number is added (or subtracted) every time. This constant is called <strong>d</strong> (the common difference). The first term is called <strong>a</strong>.
+      </div>
+    </div>
+
+    <h3>Deriving the nth Term — Four Steps</h3>
+    <p>The nth term formula lets you find <em>any</em> term in the sequence without listing all the ones before it. Here is how to build it from scratch:</p>
+
+    <ul class="steps">
+      <li><strong>Find d.</strong> Subtract any term from the one after it. The difference must be the same every time — check at least twice.</li>
+      <li><strong>Find the "0th term."</strong> The 0th term is the imaginary term <em>before</em> the first one. Calculate it as: 0th term = a − d.</li>
+      <li><strong>Write the formula.</strong> nth term = d × n + (0th term).</li>
+      <li><strong>Verify.</strong> Substitute n = 1, 2, 3 back in and check the formula gives the correct sequence terms.</li>
+    </ul>
+
+    <hr>
+
+    <h3>Worked Example 1 — Increasing Sequence</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ Full Process: 5, 8, 11, 14, 17…</div>
+
+      <div class="seq-strip">
+        <div class="sq sq-b">5</div>
+        <div class="arr">→</div>
+        <div class="sq sq-b">8</div>
+        <div class="arr">→</div>
+        <div class="sq sq-b">11</div>
+        <div class="arr">→</div>
+        <div class="sq sq-b">14</div>
+        <div class="arr">→</div>
+        <div class="sq sq-b">17</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff">+3</div>
+        <div class="diff">+3</div>
+        <div class="diff">+3</div>
+        <div class="diff">+3</div>
+        <div class="diff-lbl">← constant ✓</div>
+      </div>
+
+      <p><strong>Step 1:</strong> d = 8 − 5 = <strong>3</strong>. Check: 11 − 8 = 3 ✓</p>
+      <p><strong>Step 2:</strong> 0th term = a − d = 5 − 3 = <strong>2</strong></p>
+      <p><strong>Step 3:</strong> nth term = 3n + 2</p>
+      <p><strong>Step 4 — Verify:</strong></p>
+      <ul>
+        <li>n=1: 3(1)+2 = <strong>5</strong> ✓</li>
+        <li>n=2: 3(2)+2 = <strong>8</strong> ✓</li>
+        <li>n=3: 3(3)+2 = <strong>11</strong> ✓</li>
+      </ul>
+      <p style="margin-top:8px"><span class="ans">nth term = 3n + 2</span></p>
+    </div>
+
+    <h3>Worked Example 2 — Decreasing Sequence</h3>
+
+    <div class="box warn">
+      <div class="bico">⚠️</div>
+      <div class="bbody">
+        <b>Most Common Error</b>
+        When the sequence goes down, students forget that d is <strong>negative</strong>. Always subtract: term₂ − term₁. If the sequence decreases, d will be negative, and the nth term will have a negative coefficient.
+      </div>
+    </div>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Full Process: 20, 17, 14, 11, 8…</div>
+
+      <div class="seq-strip">
+        <div class="sq sq-r">20</div>
+        <div class="arr">→</div>
+        <div class="sq sq-r">17</div>
+        <div class="arr">→</div>
+        <div class="sq sq-r">14</div>
+        <div class="arr">→</div>
+        <div class="sq sq-r">11</div>
+        <div class="arr">→</div>
+        <div class="sq sq-r">8</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff diff-neg">−3</div>
+        <div class="diff diff-neg">−3</div>
+        <div class="diff diff-neg">−3</div>
+        <div class="diff diff-neg">−3</div>
+        <div class="diff-lbl">← constant ✓ (negative)</div>
+      </div>
+
+      <p><strong>Step 1:</strong> d = 17 − 20 = <strong>−3</strong></p>
+      <p><strong>Step 2:</strong> 0th term = 20 − (−3) = 20 + 3 = <strong>23</strong></p>
+      <p><strong>Step 3:</strong> nth term = −3n + 23</p>
+      <p><strong>Step 4 — Verify:</strong></p>
+      <ul>
+        <li>n=1: −3(1)+23 = <strong>20</strong> ✓</li>
+        <li>n=2: −3(2)+23 = <strong>17</strong> ✓</li>
+        <li>n=5: −3(5)+23 = <strong>8</strong> ✓</li>
+      </ul>
+      <p style="margin-top:8px"><span class="ans">nth term = −3n + 23</span></p>
+    </div>
+
+    <div class="box trap">
+      <div class="bico">🎯</div>
+      <div class="bbody">
+        <b>Exam Trap: Decreasing Sequences</b>
+        A common GL trick is to give a decreasing sequence and ask for the nth term. Students often write 3n − 23 instead of −3n + 23. Always verify your formula with at least three terms before moving on.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 2. REVERSE nth TERM ══════════ -->
+<div class="card tt" id="s2">
+  <div class="card-head">
+    <div class="cnum">2</div>
+    <h2>Reverse nth Term — "Which Term Has Value X?"</h2>
+  </div>
+  <div class="card-body">
+
+    <p>GL papers regularly give you the nth term formula and ask: <em>"Which term in the sequence equals 47?"</em> The method is to set the formula equal to the target value and solve for n — exactly like solving an equation.</p>
+
+    <div class="fml">
+      Set: <span class="hl">nth term formula</span> = <span class="hl3">target value</span><br>
+      Solve for <span class="hl2">n</span> (must be a positive whole number)
+    </div>
+
+    <h3>Worked Example 1 — Increasing Sequence</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ "Which term in the sequence 3n + 2 has value 47?"</div>
+      <ol>
+        <li>Set formula equal to target: <span class="m">3n + 2 = 47</span></li>
+        <li>Subtract 2: <span class="m">3n = 45</span></li>
+        <li>Divide by 3: <span class="m">n = 15</span></li>
+      </ol>
+      <p><span class="ans">The 15th term equals 47.</span></p>
+      <p>Check: 3(15) + 2 = 45 + 2 = 47 ✓</p>
+    </div>
+
+    <h3>Worked Example 2 — Decreasing Sequence</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ "Which term in 23 − 3n has value 8?"</div>
+      <ol>
+        <li>Set: <span class="m">23 − 3n = 8</span></li>
+        <li>Rearrange: <span class="m">23 − 8 = 3n → 15 = 3n</span></li>
+        <li>Divide: <span class="m">n = 5</span></li>
+      </ol>
+      <p><span class="ans">The 5th term equals 8.</span></p>
+      <p>Check: 20, 17, 14, 11, <strong>8</strong> ✓ (5th term)</p>
+    </div>
+
+    <div class="box trap">
+      <div class="bico">🎯</div>
+      <div class="bbody">
+        <b>Critical Check: n Must Be a Positive Whole Number</b>
+        If your answer for n is a decimal (e.g., n = 7.3) or negative, that value is <em>not in the sequence</em>. Either the question is testing whether you recognise this, or you've made an arithmetic error. Re-check your working before writing a final answer.
+      </div>
+    </div>
+
+    <div class="box tip">
+      <div class="bico">💡</div>
+      <div class="bbody">
+        <b>GL Extension: "Does 100 appear in the sequence 4n − 1?"</b>
+        Set 4n − 1 = 100 → 4n = 101 → n = 25.25. Since 25.25 is not a whole number, <strong>100 does not appear</strong> in this sequence.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 3. NON-LINEAR nth TERMS ══════════ -->
+<div class="card tp" id="s3">
+  <div class="card-head">
+    <div class="cnum">3</div>
+    <h2>Non-Linear nth Term Formulas</h2>
+  </div>
+  <div class="card-body">
+
+    <p>Not every sequence increases by the same amount each time. When the differences are not constant, look at the <strong>second differences</strong> (differences of differences) to identify the type.</p>
+
+    <h3>The Second-Difference Diagnostic</h3>
+    <div class="box def">
+      <div class="bico">🔬</div>
+      <div class="bbody">
+        <b>How to Read Second Differences</b>
+        <ul style="margin-top:5px;padding-left:18px">
+          <li>First differences <strong>constant</strong> → <strong>Linear</strong> sequence (dn + c)</li>
+          <li>Second differences <strong>constant = 2</strong> → <strong>Square-based</strong> (contains n²)</li>
+          <li>Second differences <strong>constant = 6</strong> → <strong>Cube-based</strong> (contains n³)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr>
+
+    <h3>Type 1 — Pure Square Sequences: nth term = n²</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ Sequence: 1, 4, 9, 16, 25, 36…</div>
+      <div class="seq-strip">
+        <div class="sq sq-p">1</div><div class="arr">→</div>
+        <div class="sq sq-p">4</div><div class="arr">→</div>
+        <div class="sq sq-p">9</div><div class="arr">→</div>
+        <div class="sq sq-p">16</div><div class="arr">→</div>
+        <div class="sq sq-p">25</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff">+3</div><div class="diff">+5</div><div class="diff">+7</div><div class="diff">+9</div>
+        <div class="diff-lbl">1st differences (not constant)</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff" style="background:#e9d5ff;color:#6d28d9">+2</div>
+        <div class="diff" style="background:#e9d5ff;color:#6d28d9">+2</div>
+        <div class="diff" style="background:#e9d5ff;color:#6d28d9">+2</div>
+        <div class="diff-lbl">2nd differences = 2 → it's n²!</div>
+      </div>
+      <p>nth term = n²</p>
+      <p>10th term: T(10) = 10² = <span class="ans">100</span></p>
+    </div>
+
+    <h3>Type 2 — Modified Square Sequences</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ Example A: 4, 7, 12, 19, 28… → nth term = n² + 3</div>
+      <p>Subtract 3 from each term: 1, 4, 9, 16, 25 → pure n². So add 3 back: <span class="ans">nth term = n² + 3</span></p>
+      <p>Verify: n=2 → 4+3 = 7 ✓ &nbsp; n=3 → 9+3 = 12 ✓</p>
+    </div>
+    <div class="eg">
+      <div class="eg-lbl">✏ Example B: 1, 7, 17, 31, 49… → nth term = 2n² − 1</div>
+      <div class="seq-strip">
+        <div class="sq sq-p">1</div><div class="arr">→</div>
+        <div class="sq sq-p">7</div><div class="arr">→</div>
+        <div class="sq sq-p">17</div><div class="arr">→</div>
+        <div class="sq sq-p">31</div><div class="arr">→</div>
+        <div class="sq sq-p">49</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff">+6</div><div class="diff">+10</div><div class="diff">+14</div><div class="diff">+18</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff" style="background:#e9d5ff;color:#6d28d9">+4</div>
+        <div class="diff" style="background:#e9d5ff;color:#6d28d9">+4</div>
+        <div class="diff" style="background:#e9d5ff;color:#6d28d9">+4</div>
+        <div class="diff-lbl">2nd diff = 4 → coefficient of n² is 4÷2 = 2</div>
+      </div>
+      <p>Try 2n²: 2, 8, 18, 32, 50. Each is 1 more than our sequence → subtract 1.</p>
+      <p><span class="ans">nth term = 2n² − 1</span></p>
+      <p>Verify: n=3 → 2(9)−1 = 17 ✓ &nbsp; n=4 → 2(16)−1 = 31 ✓</p>
+    </div>
+
+    <div class="box tip">
+      <div class="bico">💡</div>
+      <div class="bbody">
+        <b>Finding the coefficient of n²</b>
+        When 2nd differences = k (constant), the coefficient of n² is always <strong>k ÷ 2</strong>. So 2nd diff = 4 → coefficient = 2. 2nd diff = 2 → coefficient = 1 (pure n²).
+      </div>
+    </div>
+
+    <hr>
+
+    <h3>Type 3 — Triangular Sequences: nth term = n(n+1)/2</h3>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Sequence: 1, 3, 6, 10, 15, 21…</div>
+      <div class="seq-strip">
+        <div class="sq sq-t">1</div><div class="arr">→</div>
+        <div class="sq sq-t">3</div><div class="arr">→</div>
+        <div class="sq sq-t">6</div><div class="arr">→</div>
+        <div class="sq sq-t">10</div><div class="arr">→</div>
+        <div class="sq sq-t">15</div><div class="arr">→</div>
+        <div class="sq sq-t">21</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff">+2</div><div class="diff">+3</div><div class="diff">+4</div><div class="diff">+5</div><div class="diff">+6</div>
+        <div class="diff-lbl">differences increase by 1</div>
+      </div>
+      <p>The nth term formula is: <span class="m">T(n) = n(n+1) ÷ 2</span></p>
+    </div>
+
+    <div class="fml">
+      T(<span class="hl">n</span>) = <span class="hl">n</span>(<span class="hl">n</span> + 1) ÷ 2
+    </div>
+
+    <div class="box pur">
+      <div class="bico">🌟</div>
+      <div class="bbody">
+        <b>Why the formula matters: T(20) = 210</b>
+        If GL asks for the 20th triangular number, you cannot list your way there in an exam. Use the formula:<br>
+        T(20) = 20 × 21 ÷ 2 = 420 ÷ 2 = <strong>210</strong>.<br>
+        Memorising the list only gets you to T(6) = 21. The formula is essential.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 4. SPECIAL SEQUENCE TAXONOMY ══════════ -->
+<div class="card tt" id="s4">
+  <div class="card-head">
+    <div class="cnum">4</div>
+    <h2>Special Sequence Taxonomy</h2>
+  </div>
+  <div class="card-body">
+
+    <!-- SQUARES -->
+    <h3>Square Numbers</h3>
+    <div class="seq-strip">
+      <div class="sq sq-p">1</div><div class="sq sq-p">4</div><div class="sq sq-p">9</div>
+      <div class="sq sq-p">16</div><div class="sq sq-p">25</div><div class="sq sq-p">36</div>
+      <div class="sq sq-p">49</div><div class="sq sq-p">64</div><div class="sq sq-p">81</div>
+      <div class="sq sq-p">100</div>
+    </div>
+    <p>nth term = n² &nbsp;&nbsp; T(n) grows quickly — second differences are always 2.</p>
+
+    <!-- CUBES -->
+    <h3>Cube Numbers</h3>
+    <div class="seq-strip">
+      <div class="sq sq-a">1</div><div class="sq sq-a">8</div><div class="sq sq-a">27</div>
+      <div class="sq sq-a">64</div><div class="sq sq-a">125</div>
+    </div>
+    <p>nth term = n³ &nbsp;&nbsp; Second differences of this sequence are not constant — third differences are (= 6).</p>
+
+    <!-- TRIANGULAR -->
+    <h3>Triangular Numbers</h3>
+    <div class="seq-strip">
+      <div class="sq sq-t">1</div><div class="sq sq-t">3</div><div class="sq sq-t">6</div>
+      <div class="sq sq-t">10</div><div class="sq sq-t">15</div><div class="sq sq-t">21</div>
+    </div>
+    <p>nth term = n(n+1)/2 &nbsp;&nbsp; Visual: dots arranged in growing triangles.</p>
+
+    <div class="dot-tri">
+      <div style="display:flex;gap:28px;align-items:flex-end">
+        <div>
+          <div class="dot-row"><div class="dot"></div></div>
+          <div class="tri-label" style="text-align:center">T(1)=1</div>
+        </div>
+        <div>
+          <div class="dot-row"><div class="dot"></div></div>
+          <div class="dot-row"><div class="dot"></div><div class="dot"></div></div>
+          <div class="tri-label" style="text-align:center">T(2)=3</div>
+        </div>
+        <div>
+          <div class="dot-row"><div class="dot"></div></div>
+          <div class="dot-row"><div class="dot"></div><div class="dot"></div></div>
+          <div class="dot-row"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+          <div class="tri-label" style="text-align:center">T(3)=6</div>
+        </div>
+        <div>
+          <div class="dot-row"><div class="dot"></div></div>
+          <div class="dot-row"><div class="dot"></div><div class="dot"></div></div>
+          <div class="dot-row"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+          <div class="dot-row"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+          <div class="tri-label" style="text-align:center">T(4)=10</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FIBONACCI -->
+    <h3>Fibonacci Sequence</h3>
+    <div class="seq-strip">
+      <div class="sq sq-g">1</div><div class="sq sq-g">1</div><div class="sq sq-g">2</div>
+      <div class="sq sq-g">3</div><div class="sq sq-g">5</div><div class="sq sq-g">8</div>
+      <div class="sq sq-g">13</div><div class="sq sq-g">21</div>
+    </div>
+    <p>Rule: each term = sum of the two terms before it. There is no simple nth term formula at 11+ level.</p>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Finding the 10th Fibonacci term — by extension</div>
+      <p>Write out the sequence step by step:</p>
+      <p>1, 1, 2, 3, 5, 8, 13, 21, 34, <span class="ans">55</span></p>
+      <p>T(9) = 34, T(10) = 21 + 34 = <span class="ans">55</span></p>
+    </div>
+
+    <div class="box tip">
+      <div class="bico">💡</div>
+      <div class="bbody">
+        <b>GL Recognition Tip</b>
+        If you see a sequence where no addition/multiplication/subtraction rule gives a constant result, try adding the previous two terms. If that works — it's Fibonacci-type.
+      </div>
+    </div>
+
+    <hr>
+    <!-- Quick reference table -->
+    <h3>Quick Reference</h3>
+    <div style="overflow-x:auto">
+    <table class="tbl">
+      <thead><tr><th>Type</th><th>Example</th><th>nth term</th><th>Key signal</th></tr></thead>
+      <tbody>
+        <tr><td>Linear</td><td>5, 8, 11, 14…</td><td>3n + 2</td><td>Constant 1st difference</td></tr>
+        <tr><td>Square</td><td>1, 4, 9, 16…</td><td>n²</td><td>2nd differences = 2</td></tr>
+        <tr><td>Modified square</td><td>4, 7, 12, 19…</td><td>n² + 3</td><td>2nd diff = 2, offset</td></tr>
+        <tr><td>Triangular</td><td>1, 3, 6, 10…</td><td>n(n+1)/2</td><td>1st diff increases by 1</td></tr>
+        <tr><td>Cube</td><td>1, 8, 27, 64…</td><td>n³</td><td>3rd differences = 6</td></tr>
+        <tr><td>Geometric</td><td>3, 6, 12, 24…</td><td>3 × 2^(n−1)</td><td>Constant ratio</td></tr>
+        <tr><td>Fibonacci</td><td>1, 1, 2, 3, 5…</td><td>(extend only)</td><td>Each = sum of previous two</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 5. GEOMETRIC SEQUENCES ══════════ -->
+<div class="card ta" id="s5">
+  <div class="card-head">
+    <div class="cnum">5</div>
+    <h2>Geometric Sequences</h2>
+  </div>
+  <div class="card-body">
+
+    <div class="box def">
+      <div class="bico">📖</div>
+      <div class="bbody">
+        <b>Definition</b>
+        In a geometric sequence, each term is multiplied (or divided) by the same fixed number, called the <strong>common ratio r</strong>. Division by r is the same as multiplication by 1/r.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="eg">
+          <div class="eg-lbl">× example</div>
+          <div class="seq-strip" style="flex-wrap:nowrap">
+            <div class="sq sq-a">3</div><div class="arr">→</div>
+            <div class="sq sq-a">6</div><div class="arr">→</div>
+            <div class="sq sq-a">12</div><div class="arr">→</div>
+            <div class="sq sq-a">24</div>
+          </div>
+          <p style="font-size:13.5px">r = 2 (×2 each time)</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="eg">
+          <div class="eg-lbl">÷ example</div>
+          <div class="seq-strip" style="flex-wrap:nowrap">
+            <div class="sq sq-b">100</div><div class="arr">→</div>
+            <div class="sq sq-b">50</div><div class="arr">→</div>
+            <div class="sq sq-b">25</div><div class="arr">→</div>
+            <div class="sq sq-b">12.5</div>
+          </div>
+          <p style="font-size:13.5px">r = 0.5 (÷2 = ×0.5)</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Systematic Term-Finding — Table Method</h3>
+    <div class="eg">
+      <div class="eg-lbl">✏ "Find the 8th term of 3, 6, 12, 24… (r = 2)"</div>
+      <p>Build a table — multiply by r at each step:</p>
+      <div style="overflow-x:auto">
+      <table class="tbl">
+        <thead><tr><th>Term</th><th>n=1</th><th>n=2</th><th>n=3</th><th>n=4</th><th>n=5</th><th>n=6</th><th>n=7</th><th>n=8</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Value</td>
+            <td>3</td><td>6</td><td>12</td><td>24</td><td>48</td><td>96</td><td>192</td>
+            <td class="hi">384</td>
+          </tr>
+          <tr>
+            <td>×r</td>
+            <td>—</td><td>×2</td><td>×2</td><td>×2</td><td>×2</td><td>×2</td><td>×2</td><td>×2</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <p><span class="ans">8th term = 384</span></p>
+    </div>
+
+    <div class="box tip">
+      <div class="bico">💡</div>
+      <div class="bbody">
+        <b>The ar^(n−1) formula</b>
+        The general formula is T(n) = a × r^(n−1), where a = first term. For the example above: T(8) = 3 × 2⁷ = 3 × 128 = 384. This is beyond the 11+ syllabus, but the table method above gives the same answer and is always acceptable.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 6. TWO-STEP & ALTERNATING ══════════ -->
+<div class="card ts" id="s6">
+  <div class="card-head">
+    <div class="cnum">6</div>
+    <h2>Two-Step &amp; Alternating Sequences</h2>
+  </div>
+  <div class="card-body">
+
+    <h3>Type A — Two-Operation Sequences</h3>
+    <p>Some sequences use two operations in a repeating pattern (e.g., ×2 then +1), or have differences that themselves form a pattern.</p>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Sequence with growing differences: 2, 4, 8, 14, 22, 32…</div>
+      <div class="seq-strip">
+        <div class="sq sq-b">2</div><div class="arr">→</div>
+        <div class="sq sq-b">4</div><div class="arr">→</div>
+        <div class="sq sq-b">8</div><div class="arr">→</div>
+        <div class="sq sq-b">14</div><div class="arr">→</div>
+        <div class="sq sq-b">22</div><div class="arr">→</div>
+        <div class="sq sq-b">32</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff">+2</div><div class="diff">+4</div><div class="diff">+6</div><div class="diff">+8</div><div class="diff">+10</div>
+        <div class="diff-lbl">differences: +2, +4, +6… (even numbers)</div>
+      </div>
+      <p>The differences themselves form a pattern (+2 each time). Next difference = +12, so next term = 32 + 12 = <span class="ans">44</span>.</p>
+    </div>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Two-rule sequence: 3, 7, 15, 31, 63…</div>
+      <p>Check: 3×2+1=7 ✓, 7×2+1=15 ✓, 15×2+1=31 ✓</p>
+      <p>Rule: multiply by 2, then add 1. Next term: 63×2+1 = <span class="ans">127</span></p>
+    </div>
+
+    <hr>
+
+    <h3>Type B — Alternating / Interwoven Sequences</h3>
+    <p>Two separate sequences are woven together — the odd-positioned terms form one sequence, the even-positioned terms form another.</p>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Sequence: 5, 2, 10, 4, 15, 6, 20, 8…</div>
+
+      <p><strong>Split by position:</strong></p>
+      <div class="row">
+        <div class="col">
+          <p><strong>Odd positions (1st, 3rd, 5th…):</strong></p>
+          <div class="seq-strip">
+            <div class="sq sq-b">5</div><div class="sq sq-b">10</div>
+            <div class="sq sq-b">15</div><div class="sq sq-b">20</div>
+          </div>
+          <div class="diff-row"><div class="diff">+5</div><div class="diff">+5</div><div class="diff">+5</div></div>
+          <p style="font-size:13.5px">Rule: +5 each time</p>
+        </div>
+        <div class="col">
+          <p><strong>Even positions (2nd, 4th, 6th…):</strong></p>
+          <div class="seq-strip">
+            <div class="sq sq-r">2</div><div class="sq sq-r">4</div>
+            <div class="sq sq-r">6</div><div class="sq sq-r">8</div>
+          </div>
+          <div class="diff-row"><div class="diff">+2</div><div class="diff">+2</div><div class="diff">+2</div></div>
+          <p style="font-size:13.5px">Rule: +2 each time</p>
+        </div>
+      </div>
+      <p>Next two terms: 25 (odd), 10 (even) → sequence continues: …20, 8, <span class="ans">25, 10</span></p>
+    </div>
+
+    <div class="box tip">
+      <div class="bico">💡</div>
+      <div class="bbody">
+        <b>Strategy for Alternating Sequences</b>
+        If you can't find a single rule, write out every other term. The odd-position terms and even-position terms almost always each follow a simple rule when separated.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 7. FUNCTION MACHINES ══════════ -->
+<div class="card to" id="s7">
+  <div class="card-head">
+    <div class="cnum">7</div>
+    <h2>Function Machines — All Directions</h2>
+  </div>
+  <div class="card-body">
+
+    <h3>Direction 1 — Forward: Input → Output</h3>
+
+    <div class="machine">
+      <div class="m-box m-in">Input x</div>
+      <div class="m-arr">→</div>
+      <div class="m-box m-op">× 3</div>
+      <div class="m-arr">→</div>
+      <div class="m-box m-op">− 1</div>
+      <div class="m-arr">→</div>
+      <div class="m-box m-out">Output y</div>
+    </div>
+
+    <div style="overflow-x:auto">
+    <table class="tbl">
+      <thead><tr><th>Input (x)</th><th>×3</th><th>−1</th><th>Output (y)</th></tr></thead>
+      <tbody>
+        <tr><td>2</td><td>6</td><td>—</td><td>5</td></tr>
+        <tr><td>4</td><td>12</td><td>—</td><td>11</td></tr>
+        <tr><td>6</td><td>18</td><td>—</td><td>17</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Rule: y = 3x − 1</p>
+
+    <hr>
+
+    <h3>Direction 2 — Reverse: Given Output, Find Input</h3>
+    <p>Work backwards through the machine. Use the <strong>inverse operation</strong> at each step: if forward is ×3, reverse is ÷3; if forward is −1, reverse is +1.</p>
+
+    <div class="machine m-rev">
+      <div class="m-box m-out">Output = 17</div>
+      <div class="m-arr">←</div>
+      <div class="m-box m-op">÷ 3</div>
+      <div class="m-arr">←</div>
+      <div class="m-box m-op">+ 1</div>
+      <div class="m-arr">←</div>
+      <div class="m-box m-in">Input = ?</div>
+    </div>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Worked Example: Machine is ×3 then −1. Output = 17. Find the input.</div>
+      <ol>
+        <li>Reverse the last step first: 17 + 1 = 18</li>
+        <li>Reverse the first step: 18 ÷ 3 = <span class="ans">6</span></li>
+      </ol>
+      <p>Check forward: 6 × 3 = 18, 18 − 1 = 17 ✓</p>
+    </div>
+
+    <div class="box warn">
+      <div class="bico">⚠️</div>
+      <div class="bbody">
+        <b>Common Mistake: Reversing in the Wrong Order</b>
+        Always reverse the <em>last</em> operation first, working backwards through the machine. Students who reverse operations in forward order get the wrong answer.
+      </div>
+    </div>
+
+    <hr>
+
+    <h3>Direction 3 — Find the Rule from a Table</h3>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ Derive the rule from this table:</div>
+      <div style="overflow-x:auto">
+      <table class="tbl">
+        <thead><tr><th>Input (x)</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead>
+        <tbody>
+          <tr><td>Output (y)</td><td>5</td><td>7</td><td>9</td><td>11</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <ol>
+        <li>Output differences: 7−5=2, 9−7=2 → constant = 2 → rule contains <strong>2x</strong>.</li>
+        <li>Test 2x: when x=1, 2×1=2. But output is 5. Gap = 5−2 = <strong>+3</strong>.</li>
+        <li>Rule: <span class="ans">y = 2x + 3</span></li>
+        <li>Verify: x=4 → 2(4)+3 = 11 ✓</li>
+      </ol>
+    </div>
+
+    <hr>
+
+    <h3>Direction 4 — Unknown Operation</h3>
+
+    <div class="eg">
+      <div class="eg-lbl">✏ "The machine turns 4 into 11 and 7 into 17. What is the rule?"</div>
+      <ol>
+        <li>Find the output difference: 17 − 11 = 6. Find the input difference: 7 − 4 = 3.</li>
+        <li>Output grows twice as fast → rule contains <strong>2x</strong>.</li>
+        <li>Test 2x at x=4: 2(4) = 8. But output is 11. Gap = 11 − 8 = <strong>+3</strong>.</li>
+        <li>Rule: <span class="ans">y = 2x + 3</span></li>
+        <li>Verify: x=7 → 2(7)+3 = 17 ✓</li>
+      </ol>
+    </div>
+
+    <div class="box trap">
+      <div class="bico">🎯</div>
+      <div class="bbody">
+        <b>Exam Trap: The Multiplier First</b>
+        Always find the multiplier (coefficient of x) before the constant. Output difference ÷ input difference = multiplier. Then test to find what to add or subtract.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 8. DIAGNOSTIC STRATEGY ══════════ -->
+<div class="card tg" id="s8">
+  <div class="card-head">
+    <div class="cnum">8</div>
+    <h2>Diagnostic Strategy — Identify Any Sequence</h2>
+  </div>
+  <div class="card-body">
+
+    <p>When you encounter an unknown sequence in the exam, run through this decision tree in order:</p>
+
+    <div class="diag">
+      <div class="diag-cell" style="border-color:#bfdbfe">
+        <div class="dc-head" style="color:var(--blue)">Step 1 — Find 1st differences</div>
+        Subtract consecutive terms. Are they constant?<br>
+        <strong>YES →</strong> Linear sequence. Find nth term = dn + c.
+      </div>
+      <div class="diag-cell" style="border-color:#c4b5fd">
+        <div class="dc-head" style="color:var(--purple)">Step 2 — Find 2nd differences</div>
+        If 1st differences aren't constant, find differences of differences.<br>
+        <strong>= 2 →</strong> Square-based (n²). <strong>= 6 →</strong> Cube-based (n³).
+      </div>
+      <div class="diag-cell" style="border-color:#99f6e4">
+        <div class="dc-head" style="color:var(--teal)">Step 3 — Check ratio</div>
+        Is each term the same multiple of the previous one?<br>
+        <strong>YES →</strong> Geometric. Find r = term₂ ÷ term₁.
+      </div>
+      <div class="diag-cell" style="border-color:#bbf7d0">
+        <div class="dc-head" style="color:var(--green)">Step 4 — Check previous two</div>
+        Does each term equal the sum of the two before it?<br>
+        <strong>YES →</strong> Fibonacci-type. Extend term by term.
+      </div>
+      <div class="diag-cell" style="border-color:#fecdd3">
+        <div class="dc-head" style="color:var(--rose)">Step 5 — Odd/even split</div>
+        No single rule working? Split into positions 1,3,5… and 2,4,6…<br>
+        <strong>→</strong> Alternating/interwoven sequence.
+      </div>
+      <div class="diag-cell" style="border-color:#fde68a">
+        <div class="dc-head" style="color:var(--amber)">Step 6 — Two-operation</div>
+        Try: is there a ×then+ or ×then− pattern?<br>
+        Test on first three terms. If consistent: two-operation rule found.
+      </div>
+    </div>
+
+    <div class="box key">
+      <div class="bico">🗺️</div>
+      <div class="bbody">
+        <b>Summary in One Line per Type</b>
+        <ul style="margin-top:5px;padding-left:18px">
+          <li><strong>Constant 1st diff</strong> → Linear (dn + c)</li>
+          <li><strong>2nd diff = 2</strong> → n²-based; <strong>2nd diff = 4</strong> → 2n²-based</li>
+          <li><strong>Constant ratio</strong> → Geometric</li>
+          <li><strong>Each = sum of previous two</strong> → Fibonacci</li>
+          <li><strong>Two interleaved rules</strong> → Split odd/even positions</li>
+          <li><strong>1st diff increases by 1</strong> → Triangular n(n+1)/2</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ 9. GRADED PRACTICE ══════════ -->
+<div class="card tg" id="s9">
+  <div class="card-head">
+    <div class="cnum">9</div>
+    <h2>Graded Practice Questions</h2>
+  </div>
+  <div class="card-body">
+
+    <p>Work independently before checking answers. Difficulty rises from Q1 to Q8.</p>
+
+    <!-- Q1 -->
+    <div class="pq easy">
+      <div class="pq-top">
+        <div class="pqn">1</div>
+        <div class="pq-txt">Find the nth term of the sequence: <strong>7, 12, 17, 22, 27…</strong></div>
+        <div class="pq-badge">Easy · Linear nth term</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <ol>
+            <li>d = 12 − 7 = <strong>5</strong></li>
+            <li>0th term = 7 − 5 = <strong>2</strong></li>
+            <li>nth term = <span class="ans">5n + 2</span></li>
+            <li>Verify: n=1 → 7 ✓, n=2 → 12 ✓, n=3 → 17 ✓</li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q2 -->
+    <div class="pq easy">
+      <div class="pq-top">
+        <div class="pqn">2</div>
+        <div class="pq-txt">Find the nth term of the sequence: <strong>30, 25, 20, 15, 10…</strong></div>
+        <div class="pq-badge">Easy · Decreasing nth term</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <ol>
+            <li>d = 25 − 30 = <strong>−5</strong> (negative — sequence decreasing)</li>
+            <li>0th term = 30 − (−5) = 30 + 5 = <strong>35</strong></li>
+            <li>nth term = <span class="ans">−5n + 35</span></li>
+            <li>Verify: n=1 → 30 ✓, n=2 → 25 ✓, n=6 → −30+35 = 5 ✓</li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q3 -->
+    <div class="pq easy">
+      <div class="pq-top">
+        <div class="pqn">3</div>
+        <div class="pq-txt">The nth term of a sequence is <strong>4n − 1</strong>. Which term of the sequence has the value <strong>63</strong>? Does the value <strong>50</strong> appear in this sequence?</div>
+        <div class="pq-badge">Easy · Reverse nth term</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <p><strong>Part 1:</strong> 4n − 1 = 63 → 4n = 64 → n = <span class="ans">16</span>. The 16th term = 63.</p>
+          <p><strong>Part 2:</strong> 4n − 1 = 50 → 4n = 51 → n = 12.75.</p>
+          <p>12.75 is not a whole number, so <span class="ans">50 does not appear</span> in this sequence.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q4 -->
+    <div class="pq med">
+      <div class="pq-top">
+        <div class="pqn">4</div>
+        <div class="pq-txt">For the sequence <strong>2, 8, 18, 32, 50…</strong>: (a) What type of sequence is it? (b) Write the nth term formula. (c) Find the 12th term.</div>
+        <div class="pq-badge">Medium · Non-linear</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <p><strong>1st differences:</strong> 6, 10, 14, 18 (increasing — not linear)</p>
+          <p><strong>2nd differences:</strong> 4, 4, 4 → constant = 4 → <strong>square-based</strong></p>
+          <p>Coefficient of n² = 4 ÷ 2 = <strong>2</strong>. Try 2n²: 2, 8, 18, 32, 50. This matches exactly!</p>
+          <p>(a) <span class="ans">Modified square sequence</span></p>
+          <p>(b) <span class="ans">nth term = 2n²</span></p>
+          <p>(c) T(12) = 2 × 144 = <span class="ans">288</span></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q5 -->
+    <div class="pq med">
+      <div class="pq-top">
+        <div class="pqn">5</div>
+        <div class="pq-txt">Find the 7th term of the geometric sequence: <strong>5, 15, 45, 135…</strong></div>
+        <div class="pq-badge">Medium · Geometric</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <p>r = 15 ÷ 5 = <strong>3</strong></p>
+          <p>Build the table:</p>
+          <p>5 → 15 → 45 → 135 → 405 → 1215 → <span class="ans">3645</span></p>
+          <p>The 7th term = <span class="ans">3645</span>.</p>
+          <p>(Using formula: 5 × 3⁶ = 5 × 729 = 3645 ✓)</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q6 -->
+    <div class="pq med">
+      <div class="pq-top">
+        <div class="pqn">6</div>
+        <div class="pq-txt">Using the formula for triangular numbers, find T(15). Why is it impossible to answer this question by listing?</div>
+        <div class="pq-badge">Medium · Triangular formula</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <p>T(n) = n(n+1) ÷ 2</p>
+          <p>T(15) = 15 × 16 ÷ 2 = 240 ÷ 2 = <span class="ans">120</span></p>
+          <p>Listing would require writing all 15 triangular numbers one by one — slow and error-prone under exam conditions. The formula gives the answer in two steps.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q7 -->
+    <div class="pq med">
+      <div class="pq-top">
+        <div class="pqn">7</div>
+        <div class="pq-txt">A two-step function machine applies <strong>×4 then +2</strong>. An output of <strong>26</strong> is produced. What was the input? Show the reverse working clearly.</div>
+        <div class="pq-badge">Medium · Reverse function machine</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <p>Reverse the last operation first:</p>
+          <ol>
+            <li>Output = 26. Reverse "+2": 26 − 2 = <strong>24</strong></li>
+            <li>Reverse "×4": 24 ÷ 4 = <span class="ans">6</span></li>
+          </ol>
+          <p>Input = <span class="ans">6</span>.</p>
+          <p>Check forward: 6 × 4 = 24, 24 + 2 = 26 ✓</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q8 -->
+    <div class="pq hard">
+      <div class="pq-top">
+        <div class="pqn">8</div>
+        <div class="pq-txt">
+          Consider the sequence: <strong>3, 7, 13, 21, 31…</strong><br>
+          (a) Identify the sequence type using differences.<br>
+          (b) Write the nth term formula.<br>
+          (c) Which is the first term of this sequence to exceed 150?
+        </div>
+        <div class="pq-badge">Hard · Multi-step GL-style</div>
+      </div>
+      <details><summary>Show Answer</summary>
+        <div class="abody">
+          <p><strong>(a) Identify the type:</strong></p>
+          <p>1st differences: 4, 6, 8, 10 — increasing, not constant.</p>
+          <p>2nd differences: 2, 2, 2 → constant = 2 → <strong>square-based sequence</strong>.</p>
+
+          <p style="margin-top:8px"><strong>(b) Find the nth term:</strong></p>
+          <p>Coefficient of n² = 2 ÷ 2 = 1. Try n²: 1, 4, 9, 16, 25. Compare: our sequence is 3, 7, 13, 21, 31.</p>
+          <p>Differences from n²: 3−1=2, 7−4=3, 13−9=4, 21−16=5, 31−25=6. These differences are n+1.</p>
+          <p>So nth term = n² + (n+1) = n² + n + 1.</p>
+          <p>Verify: n=1 → 1+1+1=3 ✓, n=3 → 9+3+1=13 ✓, n=5 → 25+5+1=31 ✓</p>
+          <p><span class="ans">nth term = n² + n + 1</span></p>
+
+          <p style="margin-top:8px"><strong>(c) First term exceeding 150:</strong></p>
+          <p>Set n² + n + 1 > 150 → n² + n > 149.</p>
+          <p>Test values: n=12 → 144+12+1=157 > 150. n=11 → 121+11+1=133 ≤ 150.</p>
+          <p>The <span class="ans">12th term (value 157)</span> is the first term to exceed 150.</p>
+        </div>
+      </details>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<div style="text-align:center;padding:18px 0 8px;color:var(--s500);font-size:13px">
+  <strong style="color:var(--navy)">TrueMaths</strong> · 11+ GL Assessment Module · Number Sequences &amp; Patterns<br>
+  <span style="font-size:12px">Targeting Queen Elizabeth's School, Barnet and similar selective grammar schools</span>
+</div>
+
+</div><!-- /wrap -->
+</body>
+</html>

@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Number Machines — 11+ GL Assessment Complete Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --ink2: #3d3d5c;
+    --ink3: #7a7a9a;
+    --page: #f8f7f2;
+    --cream: #f0ede4;
+    --card: #ffffff;
+    --blue: #2563a8;
+    --blue-light: #dbeafe;
+    --blue-mid: #93c5fd;
+    --teal: #0f766e;
+    --teal-light: #ccfbf1;
+    --amber: #b45309;
+    --amber-light: #fef3c7;
+    --red: #991b1b;
+    --red-light: #fee2e2;
+    --green: #166534;
+    --green-light: #dcfce7;
+    --purple: #6d28d9;
+    --purple-light: #ede9fe;
+    --border: #e2ddd4;
+    --shadow: 0 2px 12px rgba(26,26,46,0.08);
+    --shadow-lg: 0 8px 32px rgba(26,26,46,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--page);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--ink);
+    color: #fff;
+    padding: 48px 32px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent, transparent 32px,
+      rgba(255,255,255,0.025) 32px, rgba(255,255,255,0.025) 33px
+    );
+  }
+  .header-inner { max-width: 860px; margin: 0 auto; position: relative; }
+  .header-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-mid);
+    background: rgba(147,197,253,0.12);
+    border: 1px solid rgba(147,197,253,0.25);
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .site-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 5vw, 46px);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    color: #fff;
+  }
+  .site-header h1 em { font-style: italic; color: #93c5fd; }
+  .header-sub {
+    color: rgba(255,255,255,0.6);
+    font-size: 14px;
+    max-width: 520px;
+  }
+  .toc-strip {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 28px;
+  }
+  .toc-strip a {
+    font-size: 12px; font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 5px 11px;
+    border-radius: 20px;
+    transition: all 0.2s;
+  }
+  .toc-strip a:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+  /* ── LAYOUT ── */
+  main { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex; align-items: flex-start; gap: 16px;
+    margin: 56px 0 28px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--card);
+    background: var(--ink);
+    padding: 4px 9px;
+    border-radius: 4px;
+    margin-top: 5px;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+  .section-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .section-header h2 span { color: var(--blue); }
+
+  /* ── CONCEPT BOX ── */
+  .concept {
+    background: var(--cream);
+    border-left: 4px solid var(--ink);
+    border-radius: 0 8px 8px 0;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    font-size: 14.5px;
+  }
+  .concept strong { color: var(--ink); }
+
+  /* ── MACHINE DIAGRAM ── */
+  .machine-diagram {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  .machine-input, .machine-output {
+    font-family: 'DM Mono', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 20px;
+    min-width: 70px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .machine-input { border-color: var(--blue); color: var(--blue); }
+  .machine-output { border-color: var(--teal); color: var(--teal); }
+  .machine-input.unknown, .machine-output.unknown {
+    border-color: var(--amber); color: var(--amber);
+    background: var(--amber-light);
+  }
+  .arrow-pipe {
+    display: flex; align-items: center; flex: 1; min-width: 20px;
+  }
+  .arrow-pipe::before, .arrow-pipe::after {
+    content: '';
+    height: 3px;
+    background: var(--ink3);
+    flex: 1;
+  }
+  .arrow-pipe::after {
+    content: '';
+    width: 0; height: 0;
+    border-left: 10px solid var(--ink3);
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    background: none;
+    flex: none;
+  }
+  .machine-box {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    min-width: 80px;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .machine-box.blue { background: var(--blue); }
+  .machine-box.teal { background: var(--teal); }
+  .machine-box.amber { background: var(--amber); }
+  .machine-box.red { background: var(--red); }
+  .machine-box.purple { background: var(--purple); }
+  .machine-box-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .machine-label { font-size: 11px; color: var(--ink3); text-align: center; margin-top: 4px; }
+
+  /* ── WORKED EXAMPLE ── */
+  .worked-example {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .we-header {
+    background: var(--ink);
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .we-header .we-num {
+    font-family: 'DM Mono', monospace;
+    background: rgba(255,255,255,0.15);
+    border-radius: 3px;
+    padding: 1px 7px;
+    font-size: 11px;
+  }
+  .we-body { padding: 20px 22px; }
+  .we-question {
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .we-steps { display: flex; flex-direction: column; gap: 10px; }
+  .step {
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 24px; height: 24px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--ink2);
+  }
+  .step-content { font-size: 14.5px; color: var(--ink); line-height: 1.6; }
+  .step-content .calc {
+    font-family: 'DM Mono', monospace;
+    font-size: 13.5px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    display: inline-block;
+    margin: 3px 0;
+  }
+  .answer-tag {
+    display: inline-block;
+    background: var(--green-light);
+    color: var(--green);
+    border: 1px solid #86efac;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 3px 10px;
+    margin-top: 8px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── STRATEGY BOX ── */
+  .strategy {
+    background: var(--purple-light);
+    border: 1px solid #c4b5fd;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 18px 0 24px;
+  }
+  .strategy-title {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .strategy ol, .strategy ul { padding-left: 20px; }
+  .strategy li { font-size: 14px; margin-bottom: 5px; color: #4c1d95; }
+
+  /* ── TABLE FORMAT ── */
+  .value-table {
+    width: 100%; border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14.5px;
+  }
+  .value-table th {
+    background: var(--ink);
+    color: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 10px 16px;
+    text-align: left;
+  }
+  .value-table td {
+    padding: 9px 16px;
+    border-bottom: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+  }
+  .value-table tr:nth-child(even) td { background: var(--cream); }
+  .value-table td.unknown {
+    color: var(--amber);
+    font-weight: 600;
+    background: var(--amber-light) !important;
+  }
+
+  /* ── PRACTICE SET ── */
+  .practice-set {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin: 28px 0;
+  }
+  .practice-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .practice-title::before {
+    content: '✏';
+    font-size: 14px;
+  }
+  .practice-q {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    font-size: 14.5px;
+  }
+  .practice-q .q-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--blue);
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .inline-machine {
+    display: inline-flex; align-items: center; gap: 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 13.5px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 6px 0 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .im-in { padding: 5px 10px; color: var(--blue); font-weight: 600; background: var(--blue-light); }
+  .im-box { padding: 5px 10px; color: #fff; background: var(--ink); }
+  .im-box.b2 { background: var(--teal); }
+  .im-box.b3 { background: var(--purple); }
+  .im-sep { width: 1px; background: rgba(255,255,255,0.2); height: 100%; display: inline-block; }
+  .im-out { padding: 5px 10px; color: var(--teal); font-weight: 600; background: var(--teal-light); }
+  .im-out.unknown { color: var(--amber); background: var(--amber-light); }
+  .im-arrow { padding: 0 6px; color: var(--ink3); font-size: 12px; }
+
+  /* ── EXAM TIPS ── */
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    display: flex; gap: 14px;
+    box-shadow: var(--shadow);
+  }
+  .tip-icon {
+    font-size: 20px; flex-shrink: 0; margin-top: 1px;
+  }
+  .tip-content strong {
+    display: block; font-size: 14px; font-weight: 700; color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .tip-content p { font-size: 13.5px; color: var(--ink2); line-height: 1.6; }
+
+  /* ── ANSWERS SECTION ── */
+  details {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  summary {
+    background: var(--ink);
+    color: #fff;
+    padding: 14px 20px;
+    cursor: pointer;
+    font-size: 14px; font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+    list-style: none;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { background: #2d2d4a; }
+  summary::after { content: '▼'; margin-left: auto; font-size: 11px; opacity: 0.6; }
+  details[open] summary::after { content: '▲'; }
+  .answers-body {
+    padding: 18px 22px;
+    background: var(--card);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .ans-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 14px; padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .ans-item:last-child { border-bottom: none; }
+  .ans-q { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--ink3); min-width: 32px; }
+  .ans-a { color: var(--green); font-weight: 700; font-family: 'DM Mono', monospace; min-width: 48px; }
+  .ans-exp { color: var(--ink2); font-size: 13px; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 14px;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .callout.warn { background: var(--amber-light); border-left: 4px solid var(--amber); }
+  .callout.info { background: var(--blue-light); border-left: 4px solid var(--blue); }
+  .callout.success { background: var(--green-light); border-left: 4px solid var(--green); }
+  .callout-icon { font-size: 17px; margin-top: 1px; }
+  .callout p { color: var(--ink); }
+
+  /* ── DIVIDER ── */
+  hr.section-div {
+    border: none;
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .machine-diagram { gap: 4px; }
+    .machine-input, .machine-output { font-size: 18px; padding: 10px 14px; min-width: 56px; }
+    .machine-box { font-size: 14px; padding: 8px 12px; }
+    .site-header { padding: 32px 20px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-tag">11+ GL Assessment · Complete Study Guide</div>
+    <h1>Number <em>Machines</em></h1>
+    <p class="header-sub">A comprehensive, examiner-proof guide covering every question type — from single-step machines to three-step chains, missing rules, tables of values, and machines in series.</p>
+    <nav class="toc-strip">
+      <a href="#s1">1 · One-Step</a>
+      <a href="#s2">2 · Two-Step</a>
+      <a href="#s3">3 · Missing Rules</a>
+      <a href="#s4">4 · Tables of Values</a>
+      <a href="#s5">5 · Machines in Series</a>
+      <a href="#s6">6 · Three-Step</a>
+      <a href="#s7">7 · Finding Rules</a>
+      <a href="#s8">8 · Exam Tips</a>
+      <a href="#s9">9 · Answers</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ══════════════ INTRO ══════════════ -->
+<div class="concept" style="margin-top:0; background: var(--blue-light); border-left-color: var(--blue);">
+  <strong>What is a Number Machine?</strong> A number machine (or function machine) takes an <em>input</em> number, applies one or more mathematical rules, and produces an <em>output</em> number. Think of it like a food processor: bread goes in, toasting happens inside, toast comes out. Your job is either to find the output, find the input, or find the hidden rule.
+</div>
+
+<!-- ══════════════ SECTION 1: ONE-STEP ══════════════ -->
+<div class="section-header" id="s1">
+  <span class="section-num">01</span>
+  <h2>One-Step Machines — <span>Forward & Inverse</span></h2>
+</div>
+
+<div class="concept">
+  <strong>Forward working</strong> means you know the input and the rule — find the output.<br>
+  <strong>Inverse (backward) working</strong> means you know the output and the rule — find the input. To go backwards, use the <em>opposite operation</em>:
+  <ul style="margin: 10px 0 0 20px; font-size: 14px;">
+    <li>+ ↔ −</li>
+    <li>× ↔ ÷</li>
+  </ul>
+</div>
+
+<!-- ── WE 1.1 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 1</span> Addition — Forward Working</div>
+  <div class="we-body">
+    <div class="we-question">Input: 13 · Rule: +7 · Find the output.</div>
+    <div class="machine-diagram">
+      <div class="machine-input">13</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box blue">+7</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">?</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Apply the rule: <span class="calc">13 + 7 = 20</span></div></div>
+    </div>
+    <div class="answer-tag">Output = 20</div>
+  </div>
+</div>
+
+<!-- ── WE 1.2 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 2</span> Subtraction — Inverse Working</div>
+  <div class="we-body">
+    <div class="we-question">Rule: −8 · Output: 5 · Find the input.</div>
+    <div class="machine-diagram">
+      <div class="machine-input unknown">?</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box red">−8</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">5</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">The rule is subtract 8. The inverse of subtract is <strong>add</strong>.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Reverse the rule: <span class="calc">5 + 8 = 13</span></div></div>
+    </div>
+    <div class="answer-tag">Input = 13</div>
+    <div class="callout info" style="margin-top:12px;">
+      <span class="callout-icon">✓</span>
+      <p><strong>Check:</strong> 13 − 8 = 5 ✓</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── WE 1.3 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 3</span> Multiplication — Inverse (with decimal)</div>
+  <div class="we-body">
+    <div class="we-question">Rule: ×4 · Output: 14 · Find the input.</div>
+    <div class="machine-diagram">
+      <div class="machine-input unknown">?</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box amber">×4</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">14</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">The inverse of ×4 is <strong>÷4</strong>.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Reverse: <span class="calc">14 ÷ 4 = 3.5</span></div></div>
+    </div>
+    <div class="answer-tag">Input = 3.5</div>
+    <div class="callout info" style="margin-top:12px;">
+      <span class="callout-icon">✓</span><p>Check: 3.5 × 4 = 14 ✓ — decimal inputs are perfectly valid in 11+ papers.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── WE 1.4 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 4</span> Division — Inverse (with negative number)</div>
+  <div class="we-body">
+    <div class="we-question">Rule: ÷3 · Output: −4 · Find the input.</div>
+    <div class="machine-diagram">
+      <div class="machine-input unknown">?</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box teal">÷3</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">−4</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">The inverse of ÷3 is <strong>×3</strong>.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Reverse: <span class="calc">−4 × 3 = −12</span></div></div>
+    </div>
+    <div class="answer-tag">Input = −12</div>
+  </div>
+</div>
+
+<div class="practice-set">
+  <div class="practice-title">Practice — Section 1</div>
+  <div class="practice-q">
+    <div class="q-num">Q1.1</div>
+    <div class="inline-machine"><span class="im-in">9</span><span class="im-arrow">→</span><span class="im-box">×6</span><span class="im-arrow">→</span><span class="im-out unknown">?</span></div><br>Find the output.
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q1.2</div>
+    <div class="inline-machine"><span class="im-in unknown">?</span><span class="im-arrow">→</span><span class="im-box">+14</span><span class="im-arrow">→</span><span class="im-out">31</span></div><br>Find the input.
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q1.3</div>
+    <div class="inline-machine"><span class="im-in unknown">?</span><span class="im-arrow">→</span><span class="im-box">−9</span><span class="im-arrow">→</span><span class="im-out">−3</span></div><br>Find the input. (Note the negative output.)
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q1.4</div>
+    <div class="inline-machine"><span class="im-in">2.5</span><span class="im-arrow">→</span><span class="im-box">×8</span><span class="im-arrow">→</span><span class="im-out unknown">?</span></div><br>Find the output.
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 2: TWO-STEP ══════════════ -->
+<div class="section-header" id="s2">
+  <span class="section-num">02</span>
+  <h2>Two-Step Machines — <span>Forward & Inverse</span></h2>
+</div>
+
+<div class="concept">
+  <strong>Forward:</strong> Apply Step 1, then use that result as the input for Step 2.<br>
+  <strong>Inverse:</strong> Two critical rules — <em>(1) reverse the ORDER of the steps</em>, and <em>(2) use the OPPOSITE operation</em> for each step.
+</div>
+
+<!-- ── WE 2.1 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 1</span> Two-Step — Forward Working</div>
+  <div class="we-body">
+    <div class="we-question">Input: 7 · Rules: ×2 then +5 · Find the output.</div>
+    <div class="machine-diagram">
+      <div class="machine-input">7</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box blue">×2</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box teal">+5</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">?</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Step 1: <span class="calc">7 × 2 = 14</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Step 2: <span class="calc">14 + 5 = 19</span></div></div>
+    </div>
+    <div class="answer-tag">Output = 19</div>
+  </div>
+</div>
+
+<!-- ── WE 2.2 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 2</span> Two-Step — Inverse Working</div>
+  <div class="we-body">
+    <div class="we-question">Rules: ×4 then −3 · Output: 17 · Find the input.</div>
+    <div class="machine-diagram">
+      <div class="machine-input unknown">?</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box blue">×4</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box red">−3</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">17</div>
+    </div>
+    <div class="callout warn" style="margin-bottom:14px;">
+      <span class="callout-icon">⚠</span>
+      <p><strong>Critical rule:</strong> When going backwards, reverse the ORDER first, then use the OPPOSITE operation.</p>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Start with the output: <strong>17</strong>. The last step was −3, so reverse it with +3: <span class="calc">17 + 3 = 20</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">The first step was ×4, so reverse it with ÷4: <span class="calc">20 ÷ 4 = 5</span></div></div>
+    </div>
+    <div class="answer-tag">Input = 5</div>
+    <div class="callout info" style="margin-top:12px;"><span class="callout-icon">✓</span><p>Check: 5 × 4 = 20; 20 − 3 = 17 ✓</p></div>
+  </div>
+</div>
+
+<!-- ── WE 2.3 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 3</span> Two-Step Inverse — Fraction mid-step</div>
+  <div class="we-body">
+    <div class="we-question">Rules: ÷2 then +6 · Output: 9 · Find the input.</div>
+    <div class="machine-diagram">
+      <div class="machine-input unknown">?</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box amber">÷2</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box teal">+6</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">9</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Reverse the last step (+6 → −6): <span class="calc">9 − 6 = 3</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Reverse the first step (÷2 → ×2): <span class="calc">3 × 2 = 6</span></div></div>
+    </div>
+    <div class="answer-tag">Input = 6</div>
+  </div>
+</div>
+
+<!-- ── WE 2.4 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 4</span> Two-Step Inverse — Decimal result mid-step</div>
+  <div class="we-body">
+    <div class="we-question">Rules: ×3 then −1 · Output: 11 · Find the input.</div>
+    <div class="machine-diagram">
+      <div class="machine-input unknown">?</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box purple">×3</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box red">−1</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">11</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Reverse −1 with +1: <span class="calc">11 + 1 = 12</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Reverse ×3 with ÷3: <span class="calc">12 ÷ 3 = 4</span></div></div>
+    </div>
+    <div class="answer-tag">Input = 4</div>
+  </div>
+</div>
+
+<!-- ── WE 2.5 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 5</span> Two-Step Inverse — Awkward division giving decimal</div>
+  <div class="we-body">
+    <div class="we-question">Rules: ×6 then +4 · Output: 19 · Find the input.</div>
+    <div class="machine-diagram">
+      <div class="machine-input unknown">?</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box blue">×6</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box teal">+4</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">19</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Reverse +4 with −4: <span class="calc">19 − 4 = 15</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Reverse ×6 with ÷6: <span class="calc">15 ÷ 6 = 2.5</span></div></div>
+    </div>
+    <div class="answer-tag">Input = 2.5</div>
+    <div class="callout info" style="margin-top:12px;"><span class="callout-icon">ℹ</span><p>A decimal or fraction mid-calculation is perfectly fine. Don't panic — carry it through and check at the end.</p></div>
+  </div>
+</div>
+
+<div class="practice-set">
+  <div class="practice-title">Practice — Section 2</div>
+  <div class="practice-q">
+    <div class="q-num">Q2.1</div>
+    <div class="inline-machine"><span class="im-in">6</span><span class="im-arrow">→</span><span class="im-box">×5</span><span class="im-arrow">→</span><span class="im-box b2">−3</span><span class="im-arrow">→</span><span class="im-out unknown">?</span></div><br>Find the output.
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q2.2</div>
+    <div class="inline-machine"><span class="im-in unknown">?</span><span class="im-arrow">→</span><span class="im-box">×3</span><span class="im-arrow">→</span><span class="im-box b2">+8</span><span class="im-arrow">→</span><span class="im-out">35</span></div><br>Find the input.
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q2.3</div>
+    <div class="inline-machine"><span class="im-in unknown">?</span><span class="im-arrow">→</span><span class="im-box">÷4</span><span class="im-arrow">→</span><span class="im-box b2">−2</span><span class="im-arrow">→</span><span class="im-out">1.5</span></div><br>Find the input (note the decimal output).
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q2.4</div>
+    <div class="inline-machine"><span class="im-in unknown">?</span><span class="im-arrow">→</span><span class="im-box">×5</span><span class="im-arrow">→</span><span class="im-box b2">+3</span><span class="im-arrow">→</span><span class="im-out">13</span></div><br>Find the input.
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 3: MISSING RULES ══════════════ -->
+<div class="section-header" id="s3">
+  <span class="section-num">03</span>
+  <h2>Missing Rule <span>Problems</span></h2>
+</div>
+
+<div class="concept">
+  You are given the input and output but one or both <em>rules are hidden</em>. Your job is to find the missing operation.
+</div>
+
+<div class="strategy">
+  <div class="strategy-title">🎯 Strategy for finding a missing rule</div>
+  <ol>
+    <li>Write down what you know: input, output, and any visible rules.</li>
+    <li>If one step is missing, work out what the intermediate value must be (apply the known rule to the input, or reverse a known rule from the output).</li>
+    <li>Now ask: what single operation turns the intermediate value into the target? Check all four: +, −, ×, ÷.</li>
+    <li>Verify by running the input all the way through.</li>
+  </ol>
+</div>
+
+<!-- ── WE 3.1 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 1</span> One-Step: Find the rule</div>
+  <div class="we-body">
+    <div class="we-question">Input: 12 · Output: 4 · What is the rule?</div>
+    <div class="machine-diagram">
+      <div class="machine-input">12</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box amber">?</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">4</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Test ÷: <span class="calc">12 ÷ 3 = 4</span> ✓ — the rule is ÷3.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Could it be −? <span class="calc">12 − 8 = 4</span> — technically yes. To confirm which, a second input/output pair would be needed. If only one pair is given, the simplest whole-number rule is expected.</div></div>
+    </div>
+    <div class="answer-tag">Rule = ÷3</div>
+  </div>
+</div>
+
+<!-- ── WE 3.2 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 2</span> Two-Step: Missing second rule</div>
+  <div class="we-body">
+    <div class="we-question">Input: 5 · First rule: ×4 · Output: 23 · Find the second rule.</div>
+    <div class="machine-diagram">
+      <div class="machine-input">5</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box blue">×4</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box amber">?</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">23</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Apply the known first rule: <span class="calc">5 × 4 = 20</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">The second rule must turn 20 into 23. Ask: <span class="calc">23 − 20 = 3</span>, so the rule is <strong>+3</strong>.</div></div>
+    </div>
+    <div class="answer-tag">Second rule = +3</div>
+    <div class="callout info" style="margin-top:12px;"><span class="callout-icon">✓</span><p>Check: 5 × 4 = 20; 20 + 3 = 23 ✓</p></div>
+  </div>
+</div>
+
+<!-- ── WE 3.3 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 3</span> Two-Step: Missing first rule</div>
+  <div class="we-body">
+    <div class="we-question">Input: 8 · Second rule: −5 · Output: 11 · Find the first rule.</div>
+    <div class="machine-diagram">
+      <div class="machine-input">8</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box amber">?</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box red">−5</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">11</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Work backwards from the output. Reverse −5 with +5: <span class="calc">11 + 5 = 16</span>. So the intermediate value (after the first rule) must be 16.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">The first rule turns 8 into 16. Ask: <span class="calc">16 ÷ 8 = 2</span>, so the rule is <strong>×2</strong>.</div></div>
+    </div>
+    <div class="answer-tag">First rule = ×2</div>
+    <div class="callout info" style="margin-top:12px;"><span class="callout-icon">✓</span><p>Check: 8 × 2 = 16; 16 − 5 = 11 ✓</p></div>
+  </div>
+</div>
+
+<!-- ── WE 3.4 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 4</span> Two-Step: Missing first rule (decimal input)</div>
+  <div class="we-body">
+    <div class="we-question">Input: 3.5 · Second rule: ×2 · Output: 15 · Find the first rule.</div>
+    <div class="machine-diagram">
+      <div class="machine-input">3.5</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box amber">?</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box teal">×2</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">15</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Reverse the second rule. ×2 → ÷2: <span class="calc">15 ÷ 2 = 7.5</span>. Intermediate = 7.5.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">First rule turns 3.5 into 7.5. <span class="calc">7.5 − 3.5 = 4</span>, so rule is <strong>+4</strong>.</div></div>
+    </div>
+    <div class="answer-tag">First rule = +4</div>
+    <div class="callout info" style="margin-top:12px;"><span class="callout-icon">✓</span><p>Check: 3.5 + 4 = 7.5; 7.5 × 2 = 15 ✓</p></div>
+  </div>
+</div>
+
+<div class="practice-set">
+  <div class="practice-title">Practice — Section 3</div>
+  <div class="practice-q">
+    <div class="q-num">Q3.1</div>
+    <div class="inline-machine"><span class="im-in">20</span><span class="im-arrow">→</span><span class="im-box" style="background:var(--amber)">?</span><span class="im-arrow">→</span><span class="im-out">5</span></div><br>Find the rule (one-step machine).
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q3.2</div>
+    <div class="inline-machine"><span class="im-in">4</span><span class="im-arrow">→</span><span class="im-box">×6</span><span class="im-arrow">→</span><span class="im-box b2" style="background:var(--amber)">?</span><span class="im-arrow">→</span><span class="im-out">30</span></div><br>Find the second rule.
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q3.3</div>
+    <div class="inline-machine"><span class="im-in">10</span><span class="im-arrow">→</span><span class="im-box" style="background:var(--amber)">?</span><span class="im-arrow">→</span><span class="im-box b2">+7</span><span class="im-arrow">→</span><span class="im-out">12</span></div><br>Find the first rule.
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q3.4</div>
+    <div class="inline-machine"><span class="im-in">−6</span><span class="im-arrow">→</span><span class="im-box" style="background:var(--amber)">?</span><span class="im-arrow">→</span><span class="im-out">18</span></div><br>Find the rule (one-step). Consider both + and × options.
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 4: TABLE OF VALUES ══════════════ -->
+<div class="section-header" id="s4">
+  <span class="section-num">04</span>
+  <h2>Tables of <span>Values</span></h2>
+</div>
+
+<div class="concept">
+  Instead of a single input/output pair, GL papers often give a <em>table</em> with several rows. The same rule applies to every row. Your job: find the rule, then predict the missing value. Use <strong>multiple rows</strong> to confirm your rule.
+</div>
+
+<!-- ── WE 4.1 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 1</span> One-step rule from a table</div>
+  <div class="we-body">
+    <div class="we-question">Find the rule and complete the table.</div>
+    <table class="value-table">
+      <tr><th>Input</th><th>Output</th></tr>
+      <tr><td>3</td><td>12</td></tr>
+      <tr><td>7</td><td>28</td></tr>
+      <tr><td>10</td><td>40</td></tr>
+      <tr><td>4.5</td><td class="unknown">?</td></tr>
+    </table>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Look at row 1: <span class="calc">12 ÷ 3 = 4</span>. Possible rule: ×4.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Check row 2: <span class="calc">7 × 4 = 28 ✓</span>. Check row 3: <span class="calc">10 × 4 = 40 ✓</span>. Rule confirmed.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Apply to row 4: <span class="calc">4.5 × 4 = 18</span>.</div></div>
+    </div>
+    <div class="answer-tag">Rule = ×4 · Missing value = 18</div>
+  </div>
+</div>
+
+<!-- ── WE 4.2 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 2</span> Two-step rule from a table</div>
+  <div class="we-body">
+    <div class="we-question">Find the two-step rule and complete the table.</div>
+    <table class="value-table">
+      <tr><th>Input</th><th>Output</th></tr>
+      <tr><td>2</td><td>9</td></tr>
+      <tr><td>5</td><td>21</td></tr>
+      <tr><td>8</td><td>33</td></tr>
+      <tr><td>−1</td><td class="unknown">?</td></tr>
+    </table>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Notice: outputs go up by 12 when inputs go up by 3. <span class="calc">12 ÷ 3 = 4</span>. The multiplier is <strong>×4</strong>.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">If the rule were just ×4: input 2 → 8, but the output is 9. So: <span class="calc">9 − 8 = 1</span>. The rule is <strong>×4, +1</strong>.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Verify row 2: <span class="calc">5 × 4 + 1 = 21 ✓</span>. Verify row 3: <span class="calc">8 × 4 + 1 = 33 ✓</span>.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content">Row 4: <span class="calc">(−1) × 4 + 1 = −4 + 1 = −3</span>.</div></div>
+    </div>
+    <div class="answer-tag">Rule = ×4 then +1 · Missing value = −3</div>
+  </div>
+</div>
+
+<!-- ── WE 4.3 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 3</span> Find input from a table</div>
+  <div class="we-body">
+    <div class="we-question">Rule: ÷2 then +3. Complete the table — one value is a missing input.</div>
+    <table class="value-table">
+      <tr><th>Input</th><th>Output</th></tr>
+      <tr><td>10</td><td>8</td></tr>
+      <tr><td>6</td><td>6</td></tr>
+      <tr><td class="unknown">?</td><td>10</td></tr>
+      <tr><td>−4</td><td>1</td></tr>
+    </table>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Verify with row 1: <span class="calc">10 ÷ 2 + 3 = 5 + 3 = 8 ✓</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">For row 3, output = 10. Work backwards: reverse +3 → −3: <span class="calc">10 − 3 = 7</span>. Reverse ÷2 → ×2: <span class="calc">7 × 2 = 14</span>.</div></div>
+    </div>
+    <div class="answer-tag">Missing input = 14</div>
+  </div>
+</div>
+
+<div class="practice-set">
+  <div class="practice-title">Practice — Section 4</div>
+  <div class="practice-q">
+    <div class="q-num">Q4.1</div>
+    Find the rule and complete the table:
+    <table class="value-table" style="margin-top:8px;">
+      <tr><th>Input</th><th>Output</th></tr>
+      <tr><td>8</td><td>5</td></tr>
+      <tr><td>15</td><td>12</td></tr>
+      <tr><td>11</td><td>8</td></tr>
+      <tr><td>6.5</td><td class="unknown">?</td></tr>
+    </table>
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q4.2</div>
+    Find the two-step rule and complete the table:
+    <table class="value-table" style="margin-top:8px;">
+      <tr><th>Input</th><th>Output</th></tr>
+      <tr><td>1</td><td>7</td></tr>
+      <tr><td>3</td><td>13</td></tr>
+      <tr><td>5</td><td>19</td></tr>
+      <tr><td class="unknown">?</td><td>25</td></tr>
+    </table>
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q4.3</div>
+    Rule is ×3 then −5. Fill in all missing values:
+    <table class="value-table" style="margin-top:8px;">
+      <tr><th>Input</th><th>Output</th></tr>
+      <tr><td>4</td><td class="unknown">?</td></tr>
+      <tr><td class="unknown">?</td><td>10</td></tr>
+      <tr><td>−2</td><td class="unknown">?</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 5: MACHINES IN SERIES ══════════════ -->
+<div class="section-header" id="s5">
+  <span class="section-num">05</span>
+  <h2>Two Machines <span>in Series</span></h2>
+</div>
+
+<div class="concept">
+  Two separate machines are connected: the <em>output of Machine A</em> becomes the <em>input of Machine B</em>. Each machine may itself have one or two steps. This is a common GL question type — don't confuse it with a single two-step machine.
+</div>
+
+<!-- ── WE 5.1 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 1</span> Two machines — find final output</div>
+  <div class="we-body">
+    <div class="we-question">Machine A: ×3 then +1. Machine B: ÷2 then −4. Input: 5. Find the final output.</div>
+    <div class="machine-diagram">
+      <div style="text-align:center;">
+        <div style="font-size:11px;color:var(--ink3);margin-bottom:4px;">Machine A</div>
+        <div style="display:flex;align-items:center;gap:0;">
+          <div class="machine-input">5</div>
+          <div class="arrow-pipe"></div>
+          <div class="machine-box blue">×3</div>
+          <div class="arrow-pipe"></div>
+          <div class="machine-box blue">+1</div>
+          <div class="arrow-pipe"></div>
+          <div style="font-family:'DM Mono',monospace;font-size:18px;font-weight:600;color:var(--blue);padding:0 6px;">16</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;padding:0 4px;color:var(--ink3);font-size:20px;">→</div>
+      <div style="text-align:center;">
+        <div style="font-size:11px;color:var(--ink3);margin-bottom:4px;">Machine B</div>
+        <div style="display:flex;align-items:center;gap:0;">
+          <div class="machine-box teal">÷2</div>
+          <div class="arrow-pipe"></div>
+          <div class="machine-box teal">−4</div>
+          <div class="arrow-pipe"></div>
+          <div class="machine-output">?</div>
+        </div>
+      </div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Machine A, Step 1:</strong> <span class="calc">5 × 3 = 15</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Machine A, Step 2:</strong> <span class="calc">15 + 1 = 16</span> — this is the output of A and input of B.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Machine B, Step 1:</strong> <span class="calc">16 ÷ 2 = 8</span></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Machine B, Step 2:</strong> <span class="calc">8 − 4 = 4</span></div></div>
+    </div>
+    <div class="answer-tag">Final output = 4</div>
+  </div>
+</div>
+
+<!-- ── WE 5.2 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 2</span> Two machines — find original input</div>
+  <div class="we-body">
+    <div class="we-question">Machine A: +6. Machine B: ×4 then −2. Final output: 22. Find the original input to Machine A.</div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Reverse Machine B</strong> (reverse order, inverse operations). Reverse −2 with +2: <span class="calc">22 + 2 = 24</span>.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Reverse ×4 with ÷4: <span class="calc">24 ÷ 4 = 6</span>. This is the output of Machine A (= input of Machine B).</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Reverse Machine A:</strong> Machine A added 6, so reverse with −6: <span class="calc">6 − 6 = 0</span>.</div></div>
+    </div>
+    <div class="answer-tag">Original input = 0</div>
+    <div class="callout info" style="margin-top:12px;"><span class="callout-icon">✓</span><p>Check: 0 + 6 = 6 (output of A). 6 × 4 = 24; 24 − 2 = 22 ✓</p></div>
+  </div>
+</div>
+
+<!-- ── WE 5.3 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 3</span> Two machines — find original input (negative result)</div>
+  <div class="we-body">
+    <div class="we-question">Machine A: ×2 then +10. Machine B: ÷4. Final output: 0.5. Find the original input.</div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Reverse Machine B:</strong> Reverse ÷4 with ×4: <span class="calc">0.5 × 4 = 2</span>. So output of A = 2.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Reverse Machine A:</strong> Reverse +10 with −10: <span class="calc">2 − 10 = −8</span>.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Reverse ×2 with ÷2: <span class="calc">−8 ÷ 2 = −4</span>.</div></div>
+    </div>
+    <div class="answer-tag">Original input = −4</div>
+    <div class="callout info" style="margin-top:12px;"><span class="callout-icon">✓</span><p>Check: −4 × 2 = −8; −8 + 10 = 2; 2 ÷ 4 = 0.5 ✓</p></div>
+  </div>
+</div>
+
+<div class="practice-set">
+  <div class="practice-title">Practice — Section 5</div>
+  <div class="practice-q">
+    <div class="q-num">Q5.1</div>
+    Machine A: ×5. Machine B: −7 then ×2. Input to A: 3. Find the final output.
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q5.2</div>
+    Machine A: +3 then ×4. Machine B: ÷2 then −1. Input to A: 5. Find the final output.
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q5.3</div>
+    Machine A: ×3 then +6. Machine B: ÷3. Final output: 7. Find the original input to Machine A.
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q5.4</div>
+    Machine A: −4. Machine B: ×5 then +2. Final output: 22. Find the original input to Machine A.
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 6: THREE-STEP ══════════════ -->
+<div class="section-header" id="s6">
+  <span class="section-num">06</span>
+  <h2>Three-Step <span>Machines</span></h2>
+</div>
+
+<div class="concept">
+  Three operations in sequence. For <strong>forward working</strong>, apply each rule left to right. For <strong>inverse working</strong>, start at the output and reverse all three steps in the <em>opposite order</em> (3rd → 2nd → 1st).
+</div>
+
+<!-- ── WE 6.1 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 1</span> Three-step — Forward Working</div>
+  <div class="we-body">
+    <div class="we-question">Input: 4 · Rules: ×3 → +2 → ÷7 · Find the output.</div>
+    <div class="machine-diagram">
+      <div class="machine-input">4</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box blue">×3</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box teal">+2</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box purple">÷7</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">?</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Step 1: <span class="calc">4 × 3 = 12</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Step 2: <span class="calc">12 + 2 = 14</span></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Step 3: <span class="calc">14 ÷ 7 = 2</span></div></div>
+    </div>
+    <div class="answer-tag">Output = 2</div>
+  </div>
+</div>
+
+<!-- ── WE 6.2 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 2</span> Three-step — Inverse Working</div>
+  <div class="we-body">
+    <div class="we-question">Rules: ×2 → −5 → ÷3 · Output: 5 · Find the input.</div>
+    <div class="machine-diagram">
+      <div class="machine-input unknown">?</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box blue">×2</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box red">−5</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box amber">÷3</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">5</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Reverse Step 3 (÷3 → ×3): <span class="calc">5 × 3 = 15</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Reverse Step 2 (−5 → +5): <span class="calc">15 + 5 = 20</span></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Reverse Step 1 (×2 → ÷2): <span class="calc">20 ÷ 2 = 10</span></div></div>
+    </div>
+    <div class="answer-tag">Input = 10</div>
+    <div class="callout info" style="margin-top:12px;"><span class="callout-icon">✓</span><p>Check: 10 × 2 = 20; 20 − 5 = 15; 15 ÷ 3 = 5 ✓</p></div>
+  </div>
+</div>
+
+<!-- ── WE 6.3 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 3</span> Three-step — Inverse with decimals</div>
+  <div class="we-body">
+    <div class="we-question">Rules: +3 → ×4 → −6 · Output: 10 · Find the input.</div>
+    <div class="machine-diagram">
+      <div class="machine-input unknown">?</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box teal">+3</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box amber">×4</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-box red">−6</div>
+      <div class="arrow-pipe"></div>
+      <div class="machine-output">10</div>
+    </div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Reverse −6 with +6: <span class="calc">10 + 6 = 16</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Reverse ×4 with ÷4: <span class="calc">16 ÷ 4 = 4</span></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Reverse +3 with −3: <span class="calc">4 − 3 = 1</span></div></div>
+    </div>
+    <div class="answer-tag">Input = 1</div>
+  </div>
+</div>
+
+<div class="practice-set">
+  <div class="practice-title">Practice — Section 6</div>
+  <div class="practice-q">
+    <div class="q-num">Q6.1</div>
+    <div class="inline-machine"><span class="im-in">3</span><span class="im-arrow">→</span><span class="im-box">×4</span><span class="im-arrow">→</span><span class="im-box b2">+8</span><span class="im-arrow">→</span><span class="im-box b3">÷4</span><span class="im-arrow">→</span><span class="im-out unknown">?</span></div><br>Find the output.
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q6.2</div>
+    <div class="inline-machine"><span class="im-in unknown">?</span><span class="im-arrow">→</span><span class="im-box">×5</span><span class="im-arrow">→</span><span class="im-box b2">+10</span><span class="im-arrow">→</span><span class="im-box b3">÷4</span><span class="im-arrow">→</span><span class="im-out">10</span></div><br>Find the input.
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q6.3</div>
+    <div class="inline-machine"><span class="im-in unknown">?</span><span class="im-arrow">→</span><span class="im-box">−2</span><span class="im-arrow">→</span><span class="im-box b2">×6</span><span class="im-arrow">→</span><span class="im-box b3">+3</span><span class="im-arrow">→</span><span class="im-out">9</span></div><br>Find the input.
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q6.4</div>
+    <div class="inline-machine"><span class="im-in">−3</span><span class="im-arrow">→</span><span class="im-box">×4</span><span class="im-arrow">→</span><span class="im-box b2">+12</span><span class="im-arrow">→</span><span class="im-box b3">÷2</span><span class="im-arrow">→</span><span class="im-out unknown">?</span></div><br>Find the output (negative input).
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 7: RULE-FINDING ══════════════ -->
+<div class="section-header" id="s7">
+  <span class="section-num">07</span>
+  <h2>Finding Two-Step <span>Rules</span></h2>
+</div>
+
+<div class="concept">
+  Given <em>multiple input/output pairs</em> for the same machine, deduce <em>both</em> rules. This is harder because there are many possible pairs of operations — you must use the pattern in the data to narrow it down.
+</div>
+
+<div class="strategy">
+  <div class="strategy-title">🎯 Rule-finding strategy</div>
+  <ol>
+    <li>Look at how the outputs change as inputs increase. If outputs change by a <em>fixed multiple</em> of the input changes, the first operation is likely multiplication.</li>
+    <li>Estimate the multiplier: <code>change in output ÷ change in input</code>.</li>
+    <li>Apply the multiplier to a known input. The difference between the result and the actual output reveals the additive/subtractive second step.</li>
+    <li>Verify your full two-step rule against every pair provided.</li>
+    <li>Alternative: If you suspect a rule like ×n, write: output = n × input + c, then use two pairs to solve for n and c.</li>
+  </ol>
+</div>
+
+<!-- ── WE 7.1 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 1</span> Deduce two-step rule from pairs</div>
+  <div class="we-body">
+    <div class="we-question">The machine gives: 2→11, 5→23, 8→35. Find the two-step rule.</div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Outputs increase: 11 → 23 → 35 (up by 12 each time). Inputs increase: 2 → 5 → 8 (up by 3). <span class="calc">12 ÷ 3 = 4</span>. Multiplier = ×4.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">If first step is ×4: input 2 → <span class="calc">2 × 4 = 8</span>. But output is 11. <span class="calc">11 − 8 = 3</span>. Second step = +3.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Verify: <span class="calc">5 × 4 + 3 = 23 ✓</span> and <span class="calc">8 × 4 + 3 = 35 ✓</span>.</div></div>
+    </div>
+    <div class="answer-tag">Rule = ×4 then +3</div>
+  </div>
+</div>
+
+<!-- ── WE 7.2 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 2</span> Rule-finding with a subtraction second step</div>
+  <div class="we-body">
+    <div class="we-question">The machine gives: 3→4, 7→16, 10→25. Find the two-step rule.</div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Outputs: 4, 16, 25. Differences: 12, 9. Inputs: 3, 7, 10. Differences: 4, 3. Ratios: <span class="calc">12/4 = 3</span> and <span class="calc">9/3 = 3</span>. Multiplier = ×3.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Apply ×3 to input 3: <span class="calc">3 × 3 = 9</span>. Output is 4. <span class="calc">4 − 9 = −5</span>. Second step = −5.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Verify: <span class="calc">7 × 3 − 5 = 16 ✓</span> and <span class="calc">10 × 3 − 5 = 25 ✓</span>.</div></div>
+    </div>
+    <div class="answer-tag">Rule = ×3 then −5</div>
+  </div>
+</div>
+
+<!-- ── WE 7.3 ── -->
+<div class="worked-example">
+  <div class="we-header"><span class="we-num">Ex 3</span> Rule-finding with decimals</div>
+  <div class="we-body">
+    <div class="we-question">The machine gives: 2→7, 4→13, 6→19. Find the rule.</div>
+    <div class="we-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Outputs increase by 6; inputs increase by 2. <span class="calc">6 ÷ 2 = 3</span>. Multiplier = ×3.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Input 2 ×3 = 6. Output is 7. <span class="calc">7 − 6 = 1</span>. Second step = +1.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Verify: <span class="calc">4 × 3 + 1 = 13 ✓</span>. Now find the output for input 3.5: <span class="calc">3.5 × 3 + 1 = 10.5 + 1 = 11.5</span>.</div></div>
+    </div>
+    <div class="answer-tag">Rule = ×3 then +1</div>
+  </div>
+</div>
+
+<div class="practice-set">
+  <div class="practice-title">Practice — Section 7</div>
+  <div class="practice-q">
+    <div class="q-num">Q7.1</div>
+    A machine gives: 1→9, 3→17, 5→25. Find the two-step rule and predict the output for input 7.
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q7.2</div>
+    A machine gives: 2→3, 4→9, 6→15. Find the two-step rule and find the input that gives an output of 21.
+  </div>
+  <div class="practice-q">
+    <div class="q-num">Q7.3</div>
+    A machine gives: 5→12, 8→21, 11→30. Find the rule and predict the output for input −1.
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 8: EXAM TIPS ══════════════ -->
+<div class="section-header" id="s8">
+  <span class="section-num">08</span>
+  <h2>Targeted <span>Exam Tips</span></h2>
+</div>
+
+<div class="tip-card">
+  <div class="tip-icon">🔁</div>
+  <div class="tip-content">
+    <strong>Always check your answer by going forward</strong>
+    <p>When you find an input by working backwards, put it back through the machine in the forward direction and confirm you get the original output. This takes 20 seconds and catches nearly all mistakes.</p>
+  </div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-icon">📋</div>
+  <div class="tip-content">
+    <strong>Stuck on a missing rule? Work to the middle</strong>
+    <p>If a rule is missing, figure out what the intermediate value <em>must</em> be. Either apply the known first step forward, or reverse the known last step backward. Then the question becomes: "What single operation takes me from A to B?" — try ×, ÷, +, − in turn.</p>
+  </div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-icon">🔢</div>
+  <div class="tip-content">
+    <strong>When to use algebra vs arithmetic</strong>
+    <p>For single-input machines, arithmetic (number-crunching step by step) is fastest. Use algebra (<em>y = 5x + 2</em>) only when you need to find a rule from multiple pairs or when the question gives you a formula. Writing <em>y = n × input + c</em> and solving simultaneous equations is a reliable fallback for tricky rule-finding questions.</p>
+  </div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-icon">⚠️</div>
+  <div class="tip-content">
+    <strong>Reverse order AND reverse operation — both, always</strong>
+    <p>The most common error in inverse working is reversing the operations but keeping the same order. For a machine with rules <em>A then B</em>, the inverse is <em>opposite-B first, then opposite-A</em>. Write it as a reversed list before you start calculating.</p>
+  </div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-icon">📐</div>
+  <div class="tip-content">
+    <strong>Don't panic about decimals or negatives</strong>
+    <p>If your working gives a decimal (like 7.5) at an intermediate step, carry it through exactly. Decimals are valid answers. Similarly, negative numbers follow the same rules — the inverse of "add −3" is "subtract −3", which equals "add 3". If in doubt, write it as an ordinary calculation on the page.</p>
+  </div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-icon">📊</div>
+  <div class="tip-content">
+    <strong>For table questions: always check more than one row</strong>
+    <p>A rule that works for row 1 might not work for row 2. You need the same rule to fit <em>every</em> row. If your first guess fails on row 2, revise it. With two-step rules, use the "difference method" (change in output ÷ change in input) to find the multiplier first, then solve for the constant.</p>
+  </div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-icon">🧩</div>
+  <div class="tip-content">
+    <strong>Two machines in series: label the link value</strong>
+    <p>When two machines are chained, write down the output of Machine A before you start Machine B. Even if the question only asks for the final answer, writing the intermediate value clearly on your working prevents you from muddling the two machines together.</p>
+  </div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-icon">🎯</div>
+  <div class="tip-content">
+    <strong>BODMAS applies to algebraic forms</strong>
+    <p>If a rule is written as an expression like <em>4x − 3</em>, always multiply first then subtract — even if the question describes it as "multiply by 4 then subtract 3". These are the same thing, but written differently. Treat left-to-right machine diagrams as BODMAS-safe since each step is separate.</p>
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 9: ANSWERS ══════════════ -->
+<div class="section-header" id="s9">
+  <span class="section-num">09</span>
+  <h2>Answers to <span>All Practice Questions</span></h2>
+</div>
+
+<div class="callout warn" style="margin-bottom:24px;">
+  <span class="callout-icon">⚠</span>
+  <p>Try every question before opening the answers. Use the check method — substitute your answer back into the machine forward — before comparing.</p>
+</div>
+
+<details>
+  <summary>Section 1 Answers — One-Step Machines</summary>
+  <div class="answers-body">
+    <div class="ans-item"><span class="ans-q">Q1.1</span><span class="ans-a">54</span><span class="ans-exp">9 × 6 = 54</span></div>
+    <div class="ans-item"><span class="ans-q">Q1.2</span><span class="ans-a">17</span><span class="ans-exp">Reverse +14 with −14: 31 − 14 = 17. Check: 17 + 14 = 31 ✓</span></div>
+    <div class="ans-item"><span class="ans-q">Q1.3</span><span class="ans-a">6</span><span class="ans-exp">Reverse −9 with +9: −3 + 9 = 6. Check: 6 − 9 = −3 ✓</span></div>
+    <div class="ans-item"><span class="ans-q">Q1.4</span><span class="ans-a">20</span><span class="ans-exp">2.5 × 8 = 20</span></div>
+  </div>
+</details>
+
+<details>
+  <summary>Section 2 Answers — Two-Step Machines</summary>
+  <div class="answers-body">
+    <div class="ans-item"><span class="ans-q">Q2.1</span><span class="ans-a">27</span><span class="ans-exp">6 × 5 = 30; 30 − 3 = 27</span></div>
+    <div class="ans-item"><span class="ans-q">Q2.2</span><span class="ans-a">9</span><span class="ans-exp">Reverse: 35 − 8 = 27; 27 ÷ 3 = 9. Check: 9 × 3 + 8 = 35 ✓</span></div>
+    <div class="ans-item"><span class="ans-q">Q2.3</span><span class="ans-a">14</span><span class="ans-exp">Reverse: 1.5 + 2 = 3.5; 3.5 × 4 = 14. Check: 14 ÷ 4 = 3.5; 3.5 − 2 = 1.5 ✓</span></div>
+    <div class="ans-item"><span class="ans-q">Q2.4</span><span class="ans-a">2</span><span class="ans-exp">Reverse: 13 − 3 = 10; 10 ÷ 5 = 2. Check: 2 × 5 + 3 = 13 ✓</span></div>
+  </div>
+</details>
+
+<details>
+  <summary>Section 3 Answers — Missing Rules</summary>
+  <div class="answers-body">
+    <div class="ans-item"><span class="ans-q">Q3.1</span><span class="ans-a">÷4</span><span class="ans-exp">20 ÷ 4 = 5. (Also valid: −15, but ÷4 is the simplest whole-number rule.)</span></div>
+    <div class="ans-item"><span class="ans-q">Q3.2</span><span class="ans-a">−6</span><span class="ans-exp">4 × 6 = 24. The second rule must turn 24 into 30: 30 − 24 = 6, so +6? No: 24 → 30 means add 6. Wait — re-check: output is 30, so 30 − 24 = 6 → second rule = +6. Check: 4 × 6 = 24; 24 + 6 = 30 ✓</span></div>
+    <div class="ans-item"><span class="ans-q">Q3.3</span><span class="ans-a">÷2</span><span class="ans-exp">Reverse the last step: 12 − 7 = 5. First rule turns 10 into 5: 10 ÷ 2 = 5. Check: 10 ÷ 2 = 5; 5 + 7 = 12 ✓</span></div>
+    <div class="ans-item"><span class="ans-q">Q3.4</span><span class="ans-a">×(−3) or −24</span><span class="ans-exp">−6 → 18 means the number was multiplied by −3 (×−3), giving 18. Or addition: −6 + 24 = 18. Both valid; check which type of rule the question context expects.</span></div>
+  </div>
+</details>
+
+<details>
+  <summary>Section 4 Answers — Tables of Values</summary>
+  <div class="answers-body">
+    <div class="ans-item"><span class="ans-q">Q4.1</span><span class="ans-a">Rule: −3 · Missing: 3.5</span><span class="ans-exp">Each output = input − 3. 6.5 − 3 = 3.5.</span></div>
+    <div class="ans-item"><span class="ans-q">Q4.2</span><span class="ans-a">Rule: ×3+4 · Missing input: 7</span><span class="ans-exp">Outputs go up by 6 per 2 inputs: multiplier = 3. 1×3=3, output is 7, so +4. Rule: ×3+4. For output 25: reverse → 25−4=21; 21÷3=7. Input=7.</span></div>
+    <div class="ans-item"><span class="ans-q">Q4.3</span><span class="ans-a">7; 5; −11</span><span class="ans-exp">4×3−5=7. Reverse for input→10: 10+5=15; 15÷3=5. −2×3−5=−11.</span></div>
+  </div>
+</details>
+
+<details>
+  <summary>Section 5 Answers — Machines in Series</summary>
+  <div class="answers-body">
+    <div class="ans-item"><span class="ans-q">Q5.1</span><span class="ans-a">16</span><span class="ans-exp">A: 3×5=15. B: 15−7=8; 8×2=16.</span></div>
+    <div class="ans-item"><span class="ans-q">Q5.2</span><span class="ans-a">15</span><span class="ans-exp">A: 5+3=8; 8×4=32. B: 32÷2=16; 16−1=15.</span></div>
+    <div class="ans-item"><span class="ans-q">Q5.3</span><span class="ans-a">5</span><span class="ans-exp">Reverse B: 7×3=21. Reverse A: 21−6=15; 15÷3=5. Check: 5×3+6=21; 21÷3=7 ✓</span></div>
+    <div class="ans-item"><span class="ans-q">Q5.4</span><span class="ans-a">8</span><span class="ans-exp">Reverse B: 22−2=20; 20÷5=4. Reverse A: 4+4=8. Check: 8−4=4; 4×5+2=22 ✓</span></div>
+  </div>
+</details>
+
+<details>
+  <summary>Section 6 Answers — Three-Step Machines</summary>
+  <div class="answers-body">
+    <div class="ans-item"><span class="ans-q">Q6.1</span><span class="ans-a">5</span><span class="ans-exp">3×4=12; 12+8=20; 20÷4=5.</span></div>
+    <div class="ans-item"><span class="ans-q">Q6.2</span><span class="ans-a">6</span><span class="ans-exp">Reverse: 10×4=40; 40−10=30; 30÷5=6. Check: 6×5+10=40; 40÷4=10 ✓</span></div>
+    <div class="ans-item"><span class="ans-q">Q6.3</span><span class="ans-a">3</span><span class="ans-exp">Reverse: 9−3=6; 6÷6=1; 1+2=3. Check: 3−2=1; 1×6=6; 6+3=9 ✓</span></div>
+    <div class="ans-item"><span class="ans-q">Q6.4</span><span class="ans-a">0</span><span class="ans-exp">−3×4=−12; −12+12=0; 0÷2=0.</span></div>
+  </div>
+</details>
+
+<details>
+  <summary>Section 7 Answers — Finding Rules</summary>
+  <div class="answers-body">
+    <div class="ans-item"><span class="ans-q">Q7.1</span><span class="ans-a">Rule: ×4+5 · Output for 7: 33</span><span class="ans-exp">Outputs up by 8, inputs up by 2: multiplier=4. 1×4=4, output 9: +5. Check: 3×4+5=17 ✓. 7×4+5=33.</span></div>
+    <div class="ans-item"><span class="ans-q">Q7.2</span><span class="ans-a">Rule: ×3−3 · Input for output 21: 8</span><span class="ans-exp">Outputs up by 6, inputs up by 2: multiplier=3. 2×3=6, output 3: −3. Check: 4×3−3=9 ✓. Reverse for 21: 21+3=24; 24÷3=8.</span></div>
+    <div class="ans-item"><span class="ans-q">Q7.3</span><span class="ans-a">Rule: ×3−3 · Output for −1: −6</span><span class="ans-exp">Outputs up by 9, inputs up by 3: multiplier=3. 5×3=15, output 12: −3. Check: 8×3−3=21 ✓. −1×3−3=−6.</span></div>
+  </div>
+</details>
+
+<div style="margin-top:60px; padding:28px 24px; background:var(--ink); border-radius:12px; color:rgba(255,255,255,0.7); font-size:13px; line-height:1.7; text-align:center;">
+  <div style="font-family:'DM Serif Display',serif; font-size:20px; color:#fff; margin-bottom:8px;">You've reached the end of the guide.</div>
+  Good luck in your 11+ exam. Remember: check every answer by running it forward through the machine before moving on.
+</div>
+
+</main>
+</body>
+</html>

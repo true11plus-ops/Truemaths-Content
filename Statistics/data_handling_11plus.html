@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Handling — 11+ GL Assessment Revision</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inconsolata:wght@400;500;700&display=swap');
+:root{
+  --ink:#0e1c2f; --blue:#1d4ed8; --blue-lt:#eff6ff; --blue-bd:#bfdbfe; --blue-mid:#2563eb;
+  --green:#15803d; --green-lt:#f0fdf4; --green-bd:#86efac;
+  --amber:#b45309; --amber-lt:#fffbeb; --amber-bd:#fcd34d;
+  --plum:#6d28d9; --plum-lt:#f5f3ff; --plum-bd:#c4b5fd;
+  --teal:#0f766e; --teal-lt:#f0fdfa; --teal-bd:#99f6e4;
+  --red:#dc2626; --red-lt:#fef2f2;
+  --gray-50:#f8fafc; --gray-100:#f1f5f9; --gray-200:#e2e8f0; --gray-400:#94a3b8; --gray-600:#475569; --gray-700:#334155;
+  --font:'Plus Jakarta Sans',sans-serif; --mono:'Inconsolata',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);background:#e8eef5;color:var(--ink);line-height:1.65;font-size:15.5px;}
+
+/* HEADER */
+.hdr{background:var(--ink);color:white;padding:38px 24px 30px;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 75% 30%,rgba(29,78,216,.45),transparent 55%),radial-gradient(ellipse at 20% 75%,rgba(15,118,110,.3),transparent 50%);}
+.hdr::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-48deg,transparent 0,transparent 20px,rgba(255,255,255,.015) 20px,rgba(255,255,255,.015) 21px);}
+.hdr>*{position:relative;z-index:1;}
+.hdr h1{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;letter-spacing:-.5px;}
+.hdr .sub{font-size:.95rem;opacity:.72;margin-top:6px;}
+.brow{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:12px;}
+.bdg{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:3px 13px;font-size:.73rem;font-weight:700;}
+
+/* LAYOUT */
+.wrap{max-width:920px;margin:0 auto;padding:26px 14px 80px;}
+
+/* QUICK REF */
+.qref{background:white;border:2px solid var(--blue-bd);border-radius:14px;padding:20px 22px;margin-bottom:28px;box-shadow:0 4px 18px rgba(29,78,216,.08);}
+.qref h2{color:var(--blue);font-size:.88rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:13px;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:9px;}
+.qi{background:var(--blue-lt);border:1px solid var(--blue-bd);border-radius:8px;padding:9px 13px;}
+.qi .ql{font-size:.67rem;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+.qi .qv{font-family:var(--mono);font-size:.83rem;color:var(--ink);line-height:1.5;}
+
+/* SECTION */
+.sec{background:white;border-radius:14px;padding:26px 22px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--gray-200);}
+.stitle{display:flex;align-items:center;gap:11px;font-size:1.2rem;font-weight:900;color:var(--ink);margin-bottom:18px;padding-bottom:13px;border-bottom:2px solid var(--gray-100);}
+.sn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--ink);color:white;font-weight:900;font-size:.85rem;flex-shrink:0;}
+p{margin-bottom:11px;}
+
+/* BOXES */
+.bx{border-radius:9px;padding:13px 16px;margin:12px 0;}
+.bt{font-size:.67rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px;}
+.bx-f{background:var(--blue-lt);border-left:4px solid var(--blue-mid);}
+.bx-f .bt{color:var(--blue-mid);}
+.bx-f .fm{font-family:var(--mono);font-size:.88rem;color:var(--ink);margin-bottom:3px;}
+.bx-e{background:var(--green-lt);border-left:4px solid var(--green);}
+.bx-e .bt{color:var(--green);}
+.bx-e .st{font-size:.92rem;margin-bottom:4px;}
+.bx-e .ans{font-family:var(--mono);font-weight:700;color:var(--green);margin-top:8px;padding-top:7px;border-top:1px solid var(--green-bd);}
+.bx-w{background:var(--amber-lt);border-left:4px solid #d97706;}
+.bx-w .bt{color:#d97706;}
+.bx-t{background:var(--teal-lt);border-left:4px solid var(--teal);}
+.bx-t .bt{color:var(--teal);}
+.bx-p{background:var(--plum-lt);border-left:4px solid var(--plum);}
+.bx-p .bt{color:var(--plum);}
+
+/* CHARTS */
+.chart-wrap{margin:14px 0;overflow-x:auto;}
+.chart-label{font-size:.75rem;font-weight:700;color:var(--gray-600);text-align:center;margin-bottom:6px;}
+svg text{font-family:var(--font);}
+
+/* TABLES */
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.9rem;}
+th{background:var(--ink);color:white;padding:9px 12px;text-align:center;font-weight:700;}
+td{padding:8px 12px;border-bottom:1px solid var(--gray-200);text-align:center;}
+tr:nth-child(even) td{background:var(--gray-50);}
+td:first-child{text-align:left;font-weight:600;}
+
+/* PRACTICE */
+.prac{margin-top:26px;border-top:2px dashed var(--gray-200);padding-top:18px;}
+.prac h3{font-size:.95rem;font-weight:800;color:var(--ink);margin-bottom:14px;}
+.lvb{margin-bottom:16px;}
+.ltag{display:inline-block;padding:3px 12px;border-radius:20px;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px;}
+.lv1{background:#dcfce7;color:#166534;}.lv2{background:#dbeafe;color:#1e40af;}
+.lv3{background:#fef9c3;color:#92400e;}.lv4{background:#fce7f3;color:#9d174d;}
+.qb{margin-bottom:11px;padding:13px 15px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:9px;}
+.qt{font-weight:600;font-size:.92rem;margin-bottom:9px;}
+.qr{display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.qin{border:2px solid var(--gray-200);border-radius:6px;padding:7px 11px;font-family:var(--mono);font-size:.9rem;width:110px;outline:none;transition:border-color .15s;background:white;color:var(--ink);}
+.qin:focus{border-color:var(--blue-mid);}
+.qun{font-size:.8rem;color:var(--gray-600);font-weight:700;}
+.qbtn{background:var(--blue-mid);color:white;border:none;border-radius:6px;padding:7px 15px;font-family:var(--font);font-weight:800;font-size:.84rem;cursor:pointer;transition:background .15s,transform .1s;white-space:nowrap;}
+.qbtn:hover{background:#1d4ed8;}.qbtn:active{transform:scale(.97);}
+.qfb{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.86rem;font-weight:600;display:none;}
+.fok{background:var(--green-lt);border:1px solid var(--green-bd);color:var(--green);}
+.fno{background:var(--red-lt);border:1px solid #fecaca;color:var(--red);}
+
+/* MASTERY */
+.mast{background:var(--ink);border-radius:14px;padding:26px 22px;margin-bottom:22px;color:white;}
+.mast h2{font-size:1.25rem;font-weight:900;margin-bottom:5px;}
+.mast .ms{font-size:.88rem;opacity:.68;margin-bottom:20px;}
+.mast .qb{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.13);}
+.mast .qt{color:white;}
+.mast .qin{background:rgba(255,255,255,.94);}
+.mast .qun{color:rgba(255,255,255,.6);}
+#msub{width:100%;margin-top:18px;padding:12px;background:#16a34a;color:white;border:none;border-radius:8px;font-family:var(--font);font-weight:900;font-size:.98rem;cursor:pointer;transition:background .15s;}
+#msub:hover{background:#15803d;}
+.sbox{margin-top:16px;padding:16px 20px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);border-radius:9px;text-align:center;display:none;}
+.snum{font-size:2.6rem;font-weight:900;}.smsg{font-size:.9rem;opacity:.8;margin-top:4px;}
+
+/* PITFALLS */
+.plist{list-style:none;padding:0;}
+.pi{display:flex;gap:11px;align-items:flex-start;margin-bottom:10px;padding:11px 13px;background:var(--amber-lt);border:1px solid var(--amber-bd);border-radius:8px;}
+.pi-i{font-size:1.1rem;flex-shrink:0;}.pi-t{font-size:.92rem;}
+.pi-t strong{color:var(--amber);}
+
+/* PIE */
+.pie-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;justify-content:center;}
+.pie-leg-item{display:flex;align-items:center;gap:5px;font-size:.82rem;font-weight:600;}
+.pie-leg-swatch{width:14px;height:14px;border-radius:3px;flex-shrink:0;}
+code{font-family:var(--mono);background:rgba(29,78,216,.08);padding:1px 5px;border-radius:3px;font-size:.88em;}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <h1>📊 Data Handling</h1>
+  <div class="sub">Bar Charts · Pictograms · Line Graphs · Pie Charts · Tables · Statistics — 11+ GL Assessment</div>
+  <div class="brow">
+    <span class="bdg">📏 Scale Reading</span>
+    <span class="bdg">📊 Bar Charts</span>
+    <span class="bdg">🖼 Pictograms</span>
+    <span class="bdg">📈 Line Graphs</span>
+    <span class="bdg">🥧 Pie Charts</span>
+    <span class="bdg">📋 Two-Way Tables</span>
+    <span class="bdg">📐 Mean · Median · Mode · Range</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- QUICK REF -->
+<div class="qref">
+  <h2>⚡ Quick Reference</h2>
+  <div class="qgrid">
+    <div class="qi"><div class="ql">Scale rule</div><div class="qv">(top−bottom)÷divisions<br>= value per division</div></div>
+    <div class="qi"><div class="ql">Mean</div><div class="qv">Sum of values ÷ count<br>Missing: mean×n − known</div></div>
+    <div class="qi"><div class="ql">Median</div><div class="qv">Middle value when sorted<br>Even: mean of middle 2</div></div>
+    <div class="qi"><div class="ql">Mode</div><div class="qv">Most frequent value<br>(can be more than one)</div></div>
+    <div class="qi"><div class="ql">Range</div><div class="qv">Largest − Smallest</div></div>
+    <div class="qi"><div class="ql">Pie charts</div><div class="qv">Full circle = 360°<br>Fraction × 360 = angle</div></div>
+    <div class="qi"><div class="ql">Pictogram</div><div class="qv">Find key value first<br>½ symbol = ½ key</div></div>
+    <div class="qi"><div class="ql">Two-way table</div><div class="qv">Row total + col total<br>= Grand total (check!)</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ -->
+<!-- SECTION 1: SCALE READING          -->
+<!-- ══════════════════════════════════ -->
+<div class="sec">
+  <div class="stitle"><span class="sn">1</span>Scale Reading — The Foundation Skill</div>
+
+  <p><strong>Before reading any value from any chart, always identify the scale.</strong> The most common mark-losing mistake in data handling is misreading the scale and being off by one or two gridlines.</p>
+
+  <div class="bx bx-f">
+    <div class="bt">📐 The Golden Formula</div>
+    <div class="fm">Value per small division = (top value − bottom value) ÷ number of divisions</div>
+    <div class="fm">Then: bar value = nearest labelled line + (divisions above it × value per division)</div>
+  </div>
+
+  <!-- SVG Scale Examples -->
+  <div class="bx bx-e">
+    <div class="bt">✏️ Scenario a — Bar lands exactly on a gridline</div>
+    <div class="st">Scale: 0 to 50, with 5 gridlines above 0. Each division = 50 ÷ 5 = 10 units.</div>
+    <div class="st">Bar top lines up exactly with the 30 mark.</div>
+    <div class="ans">✅ Value = 30. Straightforward read — no estimation needed.</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Scenario b — Bar lands halfway between 30 and 40</div>
+    <div class="st">Scale goes 0, 10, 20, 30, 40, 50. Each main division = 10 units.</div>
+    <div class="st">Bar top is exactly halfway between the 30 and 40 lines.</div>
+    <div class="st">Halfway between 30 and 40: (30 + 40) ÷ 2 = 35</div>
+    <div class="ans">✅ Value = 35</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Scenario c — Each small division = 4 units</div>
+    <div class="st">Scale labels: 0, 20, 40. There are 5 small divisions between 0 and 20.</div>
+    <div class="st">Value per small division = 20 ÷ 5 = 4 units.</div>
+    <div class="st">Bar is 3 small divisions above the 20 line.</div>
+    <div class="st">Value = 20 + (3 × 4) = 20 + 12 = 32</div>
+    <div class="ans">✅ Value = 32</div>
+  </div>
+
+  <!-- Visual scale diagram -->
+  <div class="chart-wrap">
+    <div class="chart-label">Scale reading illustration — each small division = 4 units</div>
+    <svg viewBox="0 0 340 200" width="100%" style="max-width:340px;display:block;margin:0 auto;">
+      <!-- axes -->
+      <line x1="60" y1="10" x2="60" y2="170" stroke="#334155" stroke-width="2"/>
+      <line x1="60" y1="170" x2="310" y2="170" stroke="#334155" stroke-width="2"/>
+      <!-- gridlines and labels -->
+      <line x1="55" y1="170" x2="310" y2="170" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="50" y="174" text-anchor="end" font-size="11" fill="#475569">0</text>
+      <line x1="55" y1="130" x2="310" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="50" y="134" text-anchor="end" font-size="11" fill="#475569">20</text>
+      <line x1="55" y1="90" x2="310" y2="90" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="50" y="94" text-anchor="end" font-size="11" fill="#475569">40</text>
+      <line x1="55" y1="50" x2="310" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="50" y="54" text-anchor="end" font-size="11" fill="#475569">60</text>
+      <!-- Small divisions between 0 and 20 (4 units each = 5 divisions) -->
+      <line x1="58" y1="138" x2="62" y2="138" stroke="#94a3b8" stroke-width="1"/>
+      <line x1="58" y1="146" x2="62" y2="146" stroke="#94a3b8" stroke-width="1"/>
+      <line x1="58" y1="154" x2="62" y2="154" stroke="#94a3b8" stroke-width="1"/>
+      <line x1="58" y1="162" x2="62" y2="162" stroke="#94a3b8" stroke-width="1"/>
+      <!-- Small divisions between 20 and 40 -->
+      <line x1="58" y1="98" x2="62" y2="98" stroke="#94a3b8" stroke-width="1"/>
+      <line x1="58" y1="106" x2="62" y2="106" stroke="#94a3b8" stroke-width="1"/>
+      <line x1="58" y1="114" x2="62" y2="114" stroke="#94a3b8" stroke-width="1"/>
+      <line x1="58" y1="122" x2="62" y2="122" stroke="#94a3b8" stroke-width="1"/>
+      <!-- Bar A: value = 32, 3 divs above 20 line. 20 is at y=130. each div=8px. 3×8=24. bar top=106 -->
+      <rect x="80" y="106" width="50" height="64" fill="#2563eb" opacity=".85" rx="2"/>
+      <text x="105" y="100" text-anchor="middle" font-size="11" font-weight="700" fill="#1e40af">32</text>
+      <text x="105" y="186" text-anchor="middle" font-size="11" fill="#475569">Bar A</text>
+      <!-- Bar B: value = 20, at y=130 -->
+      <rect x="155" y="130" width="50" height="40" fill="#16a34a" opacity=".8" rx="2"/>
+      <text x="180" y="124" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">20</text>
+      <text x="180" y="186" text-anchor="middle" font-size="11" fill="#475569">Bar B</text>
+      <!-- Bar C: value = 35, halfway between 20 and 40. 20=y130, 40=y90. halfway=y110 -->
+      <rect x="230" y="110" width="50" height="60" fill="#d97706" opacity=".8" rx="2"/>
+      <text x="255" y="104" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">35</text>
+      <text x="255" y="186" text-anchor="middle" font-size="11" fill="#475569">Bar C</text>
+      <!-- annotation arrow for Bar A -->
+      <line x1="130" y1="106" x2="155" y2="95" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="157" y="94" font-size="10" fill="#dc2626" font-weight="700">3 divs above 20</text>
+      <text x="157" y="106" font-size="10" fill="#dc2626">= 20 + 12 = 32</text>
+    </svg>
+  </div>
+
+  <div class="bx bx-w">
+    <div class="bt">⚠️ Never assume each division = 1 or 10</div>
+    <p>Always count the number of divisions between two labelled values. If labels show 0 and 50 with 5 gaps between them, each division = 10. If labels show 0 and 50 with 10 gaps, each division = 5. Count first, every time.</p>
+  </div>
+
+  <div class="prac">
+    <h3>📝 Practice — Scale Reading</h3>
+    <div class="lvb"><div class="ltag lv1">Easy</div>
+      <div class="qb"><div class="qt">Q1. A scale runs from 0 to 40 with 4 equal divisions. What is the value of each division?</div>
+        <div class="qr"><input class="qin" type="number" id="sr1"><button class="qbtn" onclick="chk('sr1',10,'40 ÷ 4 = 10 units per division.')">Check</button></div>
+        <div class="qfb" id="sr1_fb"></div></div>
+      <div class="qb"><div class="qt">Q2. A scale runs from 0 to 60 with 6 divisions. A bar lands exactly on the 3rd gridline. What is the value?</div>
+        <div class="qr"><input class="qin" type="number" id="sr2"><button class="qbtn" onclick="chk('sr2',30,'60÷6=10 per division. 3rd gridline = 3×10=30.')">Check</button></div>
+        <div class="qfb" id="sr2_fb"></div></div>
+      <div class="qb"><div class="qt">Q3. A scale shows 0, 20, 40. A bar lands halfway between 0 and 20. What is its value?</div>
+        <div class="qr"><input class="qin" type="number" id="sr3"><button class="qbtn" onclick="chk('sr3',10,'Halfway between 0 and 20 = (0+20)÷2 = 10.')">Check</button></div>
+        <div class="qfb" id="sr3_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv2">Intermediate</div>
+      <div class="qb"><div class="qt">Q4. A scale goes from 0 to 30 with 5 small divisions between each 10-unit label. What is each small division worth?</div>
+        <div class="qr"><input class="qin" type="number" id="sr4"><button class="qbtn" onclick="chk('sr4',2,'10 ÷ 5 = 2 units per small division.')">Check</button></div>
+        <div class="qfb" id="sr4_fb"></div></div>
+      <div class="qb"><div class="qt">Q5. Scale labels: 0 and 50, with 5 small divisions between them. Each small division = 10. A bar is 3 divisions above 0. What is the value?</div>
+        <div class="qr"><input class="qin" type="number" id="sr5"><button class="qbtn" onclick="chk('sr5',30,'3 × 10 = 30.')">Check</button></div>
+        <div class="qfb" id="sr5_fb"></div></div>
+      <div class="qb"><div class="qt">Q6. Scale: 0, 20, 40, 60. Five small divisions between each label. A bar sits 2 small divisions above the 40 line. What is the value?</div>
+        <div class="qr"><input class="qin" type="number" id="sr6"><button class="qbtn" onclick="chk('sr6',48,'Each small division = 20÷5 = 4 units. 40 + (2×4) = 40+8 = 48.')">Check</button></div>
+        <div class="qfb" id="sr6_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv3">Advanced</div>
+      <div class="qb"><div class="qt">Q7. A bar chart has scale labels 0, 25, 50, 75. There are 5 small divisions between each pair of labels. What is the value of each small division?</div>
+        <div class="qr"><input class="qin" type="number" id="sr7"><button class="qbtn" onclick="chk('sr7',5,'25÷5 = 5 units per small division.')">Check</button></div>
+        <div class="qfb" id="sr7_fb"></div></div>
+      <div class="qb"><div class="qt">Q8. Using the scale above, a bar sits 3 small divisions above the 50 line. What is the value?</div>
+        <div class="qr"><input class="qin" type="number" id="sr8"><button class="qbtn" onclick="chk('sr8',65,'50 + (3×5) = 50+15 = 65.')">Check</button></div>
+        <div class="qfb" id="sr8_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv4">Challenging</div>
+      <div class="qb"><div class="qt">Q9. A scale has labels 0, 15, 30 with 3 small divisions between each pair. A bar lands on the 2nd small division above 15. What is the value?</div>
+        <div class="qr"><input class="qin" type="number" id="sr9"><button class="qbtn" onclick="chk('sr9',25,'15÷3=5 per division. 15+(2×5)=15+10=25.')">Check</button></div>
+        <div class="qfb" id="sr9_fb"></div></div>
+      <div class="qb"><div class="qt">Q10. A scale goes 0, 8, 16, 24. There are 4 small divisions between each pair. A bar sits halfway between 16 and the 1st small division above 16. What is the value?</div>
+        <div class="qr"><input class="qin" type="number" id="sr10"><button class="qbtn" onclick="chk('sr10',17,'Each small div=8÷4=2. 1st div above 16=18. Halfway between 16 and 18=(16+18)÷2=17.')">Check</button></div>
+        <div class="qfb" id="sr10_fb"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ -->
+<!-- SECTION 2: BAR CHARTS             -->
+<!-- ══════════════════════════════════ -->
+<div class="sec">
+  <div class="stitle"><span class="sn">2</span>Bar Charts — Single and Grouped</div>
+
+  <p>Bar charts represent quantities using the height of rectangular bars. Single bar charts show one data set; grouped (dual) bar charts show two sets side by side.</p>
+
+  <!-- SVG Bar Chart -->
+  <div class="chart-wrap">
+    <div class="chart-label">Favourite Subjects Survey — 30 students (scale: each division = 5 students)</div>
+    <svg viewBox="0 0 420 210" width="100%" style="max-width:420px;display:block;margin:0 auto;">
+      <line x1="55" y1="10" x2="55" y2="170" stroke="#334155" stroke-width="2"/>
+      <line x1="55" y1="170" x2="410" y2="170" stroke="#334155" stroke-width="2"/>
+      <!-- gridlines -->
+      <line x1="53" y1="170" x2="410" y2="170" stroke="#e2e8f0"/><text x="48" y="174" text-anchor="end" font-size="10" fill="#475569">0</text>
+      <line x1="53" y1="145" x2="410" y2="145" stroke="#e2e8f0"/><text x="48" y="149" text-anchor="end" font-size="10" fill="#475569">5</text>
+      <line x1="53" y1="120" x2="410" y2="120" stroke="#e2e8f0"/><text x="48" y="124" text-anchor="end" font-size="10" fill="#475569">10</text>
+      <line x1="53" y1="95" x2="410" y2="95" stroke="#e2e8f0"/><text x="48" y="99" text-anchor="end" font-size="10" fill="#475569">15</text>
+      <line x1="53" y1="70" x2="410" y2="70" stroke="#e2e8f0"/><text x="48" y="74" text-anchor="end" font-size="10" fill="#475569">20</text>
+      <line x1="53" y1="45" x2="410" y2="45" stroke="#e2e8f0"/><text x="48" y="49" text-anchor="end" font-size="10" fill="#475569">25</text>
+      <line x1="53" y1="20" x2="410" y2="20" stroke="#e2e8f0"/><text x="48" y="24" text-anchor="end" font-size="10" fill="#475569">30</text>
+      <!-- Bars: Maths=25→y=45, Science=15→y=95, English=20→y=70, History=10→y=120, Art=12→between 10(120) and 15(95), each div=5,so 2 above 10=2*5=10+2=12? Each gridline = 5. y calc: y=170-(value*5) -->
+      <!-- Maths: 25 → y=170-125=45, height=125 -->
+      <rect x="70" y="45" width="45" height="125" fill="#2563eb" opacity=".85" rx="2"/>
+      <text x="92" y="40" text-anchor="middle" font-size="10" font-weight="700" fill="#1e40af">25</text>
+      <text x="92" y="186" text-anchor="middle" font-size="10" fill="#475569">Maths</text>
+      <!-- Science: 15 → y=170-75=95 -->
+      <rect x="130" y="95" width="45" height="75" fill="#16a34a" opacity=".8" rx="2"/>
+      <text x="152" y="90" text-anchor="middle" font-size="10" font-weight="700" fill="#166534">15</text>
+      <text x="152" y="186" text-anchor="middle" font-size="10" fill="#475569">Science</text>
+      <!-- English: 20 → y=170-100=70 -->
+      <rect x="190" y="70" width="45" height="100" fill="#d97706" opacity=".8" rx="2"/>
+      <text x="212" y="65" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">20</text>
+      <text x="212" y="186" text-anchor="middle" font-size="10" fill="#475569">English</text>
+      <!-- History: 10 → y=170-50=120 -->
+      <rect x="250" y="120" width="45" height="50" fill="#7c3aed" opacity=".8" rx="2"/>
+      <text x="272" y="115" text-anchor="middle" font-size="10" font-weight="700" fill="#5b21b6">10</text>
+      <text x="272" y="186" text-anchor="middle" font-size="10" fill="#475569">History</text>
+      <!-- Art: 12 → midpoint between 10(y=120) and 15(y=95): y=170-60=110 -->
+      <rect x="310" y="110" width="45" height="60" fill="#db2777" opacity=".8" rx="2"/>
+      <text x="332" y="105" text-anchor="middle" font-size="10" font-weight="700" fill="#9d174d">12</text>
+      <text x="332" y="186" text-anchor="middle" font-size="10" fill="#475569">Art</text>
+      <!-- y-axis label -->
+      <text x="18" y="95" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-90,18,95)">Number of Students</text>
+    </svg>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ GL Question Type A — Difference</div>
+    <div class="st"><strong>Q:</strong> How many more students chose Maths than Science?</div>
+    <div class="st">Step 1: Read Maths bar → top aligns with 25 line → value = <strong>25</strong></div>
+    <div class="st">Step 2: Read Science bar → top aligns with 15 line → value = <strong>15</strong></div>
+    <div class="st">Step 3: Difference = 25 − 15 = <strong>10</strong></div>
+    <div class="ans">✅ 10 more students chose Maths than Science.</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ GL Question Type B — Total</div>
+    <div class="st"><strong>Q:</strong> How many students were surveyed in total?</div>
+    <div class="st">Step 1: Read all bars: Maths = 25, Science = 15, English = 20, History = 10, Art = 12</div>
+    <div class="st">Step 2: Add: 25 + 15 + 20 + 10 + 12 = <strong>82</strong></div>
+    <div class="ans">✅ 82 students were surveyed in total.</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ GL Question Type C — Mean from a bar chart</div>
+    <div class="st"><strong>Q:</strong> What is the mean number of students per subject?</div>
+    <div class="st">Step 1: List values: 25, 15, 20, 10, 12</div>
+    <div class="st">Step 2: Sum = 25 + 15 + 20 + 10 + 12 = 82</div>
+    <div class="st">Step 3: Number of bars = 5</div>
+    <div class="st">Step 4: Mean = 82 ÷ 5 = 16.4</div>
+    <div class="ans">✅ Mean = 16.4 students per subject</div>
+  </div>
+
+  <!-- Grouped Bar Chart -->
+  <p style="margin-top:14px;"><strong>Grouped (Dual) Bar Charts</strong> — Two bars per group, one for each data set. Always read the key to identify which colour/shade represents which group.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-label">Sports Participation — Boys (blue) vs Girls (pink) — scale: each division = 4 students</div>
+    <svg viewBox="0 0 420 210" width="100%" style="max-width:420px;display:block;margin:0 auto;">
+      <line x1="55" y1="10" x2="55" y2="170" stroke="#334155" stroke-width="2"/>
+      <line x1="55" y1="170" x2="410" y2="170" stroke="#334155" stroke-width="2"/>
+      <line x1="53" y1="170" x2="410" y2="170" stroke="#e2e8f0"/><text x="48" y="174" text-anchor="end" font-size="10" fill="#475569">0</text>
+      <line x1="53" y1="138" x2="410" y2="138" stroke="#e2e8f0"/><text x="48" y="142" text-anchor="end" font-size="10" fill="#475569">8</text>
+      <line x1="53" y1="106" x2="410" y2="106" stroke="#e2e8f0"/><text x="48" y="110" text-anchor="end" font-size="10" fill="#475569">16</text>
+      <line x1="53" y1="74" x2="410" y2="74" stroke="#e2e8f0"/><text x="48" y="78" text-anchor="end" font-size="10" fill="#475569">24</text>
+      <line x1="53" y1="42" x2="410" y2="42" stroke="#e2e8f0"/><text x="48" y="46" text-anchor="end" font-size="10" fill="#475569">32</text>
+      <!-- Football: Boys=24 y=170-4*24/1=170-96... wait each unit: scale 0-32, height span=160, per unit=5px -->
+      <!-- y = 170 - (value * 5) -->
+      <!-- Football Boys=24 → y=170-120=50, Girls=20 → y=170-100=70 -->
+      <rect x="68" y="50" width="22" height="120" fill="#2563eb" opacity=".85" rx="2"/>
+      <text x="79" y="45" text-anchor="middle" font-size="9" font-weight="700" fill="#1e40af">24</text>
+      <rect x="92" y="70" width="22" height="100" fill="#db2777" opacity=".8" rx="2"/>
+      <text x="103" y="65" text-anchor="middle" font-size="9" font-weight="700" fill="#9d174d">20</text>
+      <text x="91" y="186" text-anchor="middle" font-size="9" fill="#475569">Football</text>
+      <!-- Swimming: Boys=16→y=90, Girls=28→y=30 -->
+      <rect x="155" y="90" width="22" height="80" fill="#2563eb" opacity=".85" rx="2"/>
+      <text x="166" y="85" text-anchor="middle" font-size="9" font-weight="700" fill="#1e40af">16</text>
+      <rect x="179" y="30" width="22" height="140" fill="#db2777" opacity=".8" rx="2"/>
+      <text x="190" y="25" text-anchor="middle" font-size="9" font-weight="700" fill="#9d174d">28</text>
+      <text x="178" y="186" text-anchor="middle" font-size="9" fill="#475569">Swimming</text>
+      <!-- Tennis: Boys=20→y=70, Girls=12→y=110 -->
+      <rect x="242" y="70" width="22" height="100" fill="#2563eb" opacity=".85" rx="2"/>
+      <text x="253" y="65" text-anchor="middle" font-size="9" font-weight="700" fill="#1e40af">20</text>
+      <rect x="266" y="110" width="22" height="60" fill="#db2777" opacity=".8" rx="2"/>
+      <text x="277" y="105" text-anchor="middle" font-size="9" font-weight="700" fill="#9d174d">12</text>
+      <text x="265" y="186" text-anchor="middle" font-size="9" fill="#475569">Tennis</text>
+      <!-- Athletics: Boys=8→y=130, Girls=16→y=90 -->
+      <rect x="329" y="130" width="22" height="40" fill="#2563eb" opacity=".85" rx="2"/>
+      <text x="340" y="125" text-anchor="middle" font-size="9" font-weight="700" fill="#1e40af">8</text>
+      <rect x="353" y="90" width="22" height="80" fill="#db2777" opacity=".8" rx="2"/>
+      <text x="364" y="85" text-anchor="middle" font-size="9" font-weight="700" fill="#9d174d">16</text>
+      <text x="352" y="186" text-anchor="middle" font-size="9" fill="#475569">Athletics</text>
+      <!-- legend -->
+      <rect x="62" y="195" width="12" height="10" fill="#2563eb" rx="2"/>
+      <text x="77" y="204" font-size="10" fill="#475569">Boys</text>
+      <rect x="110" y="195" width="12" height="10" fill="#db2777" rx="2"/>
+      <text x="125" y="204" font-size="10" fill="#475569">Girls</text>
+    </svg>
+  </div>
+
+  <div class="bx bx-w">
+    <div class="bt">⚠️ Grouped Chart Trap</div>
+    <p>On narrow grouped bars, the scale can be hard to read. Always check: which bar is which colour? If you swap Boys and Girls, every answer is wrong. Read the key first, mark which bar is which before answering.</p>
+  </div>
+
+  <div class="prac">
+    <h3>📝 Practice — Bar Charts (using both charts above)</h3>
+    <div class="lvb"><div class="ltag lv1">Easy</div>
+      <div class="qb"><div class="qt">Q1. From the Favourite Subjects chart: How many students chose English?</div>
+        <div class="qr"><input class="qin" type="number" id="bc1"><button class="qbtn" onclick="chk('bc1',20,'English bar aligns with the 20 gridline. Value = 20.')">Check</button></div>
+        <div class="qfb" id="bc1_fb"></div></div>
+      <div class="qb"><div class="qt">Q2. Which subject had the fewest votes?</div>
+        <div class="qr">
+          <select id="bc2sel" style="border:2px solid var(--gray-200);border-radius:6px;padding:7px 10px;font-family:var(--font);font-size:.9rem;background:white;color:var(--ink);">
+            <option value="">Select...</option>
+            <option value="Maths">Maths</option><option value="Science">Science</option>
+            <option value="English">English</option><option value="History">History</option><option value="Art">Art</option>
+          </select>
+          <button class="qbtn" onclick="chkSel('bc2sel','History','History bar = 10, which is the shortest bar on the chart.')">Check</button>
+        </div>
+        <div class="qfb" id="bc2sel_fb"></div></div>
+      <div class="qb"><div class="qt">Q3. From the Sports chart: How many boys play Football?</div>
+        <div class="qr"><input class="qin" type="number" id="bc3"><button class="qbtn" onclick="chk('bc3',24,'Blue (Boys) Football bar: scale 0–32, each gridline=8 units. Bar at top gridline = 24. Wait: y=50. Scale: 0 at y=170, 32 at y=10 (160px for 32 units, 5px/unit). 170-50=120px height. 120/5=24. ✓')">Check</button></div>
+        <div class="qfb" id="bc3_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv2">Intermediate</div>
+      <div class="qb"><div class="qt">Q4. From the Subjects chart: How many more students chose Maths than History?</div>
+        <div class="qr"><input class="qin" type="number" id="bc4"><button class="qbtn" onclick="chk('bc4',15,'Maths=25, History=10. 25−10=15.')">Check</button></div>
+        <div class="qfb" id="bc4_fb"></div></div>
+      <div class="qb"><div class="qt">Q5. From the Subjects chart: What is the total number of students surveyed?</div>
+        <div class="qr"><input class="qin" type="number" id="bc5"><button class="qbtn" onclick="chk('bc5',82,'25+15+20+10+12=82 students.')">Check</button></div>
+        <div class="qfb" id="bc5_fb"></div></div>
+      <div class="qb"><div class="qt">Q6. From the Sports chart: How many more girls than boys swim?</div>
+        <div class="qr"><input class="qin" type="number" id="bc6"><button class="qbtn" onclick="chk('bc6',12,'Girls swimming=28, Boys swimming=16. 28−16=12.')">Check</button></div>
+        <div class="qfb" id="bc6_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv3">Advanced</div>
+      <div class="qb"><div class="qt">Q7. From the Subjects chart: What is the mean number of students per subject? (Give your answer to 1 decimal place.)</div>
+        <div class="qr"><input class="qin" type="number" id="bc7"><span class="qun">students</span><button class="qbtn" onclick="chk('bc7',16.4,'Sum=82. Mean=82÷5=16.4.')">Check</button></div>
+        <div class="qfb" id="bc7_fb"></div></div>
+      <div class="qb"><div class="qt">Q8. From the Sports chart: What is the total number of girls across all four sports?</div>
+        <div class="qr"><input class="qin" type="number" id="bc8"><button class="qbtn" onclick="chk('bc8',76,'Girls: Football=20, Swimming=28, Tennis=12, Athletics=16. Total=20+28+12+16=76.')">Check</button></div>
+        <div class="qfb" id="bc8_fb"></div></div>
+      <div class="qb"><div class="qt">Q9. From the Sports chart: In which sport is participation most equal between boys and girls?</div>
+        <div class="qr">
+          <select id="bc9sel" style="border:2px solid var(--gray-200);border-radius:6px;padding:7px 10px;font-family:var(--font);font-size:.9rem;background:white;color:var(--ink);">
+            <option value="">Select...</option>
+            <option value="Football">Football</option><option value="Swimming">Swimming</option>
+            <option value="Tennis">Tennis</option><option value="Athletics">Athletics</option>
+          </select>
+          <button class="qbtn" onclick="chkSel('bc9sel','Football','Football: boys=24, girls=20, difference=4. That is the smallest difference of all four sports.')">Check</button>
+        </div>
+        <div class="qfb" id="bc9sel_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv4">Challenging</div>
+      <div class="qb"><div class="qt">Q10. From the Sports chart: What is the mean number of boys per sport?</div>
+        <div class="qr"><input class="qin" type="number" id="bc10"><button class="qbtn" onclick="chk('bc10',17,'Boys: 24+16+20+8=68. 68÷4=17.')">Check</button></div>
+        <div class="qfb" id="bc10_fb"></div></div>
+      <div class="qb"><div class="qt">Q11. A 6th subject "PE" had 18 students. If added to the Subjects chart, what would the new mean be? (1 decimal place)</div>
+        <div class="qr"><input class="qin" type="number" id="bc11"><button class="qbtn" onclick="chk('bc11',16.7,'New total=82+18=100. 6 bars. 100÷6=16.666...≈16.7.')">Check</button></div>
+        <div class="qfb" id="bc11_fb"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ -->
+<!-- SECTION 3: PICTOGRAMS             -->
+<!-- ══════════════════════════════════ -->
+<div class="sec">
+  <div class="stitle"><span class="sn">3</span>Pictograms</div>
+
+  <p>Pictograms use repeated symbols to represent data. The <strong>key</strong> tells you how many items one complete symbol represents. Always establish the key value before counting.</p>
+
+  <div class="bx bx-f">
+    <div class="bt">📐 Partial Symbol Values — Key = 8 people per symbol</div>
+    <div class="fm">Full symbol = 8</div>
+    <div class="fm">Half symbol (½) = 8 ÷ 2 = 4</div>
+    <div class="fm">Quarter symbol (¼) = 8 ÷ 4 = 2</div>
+    <div class="fm">Three-quarter symbol (¾) = 8 × ¾ = 6</div>
+  </div>
+
+  <!-- Pictogram SVG -->
+  <div class="chart-wrap">
+    <div class="chart-label">Books Read Last Month — Key: 🔵 = 4 books</div>
+    <svg viewBox="0 0 420 190" width="100%" style="max-width:420px;display:block;margin:0 auto;">
+      <rect x="0" y="0" width="420" height="190" fill="#f8fafc" rx="8"/>
+      <!-- header -->
+      <text x="10" y="22" font-size="11" font-weight="700" fill="#334155">Name</text>
+      <text x="120" y="22" font-size="11" font-weight="700" fill="#334155">Books (🔵 = 4)</text>
+      <line x1="10" y1="28" x2="410" y2="28" stroke="#e2e8f0" stroke-width="1"/>
+      <!-- Row 1: Alice = 16 books = 4 full circles -->
+      <text x="10" y="52" font-size="11" fill="#334155">Alice</text>
+      <circle cx="125" cy="46" r="9" fill="#2563eb"/><circle cx="148" cy="46" r="9" fill="#2563eb"/>
+      <circle cx="171" cy="46" r="9" fill="#2563eb"/><circle cx="194" cy="46" r="9" fill="#2563eb"/>
+      <!-- Row 2: Ben = 10 books = 2 full + 1 half -->
+      <text x="10" y="84" font-size="11" fill="#334155">Ben</text>
+      <circle cx="125" cy="78" r="9" fill="#2563eb"/><circle cx="148" cy="78" r="9" fill="#2563eb"/>
+      <!-- half circle -->
+      <path d="M 171 78 m -9 0 a 9 9 0 0 1 18 0 Z" fill="#2563eb"/>
+      <circle cx="171" cy="78" r="9" fill="none" stroke="#2563eb" stroke-width="1.5"/>
+      <!-- Row 3: Clara = 14 books = 3 full + 1 half -->
+      <text x="10" y="116" font-size="11" fill="#334155">Clara</text>
+      <circle cx="125" cy="110" r="9" fill="#2563eb"/><circle cx="148" cy="110" r="9" fill="#2563eb"/>
+      <circle cx="171" cy="110" r="9" fill="#2563eb"/>
+      <path d="M 194 110 m -9 0 a 9 9 0 0 1 18 0 Z" fill="#2563eb"/>
+      <circle cx="194" cy="110" r="9" fill="none" stroke="#2563eb" stroke-width="1.5"/>
+      <!-- Row 4: Dan = 7 books = 1 full + 3-quarter -->
+      <text x="10" y="148" font-size="11" fill="#334155">Dan</text>
+      <circle cx="125" cy="142" r="9" fill="#2563eb"/>
+      <!-- three-quarter: fill 270° -->
+      <path d="M 148 142 m 0 -9 a 9 9 0 1 1 -9 9 Z" fill="#2563eb"/>
+      <circle cx="148" cy="142" r="9" fill="none" stroke="#2563eb" stroke-width="1.5"/>
+      <!-- Row 5: Eve = 6 books = 1 full + 1 half -->
+      <text x="10" y="180" font-size="11" fill="#334155">Eve</text>
+      <circle cx="125" cy="174" r="9" fill="#2563eb"/>
+      <path d="M 148 174 m -9 0 a 9 9 0 0 1 18 0 Z" fill="#2563eb"/>
+      <circle cx="148" cy="174" r="9" fill="none" stroke="#2563eb" stroke-width="1.5"/>
+    </svg>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 1 — Reading the total</div>
+    <div class="st"><strong>Q:</strong> How many books did all five students read in total?</div>
+    <div class="st">Key: 1 symbol = 4 books. ½ symbol = 2 books. ¾ symbol = 3 books.</div>
+    <div class="st">Alice: 4 full = 4×4 = <strong>16</strong></div>
+    <div class="st">Ben: 2 full + ½ = 8 + 2 = <strong>10</strong></div>
+    <div class="st">Clara: 3 full + ½ = 12 + 2 = <strong>14</strong></div>
+    <div class="st">Dan: 1 full + ¾ = 4 + 3 = <strong>7</strong></div>
+    <div class="st">Eve: 1 full + ½ = 4 + 2 = <strong>6</strong></div>
+    <div class="st">Total: 16 + 10 + 14 + 7 + 6 = <strong>53</strong></div>
+    <div class="ans">✅ 53 books in total</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 2 — Difference with partial symbols</div>
+    <div class="st"><strong>Q:</strong> How many more books did Alice read than Dan?</div>
+    <div class="st">Alice = 16, Dan = 7</div>
+    <div class="st">Difference = 16 − 7 = <strong>9</strong></div>
+    <div class="ans">✅ Alice read 9 more books than Dan.</div>
+  </div>
+
+  <div class="bx bx-t">
+    <div class="bt">📋 Completing a Pictogram — How Many Symbols to Draw?</div>
+    <p><strong>Q:</strong> Key = 8 people per symbol. Add a row for a group with 20 people. How many symbols are needed?</p>
+    <p>20 ÷ 8 = 2.5 → draw <strong>2 whole symbols and 1 half symbol</strong>.</p>
+    <p>If asked for 6 people: 6 ÷ 8 = ¾ → draw <strong>¾ of a symbol</strong>.</p>
+  </div>
+
+  <div class="bx bx-w">
+    <div class="bt">⚠️ Never count symbols without applying the key</div>
+    <p>If there are 3 symbols and you write "3" as the answer, you have forgotten the key. Three symbols with a key of 8 = 24 people. The key multiplier applies every time.</p>
+  </div>
+
+  <div class="prac">
+    <h3>📝 Practice — Pictograms (Key: 🔵 = 4 books)</h3>
+    <div class="lvb"><div class="ltag lv1">Easy</div>
+      <div class="qb"><div class="qt">Q1. How many books did Alice read? (Key = 4 per symbol, Alice has 4 full symbols)</div>
+        <div class="qr"><input class="qin" type="number" id="pg1"><button class="qbtn" onclick="chk('pg1',16,'4 full symbols × 4 = 16 books.')">Check</button></div>
+        <div class="qfb" id="pg1_fb"></div></div>
+      <div class="qb"><div class="qt">Q2. How many books did Ben read? (2 full + ½ symbol)</div>
+        <div class="qr"><input class="qin" type="number" id="pg2"><button class="qbtn" onclick="chk('pg2',10,'2×4=8. ½ symbol=2. Total=10 books.')">Check</button></div>
+        <div class="qfb" id="pg2_fb"></div></div>
+      <div class="qb"><div class="qt">Q3. Key = 4 books per symbol. A row shows 3 full symbols. How many books does this represent?</div>
+        <div class="qr"><input class="qin" type="number" id="pg3"><button class="qbtn" onclick="chk('pg3',12,'3 × 4 = 12 books.')">Check</button></div>
+        <div class="qfb" id="pg3_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv2">Intermediate</div>
+      <div class="qb"><div class="qt">Q4. How many books did Clara read? (3 full + ½ symbol, key=4)</div>
+        <div class="qr"><input class="qin" type="number" id="pg4"><button class="qbtn" onclick="chk('pg4',14,'3×4=12. ½×4=2. Total=14.')">Check</button></div>
+        <div class="qfb" id="pg4_fb"></div></div>
+      <div class="qb"><div class="qt">Q5. How many more books did Clara read than Eve?</div>
+        <div class="qr"><input class="qin" type="number" id="pg5"><button class="qbtn" onclick="chk('pg5',8,'Clara=14, Eve=6. 14−6=8.')">Check</button></div>
+        <div class="qfb" id="pg5_fb"></div></div>
+      <div class="qb"><div class="qt">Q6. Key = 4 per symbol. A student read 18 books. How many full symbols should be drawn?</div>
+        <div class="qr"><input class="qin" type="number" id="pg6"><button class="qbtn" onclick="chk('pg6',4,'18÷4=4.5 → 4 full symbols and 1 half symbol. Full symbols = 4.')">Check</button></div>
+        <div class="qfb" id="pg6_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv3">Advanced</div>
+      <div class="qb"><div class="qt">Q7. How many books did Dan read? (1 full + ¾ symbol, key=4)</div>
+        <div class="qr"><input class="qin" type="number" id="pg7"><button class="qbtn" onclick="chk('pg7',7,'1×4=4. ¾×4=3. Total=7.')">Check</button></div>
+        <div class="qfb" id="pg7_fb"></div></div>
+      <div class="qb"><div class="qt">Q8. What is the total books read by all five students?</div>
+        <div class="qr"><input class="qin" type="number" id="pg8"><button class="qbtn" onclick="chk('pg8',53,'Alice=16, Ben=10, Clara=14, Dan=7, Eve=6. Total=53.')">Check</button></div>
+        <div class="qfb" id="pg8_fb"></div></div>
+      <div class="qb"><div class="qt">Q9. Key = 8 people per symbol. A group has 20 people. How many symbols in total (count halves as 0.5)?</div>
+        <div class="qr"><input class="qin" type="number" id="pg9"><button class="qbtn" onclick="chk('pg9',2.5,'20÷8=2.5 → 2 full symbols + 1 half symbol = 2.5 symbols.')">Check</button></div>
+        <div class="qfb" id="pg9_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv4">Challenging</div>
+      <div class="qb"><div class="qt">Q10. Key = 6 per symbol. A row shows 3¾ symbols. How many items does this represent?</div>
+        <div class="qr"><input class="qin" type="number" id="pg10"><button class="qbtn" onclick="chk('pg10',22.5,'3.75 × 6 = 22.5')">Check</button></div>
+        <div class="qfb" id="pg10_fb"></div></div>
+      <div class="qb"><div class="qt">Q11. The mean number of books read across Alice, Ben, Clara, Dan and Eve is how much? (1 decimal place)</div>
+        <div class="qr"><input class="qin" type="number" id="pg11"><button class="qbtn" onclick="chk('pg11',10.6,'Total=53. 53÷5=10.6.')">Check</button></div>
+        <div class="qfb" id="pg11_fb"></div></div>
+    </div>
+  </div>
+</div>
+<!-- ══════════════════════════════════ -->
+<!-- SECTION 4: LINE GRAPHS            -->
+<!-- ══════════════════════════════════ -->
+<div class="sec">
+  <div class="stitle"><span class="sn">4</span>Line Graphs</div>
+  <p>Line graphs show how a value changes over time (continuous data). Points are plotted and joined with straight lines. Use a ruler to trace horizontally from a point to the y-axis to read its value accurately.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-label">Monthly Rainfall (mm) — Jan to Jun</div>
+    <svg viewBox="0 0 420 210" width="100%" style="max-width:420px;display:block;margin:0 auto;">
+      <line x1="55" y1="10" x2="55" y2="170" stroke="#334155" stroke-width="2"/>
+      <line x1="55" y1="170" x2="400" y2="170" stroke="#334155" stroke-width="2"/>
+      <line x1="53" y1="170" x2="400" y2="170" stroke="#e2e8f0"/><text x="48" y="174" text-anchor="end" font-size="10" fill="#475569">0</text>
+      <line x1="53" y1="140" x2="400" y2="140" stroke="#e2e8f0"/><text x="48" y="144" text-anchor="end" font-size="10" fill="#475569">15</text>
+      <line x1="53" y1="110" x2="400" y2="110" stroke="#e2e8f0"/><text x="48" y="114" text-anchor="end" font-size="10" fill="#475569">30</text>
+      <line x1="53" y1="80" x2="400" y2="80" stroke="#e2e8f0"/><text x="48" y="84" text-anchor="end" font-size="10" fill="#475569">45</text>
+      <line x1="53" y1="50" x2="400" y2="50" stroke="#e2e8f0"/><text x="48" y="54" text-anchor="end" font-size="10" fill="#475569">60</text>
+      <line x1="53" y1="20" x2="400" y2="20" stroke="#e2e8f0"/><text x="48" y="24" text-anchor="end" font-size="10" fill="#475569">75</text>
+      <!-- each mm = 2px. y = 170 - (val * 2) -->
+      <!-- Jan=40→y=90, Feb=25→y=120, Mar=55→y=60, Apr=35→y=100, May=20→y=130, Jun=60→y=50 -->
+      <polyline points="80,90 140,120 200,60 260,100 320,130 380,50" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- dots -->
+      <circle cx="80" cy="90" r="4" fill="#2563eb"/><text x="80" y="84" text-anchor="middle" font-size="9" fill="#1e40af">40</text>
+      <circle cx="140" cy="120" r="4" fill="#2563eb"/><text x="140" y="114" text-anchor="middle" font-size="9" fill="#1e40af">25</text>
+      <circle cx="200" cy="60" r="4" fill="#2563eb"/><text x="200" y="54" text-anchor="middle" font-size="9" fill="#1e40af">55</text>
+      <circle cx="260" cy="100" r="4" fill="#2563eb"/><text x="260" y="94" text-anchor="middle" font-size="9" fill="#1e40af">35</text>
+      <circle cx="320" cy="130" r="4" fill="#2563eb"/><text x="320" y="124" text-anchor="middle" font-size="9" fill="#1e40af">20</text>
+      <circle cx="380" cy="50" r="4" fill="#2563eb"/><text x="380" y="44" text-anchor="middle" font-size="9" fill="#1e40af">60</text>
+      <!-- x labels -->
+      <text x="80" y="185" text-anchor="middle" font-size="10" fill="#475569">Jan</text>
+      <text x="140" y="185" text-anchor="middle" font-size="10" fill="#475569">Feb</text>
+      <text x="200" y="185" text-anchor="middle" font-size="10" fill="#475569">Mar</text>
+      <text x="260" y="185" text-anchor="middle" font-size="10" fill="#475569">Apr</text>
+      <text x="320" y="185" text-anchor="middle" font-size="10" fill="#475569">May</text>
+      <text x="380" y="185" text-anchor="middle" font-size="10" fill="#475569">Jun</text>
+      <text x="18" y="95" text-anchor="middle" font-size="9" fill="#475569" transform="rotate(-90,18,95)">Rainfall (mm)</text>
+    </svg>
+  </div>
+
+  <div class="bx bx-f">
+    <div class="bt">📐 Key Skills for Line Graphs</div>
+    <div class="fm">Reading a value: trace from the point horizontally to the y-axis</div>
+    <div class="fm">Interpolation: estimate a value between two plotted points</div>
+    <div class="fm">Trend: rising line = increasing, falling line = decreasing, flat = no change</div>
+    <div class="fm">Steepest section = greatest rate of change</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example — Interpolation</div>
+    <div class="st"><strong>Q:</strong> Estimate the rainfall halfway between March and April.</div>
+    <div class="st">March = 55 mm, April = 35 mm</div>
+    <div class="st">Halfway = (55 + 35) ÷ 2 = 45 mm</div>
+    <div class="ans">✅ Approximately 45 mm halfway between March and April</div>
+  </div>
+
+  <div class="prac">
+    <h3>📝 Practice — Line Graphs (using chart above)</h3>
+    <div class="lvb"><div class="ltag lv1">Easy</div>
+      <div class="qb"><div class="qt">Q1. What was the rainfall in February?</div>
+        <div class="qr"><input class="qin" type="number" id="lg1"><span class="qun">mm</span><button class="qbtn" onclick="chk('lg1',25,'February point is at 25 mm on the y-axis.')">Check</button></div>
+        <div class="qfb" id="lg1_fb"></div></div>
+      <div class="qb"><div class="qt">Q2. Which month had the highest rainfall?</div>
+        <div class="qr">
+          <select id="lg2sel" style="border:2px solid var(--gray-200);border-radius:6px;padding:7px 10px;font-family:var(--font);font-size:.9rem;background:white;color:var(--ink);">
+            <option value="">Select...</option>
+            <option value="Jan">Jan</option><option value="Feb">Feb</option><option value="Mar">Mar</option>
+            <option value="Apr">Apr</option><option value="May">May</option><option value="Jun">Jun</option>
+          </select>
+          <button class="qbtn" onclick="chkSel('lg2sel','Jun','June has the highest point at 60mm.')">Check</button>
+        </div>
+        <div class="qfb" id="lg2sel_fb"></div></div>
+      <div class="qb"><div class="qt">Q3. What was the rainfall in May?</div>
+        <div class="qr"><input class="qin" type="number" id="lg3"><span class="qun">mm</span><button class="qbtn" onclick="chk('lg3',20,'May point is at 20 mm.')">Check</button></div>
+        <div class="qfb" id="lg3_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv2">Intermediate</div>
+      <div class="qb"><div class="qt">Q4. How much more rainfall was there in March than in February?</div>
+        <div class="qr"><input class="qin" type="number" id="lg4"><span class="qun">mm</span><button class="qbtn" onclick="chk('lg4',30,'March=55, Feb=25. 55−25=30 mm.')">Check</button></div>
+        <div class="qfb" id="lg4_fb"></div></div>
+      <div class="qb"><div class="qt">Q5. What is the total rainfall for all six months?</div>
+        <div class="qr"><input class="qin" type="number" id="lg5"><span class="qun">mm</span><button class="qbtn" onclick="chk('lg5',235,'40+25+55+35+20+60=235 mm.')">Check</button></div>
+        <div class="qfb" id="lg5_fb"></div></div>
+      <div class="qb"><div class="qt">Q6. Between which two consecutive months was the greatest increase in rainfall?</div>
+        <div class="qr">
+          <select id="lg6sel" style="border:2px solid var(--gray-200);border-radius:6px;padding:7px 10px;font-family:var(--font);font-size:.9rem;background:white;color:var(--ink);">
+            <option value="">Select...</option>
+            <option value="Jan-Feb">Jan to Feb</option><option value="Feb-Mar">Feb to Mar</option>
+            <option value="Apr-May">Apr to May</option><option value="May-Jun">May to Jun</option>
+          </select>
+          <button class="qbtn" onclick="chkSel('lg6sel','May-Jun','May=20 to Jun=60: increase of 40mm. Biggest increase.')">Check</button>
+        </div>
+        <div class="qfb" id="lg6sel_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv3">Advanced</div>
+      <div class="qb"><div class="qt">Q7. What is the mean monthly rainfall? (1 decimal place)</div>
+        <div class="qr"><input class="qin" type="number" id="lg7"><span class="qun">mm</span><button class="qbtn" onclick="chk('lg7',39.2,'235÷6=39.166...≈39.2 mm.')">Check</button></div>
+        <div class="qfb" id="lg7_fb"></div></div>
+      <div class="qb"><div class="qt">Q8. The interpolated rainfall halfway between May and June is approximately:</div>
+        <div class="qr"><input class="qin" type="number" id="lg8"><span class="qun">mm</span><button class="qbtn" onclick="chk('lg8',40,'(20+60)÷2=40 mm.')">Check</button></div>
+        <div class="qfb" id="lg8_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv4">Challenging</div>
+      <div class="qb"><div class="qt">Q9. The range of monthly rainfall values is:</div>
+        <div class="qr"><input class="qin" type="number" id="lg9"><span class="qun">mm</span><button class="qbtn" onclick="chk('lg9',40,'Range = highest − lowest = 60 − 20 = 40 mm.')">Check</button></div>
+        <div class="qfb" id="lg9_fb"></div></div>
+      <div class="qb"><div class="qt">Q10. If July's rainfall is 15 mm less than the mean of all 6 months so far, what is July's rainfall?</div>
+        <div class="qr"><input class="qin" type="number" id="lg10"><span class="qun">mm</span><button class="qbtn" onclick="chk('lg10',24.2,'Mean≈39.2. 39.2−15=24.2 mm.')">Check</button></div>
+        <div class="qfb" id="lg10_fb"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ -->
+<!-- SECTION 5: PIE CHARTS             -->
+<!-- ══════════════════════════════════ -->
+<div class="sec">
+  <div class="stitle"><span class="sn">5</span>Pie Charts</div>
+  <p>A pie chart shows parts of a whole. The full circle = <strong>360°</strong>. Each sector's angle is proportional to its fraction of the total.</p>
+
+  <div class="bx bx-f">
+    <div class="bt">📐 Key Formulas</div>
+    <div class="fm">Sector angle = (value ÷ total) × 360°</div>
+    <div class="fm">Value from angle = (angle ÷ 360) × total</div>
+    <div class="fm">Fraction = angle ÷ 360°</div>
+  </div>
+
+  <!-- Pie Chart SVG -->
+  <div class="chart-wrap">
+    <div class="chart-label">How 60 students travel to school — total = 60 students</div>
+    <svg viewBox="0 0 380 200" width="100%" style="max-width:380px;display:block;margin:0 auto;">
+      <!-- Pie: Walk=120°(20st), Bus=90°(15st), Car=72°(12st), Cycle=60°(10st), Other=18°(3st) -->
+      <!-- cx=120,cy=100,r=80 -->
+      <!-- Walk: 0° to 120° → from top (−90°): start=-90°, end=30° -->
+      <path d="M120,100 L120,20 A80,80,0,0,1,189.28,140 Z" fill="#2563eb"/>
+      <!-- Bus: 120° to 210° -->
+      <path d="M120,100 L189.28,140 A80,80,0,0,1,80,172.85 Z" fill="#16a34a"/>
+      <!-- Car: 210° to 282° -->
+      <path d="M120,100 L80,172.85 A80,80,0,0,1,40,115.4 Z" fill="#d97706"/>
+      <!-- Cycle: 282° to 342° -->
+      <path d="M120,100 L40,115.4 A80,80,0,0,1,76.47,25.26 Z" fill="#7c3aed"/>
+      <!-- Other: 342° to 360° -->
+      <path d="M120,100 L76.47,25.26 A80,80,0,0,1,120,20 Z" fill="#db2777"/>
+      <!-- center dot -->
+      <circle cx="120" cy="100" r="3" fill="white"/>
+      <!-- angle labels -->
+      <text x="155" y="80" font-size="10" fill="white" font-weight="700">120°</text>
+      <text x="142" y="158" font-size="10" fill="white" font-weight="700">90°</text>
+      <text x="58" y="155" font-size="10" fill="white" font-weight="700">72°</text>
+      <text x="52" y="90" font-size="10" fill="white" font-weight="700">60°</text>
+      <text x="94" y="35" font-size="10" fill="white" font-weight="700">18°</text>
+      <!-- Legend -->
+      <rect x="230" y="20" width="12" height="12" fill="#2563eb" rx="2"/><text x="246" y="31" font-size="11" fill="#334155">Walk (120°)</text>
+      <rect x="230" y="40" width="12" height="12" fill="#16a34a" rx="2"/><text x="246" y="51" font-size="11" fill="#334155">Bus (90°)</text>
+      <rect x="230" y="60" width="12" height="12" fill="#d97706" rx="2"/><text x="246" y="71" font-size="11" fill="#334155">Car (72°)</text>
+      <rect x="230" y="80" width="12" height="12" fill="#7c3aed" rx="2"/><text x="246" y="91" font-size="11" fill="#334155">Cycle (60°)</text>
+      <rect x="230" y="100" width="12" height="12" fill="#db2777" rx="2"/><text x="246" y="111" font-size="11" fill="#334155">Other (18°)</text>
+      <text x="230" y="135" font-size="10" fill="#475569">Total = 60 students</text>
+      <text x="230" y="148" font-size="10" fill="#475569">Full circle = 360°</text>
+    </svg>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 1 — Find the number who walk</div>
+    <div class="st"><strong>Q:</strong> Walk sector = 120°. Total = 60 students. How many walk?</div>
+    <div class="st">Fraction = 120 ÷ 360 = ⅓</div>
+    <div class="st">Number = ⅓ × 60 = 20</div>
+    <div class="ans">✅ 20 students walk to school.</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 2 — Calculate a sector angle</div>
+    <div class="st"><strong>Q:</strong> 15 students travel by bus. Total = 60. What angle should the Bus sector be?</div>
+    <div class="st">Fraction = 15 ÷ 60 = ¼</div>
+    <div class="st">Angle = ¼ × 360 = 90°</div>
+    <div class="ans">✅ Bus sector = 90°</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example 3 — Find a value from a fraction</div>
+    <div class="st"><strong>Q:</strong> The Cycle sector is 60°. Total = 60 students. How many cycle?</div>
+    <div class="st">Fraction = 60 ÷ 360 = 1/6</div>
+    <div class="st">Number = 1/6 × 60 = 10</div>
+    <div class="ans">✅ 10 students cycle.</div>
+  </div>
+
+  <div class="prac">
+    <h3>📝 Practice — Pie Charts (total = 60 students)</h3>
+    <div class="lvb"><div class="ltag lv1">Easy</div>
+      <div class="qb"><div class="qt">Q1. The Walk sector is 120°. What fraction of students walk? Enter as a decimal.</div>
+        <div class="qr"><input class="qin" type="number" id="pc1"><button class="qbtn" onclick="chk('pc1',0.333,'120÷360=1/3≈0.333.')">Check</button></div>
+        <div class="qfb" id="pc1_fb"></div></div>
+      <div class="qb"><div class="qt">Q2. The Car sector is 72°. Total = 60 students. How many travel by car?</div>
+        <div class="qr"><input class="qin" type="number" id="pc2"><button class="qbtn" onclick="chk('pc2',12,'72÷360=1/5. 1/5×60=12 students.')">Check</button></div>
+        <div class="qfb" id="pc2_fb"></div></div>
+      <div class="qb"><div class="qt">Q3. The Bus sector = 90°. Total = 60. How many travel by bus?</div>
+        <div class="qr"><input class="qin" type="number" id="pc3"><button class="qbtn" onclick="chk('pc3',15,'90÷360=1/4. 1/4×60=15.')">Check</button></div>
+        <div class="qfb" id="pc3_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv2">Intermediate</div>
+      <div class="qb"><div class="qt">Q4. The Other sector is 18°. Total = 60. How many chose "other"?</div>
+        <div class="qr"><input class="qin" type="number" id="pc4"><button class="qbtn" onclick="chk('pc4',3,'18÷360=1/20. 1/20×60=3.')">Check</button></div>
+        <div class="qfb" id="pc4_fb"></div></div>
+      <div class="qb"><div class="qt">Q5. In a different survey of 120 students, 30 walk. What angle should the Walk sector be?</div>
+        <div class="qr"><input class="qin" type="number" id="pc5"><span class="qun">°</span><button class="qbtn" onclick="chk('pc5',90,'30÷120=1/4. 1/4×360=90°.')">Check</button></div>
+        <div class="qfb" id="pc5_fb"></div></div>
+      <div class="qb"><div class="qt">Q6. How many more students walk than cycle? (Use the pie chart above, total=60)</div>
+        <div class="qr"><input class="qin" type="number" id="pc6"><button class="qbtn" onclick="chk('pc6',10,'Walk=20, Cycle=10. 20−10=10.')">Check</button></div>
+        <div class="qfb" id="pc6_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv3">Advanced</div>
+      <div class="qb"><div class="qt">Q7. In a survey, a sector covers 135°. Total = 80 students. How many does it represent?</div>
+        <div class="qr"><input class="qin" type="number" id="pc7"><button class="qbtn" onclick="chk('pc7',30,'135÷360=3/8. 3/8×80=30.')">Check</button></div>
+        <div class="qfb" id="pc7_fb"></div></div>
+      <div class="qb"><div class="qt">Q8. A pie chart shows 5 categories. Four sectors have angles 90°, 72°, 60°, 18°. What is the fifth sector's angle?</div>
+        <div class="qr"><input class="qin" type="number" id="pc8"><span class="qun">°</span><button class="qbtn" onclick="chk('pc8',120,'360−90−72−60−18=120°.')">Check</button></div>
+        <div class="qfb" id="pc8_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv4">Challenging</div>
+      <div class="qb"><div class="qt">Q9. A pie chart shows 200 people. The "Walk" sector = 54°. How many people walk?</div>
+        <div class="qr"><input class="qin" type="number" id="pc9"><button class="qbtn" onclick="chk('pc9',30,'54÷360=3/20. 3/20×200=30.')">Check</button></div>
+        <div class="qfb" id="pc9_fb"></div></div>
+      <div class="qb"><div class="qt">Q10. In a school of 360 students, 45 cycle. What angle represents cyclists in a pie chart?</div>
+        <div class="qr"><input class="qin" type="number" id="pc10"><span class="qun">°</span><button class="qbtn" onclick="chk('pc10',45,'45÷360=1/8. 1/8×360=45°.')">Check</button></div>
+        <div class="qfb" id="pc10_fb"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ -->
+<!-- SECTION 6: TWO-WAY TABLES         -->
+<!-- ══════════════════════════════════ -->
+<div class="sec">
+  <div class="stitle"><span class="sn">6</span>Two-Way Tables &amp; Frequency Tables</div>
+  <p>Two-way tables organise data across two variables simultaneously. They are common in GL papers and require careful reading of rows, columns, and totals.</p>
+
+  <div class="chart-label" style="margin-bottom:8px;">Favourite Season — Survey of 80 students</div>
+  <table>
+    <thead><tr><th></th><th>Spring</th><th>Summer</th><th>Autumn</th><th>Winter</th><th>Row Total</th></tr></thead>
+    <tbody>
+      <tr><td>Boys</td><td>8</td><td>18</td><td>6</td><td>12</td><td>44</td></tr>
+      <tr><td>Girls</td><td>10</td><td>14</td><td>8</td><td>4</td><td>36</td></tr>
+      <tr><td><strong>Column Total</strong></td><td><strong>18</strong></td><td><strong>32</strong></td><td><strong>14</strong></td><td><strong>16</strong></td><td><strong>80</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="bx bx-f">
+    <div class="bt">📐 Reading Rules</div>
+    <div class="fm">Row total = sum across that row. Column total = sum down that column.</div>
+    <div class="fm">Grand total (bottom-right) = sum of all row totals = sum of all column totals.</div>
+    <div class="fm">To find a missing value: total − all other known values in same row/column.</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example — Finding a missing value</div>
+    <div class="st"><strong>Q:</strong> If "Boys who prefer Autumn" was missing, how would you find it?</div>
+    <div class="st">Method 1 (use row): Boys total = 44. 44 − 8 − 18 − 12 = <strong>6</strong></div>
+    <div class="st">Method 2 (use column): Autumn total = 14. 14 − 8 (Girls) = <strong>6</strong></div>
+    <div class="ans">✅ Both methods give 6 — always cross-check using both row and column!</div>
+  </div>
+
+  <div class="prac">
+    <h3>📝 Practice — Two-Way Tables (using the table above)</h3>
+    <div class="lvb"><div class="ltag lv1">Easy</div>
+      <div class="qb"><div class="qt">Q1. How many girls prefer Summer?</div>
+        <div class="qr"><input class="qin" type="number" id="tw1"><button class="qbtn" onclick="chk('tw1',14,'Girls row, Summer column = 14.')">Check</button></div>
+        <div class="qfb" id="tw1_fb"></div></div>
+      <div class="qb"><div class="qt">Q2. How many students in total prefer Winter?</div>
+        <div class="qr"><input class="qin" type="number" id="tw2"><button class="qbtn" onclick="chk('tw2',16,'Winter column total = 16.')">Check</button></div>
+        <div class="qfb" id="tw2_fb"></div></div>
+      <div class="qb"><div class="qt">Q3. How many boys were surveyed in total?</div>
+        <div class="qr"><input class="qin" type="number" id="tw3"><button class="qbtn" onclick="chk('tw3',44,'Boys row total = 8+18+6+12 = 44.')">Check</button></div>
+        <div class="qfb" id="tw3_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv2">Intermediate</div>
+      <div class="qb"><div class="qt">Q4. How many more boys than girls prefer Summer?</div>
+        <div class="qr"><input class="qin" type="number" id="tw4"><button class="qbtn" onclick="chk('tw4',4,'Boys Summer=18, Girls Summer=14. 18−14=4.')">Check</button></div>
+        <div class="qfb" id="tw4_fb"></div></div>
+      <div class="qb"><div class="qt">Q5. What fraction of all students prefer Spring? Enter as a decimal.</div>
+        <div class="qr"><input class="qin" type="number" id="tw5"><button class="qbtn" onclick="chk('tw5',0.225,'Spring total=18. 18÷80=0.225.')">Check</button></div>
+        <div class="qfb" id="tw5_fb"></div></div>
+      <div class="qb"><div class="qt">Q6. A new table has 100 students. Boys=55, Girls=45. If 20 boys prefer Autumn and 12 girls prefer Autumn, what is the Autumn column total?</div>
+        <div class="qr"><input class="qin" type="number" id="tw6"><button class="qbtn" onclick="chk('tw6',32,'20+12=32.')">Check</button></div>
+        <div class="qfb" id="tw6_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv3">Advanced</div>
+      <div class="qb"><div class="qt">Q7. What percentage of girls prefer Winter? (Round to nearest whole number)</div>
+        <div class="qr"><input class="qin" type="number" id="tw7"><span class="qun">%</span><button class="qbtn" onclick="chk('tw7',11,'Girls prefer Winter=4. Girls total=36. 4÷36×100=11.1%≈11%.')">Check</button></div>
+        <div class="qfb" id="tw7_fb"></div></div>
+      <div class="qb"><div class="qt">Q8. In a different two-way table: total=120, boys=70, girls=50. Boys who prefer football=30. Girls who prefer football=20. How many prefer "other"?</div>
+        <div class="qr"><input class="qin" type="number" id="tw8"><button class="qbtn" onclick="chk('tw8',70,'Football total=30+20=50. Other=120−50=70.')">Check</button></div>
+        <div class="qfb" id="tw8_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv4">Challenging</div>
+      <div class="qb"><div class="qt">Q9. Using the original table: what is the modal season for boys?</div>
+        <div class="qr">
+          <select id="tw9sel" style="border:2px solid var(--gray-200);border-radius:6px;padding:7px 10px;font-family:var(--font);font-size:.9rem;background:white;color:var(--ink);">
+            <option value="">Select...</option>
+            <option value="Spring">Spring</option><option value="Summer">Summer</option>
+            <option value="Autumn">Autumn</option><option value="Winter">Winter</option>
+          </select>
+          <button class="qbtn" onclick="chkSel('tw9sel','Summer','Boys: Spring=8, Summer=18, Autumn=6, Winter=12. Highest=Summer.')">Check</button>
+        </div>
+        <div class="qfb" id="tw9sel_fb"></div></div>
+      <div class="qb"><div class="qt">Q10. What sector angle would represent "prefers Summer" in a pie chart of all 80 students?</div>
+        <div class="qr"><input class="qin" type="number" id="tw10"><span class="qun">°</span><button class="qbtn" onclick="chk('tw10',144,'Summer total=32. 32÷80=0.4. 0.4×360=144°.')">Check</button></div>
+        <div class="qfb" id="tw10_fb"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ -->
+<!-- SECTION 7: MEAN MEDIAN MODE RANGE -->
+<!-- ══════════════════════════════════ -->
+<div class="sec">
+  <div class="stitle"><span class="sn">7</span>Mean, Median, Mode &amp; Range</div>
+  <p>These four statistics describe a data set. All four appear in GL papers — often calculated from chart data.</p>
+
+  <div class="bx bx-f">
+    <div class="bt">📐 Definitions and Formulas</div>
+    <div class="fm">Mean = sum of all values ÷ number of values</div>
+    <div class="fm">Median = middle value when data is sorted smallest to largest</div>
+    <div class="fm">Mode = most frequently occurring value (can be more than one)</div>
+    <div class="fm">Range = largest value − smallest value</div>
+    <div class="fm">Missing value given mean: missing = (mean × n) − sum of known values</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example — All four statistics</div>
+    <div class="st"><strong>Data set:</strong> 8, 3, 5, 8, 6, 4, 8, 2</div>
+    <div class="st"><strong>Mean:</strong> Sum = 8+3+5+8+6+4+8+2 = 44. Count = 8. Mean = 44 ÷ 8 = <strong>5.5</strong></div>
+    <div class="st"><strong>Median:</strong> Sort: 2, 3, 4, 5, 6, 8, 8, 8. Middle two = 5 and 6. Median = (5+6) ÷ 2 = <strong>5.5</strong></div>
+    <div class="st"><strong>Mode:</strong> 8 appears 3 times — most frequent. Mode = <strong>8</strong></div>
+    <div class="st"><strong>Range:</strong> 8 − 2 = <strong>6</strong></div>
+    <div class="ans">✅ Mean=5.5, Median=5.5, Mode=8, Range=6</div>
+  </div>
+
+  <div class="bx bx-e">
+    <div class="bt">✏️ Worked Example — Finding a missing value from the mean</div>
+    <div class="st"><strong>Q:</strong> Five numbers have a mean of 9. Four of them are: 7, 11, 8, 10. Find the fifth.</div>
+    <div class="st">Step 1: Total needed = mean × count = 9 × 5 = 45</div>
+    <div class="st">Step 2: Sum of known values = 7 + 11 + 8 + 10 = 36</div>
+    <div class="st">Step 3: Missing value = 45 − 36 = <strong>9</strong></div>
+    <div class="ans">✅ The fifth number is 9.</div>
+  </div>
+
+  <div class="prac">
+    <h3>📝 Practice — Mean, Median, Mode, Range</h3>
+    <p style="font-size:.88rem;color:var(--gray-600);margin-bottom:10px;">Use this data set for Q1–Q5: <strong>4, 7, 2, 9, 7, 5, 3, 7</strong></p>
+    <div class="lvb"><div class="ltag lv1">Easy</div>
+      <div class="qb"><div class="qt">Q1. What is the mode of: 4, 7, 2, 9, 7, 5, 3, 7?</div>
+        <div class="qr"><input class="qin" type="number" id="st1"><button class="qbtn" onclick="chk('st1',7,'7 appears 3 times — more than any other value. Mode = 7.')">Check</button></div>
+        <div class="qfb" id="st1_fb"></div></div>
+      <div class="qb"><div class="qt">Q2. What is the range of: 4, 7, 2, 9, 7, 5, 3, 7?</div>
+        <div class="qr"><input class="qin" type="number" id="st2"><button class="qbtn" onclick="chk('st2',7,'Largest=9, Smallest=2. Range=9−2=7.')">Check</button></div>
+        <div class="qfb" id="st2_fb"></div></div>
+      <div class="qb"><div class="qt">Q3. What is the sum of: 4, 7, 2, 9, 7, 5, 3, 7?</div>
+        <div class="qr"><input class="qin" type="number" id="st3"><button class="qbtn" onclick="chk('st3',44,'4+7+2+9+7+5+3+7=44.')">Check</button></div>
+        <div class="qfb" id="st3_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv2">Intermediate</div>
+      <div class="qb"><div class="qt">Q4. What is the mean of: 4, 7, 2, 9, 7, 5, 3, 7?</div>
+        <div class="qr"><input class="qin" type="number" id="st4"><button class="qbtn" onclick="chk('st4',5.5,'Sum=44. Count=8. Mean=44÷8=5.5.')">Check</button></div>
+        <div class="qfb" id="st4_fb"></div></div>
+      <div class="qb"><div class="qt">Q5. What is the median of: 4, 7, 2, 9, 7, 5, 3, 7? (Sorted: 2,3,4,5,7,7,7,9)</div>
+        <div class="qr"><input class="qin" type="number" id="st5"><button class="qbtn" onclick="chk('st5',6,'Even count. Middle two = 5 and 7. (5+7)÷2=6.')">Check</button></div>
+        <div class="qfb" id="st5_fb"></div></div>
+      <div class="qb"><div class="qt">Q6. Five scores have a mean of 9. Four are: 7, 11, 8, 10. What is the fifth?</div>
+        <div class="qr"><input class="qin" type="number" id="st6"><button class="qbtn" onclick="chk('st6',9,'Total=9×5=45. Known=7+11+8+10=36. Missing=45−36=9.')">Check</button></div>
+        <div class="qfb" id="st6_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv3">Advanced</div>
+      <div class="qb"><div class="qt">Q7. Six numbers have a mean of 12. Five of them are: 10, 15, 8, 14, 11. Find the sixth.</div>
+        <div class="qr"><input class="qin" type="number" id="st7"><button class="qbtn" onclick="chk('st7',14,'Total=12×6=72. Known=10+15+8+14+11=58. Missing=72−58=14.')">Check</button></div>
+        <div class="qfb" id="st7_fb"></div></div>
+      <div class="qb"><div class="qt">Q8. Find the median of: 3, 8, 1, 6, 9, 4, 2, 7, 5</div>
+        <div class="qr"><input class="qin" type="number" id="st8"><button class="qbtn" onclick="chk('st8',5,'Sorted: 1,2,3,4,5,6,7,8,9. Middle (5th of 9) = 5.')">Check</button></div>
+        <div class="qfb" id="st8_fb"></div></div>
+      <div class="qb"><div class="qt">Q9. The Subjects bar chart showed values: 25,15,20,10,12. What is the median?</div>
+        <div class="qr"><input class="qin" type="number" id="st9"><button class="qbtn" onclick="chk('st9',15,'Sorted: 10,12,15,20,25. Middle (3rd of 5) = 15.')">Check</button></div>
+        <div class="qfb" id="st9_fb"></div></div>
+    </div>
+    <div class="lvb"><div class="ltag lv4">Challenging</div>
+      <div class="qb"><div class="qt">Q10. The data set 3, 7, 7, x, 14 has a mean of 8. Find the value of x.</div>
+        <div class="qr"><input class="qin" type="number" id="st10"><button class="qbtn" onclick="chk('st10',9,'Mean=8, count=5, total needed=40. 3+7+7+14=31. x=40−31=9.')">Check</button></div>
+        <div class="qfb" id="st10_fb"></div></div>
+      <div class="qb"><div class="qt">Q11. The mean of 4 values is 15. A 5th value of 25 is added. What is the new mean?</div>
+        <div class="qr"><input class="qin" type="number" id="st11"><button class="qbtn" onclick="chk('st11',17,'Original sum=15×4=60. New sum=60+25=85. New mean=85÷5=17.')">Check</button></div>
+        <div class="qfb" id="st11_fb"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ -->
+<!-- SECTION 8: COMMON PITFALLS        -->
+<!-- ══════════════════════════════════ -->
+<div class="sec">
+  <div class="stitle"><span class="sn">8</span>Common Pitfalls — Consolidated</div>
+  <ul class="plist">
+    <li class="pi"><span class="pi-i">⚠️</span><div class="pi-t"><strong>Assuming each scale division = 1 or 10:</strong> Always count divisions and calculate the value per division before reading any bar. Never guess the scale.</div></li>
+    <li class="pi"><span class="pi-i">⚠️</span><div class="pi-t"><strong>Pictogram — forgetting to apply the key:</strong> Counting symbols and writing that number as the answer gives you the symbol count, not the data value. Always multiply by the key value.</div></li>
+    <li class="pi"><span class="pi-i">⚠️</span><div class="pi-t"><strong>Pie chart — adding 12 instead of calculating the fraction:</strong> The angle fraction of 360° gives the data fraction. (angle ÷ 360) × total = value. Don't skip the fraction step.</div></li>
+    <li class="pi"><span class="pi-i">⚠️</span><div class="pi-t"><strong>Mean vs Total:</strong> The question asks for the mean — students compute the total and stop. Always divide by the count of values after summing.</div></li>
+    <li class="pi"><span class="pi-i">⚠️</span><div class="pi-t"><strong>Median without sorting:</strong> The median is the middle value of a <em>sorted</em> list. Finding the middle value of an unsorted list gives a random number, not the median.</div></li>
+    <li class="pi"><span class="pi-i">⚠️</span><div class="pi-t"><strong>Two-way table — reading the wrong cell:</strong> "Boys who prefer Summer" is a specific cell. "Total who prefer Summer" is the column total. Read the correct row and column intersection.</div></li>
+    <li class="pi"><span class="pi-i">⚠️</span><div class="pi-t"><strong>Grouped bar chart — swapping the two bars:</strong> Read the chart key first and label which bar is which before answering. Mixing up "Boys" and "Girls" bars makes every answer wrong.</div></li>
+  </ul>
+</div>
+
+<!-- ══════════════════════════════════ -->
+<!-- MASTERY TEST                       -->
+<!-- ══════════════════════════════════ -->
+<div class="mast">
+  <h2>🏆 Final Mastery Test</h2>
+  <div class="ms">Mixed questions from all sections. Check each answer, then submit for your score.</div>
+
+  <div class="qb">
+    <div class="qt">M1. A scale runs 0 to 60 with 4 divisions between each 20-unit label. A bar sits 3 small divisions above 40. What is the value?</div>
+    <div class="qr"><input class="qin" type="number" id="MT1"><button class="qbtn" onclick="mchk('MT1',55,'Each small division = 20÷4 = 5 units. 40 + (3×5) = 55.')">Check</button></div>
+    <div class="qfb" id="MT1_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M2. From the Subjects bar chart (Maths=25, Science=15, English=20, History=10, Art=12): What is the range?</div>
+    <div class="qr"><input class="qin" type="number" id="MT2"><button class="qbtn" onclick="mchk('MT2',15,'Largest=25, Smallest=10. Range=25−10=15.')">Check</button></div>
+    <div class="qfb" id="MT2_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M3. Key = 4 books per symbol. A row shows 2 full and 1 three-quarter symbol. How many books?</div>
+    <div class="qr"><input class="qin" type="number" id="MT3"><button class="qbtn" onclick="mchk('MT3',11,'2×4=8. ¾×4=3. Total=11.')">Check</button></div>
+    <div class="qfb" id="MT3_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M4. From the rainfall line graph: What is the total rainfall for Jan (40), Feb (25) and Mar (55)?</div>
+    <div class="qr"><input class="qin" type="number" id="MT4"><span class="qun">mm</span><button class="qbtn" onclick="mchk('MT4',120,'40+25+55=120 mm.')">Check</button></div>
+    <div class="qfb" id="MT4_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M5. A pie chart total = 90. A sector has angle 80°. How many students does it represent?</div>
+    <div class="qr"><input class="qin" type="number" id="MT5"><button class="qbtn" onclick="mchk('MT5',20,'80÷360=2/9. 2/9×90=20.')">Check</button></div>
+    <div class="qfb" id="MT5_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M6. From the two-way table: How many more students prefer Summer than Autumn in total?</div>
+    <div class="qr"><input class="qin" type="number" id="MT6"><button class="qbtn" onclick="mchk('MT6',18,'Summer total=32, Autumn total=14. 32−14=18.')">Check</button></div>
+    <div class="qfb" id="MT6_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M7. Find the mean of: 12, 8, 15, 9, 11. (1 decimal place)</div>
+    <div class="qr"><input class="qin" type="number" id="MT7"><button class="qbtn" onclick="mchk('MT7',11,'Sum=12+8+15+9+11=55. 55÷5=11.')">Check</button></div>
+    <div class="qfb" id="MT7_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M8. Find the median of: 12, 8, 15, 9, 11.</div>
+    <div class="qr"><input class="qin" type="number" id="MT8"><button class="qbtn" onclick="mchk('MT8',11,'Sorted: 8,9,11,12,15. Middle (3rd of 5) = 11.')">Check</button></div>
+    <div class="qfb" id="MT8_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M9. Six numbers have a mean of 10. Five of them are: 8, 12, 9, 11, 7. What is the sixth?</div>
+    <div class="qr"><input class="qin" type="number" id="MT9"><button class="qbtn" onclick="mchk('MT9',13,'Total=10×6=60. Known=8+12+9+11+7=47. Missing=60−47=13.')">Check</button></div>
+    <div class="qfb" id="MT9_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M10. In a survey of 240 people, 60 prefer chocolate. What angle represents this in a pie chart?</div>
+    <div class="qr"><input class="qin" type="number" id="MT10"><span class="qun">°</span><button class="qbtn" onclick="mchk('MT10',90,'60÷240=1/4. 1/4×360=90°.')">Check</button></div>
+    <div class="qfb" id="MT10_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M11. From the Sports grouped chart — total girls across all sports: Football=20, Swimming=28, Tennis=12, Athletics=16. What is the mean girls per sport?</div>
+    <div class="qr"><input class="qin" type="number" id="MT11"><button class="qbtn" onclick="mchk('MT11',19,'Total=20+28+12+16=76. 76÷4=19.')">Check</button></div>
+    <div class="qfb" id="MT11_fb"></div>
+  </div>
+
+  <div class="qb">
+    <div class="qt">M12. A two-way table has grand total 150. Row totals: Row A=90, Row B=60. Column totals: Col 1=45, Col 2=?, Col 3=30. Find Col 2 total.</div>
+    <div class="qr"><input class="qin" type="number" id="MT12"><button class="qbtn" onclick="mchk('MT12',75,'Col totals must sum to 150. 45+Col2+30=150. Col2=75.')">Check</button></div>
+    <div class="qfb" id="MT12_fb"></div>
+  </div>
+
+  <button id="msub" onclick="submitMastery()">📊 See My Final Score</button>
+  <div class="sbox" id="sbox">
+    <div class="snum" id="snum"></div>
+    <div class="smsg" id="smsg"></div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+const mastAns={MT1:55,MT2:15,MT3:11,MT4:120,MT5:20,MT6:18,MT7:11,MT8:11,MT9:13,MT10:90,MT11:19,MT12:75};
+const mastExpl={
+  MT1:'Each small div=20÷4=5. 40+(3×5)=55.',
+  MT2:'Largest=25, Smallest=10. Range=15.',
+  MT3:'2×4=8. ¾×4=3. Total=11.',
+  MT4:'40+25+55=120 mm.',
+  MT5:'80÷360×90=20.',
+  MT6:'Summer=32, Autumn=14. 32−14=18.',
+  MT7:'Sum=55. 55÷5=11.',
+  MT8:'Sorted: 8,9,11,12,15. Middle=11.',
+  MT9:'Total=60. Known=47. Missing=13.',
+  MT10:'60÷240=¼. ¼×360=90°.',
+  MT11:'Total girls=76. 76÷4=19.',
+  MT12:'45+Col2+30=150. Col2=75.'
+};
+const mc={};
+
+function r(n){return Math.round(n*1000)/1000;}
+
+function chk(id,correct,expl){
+  const inp=document.getElementById(id);
+  const fb=document.getElementById(id+'_fb');
+  if(!inp||!fb)return;
+  const val=parseFloat(inp.value);
+  if(isNaN(val)){fb.textContent='⚠️ Please enter a number.';fb.className='qfb fno';fb.style.display='block';return;}
+  if(r(val)===r(correct)){fb.textContent='✅ Correct! '+expl;fb.className='qfb fok';}
+  else{fb.textContent='❌ Incorrect. Correct answer: '+correct+'. '+expl;fb.className='qfb fno';}
+  fb.style.display='block';
+}
+
+function chkSel(id,correct,expl){
+  const sel=document.getElementById(id);
+  const fb=document.getElementById(id+'_fb');
+  if(!sel||!fb)return;
+  if(!sel.value){fb.textContent='⚠️ Please select an option.';fb.className='qfb fno';fb.style.display='block';return;}
+  if(sel.value===correct){fb.textContent='✅ Correct! '+expl;fb.className='qfb fok';}
+  else{fb.textContent='❌ Incorrect. Correct answer: '+correct+'. '+expl;fb.className='qfb fno';}
+  fb.style.display='block';
+}
+
+function mchk(id,correct,expl){
+  const inp=document.getElementById(id);
+  const fb=document.getElementById(id+'_fb');
+  if(!inp||!fb)return;
+  const val=parseFloat(inp.value);
+  if(isNaN(val)){fb.textContent='⚠️ Please enter a number.';fb.className='qfb fno';fb.style.display='block';return;}
+  const ok=r(val)===r(correct);
+  mc[id]=ok;
+  if(ok){fb.textContent='✅ Correct! '+expl;fb.className='qfb fok';}
+  else{fb.textContent='❌ Incorrect. Correct answer: '+correct+'. '+expl;fb.className='qfb fno';}
+  fb.style.display='block';
+}
+
+function submitMastery(){
+  const ids=Object.keys(mastAns);
+  for(const id of ids){
+    if(!(id in mc)){
+      const inp=document.getElementById(id);
+      if(inp){
+        const val=parseFloat(inp.value);
+        if(!isNaN(val)){
+          const ok=r(val)===r(mastAns[id]);mc[id]=ok;
+          const fb=document.getElementById(id+'_fb');
+          if(fb){fb.textContent=ok?'✅ Correct! '+mastExpl[id]:'❌ Incorrect. Correct answer: '+mastAns[id]+'. '+mastExpl[id];fb.className='qfb '+(ok?'fok':'fno');fb.style.display='block';}
+        }else{mc[id]=false;}
+      }
+    }
+  }
+  const correct=Object.values(mc).filter(Boolean).length;
+  const total=ids.length;
+  const pct=Math.round((correct/total)*100);
+  let msg='';
+  if(pct>=92)msg='🌟 Outstanding — fully exam ready for 11+ Data Handling!';
+  else if(pct>=75)msg='✅ Great work! Review any sections where you made errors.';
+  else if(pct>=55)msg='📖 Good effort — revisit the sections that tripped you up.';
+  else msg='💪 Keep going — re-read each section and try again.';
+  document.getElementById('snum').textContent=correct+' / '+total+' ('+pct+'%)';
+  document.getElementById('smsg').textContent=msg;
+  document.getElementById('sbox').style.display='block';
+  document.getElementById('sbox').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HCF & LCM — TrueMaths 11+ Module</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --navy: #0f2044;
+    --blue: #1a56db;
+    --blue-light: #e8f0fe;
+    --teal: #0d9488;
+    --teal-light: #e0f7f5;
+    --amber: #d97706;
+    --amber-light: #fef3c7;
+    --red: #dc2626;
+    --red-light: #fee2e2;
+    --green: #16a34a;
+    --green-light: #dcfce7;
+    --purple: #7c3aed;
+    --purple-light: #ede9fe;
+    --grey-50: #f8fafc;
+    --grey-100: #f1f5f9;
+    --grey-200: #e2e8f0;
+    --grey-600: #475569;
+    --grey-800: #1e293b;
+    --white: #ffffff;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 2px 12px rgba(15,32,68,0.08);
+    --shadow-md: 0 4px 24px rgba(15,32,68,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--grey-50);
+    color: var(--grey-800);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: var(--navy);
+    color: white;
+    padding: 36px 32px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: rgba(26,86,219,0.25);
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 40%;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(13,148,136,0.18);
+  }
+  .header-tag {
+    display: inline-block;
+    background: var(--blue);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .page-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    line-height: 1.15;
+    position: relative;
+    z-index: 1;
+  }
+  .page-header p {
+    margin-top: 8px;
+    opacity: 0.75;
+    font-size: 15px;
+    max-width: 560px;
+    position: relative;
+    z-index: 1;
+  }
+  .header-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .pill {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    font-size: 13px;
+    padding: 4px 14px;
+    border-radius: 20px;
+  }
+
+  /* ── NAV ── */
+  .toc {
+    background: white;
+    border-bottom: 2px solid var(--grey-200);
+    padding: 0 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .toc a {
+    display: inline-block;
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--grey-600);
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .toc a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+  .section-header {
+    padding: 20px 28px 16px;
+    border-bottom: 2px solid var(--grey-100);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+  }
+  .section-body { padding: 24px 28px; }
+
+  /* colour themes per section */
+  .sec-blue .section-num { background: var(--blue-light); color: var(--blue); }
+  .sec-teal .section-num { background: var(--teal-light); color: var(--teal); }
+  .sec-purple .section-num { background: var(--purple-light); color: var(--purple); }
+  .sec-amber .section-num { background: var(--amber-light); color: var(--amber); }
+  .sec-green .section-num { background: var(--green-light); color: var(--green); }
+  .sec-red .section-num { background: var(--red-light); color: var(--red); }
+  .sec-navy .section-num { background: #dde4f0; color: var(--navy); }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    margin: 16px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 15px;
+  }
+  .callout-icon { font-size: 18px; flex-shrink: 0; line-height: 1.5; }
+  .callout-body { flex: 1; }
+  .callout-body strong { display: block; margin-bottom: 3px; }
+  .tip    { background: var(--blue-light);   border-left: 4px solid var(--blue); }
+  .warn   { background: var(--amber-light);  border-left: 4px solid var(--amber); }
+  .trap   { background: var(--red-light);    border-left: 4px solid var(--red); }
+  .key    { background: var(--green-light);  border-left: 4px solid var(--green); }
+  .define { background: var(--purple-light); border-left: 4px solid var(--purple); }
+
+  /* ── WORKED EXAMPLE ── */
+  .worked {
+    background: var(--grey-50);
+    border: 1.5px solid var(--grey-200);
+    border-radius: var(--radius-sm);
+    padding: 18px 20px;
+    margin: 16px 0;
+  }
+  .worked-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--grey-600);
+    margin-bottom: 10px;
+  }
+  .worked p, .worked li { font-size: 15px; margin-bottom: 6px; }
+  .worked ol, .worked ul { padding-left: 20px; }
+
+  /* ── FACTOR TREE ── */
+  .tree-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  .tree {
+    text-align: center;
+    font-size: 15px;
+  }
+  .tree-title {
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .tree svg { display: block; margin: 0 auto; }
+  .node-circle { fill: white; stroke: var(--blue); stroke-width: 2; }
+  .node-prime  { fill: var(--blue); stroke: var(--blue); }
+  .node-text   { font-family: 'DM Mono', monospace; font-size: 13px; fill: var(--navy); text-anchor: middle; dominant-baseline: central; }
+  .node-text-w { font-family: 'DM Mono', monospace; font-size: 13px; fill: white; text-anchor: middle; dominant-baseline: central; }
+  .tree-line   { stroke: var(--grey-600); stroke-width: 1.5; }
+
+  /* ── VENN DIAGRAM ── */
+  .venn-wrap { display: flex; justify-content: center; margin: 20px 0; }
+  .venn-label { font-family: 'DM Mono', monospace; font-size: 13px; }
+
+  /* ── TABLE METHOD ── */
+  .prime-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 16px 0;
+  }
+  .prime-table th {
+    background: var(--navy);
+    color: white;
+    padding: 10px 14px;
+    text-align: center;
+    font-weight: 600;
+  }
+  .prime-table td {
+    padding: 9px 14px;
+    text-align: center;
+    border: 1px solid var(--grey-200);
+  }
+  .prime-table tr:nth-child(even) td { background: var(--grey-50); }
+  .prime-table .highlight-hcf { background: var(--green-light) !important; font-weight: 600; color: var(--green); }
+  .prime-table .highlight-lcm { background: var(--blue-light) !important; font-weight: 600; color: var(--blue); }
+
+  /* ── FORMULA DISPLAY ── */
+  .formula-box {
+    background: var(--navy);
+    color: white;
+    border-radius: var(--radius-sm);
+    padding: 18px 24px;
+    text-align: center;
+    margin: 16px 0;
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    letter-spacing: 0.02em;
+  }
+  .formula-box span { color: #93c5fd; }
+
+  /* ── FRACTION ── */
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+  }
+  .frac .num { border-bottom: 1.5px solid currentColor; padding-bottom: 2px; line-height: 1.4; }
+  .frac .den { padding-top: 2px; line-height: 1.4; }
+
+  /* ── COLLAPSIBLE ANSWERS ── */
+  details {
+    border: 1.5px solid var(--grey-200);
+    border-radius: var(--radius-sm);
+    margin-top: 10px;
+    overflow: hidden;
+  }
+  summary {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    background: var(--grey-100);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+    color: var(--navy);
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: '▶';
+    font-size: 10px;
+    transition: transform 0.2s;
+    color: var(--blue);
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details[open] summary { background: var(--blue-light); color: var(--blue); }
+  .answer-body { padding: 16px 18px; font-size: 15px; }
+  .answer-body p, .answer-body li { margin-bottom: 6px; }
+  .answer-body ol { padding-left: 20px; }
+
+  /* ── PRACTICE QUESTIONS ── */
+  .practice-q {
+    border: 1.5px solid var(--grey-200);
+    border-radius: var(--radius-sm);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .q-header {
+    padding: 14px 18px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: white;
+  }
+  .q-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .q-easy   .q-num { background: var(--green-light);  color: var(--green); }
+  .q-medium .q-num { background: var(--amber-light);  color: var(--amber); }
+  .q-hard   .q-num { background: var(--red-light);    color: var(--red); }
+  .q-text { font-size: 15px; flex: 1; }
+  .q-tag {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 10px;
+    flex-shrink: 0; margin-top: 3px;
+  }
+  .q-easy   .q-tag { background: var(--green-light);  color: var(--green); }
+  .q-medium .q-tag { background: var(--amber-light);  color: var(--amber); }
+  .q-hard   .q-tag { background: var(--red-light);    color: var(--red); }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 16px 0;
+  }
+  .compare-table th {
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .compare-table th:nth-child(2) { background: var(--blue); color: white; }
+  .compare-table th:nth-child(3) { background: var(--teal); color: white; }
+  .compare-table th:nth-child(1) { background: var(--navy); color: white; }
+  .compare-table td {
+    padding: 9px 16px;
+    border: 1px solid var(--grey-200);
+    vertical-align: top;
+  }
+  .compare-table tr:nth-child(even) td:nth-child(2) { background: #f0f5ff; }
+  .compare-table tr:nth-child(even) td:nth-child(3) { background: #f0fdf9; }
+
+  /* ── STEP LIST ── */
+  .steps { counter-reset: step; list-style: none; padding: 0; }
+  .steps li {
+    counter-increment: step;
+    display: flex; gap: 14px;
+    margin-bottom: 14px; align-items: flex-start;
+  }
+  .steps li::before {
+    content: counter(step);
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--blue); color: white;
+    font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  /* ── MATHS INLINE ── */
+  .m { font-family: 'DM Mono', monospace; font-size: 0.92em; }
+  .ans { font-weight: 700; color: var(--blue); }
+
+  /* ── UTILITY ── */
+  h3 { font-size: 17px; font-weight: 700; color: var(--navy); margin: 20px 0 8px; }
+  h4 { font-size: 15px; font-weight: 600; color: var(--grey-800); margin: 14px 0 6px; }
+  p  { margin-bottom: 10px; font-size: 15px; }
+  ul, ol { padding-left: 22px; margin-bottom: 10px; font-size: 15px; }
+  li { margin-bottom: 4px; }
+  .mt { margin-top: 16px; }
+  .row { display: flex; flex-wrap: wrap; gap: 16px; }
+  .col { flex: 1; min-width: 220px; }
+  .divider { height: 1px; background: var(--grey-200); margin: 20px 0; }
+  hr { border: none; border-top: 1.5px dashed var(--grey-200); margin: 20px 0; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .section-body { padding: 18px 16px; }
+    .section-header { padding: 16px; }
+    .toc { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════ HEADER -->
+<div class="page-header">
+  <div class="header-tag">TrueMaths · 11+ Module</div>
+  <h1>Factors, Multiples,<br>HCF &amp; LCM</h1>
+  <p>Everything you need for GL Assessment — from prime factorisation foundations to multi-step exam problems.</p>
+  <div class="header-pills">
+    <span class="pill">🏫 QE Barnet Level</span>
+    <span class="pill">📐 GL Assessment</span>
+    <span class="pill">9 Graded Questions</span>
+    <span class="pill">All Methods Covered</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ NAV -->
+<nav class="toc">
+  <a href="#s1">1. Prime Factorisation</a>
+  <a href="#s2">2. Two-Number HCF &amp; LCM</a>
+  <a href="#s3">3. Three Numbers</a>
+  <a href="#s4">4. Key Formula</a>
+  <a href="#s5">5. Fractions</a>
+  <a href="#s6">6. Edge Cases</a>
+  <a href="#s7">7. Exam Problems</a>
+  <a href="#s8">8. Rules &amp; Practice</a>
+</nav>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════ SECTION 1: PRIME FACTORISATION -->
+<div class="section sec-blue" id="s1">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2>Prime Factorisation — The Foundation</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="callout define">
+      <div class="callout-icon">📖</div>
+      <div class="callout-body">
+        <strong>Key Definitions</strong>
+        A <strong>prime number</strong> has exactly two factors: 1 and itself. (2, 3, 5, 7, 11, 13…)<br>
+        A <strong>factor</strong> divides into a number exactly, leaving no remainder.<br>
+        <strong>Prime factorisation</strong> means writing a number as a product of only prime numbers.
+      </div>
+    </div>
+
+    <h3>Method 1: Factor Trees</h3>
+    <p>Split a number into any two factors, then keep splitting until every branch ends in a prime. Circle all the primes at the ends — those are your prime factors.</p>
+
+    <div class="tree-wrap">
+      <!-- Factor tree for 36 -->
+      <div class="tree">
+        <div class="tree-title">36 = 2 × 2 × 3 × 3</div>
+        <svg width="180" height="200" viewBox="0 0 180 200">
+          <!-- Root -->
+          <circle class="node-circle" cx="90" cy="20" r="18"/>
+          <text class="node-text" x="90" y="20">36</text>
+          <!-- Level 1 -->
+          <line class="tree-line" x1="90" y1="38" x2="50" y2="72"/>
+          <line class="tree-line" x1="90" y1="38" x2="130" y2="72"/>
+          <circle class="node-circle" cx="50" cy="90" r="18"/>
+          <text class="node-text" x="50" y="90">4</text>
+          <circle class="node-circle" cx="130" cy="90" r="18"/>
+          <text class="node-text" x="130" y="90">9</text>
+          <!-- Level 2 left -->
+          <line class="tree-line" x1="50" y1="108" x2="30" y2="142"/>
+          <line class="tree-line" x1="50" y1="108" x2="70" y2="142"/>
+          <circle class="node-prime" cx="30" cy="160" r="18"/>
+          <text class="node-text-w" x="30" y="160">2</text>
+          <circle class="node-prime" cx="70" cy="160" r="18"/>
+          <text class="node-text-w" x="70" y="160">2</text>
+          <!-- Level 2 right -->
+          <line class="tree-line" x1="130" y1="108" x2="110" y2="142"/>
+          <line class="tree-line" x1="130" y1="108" x2="150" y2="142"/>
+          <circle class="node-prime" cx="110" cy="160" r="18"/>
+          <text class="node-text-w" x="110" y="160">3</text>
+          <circle class="node-prime" cx="150" cy="160" r="18"/>
+          <text class="node-text-w" x="150" y="160">3</text>
+        </svg>
+        <p style="font-size:13px;color:var(--grey-600);margin-top:6px">Blue = prime (stop here)</p>
+      </div>
+
+      <!-- Factor tree for 60 -->
+      <div class="tree">
+        <div class="tree-title">60 = 2 × 2 × 3 × 5</div>
+        <svg width="200" height="230" viewBox="0 0 200 230">
+          <circle class="node-circle" cx="100" cy="20" r="18"/>
+          <text class="node-text" x="100" y="20">60</text>
+          <line class="tree-line" x1="100" y1="38" x2="55" y2="72"/>
+          <line class="tree-line" x1="100" y1="38" x2="145" y2="72"/>
+          <circle class="node-circle" cx="55" cy="90" r="18"/>
+          <text class="node-text" x="55" y="90">12</text>
+          <circle class="node-prime" cx="145" cy="90" r="18"/>
+          <text class="node-text-w" x="145" y="90">5</text>
+          <line class="tree-line" x1="55" y1="108" x2="30" y2="142"/>
+          <line class="tree-line" x1="55" y1="108" x2="80" y2="142"/>
+          <circle class="node-circle" cx="30" cy="160" r="18"/>
+          <text class="node-text" x="30" y="160">4</text>
+          <circle class="node-prime" cx="80" cy="160" r="18"/>
+          <text class="node-text-w" x="80" y="160">3</text>
+          <line class="tree-line" x1="30" y1="178" x2="15" y2="207"/>
+          <line class="tree-line" x1="30" y1="178" x2="45" y2="207"/>
+          <circle class="node-prime" cx="15" cy="215" r="12"/>
+          <text class="node-text-w" x="15" y="215" style="font-size:11px">2</text>
+          <circle class="node-prime" cx="45" cy="215" r="12"/>
+          <text class="node-text-w" x="45" y="215" style="font-size:11px">2</text>
+        </svg>
+        <p style="font-size:13px;color:var(--grey-600);margin-top:6px">You can split in any order!</p>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body">
+        <strong>Tip: Write in Index Form</strong>
+        36 = 2² × 3² and 60 = 2² × 3 × 5. This compact form makes the Venn diagram method much faster.
+      </div>
+    </div>
+
+    <h3>Method 2: Repeated Division (The "Ladder")</h3>
+    <p>Divide by the smallest prime that goes in, then keep dividing the result. Stop when you reach 1.</p>
+
+    <div class="worked">
+      <div class="worked-title">✏ Worked Example — Prime factors of 60</div>
+      <p>Always try the smallest primes first: 2, then 3, then 5, then 7…</p>
+      <div style="font-family:'DM Mono',monospace; font-size:14px; line-height:2; padding: 8px 0;">
+        60 ÷ <strong>2</strong> = 30<br>
+        30 ÷ <strong>2</strong> = 15<br>
+        15 ÷ <strong>3</strong> = 5<br>
+         5 ÷ <strong>5</strong> = 1 ✓
+      </div>
+      <p>Read off the divisors: <span class="ans">60 = 2 × 2 × 3 × 5 = 2² × 3 × 5</span></p>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-icon">⚡</div>
+      <div class="callout-body">
+        <strong>Quick Check: Is it prime?</strong>
+        Test divisibility only up to √n. For example, to check if 37 is prime, test primes up to √37 ≈ 6.
+        Try 2, 3, 5 — none divide in, so 37 is prime.
+      </div>
+    </div>
+
+    <h3>Quick Practice — Prime Factorise These</h3>
+    <p>Try these before moving on (answers below):</p>
+    <ol>
+      <li>Find the prime factorisation of 24</li>
+      <li>Find the prime factorisation of 45</li>
+    </ol>
+    <details>
+      <summary>Show Answers</summary>
+      <div class="answer-body">
+        <p><strong>24:</strong> 24 = 2 × 12 = 2 × 2 × 6 = 2 × 2 × 2 × 3 = <span class="ans">2³ × 3</span></p>
+        <p><strong>45:</strong> 45 = 5 × 9 = 5 × 3 × 3 = <span class="ans">3² × 5</span></p>
+      </div>
+    </details>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ SECTION 2: TWO-NUMBER HCF & LCM -->
+<div class="section sec-teal" id="s2">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2>HCF &amp; LCM of Two Numbers</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="row">
+      <div class="col">
+        <div class="callout define" style="height:100%">
+          <div class="callout-icon">📏</div>
+          <div class="callout-body">
+            <strong>HCF — Highest Common Factor</strong>
+            The <em>largest</em> number that divides exactly into two (or more) numbers.<br><br>
+            <strong>When to use:</strong> Splitting or dividing into equal groups — "largest equal sections," "tile a floor," "cut equal lengths."
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="callout define" style="height:100%">
+          <div class="callout-icon">🔄</div>
+          <div class="callout-body">
+            <strong>LCM — Lowest Common Multiple</strong>
+            The <em>smallest</em> number that is a multiple of two (or more) numbers.<br><br>
+            <strong>When to use:</strong> Recurring events happening at different intervals — "next time they meet," "when do they flash together."
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Method A: Listing (good for small numbers)</h3>
+
+    <div class="worked">
+      <div class="worked-title">✏ Worked Example — HCF of 18 and 24</div>
+      <p><strong>Factors of 18:</strong> 1, 2, 3, <strong>6</strong>, 9, 18</p>
+      <p><strong>Factors of 24:</strong> 1, 2, 3, 4, <strong>6</strong>, 8, 12, 24</p>
+      <p>Common factors: 1, 2, 3, 6 → <span class="ans">HCF = 6</span></p>
+    </div>
+
+    <div class="worked">
+      <div class="worked-title">✏ Worked Example — LCM of 8 and 12</div>
+      <p><strong>Multiples of 8:</strong> 8, 16, <strong>24</strong>, 32, 40…</p>
+      <p><strong>Multiples of 12:</strong> 12, <strong>24</strong>, 36, 48…</p>
+      <p>First match: <span class="ans">LCM = 24</span></p>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Method B: Venn Diagram (best for larger numbers)</h3>
+
+    <ol class="steps">
+      <li>Find the prime factors of both numbers (use a factor tree or ladder).</li>
+      <li>Place factors that appear in <em>both</em> numbers in the overlapping middle section.</li>
+      <li><strong>HCF</strong> = multiply everything in the <em>middle only</em>.</li>
+      <li><strong>LCM</strong> = multiply <em>everything</em> in both circles (left + middle + right).</li>
+    </ol>
+
+    <div class="worked">
+      <div class="worked-title">✏ Worked Example — HCF and LCM of 36 and 60</div>
+      <p>From Section 1: <span class="m">36 = 2² × 3²</span> &nbsp;and&nbsp; <span class="m">60 = 2² × 3 × 5</span></p>
+      <p>Shared prime factors: both have 2×2 and one 3. The extra 3 belongs to 36 only; the 5 belongs to 60 only.</p>
+    </div>
+
+    <!-- Venn SVG -->
+    <div class="venn-wrap">
+      <svg width="480" height="200" viewBox="0 0 480 200" style="max-width:100%">
+        <!-- Left circle -->
+        <circle cx="160" cy="100" r="90" fill="rgba(13,148,136,0.12)" stroke="var(--teal)" stroke-width="2.5"/>
+        <!-- Right circle -->
+        <circle cx="290" cy="100" r="90" fill="rgba(26,86,219,0.1)" stroke="var(--blue)" stroke-width="2.5"/>
+        <!-- Labels -->
+        <text x="90" y="30" font-family="DM Serif Display,serif" font-size="16" fill="var(--teal)" font-weight="bold">36</text>
+        <text x="330" y="30" font-family="DM Serif Display,serif" font-size="16" fill="var(--blue)" font-weight="bold">60</text>
+        <!-- Left exclusive: 36 only has one extra 3 -->
+        <text x="95" y="95" font-family="DM Mono,monospace" font-size="18" fill="var(--teal)" text-anchor="middle" font-weight="bold">3</text>
+        <!-- Middle: shared 2×2 and 3 -->
+        <text x="225" y="89" font-family="DM Mono,monospace" font-size="16" fill="var(--navy)" text-anchor="middle" font-weight="bold">2 × 2</text>
+        <text x="225" y="112" font-family="DM Mono,monospace" font-size="16" fill="var(--navy)" text-anchor="middle" font-weight="bold">× 3</text>
+        <!-- Right exclusive: 5 -->
+        <text x="356" y="95" font-family="DM Mono,monospace" font-size="18" fill="var(--blue)" text-anchor="middle" font-weight="bold">5</text>
+        <!-- HCF annotation -->
+        <rect x="170" y="148" width="110" height="32" rx="6" fill="var(--green-light)" stroke="var(--green)" stroke-width="1.5"/>
+        <text x="225" y="169" font-family="DM Sans,sans-serif" font-size="13" fill="var(--green)" text-anchor="middle" font-weight="700">HCF = 2×2×3 = 12</text>
+        <!-- LCM annotation -->
+        <rect x="5" y="168" width="120" height="25" rx="6" fill="var(--blue-light)"/>
+        <text x="65" y="185" font-family="DM Sans,sans-serif" font-size="12" fill="var(--blue)" text-anchor="middle">LCM includes ALL</text>
+        <line x1="65" y1="168" x2="120" y2="148" stroke="var(--blue)" stroke-width="1" stroke-dasharray="3,2"/>
+        <rect x="340" y="168" width="130" height="25" rx="6" fill="var(--blue-light)"/>
+        <text x="405" y="185" font-family="DM Sans,sans-serif" font-size="12" fill="var(--blue)" text-anchor="middle">LCM = 3×12×5 = 180</text>
+        <line x1="405" y1="168" x2="340" y2="148" stroke="var(--blue)" stroke-width="1" stroke-dasharray="3,2"/>
+      </svg>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="callout key">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>HCF of 36 and 60</strong>
+            Middle only: 2 × 2 × 3 = <span class="ans">12</span>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="callout tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>LCM of 36 and 60</strong>
+            Everything: 3 × 2 × 2 × 3 × 5 = <span class="ans">180</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ SECTION 3: THREE NUMBERS -->
+<div class="section sec-purple" id="s3">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <h2>HCF &amp; LCM of Three Numbers</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="callout warn">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body">
+        <strong>Don't use a Venn diagram for three numbers.</strong>
+        A three-circle Venn gets complicated fast. Use the <strong>Prime Factorisation Table</strong> instead — it's faster and error-proof.
+      </div>
+    </div>
+
+    <h3>The Prime Factorisation Table Method</h3>
+    <ol class="steps">
+      <li>Find the prime factors of each number.</li>
+      <li>List every prime that appears across <em>any</em> of the numbers in the top row.</li>
+      <li>For each number, write how many times that prime appears (its power).</li>
+      <li><strong>HCF:</strong> For each prime, take the <em>lowest</em> power. Multiply those together.</li>
+      <li><strong>LCM:</strong> For each prime, take the <em>highest</em> power. Multiply those together.</li>
+    </ol>
+
+    <div class="worked">
+      <div class="worked-title">✏ Worked Example — HCF and LCM of 4, 6, and 9</div>
+      <p>First, prime factorise each:</p>
+      <ul>
+        <li><span class="m">4 = 2²</span></li>
+        <li><span class="m">6 = 2¹ × 3¹</span></li>
+        <li><span class="m">9 = 3²</span></li>
+      </ul>
+      <p>Now build the table. Primes that appear are 2 and 3:</p>
+    </div>
+
+    <div style="overflow-x:auto">
+      <table class="prime-table">
+        <thead>
+          <tr>
+            <th>Number</th>
+            <th>Power of 2</th>
+            <th>Power of 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>4</strong></td>
+            <td>2² = 4</td>
+            <td>3⁰ = 1 (not present)</td>
+          </tr>
+          <tr>
+            <td><strong>6</strong></td>
+            <td>2¹ = 2</td>
+            <td>3¹ = 3</td>
+          </tr>
+          <tr>
+            <td><strong>9</strong></td>
+            <td>2⁰ = 1 (not present)</td>
+            <td>3² = 9</td>
+          </tr>
+          <tr>
+            <td><strong>HCF</strong> (lowest powers)</td>
+            <td class="highlight-hcf">2⁰ = 1</td>
+            <td class="highlight-hcf">3⁰ = 1</td>
+          </tr>
+          <tr>
+            <td><strong>LCM</strong> (highest powers)</td>
+            <td class="highlight-lcm">2² = 4</td>
+            <td class="highlight-lcm">3² = 9</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row mt">
+      <div class="col">
+        <div class="callout key">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>HCF of 4, 6, 9</strong>
+            1 × 1 = <span class="ans">1</span><br>
+            (No prime appears in all three numbers.)
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="callout tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>LCM of 4, 6, 9</strong>
+            4 × 9 = <span class="ans">36</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body">
+        <strong>Verify the LCM:</strong> Is 36 divisible by 4? Yes (36÷4=9). By 6? Yes (36÷6=6). By 9? Yes (36÷9=4). ✓
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ SECTION 4: KEY FORMULA -->
+<div class="section sec-amber" id="s4">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <h2>The Key Relationship Formula</h2>
+  </div>
+  <div class="section-body">
+
+    <p>For any two numbers A and B, there is a beautiful connection between their HCF and LCM:</p>
+
+    <div class="formula-box">
+      HCF(A, B) <span>×</span> LCM(A, B) <span>=</span> A <span>×</span> B
+    </div>
+
+    <div class="worked">
+      <div class="worked-title">✏ Forward Use — Verification</div>
+      <p>For 36 and 60: HCF = 12, LCM = 180</p>
+      <p><span class="m">12 × 180 = 2160</span> &nbsp; and &nbsp; <span class="m">36 × 60 = 2160</span> ✓</p>
+    </div>
+
+    <hr>
+
+    <h3>⚡ Reverse Use — A Common GL Trap</h3>
+    <p>GL examiners often give you HCF, LCM, and one of the numbers, then ask for the other.</p>
+
+    <div class="worked">
+      <div class="worked-title">✏ Worked Example — Find the Missing Number</div>
+      <p><em>"The HCF of two numbers is 4 and their LCM is 48. One of the numbers is 16. Find the other."</em></p>
+      <ol>
+        <li>Use the formula: <span class="m">HCF × LCM = A × B</span></li>
+        <li>Substitute: <span class="m">4 × 48 = 16 × B</span></li>
+        <li>Calculate: <span class="m">192 = 16 × B</span></li>
+        <li>Solve: <span class="m">B = 192 ÷ 16 = </span><span class="ans">12</span></li>
+      </ol>
+      <p><strong>Check:</strong> HCF(16, 12) = 4 ✓ &nbsp;&nbsp; LCM(16, 12) = 48 ✓</p>
+    </div>
+
+    <div class="callout warn">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body">
+        <strong>Important Limitation</strong>
+        This formula only works for <em>two</em> numbers. It does not extend directly to three numbers.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ SECTION 5: FRACTIONS -->
+<div class="section sec-green" id="s5">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <h2>HCF &amp; LCM in Fraction Work</h2>
+  </div>
+  <div class="section-body">
+
+    <p>HCF and LCM are not just standalone topics — they appear inside fraction questions too. Recognise these two patterns:</p>
+
+    <h3>Pattern 1: Simplifying Fractions → Use HCF</h3>
+    <p>To simplify a fraction to its lowest terms, divide both numerator and denominator by their HCF.</p>
+
+    <div class="worked">
+      <div class="worked-title">✏ Worked Example — Simplify 36/48</div>
+      <ol>
+        <li>Find HCF(36, 48).<br>
+            <span class="m">36 = 2² × 3²</span> &nbsp; <span class="m">48 = 2⁴ × 3</span><br>
+            Shared: 2² × 3 = 12. So <strong>HCF = 12</strong>.</li>
+        <li>Divide top and bottom by 12:<br>
+            <span class="frac"><span class="num">36</span><span class="den">48</span></span>
+            = <span class="frac"><span class="num">36 ÷ 12</span><span class="den">48 ÷ 12</span></span>
+            = <span class="ans"><span class="frac"><span class="num">3</span><span class="den">4</span></span></span>
+        </li>
+      </ol>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body">
+        Using the HCF gets you to the simplest form in <em>one step</em>. Dividing by a smaller common factor works too — but you'll need to simplify again afterwards.
+      </div>
+    </div>
+
+    <h3>Pattern 2: Adding or Subtracting Unlike Fractions → Use LCM</h3>
+    <p>To add fractions with different denominators, find the LCM of the denominators — this is the Lowest Common Denominator (LCD).</p>
+
+    <div class="worked">
+      <div class="worked-title">✏ Worked Example — Calculate 5/6 + 3/8</div>
+      <ol>
+        <li>Find LCM(6, 8).<br>
+            <span class="m">6 = 2 × 3</span> &nbsp; <span class="m">8 = 2³</span><br>
+            Highest powers: 2³ × 3 = 24. So <strong>LCM = 24</strong>.</li>
+        <li>Convert both fractions to 24ths:<br>
+            <span class="frac"><span class="num">5</span><span class="den">6</span></span> = 
+            <span class="frac"><span class="num">20</span><span class="den">24</span></span> (×4) 
+            &nbsp;&nbsp; 
+            <span class="frac"><span class="num">3</span><span class="den">8</span></span> = 
+            <span class="frac"><span class="num">9</span><span class="den">24</span></span> (×3)
+        </li>
+        <li>Add: <span class="frac"><span class="num">20</span><span class="den">24</span></span> + <span class="frac"><span class="num">9</span><span class="den">24</span></span> = <span class="frac"><span class="num">29</span><span class="den">24</span></span> = <span class="ans">1<span class="frac" style="font-size:0.9em"><span class="num">5</span><span class="den">24</span></span></span></li>
+      </ol>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ SECTION 6: EDGE CASES -->
+<div class="section sec-red" id="s6">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <h2>Edge Cases — GL Setter Traps</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="callout trap">
+      <div class="callout-icon">🪤</div>
+      <div class="callout-body">
+        <strong>These are deliberate traps in GL papers.</strong>
+        GL setters love to use pairs where one number is a multiple of the other — many students get confused and give the wrong answer.
+      </div>
+    </div>
+
+    <h3>Trap 1: One Number is a Multiple of the Other</h3>
+
+    <div class="row">
+      <div class="col">
+        <div class="callout key">
+          <div class="callout-icon">📌</div>
+          <div class="callout-body">
+            <strong>HCF(12, 36) = 12</strong><br>
+            The <em>smaller number itself</em> is the HCF when it divides exactly into the larger.
+            Factors of 12: 1,2,3,4,6,<strong>12</strong>. All divide into 36. Largest = 12.
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="callout tip">
+          <div class="callout-icon">📌</div>
+          <div class="callout-body">
+            <strong>LCM(5, 15) = 15</strong><br>
+            The <em>larger number itself</em> is the LCM when the smaller divides into it exactly.
+            Multiples of 15: <strong>15</strong>, 30, 45… The first multiple of 5 that's also a multiple of 15 is 15 itself.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Trap 2: Numbers with No Common Factors (Co-prime Pairs)</h3>
+
+    <div class="worked">
+      <div class="worked-title">📌 When the HCF is 1</div>
+      <p>If two numbers share no prime factors (we call them <strong>co-prime</strong>), their HCF = 1 and their LCM = their product.</p>
+      <ul>
+        <li><strong>HCF(7, 11) = 1</strong> (both are primes — no shared factors)</li>
+        <li><strong>LCM(7, 11) = 77</strong> (7 × 11)</li>
+        <li><strong>HCF(8, 15) = 1</strong> (8 = 2³, 15 = 3 × 5 — no overlap)</li>
+        <li><strong>LCM(8, 15) = 120</strong> (8 × 15)</li>
+      </ul>
+    </div>
+
+    <div class="callout trap">
+      <div class="callout-icon">🎯</div>
+      <div class="callout-body">
+        <strong>Exam Strategy</strong>
+        Before starting any HCF/LCM question, ask yourself: <em>"Is one number a multiple of the other?"</em> If yes, the answer is one of the two numbers themselves. This saves time and prevents errors.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ SECTION 7: EXAM PROBLEMS -->
+<div class="section sec-navy" id="s7">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <h2>Exam Problem-Type Taxonomy</h2>
+  </div>
+  <div class="section-body">
+
+    <p>GL papers rarely say "find the HCF." Instead, they describe a real situation. Learn to recognise these patterns instantly:</p>
+
+    <table class="compare-table" style="margin-bottom:24px">
+      <thead>
+        <tr>
+          <th>Problem Type</th>
+          <th>→ Use HCF</th>
+          <th>→ Use LCM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Keyword signal</td><td>"largest," "equal groups," "split," "identical," "tile"</td><td>"next time," "together again," "both," "common"</td></tr>
+        <tr><td>Venn memory rule</td><td>Middle of diagram</td><td>All of diagram</td></tr>
+        <tr><td>Size of answer</td><td>≤ smaller number</td><td>≥ larger number</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Problem Type 1 — Clashing Timers (→ LCM)</h3>
+
+    <div class="worked">
+      <div class="worked-title">✏ Worked Example</div>
+      <p><em>"Bell A rings every 8 minutes. Bell B rings every 12 minutes. They ring together at 9:00 AM. What is the next time they ring together?"</em></p>
+      <ol>
+        <li>We need the smallest time that is a multiple of <em>both</em> 8 and 12. → Find LCM(8, 12).</li>
+        <li><span class="m">8 = 2³ &nbsp; 12 = 2² × 3</span> → LCM = 2³ × 3 = <strong>24 minutes</strong></li>
+        <li>Add to start time: 9:00 AM + 24 min = <span class="ans">9:24 AM</span></li>
+      </ol>
+    </div>
+
+    <h3>Problem Type 2 — Equal Groups / Tiling (→ HCF)</h3>
+
+    <div class="worked">
+      <div class="worked-title">✏ Worked Example</div>
+      <p><em>"What is the largest square tile that fits exactly on a floor 24 cm by 36 cm, with no cutting?"</em></p>
+      <ol>
+        <li>The tile side must divide into both 24 and 36 exactly. → Find HCF(24, 36).</li>
+        <li><span class="m">24 = 2³ × 3 &nbsp;&nbsp; 36 = 2² × 3²</span> → HCF = 2² × 3 = <strong>12</strong></li>
+        <li><span class="ans">Largest tile = 12 cm × 12 cm</span></li>
+        <li><em>How many tiles?</em> (24÷12) × (36÷12) = 2 × 3 = 6 tiles</li>
+      </ol>
+    </div>
+
+    <h3>Problem Type 3 — Reverse Formula (→ HCF × LCM = A × B)</h3>
+
+    <div class="worked">
+      <div class="worked-title">✏ Worked Example</div>
+      <p><em>"Two numbers have HCF 6 and LCM 90. One number is 18. What is the other?"</em></p>
+      <ol>
+        <li>Formula: <span class="m">HCF × LCM = A × B</span></li>
+        <li><span class="m">6 × 90 = 18 × B → 540 = 18B → B = 30</span></li>
+        <li><span class="ans">The other number is 30.</span></li>
+        <li><em>Check:</em> HCF(18,30) = 6 ✓ &nbsp; LCM(18,30) = 90 ✓</li>
+      </ol>
+    </div>
+
+    <h3>Problem Type 4 — Multi-Step Problem</h3>
+
+    <div class="worked">
+      <div class="worked-title">✏ Worked Example — Clock Time with AM/PM</div>
+      <p><em>"A red light flashes every 15 seconds. A green light flashes every 20 seconds. A blue light flashes every 24 seconds. All three flash together at exactly 8:00 AM. What is the next time all three flash together? Give your answer as a time."</em></p>
+      <ol>
+        <li>Find LCM(15, 20, 24) using the table method:<br>
+            <span class="m">15 = 3 × 5 &nbsp;&nbsp; 20 = 2² × 5 &nbsp;&nbsp; 24 = 2³ × 3</span><br>
+            Primes: 2, 3, 5 → highest powers: 2³, 3¹, 5¹ → LCM = 8 × 3 × 5 = <strong>120 seconds</strong></li>
+        <li>Convert: 120 seconds = 2 minutes.</li>
+        <li>Add to 8:00 AM: <span class="ans">8:02 AM</span></li>
+      </ol>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ SECTION 8: RULES + PRACTICE -->
+<div class="section sec-blue" id="s8">
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <h2>Sanity-Check Rules &amp; Graded Practice</h2>
+  </div>
+  <div class="section-body">
+
+    <h3>Sanity-Check Rules</h3>
+    <p>Before writing a final answer, run through these checks:</p>
+
+    <div class="row">
+      <div class="col">
+        <div class="callout key">
+          <div class="callout-icon">✔</div>
+          <div class="callout-body">HCF is always <strong>≤ the smallest number</strong> in the set.</div>
+        </div>
+        <div class="callout key" style="margin-top:10px">
+          <div class="callout-icon">✔</div>
+          <div class="callout-body">LCM is always <strong>≥ the largest number</strong> in the set.</div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="callout key">
+          <div class="callout-icon">✔</div>
+          <div class="callout-body">If numbers are co-prime (share no factors), <strong>HCF = 1</strong>, <strong>LCM = product</strong>.</div>
+        </div>
+        <div class="callout key" style="margin-top:10px">
+          <div class="callout-icon">✔</div>
+          <div class="callout-body">If one number divides the other: <strong>HCF = smaller, LCM = larger</strong>.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Graded Practice Questions</h3>
+    <p>Work through these in order. Don't peek at the answer until you've tried!</p>
+
+    <!-- Q1 -->
+    <div class="practice-q q-easy">
+      <div class="q-header">
+        <div class="q-num">1</div>
+        <div class="q-text">
+          <strong>Find the HCF and LCM of 20 and 30 using the listing method.</strong>
+        </div>
+        <div class="q-tag">Easy · Listing</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="answer-body">
+          <p><strong>Factors of 20:</strong> 1, 2, 4, 5, 10, <strong>20</strong></p>
+          <p><strong>Factors of 30:</strong> 1, 2, 3, 5, 6, <strong>10</strong>, 15, 30</p>
+          <p>Common factors: 1, 2, 5, 10 → <span class="ans">HCF = 10</span></p>
+          <p><strong>Multiples of 20:</strong> 20, 40, <strong>60</strong>…</p>
+          <p><strong>Multiples of 30:</strong> 30, <strong>60</strong>…</p>
+          <p><span class="ans">LCM = 60</span></p>
+          <p><em>Check: 10 × 60 = 600 = 20 × 30 ✓</em></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q2 -->
+    <div class="practice-q q-easy">
+      <div class="q-header">
+        <div class="q-num">2</div>
+        <div class="q-text">
+          <strong>Use the Venn diagram method to find the HCF and LCM of 28 and 42.</strong>
+        </div>
+        <div class="q-tag">Easy · Venn</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="answer-body">
+          <p><span class="m">28 = 2² × 7</span></p>
+          <p><span class="m">42 = 2 × 3 × 7</span></p>
+          <p><strong>Shared (middle):</strong> 2 × 7 = 14</p>
+          <p><strong>Left only (28):</strong> 2 (one extra factor of 2)</p>
+          <p><strong>Right only (42):</strong> 3</p>
+          <p><span class="ans">HCF = 2 × 7 = 14</span></p>
+          <p><span class="ans">LCM = 2 × 2 × 7 × 3 = 84</span></p>
+          <p><em>Check: 14 × 84 = 1176 = 28 × 42 ✓</em></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q3 -->
+    <div class="practice-q q-medium">
+      <div class="q-header">
+        <div class="q-num">3</div>
+        <div class="q-text">
+          <strong>Find the HCF and LCM of 12, 18, and 30.</strong>
+        </div>
+        <div class="q-tag">Medium · Three Numbers</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="answer-body">
+          <p><span class="m">12 = 2² × 3 &nbsp;&nbsp; 18 = 2 × 3² &nbsp;&nbsp; 30 = 2 × 3 × 5</span></p>
+          <p><strong>Primes to consider:</strong> 2, 3, 5</p>
+          <p>For 2: powers are 2, 1, 1 → lowest = 2¹, highest = 2²</p>
+          <p>For 3: powers are 1, 2, 1 → lowest = 3¹, highest = 3²</p>
+          <p>For 5: powers are 0, 0, 1 → lowest = 5⁰ = 1, highest = 5¹</p>
+          <p><span class="ans">HCF = 2¹ × 3¹ × 1 = 6</span></p>
+          <p><span class="ans">LCM = 2² × 3² × 5 = 4 × 9 × 5 = 180</span></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q4 -->
+    <div class="practice-q q-medium">
+      <div class="q-header">
+        <div class="q-num">4</div>
+        <div class="q-text">
+          <strong>The HCF of two numbers is 8 and their LCM is 96. One number is 32. Find the other number.</strong>
+        </div>
+        <div class="q-tag">Medium · Reverse Formula</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="answer-body">
+          <p>HCF × LCM = A × B</p>
+          <p>8 × 96 = 32 × B</p>
+          <p>768 = 32B</p>
+          <p>B = 768 ÷ 32 = <span class="ans">24</span></p>
+          <p><em>Check: HCF(32, 24) = 8 ✓ &nbsp; LCM(32, 24) = 96 ✓</em></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q5 -->
+    <div class="practice-q q-medium">
+      <div class="q-header">
+        <div class="q-num">5</div>
+        <div class="q-text">
+          <strong>Simplify the fraction <span class="frac" style="display:inline-flex"><span class="num">56</span><span class="den">84</span></span> to its lowest terms using HCF.</strong>
+        </div>
+        <div class="q-tag">Medium · Fractions</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="answer-body">
+          <p><span class="m">56 = 2³ × 7 &nbsp;&nbsp; 84 = 2² × 3 × 7</span></p>
+          <p>HCF = 2² × 7 = 28</p>
+          <p><span class="frac"><span class="num">56</span><span class="den">84</span></span> = <span class="frac"><span class="num">56 ÷ 28</span><span class="den">84 ÷ 28</span></span> = <span class="ans"><span class="frac"><span class="num">2</span><span class="den">3</span></span></span></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q6 -->
+    <div class="practice-q q-hard">
+      <div class="q-header">
+        <div class="q-num">6</div>
+        <div class="q-text">
+          <strong>A school timetable has PE every 6 school days, Art every 8 school days, and Music every 9 school days. All three subjects fall on the same day (Day 1). On which school day will all three subjects next fall on the same day? If school starts on 3rd September (Monday) and runs 5 days a week, what is the date of that day?</strong>
+        </div>
+        <div class="q-tag">Hard · Multi-Step</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="answer-body">
+          <p><strong>Step 1: Find LCM(6, 8, 9)</strong></p>
+          <p><span class="m">6 = 2 × 3 &nbsp;&nbsp; 8 = 2³ &nbsp;&nbsp; 9 = 3²</span></p>
+          <p>LCM = 2³ × 3² = 8 × 9 = <strong>72</strong></p>
+          <p>All three subjects next meet on <strong>Day 72</strong>.</p>
+          <p><strong>Step 2: Count school days from Day 1</strong></p>
+          <p>We need to reach Day 72, which means 71 school days after Day 1.<br>
+          71 ÷ 5 = 14 full weeks (70 days) + 1 extra day.</p>
+          <p>Day 1 = Monday 3rd September.<br>
+          +14 weeks = Monday 16th December.<br>
+          +1 day = <span class="ans">Tuesday 17th December</span></p>
+          <p><em>(Note: this assumes no holidays — in a real exam, ignore half-terms unless told otherwise.)</em></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q7 -->
+    <div class="practice-q q-medium">
+      <div class="q-header">
+        <div class="q-num">7</div>
+        <div class="q-text">
+          <strong>Calculate <span class="frac" style="display:inline-flex"><span class="num">5</span><span class="den">6</span></span> + <span class="frac" style="display:inline-flex"><span class="num">7</span><span class="den">8</span></span> using LCM to find the common denominator. Give your answer as a mixed number.</strong>
+        </div>
+        <div class="q-tag">Medium · Fractions</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="answer-body">
+          <p>LCM(6, 8): <span class="m">6 = 2 × 3 &nbsp; 8 = 2³</span> → LCM = 24</p>
+          <p><span class="frac"><span class="num">5</span><span class="den">6</span></span> = <span class="frac"><span class="num">20</span><span class="den">24</span></span> &nbsp;&nbsp; <span class="frac"><span class="num">7</span><span class="den">8</span></span> = <span class="frac"><span class="num">21</span><span class="den">24</span></span></p>
+          <p>Sum = <span class="frac"><span class="num">41</span><span class="den">24</span></span> = <span class="ans">1<span class="frac" style="font-size:0.9em"><span class="num">17</span><span class="den">24</span></span></span></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q8 -->
+    <div class="practice-q q-hard">
+      <div class="q-header">
+        <div class="q-num">8</div>
+        <div class="q-text">
+          <strong>A rectangular garden measures 56 m by 84 m. A gardener wants to plant identical square flower beds, as large as possible, to exactly fill the garden with no gaps and no overlapping. How many flower beds will there be?</strong>
+        </div>
+        <div class="q-tag">Hard · Tiling + Calculation</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="answer-body">
+          <p><strong>Step 1:</strong> Largest square side = HCF(56, 84)</p>
+          <p><span class="m">56 = 2³ × 7 &nbsp;&nbsp; 84 = 2² × 3 × 7</span></p>
+          <p>HCF = 2² × 7 = <strong>28 m</strong></p>
+          <p><strong>Step 2:</strong> Count beds along each side:</p>
+          <p>Along 56 m side: 56 ÷ 28 = 2 beds</p>
+          <p>Along 84 m side: 84 ÷ 28 = 3 beds</p>
+          <p>Total = 2 × 3 = <span class="ans">6 flower beds</span></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q9 -->
+    <div class="practice-q q-hard">
+      <div class="q-header">
+        <div class="q-num">9</div>
+        <div class="q-text">
+          <strong>The HCF of two numbers is 12 and their LCM is 144. Given that both numbers are between 20 and 100, find both numbers.</strong>
+        </div>
+        <div class="q-tag">Hard · Reasoning</div>
+      </div>
+      <details>
+        <summary>Show Answer</summary>
+        <div class="answer-body">
+          <p>Since HCF = 12, both numbers must be multiples of 12.</p>
+          <p>Multiples of 12 between 20 and 100: 24, 36, 48, 60, 72, 84, 96.</p>
+          <p>We need a pair where HCF = 12 and LCM = 144.</p>
+          <p>Using the formula: A × B = 12 × 144 = 1728.</p>
+          <p>Which pairs of multiples of 12 multiply to 1728?<br>
+          36 × 48 = 1728 ✓</p>
+          <p>Check: HCF(36, 48) = 12 ✓ &nbsp; LCM(36, 48) = 144 ✓</p>
+          <p><span class="ans">The two numbers are 36 and 48.</span></p>
+        </div>
+      </details>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<div style="text-align:center; padding: 20px 0 10px; color: var(--grey-600); font-size: 13px;">
+  <strong style="color:var(--navy)">TrueMaths</strong> · 11+ GL Assessment Module · HCF &amp; LCM
+  <br><span style="font-size:12px">Targeting Queen Elizabeth's School, Barnet and similar selective grammar schools</span>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>
