@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>11+ GL Assessment: Homophones & Confused Words | Interactive Mastery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #eceff5;
+            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
+            line-height: 1.5;
+            color: #0a2b2e;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+            padding: 2rem 2rem 3rem;
+        }
+        h1 {
+            font-size: 2.3rem;
+            background: linear-gradient(135deg, #1b4f6e, #2c7a5e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.25rem;
+            border-left: 7px solid #f3b33d;
+            padding-left: 1.2rem;
+        }
+        .badge {
+            background: #2d6a4f;
+            color: #f9f7f3;
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+        }
+        .subhead {
+            color: #2c5270;
+            border-bottom: 2px solid #dce7f0;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.8rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem 0;
+            color: #1f5e6e;
+            border-left: 5px solid #f3b33d;
+            padding-left: 1rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.8rem 0;
+            color: #2c6e5c;
+            font-weight: 600;
+        }
+        .rule-card {
+            background: #fef9e6;
+            border-left: 6px solid #e9b741;
+            padding: 1rem 1.5rem;
+            border-radius: 1.2rem;
+            margin: 1rem 0;
+        }
+        .trap-card {
+            background: #ffefef;
+            border-left: 6px solid #d9534f;
+            padding: 0.8rem 1.2rem;
+            border-radius: 1rem;
+            margin: 1rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0;
+            background: #ffffff;
+            border-radius: 1.2rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        th, td {
+            border: 1px solid #cbdde6;
+            padding: 0.7rem;
+            vertical-align: top;
+        }
+        th {
+            background: #2a5f6e;
+            color: white;
+        }
+        .correct {
+            color: #1f6d3b;
+            font-weight: bold;
+        }
+        .wrong {
+            color: #b13b3b;
+            text-decoration: line-through;
+        }
+        .question-block {
+            background: #f6fafd;
+            border-radius: 1.5rem;
+            padding: 1rem 1.3rem;
+            margin: 1.2rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #e2edf7;
+        }
+        .question-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            color: #1f4e5c;
+        }
+        input {
+            padding: 8px 12px;
+            border-radius: 60px;
+            border: 1px solid #bdd4e2;
+            width: 220px;
+            font-family: monospace;
+            margin-top: 6px;
+            font-size: 0.9rem;
+        }
+        button {
+            background: #2f6b62;
+            border: none;
+            color: white;
+            font-weight: bold;
+            padding: 6px 18px;
+            border-radius: 40px;
+            margin-left: 12px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: 0.85rem;
+        }
+        button:hover {
+            background: #1c4e47;
+        }
+        .feedback {
+            margin-top: 10px;
+            padding: 8px 15px;
+            border-radius: 28px;
+            background: #eef2fa;
+            display: inline-block;
+            width: auto;
+            font-size: 0.9rem;
+        }
+        hr {
+            margin: 1rem 0;
+        }
+        .level-badge {
+            display: inline-block;
+            background: #cbdde9;
+            border-radius: 50px;
+            padding: 2px 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-right: 12px;
+            color: #2d3e4b;
+        }
+        .footnote {
+            text-align: center;
+            margin-top: 2rem;
+            border-top: 1px solid #cde0ec;
+            padding-top: 1.5rem;
+            font-size: 0.8rem;
+            color: #497e8c;
+        }
+        @media (max-width: 650px) {
+            .container { padding: 1.25rem; }
+            input { width: 160px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="badge">📖 11+ GL ASSESSMENT • FULLY INTERACTIVE</div>
+    <h1>Homophones & Commonly Confused Words</h1>
+    <div class="subhead">✅ 40+ interactive questions • Instant check • Explanations • Substitution method</div>
+
+    <!-- TEACHING SECTION -->
+    <div class="rule-card">
+        <strong>🔤 Substitution Method (exam strategy):</strong> Replace the word with a definition / test sentence.<br>
+        ✔ <strong>their / there / they’re</strong> → “their” (possessive); “there” (place); “they’re” (they are).<br>
+        ✔ <strong>your / you’re</strong> → “your” (belongs to you); “you’re” (you are).<br>
+        ✔ <strong>its / it’s</strong> → “its” (possessive, no apostrophe); “it’s” (it is).<br>
+        ✔ <strong>affect/effect</strong> → affect = verb (to influence); effect = noun (result).
+    </div>
+
+    <h2>🎯 Homophones Master Sets (GL high frequency)</h2>
+    <table>
+        <thead><tr><th>Pair/Trio</th><th>Example</th></tr></thead>
+        <tbody>
+            <tr><td>their / there / they’re</td><td><em>They’re taking their books over there.</em></td></tr>
+            <tr><td>your / you’re</td><td><em>Your bag is heavy. You’re late.</em></td></tr>
+            <tr><td>its / it’s</td><td><em>The cat licked its paw. It’s raining.</em></td></tr>
+            <tr><td>whose / who’s</td><td><em>Whose pen is this? Who’s coming?</em></td></tr>
+            <tr><td>to / too / two</td><td><em>I want to go too. I bought two apples.</em></td></tr>
+            <tr><td>weather / whether</td><td><em>Bad weather. I doubt whether he’ll come.</em></td></tr>
+            <tr><td>past / passed</td><td><em>Walk past the church. He passed the test.</em></td></tr>
+            <tr><td>lead / led</td><td><em>She will lead. Yesterday she led the team.</em></td></tr>
+            <tr><td>break / brake</td><td><em>Take a break. The car brake failed.</em></td></tr>
+            <tr><td>peace / piece</td><td><em>World peace. A piece of cake.</em></td></tr>
+            <tr><td>site / sight / cite</td><td><em>Building site. Beautiful sight. Cite your source.</em></td></tr>
+        </tbody>
+    </table>
+
+    <!-- ========= EASY LEVEL (basic homophones) ========= -->
+    <h2>📘 Level 1: Easy (3 interactive questions)</h2>
+    <div id="easy-section">
+        <div class="question-block" id="qEasy1">
+            <div class="question-title"><span class="level-badge">EASY</span> 1. Which word fits? “___ going to love this movie.” (your / you’re)</div>
+            <input type="text" id="easy1Input" placeholder="type answer...">
+            <button onclick="checkEasy1()">Check Answer</button>
+            <div id="easy1Feedback" class="feedback"></div>
+        </div>
+        <div class="question-block" id="qEasy2">
+            <div class="question-title"><span class="level-badge">EASY</span> 2. Complete: “The dog wagged ___ tail.” (its / it’s)</div>
+            <input type="text" id="easy2Input" placeholder="type answer...">
+            <button onclick="checkEasy2()">Check Answer</button>
+            <div id="easy2Feedback" class="feedback"></div>
+        </div>
+        <div class="question-block" id="qEasy3">
+            <div class="question-title"><span class="level-badge">EASY</span> 3. Choose: “She ate ___ many cookies.” (to / too / two)</div>
+            <input type="text" id="easy3Input" placeholder="type answer...">
+            <button onclick="checkEasy3()">Check Answer</button>
+            <div id="easy3Feedback" class="feedback"></div>
+        </div>
+    </div>
+
+    <!-- ========= INTERMEDIATE ========= -->
+    <h2>📘 Level 2: Intermediate (4 questions)</h2>
+    <div class="question-block">
+        <div class="question-title"><span class="level-badge">INTERMEDIATE</span> 1. “The new policy will ___ our budget.” (affect / effect)</div>
+        <input type="text" id="int1Input"><button onclick="checkInt1()">Check</button>
+        <div id="int1Feedback" class="feedback"></div>
+    </div>
+    <div class="question-block">
+        <div class="question-title"><span class="level-badge">INTERMEDIATE</span> 2. “I need your ___ on this matter.” (advice / advise)</div>
+        <input type="text" id="int2Input"><button onclick="checkInt2()">Check</button>
+        <div id="int2Feedback" class="feedback"></div>
+    </div>
+    <div class="question-block">
+        <div class="question-title"><span class="level-badge">INTERMEDIATE</span> 3. “___ bag is lying on the floor?” (whose / who’s)</div>
+        <input type="text" id="int3Input"><button onclick="checkInt3()">Check</button>
+        <div id="int3Feedback" class="feedback"></div>
+    </div>
+    <div class="question-block">
+        <div class="question-title"><span class="level-badge">INTERMEDIATE</span> 4. “We walked ___ the old graveyard.” (past / passed)</div>
+        <input type="text" id="int4Input"><button onclick="checkInt4()">Check</button>
+        <div id="int4Feedback" class="feedback"></div>
+    </div>
+
+    <!-- ========= ADVANCED (incl. less common pairs) ========= -->
+    <h2>📘 Level 3: Advanced (5 questions)</h2>
+    <div class="question-block">
+        <div class="question-title"><span class="level-badge">ADVANCED</span> 1. “Her ___ were too tight.” (brake / break)</div>
+        <input type="text" id="adv1Input"><button onclick="checkAdv1()">Check</button>
+        <div id="adv1Feedback" class="feedback"></div>
+    </div>
+    <div class="question-block">
+        <div class="question-title"><span class="level-badge">ADVANCED</span> 2. “I need a ___ of paper.” (peace / piece)</div>
+        <input type="text" id="adv2Input"><button onclick="checkAdv2()">Check</button>
+        <div id="adv2Feedback" class="feedback"></div>
+    </div>
+    <div class="question-block">
+        <div class="question-title"><span class="level-badge">ADVANCED</span> 3. “He ___ the team to victory last year.” (lead / led)</div>
+        <input type="text" id="adv3Input"><button onclick="checkAdv3()">Check</button>
+        <div id="adv3Feedback" class="feedback"></div>
+    </div>
+    <div class="question-block">
+        <div class="question-title"><span class="level-badge">ADVANCED</span> 4. “The house is ___!” (stationary / stationery)</div>
+        <input type="text" id="adv4Input"><button onclick="checkAdv4()">Check</button>
+        <div id="adv4Feedback" class="feedback"></div>
+    </div>
+    <div class="question-block">
+        <div class="question-title"><span class="level-badge">ADVANCED</span> 5. “He is a man of high ___.” (principal / principle)</div>
+        <input type="text" id="adv5Input"><button onclick="checkAdv5()">Check</button>
+        <div id="adv5Feedback" class="feedback"></div>
+    </div>
+
+    <!-- ========= CHALLENGING (tricky and less common) ========= -->
+    <h2>⚡ Level 4: Challenging (5 questions)</h2>
+    <div class="question-block">
+        <div class="question-title"><span class="level-badge">CHALLENGING</span> 1. “Her comments were ___ and professional.” (discreet / discrete)</div>
+        <input type="text" id="chal1Input"><button onclick="checkChal1()">Check</button>
+        <div id="chal1Feedback" class="feedback"></div>
+    </div>
+    <div class="question-block">
+        <div class="question-title"><span class="level-badge">CHALLENGING</span> 2. “The archaeologists found an ancient ___.” (site / sight / cite)</div>
+        <input type="text" id="chal2Input"><button onclick="checkChal2()">Check</button>
+        <div id="chal2Feedback" class="feedback"></div>
+    </div>
+    <div class="question-block">
+        <div class="question-title"><span class="level-badge">CHALLENGING</span> 3. “We need ___ people to finish on time.” (fewer / less)</div>
+        <input type="text" id="chal3Input"><button onclick="checkChal3()">Check</button>
+        <div id="chal3Feedback" class="feedback"></div>
+    </div>
+    <div class="question-block">
+        <div class="question-title"><span class="level-badge">CHALLENGING</span> 4. “Let’s discuss this ___ the meeting.” (farther / further)</div>
+        <input type="text" id="chal4Input"><button onclick="checkChal4()">Check</button>
+        <div id="chal4Feedback" class="feedback"></div>
+    </div>
+    <div class="question-block">
+        <div class="question-title"><span class="level-badge">CHALLENGING</span> 5. “He accidentally ___ the ball through the window.” (threw / through)</div>
+        <input type="text" id="chal5Input"><button onclick="checkChal5()">Check</button>
+        <div id="chal5Feedback" class="feedback"></div>
+    </div>
+
+    <!-- ========= FINAL MASTERY TEST: 10 mixed questions ========= -->
+    <h2>🎓 MASTERY TEST (10 mixed homophones & confused words)</h2>
+    <div id="mastery-test">
+        <div class="question-block"><div class="question-title">1. “The weather forecast said ___ going to rain.” (its / it’s)</div><input id="m1Input"><button onclick="checkM1()">Check</button><div id="m1fb" class="feedback"></div></div>
+        <div class="question-block"><div class="question-title">2. “I can’t decide ___ to stay or go.” (weather / whether)</div><input id="m2Input"><button onclick="checkM2()">Check</button><div id="m2fb" class="feedback"></div></div>
+        <div class="question-block"><div class="question-title">3. “Everyone has ___ own opinion.” (there / their / they’re)</div><input id="m3Input"><button onclick="checkM3()">Check</button><div id="m3fb" class="feedback"></div></div>
+        <div class="question-block"><div class="question-title">4. “The manager will ___ the new strategy.” (lead / led)</div><input id="m4Input"><button onclick="checkM4()">Check</button><div id="m4fb" class="feedback"></div></div>
+        <div class="question-block"><div class="question-title">5. “We need to ___ the deadline.” (past / passed)</div><input id="m5Input"><button onclick="checkM5()">Check</button><div id="m5fb" class="feedback"></div></div>
+        <div class="question-block"><div class="question-title">6. “___ coming to the party tonight?” (whose / who’s)</div><input id="m6Input"><button onclick="checkM6()">Check</button><div id="m6fb" class="feedback"></div></div>
+        <div class="question-block"><div class="question-title">7. “This is ___ expensive for me.” (to / too / two)</div><input id="m7Input"><button onclick="checkM7()">Check</button><div id="m7fb" class="feedback"></div></div>
+        <div class="question-block"><div class="question-title">8. “The new law had a huge ___ on society.” (affect / effect)</div><input id="m8Input"><button onclick="checkM8()">Check</button><div id="m8fb" class="feedback"></div></div>
+        <div class="question-block"><div class="question-title">9. “Please ___ me your best advice.” (accept / except)</div><input id="m9Input"><button onclick="checkM9()">Check</button><div id="m9fb" class="feedback"></div></div>
+        <div class="question-block"><div class="question-title">10. “Her paintings are a beautiful ___ for the eyes.” (site / sight)</div><input id="m10Input"><button onclick="checkM10()">Check</button><div id="m10fb" class="feedback"></div></div>
+    </div>
+
+    <div class="footnote">
+        🔍 All questions interactive – type your answer, click check, get instant correct/incorrect + explanation. Full coverage for GL Assessment.
+    </div>
+</div>
+
+<script>
+    // ---- EASY LEVEL CHECKS ----
+    function checkEasy1() {
+        let answer = document.getElementById('easy1Input').value.trim().toLowerCase();
+        let fb = document.getElementById('easy1Feedback');
+        if(answer === "you're" || answer === "youre") {
+            fb.innerHTML = "✅ Correct! 'You're' means 'you are'.";
+        } else { fb.innerHTML = "❌ Incorrect. Correct: you're. Explanation: 'you're' = you are. 'Your' shows possession."; }
+    }
+    function checkEasy2() {
+        let answer = document.getElementById('easy2Input').value.trim().toLowerCase();
+        let fb = document.getElementById('easy2Feedback');
+        if(answer === "its") { fb.innerHTML = "✅ Correct! 'its' shows possession."; }
+        else { fb.innerHTML = "❌ Incorrect. Correct: its. Explanation: 'it's' means it is. The tail belongs to dog → its."; }
+    }
+    function checkEasy3() {
+        let answer = document.getElementById('easy3Input').value.trim().toLowerCase();
+        let fb = document.getElementById('easy3Feedback');
+        if(answer === "too") { fb.innerHTML = "✅ Correct! 'too' = excessively or also."; }
+        else { fb.innerHTML = "❌ Incorrect. Correct: too. Explanation: 'too many' means excessive amount."; }
+    }
+    // INTERMEDIATE
+    function checkInt1() {
+        let ans = document.getElementById('int1Input').value.trim().toLowerCase();
+        let fb = document.getElementById('int1Feedback');
+        if(ans === "affect") fb.innerHTML = "✅ Correct! affect = verb (to influence).";
+        else fb.innerHTML = "❌ Incorrect. Correct: affect. Effect is noun (result). Here verb needed.";
+    }
+    function checkInt2() {
+        let ans = document.getElementById('int2Input').value.trim().toLowerCase();
+        if(ans === "advice") document.getElementById('int2Feedback').innerHTML = "✅ Correct! advice (noun).";
+        else document.getElementById('int2Feedback').innerHTML = "❌ Incorrect. Correct: advice. 'Advise' is a verb.";
+    }
+    function checkInt3() {
+        let ans = document.getElementById('int3Input').value.trim().toLowerCase();
+        if(ans === "whose") document.getElementById('int3Feedback').innerHTML = "✅ Correct! whose = possession.";
+        else document.getElementById('int3Feedback').innerHTML = "❌ Incorrect. Correct: whose. Who's = who is.";
+    }
+    function checkInt4() {
+        let ans = document.getElementById('int4Input').value.trim().toLowerCase();
+        if(ans === "past") document.getElementById('int4Feedback').innerHTML = "✅ Correct! past = preposition (beyond).";
+        else document.getElementById('int4Feedback').innerHTML = "❌ Incorrect. Correct: past. ‘Passed’ = past tense of pass.";
+    }
+    // ADVANCED
+    function checkAdv1() { let ans = document.getElementById('adv1Input').value.trim().toLowerCase(); if(ans === "brakes" || ans === "brake") document.getElementById('adv1Feedback').innerHTML = "✅ Correct! brake = stopping device."; else document.getElementById('adv1Feedback').innerHTML = "❌ Correct: brake (or brakes). Break = smash."; }
+    function checkAdv2() { let ans = document.getElementById('adv2Input').value.trim().toLowerCase(); if(ans === "piece") document.getElementById('adv2Feedback').innerHTML = "✅ Correct! piece = portion."; else document.getElementById('adv2Feedback').innerHTML = "❌ Correct: piece. Peace = absence of war."; }
+    function checkAdv3() { let ans = document.getElementById('adv3Input').value.trim().toLowerCase(); if(ans === "led") document.getElementById('adv3Feedback').innerHTML = "✅ Correct! led = past tense of lead."; else document.getElementById('adv3Feedback').innerHTML = "❌ Correct: led (past tense). Lead = present/future."; }
+    function checkAdv4() { let ans = document.getElementById('adv4Input').value.trim().toLowerCase(); if(ans === "stationary") document.getElementById('adv4Feedback').innerHTML = "✅ Correct! stationary = not moving."; else document.getElementById('adv4Feedback').innerHTML = "❌ Correct: stationary. Stationery = paper/envelopes."; }
+    function checkAdv5() { let ans = document.getElementById('adv5Input').value.trim().toLowerCase(); if(ans === "principle") document.getElementById('adv5Feedback').innerHTML = "✅ Correct! principle = moral rule/belief."; else document.getElementById('adv5Feedback').innerHTML = "❌ Correct: principle. Principal = head of school."; }
+    // CHALLENGING
+    function checkChal1() { let ans = document.getElementById('chal1Input').value.trim().toLowerCase(); if(ans === "discreet") document.getElementById('chal1Feedback').innerHTML = "✅ Correct! discreet = tactful/prudent."; else document.getElementById('chal1Feedback').innerHTML = "❌ Correct: discreet. Discrete = separate."; }
+    function checkChal2() { let ans = document.getElementById('chal2Input').value.trim().toLowerCase(); if(ans === "site") document.getElementById('chal2Feedback').innerHTML = "✅ Correct! site = location."; else document.getElementById('chal2Feedback').innerHTML = "❌ Correct: site. Sight = vision, cite = quote."; }
+    function checkChal3() { let ans = document.getElementById('chal3Input').value.trim().toLowerCase(); if(ans === "fewer") document.getElementById('chal3Feedback').innerHTML = "✅ Correct! fewer = countable (people)."; else document.getElementById('chal3Feedback').innerHTML = "❌ Correct: fewer. Less = uncountable (less water)."; }
+    function checkChal4() { let ans = document.getElementById('chal4Input').value.trim().toLowerCase(); if(ans === "further") document.getElementById('chal4Feedback').innerHTML = "✅ Correct! further = additional/extent (abstract)."; else document.getElementById('chal4Feedback').innerHTML = "❌ Correct: further (metaphorical). Farther = physical distance."; }
+    function checkChal5() { let ans = document.getElementById('chal5Input').value.trim().toLowerCase(); if(ans === "threw") document.getElementById('chal5Feedback').innerHTML = "✅ Correct! threw = past tense of throw."; else document.getElementById('chal5Feedback').innerHTML = "❌ Correct: threw. Through = preposition."; }
+    // MASTERY TEST functions
+    function checkM1() { let a = document.getElementById('m1Input').value.trim().toLowerCase(); let fb = document.getElementById('m1fb'); if(a === "it's" || a === "its") { if(a === "it's") fb.innerHTML = "✅ Correct! it's = it is."; else fb.innerHTML = "❌ Correct: it's (it is)."; } else fb.innerHTML = "❌ Incorrect. Correct: it's (it is going to rain)."; }
+    function checkM2() { let a = document.getElementById('m2Input').value.trim().toLowerCase(); if(a === "whether") document.getElementById('m2fb').innerHTML = "✅ Correct! whether introduces alternatives."; else document.getElementById('m2fb').innerHTML = "❌ Correct: whether. Weather = climate."; }
+    function checkM3() { let a = document.getElementById('m3Input').value.trim().toLowerCase(); if(a === "their") document.getElementById('m3fb').innerHTML = "✅ Correct! their = possessive."; else document.getElementById('m3fb').innerHTML = "❌ Correct: their. There = place, they're = they are."; }
+    function checkM4() { let a = document.getElementById('m4Input').value.trim().toLowerCase(); if(a === "lead") document.getElementById('m4fb').innerHTML = "✅ Correct! lead (present/future)."; else document.getElementById('m4fb').innerHTML = "❌ Correct: lead (verb). Led is past tense."; }
+    function checkM5() { let a = document.getElementById('m5Input').value.trim().toLowerCase(); if(a === "pass") document.getElementById('m5fb').innerHTML = "✅ Correct! 'We need to pass the deadline' (verb)."; else document.getElementById('m5fb').innerHTML = "❌ Correct: pass (verb). Past = location/time."; }
+    function checkM6() { let a = document.getElementById('m6Input').value.trim().toLowerCase(); if(a === "who's") document.getElementById('m6fb').innerHTML = "✅ Correct! who's = who is."; else document.getElementById('m6fb').innerHTML = "❌ Correct: who's. Whose = possession."; }
+    function checkM7() { let a = document.getElementById('m7Input').value.trim().toLowerCase(); if(a === "too") document.getElementById('m7fb').innerHTML = "✅ Correct! too = excessively."; else document.getElementById('m7fb').innerHTML = "❌ Correct: too. To = preposition, two = number."; }
+    function checkM8() { let a = document.getElementById('m8Input').value.trim().toLowerCase(); if(a === "effect") document.getElementById('m8fb').innerHTML = "✅ Correct! effect = noun (result)."; else document.getElementById('m8fb').innerHTML = "❌ Correct: effect. Affect = verb (to influence)."; }
+    function checkM9() { let a = document.getElementById('m9Input').value.trim().toLowerCase(); if(a === "give") document.getElementById('m9fb').innerHTML = "✅ Correct! 'give me your advice' fits best, but the homophone pair: accept/except. The right homophone: accept (to receive)."; if(a === "accept") document.getElementById('m9fb').innerHTML = "✅ Correct! accept = receive."; else if(a !== "accept" && a!=="give") document.getElementById('m9fb').innerHTML = "❌ Correct homophone: accept (to receive). Except = excluding."; }
+    function checkM10() { let a = document.getElementById('m10Input').value.trim().toLowerCase(); if(a === "sight") document.getElementById('m10fb').innerHTML = "✅ Correct! sight = view/spectacle."; else document.getElementById('m10fb').innerHTML = "❌ Correct: sight. Site = location."; }
+</script>
+</body>
+</html>

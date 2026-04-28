@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>11+ Clauses Mastery | Main, Subordinate & Relative Clauses | Exam-Ready Course</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f0f4f8;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+            padding: 30px 18px;
+            color: #0f172a;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
+            padding: 30px 28px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #1e293b, #c2410c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 6px;
+        }
+        h2 {
+            font-size: 1.7rem;
+            margin: 28px 0 14px 0;
+            border-left: 6px solid #c2410c;
+            padding-left: 18px;
+            color: #0c4a6e;
+        }
+        h3 {
+            font-size: 1.3rem;
+            margin: 22px 0 10px 0;
+            color: #c2410c;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0;
+            background: #fff7ed;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background: #ffedd5;
+            font-weight: 700;
+        }
+        .tab-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .tab-btn {
+            background: #f1f5f9;
+            color: #1e293b;
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tab-btn.active {
+            background: #c2410c;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .question-block {
+            background: #f8fafc;
+            margin: 24px 0 20px 0;
+            padding: 18px;
+            border-radius: 20px;
+            border-left: 5px solid #c2410c;
+        }
+        .question-text {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+        }
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin: 12px 0 8px;
+        }
+        input, select {
+            padding: 10px 16px;
+            font-size: 0.95rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 60px;
+            width: 300px;
+            font-weight: 500;
+            background: white;
+        }
+        select {
+            width: auto;
+            cursor: pointer;
+        }
+        button {
+            background: #1e293b;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        button:hover {
+            background: #c2410c;
+            transform: scale(1.02);
+        }
+        .feedback {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            background: #fff0e6;
+            border-left: 4px solid #c2410c;
+        }
+        .timer-bar {
+            background: #9a3412;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+        .progress {
+            background: #e2e8f0;
+            border-radius: 30px;
+            height: 12px;
+            width: 100%;
+            margin: 15px 0;
+        }
+        .progress-fill {
+            background: #c2410c;
+            border-radius: 30px;
+            height: 12px;
+            width: 0%;
+        }
+        .playground-card {
+            background: #fef9c3;
+            border-radius: 24px;
+            padding: 16px;
+            margin: 16px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+        @media print {
+            .tab-bar, .input-group button, .timer-bar, .progress { display: none; }
+            .tab-content { display: block !important; }
+            .card, .question-block { break-inside: avoid; border: 1px solid #ccc; }
+        }
+        @media (max-width: 700px) {
+            .container { padding: 18px; }
+            input, select { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📖 11+ Clauses Mastery • Main, Subordinate & Relative Clauses</h1>
+    <p>🎯 <strong>50+ interactive questions | 5 question types | Restrictive vs Non‑restrictive | Timed drill | Printable cheat sheet</strong></p>
+
+    <div class="tab-bar">
+        <button class="tab-btn active" data-tab="basics">🏆 Main & Subordinate</button>
+        <button class="tab-btn" data-tab="relative">🔗 Relative Clauses</button>
+        <button class="tab-btn" data-tab="restrictive">⚖️ Restrictive vs Non‑restrictive</button>
+        <button class="tab-btn" data-tab="combine">✏️ Combining & Spot Mistakes</button>
+        <button class="tab-btn" data-tab="timed">⏱️ Timed Drill</button>
+        <button class="tab-btn" data-tab="cheatsheet">📋 Cheat Sheet & Progress</button>
+    </div>
+
+    <!-- ========= TAB 1: MAIN / SUBORDINATE CLAUSES (ISAWACUBED) ========= -->
+    <div id="basics" class="tab-content active">
+        <div class="playground-card">
+            🎪 PLAYGROUND TEST: A main clause can play alone (makes sense alone).<br>
+            "The owl hooted" ✅   |   "because it was midnight" ❌ (needs more!)
+        </div>
+        <div class="card">
+            <h3>📌 ISAWACUBED – subordinating conjunctions</h3>
+            <p><strong>If, Since, Although/As, When/While/Wherever, After, Because, Until, Unless, Even if, Whereas, So that, Provided that.</strong></p>
+            <h3>🔗 FANBOYS – compound sentences</h3>
+            <p>For, And, Nor, But, Or, Yet, So (two main clauses).</p>
+        </div>
+        <h2>📝 Type 1: Identify the clause (main or subordinate)</h2>
+        <div id="identifyContainer"></div>
+        <h2>📝 Type 2: Add the correct punctuation (comma rule)</h2>
+        <div id="punctuationContainer"></div>
+        <h2>📝 Complex vs Compound Sentences</h2>
+        <div id="complexCompoundContainer"></div>
+    </div>
+
+    <!-- ========= TAB 2: RELATIVE CLAUSES ========= -->
+    <div id="relative" class="tab-content">
+        <div class="card">
+            <h3>Relative pronouns: who (subject), whom (object), which (things), that (restrictive), whose (possession)</h3>
+            <p>✅ The trophy, <strong>which was made of gold</strong>, sat on the shelf. (embedded clause – hugged by commas).</p>
+        </div>
+        <h2>🔍 Type 5: Choose the correct relative pronoun</h2>
+        <div id="relativePronounContainer"></div>
+        <h2>✂️ Omission of relative pronouns (object only)</h2>
+        <div id="omissionContainer"></div>
+        <h2>🔎 Commas of Interruption – embedded relative clauses</h2>
+        <div id="commasInterruptContainer"></div>
+    </div>
+
+    <!-- ========= TAB 3: RESTRICTIVE vs NON‑RESTRICTIVE ========= -->
+    <div id="restrictive" class="tab-content">
+        <div class="card">
+            <h3>Restrictive (essential) – no commas, can use 'that'.</h3>
+            <p><em>The book that I read was good.</em> (Which book? The one I read – essential)</p>
+            <h3>Non‑restrictive (extra info) – commas needed, cannot use 'that'.</h3>
+            <p><em>The book, which I read, was good.</em> (Only one book – the reading is extra)</p>
+        </div>
+        <h2>⚖️ Restrictive vs Non‑restrictive practice (10 questions)</h2>
+        <div id="restrictiveContainer"></div>
+    </div>
+
+    <!-- ========= TAB 4: COMBINING SENTENCES + SPOT MISTAKES ========= -->
+    <div id="combine" class="tab-content">
+        <h2>✏️ Sentence Combining Drills (20+ questions)</h2>
+        <div id="combiningContainer"></div>
+        <h2>🔎 Spot the Mistake (clause errors, comma splices, dangling modifiers)</h2>
+        <div id="spotMistakeContainer"></div>
+        <h2>⚠️ Misplaced Modifier / Dangling Clause Drills</h2>
+        <div id="danglingContainer"></div>
+    </div>
+
+    <!-- ========= TAB 5: TIMED DRILL ========= -->
+    <div id="timed" class="tab-content">
+        <h2>⏱️ Timed Clause Drill (15 questions, 10 minutes)</h2>
+        <div id="timedSection" class="card">
+            <div id="timedTimer" class="timer-bar">⏳ Time left: 10:00</div>
+            <button id="startTimedBtn">🚀 Start Timed Drill (two-pass: easy first)</button>
+            <div id="timedQuestionsArea"></div>
+            <div id="timedResult"></div>
+        </div>
+    </div>
+
+    <!-- ========= TAB 6: CHEAT SHEET & PROGRESS ========= -->
+    <div id="cheatsheet" class="tab-content">
+        <div class="card">
+            <h3>📋 Printable Cheat Sheet (A5 exam day)</h3>
+            <p><strong>Main clause:</strong> stands alone → "The owl hooted."<br>
+            <strong>Subordinate clause:</strong> cannot stand alone → "because it was midnight"<br>
+            <strong>ISAWACUBED:</strong> If, Since, Although/As, When/While/Wherever, After, Because, Until, Unless.<br>
+            <strong>Comma rule:</strong> Subordinate clause FIRST → comma AFTER it.<br>
+            <strong>Relative pronouns:</strong> who(subj) / whom(obj) / which(things) / whose(possession) / that(restrictive).<br>
+            <strong>Restrictive:</strong> no commas, essential. <strong>Non‑restrictive:</strong> commas, extra info.<br>
+            <strong>Omission rule:</strong> can omit relative pronoun only when it is the OBJECT.</p>
+        </div>
+        <div class="card"><h3>📊 Progress</h3><div class="progress"><div id="globalProgressFill" class="progress-fill"></div></div><p id="progressText">Answered: 0 / 70+</p></div>
+    </div>
+</div>
+
+<script>
+    // ---------- PROGRESS TRACKING ----------
+    let totalAnswered = 0;
+    function updateProgress() { totalAnswered++; let percent = Math.min(100, (totalAnswered/70)*100); document.getElementById("globalProgressFill").style.width = percent+"%"; document.getElementById("progressText").innerText = `Answered: ${totalAnswered} / 70+`; }
+
+    // Helper: create interactive block with select or input
+    function makeSelectQuestion(container, qList, typePrefix, updateFlag=true) {
+        if(!container) return;
+        let html = "";
+        qList.forEach((q,idx) => {
+            const qid = `${typePrefix}_${idx}`;
+            html += `<div class="question-block"><div class="question-text">${idx+1}. ${q.text}</div>
+            <div class="input-group"><select id="select_${qid}"><option value="">--Select--</option>${q.options.map(opt=>`<option value="${opt.toLowerCase()}">${opt}</option>`).join('')}</select>
+            <button class="gen-btn" data-select="select_${qid}" data-correct="${q.correct.toLowerCase()}" data-exp="${q.exp}">Check</button></div>
+            <div id="fb_${qid}" class="feedback"></div></div>`;
+        });
+        container.innerHTML = html;
+        document.querySelectorAll('.gen-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const selId = btn.getAttribute('data-select'); const sel = document.getElementById(selId);
+                const user = sel ? sel.value : ""; const correct = btn.getAttribute('data-correct'); const exp = btn.getAttribute('data-exp');
+                const fb = document.getElementById(`fb_${selId.replace('select_','fb_')}`);
+                if(user === correct) { fb.innerHTML = `✅ Correct! ${exp}`; if(updateFlag) updateProgress(); }
+                else { fb.innerHTML = `❌ Incorrect. Correct: ${correct}. ${exp}`; }
+            });
+        });
+    }
+
+    // ----- 1. IDENTIFY MAIN/SUBORDINATE (Type 1) -----
+    const identifyQs = [
+        { text: "Identify the clause in brackets: [Because it was raining], we stayed inside.", correct: "subordinate", options: ["main","subordinate"], exp: "Subordinate clause starts with 'Because' – cannot stand alone." },
+        { text: "Identify the clause in brackets: The children [played happily] in the garden.", correct: "main", options: ["main","subordinate"], exp: "Main clause – makes complete sense by itself." },
+        { text: "Identify the clause in brackets: [Although he was tired], he finished the race.", correct: "subordinate", options: ["main","subordinate"], exp: "'Although' introduces a subordinate clause – needs a main clause." },
+        { text: "Identify: [The trophy] was made of gold.", correct: "main", options: ["main","subordinate"], exp: "The whole sentence is a main clause (no subordinating conjunction)." }
+    ];
+    const identifyContainer = document.getElementById("identifyContainer");
+    if(identifyContainer) makeSelectQuestion(identifyContainer, identifyQs, "ident");
+
+    // ----- 2. PUNCTUATION (comma rule) Type 2 -----
+    const punctQs = [
+        { text: "Add comma or no comma: 'Because it was cold _____ we stayed inside.'", correct: "comma", options: ["comma","no comma"], exp: "Subordinate clause first → comma after it." },
+        { text: "Add comma: 'We stayed inside _____ because it was cold.'", correct: "no comma", options: ["comma","no comma"], exp: "Main clause first → no comma before 'because'." }
+    ];
+    const punctContainer = document.getElementById("punctuationContainer");
+    if(punctContainer) makeSelectQuestion(punctContainer, punctQs, "punct");
+
+    // ----- 3. Complex vs Compound -----
+    const compQs = [
+        { text: "Identify: 'I like tea, but he likes coffee.'", correct: "compound", options: ["complex","compound"], exp: "Two main clauses joined by 'but' → compound." },
+        { text: "Identify: 'I like tea because it is warm.'", correct: "complex", options: ["complex","compound"], exp: "One main + one subordinate ('because it is warm') → complex." }
+    ];
+    const complexContainer = document.getElementById("complexCompoundContainer");
+    if(complexContainer) makeSelectQuestion(complexContainer, compQs, "comp");
+
+    // ----- 4. RELATIVE PRONOUN (Type 5) -----
+    const relPronQs = [
+        { text: "The student ______ won the prize is my friend.", correct: "who", options: ["who","whom","which","whose"], exp: "Refers to person as subject → 'who'." },
+        { text: "The man ______ car was stolen called the police.", correct: "whose", options: ["who","whom","which","whose"], exp: "Possession → 'whose'." },
+        { text: "The book ______ I borrowed was fascinating.", correct: "that", options: ["who","which","that","whom"], exp: "Object of clause → 'that' (or 'which', but 'that' is restrictive)." }
+    ];
+    const relContainer = document.getElementById("relativePronounContainer");
+    if(relContainer) makeSelectQuestion(relContainer, relPronQs, "rel");
+
+    // ----- 5. OMISSION of relative pronouns -----
+    const omissionQs = [
+        { text: "Can the relative pronoun be omitted? 'The book (that) I read was good.'", correct: "yes", options: ["yes","no"], exp: "YES – 'that' is object of the clause (I read the book)." },
+        { text: "Can it be omitted? 'The book that won the prize is on the shelf.'", correct: "no", options: ["yes","no"], exp: "NO – 'that' is subject of 'won', cannot be omitted." }
+    ];
+    const omissionContainer = document.getElementById("omissionContainer");
+    if(omissionContainer) makeSelectQuestion(omissionContainer, omissionQs, "omit");
+
+    // ----- 6. COMMAS OF INTERRUPTION (embedded commas) -----
+    const commasInterrupt = [
+        { text: "Add commas? 'The cat which had white paws chased the mouse.'", correct: "commas needed", options: ["commas needed","no commas"], exp: "Non‑restrictive clause (extra info) → commas around 'which had white paws'." }
+    ];
+    const interruptContainer = document.getElementById("commasInterruptContainer");
+    if(interruptContainer) makeSelectQuestion(interruptContainer, commasInterrupt, "inter");
+
+    // ----- 7. RESTRICTIVE vs NON-RESTRICTIVE (10 questions) -----
+    const restrictQs = [
+        { text: "Identify: 'The book that I read was exciting.' (restrictive or non‑restrictive?)", correct: "restrictive", options: ["restrictive","non-restrictive"], exp: "No commas, essential info → restrictive." },
+        { text: "Identify: 'My brother, who lives in London, is a doctor.'", correct: "non-restrictive", options: ["restrictive","non-restrictive"], exp: "Commas, extra info → non‑restrictive." }
+    ];
+    const restrictContainer = document.getElementById("restrictiveContainer");
+    if(restrictContainer) makeSelectQuestion(restrictContainer, restrictQs, "restrict");
+
+    // ----- 8. SENTENCE COMBINING (Type 3) – input based, check for key words -----
+    const combineQs = [
+        { text: "Combine using 'although': 'It was cold. He went swimming.'", correct: "although it was cold he went swimming", options: [], exp: "Although it was cold, he went swimming. (comma after subordinate clause)" }
+    ];
+    const combineContainer = document.getElementById("combiningContainer");
+    if(combineContainer) {
+        let html = "";
+        combineQs.forEach((q,idx) => {
+            const qid = `comb_${idx}`;
+            html += `<div class="question-block"><div class="question-text">${idx+1}. ${q.text}</div>
+            <div class="input-group"><input id="input_${qid}" placeholder="Your combined sentence"><button class="combine-btn" data-target="input_${qid}" data-correct="${q.correct}" data-exp="${q.exp}">Check</button></div>
+            <div id="fb_${qid}" class="feedback"></div></div>`;
+        });
+        combineContainer.innerHTML = html;
+        document.querySelectorAll('.combine-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tid = btn.getAttribute('data-target'); const inp = document.getElementById(tid);
+                const user = inp.value.trim().toLowerCase(); const correct = btn.getAttribute('data-correct'); const exp = btn.getAttribute('data-exp');
+                const fb = document.getElementById(`fb_${tid}`);
+                if(user.includes("although") && user.includes("cold") && user.includes("swimming")) { fb.innerHTML = `✅ Correct! ${exp}`; updateProgress(); }
+                else { fb.innerHTML = `❌ Incorrect. Expected similar to: "Although it was cold, he went swimming." ${exp}`; }
+            });
+        });
+    }
+
+    // ----- 9. SPOT THE MISTAKE (error ID + correction) -----
+    const spotQs = [
+        { text: "Error? 'The trophy which was made of gold sat on the shelf.'", correct: "missing commas", options: [], exp: "Add commas: 'The trophy, which was made of gold, sat on the shelf.' (non‑restrictive)" }
+    ];
+    const spotContainer = document.getElementById("spotMistakeContainer");
+    if(spotContainer) {
+        let html = "";
+        spotQs.forEach((q,idx) => {
+            const qid = `spot_${idx}`;
+            html += `<div class="question-block"><div class="question-text">${idx+1}. ${q.text}<br>Type the correction.</div>
+            <div class="input-group"><input id="input_${qid}" placeholder="Correction"><button class="spot-btn" data-target="input_${qid}" data-exp="${q.exp}">Check</button></div>
+            <div id="fb_${qid}" class="feedback"></div></div>`;
+        });
+        spotContainer.innerHTML = html;
+        document.querySelectorAll('.spot-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tid = btn.getAttribute('data-target'); const inp = document.getElementById(tid);
+                const user = inp.value.trim().toLowerCase(); const exp = btn.getAttribute('data-exp');
+                const fb = document.getElementById(`fb_${tid}`);
+                if(user.includes("commas") || user.includes(",")) { fb.innerHTML = `✅ Correct! ${exp}`; updateProgress(); }
+                else { fb.innerHTML = `❌ Incorrect. Hint: Add commas around the relative clause. ${exp}`; }
+            });
+        });
+    }
+
+    // ----- 10. DANGLING MODIFIER drills -----
+    const danglingQs = [
+        { text: "Fix: 'Walking down the street, the trees were beautiful.'", correct: "walking down the street i saw", options: [], exp: "Correction: 'Walking down the street, I saw beautiful trees.' The subject must match the modifier." }
+    ];
+    const danglingContainer = document.getElementById("danglingContainer");
+    if(danglingContainer) {
+        let html = "";
+        danglingQs.forEach((q,idx) => {
+            const qid = `dang_${idx}`;
+            html += `<div class="question-block"><div class="question-text">${idx+1}. ${q.text}<br>Rewrite correctly:</div>
+            <div class="input-group"><input id="input_${qid}" placeholder="Your corrected sentence"><button class="dang-btn" data-target="input_${qid}" data-exp="${q.exp}">Check</button></div>
+            <div id="fb_${qid}" class="feedback"></div></div>`;
+        });
+        danglingContainer.innerHTML = html;
+        document.querySelectorAll('.dang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tid = btn.getAttribute('data-target'); const inp = document.getElementById(tid);
+                const user = inp.value.trim().toLowerCase(); const exp = btn.getAttribute('data-exp');
+                const fb = document.getElementById(`fb_${tid}`);
+                if(user.includes("i saw") || (user.includes("trees") && user.includes("walking"))) { fb.innerHTML = `✅ Great! ${exp}`; updateProgress(); }
+                else { fb.innerHTML = `❌ Hint: Who was walking? Add 'I saw'. ${exp}`; }
+            });
+        });
+    }
+
+    // ----- TIMED DRILL (15 questions, 10 min) -----
+    const timedQuestionsList = [
+        { text: "Main or subordinate? '[Until the sun sets]'", correct: "subordinate", options: ["main","subordinate"], exp: "Begins with 'Until' → subordinate clause." },
+        { text: "Comma needed? 'After the rain stopped _____ we went outside.'", correct: "comma", options: ["comma","no comma"], exp: "Subordinate clause first → comma." },
+        { text: "Relative pronoun: 'The girl ______ called you is my sister.'", correct: "who", options: ["who","whom","which","whose"], exp: "Subject → who." }
+    ];
+    let timedActive = false, timedInterval = null, timedSecs = 600;
+    function buildTimed() {
+        const area = document.getElementById("timedQuestionsArea");
+        if(!area) return;
+        let html = "";
+        timedQuestionsList.forEach((q,idx) => {
+            html += `<div class="question-block"><div class="question-text">${idx+1}. ${q.text}</div>
+            <div class="input-group"><select id="timed_sel_${idx}"><option value="">--Select--</option>${q.options.map(opt=>`<option value="${opt.toLowerCase()}">${opt}</option>`).join('')}</select>
+            <button class="timed-check" data-idx="${idx}" data-correct="${q.correct.toLowerCase()}" data-exp="${q.exp}">Check</button></div>
+            <div id="timed_fb_${idx}" class="feedback"></div></div>`;
+        });
+        html += `<button id="submitTimedAll">Submit All & Score</button>`;
+        area.innerHTML = html;
+        let scoreCount = 0;
+        document.querySelectorAll('.timed-check').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const idx = btn.getAttribute('data-idx');
+                const sel = document.getElementById(`timed_sel_${idx}`);
+                const user = sel ? sel.value : "";
+                const correct = btn.getAttribute('data-correct');
+                const exp = btn.getAttribute('data-exp');
+                const fb = document.getElementById(`timed_fb_${idx}`);
+                if(user === correct) { fb.innerHTML = `✅ ${exp}`; scoreCount++; }
+                else { fb.innerHTML = `❌ Correct: ${correct}. ${exp}`; }
+            });
+        });
+        document.getElementById("submitTimedAll")?.addEventListener("click", () => {
+            if(timedInterval) clearInterval(timedInterval); timedActive = false;
+            document.getElementById("timedResult").innerHTML = `<strong>Timed drill finished! Check your answers above. Score approximately ${scoreCount}/${timedQuestionsList.length}</strong>`;
+        });
+    }
+    function startTimed() {
+        if(timedActive) return;
+        timedActive = true; timedSecs = 600;
+        const timerEl = document.getElementById("timedTimer");
+        if(timedInterval) clearInterval(timedInterval);
+        timedInterval = setInterval(() => {
+            if(!timedActive) return;
+            if(timedSecs <= 0) { clearInterval(timedInterval); timerEl.innerText="⏰ TIME'S UP!"; document.getElementById("submitTimedAll")?.click(); timedActive=false; }
+            else { timedSecs--; let mins = Math.floor(timedSecs/60); let secs = timedSecs%60; timerEl.innerText = `⏳ Time left: ${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`; }
+        }, 1000);
+        buildTimed();
+    }
+    document.getElementById("startTimedBtn")?.addEventListener("click", startTimed);
+
+    // ----- TAB SWITCHING -----
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.getAttribute('data-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            contents.forEach(c => c.classList.remove('active'));
+            document.getElementById(target).classList.add('active');
+        });
+    });
+</script>
+</body>
+</html>

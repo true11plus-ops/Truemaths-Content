@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>11+ GL Assessment: Creative Writing Process | Planning, Drafting & Editing</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #f0f4f0;
+      font-family: 'Inter', 'Segoe UI', 'Roboto', system-ui, sans-serif;
+      line-height: 1.5;
+      color: #2a3a2a;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.08);
+      padding: 2rem 2rem 3rem;
+    }
+    h1 {
+      font-size: 2.3rem;
+      background: linear-gradient(135deg, #2a6b2f, #3b8a41);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      border-left: 7px solid #e9b741;
+      padding-left: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .badge {
+      background: #2a6b2f;
+      color: white;
+      padding: 0.25rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
+    .subhead {
+      color: #5c6e5c;
+      border-bottom: 2px solid #e0e8e0;
+      padding-bottom: 0.8rem;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      font-size: 1.8rem;
+      margin: 2rem 0 1rem;
+      color: #2a6b2f;
+      border-left: 5px solid #e9b741;
+      padding-left: 1rem;
+    }
+    h3 {
+      font-size: 1.3rem;
+      margin: 1.5rem 0 0.75rem;
+      color: #3b7a33;
+    }
+    .rule-card {
+      background: #f4faf0;
+      border-left: 6px solid #6ba349;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+    }
+    .question-block {
+      background: #fafcf8;
+      border-radius: 1.2rem;
+      padding: 1rem 1.3rem;
+      margin: 1rem 0;
+      border: 1px solid #dde8da;
+    }
+    .question-title {
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    input, textarea {
+      padding: 8px 14px;
+      border-radius: 60px;
+      border: 1px solid #c5d6c0;
+      width: 320px;
+      font-family: monospace;
+      margin-right: 12px;
+      font-size: 0.9rem;
+    }
+    textarea {
+      border-radius: 1rem;
+      width: 100%;
+      max-width: 500px;
+      font-family: inherit;
+    }
+    button {
+      background: #3b8a41;
+      border: none;
+      color: white;
+      padding: 6px 22px;
+      border-radius: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 0.25rem;
+    }
+    button:hover {
+      background: #2a6b2f;
+    }
+    .feedback {
+      margin-top: 10px;
+      padding: 6px 14px;
+      border-radius: 28px;
+      background: #eaf3e5;
+      display: inline-block;
+      font-size: 0.85rem;
+    }
+    .level-badge {
+      background: #d9e8d3;
+      border-radius: 50px;
+      padding: 2px 12px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      margin-right: 12px;
+      color: #3a5a30;
+    }
+    .footnote {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #d4e2ce;
+      color: #7c9274;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="badge">✍️ 11+ GL ASSESSMENT • CREATIVE WRITING PROCESS</div>
+  <h1>Planning, Drafting & Editing: The Full Cycle</h1>
+  <div class="subhead">🎯 5-Minute Plan • TiPToP Paragraphing • S.P.A.G. Search • Sentence Rhythm</div>
+
+  <div class="rule-card">
+    <strong>📌 THE 5-MINUTE PLAN (The "Skeleton")</strong><br>
+    🧠 <strong>Mind Map:</strong> Setting → Character → Problem/Plot arc (1-2-3)<br>
+    📝 <strong>Vobab Drop:</strong> Write 3–5 high-level words in the margin IMMEDIATELY<br>
+    🔄 <strong>Circular check:</strong> Does the ending link back to the beginning?<br>
+    <strong>⏱️ Time:</strong> 5 minutes max – then write without stopping.
+  </div>
+
+  <!-- ========= EASY LEVEL: planning basics, Vobab Drop, paragraph rules ========= -->
+  <h2>📘 Level 1 – Easy (Planning & Paragraph Basics)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 1</span> In the 5-minute plan, what should you do immediately after your mind map? (Vobab Drop / write first sentence / check spelling)</div><input id="easy1" placeholder="type answer"><button onclick="checkEasy1()">Check</button><div id="easy1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 2</span> What does TiPToP stand for? (Time, Place, Topic, Person / Tone, Pitch, Theme, Paragraphs)</div><input id="easy2" placeholder="type the 4 words"><button onclick="checkEasy2()">Check</button><div id="easy2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 3</span> True or False: You should start a new paragraph every time you change location in a story.</div><input id="easy3" placeholder="true / false"><button onclick="checkEasy3()">Check</button><div id="easy3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 4</span> In planning, a "circular structure" means the ending should ________ to the beginning. (link back / be completely different)</div><input id="easy4" placeholder="type phrase"><button onclick="checkEasy4()">Check</button><div id="easy4fb" class="feedback"></div></div>
+
+  <!-- ========= INTERMEDIATE: sentence rhythm, fronted adverbial commas, dialogue minimalism ========= -->
+  <h2>📘 Level 2 – Intermediate (Sentence Rhythm & Punctuation)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 1</span> Identify the rhythm: "The rain hammered against the window. It wouldn't stop. It hadn't stopped for three days." — what pattern?</div><input id="int1" placeholder="e.g., short, short, long"><button onclick="checkInt1()">Check</button><div id="int1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 2</span> Add the missing comma: "Slowly the massive oak tree began to fall."</div><input id="int2" placeholder="corrected sentence"><button onclick="checkInt2()">Check</button><div id="int2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 3</span> Which sentence opener is an '-ing' starter? A) Exhausted from the race, B) Running through the forest, C) Over the hill,</div><input id="int3" placeholder="A, B or C"><button onclick="checkInt3()">Check</button><div id="int3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 4</span> Dialogue minimalism: "I'm sad because my dog ran away," she explained. — Which part is unnecessary? (rewrite without telling emotion)</div><input id="int4" placeholder="rewritten dialogue"><button onclick="checkInt4()">Check</button><div id="int4fb" class="feedback"></div></div>
+
+  <!-- ========= ADVANCED: S.P.A.G. Search, homophones, tense consistency ========= -->
+  <h2>📘 Level 3 – Advanced (S.P.A.G. Search & Editing)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 1</span> Which word is misspelled? "The commitee made thier final decision." (type both corrections)</div><input id="adv1" placeholder="corrected words e.g., committee, their"><button onclick="checkAdv1()">Check</button><div id="adv1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 2</span> Fix the homophone: "Your going to be late if you don't leave now."</div><input id="adv2" placeholder="corrected sentence"><button onclick="checkAdv2()">Check</button><div id="adv2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 3</span> Fix tense shift: "Last night, I walk to the shop and bought some milk."</div><input id="adv3" placeholder="corrected sentence"><button onclick="checkAdv3()">Check</button><div id="adv3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 4</span> Which S.P.A.G. element is wrong? "The bag of apples were on the counter." (Spelling / Punctuation / Agreement / Grammar)</div><input id="adv4" placeholder="type element"><button onclick="checkAdv4()">Check</button><div id="adv4fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 5</span> Upgrade the weak word: "The weather was bad." Replace 'bad' with a stronger adjective.</div><input id="adv5" placeholder="upgraded adjective"><button onclick="checkAdv5()">Check</button><div id="adv5fb" class="feedback"></div></div>
+
+  <!-- ========= CHALLENGING: paragraphing decisions, full editing passages, sentence openers ========= -->
+  <h2>⚡ Level 4 – Challenging (Paragraphing & Editing Passages)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 1</span> Where should the first paragraph break be? "The forest was silent. A twig snapped. Back in the village, his mother waited anxiously." (after which word?)</div><input id="chal1" placeholder="type the word to break after"><button onclick="checkChal1()">Check</button><div id="chal1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 2</span> Edit this sentence for sentence opener variety (avoid starting with 'The'): "The sun was setting. The sky turned crimson. The birds returned to their nests." (rewrite as one or two sentences)</div><input id="chal2" placeholder="rewritten version"><button onclick="checkChal2()">Check</button><div id="chal2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 3</span> Find ALL errors: "Their are three reason's why we should act: firstly the environment; secondly our health and thirdly future generations." (type corrections)</div><input id="chal3" placeholder="list corrections"><button onclick="checkChal3()">Check</button><div id="chal3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 4</span> Apply Vobab Drop: the prompt is "a haunted house". Write 3 high-level vocabulary words you'd use in your margin.</div><input id="chal4" placeholder="3 words, separated by commas"><button onclick="checkChal4()">Check</button><div id="chal4fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 5</span> What is the 'Final Look' strategy? (describe in one sentence)</div><input id="chal5" placeholder="your answer"><button onclick="checkChal5()">Check</button><div id="chal5fb" class="feedback"></div></div>
+
+  <!-- ========= FINAL MASTERY TEST (12 mixed questions) ========= -->
+  <h2>🎓 MASTERY TEST – Process Mastery (12 questions)</h2>
+  <div id="mastery">
+    <div class="question-block">1. How many minutes should you spend planning a 30-minute writing task?</div><input id="m1"><button onclick="checkM1()">Check</button><div id="m1fb" class="feedback"></div>
+    <div class="question-block">2. Name one change that triggers a new paragraph (TiPToP).</div><input id="m2"><button onclick="checkM2()">Check</button><div id="m2fb" class="feedback"></div>
+    <div class="question-block">3. Fix the comma error: "After the storm the sun finally appeared."</div><input id="m3"><button onclick="checkM3()">Check</button><div id="m3fb" class="feedback"></div>
+    <div class="question-block">4. What does 'Vobab Drop' mean in planning?</div><input id="m4"><button onclick="checkM4()">Check</button><div id="m4fb" class="feedback"></div>
+    <div class="question-block">5. Correct the homophone: "Its to late to change you're mind now."</div><input id="m5"><button onclick="checkM5()">Check</button><div id="m5fb" class="feedback"></div>
+    <div class="question-block">6. Which sentence rhythm creates tension? (long and flowing / short and punchy)</div><input id="m6"><button onclick="checkM6()">Check</button><div id="m6fb" class="feedback"></div>
+    <div class="question-block">7. Upgrade 'said' to a more vivid verb: "I hate you," he said.</div><input id="m7"><button onclick="checkM7()">Check</button><div id="m7fb" class="feedback"></div>
+    <div class="question-block">8. Fix tense: "Yesterday, I see a shooting star and made a wish."</div><input id="m8"><button onclick="checkM8()">Check</button><div id="m8fb" class="feedback"></div>
+    <div class="question-block">9. What does 'S' in S.P.A.G. stand for?</div><input id="m9"><button onclick="checkM9()">Check</button><div id="m9fb" class="feedback"></div>
+    <div class="question-block">10. Name one type of sentence opener other than 'The' or a character's name.</div><input id="m10"><button onclick="checkM10()">Check</button><div id="m10fb" class="feedback"></div>
+    <div class="question-block">11. Should you edit during the drafting phase? (yes/no – and why)</div><input id="m11"><button onclick="checkM11()">Check</button><div id="m11fb" class="feedback"></div>
+    <div class="question-block">12. What should be the very first sentence of your story act as? (hook / conclusion / description)</div><input id="m12"><button onclick="checkM12()">Check</button><div id="m12fb" class="feedback"></div>
+  </div>
+
+  <div class="footnote">
+    ✅ All interactive: type answer → Check → instant correct/incorrect + explanation. Master the full writing process: Plan → Draft → Edit.
+  </div>
+</div>
+
+<script>
+  // EASY
+  function checkEasy1() { let a=document.getElementById('easy1').value.trim().toLowerCase(); if(a.includes("vobab")) document.getElementById('easy1fb').innerHTML="✅ Vobab Drop – write 3–5 high-level words immediately."; else document.getElementById('easy1fb').innerHTML="❌ Vobab Drop (write vocabulary words in margin)."; }
+  function checkEasy2() { let a=document.getElementById('easy2').value.trim().toLowerCase(); if(a.includes("time")&&a.includes("place")&&a.includes("topic")&&a.includes("person")) document.getElementById('easy2fb').innerHTML="✅ Time, Place, Topic, Person."; else document.getElementById('easy2fb').innerHTML="❌ Time, Place, Topic, Person."; }
+  function checkEasy3() { let a=document.getElementById('easy3').value.trim().toLowerCase(); if(a==="true") document.getElementById('easy3fb').innerHTML="✅ True – change of place = new paragraph (TiPToP)."; else document.getElementById('easy3fb').innerHTML="❌ True."; }
+  function checkEasy4() { let a=document.getElementById('easy4').value.trim().toLowerCase(); if(a.includes("link back")||a.includes("connect")) document.getElementById('easy4fb').innerHTML="✅ Link back / connect to the beginning."; else document.getElementById('easy4fb').innerHTML="❌ Link back to the beginning."; }
+  // INTERMEDIATE
+  function checkInt1() { let a=document.getElementById('int1').value.trim().toLowerCase(); if(a.includes("long short long")||a.includes("long, short, long")) document.getElementById('int1fb').innerHTML="✅ Long → short → long (creates musicality)."; else document.getElementById('int1fb').innerHTML="❌ Long, short, long."; }
+  function checkInt2() { let a=document.getElementById('int2').value.trim(); if(a.includes("Slowly,")) document.getElementById('int2fb').innerHTML="✅ 'Slowly, the massive oak tree began to fall.' – comma after fronted adverbial."; else document.getElementById('int2fb').innerHTML="❌ 'Slowly, the massive oak...' (comma needed)."; }
+  function checkInt3() { let a=document.getElementById('int3').value.trim().toUpperCase(); if(a==="B") document.getElementById('int3fb').innerHTML="✅ 'Running through the forest' is an -ing starter."; else document.getElementById('int3fb').innerHTML="❌ B (Running through the forest)."; }
+  function checkInt4() { let a=document.getElementById('int4').value.trim(); if((a.includes("My dog ran away")||a.includes("\"My dog ran away,\" she said")) && !a.includes("because")) document.getElementById('int4fb').innerHTML="✅ Shows sadness instead of telling it."; else document.getElementById('int4fb').innerHTML="❌ e.g., 'My dog ran away,' she whispered."; }
+  // ADVANCED
+  function checkAdv1() { let a=document.getElementById('adv1').value.trim().toLowerCase(); if(a.includes("committee")&&a.includes("their")) document.getElementById('adv1fb').innerHTML="✅ committee, their."; else document.getElementById('adv1fb').innerHTML="❌ committee, their. (commiTTee, thEI R)."; }
+  function checkAdv2() { let a=document.getElementById('adv2').value.trim(); if(a.includes("You're")&&a.includes("going")) document.getElementById('adv2fb').innerHTML="✅ 'You're going to be late...' – you're = you are."; else document.getElementById('adv2fb').innerHTML="❌ You're going to be late..."; }
+  function checkAdv3() { let a=document.getElementById('adv3').value.trim().toLowerCase(); if(a.includes("walked")&&!a.includes("walk")) document.getElementById('adv3fb').innerHTML="✅ 'I walked to the shop and bought some milk.' – consistent past tense."; else document.getElementById('adv3fb').innerHTML="❌ 'I walked to the shop...'"; }
+  function checkAdv4() { let a=document.getElementById('adv4').value.trim().toLowerCase(); if(a==="agreement") document.getElementById('adv4fb').innerHTML="✅ Agreement – 'bag' singular, so 'was' not 'were'."; else document.getElementById('adv4fb').innerHTML="❌ Agreement (subject-verb)."; }
+  function checkAdv5() { let a=document.getElementById('adv5').value.trim().toLowerCase(); const strong=["atrocious","appalling","dreadful","terrible","horrendous","abysmal"]; if(strong.includes(a)) document.getElementById('adv5fb').innerHTML="✅ Strong word upgrade."; else document.getElementById('adv5fb').innerHTML="❌ e.g., dreadful, appalling, atrocious."; }
+  // CHALLENGING
+  function checkChal1() { let a=document.getElementById('chal1').value.trim().toLowerCase(); if(a==="snapped") document.getElementById('chal1fb').innerHTML="✅ Break after 'snapped' – change of place (forest to village)."; else document.getElementById('chal1fb').innerHTML="❌ After 'snapped'."; }
+  function checkChal2() { let a=document.getElementById('chal2').value.trim(); if((a.includes("As")||a.includes("Setting")||a.includes("Crimson")) && !a.startsWith("The")) document.getElementById('chal2fb').innerHTML="✅ Varies sentence openers well."; else document.getElementById('chal2fb').innerHTML="❌ e.g., 'As the sun set, the sky turned crimson and birds returned home.'"; }
+  function checkChal3() { let a=document.getElementById('chal3').value.trim().toLowerCase(); if(a.includes("there")&&a.includes("reasons")&&a.includes("health,")) document.getElementById('chal3fb').innerHTML="✅ There (not Their); reasons (no apostrophe); comma before 'and'."; else document.getElementById('chal3fb').innerHTML="❌ There, reasons (no apostrophe), add comma after health."; }
+  function checkChal4() { let a=document.getElementById('chal4').value.trim().toLowerCase(); const good=["dilapidated","crumbling","cavernous","musty","sinister","looming","phantom"]; let count=good.filter(w=>a.includes(w)).length; if(count>=2) document.getElementById('chal4fb').innerHTML="✅ Great Vobab Drop words!"; else document.getElementById('chal4fb').innerHTML="❌ e.g., dilapidated, cavernous, sinister."; }
+  function checkChal5() { let a=document.getElementById('chal5').value.trim().toLowerCase(); if((a.includes("first sentence")||a.includes("hook")) && (a.includes("last")||a.includes("conclusion"))) document.getElementById('chal5fb').innerHTML="✅ Check first sentence = hook, last sentence = firm conclusion."; else document.getElementById('chal5fb').innerHTML="❌ Check first sentence (hook) and last sentence (conclusion)."; }
+  // MASTERY
+  function checkM1() { let a=document.getElementById('m1').value.trim(); if(a==="5") document.getElementById('m1fb').innerHTML="✅ 5 minutes planning."; else document.getElementById('m1fb').innerHTML="❌ 5 minutes."; }
+  function checkM2() { let a=document.getElementById('m2').value.trim().toLowerCase(); if(a.includes("time")||a.includes("place")||a.includes("topic")||a.includes("person")) document.getElementById('m2fb').innerHTML="✅ Time, Place, Topic, or Person."; else document.getElementById('m2fb').innerHTML="❌ Time, Place, Topic, or Person."; }
+  function checkM3() { let a=document.getElementById('m3').value.trim(); if(a.includes("After the storm,")) document.getElementById('m3fb').innerHTML="✅ 'After the storm, the sun finally appeared.'"; else document.getElementById('m3fb').innerHTML="❌ Add comma: After the storm, the sun..."; }
+  function checkM4() { let a=document.getElementById('m4').value.trim().toLowerCase(); if(a.includes("vocabulary")||a.includes("words in margin")) document.getElementById('m4fb').innerHTML="✅ Writing 3–5 high-level words in the margin before writing."; else document.getElementById('m4fb').innerHTML="❌ Write 3–5 vocabulary words in margin."; }
+  function checkM5() { let a=document.getElementById('m5').value.trim(); if(a.includes("It's")&&a.includes("too")&&a.includes("your")) document.getElementById('m5fb').innerHTML="✅ It's too late to change your mind now."; else document.getElementById('m5fb').innerHTML="❌ It's / too / your."; }
+  function checkM6() { let a=document.getElementById('m6').value.trim().toLowerCase(); if(a.includes("short")) document.getElementById('m6fb').innerHTML="✅ Short, punchy sentences build tension."; else document.getElementById('m6fb').innerHTML="❌ Short and punchy."; }
+  function checkM7() { let a=document.getElementById('m7').value.trim().toLowerCase(); const verbs=["hissed","snarled","spat","growled","screamed","shouted","muttered"]; if(verbs.includes(a)) document.getElementById('m7fb').innerHTML="✅ Vivid verb!"; else document.getElementById('m7fb').innerHTML="❌ e.g., hissed, snarled, spat."; }
+  function checkM8() { let a=document.getElementById('m8').value.trim().toLowerCase(); if(a.includes("saw")&&a.includes("made")) document.getElementById('m8fb').innerHTML="✅ 'I saw a shooting star and made a wish.' – consistent past."; else document.getElementById('m8fb').innerHTML="❌ saw ... made."; }
+  function checkM9() { let a=document.getElementById('m9').value.trim().toLowerCase(); if(a==="spelling") document.getElementById('m9fb').innerHTML="✅ S = Spelling."; else document.getElementById('m9fb').innerHTML="❌ Spelling."; }
+  function checkM10() { let a=document.getElementById('m10').value.trim().toLowerCase(); if(a.includes("ing")||a.includes("ed")||a.includes("preposition")||a.includes("adverb")) document.getElementById('m10fb').innerHTML="✅ -ing starter, -ed starter, prepositional phrase, adverbial."; else document.getElementById('m10fb').innerHTML="❌ e.g., Walking home, Exhausted, Suddenly."; }
+  function checkM11() { let a=document.getElementById('m11').value.trim().toLowerCase(); if(a.includes("no")||a.includes("don't")) document.getElementById('m11fb').innerHTML="✅ No – editing during drafting interrupts flow. Edit after finishing."; else document.getElementById('m11fb').innerHTML="❌ No, edit after drafting."; }
+  function checkM12() { let a=document.getElementById('m12').value.trim().toLowerCase(); if(a==="hook") document.getElementById('m12fb').innerHTML="✅ First sentence = hook to grab reader."; else document.getElementById('m12fb').innerHTML="❌ Hook."; }
+</script>
+</body>
+</html>

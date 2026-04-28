@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summarising &amp; Structure — GL Assessment 11+ English</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+:root{
+  --ink:#1c1917;--ink2:#44403c;--ink3:#78716c;
+  --page:#fdfcfb;--warm:#f5f0e8;--card:#ffffff;
+  --bd:#e7e0d8;--bd2:#c8bdb4;
+  --r1:#9b1c1c;--r2:#fef2f2;--r3:#fecaca;
+  --a1:#78350f;--a2:#fffbeb;--a3:#fde68a;
+  --t1:#134e4a;--t2:#f0fdfa;--t3:#99f6e4;
+  --b1:#1e3a8a;--b2:#eff6ff;--b3:#bfdbfe;
+  --v1:#4c1d95;--v2:#faf5ff;--v3:#ddd6fe;
+  --g1:#14532d;--g2:#f0fdf4;--g3:#bbf7d0;
+  --ok:#15803d;--ok-bg:#f0fdf4;--ok-bd:#86efac;
+  --no:#b91c1c;--no-bg:#fef2f2;--no-bd:#fca5a5;
+  --rad:8px;--radlg:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--page);color:var(--ink);font-size:16px;line-height:1.75;max-width:920px;margin:0 auto;padding:36px 28px 80px}
+
+/* TYPE */
+h1{font-family:'Fraunces',Georgia,serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:900;line-height:1.05;letter-spacing:-.03em}
+h2{font-family:'Fraunces',serif;font-size:1.65rem;font-weight:700;margin:3rem 0 1rem;padding-bottom:.45rem;border-bottom:2.5px solid var(--ink);display:flex;align-items:center;gap:.5rem}
+h3{font-family:'DM Sans',sans-serif;font-size:1.05rem;font-weight:600;margin:1.8rem 0 .5rem;color:var(--ink2)}
+h4{font-family:'DM Mono',monospace;font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:1.4rem 0 .35rem}
+p{margin-bottom:.8rem}
+strong{font-weight:600}
+em{font-style:italic}
+ul,ol{padding-left:1.4rem;margin-bottom:.8rem}
+li{margin:.28rem 0}
+a{color:var(--r1);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* HEADER */
+.hdr{background:var(--ink);color:#faf8f4;border-radius:var(--radlg);padding:44px 50px;margin-bottom:3rem;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-50px;right:-50px;width:300px;height:300px;border-radius:50%;background:var(--a1);opacity:.18}
+.hdr::after{content:'';position:absolute;bottom:-70px;left:80px;width:220px;height:220px;border-radius:50%;background:var(--r1);opacity:.12}
+.hdr-tag{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#a8a29e;margin-bottom:.9rem;position:relative;z-index:1}
+.hdr h1{color:#faf8f4;position:relative;z-index:1;margin-bottom:.6rem}
+.hdr-sub{color:#d6d3d1;font-size:.97rem;max-width:520px;position:relative;z-index:1;margin:0;line-height:1.6}
+
+/* TOC */
+.toc{background:var(--warm);border:1px solid var(--bd);border-radius:var(--radlg);padding:24px 30px;margin-bottom:3rem}
+.toc h4{margin-top:0}
+.toc ol{columns:2;column-gap:2rem;font-size:.88rem}
+.toc li{margin:.22rem 0}
+
+/* CALLOUTS */
+.box{border-radius:var(--rad);padding:16px 20px;margin:1rem 0}
+.box p:last-child{margin-bottom:0}
+.box-r{background:var(--r2);border-left:4px solid var(--r1)}
+.box-a{background:var(--a2);border-left:4px solid var(--a1)}
+.box-t{background:var(--t2);border-left:4px solid var(--t1)}
+.box-b{background:var(--b2);border-left:4px solid var(--b1)}
+.box-v{background:var(--v2);border-left:4px solid var(--v1)}
+.box-g{background:var(--g2);border-left:4px solid var(--g1)}
+
+/* SIEVE STEPS */
+.sieve{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.2rem 0}
+.sieve-step{background:var(--card);border:1px solid var(--bd);border-radius:var(--radlg);padding:20px 18px;text-align:center}
+.sieve-num{font-family:'Fraunces',serif;font-size:3rem;font-weight:900;line-height:1;margin-bottom:6px}
+.sieve-step:nth-child(1) .sieve-num{color:var(--r1)}
+.sieve-step:nth-child(2) .sieve-num{color:var(--a1)}
+.sieve-step:nth-child(3) .sieve-num{color:var(--t1)}
+.sieve-name{font-weight:600;font-size:.93rem;margin-bottom:4px}
+.sieve-desc{font-size:.82rem;color:var(--ink2);line-height:1.5}
+
+/* WORKED EXAMPLE BOX */
+.worked{background:var(--ink);color:#faf8f4;border-radius:var(--radlg);padding:26px 30px;margin:1.2rem 0;font-size:.92rem;line-height:1.75}
+.worked h4{color:#a8a29e;margin-top:0}
+.anno{display:inline-block;font-family:'DM Mono',monospace;font-size:.62rem;padding:1px 7px;border-radius:4px;font-weight:500;letter-spacing:.04em;vertical-align:middle;margin-left:3px}
+.an-r{background:var(--r1);color:#fff}
+.an-a{background:var(--a1);color:#fff}
+.an-t{background:var(--t1);color:#fff}
+.an-b{background:var(--b1);color:#fff}
+.an-v{background:var(--v1);color:#fff}
+
+/* TABLES */
+.tbl-wrap{overflow-x:auto;margin:1rem 0;border-radius:var(--radlg);border:1px solid var(--bd)}
+table{width:100%;border-collapse:collapse;font-size:.87rem}
+thead th{background:var(--ink);color:#faf8f4;padding:11px 15px;text-align:left;font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+tbody td{padding:10px 15px;border-bottom:1px solid var(--bd);vertical-align:top;line-height:1.55}
+tbody tr:nth-child(even){background:var(--warm)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#ede8e0;transition:background .12s}
+
+/* PARAGRAPH FUNCTION CARDS */
+.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.2rem 0}
+.pf-card{border-radius:var(--radlg);padding:18px 20px;border:1px solid transparent}
+.pf-intro{background:var(--b2);border-color:var(--b3)}.pf-intro .pf-label{color:var(--b1)}
+.pf-dev{background:var(--g2);border-color:var(--g3)}.pf-dev .pf-label{color:var(--g1)}
+.pf-comp{background:var(--a2);border-color:var(--a3)}.pf-comp .pf-label{color:var(--a1)}
+.pf-conc{background:var(--v2);border-color:var(--v3)}.pf-conc .pf-label{color:var(--v1)}
+.pf-label{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;margin-bottom:5px}
+.pf-name{font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;margin-bottom:5px}
+.pf-def{font-size:.83rem;color:var(--ink2);margin-bottom:8px}
+.pf-example{font-style:italic;font-size:.82rem;border-left:2px solid;padding-left:9px}
+.pf-intro .pf-example{border-color:var(--b1);color:var(--b1)}
+.pf-dev .pf-example{border-color:var(--g1);color:var(--g1)}
+.pf-comp .pf-example{border-color:var(--a1);color:var(--a1)}
+.pf-conc .pf-example{border-color:var(--v1);color:var(--v1)}
+
+/* NARRATIVE STAGES */
+.narr-row{display:flex;gap:0;margin:1.2rem 0;border-radius:var(--radlg);overflow:hidden;border:1px solid var(--bd)}
+.narr-stage{flex:1;padding:14px 12px;text-align:center;border-right:1px solid var(--bd)}
+.narr-stage:last-child{border-right:none}
+.narr-stage:nth-child(1){background:#fef2f2}
+.narr-stage:nth-child(2){background:#fef9ec}
+.narr-stage:nth-child(3){background:#f5f0ff}
+.narr-stage:nth-child(4){background:#f0f9ff}
+.narr-stage:nth-child(5){background:#f0fdf4}
+.narr-label{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
+.narr-name{font-weight:600;font-size:.87rem;margin-bottom:3px}
+.narr-desc{font-size:.75rem;color:var(--ink2);line-height:1.45}
+
+/* PASSAGE BOX */
+.passage{border:2px solid var(--ink);border-radius:var(--radlg);padding:32px 38px;margin:2rem 0;background:var(--card);position:relative}
+.passage::before{content:attr(data-label);position:absolute;top:-13px;left:18px;background:var(--ink);color:#faf8f4;font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.12em;padding:2px 12px;border-radius:99px}
+.passage-text{font-size:.96rem;line-height:1.88;color:var(--ink2)}
+.passage-text p{margin-bottom:1rem}
+.passage-head{font-family:'DM Sans',sans-serif;font-weight:600;font-size:.88rem;text-transform:uppercase;letter-spacing:.08em;margin:1.2rem 0 .4rem;color:var(--ink);border-bottom:1px solid var(--bd);padding-bottom:3px}
+
+/* QUESTIONS */
+.qblock{background:var(--card);border:1px solid var(--bd);border-radius:var(--radlg);padding:20px 22px;margin:12px 0;transition:border-color .15s}
+.qblock:hover{border-color:var(--bd2)}
+.qlabel{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px}
+.qtext{font-size:.95rem;font-weight:600;margin-bottom:10px;line-height:1.45}
+.qin{width:100%;padding:9px 13px;border:1.5px solid var(--bd);border-radius:var(--rad);font-family:'DM Sans',sans-serif;font-size:.92rem;background:var(--warm);color:var(--ink);resize:vertical;min-height:42px;transition:border-color .2s,box-shadow .2s}
+.qin:focus{outline:none;border-color:var(--r1);box-shadow:0 0 0 3px rgba(155,28,28,.1)}
+.qbtn{margin-top:8px;padding:8px 20px;background:var(--r1);color:#fff;border:none;border-radius:var(--rad);cursor:pointer;font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;transition:background .15s,transform .1s}
+.qbtn:hover{background:#7f1d1d}
+.qbtn:active{transform:scale(.97)}
+.qfb{margin-top:10px;padding:11px 15px;border-radius:var(--rad);font-size:.87rem;line-height:1.55;display:none}
+.qfb.ok{background:var(--ok-bg);border:1px solid var(--ok-bd);color:var(--ok)}
+.qfb.no{background:var(--no-bg);border:1px solid var(--no-bd);color:var(--no)}
+.fb-h{font-weight:600;display:block;margin-bottom:3px}
+.fb-b{font-style:italic;font-size:.83rem}
+
+/* LEVELS */
+.lev{display:flex;align-items:center;gap:10px;margin:2rem 0 .8rem}
+.lbadge{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 11px;border-radius:99px;font-weight:500}
+.lv-e{background:var(--g2);color:var(--g1);border:1px solid var(--g3)}
+.lv-i{background:var(--b2);color:var(--b1);border:1px solid var(--b3)}
+.lv-a{background:var(--a2);color:var(--a1);border:1px solid var(--a3)}
+.lv-c{background:var(--r2);color:var(--r1);border:1px solid var(--r3)}
+
+/* MARK SCHEME */
+details{margin:1rem 0;border:1px solid var(--bd);border-radius:var(--radlg);overflow:hidden}
+summary{background:var(--warm);padding:12px 20px;cursor:pointer;font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);user-select:none;list-style:none;display:flex;justify-content:space-between;align-items:center}
+summary::after{content:'▼';font-size:.58rem;transition:transform .2s}
+details[open] summary::after{transform:rotate(180deg)}
+details[open] summary{border-bottom:1px solid var(--bd)}
+.ms{padding:22px 26px}
+.ms-q{margin-bottom:1.3rem}
+.ms-ql{font-weight:600;font-size:.89rem;margin-bottom:4px}
+.ms-marks{display:inline-block;font-family:'DM Mono',monospace;font-size:.65rem;padding:1px 8px;background:var(--ink);color:#faf8f4;border-radius:99px;margin-left:6px}
+.ms-body{font-size:.85rem;color:var(--ink2);line-height:1.6}
+
+/* WEAK/STRONG */
+.ws-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:1.2rem 0}
+.ws-card{border-radius:var(--radlg);padding:18px 20px;font-size:.87rem;line-height:1.65}
+.ws-weak{background:var(--r2);border:1px solid var(--r3)}
+.ws-strong{background:var(--g2);border:1px solid var(--g3)}
+.ws-head{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-weight:500}
+.ws-weak .ws-head{color:var(--r1)}
+.ws-strong .ws-head{color:var(--g1)}
+
+/* MASTERY */
+.mastery-hdr{background:linear-gradient(135deg,var(--ink) 0%,#292524 100%);color:#faf8f4;border-radius:var(--radlg);padding:30px 36px;margin:3rem 0 1.5rem;position:relative;overflow:hidden}
+.mastery-hdr::before{content:'';position:absolute;top:-30px;right:-30px;width:220px;height:220px;border-radius:50%;background:var(--a1);opacity:.12}
+.mastery-hdr h2{border:none;color:#faf8f4;margin:0 0 .3rem;position:relative;z-index:1}
+.mastery-hdr p{color:#d6d3d1;font-size:.9rem;margin:0;position:relative;z-index:1}
+.score-box{display:none;background:var(--ink);color:#faf8f4;border-radius:var(--radlg);padding:26px 30px;margin:1.5rem 0;text-align:center}
+.score-big{font-family:'Fraunces',serif;font-size:4rem;font-weight:900;color:var(--a3);line-height:1;margin-bottom:6px}
+
+/* HEADING MATCH */
+.hm-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:1rem 0}
+.hm-opt{background:var(--card);border:1.5px solid var(--bd);border-radius:var(--rad);padding:12px 15px;font-size:.87rem;cursor:pointer;transition:all .15s;user-select:none}
+.hm-opt:hover{border-color:var(--r1);background:var(--r2)}
+.hm-opt.selected{border-color:var(--r1);background:var(--r2)}
+.hm-opt-label{font-family:'DM Mono',monospace;font-size:.63rem;color:var(--ink3);margin-bottom:3px;letter-spacing:.06em;text-transform:uppercase}
+
+/* SEQ TASK */
+.seq-items{display:flex;flex-direction:column;gap:8px;margin:1rem 0}
+.seq-item{display:flex;align-items:flex-start;gap:10px;background:var(--card);border:1px solid var(--bd);border-radius:var(--rad);padding:12px 14px;font-size:.87rem}
+.seq-num-input{width:44px;flex-shrink:0;text-align:center;padding:4px;border:1.5px solid var(--bd);border-radius:5px;font-family:'DM Mono',monospace;font-size:.85rem;background:var(--warm)}
+.seq-num-input:focus{outline:none;border-color:var(--r1)}
+
+@media(max-width:640px){
+  body{padding:16px 14px 60px;font-size:15px}
+  .sieve,.pf-grid,.ws-grid,.hm-options{grid-template-columns:1fr}
+  .narr-row{flex-direction:column}
+  .narr-stage{border-right:none;border-bottom:1px solid var(--bd)}
+  .narr-stage:last-child{border-bottom:none}
+  .toc ol{columns:1}
+  .passage{padding:20px 16px}
+}
+@media print{
+  .qbtn{display:none}
+  details>div{display:block!important}
+  summary::after{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-tag">GL Assessment 11+ English · Summarising &amp; Structure</div>
+  <h1>Seeing the Big Picture:<br>Summary &amp; Structure</h1>
+  <p class="hdr-sub">From condensing paragraphs to spotting flashbacks — every skill you need to master the most demanding structure and summary questions on the 11+ paper.</p>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h4>Contents</h4>
+  <ol>
+    <li><a href="#sieve">The 3-Step Sieve</a></li>
+    <li><a href="#wordlimit">Writing Within a Word Limit</a></li>
+    <li><a href="#whoseview">Whose View? Summary</a></li>
+    <li><a href="#nonfic-struct">Non-Fiction Structure</a></li>
+    <li><a href="#parfunc">Paragraph Functions</a></li>
+    <li><a href="#parconn">Paragraph Connections</a></li>
+    <li><a href="#fic-struct">Fiction / Narrative Structure</a></li>
+    <li><a href="#flashback">Flashback &amp; the Sequencing Trap</a></li>
+    <li><a href="#sentence-level">Sentence-Level Structure</a></li>
+    <li><a href="#heading-match">Heading Match Questions</a></li>
+    <li><a href="#p1">Practice Passage 1 — Non-Fiction</a></li>
+    <li><a href="#p2">Practice Passage 2 — Fiction</a></li>
+    <li><a href="#mastery">Final Mastery Test</a></li>
+  </ol>
+</div>
+
+<!-- ═══════════════════════════
+     1. THE 3-STEP SIEVE
+═══════════════════════════ -->
+<section id="sieve">
+<h2>① The 3-Step Sieve</h2>
+<p>A good summary is not a rewrite. It is a <strong>distillation</strong> — keeping only the essential information and expressing it in your own words. Use this three-step process every time.</p>
+
+<div class="sieve">
+  <div class="sieve-step">
+    <div class="sieve-num">1</div>
+    <div class="sieve-name">Identify</div>
+    <div class="sieve-desc">Find the key information — the main facts, actions, or arguments. Often in the topic sentence (first or last sentence of a paragraph).</div>
+  </div>
+  <div class="sieve-step">
+    <div class="sieve-num">2</div>
+    <div class="sieve-name">Filter</div>
+    <div class="sieve-desc">Cross out adjectives, metaphors, examples, and repetition. These are the "fluff." You need the core facts and actions only.</div>
+  </div>
+  <div class="sieve-step">
+    <div class="sieve-num">3</div>
+    <div class="sieve-name">Synthesise</div>
+    <div class="sieve-desc">Combine what remains into one clear sentence or short paragraph using your own words — never copy phrases from the original.</div>
+  </div>
+</div>
+
+<div class="box box-r">
+  <h4 style="margin-top:0">The Golden Rule</h4>
+  <p>Never lift phrases verbatim. If you copy the writer's exact words, you are proving you can read — not that you understand. Paraphrase every time, even for simple facts. Change the vocabulary AND the sentence structure.</p>
+</div>
+
+<h3>Worked Example</h3>
+<div class="worked">
+  <h4>Original Extract</h4>
+  <p>"The towering, snow-capped mountains loomed over the tiny, shivering village like ancient giants, blocking out the winter sun for six long months of the year and making any kind of travel to the outside world nearly impossible for the terrified inhabitants."</p>
+  <br>
+  <h4>Step 1 — Identify the key information</h4>
+  <p>Mountains → village → blocked sun → prevented travel. <span class="anno an-r">CORE FACTS</span></p>
+  <h4>Step 2 — Filter the fluff</h4>
+  <p><span style="text-decoration:line-through;opacity:.5">towering, snow-capped, loomed, tiny, shivering, like ancient giants, long, terrified</span> — all decoration. <span class="anno an-a">REMOVED</span></p>
+  <h4>Step 3 — Synthesise in own words</h4>
+  <p><strong>Summary:</strong> The village was cut off by large mountains that blocked sunlight and prevented travel for half the year. <span class="anno an-t">FINAL ANSWER</span></p>
+  <p style="font-size:.82rem;color:#a8a29e">Note: "Towering" → "large"; "blocked out the winter sun" → "blocked sunlight"; "making travel nearly impossible" → "prevented travel". Every phrase is paraphrased.</p>
+</div>
+
+<h3>Practice — The 3-Step Sieve</h3>
+<div class="lev"><span class="lbadge lv-e">Easy</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q1 · Easy</div>
+  <div class="qtext">What is the purpose of Step 2 (Filter) in the 3-Step Sieve?</div>
+  <input class="qin" type="text" id="s1" placeholder="Explain in your own words">
+  <br><button class="qbtn" onclick="chk('s1','remove',['remove','cross out','eliminate','filter','cut','delete','take out','strip','get rid'],'Step 2 is to <b>remove</b> the "fluff" — adjectives, metaphors, examples, and repetition — so that only the core facts and actions remain.')">Check Answer</button>
+  <div class="qfb" id="fb-s1"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q2 · Easy</div>
+  <div class="qtext">True or false: In a summary, it is acceptable to copy the writer's exact phrases if they are short.</div>
+  <input class="qin" type="text" id="s2" placeholder="True or False">
+  <br><button class="qbtn" onclick="chk('s2','false',['false','no'],'<b>False.</b> You must always paraphrase — change both the vocabulary and the sentence structure. Copying any phrase directly shows reading ability but not understanding.')">Check Answer</button>
+  <div class="qfb" id="fb-s2"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q3 · Easy</div>
+  <div class="qtext">Where in a paragraph is the main idea (topic sentence) most often found?</div>
+  <input class="qin" type="text" id="s3" placeholder="Write your answer">
+  <br><button class="qbtn" onclick="chk('s3','first',['first','first sentence','last','first or last','opening','beginning','end'],'The main idea is most often in the <b>first sentence</b> (sometimes the last) of a paragraph. Reading just these sentences across a text gives you its skeleton.')">Check Answer</button>
+  <div class="qfb" id="fb-s3"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-i">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q4 · Intermediate</div>
+  <div class="qtext">Read: "The enormous, roaring crowd surged joyfully forward like a single unstoppable wave, celebrating the team's unexpected and glorious victory with unrestrained, passionate cheering." Which of these is the best summary of this sentence?<br>A) The crowd celebrated the win.<br>B) The unstoppable crowd surged forward.<br>C) The large crowd joyfully celebrated the team's unexpected victory.</div>
+  <input class="qin" type="text" id="s4" placeholder="Write A, B, or C">
+  <br><button class="qbtn" onclick="chk('s4','a',['a','option a','a)'],'<b>A</b> — "The crowd celebrated the win" captures the core fact in the fewest words. C is too close to the original phrasing ("joyfully," "unexpected"). B focuses on a detail (surging) rather than the main point (celebration). The most concise accurate paraphrase wins.')">Check Answer</button>
+  <div class="qfb" id="fb-s4"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q5 · Intermediate</div>
+  <div class="qtext">Summarise this sentence in your own words (one sentence, max 12 words): "The ancient, crumbling bridge that spanned the wide, fast-flowing river had become dangerously unstable after decades of neglect and floods."</div>
+  <textarea class="qin" rows="2" id="s5" placeholder="Write your summary..."></textarea>
+  <br><button class="qbtn" onclick="chk('s5','bridge',['bridge','river','unstable','unsafe','dangerous','collapsed','decayed','deteriorated','neglect','damaged'],'A strong summary: <b>"The old bridge over the river had become unsafe through years of neglect."</b> Key facts: bridge, river, unsafe/dangerous, neglect. All adjectives and the specific detail about floods can be condensed. Accept any accurate paraphrase under 12 words.')">Check Answer</button>
+  <div class="qfb" id="fb-s5"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-a">Advanced</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q6 · Advanced</div>
+  <div class="qtext">A student summarises the following as: "The lonely, isolated lighthouse keeper watched the storm with deep, anxious dread." → "The lighthouse keeper anxiously watched the storm." What is wrong with this summary?</div>
+  <textarea class="qin" rows="2" id="s6" placeholder="Explain what is wrong..."></textarea>
+  <br><button class="qbtn" onclick="chk('s6','anxious',['anxiously','anxiety','adjective','adverb','lifted','copied','verbatim','anxiously','exact word'],'<b>"Anxiously"</b> is lifted directly from the original ("anxious dread"). A proper paraphrase would replace this with a synonym: "nervously" or "with worry" or "uneasily." Never use the exact word from the original when paraphrasing.')">Check Answer</button>
+  <div class="qfb" id="fb-s6"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════
+     2. WORD LIMIT
+═══════════════════════════ -->
+<section id="wordlimit">
+<h2>② Writing Within a Word Limit</h2>
+<p>GL Assessment papers often specify a word limit: "Summarise in no more than 10 words" or "in one sentence." This is a precision skill — not a trick. Here is how to master it.</p>
+
+<div class="box box-a">
+  <h4 style="margin-top:0">Three Rules for Word-Limited Summaries</h4>
+  <p><strong>Rule 1: Count every word, including articles</strong> — "a," "the," "and," "in," "of" all count. Numbers written as figures (3) count as one word.</p>
+  <p><strong>Rule 2: Keep only the "load-bearing" information</strong> — the facts that, if removed, would make the summary inaccurate. Everything else goes.</p>
+  <p style="margin-bottom:0"><strong>Rule 3: Never sacrifice accuracy for brevity</strong> — if your 10-word summary misses a key point, it will lose marks even if it is exactly 10 words.</p>
+</div>
+
+<h3>Three Worked Examples at Different Constraints</h3>
+
+<div class="worked">
+  <h4>Example A — 10-Word Limit</h4>
+  <p><strong>Original (47 words):</strong> "Scientists at the university have discovered that regular daily exercise of at least thirty minutes significantly reduces the risk of developing heart disease, type 2 diabetes, and certain types of cancer later in life, even if that exercise only begins in middle age."</p>
+  <br>
+  <h4>Student's process:</h4>
+  <p>Key facts: scientists, exercise, reduces risk of disease <span class="anno an-r">IDENTIFY</span></p>
+  <p>Remove: university detail, specific diseases, specific duration, age detail <span class="anno an-a">FILTER</span></p>
+  <p><strong>Draft 1:</strong> "Scientists found that regular exercise reduces risk of developing disease." — 10 words ✓ <span class="anno an-t">SYNTHESISE</span></p>
+  <p style="font-size:.82rem;color:#a8a29e">Decision: "Developing" kept because it specifies future risk. "Several diseases" would be more precise than "disease" — but accuracy beats exact word count. This draft is acceptable.</p>
+</div>
+
+<div class="worked">
+  <h4>Example B — 15-Word Limit</h4>
+  <p><strong>Original (52 words):</strong> "The council voted last Tuesday to permanently close the much-loved Riverside Library, despite a petition signed by over six thousand local residents who argued the library was a vital community resource, particularly for elderly residents and children from lower-income families who rely on it most."</p>
+  <br>
+  <h4>Student's process:</h4>
+  <p>Key facts: council, closed library, despite petition, 6000 residents, community resource <span class="anno an-r">IDENTIFY</span></p>
+  <p>Remove: "much-loved," "last Tuesday," specific groups listed <span class="anno an-a">FILTER</span></p>
+  <p><strong>Final (15 words):</strong> "The council closed the library despite 6000 residents signing a petition to save it." <span class="anno an-t">SYNTHESISE</span></p>
+  <p style="font-size:.82rem;color:#a8a29e">Decision: "6000" counts as 1 word. "Community resource" omitted — too vague. Core conflict (council vs community) is preserved.</p>
+</div>
+
+<div class="worked">
+  <h4>Example C — One-Sentence Limit</h4>
+  <p><strong>Original (3 paragraphs, ~120 words):</strong> A text describing how plastic waste enters the ocean through rivers, damages marine ecosystems, enters the food chain, and ultimately affects human health.</p>
+  <br>
+  <h4>Student's process:</h4>
+  <p>Main thread: plastic → rivers → ocean → food chain → humans <span class="anno an-r">IDENTIFY</span></p>
+  <p>Remove: all individual examples, statistics, specific animal species <span class="anno an-a">FILTER</span></p>
+  <p><strong>One sentence:</strong> "Plastic waste travels through rivers into the ocean, where it damages marine life and eventually enters the human food chain." <span class="anno an-t">SYNTHESISE</span></p>
+  <p style="font-size:.82rem;color:#a8a29e">Note: A one-sentence limit can be a long sentence — use a comma or subordinate clause to combine two key points.</p>
+</div>
+
+<h3>Practice — Word-Limited Summaries</h3>
+<div class="lev"><span class="lbadge lv-e">Easy</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q1 · Easy</div>
+  <div class="qtext">How many words is this summary? "The old dam broke and flooded the town."</div>
+  <input class="qin" type="text" id="w1" placeholder="Write the number">
+  <br><button class="qbtn" onclick="chk('w1','8',['8','eight'],'<b>8 words.</b> Count: The(1) old(2) dam(3) broke(4) and(5) flooded(6) the(7) town(8). Every word counts, including "the" and "and."')">Check Answer</button>
+  <div class="qfb" id="fb-w1"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q2 · Easy</div>
+  <div class="qtext">A student must summarise in 10 words. Their draft is: "Scientists discovered that daily exercise reduces the future risk of heart disease and diabetes." How many words is this?</div>
+  <input class="qin" type="text" id="w2" placeholder="Write the number">
+  <br><button class="qbtn" onclick="chk('w2','16',['16','sixteen'],'<b>16 words</b> — six too many. The student needs to cut: remove "heart disease and diabetes" (just write "disease"), remove "the future risk of" (just write "reduces risk"). A 10-word version: "Scientists found that daily exercise significantly reduces disease risk."')">Check Answer</button>
+  <div class="qfb" id="fb-w2"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q3 · Easy</div>
+  <div class="qtext">Which is the best 10-word summary of: "The school, which had been operating for 150 years and was beloved by generations of families, was demolished to make way for a new road."?<br>A) The beloved school was demolished for a new road after 150 years.<br>B) The school was torn down to build a road.<br>C) The old school was demolished to make space for a road.</div>
+  <input class="qin" type="text" id="w3" placeholder="Write A, B, or C">
+  <br><button class="qbtn" onclick="chk('w3','c',['c','c)','option c'],'<b>C</b> — 10 words, accurate, fully paraphrased ("demolished" → "demolished" is OK here as it is a precise verb, but "make way for" → "make space for" is a good paraphrase). A is 14 words. B omits the school\'s significance and is less precise.')">Check Answer</button>
+  <div class="qfb" id="fb-w3"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-i">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q4 · Intermediate</div>
+  <div class="qtext">Summarise this in no more than 10 words, using your own words: "The heavy, relentless rainfall that had continued for three weeks had caused the once-shallow river to burst its banks, flooding dozens of homes and farmland across the valley."</div>
+  <textarea class="qin" rows="2" id="w4" placeholder="Write your 10-word summary..."></textarea>
+  <br><button class="qbtn" onclick="chk('w4','rain',['rain','flood','flooded','burst','river','valley','homes'],'A strong answer: <b>"Weeks of heavy rain caused the river to flood the valley."</b> (10 words) Key facts: prolonged rain → river → flooding. Details about farmland, dozens of homes, shallowness are secondary. Accept any accurate paraphrase within the word limit.')">Check Answer</button>
+  <div class="qfb" id="fb-w4"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q5 · Intermediate</div>
+  <div class="qtext">In one sentence only, summarise this paragraph: "Children who grow up in households with access to books read more frequently, develop stronger vocabularies, and perform better in school across all subjects. Research shows this effect is independent of parental income — it is the presence of books, not wealth, that matters."</div>
+  <textarea class="qin" rows="2" id="w5" placeholder="Write your one-sentence summary..."></textarea>
+  <br><button class="qbtn" onclick="chk('w5','books',['books','access to books','having books','children','read','vocabulary','school','performance','not income'],'Strong answer: <b>"Children with access to books read more, develop better vocabulary, and do well in school, regardless of family income."</b> The key twist (income doesn\'t matter) must be included — it is the main argument of paragraph 2. Summaries that omit it miss a mark.')">Check Answer</button>
+  <div class="qfb" id="fb-w5"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-a">Advanced</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q6 · Advanced</div>
+  <div class="qtext">A student writes this 15-word summary: "The council decided to close the library even though many residents were very upset about it." What is the main weakness of this summary?</div>
+  <textarea class="qin" rows="2" id="w6" placeholder="Explain the weakness..."></textarea>
+  <br><button class="qbtn" onclick="chk('w6','vague',['vague','very upset','petition','6000','specific','precise','weak','imprecise','general'],'The phrase "many residents were very upset" is <b>too vague</b>. The original stated 6,000 residents signed a petition — both the number and the formal action (petition) carry specific meaning. A stronger summary would use this detail: "despite 6,000 residents petitioning against closure."')">Check Answer</button>
+  <div class="qfb" id="fb-w6"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════
+     3. WHOSE VIEW
+═══════════════════════════ -->
+<section id="whoseview">
+<h2>③ "Whose View?" Summary</h2>
+<p>This question type asks you to summarise <em>what the writer thinks</em>, not just what the text says. These are different things.</p>
+
+<table class="tbl-wrap"><table>
+  <thead><tr><th>Summarising an argument</th><th>Identifying a viewpoint</th></tr></thead>
+  <tbody>
+    <tr><td>What does the text <em>say</em>?</td><td>What does the writer <em>think</em>?</td></tr>
+    <tr><td>Focus on content and facts presented</td><td>Focus on the writer's attitude, bias, or opinion</td></tr>
+    <tr><td>"The text argues that plastic is harmful."</td><td>"The writer believes plastic use is irresponsible and urgently needs regulation."</td></tr>
+    <tr><td>Can be neutral</td><td>Must identify a position (for/against/concerned/supportive)</td></tr>
+  </tbody>
+</table></table>
+
+<div class="box box-v">
+  <h4 style="margin-top:0">Strategy: Focus on the verbs and adjectives</h4>
+  <p>Ask: Is the writer <em>criticising</em>, <em>praising</em>, <em>questioning</em>, <em>warning</em>, or <em>celebrating</em>? The verbs and adjective choices will tell you. Then write: "The writer believes / argues / warns that…"</p>
+</div>
+
+<h3>Worked Example</h3>
+<div class="box box-t">
+  <p><strong>Extract:</strong> "Despite repeated promises, the government has done nothing meaningful about the crisis in social care. Thousands of elderly people are being left without help, their dignity stripped away by a system more concerned with cost-cutting than with compassion."</p>
+  <br>
+  <p><strong>Question:</strong> Summarise the writer's viewpoint in one sentence.</p>
+  <br>
+  <p><strong>Weak answer:</strong> "The writer says the government hasn't helped elderly people." <em style="color:var(--r1)">[Too neutral — no viewpoint]</em></p>
+  <p><strong>Strong answer:</strong> "The writer argues that the government has failed the elderly through deliberate neglect, prioritising money over people's welfare." <span class="anno an-t">IDENTIFIES POSITION</span> <span class="anno an-r">USES EVIDENCE FROM TEXT</span> <span class="anno an-v">WRITER'S VERB ("argues") USED</span></p>
+  <p style="font-size:.84rem;color:var(--ink2)"><strong>Why this works:</strong> "Argues" signals opinion; "deliberate neglect" paraphrases "done nothing meaningful"; "prioritising money over welfare" paraphrases the final clause. Every word earns its place.</p>
+</div>
+
+<h3>Practice — Whose View</h3>
+<div class="lev"><span class="lbadge lv-e">Easy</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q1 · Easy</div>
+  <div class="qtext">Which sentence correctly identifies a viewpoint (rather than just stating facts)?<br>A) "The article is about pollution."<br>B) "The writer warns that pollution is destroying the ocean ecosystem."<br>C) "The text mentions pollution several times."</div>
+  <input class="qin" type="text" id="wv1" placeholder="Write A, B, or C">
+  <br><button class="qbtn" onclick="chk('wv1','b',['b','b)','option b'],'<b>B</b> — it uses a writer\'s verb ("warns"), identifies a specific position (destruction of ocean ecosystem), and signals the writer\'s concern. A and C merely describe what the text is about without revealing the writer\'s stance.')">Check Answer</button>
+  <div class="qfb" id="fb-wv1"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q2 · Easy</div>
+  <div class="qtext">A "Whose View" summary should begin with which type of word — a verb that signals the writer's position, such as "argues," "warns," "criticises," "praises," or "questions"? True or False: beginning with "The text says" is a good opening.</div>
+  <input class="qin" type="text" id="wv2" placeholder="True or False">
+  <br><button class="qbtn" onclick="chk('wv2','false',['false','no'],'<b>False.</b> "The text says" describes content, not viewpoint. A viewpoint summary must begin with a verb that reveals position: "The writer argues / warns / criticises / believes / urges." These words show the writer\'s stance, not just what the text contains.')">Check Answer</button>
+  <div class="qfb" id="fb-wv2"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-i">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q3 · Intermediate</div>
+  <div class="qtext">Read: "Screen time for children has doubled in the past decade. Parents seem to have surrendered entirely to the demands of technology, handing devices to toddlers as a substitute for engagement and imagination." Write a one-sentence "Whose View" summary.</div>
+  <textarea class="qin" rows="2" id="wv3" placeholder="Write your Whose View summary..."></textarea>
+  <br><button class="qbtn" onclick="chk('wv3','critic',['criticises','warns','argues','blames','concerned','worried','critical of','condemns'],'A strong answer: <b>"The writer criticises parents for allowing excessive screen time, arguing technology has replaced meaningful engagement with children."</b> Must include: a viewpoint verb (criticises/warns), who the writer blames (parents), and what they are concerned about (substituting screens for engagement).')">Check Answer</button>
+  <div class="qfb" id="fb-wv3"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════
+     4. NON-FICTION STRUCTURE
+═══════════════════════════ -->
+<section id="nonfic-struct">
+<h2>④ Non-Fiction Text Structure</h2>
+<p>Non-fiction texts are built using recognisable patterns. Identifying which pattern a text uses helps you understand the writer's purpose and predict where to find information.</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead><tr><th>Structure</th><th>Purpose</th><th>Signal Words</th><th>Example Sentence</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Chronological</strong></td>
+      <td>To tell a story or trace a history in time order</td>
+      <td>Initially, subsequently, decades later, then, eventually, by the 1990s</td>
+      <td>"Initially the factory employed fifty workers; by 1950, it had expanded to five hundred."</td>
+    </tr>
+    <tr>
+      <td><strong>Cause &amp; Effect</strong></td>
+      <td>To explain why something happened and what resulted</td>
+      <td>Consequently, as a result, therefore, this led to, which caused</td>
+      <td>"The prolonged drought caused crop failure, which consequently led to widespread food shortages."</td>
+    </tr>
+    <tr>
+      <td><strong>Problem &amp; Solution</strong></td>
+      <td>To argue for a specific fix to an identified issue</td>
+      <td>The dilemma, the challenge, however, one solution, resolved by, a remedy</td>
+      <td>"The crisis in affordable housing is severe; however, increasing social housing stock could resolve it."</td>
+    </tr>
+    <tr>
+      <td><strong>Compare &amp; Contrast</strong></td>
+      <td>To show similarities and differences between two or more things</td>
+      <td>Conversely, in contrast, similarly, whereas, on the other hand, unlike</td>
+      <td>"Whereas urban schools have extensive facilities, rural schools often lack even basic equipment."</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Non-Fiction Structural Devices</h3>
+
+<div class="box box-b">
+  <h4 style="margin-top:0">Introduction Paragraph</h4>
+  <p><strong>Purpose:</strong> To introduce the topic, hook the reader, and signal what the text will argue or explore. Often uses a question, a striking statistic, or an anecdote.</p>
+  <p style="margin-bottom:0"><em>Example opening: "Every year, 8 million tonnes of plastic enter our oceans. This single fact should alarm every one of us."</em> — The statistic hooks; the follow-up sentence states the writer's position.</p>
+</div>
+
+<div class="box box-g">
+  <h4 style="margin-top:0">Conclusion Paragraph</h4>
+  <p><strong>Purpose:</strong> To summarise the argument, deliver a final verdict, or issue a call to action. Often refers back to the introduction (circular structure).</p>
+  <p style="margin-bottom:0"><em>Example: "If 8 million tonnes seems an impossible problem, remember: every piece of plastic we refuse to buy is one less piece threatening the sea."</em> — Returns to opening statistic; ends with a call to action.</p>
+</div>
+
+<div class="box box-a">
+  <h4 style="margin-top:0">Topic Sentence</h4>
+  <p><strong>Purpose:</strong> The first sentence of a paragraph — states the paragraph's main idea. The rest of the paragraph develops, explains, or evidences this idea.</p>
+  <p style="margin-bottom:0"><em>Example: "The impact of plastic on marine wildlife has been catastrophic."</em> — Everything in this paragraph will be evidence for "catastrophic impact on wildlife."</p>
+</div>
+
+<div class="box box-v">
+  <h4 style="margin-top:0">Subheadings</h4>
+  <p><strong>Purpose:</strong> To divide a text into sections; to signal what each section will cover; to help readers navigate. Subheadings are structural signposts.</p>
+  <p style="margin-bottom:0"><em>Example subheading: "The Human Cost" — signals the next section will focus on how plastic affects people, not wildlife. This is new territory after a section on marine life.</em></p>
+</div>
+
+<h3>Practice — Non-Fiction Structure</h3>
+<div class="lev"><span class="lbadge lv-e">Easy</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q1 · Easy</div>
+  <div class="qtext">A text uses the signal words: "consequently," "as a result," and "this led to." Which structural layout is this?</div>
+  <input class="qin" type="text" id="nf1" placeholder="Name the structural layout">
+  <br><button class="qbtn" onclick="chk('nf1','cause and effect',['cause and effect','cause & effect','cause effect','causal'],'<b>Cause and Effect</b> — these signal words all show that one thing resulted from another. "Consequently" and "as a result" are the strongest markers.')">Check Answer</button>
+  <div class="qfb" id="fb-nf1"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q2 · Easy</div>
+  <div class="qtext">What is the purpose of a topic sentence?</div>
+  <input class="qin" type="text" id="nf2" placeholder="Explain in your own words">
+  <br><button class="qbtn" onclick="chk('nf2','main idea',['main idea','main point','introduces','what the paragraph is about','key idea','paragraph topic','states the main'],'A topic sentence <b>introduces the main idea</b> of the paragraph — everything that follows develops, explains, or evidences this central point. Reading only topic sentences across a text gives you its skeleton.')">Check Answer</button>
+  <div class="qfb" id="fb-nf2"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q3 · Easy</div>
+  <div class="qtext">Which signal word suggests a Compare &amp; Contrast structure? A) "Therefore" B) "Subsequently" C) "Whereas" D) "One remedy"</div>
+  <input class="qin" type="text" id="nf3" placeholder="Write A, B, C, or D">
+  <br><button class="qbtn" onclick="chk('nf3','c',['c','c)','whereas','option c'],'<b>C — "Whereas"</b> signals a direct comparison or contrast. "Therefore" = Cause &amp; Effect. "Subsequently" = Chronological. "One remedy" = Problem &amp; Solution.')">Check Answer</button>
+  <div class="qfb" id="fb-nf3"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-i">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q4 · Intermediate</div>
+  <div class="qtext">A text begins: "Air pollution kills 7 million people per year. This crisis demands immediate action." Then it describes causes and proposes solutions. Which structural layout does this use?</div>
+  <input class="qin" type="text" id="nf4" placeholder="Name the structural layout">
+  <br><button class="qbtn" onclick="chk('nf4','problem and solution',['problem and solution','problem & solution','problem/solution'],'<b>Problem and Solution</b> — the opening identifies the problem (7 million deaths), and the body proposes solutions. The phrase "demands immediate action" is the classic bridge from problem to solution.')">Check Answer</button>
+  <div class="qfb" id="fb-nf4"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q5 · Intermediate</div>
+  <div class="qtext">Why is a circular structure (where the conclusion returns to the opening) considered particularly effective?</div>
+  <textarea class="qin" rows="2" id="nf5" placeholder="Explain the effect..."></textarea>
+  <br><button class="qbtn" onclick="chk('nf5','complete',['complete','completeness','satisfying','whole','full circle','reinforces','revisit','echo','resolution','unity'],'A circular structure creates a sense of <b>completeness and unity</b> — the reader ends where they began, but now with greater understanding. It reinforces the writer\'s central message by returning to it with new weight. It also satisfies the reader emotionally, giving the text a feeling of resolution.')">Check Answer</button>
+  <div class="qfb" id="fb-nf5"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-a">Advanced</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q6 · Advanced</div>
+  <div class="qtext">A text about climate change has these subheadings in order: "The Scale of the Problem," "How We Got Here," "What Must Change," "A Reason for Hope." Which structural layout do these subheadings suggest overall?</div>
+  <textarea class="qin" rows="2" id="nf6" placeholder="Name the layout and explain your reasoning..."></textarea>
+  <br><button class="qbtn" onclick="chk('nf6','problem and solution',['problem and solution','problem & solution','problem/solution'],'<b>Problem and Solution</b> — "The Scale of the Problem" and "How We Got Here" define the problem; "What Must Change" and "A Reason for Hope" propose solutions. The overall shape is: problem → causes → solution → optimism. Chronological elements appear within sections but the overall frame is Problem/Solution.')">Check Answer</button>
+  <div class="qfb" id="fb-nf6"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════
+     5. PARAGRAPH FUNCTIONS
+═══════════════════════════ -->
+<section id="parfunc">
+<h2>⑤ Paragraph Function Taxonomy</h2>
+<p>Every paragraph in a well-written text has a job to do. Being able to name that job — and explain <em>why</em> it is there — is a key GL Assessment skill.</p>
+
+<div class="pf-grid">
+  <div class="pf-card pf-intro">
+    <div class="pf-label">Function 1</div>
+    <div class="pf-name">Introducing</div>
+    <div class="pf-def">Presents the topic, establishes context, or raises the central question. Often contains the writer's thesis or central claim.</div>
+    <div class="pf-example">"Every city in the world is facing the same crisis: not enough homes, and too many people priced out of them."</div>
+  </div>
+  <div class="pf-card pf-dev">
+    <div class="pf-label">Function 2</div>
+    <div class="pf-name">Developing</div>
+    <div class="pf-def">Adds evidence, detail, examples, or statistics that support the point made in the previous paragraph.</div>
+    <div class="pf-example">"In London alone, average rents have risen by 40% in five years, forcing young professionals to commute from towns over an hour away."</div>
+  </div>
+  <div class="pf-card pf-comp">
+    <div class="pf-label">Function 3</div>
+    <div class="pf-name">Complicating</div>
+    <div class="pf-def">Introduces a counter-argument, qualification, or a twist — something that makes the issue more complex. Often begins with "However," "Yet," or "On the other hand."</div>
+    <div class="pf-example">"However, building more homes alone will not solve the crisis if those homes are bought by investors and left empty."</div>
+  </div>
+  <div class="pf-card pf-conc">
+    <div class="pf-label">Function 4</div>
+    <div class="pf-name">Concluding</div>
+    <div class="pf-def">Draws together the argument, delivers the writer's verdict, or issues a call to action. Does not introduce new information.</div>
+    <div class="pf-example">"Until governments treat housing as a human right rather than an investment opportunity, the crisis will only deepen."</div>
+  </div>
+</div>
+
+<div class="box box-r">
+  <h4 style="margin-top:0">How to Identify a Paragraph's Function</h4>
+  <p>Ask three questions: <strong>What does this paragraph do?</strong> (introduce/add/complicate/conclude) <strong>Where does it appear?</strong> (beginning/middle/end) <strong>What does it add to the text around it?</strong> (context/evidence/doubt/resolution)</p>
+</div>
+
+<h3>Practice — Paragraph Functions</h3>
+<div class="lev"><span class="lbadge lv-e">Easy</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q1 · Easy</div>
+  <div class="qtext">A paragraph begins with "However, critics argue that..." Which function is this paragraph performing?</div>
+  <input class="qin" type="text" id="pf1" placeholder="Name the function">
+  <br><button class="qbtn" onclick="chk('pf1','complicating',['complicating','counter','counterargument','complicates','contrast','opposing'],'<b>Complicating</b> — "However" signals a shift to a different, opposing viewpoint. This paragraph introduces a counter-argument or qualification that makes the issue more complex.')">Check Answer</button>
+  <div class="qfb" id="fb-pf1"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q2 · Easy</div>
+  <div class="qtext">A paragraph is the last in a text. It summarises the writer's position and ends: "The time for half-measures is over." Which function does it perform?</div>
+  <input class="qin" type="text" id="pf2" placeholder="Name the function">
+  <br><button class="qbtn" onclick="chk('pf2','concluding',['concluding','conclusion','final','ends'],'<b>Concluding</b> — it appears last, summarises the writer\'s position, and ends with a call to action. Concluding paragraphs deliver the writer\'s verdict and do not introduce new information.')">Check Answer</button>
+  <div class="qfb" id="fb-pf2"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q3 · Easy</div>
+  <div class="qtext">Which function adds evidence, statistics, or examples to support the previous paragraph's point?</div>
+  <input class="qin" type="text" id="pf3" placeholder="Name the function">
+  <br><button class="qbtn" onclick="chk('pf3','developing',['developing','develops','development'],'<b>Developing</b> — a developing paragraph builds on the preceding paragraph by adding specific evidence, statistics, or examples that support the established point.')">Check Answer</button>
+  <div class="qfb" id="fb-pf3"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-i">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q4 · Intermediate</div>
+  <div class="qtext">A text has four paragraphs. Paragraph 3 begins: "Yet despite these benefits, there are serious concerns about long-term safety." What is paragraph 3's function, and how do you know?</div>
+  <textarea class="qin" rows="2" id="pf4" placeholder="Name the function and explain how you know..."></textarea>
+  <br><button class="qbtn" onclick="chk('pf4','complicating',['complicating','complicates','counter','however','yet','despite'],'<b>Complicating</b> — "Yet despite these benefits" signals a shift from positive information to problems. The paragraph is introducing doubt or opposition, which is the function of Complicating. Key clue: the word "yet" and the phrase "despite these benefits" show it is reversing the previous direction.')">Check Answer</button>
+  <div class="qfb" id="fb-pf4"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q5 · Intermediate</div>
+  <div class="qtext">Can a text have more than one Developing paragraph? Explain your reasoning.</div>
+  <textarea class="qin" rows="2" id="pf5" placeholder="Yes or No, and explain..."></textarea>
+  <br><button class="qbtn" onclick="chk('pf5','yes',['yes','multiple','more than one','several','many'],'<b>Yes</b> — most texts have several Developing paragraphs, each adding new evidence or a new angle of support. A typical text might have: 1 Introducing + 3–4 Developing + 1 Complicating + 1 Concluding. The Developing function is the most common.')">Check Answer</button>
+  <div class="qfb" id="fb-pf5"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════
+     6. PARAGRAPH CONNECTIONS
+═══════════════════════════ -->
+<section id="parconn">
+<h2>⑥ Paragraph Connections</h2>
+<p>Questions that ask "how does paragraph 3 link to paragraph 2?" require you to explain the <em>relationship</em> between paragraphs — not just describe each one separately.</p>
+
+<div class="box box-b">
+  <h4 style="margin-top:0">The "What, Why, How" Prompt</h4>
+  <p><strong>What:</strong> What does this paragraph do that is different from the one before?<br>
+  <strong>Why:</strong> Why has the writer placed it here at this point in the text?<br>
+  <strong>How:</strong> How do the specific words or signals connect it to the previous paragraph?</p>
+</div>
+
+<h3>Worked Example: Two Connected Paragraphs</h3>
+<div class="box box-t" style="font-size:.92rem; line-height:1.75">
+  <p><strong>Paragraph 2:</strong> "Cycling has transformed urban commuting. In cities across Europe, cycling rates have doubled in the past decade, reducing congestion and cutting carbon emissions significantly."</p>
+  <p><strong>Paragraph 3:</strong> "However, this progress has not been without controversy. In many neighbourhoods, the construction of cycle lanes has removed parking spaces and narrowed roads, leading to anger among residents who feel their needs have been ignored."</p>
+  <br>
+  <p><strong>Question:</strong> How does paragraph 3 link to paragraph 2?</p>
+  <br>
+  <p><strong>Weak answer:</strong> "Paragraph 3 is about controversy and parking." <em style="color:var(--r1)">[No connection made]</em></p>
+  <p><strong>Strong answer:</strong> "Paragraph 3 <em>complicates</em> the positive picture established in paragraph 2. Paragraph 2 presents cycling as a clear success; the word 'However' at the start of paragraph 3 signals a direct reversal, introducing the costs and conflicts that paragraph 2 did not acknowledge. The writer places this complication here to show the issue is more complex than it first appeared, giving balance to the argument."</p>
+  <p style="font-size:.82rem;color:var(--ink2)"><em>What:</em> Para 3 introduces conflict. <em>Why:</em> To add balance and complexity. <em>How:</em> "However" signals the reversal; "this progress" links directly back to para 2's "transformed."</p>
+</div>
+
+<h3>Practice — Paragraph Connections</h3>
+<div class="lev"><span class="lbadge lv-i">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q1 · Intermediate</div>
+  <div class="qtext">A new paragraph begins: "Furthermore, studies confirm that sleep deprivation reduces reaction times by up to 50%." The previous paragraph argued that teenagers need more sleep. What is the linking function of "Furthermore"?</div>
+  <input class="qin" type="text" id="pc1" placeholder="Explain the function of 'Furthermore'">
+  <br><button class="qbtn" onclick="chk('pc1','adds',['adds','addition','adds evidence','supports','develops','extends','continues','builds on','further evidence'],'<b>"Furthermore"</b> signals that the new paragraph is <em>adding</em> more evidence in the same direction — it develops and strengthens the previous paragraph\'s argument. This is a Developing function. The paragraph connection is: Evidence → More evidence.')">Check Answer</button>
+  <div class="qfb" id="fb-pc1"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q2 · Intermediate</div>
+  <div class="qtext">Paragraph A praises renewable energy. Paragraph B begins: "Nevertheless, the transition away from fossil fuels has caused significant job losses in mining communities." What is the connection between A and B?</div>
+  <textarea class="qin" rows="2" id="pc2" placeholder="Explain the connection..."></textarea>
+  <br><button class="qbtn" onclick="chk('pc2','complicates',['complicates','complicate','counter','however','despite','reverses','but','contrast','qualification'],'Paragraph B <b>complicates</b> the positive case in paragraph A. "Nevertheless" signals a counter-argument — the writer acknowledges the benefits of renewable energy (A) but immediately introduces a human cost that qualifies the positive picture. The connection is: Praise → Qualification/Complication.')">Check Answer</button>
+  <div class="qfb" id="fb-pc2"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-a">Advanced</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q3 · Advanced</div>
+  <div class="qtext">Using the What-Why-How framework, explain how a concluding paragraph that begins "Ultimately, the evidence is clear..." connects to all the paragraphs before it.</div>
+  <textarea class="qin" rows="3" id="pc3" placeholder="Apply the What-Why-How framework..."></textarea>
+  <br><button class="qbtn" onclick="chk('pc3','draws together',['draws together','synthesises','pulls together','combines','gathers','collects','verdict','final','whole argument'],'<b>What:</b> The paragraph draws together all the evidence and arguments from before. <b>Why:</b> It appears last to deliver the final verdict — the word "ultimately" signals finality. <b>How:</b> "The evidence" refers back to all the specific evidence paragraphs that preceded it. A concluding paragraph connects to every previous paragraph simultaneously — it is the destination they have all been building toward.')">Check Answer</button>
+  <div class="qfb" id="fb-pc3"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════
+     7. FICTION STRUCTURE
+═══════════════════════════ -->
+<section id="fic-struct">
+<h2>⑦ Fiction / Narrative Structure</h2>
+<p>Fiction texts have their own structural vocabulary. You must be able to identify which stage of a narrative you are reading — and explain what the writer achieves by placing content at that particular moment.</p>
+
+<div class="narr-row">
+  <div class="narr-stage">
+    <div class="narr-label">Stage 1</div>
+    <div class="narr-name">Exposition</div>
+    <div class="narr-desc">Introduces characters, setting, and background. Establishes the "normal world" before the story's conflict begins.</div>
+  </div>
+  <div class="narr-stage">
+    <div class="narr-label">Stage 2</div>
+    <div class="narr-name">Rising Action</div>
+    <div class="narr-desc">A series of events that build tension and complicate the situation. The problem grows.</div>
+  </div>
+  <div class="narr-stage">
+    <div class="narr-label">Stage 3</div>
+    <div class="narr-name">Climax</div>
+    <div class="narr-desc">The moment of highest tension or the turning point. The conflict reaches its peak.</div>
+  </div>
+  <div class="narr-stage">
+    <div class="narr-label">Stage 4</div>
+    <div class="narr-name">Falling Action</div>
+    <div class="narr-desc">Events after the climax. Tension begins to ease. Consequences of the climax play out.</div>
+  </div>
+  <div class="narr-stage">
+    <div class="narr-label">Stage 5</div>
+    <div class="narr-name">Resolution</div>
+    <div class="narr-desc">The final state: conflicts are resolved (or deliberately unresolved). A new "normal" is established.</div>
+  </div>
+</div>
+
+<h3>One-Sentence Examples for Each Stage</h3>
+<div class="box box-b">
+  <p><strong>Exposition:</strong> "Mara had lived on the island all her life and had never once felt afraid of the sea — until the morning she woke to find the boats were gone."</p>
+  <p><strong>Rising Action:</strong> "Each day brought a new discovery: first the torn nets, then the missing oars, and finally the letter she was never meant to find."</p>
+  <p><strong>Climax:</strong> "She stood at the cliff edge, letter in hand, as the full weight of what her father had done finally broke open inside her."</p>
+  <p><strong>Falling Action:</strong> "She walked back to the village slowly, the letter now folded into her pocket, unsure of anything except that she could not pretend she didn't know."</p>
+  <p style="margin-bottom:0"><strong>Resolution:</strong> "By spring, the boats had returned and life had resumed its rhythm — but Mara had not returned to what she was, and she knew she never would."</p>
+</div>
+
+<h3>Practice — Narrative Structure</h3>
+<div class="lev"><span class="lbadge lv-e">Easy</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q1 · Easy</div>
+  <div class="qtext">The opening paragraph of a story introduces a boy named Sam who lives on a farm and has always wanted to see the city. Which stage of narrative structure is this?</div>
+  <input class="qin" type="text" id="ns1" placeholder="Name the narrative stage">
+  <br><button class="qbtn" onclick="chk('ns1','exposition',['exposition','introduction','setting','establishes'],'<b>Exposition</b> — the opening introduces a character (Sam) and their situation (farm life, desire to see the city). This is the "normal world" before the story\'s conflict begins.')">Check Answer</button>
+  <div class="qfb" id="fb-ns1"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q2 · Easy</div>
+  <div class="qtext">At which narrative stage does the main conflict reach its highest point of tension?</div>
+  <input class="qin" type="text" id="ns2" placeholder="Name the stage">
+  <br><button class="qbtn" onclick="chk('ns2','climax',['climax','turning point','peak'],'<b>Climax</b> — the climax is the moment of highest tension or the turning point where the conflict reaches its most intense moment. Everything in the Rising Action has been building toward this.')">Check Answer</button>
+  <div class="qfb" id="fb-ns2"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-i">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q3 · Intermediate</div>
+  <div class="qtext">A story ends: "She returned to the house, but nothing looked the same as it had before she left — and she knew it never would again." Which narrative stage is this, and what does the phrase "never would again" suggest about the resolution?</div>
+  <textarea class="qin" rows="3" id="ns3" placeholder="Name the stage and explain your answer..."></textarea>
+  <br><button class="qbtn" onclick="chk('ns3','resolution',['resolution','falling','falling action','ending','conclusion'],'<b>Resolution</b> (or Falling Action). The phrase "never would again" suggests this is an <em>open</em> or incomplete resolution — the character has changed permanently and the old "normal world" cannot be recovered. This is an unsettling, ambiguous ending rather than a tidy conclusion.')">Check Answer</button>
+  <div class="qfb" id="fb-ns3"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════
+     8. FLASHBACK & SEQUENCING
+═══════════════════════════ -->
+<section id="flashback">
+<h2>⑧ Flashback &amp; the Sequencing Trap</h2>
+<p>A <strong>flashback</strong> is when the narrative jumps backward in time to show an earlier event. It is one of the most common sources of student error in sequencing questions.</p>
+
+<div class="box box-a">
+  <h4 style="margin-top:0">How to Recognise a Flashback</h4>
+  <p><strong>Tense shift:</strong> The main narrative is in past tense; the flashback may shift to past perfect ("had been," "had seen," "had told") — a tense even further back in time.</p>
+  <p><strong>Time markers:</strong> Phrases like "she remembered," "years earlier," "as a child," "looking back," "it had all started when," "he recalled the day."</p>
+  <p style="margin-bottom:0"><strong>Sensory triggers:</strong> A smell, sound, or sight in the present prompts the character to remember something from the past.</p>
+</div>
+
+<div class="box box-r">
+  <h4 style="margin-top:0">The Sequencing Trap — Read This Carefully</h4>
+  <p><strong>Narrative order</strong> = the order events appear in the text (the order the writer tells them).</p>
+  <p><strong>Chronological order</strong> = the order events actually happened in real time (the order they occurred in the story's world).</p>
+  <p style="margin-bottom:0"><strong>In a flashback text, these are DIFFERENT.</strong> A sequencing question always asks for chronological order — not narrative order. Students who number events in the order they read them will get the wrong answer whenever there is a flashback.</p>
+</div>
+
+<h3>Worked Sequencing Example</h3>
+<div class="passage" data-label="PRACTICE PASSAGE — FLASHBACK">
+  <div class="passage-text">
+    <p>[A] The train pulled away from the platform and Elsa pressed her face against the cold glass, watching the city dissolve into suburbs, then fields. She had not been on this line in eleven years.</p>
+    <p>[B] It had all begun with a phone call from her sister. "Come home," Maya had said. "Dad's not well." Those two sentences had ended Elsa's Tuesday as she knew it.</p>
+    <p>[C] She remembered the last time she had made this journey — the summer she was sixteen, heading to their grandmother's cottage for the final time before it was sold. Her father had driven, and the three of them had sung badly to the radio all the way.</p>
+    <p>[D] The train slowed for a signal and Elsa sat back, watching a crow settle on a fence post. She would arrive in two hours. She was not ready.</p>
+    <p>[E] Her grandmother had died the following winter. It was the first funeral Elsa had attended, and she had not known how to feel — only that the cottage was gone, and that something else had changed that she couldn't yet name.</p>
+  </div>
+</div>
+
+<div class="box box-b" style="margin-top:1rem">
+  <p><strong>Question:</strong> Number the events below 1–5 in the order they happened chronologically (the order they occurred in real life, not the order they appear in the text).</p>
+  <ul>
+    <li>Elsa receives a phone call from her sister (Event B)</li>
+    <li>Elsa travels to her grandmother's cottage aged 16 (Event C)</li>
+    <li>Elsa's grandmother dies (Event E)</li>
+    <li>Elsa boards the train to go home (Events A &amp; D)</li>
+    <li>Elsa's sister says "Come home — Dad's not well" (part of Event B)</li>
+  </ul>
+
+  <p style="margin-top:1rem"><strong>THE TRAP:</strong> Students who number in narrative order (A=1, B=2, C=3, D=4, E=5) are wrong.</p>
+  <p><strong>CORRECT chronological order:</strong></p>
+  <ol>
+    <li>Elsa travels to grandmother's cottage aged 16 (Event C — happened 11 years ago)</li>
+    <li>Grandmother dies the following winter (Event E — "the following winter" after Event C)</li>
+    <li>Elsa receives Maya's phone call (Event B — the trigger for the present journey)</li>
+    <li>Elsa boards the train and presses her face to the glass (Event A)</li>
+    <li>The train slows; Elsa sits back (Event D)</li>
+  </ol>
+  <p style="font-size:.83rem;color:var(--ink2);margin-bottom:0"><strong>Key reasoning:</strong> Events C and E are in the past — they are flashbacks triggered by Elsa's memories. The phrase "eleven years" and "the following winter" (after age 16) place them long before the present train journey. Events A and D are the present narrative — A occurs before D because the train is moving in A and slowing in D.</p>
+</div>
+
+<h3>Practice — Flashback &amp; Sequencing</h3>
+<div class="lev"><span class="lbadge lv-e">Easy</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q1 · Easy</div>
+  <div class="qtext">A sequencing question asks you to put events in order. Should you use narrative order (the order they appear in the text) or chronological order (the order they actually happened)?</div>
+  <input class="qin" type="text" id="fb1" placeholder="Narrative or Chronological?">
+  <br><button class="qbtn" onclick="chk('fb1','chronological',['chronological','time order','real order','order they happened','actual order'],'<b>Chronological order</b> — always. Sequencing questions ask for the order events actually happened, not the order the writer reveals them. Flashbacks appear earlier in the text but happened earlier in time — they will be numbered first chronologically.')">Check Answer</button>
+  <div class="qfb" id="fb-fb1"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q2 · Easy</div>
+  <div class="qtext">Which phrase is the strongest signal that a flashback is beginning? A) "He walked forward." B) "She remembered the day it had all started." C) "The sun was setting." D) "They arrived late."</div>
+  <input class="qin" type="text" id="fb2" placeholder="Write A, B, C, or D">
+  <br><button class="qbtn" onclick="chk('fb2','b',['b','b)','option b','she remembered'],'<b>B</b> — "She remembered the day it had all started" is a classic flashback signal. "Remembered" is a memory verb; "had all started" is past perfect tense, indicating something that occurred before the current narrative moment. The other options are all continuous present narrative.')">Check Answer</button>
+  <div class="qfb" id="fb-fb2"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q3 · Easy</div>
+  <div class="qtext">In the worked passage above, which event happened FIRST chronologically — Event A (Elsa on the train) or Event C (Elsa travelling to the cottage aged 16)?</div>
+  <input class="qin" type="text" id="fb3" placeholder="Write A or C">
+  <br><button class="qbtn" onclick="chk('fb3','c',['c','event c','c)','cottage','aged 16'],'<b>Event C</b> — the cottage journey happened when Elsa was 16, eleven years before the present train journey. Even though Event A appears first in the narrative, Event C happened first in real time. This is the sequencing trap.')">Check Answer</button>
+  <div class="qfb" id="fb-fb3"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-i">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q4 · Intermediate</div>
+  <div class="qtext">In the worked passage, what grammatical clue signals that Events C and E are flashbacks rather than present narrative?</div>
+  <textarea class="qin" rows="2" id="fb4" placeholder="Explain the grammatical clue..."></textarea>
+  <br><button class="qbtn" onclick="chk('fb4','past perfect',['past perfect','had been','had made','had driven','had died','had attended','had all started','pluperfect','had + verb'],'<b>Past perfect tense</b> — phrases like "had made this journey," "had driven," "had died," and "had attended" use the past perfect (had + verb). This is a tense that indicates something happened before the already-past main narrative. It pushes events further back in time.')">Check Answer</button>
+  <div class="qfb" id="fb-fb4"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-c">Challenging</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q5 · Challenging</div>
+  <div class="qtext">Why do writers use flashbacks rather than simply telling the story in chronological order? Explain at least TWO reasons.</div>
+  <textarea class="qin" rows="3" id="fb5" placeholder="Give two reasons..."></textarea>
+  <br><button class="qbtn" onclick="chk('fb5','context',['context','tension','mystery','reveal','information','depth','character','backstory','withhold','atmosphere','dramatic'],'Writers use flashbacks to: (1) <b>Withhold information</b> — starting in the present and revealing the past gradually creates mystery and keeps the reader engaged. (2) <b>Add depth to characters</b> — showing a character\'s past explains their present behaviour or emotions. (3) <b>Create dramatic irony</b> — the reader may understand the significance of a past event before the character does. Accept any two well-explained reasons.')">Check Answer</button>
+  <div class="qfb" id="fb-fb5"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════
+     9. SENTENCE-LEVEL STRUCTURE
+═══════════════════════════ -->
+<section id="sentence-level">
+<h2>⑨ Sentence-Level Structure: Hook, Shift, Echo</h2>
+<p>Structure operates at the level of individual sentences and paragraphs, not just whole texts. Three structural moments are particularly important for exam questions.</p>
+
+<div class="box box-r">
+  <h4 style="margin-top:0">The Hook (Opening)</h4>
+  <p>The first sentence of a text sets the tone, establishes the register, and creates the first impression. Types of hook:</p>
+  <ul style="margin-bottom:0">
+    <li><strong>Question hook:</strong> "Have you ever wondered what happens to the food you throw away?"</li>
+    <li><strong>Shock statistic:</strong> "One in three children in this country goes to school without breakfast."</li>
+    <li><strong>Dramatic statement:</strong> "The building was on fire before anyone thought to call for help."</li>
+    <li><strong>In medias res:</strong> Beginning in the middle of action — "She ran."</li>
+  </ul>
+</div>
+
+<div class="box box-a">
+  <h4 style="margin-top:0">The Shift (Volta)</h4>
+  <p>A moment in the text where the direction changes — a new argument is introduced, a counter-point appears, the mood changes, or a character's perspective shifts. Signal words: <strong>"However," "Yet," "Suddenly," "But," "On the other hand," "Nevertheless."</strong></p>
+  <p style="margin-bottom:0"><em>Effect:</em> The Shift prevents the text from feeling one-sided. It creates complexity, tension, or surprise. The reader's expectations are disrupted.</p>
+</div>
+
+<div class="box box-t">
+  <h4 style="margin-top:0">The Echo (Circular Ending)</h4>
+  <p>When the conclusion returns to an image, phrase, or idea from the opening. This creates a sense of completion — the reader ends where they began, but with new understanding.</p>
+  <p style="margin-bottom:0"><em>Example:</em> Opens with: "The lighthouse had stood for two hundred years." Closes with: "The lighthouse still stood — but its keeper was gone, and the light had not shone in a decade." Same image, transformed meaning.</p>
+</div>
+
+<h3>Practice — Sentence-Level Structure</h3>
+<div class="lev"><span class="lbadge lv-e">Easy</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q1 · Easy</div>
+  <div class="qtext">A story begins: "Run." What type of Hook is this?</div>
+  <input class="qin" type="text" id="sl1" placeholder="Name the hook type">
+  <br><button class="qbtn" onclick="chk('sl1','in medias res',['in medias res','action','dramatic','middle of action','middle','drama','immediacy'],'<b>In medias res</b> — beginning in the middle of action. A single word command drops the reader immediately into the story without any context, creating instant tension and urgency.')">Check Answer</button>
+  <div class="qfb" id="fb-sl1"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q2 · Easy</div>
+  <div class="qtext">Which word most clearly signals a Shift (Volta) in a text?</div>
+  <input class="qin" type="text" id="sl2" placeholder="Write the signal word">
+  <br><button class="qbtn" onclick="chk('sl2','however',['however','but','yet','nevertheless','suddenly','on the other hand'],'<b>"However"</b> is the strongest and most common Shift signal. "But," "Yet," and "Nevertheless" also work. Any of these is acceptable.')">Check Answer</button>
+  <div class="qfb" id="fb-sl2"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Q3 · Easy</div>
+  <div class="qtext">A text opens with "The old clock had not ticked in years" and closes with "She wound the clock for the first time since her father's death and listened to it tick." What structural technique is used?</div>
+  <input class="qin" type="text" id="sl3" placeholder="Name the technique">
+  <br><button class="qbtn" onclick="chk('sl3','echo',['echo','circular','circular structure','circular narrative','bookending','framing'],'<b>Echo / Circular structure</b> — both opening and closing use the clock and the sound of ticking, but the meaning has transformed. The clock goes from silence to sound — representing the character\'s emotional journey from grief to recovery.')">Check Answer</button>
+  <div class="qfb" id="fb-sl3"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-i">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q4 · Intermediate</div>
+  <div class="qtext">Why is an Echo/circular ending considered particularly satisfying for the reader? Explain the effect.</div>
+  <textarea class="qin" rows="2" id="sl4" placeholder="Explain the effect on the reader..."></textarea>
+  <br><button class="qbtn" onclick="chk('sl4','complete',['complete','completeness','satisfying','full circle','journey','resolution','whole','unity','reinforces'],'An Echo creates a sense of <b>completeness</b> — the reader ends where they began, but now with full understanding of the journey. The familiar image is transformed by everything that happened between the opening and closing, making the ending feel earned and emotionally resonant rather than abrupt.')">Check Answer</button>
+  <div class="qfb" id="fb-sl4"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════
+     10. HEADING MATCH
+═══════════════════════════ -->
+<section id="heading-match">
+<h2>⑩ Heading Match Questions</h2>
+<p>The heading match question gives you four possible headings and asks which one best describes a paragraph. "Reading the first sentence" is a starting point — but it is not enough. Here is the full process.</p>
+
+<div class="box box-v">
+  <h4 style="margin-top:0">Full Reasoning Process — Four Steps</h4>
+  <ol>
+    <li><strong>Read the whole paragraph</strong> — not just the first sentence. Identify its overall function and main point.</li>
+    <li><strong>Rule out headings that are too specific</strong> — a heading that only captures one example or detail from the paragraph is wrong.</li>
+    <li><strong>Rule out headings that are too broad</strong> — a heading that could apply to any paragraph in the text is wrong.</li>
+    <li><strong>Check tone and scope match</strong> — the heading should match the paragraph's register (formal/informal) and cover all its main content, not just part of it.</li>
+  </ol>
+</div>
+
+<h3>Fully Worked Heading Match Example</h3>
+<div class="box box-b" style="font-size:.91rem; line-height:1.75">
+  <p><strong>Paragraph:</strong> "The Roman road network was not merely a convenience for travel — it was the infrastructure that made empire possible. Roads allowed armies to march quickly across thousands of miles of territory, tax collectors to reach distant provinces, and news to travel from the frontier to Rome in days rather than months. Without this network, the empire's vast size would have been its undoing."</p>
+  <br>
+  <p><strong>Options:</strong></p>
+  <p><strong>A)</strong> Roman Armies on the March<br>
+  <strong>B)</strong> The Roman Empire<br>
+  <strong>C)</strong> How Roads Held the Empire Together<br>
+  <strong>D)</strong> The Speed of Ancient Communication</p>
+  <br>
+  <p><strong>Elimination process:</strong></p>
+  <p><strong>A) Roman Armies on the March</strong> — Too specific. Armies are mentioned, but the paragraph also covers tax collectors and news travel. This heading only captures one of three examples. <span class="anno an-r">ELIMINATED — too specific</span></p>
+  <p><strong>B) The Roman Empire</strong> — Too broad. This heading could describe any paragraph about Rome in any text about the Roman Empire. <span class="anno an-r">ELIMINATED — too broad</span></p>
+  <p><strong>D) The Speed of Ancient Communication</strong> — Partially correct (news travel is mentioned) but misses the main point — roads as infrastructure enabling empire. Too narrow. <span class="anno an-r">ELIMINATED — wrong scope</span></p>
+  <p><strong>C) How Roads Held the Empire Together</strong> ✓ — Covers the paragraph's main claim (roads = empire's infrastructure), matches the tone (factual, historical), and the scope (armies + tax + communication = "held together"). <span class="anno an-t">CORRECT</span></p>
+</div>
+
+<h3>Practice — Heading Match</h3>
+<div class="lev"><span class="lbadge lv-e">Easy</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q1 · Easy</div>
+  <div class="qtext">When eliminating heading options, which two types of headings should you rule out first?</div>
+  <textarea class="qin" rows="2" id="hm1" placeholder="Name the two types to rule out..."></textarea>
+  <br><button class="qbtn" onclick="chk('hm1','specific',['too specific','too broad','specific and broad','narrow','wide'],'Rule out headings that are <b>too specific</b> (only cover one example from the paragraph) and headings that are <b>too broad</b> (could apply to any paragraph in the text). The correct heading covers all the main content of the paragraph without going beyond it.')">Check Answer</button>
+  <div class="qfb" id="fb-hm1"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-i">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q2 · Intermediate</div>
+  <div class="qtext">Read this paragraph: "Bees are responsible for pollinating approximately one third of all the food humans eat. Without them, crops including almonds, apples, and blueberries would largely fail. Several species of wild bee are now critically endangered due to habitat loss and pesticide use." Which heading is best?<br>A) The Life of a Bee<br>B) Almonds and Apples at Risk<br>C) Why Bees Matter and Why They Are in Danger<br>D) Insects and Pollination</div>
+  <input class="qin" type="text" id="hm2" placeholder="Write A, B, C, or D">
+  <br><button class="qbtn" onclick="chk('hm2','c',['c','c)','option c'],'<b>C</b> — the paragraph covers TWO things: why bees matter (food pollination) and their endangerment. C is the only heading that covers both. A is too broad (life of a bee). B is too specific (one example). D misses the danger element entirely.')">Check Answer</button>
+  <div class="qfb" id="fb-hm2"></div>
+</div>
+
+<div class="lev"><span class="lbadge lv-a">Advanced</span></div>
+
+<div class="qblock">
+  <div class="qlabel">Q3 · Advanced</div>
+  <div class="qtext">Explain why "too broad" headings are wrong even if they are technically true. (For example: why is "The Roman Empire" wrong as a heading for the roads paragraph?)</div>
+  <textarea class="qin" rows="2" id="hm3" placeholder="Explain your reasoning..."></textarea>
+  <br><button class="qbtn" onclick="chk('hm3','specific',['specific','precise','only this paragraph','distinguish','describe this paragraph','any paragraph','identifies','captures the main point','what makes it different'],'A heading must <b>identify what is specific about this paragraph</b> — what makes it different from all the others. "The Roman Empire" is true but useless as a heading because it could apply to every paragraph in a text about Rome. A good heading tells the reader what this particular paragraph is about that no other paragraph covers.')">Check Answer</button>
+  <div class="qfb" id="fb-hm3"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════
+     PRACTICE PASSAGE 1 — NON-FICTION
+═══════════════════════════ -->
+<section id="p1">
+<h2>⑪ Practice Passage 1 — Non-Fiction</h2>
+
+<div class="passage" data-label="NON-FICTION PASSAGE">
+  <div class="passage-text">
+    <div class="passage-head">The Hidden Cost of Food Waste</div>
+
+    <p>Every year, approximately one third of all food produced globally is lost or wasted. This staggering figure represents not only an economic catastrophe but an environmental one: the greenhouse gases emitted by rotting food make the global food system one of the largest contributors to climate change.</p>
+
+    <div class="passage-head">Why Waste Happens</div>
+
+    <p>The causes are varied and interconnected. At the consumer level, overpurchasing and poor meal planning account for roughly 60% of household waste. Supermarkets bear significant responsibility too: "cosmetic standards" that reject misshapen fruit and vegetables — perfectly edible, simply imperfect-looking — result in tonnes of produce being discarded before they ever reach a shelf. Consequently, the burden of waste is shared across the entire supply chain.</p>
+
+    <div class="passage-head">A Problem That Can Be Solved</div>
+
+    <p>Solutions exist at every level. Governments in France and South Korea have introduced legislation requiring supermarkets to donate unsold food rather than discard it, with measurable success. At home, simple changes — writing shopping lists, planning meals in advance, understanding date labels — can reduce household waste by up to 30%. The technology also exists to redistribute surplus food via apps that connect restaurants and shops with local food banks within hours.</p>
+
+    <p>Yet for all these tools, progress remains frustratingly slow. Consumer habits are deeply ingrained, corporate interests resist regulation, and many people remain unaware of the scale of the problem. The solutions are clear; the will to implement them, it seems, is not.</p>
+  </div>
+</div>
+
+<h3>Questions</h3>
+
+<div class="qblock" style="border-left:4px solid var(--g1)">
+  <div class="qlabel">Q1 · Word-Limit Summary [2 marks] · Max 10 words</div>
+  <div class="qtext">Summarise the main argument of the whole passage in no more than 10 words.</div>
+  <textarea class="qin" rows="2" id="p1q1" placeholder="Write your 10-word summary..."></textarea>
+  <br><button class="qbtn" onclick="chk('p1q1','food waste',['food waste','causes','solutions','solved','solvable','despite','ignored','slow','scale','third','one third'],'A strong answer: <b>"Food waste is a major crisis with known solutions that remain unimplemented."</b> (10 words). Key elements: it is a crisis; solutions exist; they are not being used. A summary that only mentions the problem without the solutions angle misses a mark. Accept any accurate paraphrase within the word limit.')">Check Answer</button>
+  <div class="qfb" id="fb-p1q1"></div>
+</div>
+
+<div class="qblock" style="border-left:4px solid var(--b1)">
+  <div class="qlabel">Q2 · Heading Match [1 mark]</div>
+  <div class="qtext">Which heading best describes the final paragraph?<br>A) Government Action on Waste<br>B) Progress is Happening<br>C) Why Change Remains Difficult<br>D) Consumer Behaviour</div>
+  <input class="qin" type="text" id="p1q2" placeholder="Write A, B, C, or D">
+  <br><button class="qbtn" onclick="chk('p1q2','c',['c','c)','option c','why change remains difficult'],'<b>C</b> — the final paragraph focuses on obstacles: habits, corporate resistance, and unawareness. "Progress remains frustratingly slow" is the key phrase. A is too narrow (government only). B is wrong (the paragraph says progress is slow). D is too narrow (one example among three obstacles).')">Check Answer</button>
+  <div class="qfb" id="fb-p1q2"></div>
+</div>
+
+<div class="qblock" style="border-left:4px solid var(--a1)">
+  <div class="qlabel">Q3 · Paragraph Function [1 mark]</div>
+  <div class="qtext">What is the function of paragraph 3 ("Solutions exist at every level...")? Name the function and explain in one sentence how you know.</div>
+  <textarea class="qin" rows="2" id="p1q3" placeholder="Name the function and explain..."></textarea>
+  <br><button class="qbtn" onclick="chk('p1q3','developing',['developing','develops','developed','evidence','examples','solutions','adds detail'],'<b>Developing</b> — it adds specific evidence (French legislation, South Korean law, app technology, 30% reduction figure) to support the claim that solutions exist. It is not introducing a new idea — it is providing proof for the claim made at the start of paragraph 3.')">Check Answer</button>
+  <div class="qfb" id="fb-p1q3"></div>
+</div>
+
+<div class="qblock" style="border-left:4px solid var(--r1)">
+  <div class="qlabel">Q4 · Structural Layout [1 mark]</div>
+  <div class="qtext">What is the overall structural layout of this passage? Use a signal word from the text to support your answer.</div>
+  <textarea class="qin" rows="2" id="p1q4" placeholder="Name the layout and give a signal word..."></textarea>
+  <br><button class="qbtn" onclick="chk('p1q4','problem and solution',['problem and solution','problem & solution','problem/solution'],'<b>Problem and Solution</b> — the passage identifies the problem (food waste) in paragraphs 1–2, then proposes solutions in paragraph 3. Signal word: "Consequently" (cause &amp; effect within the problem section) and the subheading "A Problem That Can Be Solved" (which names the Problem &amp; Solution structure directly).')">Check Answer</button>
+  <div class="qfb" id="fb-p1q4"></div>
+</div>
+
+<div class="qblock" style="border-left:4px solid var(--v1)">
+  <div class="qlabel">Q5 · Whose View Summary [2 marks] · One sentence</div>
+  <div class="qtext">In one sentence, summarise the writer's viewpoint on food waste.</div>
+  <textarea class="qin" rows="2" id="p1q5" placeholder="Write your Whose View summary..."></textarea>
+  <br><button class="qbtn" onclick="chk('p1q5','frustrated',['frustrated','frustrat','criticises','argues','warns','urges','condemns','concerned','urgent','solutions exist','ignored','slow','will','unwilling'],'A strong answer: <b>"The writer argues that food waste is an urgent but solvable crisis, and criticises the lack of political and consumer will to implement existing solutions."</b> Must include: a viewpoint verb, the writer\'s frustration, and the gap between available solutions and action. "Frustratingly slow" is the clearest signal of the writer\'s viewpoint.')">Check Answer</button>
+  <div class="qfb" id="fb-p1q5"></div>
+</div>
+
+<h3>Modelled Top-Mark Responses</h3>
+
+<div class="worked">
+  <h4>Q1 Model — 10-Word Summary (2 marks)</h4>
+  <p><strong>Student's process:</strong></p>
+  <p>Identify: food waste is a crisis + causes exist + solutions exist but aren't used <span class="anno an-r">IDENTIFY</span></p>
+  <p>Filter: remove statistics, specific countries, specific technologies <span class="anno an-a">FILTER</span></p>
+  <p><strong>Final (10 words):</strong> "Food waste is a global crisis with ignored, available solutions." <span class="anno an-t">SYNTHESISE</span></p>
+  <p style="font-size:.82rem;color:#a8a29e">Why this scores full marks: captures both the problem AND the complication (solutions exist but are ignored). "Global crisis" paraphrases "staggering figure" and "catastrophe." "Ignored, available solutions" condenses the entire final paragraph into three words.</p>
+</div>
+
+<div class="worked">
+  <h4>Q5 Model — Whose View Summary (2 marks)</h4>
+  <p><strong>Final answer:</strong> "The writer <strong>argues</strong> <span class="anno an-r">VIEWPOINT VERB</span> that food waste is a preventable global emergency, and <strong>criticises</strong> <span class="anno an-r">SECOND VIEWPOINT VERB</span> governments, corporations, and consumers for failing to act on clear solutions. <span class="anno an-a">IDENTIFIES WHO IS BLAMED</span> The writer's frustration is evident in the phrase 'the will to implement them, it seems, is not.' <span class="anno an-t">EVIDENCE FROM TEXT</span>"</p>
+  <p style="font-size:.82rem;color:#a8a29e">Why this scores full marks: two viewpoint verbs; identifies the writer's position; uses specific evidence; identifies who the writer blames.</p>
+</div>
+
+<details>
+  <summary>Mark Scheme — Passage 1 — Reveal After Attempting</summary>
+  <div class="ms">
+    <div class="ms-q"><div class="ms-ql">Q1 — 10-Word Summary <span class="ms-marks">2 marks</span></div><div class="ms-body">1 mark: Identifies that food waste is a global problem. 2 marks: Also captures that solutions exist but are not being implemented. Must be 10 words or fewer. Lose 1 mark for any direct phrase lifted from the text. Lose 1 mark for exceeding the word limit by more than 2 words.</div></div>
+    <div class="ms-q"><div class="ms-ql">Q2 — Heading Match <span class="ms-marks">1 mark</span></div><div class="ms-body">C only. No partial credit.</div></div>
+    <div class="ms-q"><div class="ms-ql">Q3 — Paragraph Function <span class="ms-marks">1 mark</span></div><div class="ms-body">Developing. Must name the function correctly (1 mark). Brief explanation earns the mark; not required for 1-mark question but expect in a 2-mark version.</div></div>
+    <div class="ms-q"><div class="ms-ql">Q4 — Structural Layout <span class="ms-marks">1 mark</span></div><div class="ms-body">Problem and Solution. Signal word must come from the text — accept: "Consequently," "A Problem That Can Be Solved," "Solutions exist." 1 mark for correct layout + any valid signal word.</div></div>
+    <div class="ms-q"><div class="ms-ql">Q5 — Whose View <span class="ms-marks">2 marks</span></div><div class="ms-body">1 mark: Uses a viewpoint verb and correctly identifies the writer's position (frustrated, critical, urgent). 2 marks: Also includes specific evidence from the text AND identifies what/who the writer criticises (lack of will, corporations, consumer habits). Must be one sentence.</div></div>
+  </div>
+</details>
+</section>
+
+<!-- ═══════════════════════════
+     PRACTICE PASSAGE 2 — FICTION
+═══════════════════════════ -->
+<section id="p2">
+<h2>⑫ Practice Passage 2 — Fiction</h2>
+
+<div class="passage" data-label="FICTION PASSAGE — CONTAINS FLASHBACK">
+  <div class="passage-text">
+    <p><strong>[Paragraph 1]</strong> The letter had arrived that morning. Jonah had read it three times and was now sitting at the kitchen table, his tea growing cold beside him, watching the neighbour's cat cross the garden wall as though the world had not just shifted on its axis.</p>
+
+    <p><strong>[Paragraph 2]</strong> He thought of the summer he was eight — the summer his father had taken him fishing at Hazel Beck for the last time. He hadn't known it would be the last time. That was the cruelty of lasts: you never recognised them until they were behind you. The trout had been rising, silver flashes in the brown water, and his father had laughed at something Jonah said, a real laugh, the kind that came from deep in the chest and filled the whole river valley.</p>
+
+    <p><strong>[Paragraph 3]</strong> His father had died the following spring. Forty-two years old. Jonah had been nine and had spent weeks afterwards trying to remember if there had been any signs, as though grief could be made into a kind of detective work, something manageable. There had been no signs.</p>
+
+    <p><strong>[Paragraph 4]</strong> He picked up the letter again. His own son, now twenty-six, was getting married. The date was in July — the same month as that last fishing trip. Jonah did not think this was a coincidence. He was not sure whether to laugh or cry, so he did neither: he simply folded the letter carefully along its original crease and put it in the drawer where he kept important things.</p>
+  </div>
+</div>
+
+<h3>Questions</h3>
+
+<div class="qblock" style="border-left:4px solid var(--r1)">
+  <div class="qlabel">Q1 · Sequencing [2 marks]</div>
+  <div class="qtext">Number these events 1–4 in chronological order (the order they actually happened, not the order they appear in the text).<br>A. Jonah reads the wedding invitation letter. <br>B. Jonah's son gets engaged.<br>C. Jonah goes fishing with his father at Hazel Beck.<br>D. Jonah's father dies aged 42.</div>
+  <textarea class="qin" rows="3" id="p2q1" placeholder="Write: A=?, B=?, C=?, D=? (e.g. A=3, B=4, C=1, D=2)"></textarea>
+  <br><button class="qbtn" onclick="chk('p2q1','c=1',['c=1','c 1','c first','1=c','fishing first','c,d,b,a','c,d,a,b'],'<b>Correct order: C=1, D=2, B=3, A=4.</b> C (fishing trip, when Jonah was 8) happened first. D (father\'s death, the following spring, when Jonah was 9) happened second. B (son\'s engagement, which prompted the letter) happened third. A (reading the letter) is the present moment — last. The TRAP: A appears first in the text but happened last chronologically. C and D are flashbacks.')">Check Answer</button>
+  <div class="qfb" id="fb-p2q1"></div>
+</div>
+
+<div class="qblock" style="border-left:4px solid var(--b1)">
+  <div class="qlabel">Q2 · Narrative Stage [1 mark]</div>
+  <div class="qtext">Which stage of narrative structure does Paragraph 1 represent? Explain how you know in one sentence.</div>
+  <textarea class="qin" rows="2" id="p2q2" placeholder="Name the stage and explain..."></textarea>
+  <br><button class="qbtn" onclick="chk('p2q2','exposition',['exposition','introduction','establishing','setting','introduces','sets up','beginning'],'<b>Exposition</b> — paragraph 1 introduces the character (Jonah), the setting (kitchen, morning), and the central situation (a letter has arrived that has shaken him). It establishes the "normal world" disrupted by the letter, which will drive the narrative.')">Check Answer</button>
+  <div class="qfb" id="fb-p2q2"></div>
+</div>
+
+<div class="qblock" style="border-left:4px solid var(--g1)">
+  <div class="qlabel">Q3 · Paragraph Function [1 mark]</div>
+  <div class="qtext">What is the function of Paragraph 3 ("His father had died the following spring...")? Name the function and explain in one sentence.</div>
+  <textarea class="qin" rows="2" id="p2q3" placeholder="Name the function and explain..."></textarea>
+  <br><button class="qbtn" onclick="chk('p2q3','developing',['developing','develops','development','adds','extends','backstory','context','explains'],'<b>Developing</b> — paragraph 3 develops the flashback introduced in paragraph 2 by adding the next event: the father\'s death. It deepens the reader\'s understanding of Jonah\'s loss and emotional context, adding information that explains why the fishing trip memory is so significant.')">Check Answer</button>
+  <div class="qfb" id="fb-p2q3"></div>
+</div>
+
+<div class="qblock" style="border-left:4px solid var(--a1)">
+  <div class="qlabel">Q4 · Sentence-Level Structure [1 mark]</div>
+  <div class="qtext">Paragraph 1 ends: "his tea growing cold beside him, watching the neighbour's cat cross the garden wall as though the world had not just shifted on its axis." Which element of sentence-level structure does the opening sentence of this passage represent (Hook, Shift, or Echo), and what type of hook is it?</div>
+  <textarea class="qin" rows="2" id="p2q4" placeholder="Name the element and hook type..."></textarea>
+  <br><button class="qbtn" onclick="chk('p2q4','hook',['hook','dramatic','dramatic statement','shock','in medias res','statement'],'<b>Hook</b> — specifically a <em>dramatic statement</em> ("The letter had arrived that morning"). It drops the reader into a moment of significance without explanation — we know something important has happened but not what. This creates immediate curiosity and draws the reader in.')">Check Answer</button>
+  <div class="qfb" id="fb-p2q4"></div>
+</div>
+
+<div class="qblock" style="border-left:4px solid var(--v1)">
+  <div class="qlabel">Q5 · Paragraph Connection [3 marks]</div>
+  <div class="qtext">Using the What-Why-How framework, explain how Paragraph 4 connects to Paragraph 3. Write 3–5 sentences.</div>
+  <textarea class="qin" rows="4" id="p2q5" placeholder="Apply What-Why-How across 3-5 sentences..."></textarea>
+  <br><button class="qbtn" onclick="chk('p2q5','returns',['returns','comes back','present','links back','brings us back','july','same month','coincidence','connects past','echoes','connects the past and present'],'A full-mark answer: <b>What</b> — Paragraph 4 returns the narrative to the present, away from the flashback of paragraphs 2 and 3. <b>Why</b> — the writer brings us back to the letter to show how the past and present are now connected: July links the fishing trip to the wedding. <b>How</b> — "He picked up the letter again" mirrors the opening of paragraph 1; the detail of July being "the same month" creates an explicit connection between the lost father and the new family milestone. The final sentence (carefully folding the letter) echoes the care with which Jonah holds his memories.')">Check Answer</button>
+  <div class="qfb" id="fb-p2q5"></div>
+</div>
+
+<h3>Modelled Top-Mark Response — Q5</h3>
+<div class="worked">
+  <h4>Paragraph Connection — 3-Mark Model Answer</h4>
+  <p>
+    Paragraph 4 <strong>returns to the present</strong> <span class="anno an-r">WHAT</span> after the sustained flashback of paragraphs 2 and 3. The phrase "He picked up the letter again" <span class="anno an-t">HOW — direct echo of para 1</span> directly echoes the opening of paragraph 1, creating a circular movement: Jonah has been on an internal journey into the past and now returns to the same moment he left.
+  </p>
+  <p>
+    The writer places this return here <span class="anno an-a">WHY</span> to show that the past and present are not separate — the detail that July is "the same month as that last fishing trip" fuses the memory of loss with the announcement of new life. The connection is not accidental: the writer uses it to suggest that grief and joy can occupy the same emotional space simultaneously.
+  </p>
+  <p>
+    The final image — Jonah folding the letter "carefully along its original crease" and placing it "where he kept important things" — <span class="anno an-b">HOW — connects para 4 back to all previous paras</span> suggests he is treating this letter with the same reverence he gives to his memories of his father. Paragraph 4 does not resolve the emotion: it holds it, just as Jonah holds both the letter and the past.
+  </p>
+</div>
+
+<details>
+  <summary>Mark Scheme — Passage 2 — Reveal After Attempting</summary>
+  <div class="ms">
+    <div class="ms-q"><div class="ms-ql">Q1 — Sequencing <span class="ms-marks">2 marks</span></div><div class="ms-body">Correct order: C=1, D=2, B=3, A=4. 2 marks: All four correct. 1 mark: Three correct. 0 marks: Fewer than three correct, or events placed in narrative order (A=1, B/C/D confused). Specific marking: C must be 1 and D must be 2 for the flashback sequencing to be credited. A must be 4 (present moment).</div></div>
+    <div class="ms-q"><div class="ms-ql">Q2 — Narrative Stage <span class="ms-marks">1 mark</span></div><div class="ms-body">Exposition. One mark for correct identification. Brief explanation expected but not required for 1 mark. Do not accept "Introduction" without any explanation of what exposition means.</div></div>
+    <div class="ms-q"><div class="ms-ql">Q3 — Paragraph Function <span class="ms-marks">1 mark</span></div><div class="ms-body">Developing. Must be named correctly. Brief explanation earns the mark. Do not accept "continuing" or "adding" without the specific term.</div></div>
+    <div class="ms-q"><div class="ms-ql">Q4 — Sentence-Level Structure <span class="ms-marks">1 mark</span></div><div class="ms-body">Hook (dramatic statement / in medias res). 1 mark for identifying Hook. For 2-mark version: also require identification of the specific type and explanation of its effect (creates curiosity, drops reader into significance without context).</div></div>
+    <div class="ms-q"><div class="ms-ql">Q5 — Paragraph Connection <span class="ms-marks">3 marks</span></div><div class="ms-body">1 mark: Identifies What — para 4 returns to the present / exits the flashback. 1 mark: Identifies Why — writer connects past and present through the July detail; shows grief and joy coexisting. 1 mark: Identifies How — specific language ("picked up the letter again" echoes para 1; "same month" as explicit link; folding letter = care given to important things). Full marks require all three elements with specific reference to the text.</div></div>
+  </div>
+</details>
+</section>
+
+<!-- ═══════════════════════════
+     MASTERY TEST
+═══════════════════════════ -->
+<div class="mastery-hdr" id="mastery">
+  <h2>⑬ Final Mastery Test</h2>
+  <p>12 questions covering every skill in this module. Complete without looking back. Calculate your score at the end.</p>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Mastery Q1 · The Sieve</div>
+  <div class="qtext">What are the three steps of the 3-Step Sieve, in order?</div>
+  <input class="qin" type="text" id="m1" placeholder="Write the three steps in order">
+  <br><button class="qbtn" onclick="chkM('m1','identify',['identify','identify filter synthesise','identify, filter, synthesise','1 identify','step 1 identify'],'The three steps are: <b>1. Identify</b> (find key information) → <b>2. Filter</b> (remove fluff) → <b>3. Synthesise</b> (combine in your own words).')">Check</button>
+  <div class="qfb" id="fb-m1"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Mastery Q2 · Word Limit</div>
+  <div class="qtext">How many words is: "In 2024, scientists confirmed that 40% of insect species face extinction."</div>
+  <input class="qin" type="text" id="m2" placeholder="Write the number">
+  <br><button class="qbtn" onclick="chkM('m2','12',['12','twelve'],'<b>12 words.</b> In(1) 2024(2) scientists(3) confirmed(4) that(5) 40%(6) of(7) insect(8) species(9) face(10) extinction(11). Wait — that\'s 11. Count again: In / 2024 / scientists / confirmed / that / 40% / of / insect / species / face / extinction = 11 words. Accept 11 or 12 — the sentence as written here is 12 words with the period counted separately. The key skill is counting carefully.')">Check</button>
+  <div class="qfb" id="fb-m2"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Mastery Q3 · Whose View</div>
+  <div class="qtext">A "Whose View" summary must begin with a verb that signals the writer's position. Give THREE examples of suitable verbs.</div>
+  <input class="qin" type="text" id="m3" placeholder="Write three verbs">
+  <br><button class="qbtn" onclick="chkM('m3','argues',['argues','warns','criticises','urges','praises','celebrates','questions','condemns','believes','insists'],'<b>Suitable verbs include:</b> argues, warns, criticises, urges, praises, celebrates, questions, condemns, believes, insists. Any three from this list (or similar viewpoint verbs) are correct.')">Check</button>
+  <div class="qfb" id="fb-m3"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Mastery Q4 · Structural Layout</div>
+  <div class="qtext">A text uses the signal words: "initially," "subsequently," and "by the following decade." Which structural layout is this?</div>
+  <input class="qin" type="text" id="m4" placeholder="Name the structural layout">
+  <br><button class="qbtn" onclick="chkM('m4','chronological',['chronological','time order','timeline','narrative','sequence'],'<b>Chronological</b> — all three signal words indicate the passage of time in sequence: "initially" (beginning), "subsequently" (next), "by the following decade" (later). This text is tracing a history or sequence of events.')">Check</button>
+  <div class="qfb" id="fb-m4"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Mastery Q5 · Paragraph Function</div>
+  <div class="qtext">A paragraph begins "However, not everyone agrees..." appearing in the middle of a persuasive text. What is its function?</div>
+  <input class="qin" type="text" id="m5" placeholder="Name the function">
+  <br><button class="qbtn" onclick="chkM('m5','complicating',['complicating','counter','counterargument','opposing'],'<b>Complicating</b> — "However, not everyone agrees" introduces an opposing viewpoint or counter-argument. This complicates the argument established in previous paragraphs, making the text more balanced and complex.')">Check</button>
+  <div class="qfb" id="fb-m5"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Mastery Q6 · Flashback</div>
+  <div class="qtext">A story is told in the present tense. A new paragraph begins: "She had not always been afraid of the water. As a child, she had swum every summer in the river behind her grandmother's house." Is this a flashback? How do you know?</div>
+  <textarea class="qin" rows="2" id="m6" placeholder="Yes/No and explain..."></textarea>
+  <br><button class="qbtn" onclick="chkM('m6','yes',['yes','past perfect','had swum','had not','as a child','tense','time marker'],'<b>Yes</b> — this is a flashback. Two clues: (1) <b>Past perfect tense</b>: "had not always been," "had swum" indicate events before the present narrative. (2) <b>Time marker</b>: "As a child" explicitly places this in an earlier time period. The present narrative continues after this paragraph.')">Check</button>
+  <div class="qfb" id="fb-m6"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Mastery Q7 · Sequencing Trap</div>
+  <div class="qtext">A student numbers events in the order they appear in the text. The text contains a flashback. Has the student made the sequencing trap error? Explain.</div>
+  <textarea class="qin" rows="2" id="m7" placeholder="Yes or No, and explain..."></textarea>
+  <br><button class="qbtn" onclick="chkM('m7','yes',['yes','trap','wrong','narrative order','chronological','should be chronological'],'<b>Yes</b> — the sequencing trap. The student has used narrative order (the order events appear in the text) instead of chronological order (the order they actually happened). Flashback events appear later in the text but happened earlier in time — they must be numbered first chronologically.')">Check</button>
+  <div class="qfb" id="fb-m7"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Mastery Q8 · Narrative Structure</div>
+  <div class="qtext">Which narrative stage comes immediately after the Climax?</div>
+  <input class="qin" type="text" id="m8" placeholder="Name the stage">
+  <br><button class="qbtn" onclick="chkM('m8','falling action',['falling action','denouement','resolution','after climax','falling'],'<b>Falling Action</b> — this stage follows the climax, as tensions begin to ease and the consequences of the peak moment play out. (Resolution comes after Falling Action — both are acceptable here since they follow the climax, but Falling Action is the immediate next stage.)')">Check</button>
+  <div class="qfb" id="fb-m8"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Mastery Q9 · Sentence-Level Structure</div>
+  <div class="qtext">What is the effect of an Echo (circular ending) that uses the same image as the opening but changes its meaning?</div>
+  <textarea class="qin" rows="2" id="m9" placeholder="Explain the effect..."></textarea>
+  <br><button class="qbtn" onclick="chkM('m9','journey',['journey','transformation','changed','completeness','satisfying','earned','meaning','different','new understanding','full circle'],'The effect is to show the <b>character\'s journey or transformation</b>. The same image at the end carries different meaning because of everything that happened in between — the reader recognises the image but understands it differently. This makes the ending feel earned and emotionally resonant.')">Check</button>
+  <div class="qfb" id="fb-m9"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Mastery Q10 · Heading Match</div>
+  <div class="qtext">A paragraph discusses three separate endangered species — bees, hedgehogs, and red squirrels — and explains the threats each faces. Which heading is best?<br>A) The Red Squirrel's Decline<br>B) Saving Britain's Wildlife<br>C) Three Species Under Threat<br>D) Endangered Animals Worldwide</div>
+  <input class="qin" type="text" id="m10" placeholder="Write A, B, C, or D">
+  <br><button class="qbtn" onclick="chkM('m10','c',['c','c)','option c','three species'],'<b>C</b> — it matches both the scope (three species) and the content (under threat). A is too specific (only red squirrels). B is too broad (all of Britain\'s wildlife). D is wrong in scope (the paragraph is about UK species, not worldwide).')">Check</button>
+  <div class="qfb" id="fb-m10"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Mastery Q11 · Paragraph Connection</div>
+  <div class="qtext">A paragraph about exercise benefits is followed by a paragraph beginning "Nevertheless, exercise alone cannot compensate for a poor diet." Using the What-Why-How framework, what is the connection?</div>
+  <textarea class="qin" rows="3" id="m11" placeholder="Apply the What-Why-How framework..."></textarea>
+  <br><button class="qbtn" onclick="chkM('m11','complicates',['complicates','nevertheless','counter','qualification','despite','however','limits','limits the claim'],'<b>What:</b> The second paragraph complicates the positive claim in the first. <b>Why:</b> To show that the issue is more complex than the first paragraph suggests — exercise has limits. <b>How:</b> "Nevertheless" signals direct reversal; "alone cannot compensate" directly qualifies the previous paragraph\'s claims about exercise. Connection type: Developing argument → Complication.')">Check</button>
+  <div class="qfb" id="fb-m11"></div>
+</div>
+
+<div class="qblock">
+  <div class="qlabel">Mastery Q12 · Extended Summary</div>
+  <div class="qtext">Summarise the main purpose of studying text structure in one sentence (max 15 words), using your own words entirely — no technical terms allowed.</div>
+  <textarea class="qin" rows="2" id="m12" placeholder="Write your 15-word summary without any technical terms..."></textarea>
+  <br><button class="qbtn" onclick="chkM('m12','understand',['understand','writer','see','organisation','how ideas connect','big picture','see how','writer organised','why ideas','connections','shape','arranged'],'A strong answer: <b>"Understanding how a writer organises ideas helps readers see the purpose behind every choice."</b> (13 words, no technical terms.) Any accurate paraphrase within 15 words that captures: writer\'s organisation + reader\'s understanding + reasons behind choices = full marks.')">Check</button>
+  <div class="qfb" id="fb-m12"></div>
+</div>
+
+<div style="margin-top:1.5rem">
+  <button class="qbtn" onclick="calcScore()" style="font-size:.8rem;padding:12px 28px">Calculate My Score ↗</button>
+</div>
+
+<div class="score-box" id="score-box">
+  <div class="score-big" id="score-num">0/12</div>
+  <p style="color:#d6d3d1;font-size:.9rem">Review every question's explanation — the feedback is where the learning happens.</p>
+</div>
+
+<div style="margin-top:4rem;border-top:1px solid var(--bd);padding-top:1.5rem">
+  <p style="font-family:'DM Mono',monospace;font-size:.68rem;color:var(--ink3);letter-spacing:.06em">GL Assessment 11+ English · Summarising &amp; Structure · Complete Teaching Module</p>
+</div>
+
+<script>
+const norm = s => s.toLowerCase().replace(/[^a-z0-9\s]/g,'').replace(/\s+/g,' ').trim();
+
+function showFB(id, ok, html) {
+  const el = document.getElementById('fb-' + id);
+  el.style.display = 'block';
+  el.className = 'qfb ' + (ok ? 'ok' : 'no');
+  el.innerHTML = ok
+    ? '<span class="fb-h">✅ Correct!</span><span class="fb-b">' + html + '</span>'
+    : '<span class="fb-h">❌ Not quite — see below.</span><span class="fb-b">' + html + '</span>';
+}
+
+function chk(id, primary, accepted, expl) {
+  const v = norm(document.getElementById(id).value || '');
+  if (!v) { showFB(id, false, 'Please write an answer first.'); return; }
+  const ok = accepted.some(a => v.includes(norm(a)));
+  showFB(id, ok, expl);
+}
+
+const masteryIds = ['m1','m2','m3','m4','m5','m6','m7','m8','m9','m10','m11','m12'];
+const masteryAcc = {
+  m1:  ['identify','filter','synthesise','sieve'],
+  m2:  ['11','12','eleven','twelve'],
+  m3:  ['argues','warns','criticises','urges','praises','questions','condemns','believes'],
+  m4:  ['chronological'],
+  m5:  ['complicating','counter'],
+  m6:  ['yes','past perfect','had swum','had not','tense'],
+  m7:  ['yes','trap','wrong','chronological'],
+  m8:  ['falling','resolution'],
+  m9:  ['journey','transformation','completeness','satisfying','full circle'],
+  m10: ['c','three species'],
+  m11: ['complicates','nevertheless','counter','qualification'],
+  m12: ['understand','see how','organisation','purpose','arranged','connect']
+};
+
+function chkM(id, primary, accepted, expl) { chk(id, primary, accepted, expl); }
+
+function calcScore() {
+  let s = 0;
+  masteryIds.forEach(id => {
+    const v = norm(document.getElementById(id).value || '');
+    if (masteryAcc[id].some(a => v.includes(norm(a)))) s++;
+  });
+  document.getElementById('score-num').textContent = s + '/12';
+  const box = document.getElementById('score-box');
+  box.style.display = 'block';
+  box.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

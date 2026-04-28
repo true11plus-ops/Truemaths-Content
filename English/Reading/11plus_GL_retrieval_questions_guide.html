@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11+ GL — Mastering Retrieval Questions</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap');
+
+:root{
+  --bg:#f4f1ea;--paper:#faf8f4;--ink:#1c1a14;
+  --amber:#c47b05;--amber-l:#f0a820;--amber-faint:#fdf3dc;
+  --forest:#1a4a2e;--forest-l:#2d7a4f;--forest-faint:#e6f4ec;
+  --navy:#1a2a4a;--navy-l:#2d4a8a;--navy-faint:#e6eaf6;
+  --crimson:#8b1a1a;--crimson-l:#c0392b;--crimson-faint:#fceaea;
+  --slate:#3a4a5a;--slate-l:#5a7a9a;--slate-faint:#edf1f5;
+  --rule:#d4cfc4;
+  --correct:#1a6b1a;--correct-bg:#e8f5e8;
+  --wrong:#8b1a1a;--wrong-bg:#fce8e8;
+
+  /* section palettes */
+  --c1:var(--navy-faint);--c1a:var(--navy);
+  --c2:var(--amber-faint);--c2a:var(--amber);
+  --c3:var(--forest-faint);--c3a:var(--forest);
+  --c4:var(--crimson-faint);--c4a:var(--crimson);
+  --c5:var(--slate-faint);--c5a:var(--slate);
+  --c6:#f5f0fa;--c6a:#5a2a7a;
+  --c7:#f0faf5;--c7a:#1a5a3a;
+  --c8:#fff8ec;--c8a:#7a4a05;
+  --c9:#f5f8fa;--c9a:#2a4a5a;
+  --c10:#faf0f5;--c10a:#7a1a4a;
+  --c11:#f0f5ea;--c11a:#3a5a1a;
+  --c12:#f8f4ff;--c12a:#4a1a7a;
+  --c13:#fff4f0;--c13a:#7a2a1a;
+  --c14:#f0faff;--c14a:#1a4a6a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15.5px;line-height:1.75;}
+
+/* ── COVER ── */
+.cover{
+  min-height:100vh;background:var(--ink);color:var(--paper);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:60px 32px;position:relative;overflow:hidden;
+}
+.cover::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 700px 500px at 15% 20%,rgba(196,123,5,.15) 0%,transparent 65%),
+    radial-gradient(ellipse 500px 700px at 85% 75%,rgba(26,42,74,.5) 0%,transparent 65%);
+}
+.cover-tag{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--amber-l);border:1px solid rgba(240,168,32,.4);padding:6px 18px;
+  display:inline-block;margin-bottom:32px;position:relative;
+}
+.cover h1{
+  font-family:'Fraunces',serif;font-size:clamp(2.4rem,7vw,4.8rem);
+  font-weight:900;line-height:1.0;max-width:760px;position:relative;margin-bottom:14px;
+}
+.cover h1 span{color:var(--amber-l);}
+.cover-sub{font-size:1rem;color:rgba(250,248,244,.6);max-width:500px;position:relative;margin-bottom:36px;}
+.cover-rule{width:48px;height:2px;background:var(--amber);margin:0 auto 36px;}
+
+.toc{
+  background:rgba(255,255,255,.04);border:1px solid rgba(196,123,5,.3);
+  padding:24px 32px;max-width:680px;width:100%;position:relative;text-align:left;
+}
+.toc-h{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--amber-l);margin-bottom:12px;}
+.toc-g{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;}
+.toc-i{font-size:11.5px;color:rgba(250,248,244,.65);padding:2.5px 0;border-bottom:1px solid rgba(196,123,5,.1);display:flex;gap:7px;}
+.toc-n{font-family:'DM Mono',monospace;font-size:10px;color:var(--amber-l);flex-shrink:0;}
+
+/* ── NAV ── */
+.snav{
+  position:sticky;top:0;background:var(--ink);z-index:200;
+  padding:6px 14px;display:flex;gap:3px;flex-wrap:wrap;justify-content:center;
+  border-bottom:2px solid var(--amber);
+}
+.snav a{
+  color:rgba(250,248,244,.6);text-decoration:none;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.8px;text-transform:uppercase;
+  padding:3px 7px;border-radius:2px;transition:all .18s;
+}
+.snav a:hover{background:var(--amber);color:var(--ink);}
+
+/* ── SECTION WRAPPER ── */
+.sec{padding:52px 36px;max-width:920px;margin:0 auto;}
+.sh{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid currentColor;}
+.snum{font-family:'Fraunces',serif;font-size:3rem;font-weight:900;line-height:1;opacity:.1;flex-shrink:0;}
+.sg{flex:1;}
+.slabel{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;opacity:.55;margin-bottom:2px;}
+.stitle{font-family:'Fraunces',serif;font-size:1.75rem;font-weight:700;line-height:1.2;}
+
+.b1{background:var(--c1);} .b1 .sh{color:var(--c1a);border-color:var(--c1a);}
+.b2{background:var(--c2);} .b2 .sh{color:var(--c2a);border-color:var(--c2a);}
+.b3{background:var(--c3);} .b3 .sh{color:var(--c3a);border-color:var(--c3a);}
+.b4{background:var(--c4);} .b4 .sh{color:var(--c4a);border-color:var(--c4a);}
+.b5{background:var(--c5);} .b5 .sh{color:var(--c5a);border-color:var(--c5a);}
+.b6{background:var(--c6);} .b6 .sh{color:var(--c6a);border-color:var(--c6a);}
+.b7{background:var(--c7);} .b7 .sh{color:var(--c7a);border-color:var(--c7a);}
+.b8{background:var(--c8);} .b8 .sh{color:var(--c8a);border-color:var(--c8a);}
+.b9{background:var(--c9);} .b9 .sh{color:var(--c9a);border-color:var(--c9a);}
+.b10{background:var(--c10);} .b10 .sh{color:var(--c10a);border-color:var(--c10a);}
+.b11{background:var(--c11);} .b11 .sh{color:var(--c11a);border-color:var(--c11a);}
+.b12{background:var(--c12);} .b12 .sh{color:var(--c12a);border-color:var(--c12a);}
+.b13{background:var(--c13);} .b13 .sh{color:var(--c13a);border-color:var(--c13a);}
+.b14{background:var(--c14);} .b14 .sh{color:var(--c14a);border-color:var(--c14a);}
+.bm{background:var(--ink);}
+
+/* ── CONTENT ── */
+.sb{border-bottom:1px solid var(--rule);padding-bottom:32px;margin-bottom:32px;}
+.sb:last-of-type{border-bottom:none;padding-bottom:0;margin-bottom:0;}
+h3{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;margin:24px 0 9px;}
+h4{font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin:16px 0 6px;}
+p{margin-bottom:12px;}
+ul,ol{margin:0 0 12px 22px;line-height:2.1;}
+
+.callout{border-left:4px solid var(--amber);background:rgba(196,123,5,.08);padding:12px 17px;margin:16px 0;border-radius:0 3px 3px 0;font-style:italic;}
+.callout strong{font-style:normal;color:var(--amber);}
+.tip{background:var(--ink);color:var(--paper);padding:13px 18px;margin:16px 0;border-radius:3px;}
+.tip strong{color:var(--amber-l);}
+
+/* WORKED EXAMPLE BOX */
+.wex{background:#fff;border:2px solid var(--rule);border-radius:4px;padding:18px 22px;margin:14px 0;}
+.wex-l{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--crimson);margin-bottom:8px;}
+.passage{background:var(--bg);border-left:3px solid var(--rule);padding:10px 14px;margin:10px 0;border-radius:0 3px 3px 0;font-size:14.5px;line-height:1.7;}
+.monologue{background:#fffdf5;border:1.5px dashed var(--amber);border-radius:4px;padding:14px 18px;margin:10px 0;font-size:14px;line-height:1.7;}
+.monologue .ml{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin-bottom:8px;}
+
+/* COMMAND CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;}
+.chip{background:var(--ink);color:var(--paper);padding:6px 13px;border-radius:3px;font-size:12.5px;font-family:'DM Mono',monospace;}
+.chip span{color:var(--amber-l);}
+
+/* STEPS */
+.steps{counter-reset:st;}
+.step{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start;}
+.step-n{counter-increment:st;width:28px;height:28px;background:var(--ink);color:var(--paper);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:13px;flex-shrink:0;margin-top:2px;}
+.step-c{flex:1;}
+
+/* TABLES */
+.rt{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px;}
+.rt th{background:var(--ink);color:var(--paper);padding:9px 13px;text-align:left;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;}
+.rt td{padding:9px 13px;border-bottom:1px solid var(--rule);vertical-align:top;}
+.rt tr:nth-child(even) td{background:rgba(0,0,0,.025);}
+
+/* TIMING BARS */
+.tbar{background:#fff;border:1px solid var(--rule);border-radius:3px;padding:9px 13px;margin:6px 0;display:flex;justify-content:space-between;align-items:center;font-size:13.5px;}
+.tbar .tn{font-weight:600;}
+.tbar .tt{font-family:'DM Mono',monospace;font-size:12px;background:var(--ink);color:var(--amber-l);padding:2px 9px;border-radius:2px;}
+
+/* ── QUIZ ── */
+.qs{background:#fff;border:2px solid var(--rule);border-radius:5px;padding:22px;margin:22px 0;}
+.qlh{display:flex;align-items:center;gap:8px;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--rule);}
+.lb{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:20px;font-weight:600;}
+.le{background:#e8f5e9;color:#1a7a1a;border:1px solid #a5d6a7;}
+.li{background:#fff3e0;color:#e65100;border:1px solid #ffcc80;}
+.la{background:#e3f2fd;color:#0d47a1;border:1px solid #90caf9;}
+.lc{background:#fce4ec;color:#880e4f;border:1px solid #f48fb1;}
+.qi{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--rule);}
+.qi:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.qt{font-size:14.5px;margin-bottom:8px;line-height:1.6;}
+.qp{background:var(--bg);border-left:3px solid var(--rule);padding:9px 13px;font-size:13.5px;margin-bottom:9px;border-radius:0 3px 3px 0;line-height:1.65;}
+.qr{display:flex;gap:7px;align-items:center;flex-wrap:wrap;}
+.qi input{flex:1;min-width:150px;padding:7px 11px;border:2px solid var(--rule);border-radius:3px;font-family:'DM Sans',sans-serif;font-size:14px;background:var(--bg);transition:border-color .18s;}
+.qi input:focus{outline:none;border-color:var(--navy);}
+.qb{padding:7px 15px;background:var(--ink);color:var(--paper);border:none;border-radius:3px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.8px;cursor:pointer;transition:background .18s;white-space:nowrap;}
+.qb:hover{background:var(--navy);}
+.qf{margin-top:8px;padding:9px 13px;border-radius:3px;font-size:13.5px;display:none;line-height:1.5;}
+.fc{background:var(--correct-bg);color:var(--correct);border:1px solid #a5d6a7;}
+.fw{background:var(--wrong-bg);color:var(--wrong);border:1px solid #f48fb1;}
+
+/* MASTERY */
+.mastery-inner{max-width:920px;margin:0 auto;padding:56px 36px;}
+.bm .sh{color:var(--amber-l);border-color:var(--amber);}
+.bm .qs{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.12);color:var(--paper);}
+.bm .qp{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);}
+.bm .qi input{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:var(--paper);}
+.bm .qb{background:var(--amber);color:var(--ink);}
+.bm .qb:hover{background:var(--amber-l);}
+.bm .rt th{background:rgba(255,255,255,.12);}
+.bm .rt td{border-color:rgba(255,255,255,.1);color:var(--paper);}
+.bm p,.bm h3{color:var(--paper);}
+.bm .passage{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);color:var(--paper);}
+
+@media(max-width:640px){
+  .sec,.mastery-inner{padding:36px 16px;}
+  .cover{padding:40px 16px;}
+  .toc-g{grid-template-columns:1fr;}
+  .qr{flex-direction:column;align-items:stretch;}
+  .qb{text-align:center;}
+}
+@media print{.snav{display:none;}.sb{page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-tag">GL Assessment · Year 5–6 · Reading Comprehension</div>
+  <h1>Mastering <span>Retrieval</span> Questions</h1>
+  <p class="cover-sub">The complete system for finding, selecting, and presenting answers in GL 11+ comprehension — from first scan to full marks</p>
+  <div class="cover-rule"></div>
+  <div class="toc">
+    <div class="toc-h">Contents</div>
+    <div class="toc-g">
+      <div class="toc-i"><span class="toc-n">01</span>What Retrieval Actually Tests</div>
+      <div class="toc-i"><span class="toc-n">02</span>The Complete Search Strategy</div>
+      <div class="toc-i"><span class="toc-n">03</span>Synonym-Without-Recognition</div>
+      <div class="toc-i"><span class="toc-n">04</span>Multi-Part Questions</div>
+      <div class="toc-i"><span class="toc-n">05</span>Valid Quotation Guide</div>
+      <div class="toc-i"><span class="toc-n">06</span>Paraphrasing Mechanics</div>
+      <div class="toc-i"><span class="toc-n">07</span>Answers Spanning Multiple Paragraphs</div>
+      <div class="toc-i"><span class="toc-n">08</span>List Questions</div>
+      <div class="toc-i"><span class="toc-n">09</span>Precision Matching</div>
+      <div class="toc-i"><span class="toc-n">10</span>Mark Scheme Awareness</div>
+      <div class="toc-i"><span class="toc-n">11</span>The "Not Found" Protocol</div>
+      <div class="toc-i"><span class="toc-n">12</span>Full Worked Think-Aloud</div>
+      <div class="toc-i"><span class="toc-n">13</span>Timing & Question Triage</div>
+      <div class="toc-i"><span class="toc-n">14</span>Practice Passage & Questions</div>
+      <div class="toc-i"><span class="toc-n">15</span>Common Mistakes Reference</div>
+      <div class="toc-i"><span class="toc-n">★</span>Final Mastery Test</div>
+    </div>
+  </div>
+</div>
+
+<nav class="snav">
+  <a href="#s1">What It Tests</a><a href="#s2">Search Strategy</a>
+  <a href="#s3">Synonym</a><a href="#s4">Multi-Part</a>
+  <a href="#s5">Quotation</a><a href="#s6">Paraphrase</a>
+  <a href="#s7">Multi-Para</a><a href="#s8">Lists</a>
+  <a href="#s9">Precision</a><a href="#s10">Mark Scheme</a>
+  <a href="#s11">Not Found</a><a href="#s12">Think-Aloud</a>
+  <a href="#s13">Timing</a><a href="#s14">Practice</a>
+  <a href="#s15">Mistakes</a><a href="#mastery">Mastery</a>
+</nav>
+
+
+<!-- S1: WHAT RETRIEVAL ACTUALLY TESTS -->
+<div class="b1" id="s1"><div class="sec">
+<div class="sh"><div class="snum">01</div><div class="sg"><div class="slabel">The Foundation</div><div class="stitle">What Retrieval Questions Actually Test</div></div></div>
+
+<p>Retrieval looks like the simplest question type — you just find the answer in the text, right? In reality, retrieval questions test three distinct skills, and students who treat them as "copy and paste" exercises routinely lose marks they should have earned.</p>
+
+<div class="sb">
+<h3>The Two Types of Retrieval</h3>
+<p><strong>Direct retrieval</strong> asks you to find a specific piece of information and either quote it or restate it. The answer is explicitly in the text — but the wording of the question will almost never match the wording of the passage.</p>
+<p><strong>"Own words" retrieval</strong> asks you to find the information and then express it differently — changing both the vocabulary and the structure. This is retrieval with a transformation step.</p>
+<div class="wex"><div class="wex-l">Side by Side</div>
+<div class="passage"><strong>Passage:</strong> "The vessel was antiquated — its timbers warped and blackened, its sails threadbare, its rigging barely sufficient to hold."</div>
+<p><strong>Direct retrieval:</strong> "Give a quote that describes the condition of the vessel." → Answer: <em>"its timbers warped and blackened"</em></p>
+<p><strong>Own words:</strong> "In your own words, explain the condition of the vessel." → Answer: <em>The ship was old and falling apart, with rotting wood, worn sails, and fraying ropes.</em></p>
+</div>
+</div>
+
+<div class="sb">
+<h3>Why Retrieval Is Harder Than It Looks</h3>
+<p>Three things make retrieval genuinely difficult:</p>
+<ul>
+<li><strong>Synonyms:</strong> the question uses different words from the passage. "Extremely cold" in the question might be "glacial" in the text.</li>
+<li><strong>Multi-part answers:</strong> the full answer is spread across two sentences or two paragraphs.</li>
+<li><strong>The "not in one place" problem:</strong> the information exists but isn't in a single phrase — it has to be assembled from multiple parts of the text.</li>
+</ul>
+</div>
+
+<div class="sb">
+<h3>Command Word Recognition</h3>
+<p>The command word tells you exactly what format your answer must take. Read it before you even look at the passage.</p>
+<div class="chips">
+  <div class="chip"><span>find</span> → locate + quote the phrase</div>
+  <div class="chip"><span>give</span> → state the information (quote or own words)</div>
+  <div class="chip"><span>identify</span> → name or label precisely</div>
+  <div class="chip"><span>list</span> → multiple items, often numbered</div>
+  <div class="chip"><span>quote</span> → copy the exact words with quotation marks</div>
+  <div class="chip"><span>in your own words, explain</span> → find + paraphrase (no copying)</div>
+  <div class="chip"><span>write down</span> → copy the exact phrase from the text</div>
+</div>
+<div class="callout"><strong>Critical rule:</strong> If the command word says "quote" or "write down," you must use the exact words from the passage. If it says "in your own words," copying is penalised. Check the command word before you write a single word.</div>
+</div>
+
+<!-- Quiz S1 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span><span style="font-size:11px;color:#666;">Command word recognition</span></div>
+<div class="qi" id="q1a">
+<div class="qt">The question says: "Quote a phrase that shows the house was abandoned." Must your answer use the exact words from the passage? (yes or no)</div>
+<div class="qr"><input type="text" placeholder="yes or no" id="in_q1a"><button class="qb" onclick="chk('q1a','yes','The command word \'quote\' means you must copy the exact words from the passage, placed inside quotation marks.')">Check</button></div>
+<div class="qf" id="fb_q1a"></div></div>
+<div class="qi" id="q1b">
+<div class="qt">The question says: "In your own words, explain why the journey was difficult." Can you copy a phrase from the passage? (yes or no)</div>
+<div class="qr"><input type="text" placeholder="yes or no" id="in_q1b"><button class="qb" onclick="chk('q1b','no','\'In your own words\' means copying is penalised. You must restate the information using different vocabulary and sentence structure.')">Check</button></div>
+<div class="qf" id="fb_q1b"></div></div>
+<div class="qi" id="q1c">
+<div class="qt">Which command word asks you to give multiple pieces of information, often in a numbered format?</div>
+<div class="qr"><input type="text" placeholder="Command word..." id="in_q1c"><button class="qb" onclick="chk('q1c','list','The command word \'list\' signals that multiple separate items are needed, and numbered or bullet-point format is usually appropriate.')">Check</button></div>
+<div class="qf" id="fb_q1c"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q1d">
+<div class="qp">"The scientist's discovery was met with incredulity from her colleagues, who dismissed her findings as fantastical."</div>
+<div class="qt">The question asks: "Find a word that tells us the colleagues did not believe her." What single word from the passage answers this?</div>
+<div class="qr"><input type="text" placeholder="One word..." id="in_q1d"><button class="qb" onclick="chk('q1d','incredulity','Incredulity means disbelief or the state of being unwilling to believe something. The question uses a synonym (\'did not believe\') instead of \'incredulity\'.')">Check</button></div>
+<div class="qf" id="fb_q1d"></div></div>
+<div class="qi" id="q1e">
+<div class="qt">Name ONE of the three things that make retrieval harder than it looks.</div>
+<div class="qr"><input type="text" placeholder="Your answer..." id="in_q1e"><button class="qb" onclick="chk('q1e','synonyms','The three challenges are: (1) synonyms — different words in question and text; (2) multi-part answers; (3) answers spread across multiple places in the passage.')">Check</button></div>
+<div class="qf" id="fb_q1e"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb la">Advanced</span></div>
+<div class="qi" id="q1f">
+<div class="qp">"The committee's decision was unanimous, reached after deliberation lasting the better part of an afternoon."</div>
+<div class="qt">The question asks: "In your own words, explain how the committee reached its decision." Which of these answers would lose marks — A or B?<br>A: "The committee deliberated for most of the afternoon before reaching a unanimous decision."<br>B: "The committee talked for a long time and everyone agreed in the end." Type A or B.</div>
+<div class="qr"><input type="text" placeholder="A or B" id="in_q1f"><button class="qb" onclick="chk('q1f','a','Answer A copies the structure and much of the vocabulary of the passage (\'deliberated\', \'better part of an afternoon\' → \'most of the afternoon\', \'unanimous\'). Answer B genuinely rephrases in different words and structure.')">Check</button></div>
+<div class="qf" id="fb_q1f"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Challenging</span></div>
+<div class="qi" id="q1g">
+<div class="qt">A question says "identify." Is this asking you to (a) quote the exact phrase, (b) name or label precisely, or (c) explain in full sentences? Type a, b, or c.</div>
+<div class="qr"><input type="text" placeholder="a, b, or c" id="in_q1g"><button class="qb" onclick="chk('q1g','b','\'Identify\' means name or label precisely — it asks you to pinpoint the specific feature, technique, or piece of information. A quote may be included but the core task is precise naming.')">Check</button></div>
+<div class="qf" id="fb_q1g"></div></div>
+</div>
+</div></div>
+
+<!-- S2: SEARCH STRATEGY -->
+<div class="b2" id="s2"><div class="sec">
+<div class="sh"><div class="snum">02</div><div class="sg"><div class="slabel">Finding the Answer</div><div class="stitle">The Complete Search Strategy</div></div></div>
+
+<div class="sb">
+<h3>Step 1 — Identify Your Anchor Word</h3>
+<p>Before touching the passage, extract the most unique word from the question — a word so specific that it will only appear in one or two places in the text. The best anchor words are: <strong>proper nouns</strong> (names, places, dates), <strong>unusual nouns</strong>, and <strong>numbers</strong>.</p>
+<div class="wex"><div class="wex-l">Anchor Word Selection</div>
+<p><strong>Question:</strong> "What did the expedition leader find at the base of the mountain?"</p>
+<p>❌ Weak anchor: "find" (appears everywhere), "base" (common word)</p>
+<p>✅ Strong anchor: "expedition leader" or "mountain" — these are specific enough to locate quickly</p>
+</div>
+</div>
+
+<div class="sb">
+<h3>Step 2 — Keyword Sweep Scanning</h3>
+<p>Do <strong>not</strong> re-read the entire passage. Use a keyword sweep: move your eyes down each paragraph, looking only for your anchor word. Work column by column, paragraph by paragraph. You are not reading — you are searching.</p>
+<div class="callout"><strong>How to sweep:</strong> Look at the beginning and end of each sentence in a paragraph. If neither contains your anchor word, skip the entire sentence and move to the next. Your eyes should be jumping, not flowing.</div>
+</div>
+
+<div class="sb">
+<h3>Step 3 — When Your Anchor Word Doesn't Appear</h3>
+<p>Sometimes the question uses a synonym of what's in the text. "Extremely cold" in the question might appear as "glacial" in the passage — and you cannot scan for "cold" because the word isn't there.</p>
+<p>When this happens, <strong>work backwards from meaning</strong>:</p>
+<div class="steps">
+<div class="step"><div class="step-n">1</div><div class="step-c">Ask: what category of thing is the question looking for? (A colour? An emotion? A description of weather? A time?)</div></div>
+<div class="step"><div class="step-n">2</div><div class="step-c">Think of two or three synonyms for your anchor word. Try scanning for each.</div></div>
+<div class="step"><div class="step-n">3</div><div class="step-c">If still not found, use paragraph structure: if the question asks about the weather, go to the paragraph that describes setting or atmosphere.</div></div>
+</div>
+</div>
+
+<div class="sb">
+<h3>Step 4 — Using Line References</h3>
+<p>If the question specifies "In lines 12–18" or "In the third paragraph," your search is already narrowed. Go directly to that section. Read it sentence by sentence — you are not searching a whole passage, you are reading a small excerpt carefully.</p>
+<div class="tip"><strong>Do not go outside the specified lines</strong> unless you have finished reading the section and genuinely cannot find the answer. Examiners specify lines for a reason — the answer is in there.</div>
+</div>
+
+<!-- Quiz S2 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q2a">
+<div class="qt">The question asks: "What did Sir Edmund Hillary carry to the summit?" What is the best anchor word to scan for?</div>
+<div class="qr"><input type="text" placeholder="Anchor word..." id="in_q2a"><button class="qb" onclick="chk('q2a','hillary','\'Hillary\' (a proper noun) is the strongest anchor — it is unique and will only appear in relevant sentences. \'Summit\' is also good. \'Carry\' is too common.')">Check</button></div>
+<div class="qf" id="fb_q2a"></div></div>
+<div class="qi" id="q2b">
+<div class="qt">True or false: you should re-read the entire passage for every retrieval question. (type true or false)</div>
+<div class="qr"><input type="text" placeholder="true or false" id="in_q2b"><button class="qb" onclick="chk('q2b','false','False. Re-reading the entire passage for each question is inefficient. Use a keyword sweep: scan for the anchor word paragraph by paragraph.')">Check</button></div>
+<div class="qf" id="fb_q2b"></div></div>
+<div class="qi" id="q2c">
+<div class="qt">A question specifies "In lines 14–20, find…" Where should you start reading?</div>
+<div class="qr"><input type="text" placeholder="Where to start..." id="in_q2c"><button class="qb" onclick="chk('q2c','line 14','Go directly to line 14. When a question specifies a line range, the answer is in that range. Read those lines carefully rather than scanning the whole passage.')">Check</button></div>
+<div class="qf" id="fb_q2c"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q2d">
+<div class="qp">"The expedition had been planned for three years. Dr Vasquez had mapped every route, cross-referenced every supply list, and consulted seventeen different weather reports before committing to a departure date of the fourteenth of March."</div>
+<div class="qt">What is the strongest single anchor word to scan for if the question asks: "When did the expedition depart?"</div>
+<div class="qr"><input type="text" placeholder="Anchor word..." id="in_q2d"><button class="qb" onclick="chk('q2d','march','\'March\' or \'fourteenth\' — both are specific date-words. \'Departure\' is also good. Avoid \'expedition\' (mentioned twice) or \'planned\' (too vague).')">Check</button></div>
+<div class="qf" id="fb_q2d"></div></div>
+<div class="qi" id="q2e">
+<div class="qt">If your anchor word does not appear in the passage, what should you do FIRST?</div>
+<div class="qr"><input type="text" placeholder="First step..." id="in_q2e"><button class="qb" onclick="chk('q2e','synonym','Try a synonym of your anchor word. The question may use different vocabulary from the passage. Work backwards from meaning — what category of thing are you looking for?')">Check</button></div>
+<div class="qf" id="fb_q2e"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb la">Advanced</span></div>
+<div class="qi" id="q2f">
+<div class="qt">After finding your anchor word in the passage, how many sentences around it should you read to ensure you have full context?</div>
+<div class="qr"><input type="text" placeholder="Number of sentences..." id="in_q2f"><button class="qb" onclick="chk('q2f','two','Read the sentence before and the sentence after the one containing your anchor word. This ensures you have the full context and haven\'t missed a qualifying detail.')">Check</button></div>
+<div class="qf" id="fb_q2f"></div></div>
+</div>
+</div></div>
+
+<!-- S3: SYNONYM-WITHOUT-RECOGNITION -->
+<div class="b3" id="s3"><div class="sec">
+<div class="sh"><div class="snum">03</div><div class="sg"><div class="slabel">Unknown Words</div><div class="stitle">Synonym-Without-Recognition Strategy</div></div></div>
+
+<p>This is the hardest retrieval scenario: the question hints at a meaning, but the word in the passage is one you don't recognise. You cannot scan for a word you cannot identify. Here is the method.</p>
+
+<div class="sb">
+<h3>The Three-Layer Approach</h3>
+<div class="steps">
+<div class="step"><div class="step-n">1</div><div class="step-c"><strong>Identify the category.</strong> What kind of word is the question looking for? A colour? An emotion? An adjective describing temperature, size, speed, danger? Narrowing to a category tells you what to look for even before you find the word.</div></div>
+<div class="step"><div class="step-n">2</div><div class="step-c"><strong>Use surrounding sentences as context.</strong> When you find a candidate word you don't recognise, read the two sentences around it. Does the surrounding language reinforce the idea of extreme cold? Of violence? Of fear? The context will confirm whether you've found the right word.</div></div>
+<div class="step"><div class="step-n">3</div><div class="step-c"><strong>Scan for tone and intensity markers.</strong> Words like "quite," "rather," "somewhat" signal mild intensity. Words like "utterly," "fiercely," "absolutely," "impossibly" signal extreme intensity. If the question asks for "extreme," look near intensifiers.</div></div>
+</div>
+</div>
+
+<div class="sb">
+<h3>Full Worked Example: "A Word Suggesting Extreme Cold"</h3>
+<div class="wex"><div class="wex-l">Step-by-Step Process</div>
+<div class="passage">"The expedition reached the plateau as evening fell. A thin mist gathered at their ankles. The wind off the glacier was gelid — the kind of cold that does not merely chill the skin but seems to penetrate bone itself. Forsythe pulled his coat tighter and said nothing."</div>
+<div class="monologue"><div class="ml">Inner Monologue</div>
+<p><strong>Step 1:</strong> The question asks for "extreme cold." Category: an adjective describing temperature at a severe level. Not just "cold" — extreme.</p>
+<p><strong>Step 2:</strong> I scan the passage for the temperature/weather section. I see "wind off the glacier" — that's a cold setting. I look at nearby words.</p>
+<p><strong>Step 3:</strong> I see "gelid." I don't know this word. But the sentence around it says "does not merely chill the skin but penetrates bone itself" — this is clearly extreme, not mild cold.</p>
+<p><strong>Step 4:</strong> I confirm: "gelid" is surrounded by extreme language. This is my answer. I do not need to know the word in advance — context proved it.</p>
+</div>
+<p><strong>Answer:</strong> <em>gelid</em> (it means intensely cold — but you found it through context, not recognition)</p>
+</div>
+</div>
+
+<!-- Quiz S3 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q3a">
+<div class="qp">"She entered the chamber and was overwhelmed by the stench — a fetid miasma that made her gag and turn away."</div>
+<div class="qt">The question asks: "Find a word suggesting the smell was very unpleasant." You don't know "fetid." What should you look at to confirm it answers the question?</div>
+<div class="qr"><input type="text" placeholder="What to look at..." id="in_q3a"><button class="qb" onclick="chk('q3a','surrounding','Look at the surrounding sentences. \'Overwhelmed\' (intensity) and \'made her gag and turn away\' (physical reaction to unpleasantness) confirm that \'fetid\' describes a very unpleasant smell.')">Check</button></div>
+<div class="qf" id="fb_q3a"></div></div>
+<div class="qi" id="q3b">
+<div class="qp">"She entered the chamber and was overwhelmed by the stench — a fetid miasma that made her gag and turn away."</div>
+<div class="qt">What is the correct one-word answer to: "Find a word suggesting the smell was very unpleasant"?</div>
+<div class="qr"><input type="text" placeholder="One word..." id="in_q3b"><button class="qb" onclick="chk('q3b','fetid','Fetid means having an extremely unpleasant smell. The surrounding context (overwhelmed, gag, turn away) confirms it even if you didn\'t know the word.')">Check</button></div>
+<div class="qf" id="fb_q3b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q3c">
+<div class="qp">"The crowd was utterly quiescent — not a sound, not a movement, as though every person had been turned to stone by the announcement."</div>
+<div class="qt">The question asks: "Find a word meaning completely still and silent." What word answers this?</div>
+<div class="qr"><input type="text" placeholder="One word..." id="in_q3c"><button class="qb" onclick="chk('q3c','quiescent','Quiescent means in a state of quiet inactivity or stillness. \'Utterly\' (intensifier) + \'not a sound, not a movement\' confirm it means completely still and silent.')">Check</button></div>
+<div class="qf" id="fb_q3c"></div></div>
+<div class="qi" id="q3d">
+<div class="qt">When the question asks for a word of "extreme" intensity and you're scanning an unfamiliar passage, what type of words should you look near?</div>
+<div class="qr"><input type="text" placeholder="Type of words..." id="in_q3d"><button class="qb" onclick="chk('q3d','intensifiers','Look near intensifiers — words like utterly, fiercely, absolutely, impossibly, profoundly. These signal that the nearby word describes something at an extreme level.')">Check</button></div>
+<div class="qf" id="fb_q3d"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Challenging</span></div>
+<div class="qi" id="q3e">
+<div class="qp">"The general regarded his troops with an expression that could only be described as mordant contempt — a look that had withered careers and shattered confidence across thirty years of service."</div>
+<div class="qt">The question asks: "Find a word suggesting the general's expression was harshly critical." What is the answer?</div>
+<div class="qr"><input type="text" placeholder="One word..." id="in_q3e"><button class="qb" onclick="chk('q3e','mordant','Mordant means sharply critical or biting. The surrounding context — \'withered careers\', \'shattered confidence\', \'thirty years\' — confirms extreme harshness even without knowing the word.')">Check</button></div>
+<div class="qf" id="fb_q3e"></div></div>
+</div>
+</div></div>
+
+
+<!-- S4: MULTI-PART -->
+<div class="b4" id="s4"><div class="sec">
+<div class="sh"><div class="snum">04</div><div class="sg"><div class="slabel">Multiple Pieces of Information</div><div class="stitle">Multi-Part Retrieval Questions</div></div></div>
+
+<div class="sb">
+<h3>Recognising a Multi-Part Question</h3>
+<p>Multi-part questions are signalled by: the mark allocation (a 3-mark question almost always requires 3 distinct points), plural nouns in the question ("give two reasons," "list three features," "identify the problems"), or the word "both."</p>
+<div class="callout"><strong>Rule of thumb:</strong> The number of marks = the number of distinct pieces of information required. A [3] always needs three separate points.</div>
+</div>
+
+<div class="sb">
+<h3>Format: List, Sub-Labels, or Prose?</h3>
+<table class="rt">
+<thead><tr><th>Situation</th><th>Best Format</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td>Question says "list" or asks for 3+ items</td><td>Numbered list or (a)(b)(c)</td><td>1. The weather was stormy. 2. The crew was exhausted. 3. Supplies were low.</td></tr>
+<tr><td>Question asks for "two reasons" — written answer expected</td><td>Two clear sentences</td><td>Firstly… Secondly…</td></tr>
+<tr><td>Question asks for details about one thing from multiple places</td><td>Single synthesised sentence</td><td>The captain was described as stern and experienced.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sb">
+<h3>Locating Spread-Out Answers</h3>
+<p>When a question asks for three things about a character, those things may be spread across three different paragraphs. Your strategy:</p>
+<div class="steps">
+<div class="step"><div class="step-n">1</div><div class="step-c">Find the first mention of the subject (e.g., the character's name). Note the paragraph number.</div></div>
+<div class="step"><div class="step-n">2</div><div class="step-c">Scan forward for each subsequent mention. Each mention may add another piece of information.</div></div>
+<div class="step"><div class="step-n">3</div><div class="step-c">Keep a mental or pencilled tally: have you found 1 of 3? 2 of 3? Stop when you've found the required number.</div></div>
+</div>
+</div>
+
+<div class="sb">
+<h3>Checking You Have Genuinely Distinct Points</h3>
+<p>"The explorer was brave and courageous" is NOT two distinct points for a 2-mark question — brave and courageous are synonyms. You need two genuinely different pieces of information. Read each point you've written and ask: does this say something the other point doesn't?</p>
+</div>
+
+<!-- Quiz S4 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q4a">
+<div class="qt">A question is worth 3 marks and asks for reasons. How many distinct reasons must you give?</div>
+<div class="qr"><input type="text" placeholder="Number..." id="in_q4a"><button class="qb" onclick="chk('q4a','3','3 marks = 3 distinct reasons. Each mark is awarded for one separate, distinct piece of information.')">Check</button></div>
+<div class="qf" id="fb_q4a"></div></div>
+<div class="qi" id="q4b">
+<div class="qt">A student writes: "The house was decrepit and dilapidated" as their two-part answer. Is this two distinct points? (yes or no)</div>
+<div class="qr"><input type="text" placeholder="yes or no" id="in_q4b"><button class="qb" onclick="chk('q4b','no','No. Decrepit and dilapidated are synonyms — they mean the same thing (worn-out, in poor condition). This is one idea stated twice, which earns only 1 mark.')">Check</button></div>
+<div class="qf" id="fb_q4b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q4c">
+<div class="qp">"Captain Reyes had spent forty years at sea. Her navigational instincts were uncanny — she could read the stars without instruments. But it was her voice, calm and absolute in a crisis, that her crew trusted most."</div>
+<div class="qt">The question asks [2 marks]: "Give two things that made Captain Reyes impressive." Write your first answer point only.</div>
+<div class="qr"><input type="text" placeholder="First point..." id="in_q4c"><button class="qb" onclick="chk('q4c','navigation','Valid first points: she could navigate by the stars without instruments / she had forty years of experience / her crew trusted her voice in a crisis. Any one of these earns the first mark.')">Check</button></div>
+<div class="qf" id="fb_q4c"></div></div>
+<div class="qi" id="q4d">
+<div class="qt">Which format is most appropriate when a question says "List three items the explorer packed"?</div>
+<div class="qr"><input type="text" placeholder="Format type..." id="in_q4d"><button class="qb" onclick="chk('q4d','numbered list','A numbered list (1. 2. 3.) or (a)(b)(c) labelling is most appropriate for \'list\' questions. It makes it clear that each item is distinct and easy for the examiner to mark.')">Check</button></div>
+<div class="qf" id="fb_q4d"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Challenging</span></div>
+<div class="qi" id="q4e">
+<div class="qp">"The village had changed enormously. Where once there had been a mill, there was now a car park. The old forge had become a gift shop. The schoolhouse, where three generations of the family had been educated, had been converted into luxury flats."</div>
+<div class="qt">The question asks [3 marks]: "Give three changes to the village." What is the THIRD change mentioned?</div>
+<div class="qr"><input type="text" placeholder="Third change..." id="in_q4e"><button class="qb" onclick="chk('q4e','schoolhouse','The third change: the schoolhouse was converted into luxury flats. (1st: mill became car park. 2nd: forge became gift shop. 3rd: schoolhouse became flats.)')">Check</button></div>
+<div class="qf" id="fb_q4e"></div></div>
+</div>
+</div></div>
+
+<!-- S5: VALID QUOTATION GUIDE -->
+<div class="b5" id="s5"><div class="sec">
+<div class="sh"><div class="snum">05</div><div class="sg"><div class="slabel">Using the Text's Own Words</div><div class="stitle">Valid Quotation Guide</div></div></div>
+
+<div class="sb">
+<h3>What Counts as a Good Short Quotation</h3>
+<p>A good quotation is <strong>specific</strong> and <strong>targeted</strong>. It contains the key word or phrase that directly answers the question — not the entire sentence it came from. Copying a full sentence when a three-word phrase would do is not wrong, but it wastes time and can suggest you are uncertain about what the answer actually is.</p>
+<div class="wex"><div class="wex-l">Key Phrase vs Full Sentence</div>
+<div class="passage">"The ancient oak tree, its bark gnarled and furrowed with centuries of growth, stood at the edge of the clearing like a silent sentinel."</div>
+<p><strong>Question:</strong> "Quote a phrase that describes the tree's bark."</p>
+<p>❌ Too long: <em>"its bark gnarled and furrowed with centuries of growth, stood at the edge of the clearing"</em></p>
+<p>✅ Correct: <em>"gnarled and furrowed"</em> or <em>"gnarled and furrowed with centuries of growth"</em></p>
+</div>
+</div>
+
+<div class="sb">
+<h3>Using Ellipsis (…) to Shorten a Quote</h3>
+<p>When the key information is at the start and end of a long sentence, and the middle is not relevant, you can use an ellipsis to show something has been left out.</p>
+<div class="wex"><div class="wex-l">Ellipsis Example</div>
+<div class="passage">"The expedition leader, who had been on fourteen previous voyages across Arctic waters, declared the mission complete."</div>
+<p><strong>Full quote:</strong> "The expedition leader, who had been on fourteen previous voyages across Arctic waters, declared the mission complete."</p>
+<p><strong>With ellipsis:</strong> "The expedition leader… declared the mission complete."</p>
+<p>This is valid when the omitted section is genuinely irrelevant to the question being answered.</p>
+</div>
+</div>
+
+<div class="sb">
+<h3>Embedding a Quote Grammatically</h3>
+<p>A quote must fit naturally into your sentence. The most common error is producing a quote that doesn't connect to the sentence around it.</p>
+<div class="wex"><div class="wex-l">Embedded vs. Dropped</div>
+<p>❌ Dropped: <em>The tree was old. "gnarled and furrowed with centuries of growth."</em></p>
+<p>✅ Embedded: <em>The tree's bark is described as "gnarled and furrowed with centuries of growth," suggesting great age.</em></p>
+</div>
+</div>
+
+<!-- Quiz S5 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q5a">
+<div class="qt">When quoting from the text, what punctuation marks must surround the quoted words?</div>
+<div class="qr"><input type="text" placeholder="Punctuation marks..." id="in_q5a"><button class="qb" onclick="chk('q5a','quotation marks','Quotation marks (\\"...\\") or inverted commas must surround any text copied directly from the passage.')">Check</button></div>
+<div class="qf" id="fb_q5a"></div></div>
+<div class="qi" id="q5b">
+<div class="qt">What are the three dots used to show that part of a quotation has been left out?</div>
+<div class="qr"><input type="text" placeholder="Name..." id="in_q5b"><button class="qb" onclick="chk('q5b','ellipsis','An ellipsis (...) indicates that words have been omitted from a quotation. It is used when the middle of a sentence is not needed for the answer.')">Check</button></div>
+<div class="qf" id="fb_q5b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q5c">
+<div class="qp">"The laboratory was in disarray — beakers shattered, papers scattered, and the smell of something acrid still hanging in the air."</div>
+<div class="qt">Quote the shortest phrase that answers: "How does the writer show the laboratory was damaged?"</div>
+<div class="qr"><input type="text" placeholder="Short quote..." id="in_q5c"><button class="qb" onclick="chk('q5c','beakers shattered','\'beakers shattered\' is the most targeted evidence of physical damage. \'In disarray\' is also acceptable — it is a short, precise quotation that directly answers the question.')">Check</button></div>
+<div class="qf" id="fb_q5c"></div></div>
+<div class="qi" id="q5d">
+<div class="qt">A student writes: The man was tired. "his eyes were heavy-lidded and his movements sluggish." Is this a correctly embedded quote? (yes or no)</div>
+<div class="qr"><input type="text" placeholder="yes or no" id="in_q5d"><button class="qb" onclick="chk('q5d','no','No. The quote is \'dropped\' — it sits as a separate sentence rather than being embedded. A correct version: The writer says the man\'s \'eyes were heavy-lidded and his movements sluggish.\' ')">Check</button></div>
+<div class="qf" id="fb_q5d"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb la">Advanced</span></div>
+<div class="qi" id="q5e">
+<div class="qp">"The magistrate, whose reputation for leniency was well known throughout the county and whose judgements had been overturned twice by higher courts, dismissed the charges without deliberation."</div>
+<div class="qt">Using an ellipsis, write the shortest valid quotation that tells us the magistrate dismissed the charges.</div>
+<div class="qr"><input type="text" placeholder="Your quote with ellipsis..." id="in_q5e"><button class="qb" onclick="chk('q5e','the magistrate','A correct answer uses ellipsis to skip the middle clause: \'The magistrate… dismissed the charges without deliberation.\' The omitted section describes his reputation, which is not needed for this answer.')">Check</button></div>
+<div class="qf" id="fb_q5e"></div></div>
+</div>
+</div></div>
+
+<!-- S6: PARAPHRASING MECHANICS -->
+<div class="b6" id="s6"><div class="sec">
+<div class="sh"><div class="snum">06</div><div class="sg"><div class="slabel">Own Words Answers</div><div class="stitle">Paraphrasing Mechanics</div></div></div>
+
+<div class="sb">
+<h3>Why One Swapped Word Is Not Paraphrasing</h3>
+<p>The most common error in "own words" answers is substituting one or two words while keeping the rest of the sentence identical. Examiners recognise this immediately, and it is penalised. True paraphrasing requires changing <strong>both the vocabulary and the sentence structure</strong>.</p>
+</div>
+
+<div class="sb">
+<h3>The Two-Change Rule</h3>
+<p>Before accepting your paraphrase as valid, check that you have made both changes:</p>
+<ul>
+<li><strong>Change 1 — Vocabulary:</strong> Replace the key words with genuine synonyms or explanatory phrases</li>
+<li><strong>Change 2 — Structure:</strong> Reorganise the sentence (e.g., passive → active, adjective first → verb first, subordinate clause moved)</li>
+</ul>
+<div class="wex"><div class="wex-l">Before and After — Full Worked Example</div>
+<div class="passage"><strong>Original:</strong> "The fortress was impregnable — its walls of black basalt rose forty feet without a foothold, and its single gate was reinforced with iron bars a foot thick."</div>
+<p><strong>Question:</strong> "In your own words, explain why the fortress was difficult to attack."</p>
+<p>❌ <strong>Copied:</strong> "The fortress was impregnable — its walls rose forty feet without a foothold."<br><em>(Almost identical — vocabulary barely changed, structure identical)</em></p>
+<p>❌ <strong>One-word swap:</strong> "The fortress was unassailable — its walls of black rock rose forty feet without a foothold."<br><em>(Only "impregnable" → "unassailable" and "basalt" → "rock" — structure unchanged)</em></p>
+<p>✅ <strong>True paraphrase:</strong> "Attackers had almost no chance of breaking in because the sheer walls offered nothing to grip, rising to an enormous height, and the only entrance was blocked by thick iron barriers."<br><em>(New vocabulary + new structure — active rather than descriptive, reorganised information)</em></p>
+</div>
+</div>
+
+<div class="sb">
+<h3>The Boundary Between Paraphrase and Inference</h3>
+<p>Retrieval paraphrase stays within what the text explicitly says — it just says it differently. The moment you add an interpretation or explanation not directly supported by the text, you have crossed into inference. For a retrieval question, that is out of scope and may cost marks.</p>
+<div class="callout"><strong>Test:</strong> Can you point to every claim in your answer in a specific sentence of the passage? If yes, you're paraphrasing. If you're adding something the text implies but doesn't state, you've crossed into inference.</div>
+</div>
+
+<!-- Quiz S6 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q6a">
+<div class="qt">A "true paraphrase" requires changing TWO things. What are they? (Separate with comma)</div>
+<div class="qr"><input type="text" placeholder="Thing 1, thing 2..." id="in_q6a"><button class="qb" onclick="chk('q6a','vocabulary, structure','True paraphrasing requires: (1) changing the vocabulary — using synonyms or explanatory phrases, AND (2) changing the sentence structure — reorganising how the ideas are presented.')">Check</button></div>
+<div class="qf" id="fb_q6a"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q6b">
+<div class="qp">Original: "She was enveloped in melancholy."</div>
+<div class="qt">Which is a true paraphrase — A or B?<br>A: "She was surrounded by sadness."<br>B: "A deep sadness seemed to swallow her completely, leaving no part of her untouched." Type A or B.</div>
+<div class="qr"><input type="text" placeholder="A or B" id="in_q6b"><button class="qb" onclick="chk('q6b','b','B is the true paraphrase. A only swaps \'enveloped\' → \'surrounded\' and \'melancholy\' → \'sadness\' but keeps the same structure. B changes both vocabulary and sentence structure entirely.')">Check</button></div>
+<div class="qf" id="fb_q6b"></div></div>
+<div class="qi" id="q6c">
+<div class="qp">Passage: "The river had burst its banks during the night, inundating the lower fields."</div>
+<div class="qt">The question asks "In your own words, describe what happened to the river." Is this a valid paraphrase: "During the night, the river overflowed and the lower fields were flooded." (yes or no)</div>
+<div class="qr"><input type="text" placeholder="yes or no" id="in_q6c"><button class="qb" onclick="chk('q6c','yes','Yes — this is a valid paraphrase. The vocabulary is changed (\'burst its banks\' → \'overflowed\', \'inundating\' → \'flooded\') and the structure is reorganised (time clause moved to the start).')">Check</button></div>
+<div class="qf" id="fb_q6c"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Challenging</span></div>
+<div class="qi" id="q6d">
+<div class="qp">Passage: "The old professor's lectures were notoriously incomprehensible — students left more confused than when they had arrived."</div>
+<div class="qt">A student writes: "The professor's lectures were confusing because he was a bad teacher." Has this crossed from paraphrase into inference? (yes or no)</div>
+<div class="qr"><input type="text" placeholder="yes or no" id="in_q6d"><button class="qb" onclick="chk('q6d','yes','Yes — this crosses into inference. The passage says lectures were incomprehensible and students left confused, but it does NOT say the professor was a bad teacher. That is an interpretation added by the student.')">Check</button></div>
+<div class="qf" id="fb_q6d"></div></div>
+</div>
+</div></div>
+
+<!-- S7: MULTI-PARAGRAPH ANSWERS -->
+<div class="b7" id="s7"><div class="sec">
+<div class="sh"><div class="snum">07</div><div class="sg"><div class="slabel">Synthesis Skill</div><div class="stitle">Answers That Span Multiple Paragraphs</div></div></div>
+
+<div class="sb">
+<h3>Recognising When the Answer Is Not All in One Place</h3>
+<p>Some questions have answers distributed across the text. Signals include: a character who appears multiple times, a theme that recurs, or a question asking you to summarise the overall impression. If you've found one piece and the answer doesn't feel complete, keep scanning.</p>
+</div>
+
+<div class="sb">
+<h3>How to Synthesise Across Paragraphs</h3>
+<div class="steps">
+<div class="step"><div class="step-n">1</div><div class="step-c">Find the first relevant piece of information and note the paragraph and key phrase.</div></div>
+<div class="step"><div class="step-n">2</div><div class="step-c">Continue scanning for further mentions of the subject. Mark each one.</div></div>
+<div class="step"><div class="step-n">3</div><div class="step-c">Combine the information into one coherent answer — making sure the combined answer doesn't contradict itself. (If paragraph 1 says the weather was calm and paragraph 3 says it became stormy, your answer must reflect both.)</div></div>
+</div>
+<div class="wex"><div class="wex-l">Synthesis Worked Example</div>
+<div class="passage"><strong>Paragraph 1:</strong> "Mira was the youngest of the guides, barely twenty-three."<br><strong>Paragraph 3:</strong> "She had already led six successful ascents and spoke four languages fluently."<br><strong>Paragraph 5:</strong> "The climbers quickly learned to trust her instincts above all else."</div>
+<p><strong>Question [2 marks]:</strong> "Give two details about Mira from across the passage."</p>
+<p><strong>Answer:</strong> She was young (twenty-three) but highly experienced, having led six successful ascents. The climbers came to trust her instincts completely.</p>
+<p><em>Both points drawn from different paragraphs, combined into a coherent answer.</em></p>
+</div>
+</div>
+
+<!-- Quiz S7 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q7a">
+<div class="qt">If you have found one piece of information but the question is worth 2 marks, what should you do?</div>
+<div class="qr"><input type="text" placeholder="Your answer..." id="in_q7a"><button class="qb" onclick="chk('q7a','keep scanning','Keep scanning the passage — the second piece of information is in a different place. One mark is awarded per distinct piece of information.')">Check</button></div>
+<div class="qf" id="fb_q7a"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q7b">
+<div class="qp">Paragraph 2: "The harbour had been constructed in 1842."<br>Paragraph 4: "By the turn of the century, it handled over a thousand vessels annually."</div>
+<div class="qt">The question asks: "Give two facts about the harbour." What is the fact from paragraph 2?</div>
+<div class="qr"><input type="text" placeholder="Fact from paragraph 2..." id="in_q7b"><button class="qb" onclick="chk('q7b','1842','The harbour was constructed in 1842. This is a direct retrieval from paragraph 2.')">Check</button></div>
+<div class="qf" id="fb_q7b"></div></div>
+<div class="qi" id="q7c">
+<div class="qt">When combining information from two paragraphs, what must you check your combined answer does NOT do?</div>
+<div class="qr"><input type="text" placeholder="What to check..." id="in_q7c"><button class="qb" onclick="chk('q7c','contradict','Your combined answer must not contradict itself. If one paragraph says it was calm and another says it became stormy, your answer must reflect both facts, not just one.')">Check</button></div>
+<div class="qf" id="fb_q7c"></div></div>
+</div>
+</div></div>
+
+
+<!-- S8: LIST QUESTIONS -->
+<div class="b8" id="s8"><div class="sec">
+<div class="sh"><div class="snum">08</div><div class="sg"><div class="slabel">Multiple Items</div><div class="stitle">List Questions</div></div></div>
+
+<div class="sb">
+<h3>Format Conventions</h3>
+<p>When a question asks you to "list" items, use numbered points or comma separation depending on the scale. Three or more items: number them. Two items: a comma-separated answer in a sentence is fine.</p>
+<div class="callout"><strong>Always match the format to the question:</strong> If asked for "three items," give exactly three. If the passage contains five examples, you still only need three — choose the three most clearly supported by the text.</div>
+</div>
+
+<div class="sb">
+<h3>Quote or Paraphrase in List Answers?</h3>
+<p>Follow the command word. If the question says "list," you may quote directly or use own words unless specified. Quoting is usually faster and equally valid. Paraphrasing is necessary only when the question explicitly requires it.</p>
+</div>
+
+<div class="sb">
+<h3>When the Passage Has More Examples Than Needed</h3>
+<p>If asked for three items and the passage contains six, choose the three that are most distinct from each other. Avoid items that overlap in meaning. Prioritise items that are clearly supported by single, unambiguous phrases rather than implied ideas.</p>
+</div>
+
+<!-- Quiz S8 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q8a">
+<div class="qt">A question asks: "List two items the character put in her bag." The passage mentions: a compass, a notebook, a torch, and a water bottle. Which two items should you choose?</div>
+<div class="qr"><input type="text" placeholder="Your two items..." id="in_q8a"><button class="qb" onclick="chk('q8a','any two','Any two of the four items are correct — compass, notebook, torch, water bottle. When asked for fewer items than are available, choose any that are clearly stated in the text.')">Check</button></div>
+<div class="qf" id="fb_q8a"></div></div>
+<div class="qi" id="q8b">
+<div class="qt">Does "order" matter in a list question — do you need to give items in the order they appear in the passage? (yes or no)</div>
+<div class="qr"><input type="text" placeholder="yes or no" id="in_q8b"><button class="qb" onclick="chk('q8b','no','No — order does not matter in a list question. Each item earns a mark regardless of the order you write them in.')">Check</button></div>
+<div class="qf" id="fb_q8b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q8c">
+<div class="qp">"The old mansion had been left untouched for decades. The wallpaper was peeling. The floorboards creaked under the slightest weight. The windows were so grimy they admitted barely any light, and damp had crept up the walls of every room."</div>
+<div class="qt">The question asks: "List three signs that the mansion was in poor condition." Which sign is NOT listed in the passage? (Choose: peeling wallpaper / no electricity / creaking floorboards / damp walls)</div>
+<div class="qr"><input type="text" placeholder="The sign not in the passage..." id="in_q8c"><button class="qb" onclick="chk('q8c','no electricity','No electricity is not mentioned in the passage. The three valid answers are: peeling wallpaper, creaking floorboards, and damp walls (plus grimy windows).')">Check</button></div>
+<div class="qf" id="fb_q8c"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Challenging</span></div>
+<div class="qi" id="q8d">
+<div class="qt">A student is asked for two distinct pieces of evidence. They write: "The captain was exhausted and worn out." How many marks will this earn?</div>
+<div class="qr"><input type="text" placeholder="Number of marks..." id="in_q8d"><button class="qb" onclick="chk('q8d','1','Only 1 mark. Exhausted and worn out are synonyms — the same idea stated twice. Two marks require two genuinely different pieces of information.')">Check</button></div>
+<div class="qf" id="fb_q8d"></div></div>
+</div>
+</div></div>
+
+<!-- S9: PRECISION MATCHING -->
+<div class="b9" id="s9"><div class="sec">
+<div class="sh"><div class="snum">09</div><div class="sg"><div class="slabel">Exact Match</div><div class="stitle">Precision Matching</div></div></div>
+
+<div class="sb">
+<h3>Match Your Answer to What the Question Asks For</h3>
+<p>Every retrieval question specifies exactly what it wants: one word, a phrase, two reasons, a description. The most avoidable mark-loss in retrieval comes from ignoring this specification.</p>
+<table class="rt">
+<thead><tr><th>Question asks for</th><th>What you must write</th><th>Common error</th></tr></thead>
+<tbody>
+<tr><td>"one word"</td><td>Exactly one word</td><td>Writing a phrase: "very cold" instead of "glacial"</td></tr>
+<tr><td>"a phrase"</td><td>2–6 words, no full sentence needed</td><td>Copying the entire paragraph</td></tr>
+<tr><td>"two reasons"</td><td>Two separate points</td><td>One detailed reason expressed in two sentences</td></tr>
+<tr><td>"give a quote"</td><td>Exact words in quotation marks</td><td>Paraphrasing without quotation marks</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sb">
+<h3>The Re-Read Rule</h3>
+<p>After writing your answer, re-read the question. Ask: "Have I answered <em>exactly</em> what was asked?" This ten-second check recovers marks that would otherwise be lost to over-answering, under-answering, or answering in the wrong format.</p>
+</div>
+
+<!-- Quiz S9 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q9a">
+<div class="qp">"The child ran swiftly across the yard."</div>
+<div class="qt">The question asks: "Find ONE word that tells us how the child moved." What is the correct answer?</div>
+<div class="qr"><input type="text" placeholder="One word only..." id="in_q9a"><button class="qb" onclick="chk('q9a','swiftly','Swiftly is the one word that describes how the child moved. Writing \'ran swiftly\' (two words) when one is asked for is a common precision error.')">Check</button></div>
+<div class="qf" id="fb_q9a"></div></div>
+<div class="qi" id="q9b">
+<div class="qt">A student is asked for "two reasons." They write one detailed paragraph covering one reason thoroughly. How many marks will they earn at most?</div>
+<div class="qr"><input type="text" placeholder="Number of marks..." id="in_q9b"><button class="qb" onclick="chk('q9b','1','At most 1 mark. \'Two reasons\' means two separate points. One reason, however detailed, only earns one mark.')">Check</button></div>
+<div class="qf" id="fb_q9b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q9c">
+<div class="qp">"The fog rolled in from the estuary, dense and impenetrable, swallowing the lighthouse whole."</div>
+<div class="qt">The question asks: "Find a phrase (not a full sentence) that describes the fog." What is the best short phrase?</div>
+<div class="qr"><input type="text" placeholder="Short phrase..." id="in_q9c"><button class="qb" onclick="chk('q9c','dense and impenetrable','\'dense and impenetrable\' is the most targeted phrase describing the fog\'s quality. \'swallowing the lighthouse whole\' is also acceptable as a short phrase.')">Check</button></div>
+<div class="qf" id="fb_q9c"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb la">Advanced</span></div>
+<div class="qi" id="q9d">
+<div class="qt">After writing your answer, what is the one thing you should always do before moving to the next question?</div>
+<div class="qr"><input type="text" placeholder="Your answer..." id="in_q9d"><button class="qb" onclick="chk('q9d','reread','Re-read the question. Check that your answer matches exactly what was asked — correct format, correct number of items, correct command word followed.')">Check</button></div>
+<div class="qf" id="fb_q9d"></div></div>
+</div>
+</div></div>
+
+<!-- S10: MARK SCHEME AWARENESS -->
+<div class="b10" id="s10"><div class="sec">
+<div class="sh"><div class="snum">10</div><div class="sg"><div class="slabel">Understanding Marks</div><div class="stitle">Mark Scheme Awareness</div></div></div>
+
+<div class="sb">
+<h3>How Marks Are Awarded</h3>
+<table class="rt">
+<thead><tr><th>Mark Value</th><th>What It Usually Requires</th></tr></thead>
+<tbody>
+<tr><td>[1 mark]</td><td>One specific, correct piece of information — a single word, phrase, or fact</td></tr>
+<tr><td>[2 marks]</td><td>Two distinct pieces of information — OR one piece + a valid quotation or explanation</td></tr>
+<tr><td>[3 marks]</td><td>Three separate facts, or two facts + a quotation, or one well-developed explanation with evidence</td></tr>
+</tbody>
+</table>
+<div class="callout"><strong>Before scanning:</strong> Look at the mark allocation. A [1] question needs one thing. A [3] question needs three things. This tells you how much text to scan and how complete your answer needs to be.</div>
+</div>
+
+<div class="sb">
+<h3>When to Stop Writing</h3>
+<p>Adding information beyond what is needed is a risk, not a bonus. Examiners mark the first correct answer and any additional correct answers up to the mark total — but an incorrect statement after a correct one can sometimes undermine confidence in the answer. Write exactly what is needed, then stop.</p>
+</div>
+
+<!-- Quiz S10 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q10a">
+<div class="qt">A question is worth [2 marks]. How many distinct pieces of information do you need in your answer?</div>
+<div class="qr"><input type="text" placeholder="Number..." id="in_q10a"><button class="qb" onclick="chk('q10a','2','2 marks = 2 distinct pieces of information. Each mark is awarded for one correct, separate point.')">Check</button></div>
+<div class="qf" id="fb_q10a"></div></div>
+<div class="qi" id="q10b">
+<div class="qt">True or false: adding extra information beyond the mark total is always safe and can only help your score. (true or false)</div>
+<div class="qr"><input type="text" placeholder="true or false" id="in_q10b"><button class="qb" onclick="chk('q10b','false','False. Extra information that is incorrect can undermine your answer. Write the required number of points, then stop.')">Check</button></div>
+<div class="qf" id="fb_q10b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q10c">
+<div class="qt">A question worth [1 mark] asks: "What time did the train depart?" A student writes: "The train departed at 6 AM, and it arrived at the capital by noon, having stopped three times." How many marks will they earn?</div>
+<div class="qr"><input type="text" placeholder="Number of marks..." id="in_q10c"><button class="qb" onclick="chk('q10c','1','1 mark — they have correctly answered the question (6 AM) but also added unnecessary information. The extra detail earns nothing and risks introducing an error.')">Check</button></div>
+<div class="qf" id="fb_q10c"></div></div>
+</div>
+</div></div>
+
+<!-- S11: NOT FOUND PROTOCOL -->
+<div class="b11" id="s11"><div class="sec">
+<div class="sh"><div class="snum">11</div><div class="sg"><div class="slabel">When Scanning Fails</div><div class="stitle">The "Not Found" Protocol</div></div></div>
+
+<p>Every student reaches a question where the answer isn't where they expected it to be. The following four-step protocol stops panic and gives you a systematic path to recovery.</p>
+
+<div class="steps">
+<div class="step"><div class="step-n">1</div><div class="step-c"><strong>Try a synonym of your anchor word.</strong> If you scanned for "cold" and found nothing, try "icy," "frigid," "arctic," "bitter," "frozen." The text uses its own vocabulary — your scan must match it.</div></div>
+<div class="step"><div class="step-n">2</div><div class="step-c"><strong>Identify the most likely paragraph using logic.</strong> What type of information is the question asking for? Setting/description? → Introduction or scene-setting paragraphs. A character's action? → Middle paragraphs. The outcome or result? → Final paragraphs.</div></div>
+<div class="step"><div class="step-n">3</div><div class="step-c"><strong>Read that paragraph sentence by sentence.</strong> Abandon scanning and read carefully. Look for meaning rather than exact words.</div></div>
+<div class="step"><div class="step-n">4</div><div class="step-c"><strong>If still not found, mark the question and move on.</strong> Write your best attempt with what you have — never leave a blank. Return to this question after completing the rest. Unanswered questions score zero; a reasonable guess may score.</div></div>
+</div>
+
+<div class="tip"><strong>Never leave a blank:</strong> In a multiple-choice paper, guess if necessary. In a written answer paper, write your best approximation even if uncertain — partial credit is possible and a blank is always zero.</div>
+
+<!-- Quiz S11 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q11a">
+<div class="qt">You scan for "happy" but can't find it. What should you try next in the Not Found Protocol?</div>
+<div class="qr"><input type="text" placeholder="Next step..." id="in_q11a"><button class="qb" onclick="chk('q11a','synonym','Try a synonym — joyful, elated, cheerful, delighted. The passage may use different vocabulary to express the same meaning.')">Check</button></div>
+<div class="qf" id="fb_q11a"></div></div>
+<div class="qi" id="q11b">
+<div class="qt">After all four steps, you still cannot find the answer. What must you NOT do?</div>
+<div class="qr"><input type="text" placeholder="What not to do..." id="in_q11b"><button class="qb" onclick="chk('q11b','leave blank','Never leave a blank. Write your best guess or closest approximation — a blank always scores zero, but a reasonable attempt may earn partial credit.')">Check</button></div>
+<div class="qf" id="fb_q11b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q11c">
+<div class="qt">You're looking for where a character's feelings are described. Which paragraph type should you check first?</div>
+<div class="qr"><input type="text" placeholder="Paragraph type..." id="in_q11c"><button class="qb" onclick="chk('q11c','middle','Middle paragraphs typically describe character actions and feelings. Opening paragraphs set the scene; closing paragraphs resolve events. Character emotion is most often in the middle.')">Check</button></div>
+<div class="qf" id="fb_q11c"></div></div>
+</div>
+</div></div>
+
+
+<!-- S12: THINK-ALOUD -->
+<div class="b12" id="s12"><div class="sec">
+<div class="sh"><div class="snum">12</div><div class="sg"><div class="slabel">The Centrepiece</div><div class="stitle">Full Worked Think-Aloud Example</div></div></div>
+
+<p>This is the most important section of the guide. Read every step of this worked example carefully — it shows the complete internal process of an expert student solving a retrieval question from start to finish.</p>
+
+<div class="wex"><div class="wex-l">The Passage</div>
+<div class="passage" style="line-height:1.8;">
+"The market at Karisimbi had operated without interruption since the fourteenth century, and its ancient rhythms were immediately apparent to any newcomer. The stalls were arranged in concentric rings: the innermost circle reserved for spices — vivid crimson mounds of chilli, golden drifts of turmeric — the middle ring given over to cloth merchants whose bolts of indigo and saffron fabric rippled in the breeze, and the outer ring reserved for livestock. The noise was formidable: a compound of bleating, haggling, and the sharp percussion of a blacksmith's hammer from somewhere beyond the gates. Old Adama, who had occupied the same stall for thirty-seven years, presided over his mounds of dried herbs with the serene authority of a man who has never been in a hurry in his life."
+</div>
+</div>
+
+<div class="wex"><div class="wex-l">The Question [2 marks]</div>
+<p><strong>"In your own words, describe what was sold in the innermost circle of the market stalls."</strong></p>
+</div>
+
+<div class="monologue"><div class="ml">Expert Student Inner Monologue — Step by Step</div>
+<p><strong>Step 1 — Read the question and identify the command word.</strong><br>"In your own words" — this means I cannot copy. I must paraphrase. Two marks means two pieces of information, or a well-expressed single fact.</p>
+
+<p><strong>Step 2 — Identify my anchor word.</strong><br>"Innermost circle" — that's specific and unusual. I'll scan for "inner" or "innermost."</p>
+
+<p><strong>Step 3 — Keyword sweep.</strong><br>I run my eye down the passage. I see "innermost circle" in the second sentence. Found it. I read the phrase around it: "the innermost circle reserved for spices — vivid crimson mounds of chilli, golden drifts of turmeric."</p>
+
+<p><strong>Step 4 — Check I have the full answer.</strong><br>The question asks what was sold there. The text says "spices" and then gives two examples: chilli and turmeric. That's one general answer plus two specific details — good for 2 marks.</p>
+
+<p><strong>Step 5 — Plan my own-words answer.</strong><br>I cannot write: "the innermost circle reserved for spices — vivid crimson mounds of chilli, golden drifts of turmeric." That's copying.<br>I need to: (1) change the vocabulary, (2) change the structure.<br>Vocabulary changes: reserved → kept for / sold only; vivid crimson → bright red; mounds → piles; golden drifts → yellow heaps.<br>Structure: I'll lead with the general point, then the examples.</p>
+
+<p><strong>Step 6 — Write the answer.</strong><br><em>"The central ring of stalls was set aside for selling spices, including brightly coloured varieties such as red chilli and yellow turmeric."</em></p>
+
+<p><strong>Step 7 — Re-read the question and verify.</strong><br>"In your own words" ✓ — I have not copied. "Describe what was sold in the innermost circle" ✓ — I have said spices with two examples. 2 marks ✓ — two pieces of information given.</p>
+</div>
+
+<div class="callout"><strong>What made this answer correct:</strong> (1) command word identified first; (2) anchor word selected immediately; (3) scan was efficient — straight to the relevant sentence; (4) full context was read before writing; (5) paraphrase changed both vocabulary and structure; (6) the answer was verified against the question before finishing.</div>
+
+<!-- Quiz S12 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span><span style="font-size:11px;color:#666;">Based on the passage above</span></div>
+<div class="qi" id="q12a">
+<div class="qt">According to the passage, how long had Old Adama occupied his stall?</div>
+<div class="qr"><input type="text" placeholder="Your answer..." id="in_q12a"><button class="qb" onclick="chk('q12a','37','Thirty-seven years (or 37 years). The passage states: \'who had occupied the same stall for thirty-seven years\'.')">Check</button></div>
+<div class="qf" id="fb_q12a"></div></div>
+<div class="qi" id="q12b">
+<div class="qt">What was sold in the middle ring of stalls? (One word from the passage)</div>
+<div class="qr"><input type="text" placeholder="One word..." id="in_q12b"><button class="qb" onclick="chk('q12b','cloth','The middle ring was \'given over to cloth merchants\'. The answer is cloth (or fabric).')">Check</button></div>
+<div class="qf" id="fb_q12b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q12c">
+<div class="qt">The passage says the market's noise was "formidable." Using context clues, what does "formidable" mean here? (One or two words)</div>
+<div class="qr"><input type="text" placeholder="Meaning..." id="in_q12c"><button class="qb" onclick="chk('q12c','overwhelming','Context: the noise was a \'compound of bleating, haggling, and sharp percussion\' — many simultaneous loud sounds. Formidable here means overwhelmingly loud / impressive in scale.')">Check</button></div>
+<div class="qf" id="fb_q12c"></div></div>
+<div class="qi" id="q12d">
+<div class="qt">The question asks [2 marks]: "Give two colours mentioned in the passage in connection with the cloth merchants' fabric." Name both colours.</div>
+<div class="qr"><input type="text" placeholder="Two colours..." id="in_q12d"><button class="qb" onclick="chk('q12d','indigo and saffron','The cloth merchants\' bolts were described as \'indigo and saffron fabric\' — so the two colours are indigo (deep blue) and saffron (orange-yellow).')">Check</button></div>
+<div class="qf" id="fb_q12d"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Challenging</span></div>
+<div class="qi" id="q12e">
+<div class="qp">The passage says Old Adama presided "with the serene authority of a man who has never been in a hurry in his life."</div>
+<div class="qt">In your own words, describe Old Adama's manner. (Do not copy the phrase — paraphrase it)</div>
+<div class="qr"><input type="text" placeholder="Your paraphrase..." id="in_q12e"><button class="qb" onclick="chk('q12e','calm','A valid paraphrase must convey: calmness, authority/confidence, and unhurriedness — without copying. E.g.: \'He watched over his stall with quiet confidence and complete patience.\' Any answer capturing calm authority without copying earns the mark.')">Check</button></div>
+<div class="qf" id="fb_q12e"></div></div>
+</div>
+</div></div>
+
+<!-- S13: TIMING -->
+<div class="b13" id="s13"><div class="sec">
+<div class="sh"><div class="snum">13</div><div class="sg"><div class="slabel">Exam Management</div><div class="stitle">Timing & Question Triage</div></div></div>
+
+<div class="sb">
+<h3>Time Budget by Mark Value</h3>
+<div class="tbar"><span class="tn">1-mark retrieval question</span><span class="tt">~45 sec</span></div>
+<div class="tbar"><span class="tn">2-mark retrieval question</span><span class="tt">~75 sec</span></div>
+<div class="tbar"><span class="tn">3-mark retrieval question</span><span class="tt">~2 min</span></div>
+<div class="tbar"><span class="tn">Move on threshold (if not found)</span><span class="tt">at 2× budget</span></div>
+<div class="callout"><strong>The rule:</strong> If a 1-mark question has taken you 90 seconds and you still haven't found the answer, mark it with a circle and move on. Return at the end. Do not let one question eat the time of three.</div>
+</div>
+
+<div class="sb">
+<h3>Why Retrieval Before Inference</h3>
+<p>Retrieval questions are faster to answer than inference or language questions because the answer is in the text — you just need to find it. Completing retrieval questions first gives you a bank of correct answers quickly, reducing anxiety and preserving time for the harder questions that need more thought.</p>
+</div>
+
+<div class="sb">
+<h3>How to Flag and Return</h3>
+<p>Circle the question number clearly — not so heavily that you mark through your answer. Write a brief note in the margin: "need to find" or "not yet." When you return at the end, go to the circled questions in order and use the Not Found Protocol.</p>
+</div>
+
+<!-- Quiz S13 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q13a">
+<div class="qt">Approximately how long should a 1-mark retrieval question take?</div>
+<div class="qr"><input type="text" placeholder="Time..." id="in_q13a"><button class="qb" onclick="chk('q13a','45','Approximately 45 seconds. A 1-mark question needs one piece of information — scan, locate, write, move on.')">Check</button></div>
+<div class="qf" id="fb_q13a"></div></div>
+<div class="qi" id="q13b">
+<div class="qt">Should retrieval questions be answered before or after inference questions?</div>
+<div class="qr"><input type="text" placeholder="before or after" id="in_q13b"><button class="qb" onclick="chk('q13b','before','Before. Retrieval is faster because the answer is in the text — it takes less thinking time. Answer retrieval first to bank marks quickly, then tackle inference questions.')">Check</button></div>
+<div class="qf" id="fb_q13b"></div></div>
+</div>
+</div></div>
+
+
+<!-- S14: PRACTICE PASSAGE -->
+<div class="b14" id="s14"><div class="sec">
+<div class="sh"><div class="snum">14</div><div class="sg"><div class="slabel">Exam-Level Practice</div><div class="stitle">Difficulty-Calibrated Practice Passage</div></div></div>
+
+<p>Read this passage carefully before attempting the questions below. It is written at genuine GL difficulty — note the varied vocabulary, multiple characters, and dense description.</p>
+
+<div class="wex"><div class="wex-l">Practice Passage — "The Cartographer's House"</div>
+<div class="passage" style="line-height:1.85;">
+The house at the end of Sextant Lane had belonged, for as long as anyone in the village could remember, to the Delacroix family — though by the winter of 1891, only one Delacroix remained. Céleste, the last of her line, was eighty-two and had not left the house in eleven years. Her sole companion was a grey parrot named Ptolemy, who had the disconcerting habit of reciting latitude and longitude coordinates without warning.
+<br><br>
+The interior of the house was extraordinary. Every surface — the walls, the ceiling, the backs of doors — was covered in maps. There were nautical charts of uncharted Pacific archipelagos, hand-drawn surveys of African river systems never published, and, most remarkable of all, a vast parchment map that covered the entirety of the north-facing wall. This last had been the life's work of Céleste's grandfather, Édouard Delacroix, who had spent forty years sailing between continents in the service of the French Admiralty.
+<br><br>
+The young archivist sent by the municipal library, a taciturn man named Hargreaves, arrived on a Tuesday in November and spent his first morning simply standing in the entrance hall, overwhelmed. His instructions had been to catalogue and, if necessary, negotiate the acquisition of any documents of historical value. He had not been warned that there might be several hundred of them.
+<br><br>
+Céleste received him in the drawing room, where she sat surrounded by stacked volumes and a persistent smell of camphor. She regarded him with shrewd, unhurried eyes, said nothing for a considerable time, and then announced: "You will not take the parchment map. The rest we may discuss." Hargreaves, who had not yet spoken a word, nodded.
+</div>
+</div>
+
+<div style="margin-top:28px;">
+
+<div class="qs"><div class="qlh"><span class="lb le">Q1 — Single Word [1 mark]</span></div>
+<div class="qi" id="qp1">
+<div class="qt">Find ONE word from the passage that tells us Hargreaves was not talkative by nature.</div>
+<div class="qr"><input type="text" placeholder="One word..." id="in_qp1"><button class="qb" onclick="chk('qp1','taciturn','Taciturn means habitually silent or not inclined to talk. This is retrieval via synonym — the question says \'not talkative\' and the text uses \'taciturn\'.')">Check</button></div>
+<div class="qf" id="fb_qp1"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb le">Q2 — Short Phrase [1 mark]</span></div>
+<div class="qi" id="qp2">
+<div class="qt">Quote a short phrase that describes what the parrot did that was unexpected.</div>
+<div class="qr"><input type="text" placeholder="Short quote..." id="in_qp2"><button class="qb" onclick="chk('qp2','reciting latitude and longitude coordinates without warning','The phrase \'reciting latitude and longitude coordinates without warning\' describes the parrot\'s unexpected habit. Shorter quotes like \'without warning\' alone are insufficient.')">Check</button></div>
+<div class="qf" id="fb_qp2"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Q3 — Own Words [2 marks]</span></div>
+<div class="qi" id="qp3">
+<div class="qt">In your own words, explain why Hargreaves was overwhelmed when he arrived. (Do not quote directly.)</div>
+<div class="qr"><input type="text" placeholder="Your own words answer..." id="in_qp3"><button class="qb" onclick="chk('qp3','maps','A valid answer must convey: he had been asked to catalogue documents, but found far more than expected — hundreds of maps covering every surface. Any paraphrase capturing the unexpected quantity earns both marks.')">Check</button></div>
+<div class="qf" id="fb_qp3"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Q4 — Line Referenced [1 mark]</span></div>
+<div class="qi" id="qp4">
+<div class="qt">In the third paragraph, what were Hargreaves's official instructions? Give ONE of them.</div>
+<div class="qr"><input type="text" placeholder="One instruction..." id="in_qp4"><button class="qb" onclick="chk('qp4','catalogue','His instructions were to catalogue documents AND to negotiate acquisition of historically valuable items. Either answer is correct for 1 mark.')">Check</button></div>
+<div class="qf" id="fb_qp4"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb la">Q5 — Multi-Part [2 marks]</span></div>
+<div class="qi" id="qp5">
+<div class="qt">Give two pieces of information about Édouard Delacroix from the second paragraph.</div>
+<div class="qr"><input type="text" placeholder="Two pieces of information..." id="in_qp5"><button class="qb" onclick="chk('qp5','forty years','Valid answers: (1) He spent forty years sailing between continents. (2) He worked for the French Admiralty. (3) The large parchment map was his life\'s work. (4) He was Céleste\'s grandfather. Any two of these earn both marks.')">Check</button></div>
+<div class="qf" id="fb_qp5"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb la">Q6 — Quote Required [1 mark]</span></div>
+<div class="qi" id="qp6">
+<div class="qt">Using a quote from the passage, show that Céleste was confident and in control of the meeting with Hargreaves.</div>
+<div class="qr"><input type="text" placeholder="Your quote..." id="in_qp6"><button class="qb" onclick="chk('qp6','you will not take the parchment map','The best evidence is Céleste\'s first words: \'You will not take the parchment map. The rest we may discuss.\' Her direct, unprompted assertion (before he even spoke) shows confident control of the situation.')">Check</button></div>
+<div class="qf" id="fb_qp6"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Q7 — Synonym Without Recognition [1 mark]</span></div>
+<div class="qi" id="qp7">
+<div class="qt">The passage says Céleste regarded Hargreaves with "shrewd, unhurried eyes." What does "shrewd" mean in this context? (One word)</div>
+<div class="qr"><input type="text" placeholder="One word meaning..." id="in_qp7"><button class="qb" onclick="chk('qp7','sharp','Shrewd means having sharp powers of judgement — perceptive, astute, not easily deceived. Context clues: she says nothing for a long time and then makes an immediate, confident declaration, suggesting she quickly assessed the situation.')">Check</button></div>
+<div class="qf" id="fb_qp7"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Q8 — Paraphrase Required [2 marks]</span></div>
+<div class="qi" id="qp8">
+<div class="qt">In your own words, describe the smell and what was in the drawing room where Céleste sat. Do not copy phrases from the passage.</div>
+<div class="qr"><input type="text" placeholder="Your paraphrase..." id="in_qp8"><button class="qb" onclick="chk('qp8','camphor','A valid answer must mention: (1) a medicinal/chemical smell — camphor (could be described as a strong, sharp smell) and (2) stacked books/volumes everywhere. Both points in own words earn 2 marks.')">Check</button></div>
+<div class="qf" id="fb_qp8"></div></div>
+</div>
+
+</div>
+</div></div>
+
+<!-- S15: COMMON MISTAKES -->
+<div class="b5" id="s15"><div class="sec">
+<div class="sh"><div class="snum">15</div><div class="sg"><div class="slabel">Quick Reference</div><div class="stitle">Common Mistakes Reference Card</div></div></div>
+
+<table class="rt">
+<thead><tr><th>Mistake</th><th>Why It Loses Marks</th><th>What to Do Instead</th></tr></thead>
+<tbody>
+<tr><td><strong>Copying too much</strong><br><em>Writing the whole sentence when a phrase is asked for</em></td><td>Suggests you're unsure which part of the sentence answers the question; wastes time; may include irrelevant information</td><td>Identify the key phrase only. Quote just the words that directly answer what was asked.</td></tr>
+<tr><td><strong>Answering from memory, not the text</strong><br><em>Writing what you think the answer should be rather than what the passage says</em></td><td>Retrieval marks are awarded only for what is in the passage. Your general knowledge is irrelevant — and often wrong for the specific text.</td><td>Always go back to the passage. Every retrieval answer must be traceable to a specific line.</td></tr>
+<tr><td><strong>Using the wrong part of the passage</strong><br><em>Quoting the first mention of a subject when the question asks about a later event</em></td><td>The information exists in the text but is from the wrong context; the wrong part of the timeline or the wrong character's perspective</td><td>Reread the question. Does it specify a time period, paragraph, or character? Narrow your search before scanning.</td></tr>
+<tr><td><strong>Writing two answers when one is asked for</strong><br><em>"The answer is X. Or possibly Y."</em></td><td>Contradicts itself; shows uncertainty; may include one wrong answer that undermines the right one</td><td>Commit to one answer. If the question asks for one, give one. Check the mark allocation before writing.</td></tr>
+<tr><td><strong>Paraphrasing without changing structure</strong><br><em>Swapping one word but keeping the sentence identical</em></td><td>Examiners recognise near-copies and award no credit for "own words" answers that are essentially copied</td><td>Change both vocabulary AND sentence structure. Test it by asking: could someone tell this came from the original?</td></tr>
+<tr><td><strong>Ignoring the mark allocation</strong><br><em>Writing one point for a 3-mark question</em></td><td>You can only earn marks for points you make — one point earns one mark regardless of how detailed it is</td><td>Count the marks. Write that many distinct points. Stop when you've reached the total.</td></tr>
+</tbody>
+</table>
+
+</div></div>
+
+
+<!-- MASTERY TEST -->
+<div class="bm" id="mastery"><div class="mastery-inner">
+<div class="sh"><div class="snum" style="color:var(--amber-l);opacity:1;">★</div><div class="sg"><div class="slabel" style="color:rgba(250,248,244,.5);">All Sections · Exam Conditions</div><div class="stitle" style="color:var(--paper);">Final Mastery Test</div></div></div>
+
+<p style="color:rgba(250,248,244,.7);margin-bottom:24px;">Read this passage, then answer all 12 questions without consulting your notes. Work through the paper as you would in an exam.</p>
+
+<div class="passage" style="margin-bottom:28px;border-left-color:var(--amber);color:var(--paper);">
+<strong style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--amber-l);">Mastery Passage — "The Lighthouse Inspector"</strong><br><br>
+The lighthouse at Morven Point had stood for two hundred and fourteen years, and in all that time, it had never once failed to illuminate the treacherous rocks below. Inspector Alicia Drummond arrived on the island in March, tasked by the Northern Lights Authority with conducting a thorough examination of the structure and its records. She was, by reputation, an exacting woman — colleagues described her as methodical to a fault, though none disputed the accuracy of her reports.<br><br>
+The lighthouse keeper, a bearded, soft-spoken man named Calum Beag, greeted her at the dock with conspicuous courtesy, though his expression suggested he found the visit unwelcome. He had kept the light for nineteen years without incident, and official scrutiny, even the politely conducted variety, made him uneasy.<br><br>
+The inspection took four days. Drummond examined the mechanism, the fuel stores, the logbooks stretching back seven decades, and the structural integrity of the tower itself. She found three minor deficiencies — a cracked lens mounting, a portion of the external staircase that had begun to corrode, and a gap in the logbook entries for the winter of 1987 — none of which, she noted in her report, posed an immediate danger.<br><br>
+On the final morning, Drummond stood at the lantern room window and looked out at the rocks that the lighthouse had kept sailors from for two centuries. Beag stood beside her and said, quietly, "It has not let anyone down." She considered this for a moment and replied: "Not yet."
+</div>
+
+<div class="qs">
+
+<div class="qi" id="qm1">
+<div class="qt"><strong>Q1 [1 mark — single word]</strong> Find ONE word from the first paragraph that suggests Inspector Drummond was very precise and careful in her work.</div>
+<div class="qr"><input type="text" placeholder="One word..." id="in_qm1"><button class="qb" onclick="chk('qm1','methodical','Methodical means doing things in a careful, systematic way. The passage uses it to describe Drummond: \'methodical to a fault\'.')">Check</button></div>
+<div class="qf" id="fb_qm1"></div></div>
+
+<div class="qi" id="qm2">
+<div class="qt"><strong>Q2 [1 mark — direct retrieval]</strong> How long had the lighthouse stood at Morven Point?</div>
+<div class="qr"><input type="text" placeholder="Your answer..." id="in_qm2"><button class="qb" onclick="chk('qm2','214','Two hundred and fourteen years (214 years). Stated directly in the first sentence.')">Check</button></div>
+<div class="qf" id="fb_qm2"></div></div>
+
+<div class="qi" id="qm3">
+<div class="qt"><strong>Q3 [1 mark — line referenced]</strong> In the second paragraph, what does Calum Beag's expression suggest about his feelings toward the inspection?</div>
+<div class="qr"><input type="text" placeholder="His feeling..." id="in_qm3"><button class="qb" onclick="chk('qm3','unwelcome','His expression \'suggested he found the visit unwelcome\' — directly stated. The answer is that he found the inspection unwelcome or that he did not want it to happen.')">Check</button></div>
+<div class="qf" id="fb_qm3"></div></div>
+
+<div class="qi" id="qm4">
+<div class="qt"><strong>Q4 [2 marks — multi-part]</strong> Give TWO of the three deficiencies Drummond found during her inspection.</div>
+<div class="qr"><input type="text" placeholder="Two deficiencies..." id="in_qm4"><button class="qb" onclick="chk('qm4','lens','The three deficiencies: (1) a cracked lens mounting, (2) a corroding portion of the external staircase, (3) a gap in the logbook for winter 1987. Any two earn both marks.')">Check</button></div>
+<div class="qf" id="fb_qm4"></div></div>
+
+<div class="qi" id="qm5">
+<div class="qt"><strong>Q5 [1 mark — synonym without recognition]</strong> The passage says Beag greeted Drummond with "conspicuous courtesy." What does "conspicuous" mean in this context? (One or two words)</div>
+<div class="qr"><input type="text" placeholder="Meaning..." id="in_qm5"><button class="qb" onclick="chk('qm5','obvious','Conspicuous means clearly visible or noticeable — his politeness was obvious and deliberate. Context clue: \'though his expression suggested he found the visit unwelcome\' — the courtesy was a visible show masking discomfort.')">Check</button></div>
+<div class="qf" id="fb_qm5"></div></div>
+
+<div class="qi" id="qm6">
+<div class="qt"><strong>Q6 [1 mark — quote required]</strong> Quote the exact phrase Drummond uses to suggest the lighthouse might fail in the future.</div>
+<div class="qr"><input type="text" placeholder="Exact quote..." id="in_qm6"><button class="qb" onclick="chk('qm6','not yet','Her exact words are \'Not yet.\' — this implies it has not failed yet but might in the future. The quote must be in quotation marks in an exam answer.')">Check</button></div>
+<div class="qf" id="fb_qm6"></div></div>
+
+<div class="qi" id="qm7">
+<div class="qt"><strong>Q7 [1 mark — direct retrieval]</strong> How many years had Calum Beag been the lighthouse keeper?</div>
+<div class="qr"><input type="text" placeholder="Number of years..." id="in_qm7"><button class="qb" onclick="chk('qm7','19','Nineteen years (19). Stated directly: \'He had kept the light for nineteen years without incident.')">Check</button></div>
+<div class="qf" id="fb_qm7"></div></div>
+
+<div class="qi" id="qm8">
+<div class="qt"><strong>Q8 [2 marks — own words]</strong> In your own words, explain what Drummond's inspection covered. Give TWO things she examined. Do not quote directly.</div>
+<div class="qr"><input type="text" placeholder="Two things in own words..." id="in_qm8"><button class="qb" onclick="chk('qm8','mechanism','Valid answers (paraphrased): the machinery/mechanism, the fuel supplies, the historical records/logbooks, the safety of the tower/structure. Any two in genuinely own words earn both marks.')">Check</button></div>
+<div class="qf" id="fb_qm8"></div></div>
+
+<div class="qi" id="qm9">
+<div class="qt"><strong>Q9 [1 mark — list]</strong> Name ONE thing the logbooks at the lighthouse recorded that was described as unusual.</div>
+<div class="qr"><input type="text" placeholder="One thing..." id="in_qm9"><button class="qb" onclick="chk('qm9','1987','A gap in the logbook entries for the winter of 1987 — this was the unusual finding. The logbooks themselves stretched back seven decades, but the gap is what was notable.')">Check</button></div>
+<div class="qf" id="fb_qm9"></div></div>
+
+<div class="qi" id="qm10">
+<div class="qt"><strong>Q10 [1 mark — precision]</strong> The passage says none of the deficiencies "posed an immediate danger." Which ONE word in this phrase is most important to the meaning?</div>
+<div class="qr"><input type="text" placeholder="One word..." id="in_qm10"><button class="qb" onclick="chk('qm10','immediate','\'Immediate\' is the key word — it means the dangers are not pressing right now, but the word implies they may become dangerous in future. This is why Drummond\'s final \'Not yet\' carries weight.')">Check</button></div>
+<div class="qf" id="fb_qm10"></div></div>
+
+<div class="qi" id="qm11">
+<div class="qt"><strong>Q11 [1 mark — command word]</strong> The question says: "Write down the name of the lighthouse." What exactly must your answer contain?</div>
+<div class="qr"><input type="text" placeholder="Your answer..." id="in_qm11"><button class="qb" onclick="chk('qm11','morven','\'Write down\' means copy the exact words from the passage. The lighthouse is named Morven Point lighthouse. The answer must be: Morven Point (or The lighthouse at Morven Point).')">Check</button></div>
+<div class="qf" id="fb_qm11"></div></div>
+
+<div class="qi" id="qm12">
+<div class="qt"><strong>Q12 [2 marks — paraphrase]</strong> In your own words, describe how Drummond's professional reputation was regarded by her colleagues. Do not copy from the passage.</div>
+<div class="qr"><input type="text" placeholder="Your paraphrase..." id="in_qm12"><button class="qb" onclick="chk('qm12','accurate','A valid paraphrase must convey: (1) she was seen as extremely thorough/careful, possibly to an excessive degree, AND (2) her reports were always accurate/reliable. E.g.: \'Her colleagues considered her almost overly thorough in her approach, but everyone agreed that her findings were always correct.\' ')">Check</button></div>
+<div class="qf" id="fb_qm12"></div></div>
+
+</div>
+
+<div id="sbox" style="background:rgba(196,123,5,.12);border:2px solid var(--amber);padding:22px;border-radius:4px;margin-top:24px;text-align:center;color:var(--paper);">
+<div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--amber-l);margin-bottom:9px;">Your Score</div>
+<div id="snum" style="font-family:'Fraunces',serif;font-size:2.6rem;font-weight:900;color:var(--amber-l);">—</div>
+<div id="smsg" style="font-size:12.5px;color:rgba(250,248,244,.5);margin-top:5px;">Answer all 12 questions, then calculate.</div>
+<button onclick="calcScore()" style="margin-top:12px;padding:8px 24px;background:var(--amber);color:var(--ink);border:none;border-radius:3px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;cursor:pointer;font-weight:600;">CALCULATE SCORE</button>
+</div>
+
+</div></div>
+
+<script>
+const A={};
+function nm(s){return s.toLowerCase().trim().replace(/['']/g,"'").replace(/\s+/g,' ');}
+function chk(id,correct,expl){
+  const inp=document.getElementById('in_'+id);
+  const fb=document.getElementById('fb_'+id);
+  const val=nm(inp.value);
+  const alts=nm(correct).split('|');
+  let ok=false;
+  for(let a of alts){
+    a=a.trim();
+    if(val===a||(val.includes(a)&&a.length>2)||(a.includes(val)&&val.length>2)){ok=true;break;}
+  }
+  A[id]=ok;
+  fb.style.display='block';
+  fb.className='qf '+(ok?'fc':'fw');
+  fb.innerHTML=ok?'✅ Correct! '+expl:'❌ Incorrect. Correct answer: <strong>'+correct+'</strong>. '+expl;
+}
+function calcScore(){
+  const qs=['qm1','qm2','qm3','qm4','qm5','qm6','qm7','qm8','qm9','qm10','qm11','qm12'];
+  let done=0,right=0;
+  for(let q of qs){if(A[q]!==undefined){done++;if(A[q])right++;}}
+  const sn=document.getElementById('snum');
+  const sm=document.getElementById('smsg');
+  sn.textContent=right+' / '+done;
+  if(done<12){sm.textContent=done+' of 12 answered — complete the rest!';}
+  else{
+    const p=Math.round((right/12)*100);
+    let m='';
+    if(p>=92)m='Outstanding — every retrieval technique mastered.';
+    else if(p>=75)m='Strong — revisit any incorrect sections.';
+    else if(p>=58)m='Good foundation — re-read the weaker areas.';
+    else m='Keep practising — work through the guide again systematically.';
+    sm.textContent=p+'% — '+m;
+  }
+}
+</script>
+</body>
+</html>

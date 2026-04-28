@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>11+ GL Assessment: Persuasive Writing | D.A.F.O.R.E.S.T. Mastery</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #f9f7f0;
+      font-family: 'Inter', 'Segoe UI', 'Roboto', system-ui, sans-serif;
+      line-height: 1.5;
+      color: #2d2a24;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.08);
+      padding: 2rem 2rem 3rem;
+    }
+    h1 {
+      font-size: 2.3rem;
+      background: linear-gradient(135deg, #b85c1a, #d97706);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      border-left: 7px solid #fbbf24;
+      padding-left: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .badge {
+      background: #b85c1a;
+      color: white;
+      padding: 0.25rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
+    .subhead {
+      color: #9b6a3e;
+      border-bottom: 2px solid #f3e5d8;
+      padding-bottom: 0.8rem;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      font-size: 1.8rem;
+      margin: 2rem 0 1rem;
+      color: #b85c1a;
+      border-left: 5px solid #fbbf24;
+      padding-left: 1rem;
+    }
+    h3 {
+      font-size: 1.3rem;
+      margin: 1.5rem 0 0.75rem;
+      color: #b45f2a;
+    }
+    .rule-card {
+      background: #fffbee;
+      border-left: 6px solid #f59e0b;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+    }
+    .technique-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 1rem 0;
+    }
+    .tech-badge {
+      background: #eedfcc;
+      border-radius: 2rem;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #744a1a;
+    }
+    .question-block {
+      background: #fefaf5;
+      border-radius: 1.2rem;
+      padding: 1rem 1.3rem;
+      margin: 1rem 0;
+      border: 1px solid #f0dfce;
+    }
+    .question-title {
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    input {
+      padding: 8px 14px;
+      border-radius: 60px;
+      border: 1px solid #d6bfa8;
+      width: 300px;
+      font-family: monospace;
+      margin-right: 12px;
+    }
+    button {
+      background: #b85c1a;
+      border: none;
+      color: white;
+      padding: 6px 22px;
+      border-radius: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #8b3c06;
+    }
+    .feedback {
+      margin-top: 10px;
+      padding: 6px 14px;
+      border-radius: 28px;
+      background: #f0e7de;
+      display: inline-block;
+      font-size: 0.85rem;
+    }
+    .level-badge {
+      background: #e9dbc9;
+      border-radius: 50px;
+      padding: 2px 12px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      margin-right: 12px;
+      color: #644117;
+    }
+    .footnote {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #edd2bc;
+      color: #a57248;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="badge">📢 11+ GL ASSESSMENT • PERSUASIVE WRITING</div>
+  <h1>D.A.F.O.R.E.S.T. Toolkit & The Art of Persuasion</h1>
+  <div class="subhead">🎯 Interactive: identify techniques • upgrade sentences • counter-argument • rhetorical devices</div>
+
+  <div class="rule-card">
+    <strong>🔥 D.A.F.O.R.E.S.T. – The Persuasion Machine</strong><br>
+    <div class="technique-grid">
+      <span class="tech-badge">D – Direct Address (you)</span>
+      <span class="tech-badge">A – Alliteration</span>
+      <span class="tech-badge">F – Facts</span>
+      <span class="tech-badge">O – Opinion as Truth</span>
+      <span class="tech-badge">R – Rhetorical Question</span>
+      <span class="tech-badge">E – Emotive Language</span>
+      <span class="tech-badge">S – Statistics</span>
+      <span class="tech-badge">T – Rule of Three</span>
+    </div>
+    <strong>📌 Five-Paragraph Structure:</strong> Intro (hook + opinion) → Point 1 (fact/statistic) → Point 2 (emotive) → Counter-argument + Rebuttal → Conclusion (call to action)
+  </div>
+
+  <!-- ========= EASY LEVEL: technique identification (basic) ========= -->
+  <h2>📘 Level 1 – Easy (Identify D.A.F.O.R.E.S.T. Techniques)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 1</span> Which technique is used? "You have the power to make a difference today."</div><input id="easy1" placeholder="technique (e.g., Direct Address)"><button onclick="checkEasy1()">Check</button><div id="easy1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 2</span> Identify: "Is it fair that some children go to school hungry?"</div><input id="easy2" placeholder="technique"><button onclick="checkEasy2()">Check</button><div id="easy2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 3</span> "Safe, secure, sustainable streets for everyone" — which technique?</div><input id="easy3" placeholder="technique"><button onclick="checkEasy3()">Check</button><div id="easy3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 4</span> "This heartbreaking tragedy must never happen again" — name the technique.</div><input id="easy4" placeholder="technique"><button onclick="checkEasy4()">Check</button><div id="easy4fb" class="feedback"></div></div>
+
+  <!-- ========= INTERMEDIATE: multiple techniques & sentence upgrades ========= -->
+  <h2>📘 Level 2 – Intermediate (Multiple Techniques & Upgrades)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 1</span> "9 out of 10 dentists recommend this toothpaste. Don't you want a brighter smile?" – name TWO techniques.</div><input id="int1" placeholder="technique1, technique2"><button onclick="checkInt1()">Check</button><div id="int1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 2</span> Upgrade weak persuasive sentence: "We should save the park because it's nice." Write a D.A.F.O.R.E.S.T. version.</div><input id="int2" placeholder="upgraded sentence"><button onclick="checkInt2()">Check</button><div id="int2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 3</span> Which high-level connective means 'for this reason'? (Furthermore / Consequently / However)</div><input id="int3" placeholder="type answer"><button onclick="checkInt3()">Check</button><div id="int3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 4</span> Write an imperative verb (bossy verb) to start a call to action. Example: "Act now!" → your verb.</div><input id="int4" placeholder="bossy verb"><button onclick="checkInt4()">Check</button><div id="int4fb" class="feedback"></div></div>
+
+  <!-- ========= ADVANCED: counter-argument, rhetorical devices, tone ========= -->
+  <h2>📘 Level 3 – Advanced (Counter-Argument & Rhetorical Power)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 1</span> Complete the counter-argument starter: "Some may argue that school uniform is restrictive. However, ..." (write a rebuttal 1 sentence)</div><input id="adv1" placeholder="your rebuttal"><button onclick="checkAdv1()">Check</button><div id="adv1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 2</span> What is anaphora? Choose: A) repetition at start of sentences B) rhetorical question C) rule of three</div><input id="adv2" placeholder="A, B or C"><button onclick="checkAdv2()">Check</button><div id="adv2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 3</span> Write a hypophora (ask a question, then answer it) about climate action.</div><input id="adv3" placeholder="hypophora example"><button onclick="checkAdv3()">Check</button><div id="adv3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 4</span> Which tone suits a letter to the headteacher? (passionate / formal / humorous)</div><input id="adv4" placeholder="tone"><button onclick="checkAdv4()">Check</button><div id="adv4fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 5</span> Identify the tricolon: "For our children, for our community, for our future — act now!"</div><input id="adv5" placeholder="technique name"><button onclick="checkAdv5()">Check</button><div id="adv5fb" class="feedback"></div></div>
+
+  <!-- ========= CHALLENGING: full paragraph construction, tone adaptation, rebuttal ========= -->
+  <h2>⚡ Level 4 – Challenging (Persuasive Paragraphs & Tone Shift)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 1</span> Write a persuasive opening sentence for a speech to classmates about recycling. Use a rhetorical question.</div><input id="chal1" placeholder="opening sentence"><button onclick="checkChal1()">Check</button><div id="chal1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 2</span> Rewrite this for formal tone (letter to council): "Hey, you guys really need to fix the library, it's a total mess!"</div><input id="chal2" placeholder="formal version"><button onclick="checkChal2()">Check</button><div id="chal2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 3</span> Write a rebuttal to this counter-argument: "Some people believe that school uniform costs too much for families."</div><input id="chal3" placeholder="your rebuttal"><button onclick="checkChal3()">Check</button><div id="chal3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 4</span> Name two advanced persuasive techniques BEYOND D.A.F.O.R.E.S.T.</div><input id="chal4" placeholder="technique1, technique2"><button onclick="checkChal4()">Check</button><div id="chal4fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 5</span> Write a powerful conclusion (2 sentences) for an argument against plastic pollution. Include a call to action.</div><input id="chal5" placeholder="conclusion"><button onclick="checkChal5()">Check</button><div id="chal5fb" class="feedback"></div></div>
+
+  <!-- ========= FINAL MASTERY TEST (12 mixed persuasive skills) ========= -->
+  <h2>🎓 MASTERY TEST – 12 Mixed Persuasive Questions</h2>
+  <div id="mastery">
+    <div class="question-block">1. Identify technique: "What kind of future do we want to leave for our children?"</div><input id="m1"><button onclick="checkM1()">Check</button><div id="m1fb" class="feedback"></div>
+    <div class="question-block">2. What does the 'F' in D.A.F.O.R.E.S.T. stand for?</div><input id="m2"><button onclick="checkM2()">Check</button><div id="m2fb" class="feedback"></div>
+    <div class="question-block">3. Upgrade: "We should ban phones because they are bad." Use 'emotive language' and a 'statistic'.</div><input id="m3"><button onclick="checkM3()">Check</button><div id="m3fb" class="feedback"></div>
+    <div class="question-block">4. Which connective introduces a contrasting point? (Furthermore / Conversely / Consequently)</div><input id="m4"><button onclick="checkM4()">Check</button><div id="m4fb" class="feedback"></div>
+    <div class="question-block">5. Write a rule of three about protecting nature.</div><input id="m5"><button onclick="checkM5()">Check</button><div id="m5fb" class="feedback"></div>
+    <div class="question-block">6. Complete the counter-argument: "Admittedly, change takes time. Nevertheless, ..."</div><input id="m6"><button onclick="checkM6()">Check</button><div id="m6fb" class="feedback"></div>
+    <div class="question-block">7. Name the technique: "Act. Support. Donate. Whatever you can do today matters."</div><input id="m7"><button onclick="checkM7()">Check</button><div id="m7fb" class="feedback"></div>
+    <div class="question-block">8. Write an imperative verb to start a fundraising appeal.</div><input id="m8"><button onclick="checkM8()">Check</button><div id="m8fb" class="feedback"></div>
+    <div class="question-block">9. Which paragraph of the 5-paragraph essay should include a counter-argument?</div><input id="m9"><button onclick="checkM9()">Check</button><div id="m9fb" class="feedback"></div>
+    <div class="question-block">10. Identify technique: "This disastrous decision will destroy our community."</div><input id="m10"><button onclick="checkM10()">Check</button><div id="m10fb" class="feedback"></div>
+    <div class="question-block">11. What is hypophora? (ask & answer / repetition / three-part list)</div><input id="m11"><button onclick="checkM11()">Check</button><div id="m11fb" class="feedback"></div>
+    <div class="question-block">12. Write a strong call to action (one sentence) for a speech about volunteering.</div><input id="m12"><button onclick="checkM12()">Check</button><div id="m12fb" class="feedback"></div>
+  </div>
+
+  <div class="footnote">
+    ✅ All interactive: type answer → Check → instant correct/incorrect + explanation. Master D.A.F.O.R.E.S.T., counter-argument, tone, and rhetorical devices.
+  </div>
+</div>
+
+<script>
+  // EASY
+  function checkEasy1() { let a=document.getElementById('easy1').value.trim().toLowerCase(); if(a==="direct address"||a==="direct address (you)") document.getElementById('easy1fb').innerHTML="✅ Correct! 'You' = Direct Address."; else document.getElementById('easy1fb').innerHTML="❌ Direct Address."; }
+  function checkEasy2() { let a=document.getElementById('easy2').value.trim().toLowerCase(); if(a.includes("rhetorical")) document.getElementById('easy2fb').innerHTML="✅ Rhetorical question."; else document.getElementById('easy2fb').innerHTML="❌ Rhetorical question."; }
+  function checkEasy3() { let a=document.getElementById('easy3').value.trim().toLowerCase(); if(a==="rule of three"||a==="rule of 3") document.getElementById('easy3fb').innerHTML="✅ Rule of Three."; else document.getElementById('easy3fb').innerHTML="❌ Rule of Three."; }
+  function checkEasy4() { let a=document.getElementById('easy4').value.trim().toLowerCase(); if(a==="emotive language"||a.includes("emotive")) document.getElementById('easy4fb').innerHTML="✅ Emotive language."; else document.getElementById('easy4fb').innerHTML="❌ Emotive language."; }
+  // INTERMEDIATE
+  function checkInt1() { let a=document.getElementById('int1').value.trim().toLowerCase(); if((a.includes("statistic")||a.includes("statistics")) && (a.includes("rhetorical"))) document.getElementById('int1fb').innerHTML="✅ Statistics + Rhetorical Question."; else document.getElementById('int1fb').innerHTML="❌ Statistics & Rhetorical Question."; }
+  function checkInt2() { let a=document.getElementById('int2').value.trim().toLowerCase(); if((a.includes("?")||a.includes("you")||a.includes("heart")) && a.length>25) document.getElementById('int2fb').innerHTML="✅ Good upgrade using techniques."; else document.getElementById('int2fb').innerHTML="❌ Try using rhetorical question / emotive language."; }
+  function checkInt3() { let a=document.getElementById('int3').value.trim().toLowerCase(); if(a==="consequently") document.getElementById('int3fb').innerHTML="✅ Consequently = for this reason."; else document.getElementById('int3fb').innerHTML="❌ Consequently."; }
+  function checkInt4() { let a=document.getElementById('int4').value.trim().toLowerCase(); const bosses=["act","support","stop","join","sign","donate","speak","write","call"]; if(bosses.includes(a)) document.getElementById('int4fb').innerHTML="✅ Strong imperative verb."; else document.getElementById('int4fb').innerHTML="❌ e.g., Act, Support, Join."; }
+  // ADVANCED
+  function checkAdv1() { let a=document.getElementById('adv1').value.trim(); if(a.length>15 && (a.includes("but")||a.includes("yet")||a.includes("however"))) document.getElementById('adv1fb').innerHTML="✅ Good rebuttal."; else document.getElementById('adv1fb').innerHTML="❌ e.g., 'However, uniform creates equality and reduces bullying.'"; }
+  function checkAdv2() { let a=document.getElementById('adv2').value.trim().toUpperCase(); if(a==="A") document.getElementById('adv2fb').innerHTML="✅ Anaphora = repetition at start."; else document.getElementById('adv2fb').innerHTML="❌ A."; }
+  function checkAdv3() { let a=document.getElementById('adv3').value.trim(); if(a.includes("?") && a.split(".").length>=2) document.getElementById('adv3fb').innerHTML="✅ Hypophora: ask & answer."; else document.getElementById('adv3fb').innerHTML="❌ Example: 'What can we do? The answer is simple: reduce, reuse, recycle.'"; }
+  function checkAdv4() { let a=document.getElementById('adv4').value.trim().toLowerCase(); if(a==="formal") document.getElementById('adv4fb').innerHTML="✅ Formal tone for headteacher."; else document.getElementById('adv4fb').innerHTML="❌ Formal."; }
+  function checkAdv5() { let a=document.getElementById('adv5').value.trim().toLowerCase(); if(a==="tricolon"||a==="rule of three") document.getElementById('adv5fb').innerHTML="✅ Tricolon / Rule of Three."; else document.getElementById('adv5fb').innerHTML="❌ Tricolon."; }
+  // CHALLENGING
+  function checkChal1() { let a=document.getElementById('chal1').value.trim(); if(a.includes("?") && a.split(" ").length>=5) document.getElementById('chal1fb').innerHTML="✅ Rhetorical question opener."; else document.getElementById('chal1fb').innerHTML="❌ Use a rhetorical question: 'Do you want our planet to drown in plastic?'"; }
+  function checkChal2() { let a=document.getElementById('chal2').value.trim(); if(!a.includes("hey") && !a.includes("guys") && a.includes("library") && a.length>20) document.getElementById('chal2fb').innerHTML="✅ Formal tone achieved."; else document.getElementById('chal2fb').innerHTML="❌ 'The council must urgently address the poor condition of the library.'"; }
+  function checkChal3() { let a=document.getElementById('chal3').value.trim(); if((a.includes("however")||a.includes("but")||a.includes("yet")) && a.length>20) document.getElementById('chal3fb').innerHTML="✅ Strong rebuttal."; else document.getElementById('chal3fb').innerHTML="❌ 'However, second-hand uniforms and financial support exist.'"; }
+  function checkChal4() { let a=document.getElementById('chal4').value.trim().toLowerCase(); if((a.includes("anaphora")||a.includes("tricolon")||a.includes("hypophora")||a.includes("antithesis")) && a.includes(",")) document.getElementById('chal4fb').innerHTML="✅ Anaphora, tricolon, hypophora etc."; else document.getElementById('chal4fb').innerHTML="❌ e.g., anaphora, hypophora."; }
+  function checkChal5() { let a=document.getElementById('chal5').value.trim(); if(a.length>20 && (a.includes("act")||a.includes("now")||a.includes("must")||a.includes("join"))) document.getElementById('chal5fb').innerHTML="✅ Powerful conclusion + call to action."; else document.getElementById('chal5fb').innerHTML="❌ Include call to action: 'Join the movement. Act today.'"; }
+  // MASTERY
+  function checkM1() { let a=document.getElementById('m1').value.trim().toLowerCase(); if(a.includes("rhetorical")) document.getElementById('m1fb').innerHTML="✅ Rhetorical question."; else document.getElementById('m1fb').innerHTML="❌ Rhetorical question."; }
+  function checkM2() { let a=document.getElementById('m2').value.trim().toLowerCase(); if(a==="facts") document.getElementById('m2fb').innerHTML="✅ F = Facts."; else document.getElementById('m2fb').innerHTML="❌ Facts."; }
+  function checkM3() { let a=document.getElementById('m3').value.trim().toLowerCase(); if((a.includes("%")||a.includes("percent")||a.includes("statistic")) && (a.includes("damage")||a.includes("harm")||a.includes("devastat"))) document.getElementById('m3fb').innerHTML="✅ Emotive + statistic."; else document.getElementById('m3fb').innerHTML="❌ e.g., '70% of students struggle to concentrate. This damage to learning is heartbreaking.'"; }
+  function checkM4() { let a=document.getElementById('m4').value.trim().toLowerCase(); if(a==="conversely") document.getElementById('m4fb').innerHTML="✅ Conversely = contrasting point."; else document.getElementById('m4fb').innerHTML="❌ Conversely."; }
+  function checkM5() { let a=document.getElementById('m5').value.trim(); if(a.split(",").length>=2 || a.split(" and ").length>=2) document.getElementById('m5fb').innerHTML="✅ Rule of three."; else document.getElementById('m5fb').innerHTML="❌ e.g., 'for the trees, the animals, and the air we breathe'."; }
+  function checkM6() { let a=document.getElementById('m6').value.trim(); if(a.length>15 && a.includes("we")||a.includes("must")) document.getElementById('m6fb').innerHTML="✅ Good counter-argument rebuttal."; else document.getElementById('m6fb').innerHTML="❌ e.g., 'Nevertheless, small steps today create big change tomorrow.'"; }
+  function checkM7() { let a=document.getElementById('m7').value.trim().toLowerCase(); if(a==="imperative verbs"||a.includes("imperative")||a==="bossy verbs") document.getElementById('m7fb').innerHTML="✅ Imperative verbs / bossy verbs."; else document.getElementById('m7fb').innerHTML="❌ Imperative verbs."; }
+  function checkM8() { let a=document.getElementById('m8').value.trim().toLowerCase(); const acts=["donate","give","support","help","sponsor","volunteer"]; if(acts.includes(a)) document.getElementById('m8fb').innerHTML="✅ Great bossy verb."; else document.getElementById('m8fb').innerHTML="❌ e.g., Donate, Support, Act."; }
+  function checkM9() { let a=document.getElementById('m9').value.trim().toLowerCase(); if(a==="paragraph 4"||a==="fourth paragraph"||a==="counter-argument paragraph") document.getElementById('m9fb').innerHTML="✅ Paragraph 4 (counter-argument)."; else document.getElementById('m9fb').innerHTML="❌ Fourth paragraph."; }
+  function checkM10() { let a=document.getElementById('m10').value.trim().toLowerCase(); if(a==="emotive language"||a.includes("emotive")) document.getElementById('m10fb').innerHTML="✅ Emotive language (disastrous, destroy)."; else document.getElementById('m10fb').innerHTML="❌ Emotive language."; }
+  function checkM11() { let a=document.getElementById('m11').value.trim().toLowerCase(); if(a.includes("ask")||a.includes("answer")) document.getElementById('m11fb').innerHTML="✅ Hypophora = ask & answer."; else document.getElementById('m11fb').innerHTML="❌ Ask a question then answer it."; }
+  function checkM12() { let a=document.getElementById('m12').value.trim(); if((a.includes("!")||a.includes("now")||a.includes("join")||a.includes("act")) && a.length>10) document.getElementById('m12fb').innerHTML="✅ Strong call to action."; else document.getElementById('m12fb').innerHTML="❌ e.g., 'Sign up today and be the change!'"; }
+</script>
+</body>
+</html>

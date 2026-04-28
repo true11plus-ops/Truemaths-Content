@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary in Context — 11+ GL Assessment</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --ink: #1c1c2e;
+  --bg: #f8f5f0;
+  --cream: #fdfaf5;
+  --red: #d64045;
+  --teal: #2a9d8f;
+  --gold: #e9c46a;
+  --navy: #264653;
+  --orange: #f4a261;
+  --green: #2d6a4f;
+  --passage-bg: #e8f4fd;
+  --passage-border: #2a9d8f;
+  --worked-bg: #fffbe6;
+  --worked-border: #e9c46a;
+  --key-bg: #e8f5e9;
+  --key-border: #2d6a4f;
+  --warn-bg: #fdecea;
+  --warn-border: #d64045;
+  --exam-bg: #ffffff;
+  --exam-border: #264653;
+  --shadow: 0 4px 24px rgba(28,28,46,0.10);
+  --radius: 14px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.75;}
+
+/* NAV */
+.sticky-nav{position:sticky;top:0;z-index:100;background:var(--navy);padding:10px 0;box-shadow:0 2px 12px rgba(0,0,0,0.18);}
+.sticky-nav .nav-inner{max-width:960px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.sticky-nav a{color:rgba(255,255,255,0.82);font-size:12px;font-weight:600;text-decoration:none;padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,0.2);transition:all .15s;white-space:nowrap;}
+.sticky-nav a:hover{background:rgba(255,255,255,0.15);color:#fff;}
+.nav-title{font-family:'DM Serif Display',serif;color:var(--gold);font-size:14px;margin-right:8px;white-space:nowrap;}
+
+/* HERO */
+.hero{background:var(--navy);color:#fff;padding:60px 24px 52px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:340px;height:340px;background:radial-gradient(circle,rgba(233,196,106,0.22) 0%,transparent 70%);pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:-60px;left:-60px;width:260px;height:260px;background:radial-gradient(circle,rgba(42,157,143,0.20) 0%,transparent 70%);pointer-events:none;}
+.hero-badge{display:inline-block;background:var(--teal);color:#fff;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:99px;margin-bottom:18px;}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;margin-bottom:14px;}
+.hero h1 em{color:var(--gold);font-style:normal;}
+.hero p{font-size:1.05rem;opacity:.85;max-width:580px;margin:0 auto;}
+
+/* LAYOUT */
+.container{max-width:900px;margin:0 auto;padding:0 20px 80px;}
+
+/* SECTION HEADERS */
+.sec-header{margin:60px 0 26px;display:flex;align-items:center;gap:14px;}
+.sec-num{background:var(--red);color:#fff;font-size:13px;font-weight:700;min-width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sec-num.teal{background:var(--teal);}
+.sec-num.gold{background:#c9972a;color:#fff;}
+.sec-num.green{background:var(--green);}
+.sec-num.navy{background:var(--navy);}
+.sec-num.orange{background:var(--orange);color:var(--ink);}
+.sec-header h2{font-family:'DM Serif Display',serif;font-size:clamp(1.3rem,3vw,1.8rem);line-height:1.2;}
+
+h3{font-size:1.1rem;font-weight:700;margin:26px 0 10px;color:var(--ink);}
+h4{font-size:.95rem;font-weight:700;margin:18px 0 8px;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;}
+p{margin-bottom:14px;}
+ul,ol{margin:0 0 14px 22px;}
+li{margin-bottom:6px;}
+strong{font-weight:700;}
+em{font-style:italic;}
+
+/* CALLOUT BOXES */
+.passage{background:var(--passage-bg);border-left:5px solid var(--passage-border);border-radius:0 var(--radius) var(--radius) 0;padding:20px 22px;margin:16px 0;font-size:.96rem;line-height:1.85;}
+.passage-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:8px;}
+.worked{background:var(--worked-bg);border:2px solid var(--worked-border);border-radius:var(--radius);padding:20px 22px;margin:16px 0;}
+.worked-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#a07c10;margin-bottom:10px;}
+.keyterm{background:var(--key-bg);border:2px solid var(--key-border);border-radius:var(--radius);padding:18px 20px;margin:14px 0;}
+.keyterm-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+.warn{background:var(--warn-bg);border:2px solid var(--warn-border);border-radius:var(--radius);padding:18px 20px;margin:14px 0;}
+.warn-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+.exam-q{background:var(--exam-bg);border:2px solid var(--exam-border);border-radius:var(--radius);padding:20px 22px;margin:16px 0;box-shadow:var(--shadow);}
+.exam-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px;}
+
+/* CLASS METHOD CARDS */
+.class-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:18px 0;}
+.class-card{border-radius:var(--radius);padding:18px 16px;box-shadow:var(--shadow);}
+.class-card .letter{font-family:'DM Serif Display',serif;font-size:2.2rem;font-weight:400;line-height:1;margin-bottom:6px;}
+.class-card h4{margin:0 0 6px;font-size:.85rem;}
+.class-card p{font-size:.85rem;margin:0;}
+.cc-c{background:#fdecea;border-top:4px solid var(--red);}.cc-c .letter{color:var(--red);}
+.cc-l{background:#e8f4fd;border-top:4px solid var(--teal);}.cc-l .letter{color:var(--teal);}
+.cc-a{background:#fffbe6;border-top:4px solid #c9972a;}.cc-a .letter{color:#c9972a;}
+.cc-s1{background:#e8f5e9;border-top:4px solid var(--green);}.cc-s1 .letter{color:var(--green);}
+.cc-s2{background:#f3e8fd;border-top:4px solid #7b5ea7;}.cc-s2 .letter{color:#7b5ea7;}
+
+/* CHARGE METER */
+.charge-row{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;}
+.charge-pill{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:99px;font-weight:700;font-size:.9rem;}
+.charge-pos{background:#e8f5e9;color:var(--green);border:2px solid var(--green);}
+.charge-neg{background:var(--warn-bg);color:var(--red);border:2px solid var(--red);}
+.charge-neu{background:#f0f0f0;color:#555;border:2px solid #ccc;}
+
+/* SHADES SCALE */
+.shade-scale{display:flex;align-items:stretch;margin:14px 0;gap:0;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+.shade-step{flex:1;padding:14px 10px;text-align:center;font-size:.85rem;font-weight:600;}
+.shade-step small{display:block;font-size:.75rem;font-weight:400;opacity:.8;margin-top:3px;}
+.s-mild{background:#d4edda;color:#1a5c34;}
+.s-mid{background:#f4a261;color:#5c2a00;}
+.s-intense{background:#d64045;color:#fff;}
+
+/* CONNOTATION TABLE */
+.con-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+.con-table th{background:var(--navy);color:#fff;padding:11px 14px;text-align:left;font-weight:700;}
+.con-table td{padding:10px 14px;border-bottom:1px solid #ddd;}
+.con-table tr:nth-child(even) td{background:#f7f4ef;}
+.con-table tr:nth-child(odd) td{background:#fff;}
+.pos-tag{color:var(--green);font-weight:700;}
+.neg-tag{color:var(--red);font-weight:700;}
+.neu-tag{color:#777;font-weight:700;}
+
+/* ROOT TABLE */
+.root-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.88rem;box-shadow:var(--shadow);border-radius:var(--radius);overflow:hidden;}
+.root-table th{background:var(--teal);color:#fff;padding:10px 12px;text-align:left;font-weight:700;}
+.root-table td{padding:9px 12px;border-bottom:1px solid #ddd;vertical-align:top;}
+.root-table tr:nth-child(even) td{background:#f0fafa;}
+.root-table tr:nth-child(odd) td{background:#fff;}
+.root-cell{font-weight:700;color:var(--teal);font-size:.95rem;}
+
+/* WORD BANK TABLE */
+.wb-table{width:100%;border-collapse:collapse;font-size:.86rem;box-shadow:var(--shadow);border-radius:var(--radius);overflow:hidden;margin:12px 0;}
+.wb-table th{background:var(--navy);color:#fff;padding:9px 12px;text-align:left;font-weight:700;}
+.wb-table td{padding:8px 12px;border-bottom:1px solid #e0dbd3;vertical-align:top;}
+.wb-table tr:nth-child(even) td{background:#f8f5f0;}
+.wb-table tr:nth-child(odd) td{background:#fff;}
+.wb-section-header{background:var(--teal)!important;color:#fff!important;font-weight:700;font-size:.88rem;letter-spacing:1px;text-transform:uppercase;}
+.wb-section-header td{background:var(--teal)!important;color:#fff!important;font-weight:700;}
+
+/* QUIZ */
+.quiz-section{background:#fff;border-radius:var(--radius);padding:26px 22px;margin:26px 0;box-shadow:var(--shadow);}
+.level-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:99px;margin-bottom:16px;}
+.lv-easy{background:#d4edda;color:#1a5c34;}
+.lv-inter{background:#d1ecf1;color:#0c5460;}
+.lv-adv{background:#fff3cd;color:#856404;}
+.lv-chal{background:#f8d7da;color:#721c24;}
+.lv-mastery{background:var(--navy);color:#fff;}
+
+.q-item{margin:18px 0 26px;padding-bottom:22px;border-bottom:1.5px dashed #ddd;}
+.q-item:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0;}
+.q-text{font-weight:700;margin-bottom:8px;}
+.q-passage{background:var(--passage-bg);border-left:4px solid var(--passage-border);padding:11px 15px;margin:8px 0;font-size:.9rem;line-height:1.8;border-radius:0 8px 8px 0;}
+
+.answer-row{display:flex;gap:10px;align-items:stretch;margin-top:10px;flex-wrap:wrap;}
+.answer-input{flex:1;min-width:160px;padding:10px 13px;border:2px solid #ccc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;transition:border .2s;}
+.answer-input:focus{border-color:var(--teal);}
+.check-btn{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;transition:background .2s;white-space:nowrap;}
+.check-btn:hover{background:var(--teal);}
+.feedback{margin-top:10px;padding:11px 15px;border-radius:8px;font-weight:600;font-size:.92rem;display:none;line-height:1.6;}
+.feedback.correct{background:#e8f5e9;color:#1a5c34;border:1.5px solid var(--green);}
+.feedback.wrong{background:var(--warn-bg);color:#9b1c1c;border:1.5px solid var(--red);}
+
+/* MCQ OPTIONS */
+.mcq-opts{list-style:none;margin:10px 0;}
+.mcq-opts li{padding:9px 14px;margin:5px 0;background:#fff;border:1.5px solid #ccc;border-radius:8px;cursor:pointer;font-weight:600;display:flex;gap:10px;align-items:flex-start;transition:all .15s;font-size:.93rem;}
+.mcq-opts li:hover{border-color:var(--teal);background:#e8f4fd;}
+.mcq-opts li.sc{background:#e8f5e9;border-color:var(--green);color:#1a5c34;}
+.mcq-opts li.sw{background:var(--warn-bg);border-color:var(--red);color:#9b1c1c;}
+.mcq-opts li.reveal{background:#e8f5e9;border-color:var(--green);}
+.opt-letter{background:var(--navy);color:#fff;font-size:11px;font-weight:700;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.mcq-feedback{margin-top:10px;padding:11px 15px;border-radius:8px;font-weight:600;font-size:.92rem;display:none;line-height:1.6;}
+.mcq-feedback.correct{background:#e8f5e9;color:#1a5c34;border:1.5px solid var(--green);}
+.mcq-feedback.wrong{background:var(--warn-bg);color:#9b1c1c;border:1.5px solid var(--red);}
+
+/* HOMONYM TABLE */
+.hom-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.9rem;box-shadow:var(--shadow);border-radius:var(--radius);overflow:hidden;}
+.hom-table th{background:var(--orange);color:var(--ink);padding:10px 14px;font-weight:700;}
+.hom-table td{padding:10px 14px;border-bottom:1px solid #ddd;}
+.hom-table tr:nth-child(even) td{background:#fff8f0;}
+.hom-table tr:nth-child(odd) td{background:#fff;}
+
+/* MASTERY BANNER */
+.mastery-banner{background:var(--navy);color:#fff;border-radius:var(--radius);padding:30px 26px;text-align:center;margin:48px 0 26px;}
+.mastery-banner h2{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold);margin-bottom:8px;}
+
+hr.div{border:none;border-top:3px solid #e8e2d8;margin:48px 0;}
+
+@media(max-width:600px){
+  .class-grid{grid-template-columns:1fr 1fr;}
+  .shade-scale{flex-direction:column;}
+  .answer-row{flex-direction:column;}
+  .sticky-nav .nav-inner{gap:4px;}
+  .sticky-nav a{font-size:11px;padding:3px 8px;}
+}
+</style>
+</head>
+<body>
+<!-- STICKY NAV -->
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <span class="nav-title">Vocab 11+</span>
+    <a href="#s1">C.L.A.S.S.</a>
+    <a href="#s2">+/- Filter</a>
+    <a href="#s3">Substitution</a>
+    <a href="#s4">MCQ</a>
+    <a href="#s5">Find&amp;Copy</a>
+    <a href="#s6">Figurative</a>
+    <a href="#s7">Roots</a>
+    <a href="#s8">Shades</a>
+    <a href="#s9">Word Choice</a>
+    <a href="#s10">Homonyms</a>
+    <a href="#s11">Register</a>
+    <a href="#s12">Word Bank</a>
+    <a href="#s13">Practice</a>
+    <a href="#mastery">Mastery Test</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">11+ GL Assessment · English Vocabulary</div>
+  <h1>Vocabulary in <em>Context</em><br>Meaning of Words</h1>
+  <p>How to decode any word — even words you've never seen before — using the clues the writer left you.</p>
+</div>
+
+<div class="container">
+<!-- ===== SECTION 1: C.L.A.S.S. METHOD ===== -->
+<div id="s1" class="sec-header">
+  <div class="sec-num">1</div>
+  <h2>The C.L.A.S.S. Method</h2>
+</div>
+
+<p>When you hit an unfamiliar word, don't guess and don't panic. Use the five strategies below. Each one uses a different type of clue that writers leave in the sentences around a difficult word.</p>
+
+<div class="class-grid">
+  <div class="class-card cc-c"><div class="letter">C</div><h4>Contrast</h4><p>Look for <em>but, however, although, unlike, yet</em> — the unknown word is the opposite of something nearby.</p></div>
+  <div class="class-card cc-l"><div class="letter">L</div><h4>Logic</h4><p>Use the situation's common sense. What word would make this scene make sense?</p></div>
+  <div class="class-card cc-a"><div class="letter">A</div><h4>Antonyms / Synonyms</h4><p>A nearby word with similar or opposite meaning gives you a clue about the target word.</p></div>
+  <div class="class-card cc-s1"><div class="letter">S</div><h4>Substitution</h4><p>Swap in a simple word. Does the sentence still make sense and keep its feeling?</p></div>
+  <div class="class-card cc-s2"><div class="letter">S</div><h4>Structure</h4><p>Break the word into prefix + root + suffix. Each part carries meaning.</p></div>
+</div>
+
+<h3>C — Contrast Clue</h3>
+<div class="keyterm"><div class="keyterm-label">📘 Strategy</div>
+<p>Signal words: <strong>but, however, although, unlike, despite, whereas, yet, on the other hand.</strong><br>
+These tell you the unknown word is the <em>opposite</em> of something you already understand.</p></div>
+
+<div class="passage"><div class="passage-label">📖 Example Sentence</div>
+"Although the ambassador was usually <strong>magnanimous</strong> with her praise, today she withheld any compliment from the performers."</div>
+<div class="worked"><div class="worked-label">✦ Reasoning Process</div>
+<p><strong>Step 1 — Spot the signal:</strong> "Although" = contrast word. The two halves of the sentence are opposites.</p>
+<p><strong>Step 2 — Understand the contrast:</strong> Today she <em>withheld compliments</em> = the opposite of her usual behaviour.</p>
+<p><strong>Step 3 — Flip it:</strong> Her usual behaviour must be the <em>opposite</em> of withholding compliments = giving compliments freely.</p>
+<p><strong>Answer:</strong> <em>Magnanimous</em> means generous or giving, especially with praise or forgiveness.</p></div>
+
+<h3>L — Logic Clue</h3>
+<div class="keyterm"><div class="keyterm-label">📘 Strategy</div>
+<p>Ask: given this situation, what word would <em>make sense</em>? Use your knowledge of how the world works.</p></div>
+
+<div class="passage"><div class="passage-label">📖 Example Sentence</div>
+"After three days in the desert without water, the explorers were utterly <strong>parched</strong> and could think of nothing but reaching the oasis."</div>
+<div class="worked"><div class="worked-label">✦ Reasoning Process</div>
+<p><strong>Step 1 — Situational logic:</strong> Three days without water in a desert. What would a person feel? Desperately thirsty.</p>
+<p><strong>Step 2 — Confirm with other clues:</strong> "Could think of nothing but reaching the oasis" — an oasis provides water. This confirms thirst.</p>
+<p><strong>Answer:</strong> <em>Parched</em> means extremely dry or very thirsty.</p></div>
+
+<h3>A — Antonym / Synonym Clue</h3>
+<div class="keyterm"><div class="keyterm-label">📘 Strategy</div>
+<p>Look nearby for a word that <em>means something similar</em> (synonym) or <em>opposite</em> (antonym). The writer sometimes pairs these deliberately.</p></div>
+
+<div class="passage"><div class="passage-label">📖 Example Sentence</div>
+"The hall was <strong>cacophonous</strong>; the clashing, discordant noise of two hundred children talking at once was almost unbearable."</div>
+<div class="worked"><div class="worked-label">✦ Reasoning Process</div>
+<p><strong>Step 1 — Find the companion words:</strong> "clashing," "discordant," "noise" — all strongly negative sound words.</p>
+<p><strong>Step 2 — These are synonyms:</strong> They all describe unpleasant sound. The unknown word is in the same family.</p>
+<p><strong>Answer:</strong> <em>Cacophonous</em> means harsh, unpleasant, or chaotic noise.</p></div>
+
+<h3>S — Substitution Clue</h3>
+<div class="passage"><div class="passage-label">📖 Example Sentence</div>
+"The surgeon's movements were <strong>deft</strong> — each incision precise, each stitch perfectly placed without a moment's hesitation."</div>
+<div class="worked"><div class="worked-label">✦ Reasoning Process</div>
+<p><strong>Step 1 — Replace with simple words:</strong> Try "slow"… "The surgeon's movements were slow" — doesn't fit (slow movements + perfect precision is contradictory).</p>
+<p><strong>Step 2 — Try "clumsy":</strong> No — clumsy movements and perfect stitches are opposites.</p>
+<p><strong>Step 3 — Try "skilful":</strong> "The surgeon's movements were skilful — each incision precise…" ✓ Perfect fit.</p>
+<p><strong>Answer:</strong> <em>Deft</em> means skilful and precise, especially with the hands.</p></div>
+
+<h3>S — Structure (Word Roots)</h3>
+<div class="passage"><div class="passage-label">📖 Example Sentence</div>
+"The documentary focused on the <strong>subterranean</strong> world of cave ecosystems."</div>
+<div class="worked"><div class="worked-label">✦ Reasoning Process</div>
+<p><strong>Step 1 — Identify parts:</strong> Sub- (prefix) + terr (root) + -an (suffix).</p>
+<p><strong>Step 2 — Decode each part:</strong> Sub- = below/under. Terr = earth/ground (like "terrain," "territory"). -an = relating to.</p>
+<p><strong>Step 3 — Combine:</strong> Below + ground = underground.</p>
+<p><strong>Answer:</strong> <em>Subterranean</em> means underground or beneath the earth's surface.</p></div>
+
+<!-- PRACTICE SEC 1 -->
+<div class="quiz-section">
+  <div class="level-badge lv-easy">Easy — Identify the Clue Type</div>
+  <div class="q-item">
+    <div class="q-text">Q1. Which C.L.A.S.S. strategy works best here? "The child was <em>timid</em>, unlike her boisterous, noisy brother."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c1q1" type="text" placeholder="C / L / A / S / S (Substitution or Structure)">
+      <button class="check-btn" onclick="chkAns('c1q1','contrast','The word "unlike" is a contrast signal — timid is the opposite of boisterous/noisy.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c1q1-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q2. What C.L.A.S.S. strategy helps decode "aquatic" in: "The aquatic mammals, including dolphins and whales, spent their entire lives in the ocean."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c1q2" type="text" placeholder="C / L / A / S (Structure)">
+      <button class="check-btn" onclick="chkAns('c1q2','structure','Aqua- means water (structure clue). The context (ocean, mammals) also helps via logic.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c1q2-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q3. Use the CONTRAST clue. What does "loquacious" mean here? "Although Priya was loquacious, her brother barely said a word all evening."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c1q3" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkKW('c1q3',['talk','chat','speak','verbose','talkative'],'Although (contrast) + brother barely said a word = Priya is the opposite. Loquacious means very talkative.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c1q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-inter">Intermediate — Apply the Strategy</div>
+  <div class="q-item">
+    <div class="q-text">Q4. Use Logic to work out the meaning of "luminous." "In the darkness of the cave, the luminous fungi glowed softly on the walls, providing the only light."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c1q4" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkKW('c1q4',['light','glow','shine','bright','radiant'],'Logic: The cave is dark. The fungi provide light. They must emit light — luminous means glowing or giving off light.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c1q4-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q5. Use Structure. The prefix "mal-" means bad/wrong. What does "malevolent" suggest? "The malevolent queen smiled as she plotted to destroy the kingdom."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c1q5" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkKW('c1q5',['evil','wicked','harmful','bad','wishing harm','sinister'],'Mal- = bad + vol = will/wish + -ent = having. Malevolent = wishing harm or evil on others.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c1q5-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q6. Use Substitution. Replace "dilapidated" with simple words to find its meaning: "The dilapidated cottage had a crumbling roof, broken windows, and walls covered in creeping moss."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c1q6" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkKW('c1q6',['ruin','run-down','neglect','decay','broken','old','crumbl'],'Substituting "beautiful" or "new" doesn\'t fit. "Ruined" or "run-down" fits perfectly. Dilapidated means in a state of disrepair or decay.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c1q6-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-adv">Advanced — Choose and Apply</div>
+  <div class="q-item">
+    <div class="q-text">Q7. Name the strategy AND give the meaning. "The scientist's hypothesis proved to be erroneous; every single experiment contradicted her original claim."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c1q7" type="text" placeholder="Strategy name + meaning...">
+      <button class="check-btn" onclick="chkKW('c1q7',['wrong','incorrect','error','false','mistaken','inaccurate'],'Strategy: Logic/Antonym — "contradicted her claim" tells us the hypothesis was wrong. Erroneous means containing errors; incorrect.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c1q7-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q8. Which TWO strategies could you combine to decode "benevolent"? "The benevolent donor gave generously to every charity in the town without expecting anything in return."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c1q8" type="text" placeholder="Name two strategies...">
+      <button class="check-btn" onclick="chkKW('c1q8',['structure','logic','synonym','antonym'],'Structure: bene- = good + vol = will/wish. Logic: giving generously without return = kind, charitable. Both confirm benevolent means kind and generous.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c1q8-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-chal">Challenging — Multi-Step Decode</div>
+  <div class="q-item">
+    <div class="q-text">Q9. Use at least TWO strategies to decode "intrepid." Write the meaning AND your reasoning. "Unlike her cautious companions who waited at the base, the intrepid explorer pressed on through the blizzard alone."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c1q9" type="text" placeholder="Meaning + reasoning...">
+      <button class="check-btn" onclick="chkKW('c1q9',['brave','fearless','bold','courageous','daring'],'Contrast: unlike cautious companions (contrast signal). The explorer does the opposite of being cautious = brave. Structure: in- = not + trepid = fearful (cf. trepidation). Intrepid = fearlessly brave.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c1q9-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q10. Apply ALL five C.L.A.S.S. strategies to identify which one works BEST for "melancholy." "He sat alone by the window, a deep melancholy settling over him like a grey cloud as the rain streaked the glass — happiness felt impossibly distant."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c1q10" type="text" placeholder="Best strategy + meaning...">
+      <button class="check-btn" onclick="chkKW('c1q10',['sad','sorrow','sadness','depression','unhappy','gloom'],'Best strategy: Antonym/Synonym — "happiness felt impossibly distant" is the antonym. Logic also works: rain, alone, grey cloud all suggest sadness. Melancholy means a deep, persistent sadness.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c1q10-fb"></div>
+  </div>
+</div>
+<hr class="div">
+<!-- ===== SECTION 2: POSITIVE/NEGATIVE FILTER ===== -->
+<div id="s2" class="sec-header">
+  <div class="sec-num teal">2</div>
+  <h2>The Positive / Negative Filter</h2>
+</div>
+
+<p>This is your <strong>first weapon</strong>, not a last resort. Before you even look at the options, decide whether the unknown word is <strong>positive (+)</strong>, <strong>negative (−)</strong>, or <strong>neutral (0)</strong>. This immediately eliminates at least 2 options in most MCQ questions.</p>
+
+<div class="keyterm"><div class="keyterm-label">📘 How to Use It</div>
+<p><strong>Step 1:</strong> Read the surrounding words. Look at the character's actions, the situation, the tone.<br>
+<strong>Step 2:</strong> Assign a charge: + (good/pleasant), − (bad/unpleasant), or 0 (neutral).<br>
+<strong>Step 3:</strong> In MCQ — eliminate all options with the wrong charge. In Find &amp; Copy — only search for words with the correct charge.</p></div>
+
+<h3>Application 1: MCQ Vocabulary Questions</h3>
+<div class="passage"><div class="passage-label">📖 Example Passage</div>
+"The nefarious gang crept through the shadows, plotting their next scheme against the unsuspecting villagers."</div>
+<div class="worked"><div class="worked-label">✦ Worked Example — MCQ</div>
+<p><strong>Step 1 — Read context:</strong> "Gang," "shadows," "plotting," "scheme," "unsuspecting" — all dark, harmful, secretive words.</p>
+<p><strong>Step 2 — Assign charge:</strong> Clearly <span class="neg-tag">NEGATIVE (−)</span></p>
+<p><strong>Step 3 — Eliminate:</strong> If options are: <em>A) kind &nbsp; B) clever &nbsp; C) wicked &nbsp; D) brave &nbsp; E) honest</em></p>
+<p>Eliminate A (kind = +), D (brave = +), E (honest = +). Remaining: B (clever = neutral/+) and C (wicked = −). Only C matches our − charge. <strong>Answer: C — wicked.</strong></p></div>
+
+<div class="warn"><div class="warn-label">⚠️ Common Mistake</div>
+<p>Don't stop after finding the charge. A word like "clever" might seem neutral, but in a sentence about criminals, even "clever" is a distractor — the word must match both the <em>charge</em> AND the <em>specific meaning</em>.</p></div>
+
+<h3>Application 2: Find and Copy Questions</h3>
+<div class="passage"><div class="passage-label">📖 Example Passage</div>
+"The storm arrived without warning. The ferocious winds tore through the village, the relentless rain battered every rooftop, and the menacing clouds blotted out the last of the afternoon sun. By dusk, the devastation was complete."</div>
+<div class="worked"><div class="worked-label">✦ Worked Example — Find and Copy</div>
+<p><strong>Question:</strong> "Find and copy a word that suggests the storm was frightening or threatening."</p>
+<p><strong>Step 1 — Assign the charge needed:</strong> "Frightening/threatening" = <span class="neg-tag">NEGATIVE (−)</span></p>
+<p><strong>Step 2 — Scan only for − words:</strong> ferocious (−), relentless (−), menacing (−), devastation (−), battered (−)</p>
+<p><strong>Step 3 — Match to the exact requirement:</strong> "Frightening or threatening" → "menacing" is the most precise match (menace = a threat).</p>
+<p><strong>Answer: menacing</strong> (ferocious = fierce/violent; relentless = unstoppable — menacing is specifically threatening).</p></div>
+
+<!-- PRACTICE SEC 2 -->
+<div class="quiz-section">
+  <div class="level-badge lv-easy">Easy — Assign the Charge</div>
+  <div class="q-item">
+    <div class="q-text">Q11. Is "serene" positive, negative, or neutral? "The lake was serene — a perfect mirror of the cloudless sky above."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c2q1" type="text" placeholder="positive / negative / neutral">
+      <button class="check-btn" onclick="chkAns('c2q1','positive','A perfect mirror of a cloudless sky suggests calm, peace, beauty — all positive. Serene means peacefully calm.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c2q1-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q12. Assign the correct charge to "acrimonious." "The acrimonious argument left both sisters in tears, neither willing to speak to the other for days."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c2q2" type="text" placeholder="positive / negative / neutral">
+      <button class="check-btn" onclick="chkAns('c2q2','negative','Argument, tears, refusing to speak — all negative context. Acrimonious means bitter and angry in tone.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c2q2-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q13. Which TWO options can you eliminate immediately using the +/− filter? The unknown word is clearly NEGATIVE. Options: A) joyful &nbsp; B) cruel &nbsp; C) peaceful &nbsp; D) harsh &nbsp; E) cheerful</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c2q3" type="text" placeholder="Name the two letters to eliminate...">
+      <button class="check-btn" onclick="chkKW('c2q3',['a','c','e','joyful','peaceful','cheerful'],'Eliminate A (joyful = +) and C (peaceful = +) and E (cheerful = +). All three are positive. Only B (cruel) and D (harsh) are negative.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c2q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-inter">Intermediate — Filter Then Find</div>
+  <div class="q-item">
+    <div class="q-text">Q14. Use the +/− filter on this Find and Copy question. "Find a word that suggests the character was very happy." Passage: "Elara skipped out of the examination hall, her eyes gleaming with delight, chattering excitedly to anyone who would listen." Which word best answers the question?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c2q4" type="text" placeholder="Type the word...">
+      <button class="check-btn" onclick="chkAns('c2q4','delight','All words in the passage are positive (+). Skipped, gleaming, chattering are all joyful — but "delight" most precisely means happiness/joy.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c2q4-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q15. The word in context is NEGATIVE. Cross out the options that don't fit, then state the best answer. Options for "The man's <em>squalid</em> living conditions shocked the inspector": A) luxurious B) filthy C) cramped D) spotless E) comfortable</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c2q5" type="text" placeholder="Type the best answer letter + word">
+      <button class="check-btn" onclick="chkKW('c2q5',['b','filthy','dirty'],'Eliminate A (luxurious = +), D (spotless = +), E (comfortable = +). B (filthy) is the best match — squalid means extremely dirty and unpleasant. C (cramped) is negative but means small, not dirty.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c2q5-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-chal">Challenging — Filter + Precision</div>
+  <div class="q-item">
+    <div class="q-text">Q16. Find and copy ONE word from the passage that means "extremely frightened." Use the filter first, then select the most precise match. Passage: "Clara's face turned pallid. Her breath came in ragged gasps. She was petrified — rooted to the spot as the shadow loomed over her. Every instinct screamed at her to run, yet terror held her fast."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c2q6" type="text" placeholder="Type the word...">
+      <button class="check-btn" onclick="chkAns('c2q6','petrified','All words are negative (−). Pallid = pale, ragged = rough/uneven, terror = fear. "Petrified" most precisely means paralysed with extreme fear — which matches "extremely frightened" exactly.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c2q6-fb"></div>
+  </div>
+</div>
+
+<hr class="div">
+<!-- ===== SECTION 3: SUBSTITUTION STRATEGY ===== -->
+<div id="s3" class="sec-header">
+  <div class="sec-num gold">3</div>
+  <h2>The Substitution Strategy</h2>
+</div>
+
+<p>Substitution is used when you have candidate answers and need to decide between them. You <strong>swap each option into the sentence</strong> and test three things:</p>
+
+<div class="keyterm"><div class="keyterm-label">📘 The Three Tests</div>
+<p>✅ <strong>Meaning:</strong> Does the sentence still make sense?<br>
+✅ <strong>Tone:</strong> Does it keep the same feeling (serious, light, frightening, joyful)?<br>
+✅ <strong>Register:</strong> Does it match the formality of the surrounding text?</p></div>
+
+<div class="passage"><div class="passage-label">📖 Full Worked Example Passage</div>
+"The elderly professor moved through the library with a <strong>reverential</strong> hush, treating each ancient volume as though it were a sacred object never to be disturbed."</div>
+
+<div class="worked"><div class="worked-label">✦ Full Reasoning Process — From Uncertainty to Correct Answer</div>
+<p><strong>Question:</strong> What does "reverential" most closely mean? <em>A) noisy &nbsp; B) respectful &nbsp; C) careful &nbsp; D) slow &nbsp; E) secretive</em></p>
+<p><strong>Step 1 — Apply +/− filter:</strong> "Sacred," "never to be disturbed," treating books like precious objects — this is clearly a <span class="pos-tag">POSITIVE (+)</span>, respectful context. Eliminate A (noisy = − and doesn't fit respect).</p>
+<p><strong>Step 2 — Substitute each remaining option:</strong></p>
+<ul>
+  <li><em>B) respectful:</em> "moved with a respectful hush" ✓ Meaning: yes. Tone: fits the sacred/precious feeling. Register: formal enough.</li>
+  <li><em>C) careful:</em> "moved with a careful hush" — "careful hush" is grammatically odd. A hush is a silence, not a careful action. ✗</li>
+  <li><em>D) slow:</em> "moved with a slow hush" — a hush isn't slow or fast. ✗</li>
+  <li><em>E) secretive:</em> "moved with a secretive hush" — secretive suggests hiding something, not respect. Changes the tone. ✗</li>
+</ul>
+<p><strong>Step 3 — Final check on B:</strong> "Reverential" comes from "reverence" (deep respect, especially for something sacred). The passage mentions sacred objects. <strong>B — respectful</strong> is the only option that passes all three tests.</p></div>
+
+<div class="warn"><div class="warn-label">⚠️ The Two-Plausible-Options Trap</div>
+<p>Sometimes B and C both sound fine on first read. The tiebreaker is always <strong>tone and precision</strong>. "Careful" means physically cautious. "Respectful" means treating something with honour. In a passage about sacred objects, <em>respectful</em> is more precise.</p></div>
+
+<!-- PRACTICE SEC 3 -->
+<div class="quiz-section">
+  <div class="level-badge lv-easy">Easy — Substitution Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q17. Substitute each option and select the best. "The exhausted runner's pace had become <em>laborious</em>, each step requiring immense effort." Options: A) quick B) joyful C) slow D) difficult E) invisible</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c3q1" type="text" placeholder="Type the letter: A B C D or E">
+      <button class="check-btn" onclick="chkAns('c3q1','d','Substitute each: A (quick) contradicts exhaustion. B (joyful) wrong charge. C (slow) — the pace might be slow but "laborious" emphasises the effort/difficulty, not the speed. D (difficult) — "each step requiring immense effort" confirms difficulty. E makes no sense. D is most precise.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c3q1-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q18. Which substitute word FAILS the tone test even though it's close in meaning? For "The cottage had an <em>idyllic</em> setting: rolling hills, a babbling brook, and roses climbing every wall." Try: A) perfect B) pleasant C) pretty D) beautiful E) flawless</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c3q2" type="text" placeholder="Which ONE fails the tone test? Give the letter.">
+      <button class="check-btn" onclick="chkAns('c3q2','b','B (pleasant) fails the tone test. The description is rich, poetic, and deeply beautiful — "pleasant" is too weak and ordinary. Idyllic means perfectly peaceful and beautiful in a romanticised way. A, D, E all work. C (pretty) is slightly weak but closer than pleasant.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c3q2-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-adv">Advanced — Full Substitution Chain</div>
+  <div class="q-item">
+    <div class="q-text">Q19. Apply the full three-test substitution (meaning, tone, register). "The diplomat delivered her speech in measured, <em>eloquent</em> language that moved the entire assembly to silence." Options: A) loud B) fluent C) persuasive D) clever E) flowery</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c3q3" type="text" placeholder="Best letter + explain why others fail...">
+      <button class="check-btn" onclick="chkKW('c3q3',['c','persuasive'],'C — persuasive. A (loud) contradicts "measured." B (fluent = speaking smoothly) doesn\'t explain moving people to silence — fluency alone doesn\'t cause that. C (persuasive) — moves people, creates impact, fits formal register. D (clever) is too casual/general. E (flowery) suggests over-decorated language, slightly negative here. Eloquent means fluent and persuasive in expression.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c3q3-fb"></div>
+  </div>
+</div>
+<hr class="div">
+<!-- ===== SECTION 4: CLOSEST IN MEANING MCQ ===== -->
+<div id="s4" class="sec-header">
+  <div class="sec-num green">4</div>
+  <h2>Closest in Meaning — Full MCQ Worked Example</h2>
+</div>
+
+<p>This is the hardest vocabulary question type. Two options will be <em>technically correct</em> dictionary definitions, but only one will be <strong>contextually precise</strong>. You must adjudicate between them using context, connotation, and register.</p>
+
+<div class="passage"><div class="passage-label">📖 Full Passage Extract</div>
+The young violinist stepped onto the stage and took a deep breath. For months she had practised in her cramped bedroom, notes drifting through the thin walls to her neighbours below. Now, standing beneath the blazing lights of the concert hall, she felt something stir inside her — not quite fear, but an almost <strong>visceral</strong> excitement that began in her stomach and rose through her chest. She closed her eyes, raised her bow, and let the music begin.</div>
+
+<div class="exam-q"><div class="exam-label">🎯 Exam-Style Question</div>
+<p><strong>What does the word "visceral" most closely mean in this passage?</strong></p>
+<p><em>A) logical &nbsp;&nbsp; B) physical &nbsp;&nbsp; C) deep-felt &nbsp;&nbsp; D) sudden &nbsp;&nbsp; E) musical</em></p></div>
+
+<div class="worked"><div class="worked-label">✦ Full Step-by-Step Adjudication</div>
+<p><strong>Step 1 — Apply +/− filter:</strong> "Excitement," "stir inside her," "raised her bow" — this is <span class="pos-tag">POSITIVE (+)</span> and internal. Eliminate E (musical — describes the performance, not her feeling inside).</p>
+<p><strong>Step 2 — Quick eliminations:</strong></p>
+<ul>
+  <li><em>A) logical</em> — The passage says "not quite fear" — this is an emotional, not rational, moment. Logical is wrong in context. ✗</li>
+  <li><em>D) sudden</em> — There's no indication of suddenness. The excitement "rose" = gradual. ✗</li>
+</ul>
+<p><strong>Step 3 — Two plausible options remain: B (physical) and C (deep-felt)</strong><br>
+Both are defensible dictionary meanings of "visceral." Now we adjudicate:</p>
+<p><strong>Context test:</strong> "Began in her stomach and rose through her chest" — the writer explicitly locates this excitement in the body. It is described in physical, bodily terms.</p>
+<p><strong>Connotation test:</strong> "Visceral" comes from "viscera" (the internal organs of the body). Its core meaning is <em>relating to deep inward feelings felt in the body</em>. "Deep-felt" is close but misses the specifically <em>physical, bodily</em> quality that the sentence describes.</p>
+<p><strong>Register test:</strong> "Visceral" in formal writing typically means "instinctive and felt in the body" rather than simply "intense."</p>
+<p><strong>Decision:</strong> B — physical. The writer spends the whole sentence describing physical bodily locations (stomach, chest). This is the contextually precise choice. "Deep-felt" is true but too vague for this specific description.</p>
+<p><strong>Answer: B — physical (felt in the body)</strong></p></div>
+
+<div class="warn"><div class="warn-label">⚠️ The Key Rule</div>
+<p>When two options are both "true" definitions, ask: which one does <em>this specific sentence</em> best describe? The correct answer always has the most textual support — you can point to exact words that prove it.</p></div>
+
+<!-- PRACTICE SEC 4 -->
+<div class="quiz-section">
+  <div class="level-badge lv-easy">Easy — MCQ Single Correct Option</div>
+  <div class="q-item">
+    <div class="q-text">Q20. "The parrot was <em>garrulous</em>, filling the room with an endless stream of squawks, mimicked phrases, and cheerful chatter." What does garrulous most closely mean?<br>A) colourful &nbsp; B) talkative &nbsp; C) clever &nbsp; D) noisy &nbsp; E) friendly</div>
+    <ul class="mcq-opts" id="q20opts">
+      <li onclick="chkMCQ('q20','A','B')"><span class="opt-letter">A</span>colourful</li>
+      <li onclick="chkMCQ('q20','B','B')"><span class="opt-letter">B</span>talkative</li>
+      <li onclick="chkMCQ('q20','C','B')"><span class="opt-letter">C</span>clever</li>
+      <li onclick="chkMCQ('q20','D','B')"><span class="opt-letter">D</span>noisy</li>
+      <li onclick="chkMCQ('q20','E','B')"><span class="opt-letter">E</span>friendly</li>
+    </ul>
+    <div class="mcq-feedback" id="q20-fb"></div>
+    <div style="font-size:.85rem;color:#555;margin-top:8px;"><strong>Distractor note:</strong> D (noisy) is tempting — the parrot IS noisy. But garrulous specifically means talking too much, not just making noise. B is more precise.</div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-inter">Intermediate — Two Plausible Options</div>
+  <div class="q-item">
+    <div class="q-text">Q21. Passage: "The judge's <em>austere</em> courtroom had no decoration, no comfortable seating, and no concession to warmth of any kind." Which is most precise — A) strict B) plain C) cold D) serious E) formal?</div>
+    <ul class="mcq-opts" id="q21opts">
+      <li onclick="chkMCQ('q21','A','B')"><span class="opt-letter">A</span>strict</li>
+      <li onclick="chkMCQ('q21','B','B')"><span class="opt-letter">B</span>plain</li>
+      <li onclick="chkMCQ('q21','C','B')"><span class="opt-letter">C</span>cold</li>
+      <li onclick="chkMCQ('q21','D','B')"><span class="opt-letter">D</span>serious</li>
+      <li onclick="chkMCQ('q21','E','B')"><span class="opt-letter">E</span>formal</li>
+    </ul>
+    <div class="mcq-feedback" id="q21-fb"></div>
+    <div style="font-size:.85rem;color:#555;margin-top:8px;"><strong>Adjudication:</strong> A (strict) and D (serious) describe a <em>person</em>, not a room. E (formal) is close but formal doesn't mean undecorated. C (cold) is atmospheric. B (plain/undecorated) is what the sentence literally describes — no decoration, nothing comfortable. Austere here means severe simplicity in appearance.</div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-chal">Challenging — Full Adjudication</div>
+  <div class="q-item">
+    <div class="q-text">Q22. Passage: "The queen's <em>imperious</em> gaze swept the room, and every courtier straightened instinctively — there was no question of who held power here." Most precise meaning: A) angry B) commanding C) proud D) royal E) cold?</div>
+    <ul class="mcq-opts" id="q22opts">
+      <li onclick="chkMCQ('q22','A','B')"><span class="opt-letter">A</span>angry</li>
+      <li onclick="chkMCQ('q22','B','B')"><span class="opt-letter">B</span>commanding</li>
+      <li onclick="chkMCQ('q22','C','B')"><span class="opt-letter">C</span>proud</li>
+      <li onclick="chkMCQ('q22','D','B')"><span class="opt-letter">D</span>royal</li>
+      <li onclick="chkMCQ('q22','E','B')"><span class="opt-letter">E</span>cold</li>
+    </ul>
+    <div class="mcq-feedback" id="q22-fb"></div>
+    <div style="font-size:.85rem;color:#555;margin-top:8px;"><strong>Adjudication:</strong> C (proud) and B (commanding) are the two plausible options. But the key evidence is "every courtier straightened" — they respond to her authority, not her pride. B (commanding = exerting authority) is what the passage describes. Imperious means arrogantly domineering or commanding.</div>
+  </div>
+</div>
+
+<hr class="div">
+<!-- ===== SECTION 5: FIND AND COPY ===== -->
+<div id="s5" class="sec-header">
+  <div class="sec-num navy">5</div>
+  <h2>Find and Copy — The Four-Step Scan</h2>
+</div>
+
+<p>Find and Copy questions require you to locate the <em>exact</em> word in the passage that matches what the question asks for. Use this four-step process every time.</p>
+
+<div class="keyterm"><div class="keyterm-label">📘 The Four Steps</div>
+<p><strong>Step 1:</strong> Identify the relevant paragraph — which part of the passage is about this topic?<br>
+<strong>Step 2:</strong> Find candidate words — list any words that could possibly fit.<br>
+<strong>Step 3:</strong> Test each candidate — does it match the question's requirement precisely?<br>
+<strong>Step 4:</strong> Select the most precise match — the one word that fits best.</p></div>
+
+<div class="passage"><div class="passage-label">📖 Full Worked Example Passage</div>
+The abandoned mill sat at the edge of town, its silhouette jagged against the moonlit sky. Ivy had colonised the crumbling walls, and the windows — those that remained unbroken — reflected the pale light like hollow eyes. A low, persistent wind moaned through the gaps in the roof. Inside, dust motes hung in the stale air, undisturbed for decades. The wooden floors had warped and buckled, and in the far corner, something — perhaps a timber, perhaps an animal — shifted in the darkness with an ominous creak.</div>
+
+<div class="worked"><div class="worked-label">✦ Worked Example — All Four Steps</div>
+<p><strong>Question:</strong> "Find and copy ONE word that suggests the mill feels threatening or dangerous."</p>
+<p><strong>Step 1 — Identify relevant paragraph:</strong> The whole passage describes the mill. All of it is relevant.</p>
+<p><strong>Step 2 — Find candidate words:</strong> Scan for − words: jagged (−), crumbling (−), hollow (−), moaned (−), stale (−), warped (−), buckled (−), ominous (−), creak (−)</p>
+<p><strong>Step 3 — Test each:</strong>
+  <br>• jagged = sharp-edged → threatening? Slightly. But it describes shape.
+  <br>• hollow = empty → threatening? Suggests eeriness but not danger.
+  <br>• moaned = a sad sound → threatening? Atmosphere, not danger specifically.
+  <br>• ominous = warning of something bad to come → threatening? ✓ This specifically means "suggesting danger/threat."
+  <br>• creak = a noise → not specifically threatening.</p>
+<p><strong>Step 4 — Select most precise:</strong> <strong>ominous</strong> — its definition is literally "suggesting something bad will happen." This is the most precise match for "threatening."</p></div>
+
+<!-- PRACTICE SEC 5 -->
+<div class="quiz-section">
+  <div class="level-badge lv-easy">Easy — Find and Copy</div>
+  <div class="q-item">
+    <div class="q-text">Q23. Passage: "The market was a vibrant, bustling spectacle — vendors called out from colourful stalls, children chased each other between the crowds, and the air was thick with the scent of spices and fresh bread." Find and copy ONE word that means full of life and activity.</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c5q1" type="text" placeholder="Type the word...">
+      <button class="check-btn" onclick="chkAns('c5q1','vibrant','Vibrant specifically means full of energy and life. Bustling (busy) is close but vibrant is the more precise match for "full of life."')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c5q1-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q24. Passage: "The mountaineer's ascent was gruelling — every muscle screamed, her lungs burned, and each step felt like lifting lead. Yet she pressed on, relentless, refusing to surrender to the summit." Find and copy ONE word that means exhausting and very demanding.</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c5q2" type="text" placeholder="Type the word...">
+      <button class="check-btn" onclick="chkAns('c5q2','gruelling','Gruelling means extremely tiring and demanding. Relentless (unstoppable) and relentless are close, but gruelling is the exact match for "exhausting and demanding."')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c5q2-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-adv">Advanced — Precision Scan</div>
+  <div class="q-item">
+    <div class="q-text">Q25. Passage: "The politician's speech was deliberately ambiguous — she never committed to a position, hedged every claim with qualifications, and left the audience none the wiser about her actual intentions. Her words were slippery, evasive, and carefully calculated to offend no one and promise nothing." Find and copy ONE word that most precisely means avoiding giving a clear answer.</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c5q3" type="text" placeholder="Type the word...">
+      <button class="check-btn" onclick="chkAns('c5q3','evasive','Evasive = deliberately avoiding commitment or clarity. Ambiguous = unclear (could be accidental). Slippery is informal/metaphorical. Evasive is the most precise match for "avoiding giving a clear answer."')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c5q3-fb"></div>
+  </div>
+</div>
+<hr class="div">
+<!-- ===== SECTION 6: FIGURATIVE VOCABULARY ===== -->
+<div id="s6" class="sec-header">
+  <div class="sec-num orange">6</div>
+  <h2>Figurative and Non-Literal Vocabulary</h2>
+</div>
+
+<p>GL passages often use words in <strong>figurative</strong> (non-literal) ways. If you read these words at their dictionary meaning, you'll choose the wrong answer. You must read the <em>intended meaning</em>, not the surface meaning.</p>
+
+<h3>Type 1: Common Metaphors</h3>
+<div class="warn"><div class="warn-label">⚠️ The Literal Trap</div>
+<p>If the text says "a <strong>burning</strong> ambition," a student who reads literally might think "hot" or "on fire." The correct reading is: intense, passionate, consuming.</p></div>
+
+<table class="con-table">
+<tr><th>Figurative phrase</th><th>Literal (WRONG)</th><th>Intended meaning (CORRECT)</th></tr>
+<tr><td>a <strong>burning</strong> ambition</td><td>something on fire</td><td>intense, passionate desire</td></tr>
+<tr><td>a <strong>sea</strong> of faces</td><td>faces in water</td><td>a vast crowd of people</td></tr>
+<tr><td>a <strong>mountain</strong> of work</td><td>work on a hillside</td><td>an overwhelming amount of work</td></tr>
+<tr><td>a <strong>storm</strong> of criticism</td><td>weather involving rain</td><td>a sudden, intense wave of criticism</td></tr>
+<tr><td>a <strong>flood</strong> of complaints</td><td>water carrying complaints</td><td>very many complaints arriving at once</td></tr>
+</table>
+
+<div class="worked"><div class="worked-label">✦ Worked Example — Metaphor in Context</div>
+<div class="passage"><div class="passage-label">📖</div>"The new headteacher arrived to find a <strong>labyrinth</strong> of conflicting policies, unresolved disputes, and half-finished initiatives."</div>
+<p><strong>Literal reading:</strong> A physical maze of corridors. ✗</p>
+<p><strong>Figurative reading:</strong> A labyrinth = something impossibly complex and hard to navigate. The policies/disputes are so complicated they feel like a maze. ✓</p>
+<p><strong>Question answer:</strong> "Labyrinth" here means an extremely complex, confusing tangle of problems.</p></div>
+
+<h3>Type 2: Idioms</h3>
+<div class="keyterm"><div class="keyterm-label">📘 What is an Idiom?</div>
+<p>An idiom is a fixed phrase where the <em>overall meaning</em> is completely different from the literal meanings of the individual words.</p></div>
+
+<table class="con-table">
+<tr><th>Idiom</th><th>Literal (WRONG)</th><th>Actual meaning</th></tr>
+<tr><td>kept a <strong>stiff upper lip</strong></td><td>lip that doesn't move</td><td>showed no emotion; stayed calm under pressure</td></tr>
+<tr><td>turned over a <strong>new leaf</strong></td><td>flipped a leaf over</td><td>changed behaviour for the better</td></tr>
+<tr><td>let the cat out of the <strong>bag</strong></td><td>releasing a cat</td><td>accidentally revealed a secret</td></tr>
+<tr><td>at the <strong>crack</strong> of dawn</td><td>something breaking at sunrise</td><td>very early in the morning</td></tr>
+<tr><td>bite the <strong>bullet</strong></td><td>chewing on a bullet</td><td>accept something painful or difficult</td></tr>
+</table>
+
+<h3>Type 3: Non-Literal Adjectives</h3>
+<p>Many adjectives shift meaning when applied to abstract nouns:</p>
+<table class="con-table">
+<tr><th>Phrase</th><th>If literal</th><th>What it actually means</th></tr>
+<tr><td>a <strong>sharp</strong> remark</td><td>something with a sharp edge</td><td>a cutting, clever, or hurtful comment</td></tr>
+<tr><td>a <strong>warm</strong> welcome</td><td>a hot temperature</td><td>a friendly, affectionate greeting</td></tr>
+<tr><td>a <strong>cold</strong> response</td><td>a low temperature</td><td>an unfriendly, emotionless reply</td></tr>
+<tr><td>a <strong>heavy</strong> heart</td><td>a physically heavy organ</td><td>a feeling of sadness or grief</td></tr>
+<tr><td>a <strong>bright</strong> student</td><td>a student who shines</td><td>a clever, intelligent student</td></tr>
+</table>
+
+<!-- PRACTICE SEC 6 -->
+<div class="quiz-section">
+  <div class="level-badge lv-easy">Easy — Literal vs Figurative</div>
+  <div class="q-item">
+    <div class="q-text">Q26. Is "a sea of faces" being used literally or figuratively? What does it mean?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c6q1" type="text" placeholder="figurative / literal + meaning">
+      <button class="check-btn" onclick="chkKW('c6q1',['figurative','crowd','many','vast','people'],'Figurative — it means a huge crowd of people. There is no actual sea; the word "sea" is used to describe the vast number of faces.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c6q1-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q27. What does "turned over a new leaf" mean in this sentence? "After his expulsion, Marcus genuinely turned over a new leaf, arriving early every day and completing every assignment."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c6q2" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkKW('c6q2',['change','reform','behave','better','improve','fresh start'],'Turning over a new leaf is an idiom meaning to change your behaviour and make a fresh start.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c6q2-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q28. What does "sharp" mean in: "The critic delivered a sharp remark that silenced the room"?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c6q3" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkKW('c6q3',['cutting','harsh','clever','pointed','hurtful','biting'],'Sharp here means cutting or hurtful (like a sharp blade) — it describes a clever but stinging comment, not a physical edge.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c6q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-adv">Advanced — Figurative MCQ</div>
+  <div class="q-item">
+    <div class="q-text">Q29. "The retiring headmaster kept a stiff upper lip as he shook hands with each student, though everyone could see the emotion in his eyes." What does "stiff upper lip" suggest about how he was feeling?<br>A) He had a facial injury &nbsp; B) He was hiding his emotions &nbsp; C) He was angry &nbsp; D) He was cold and unfeeling &nbsp; E) He was proud</div>
+    <ul class="mcq-opts" id="q29opts">
+      <li onclick="chkMCQ('q29','A','B')"><span class="opt-letter">A</span>He had a facial injury</li>
+      <li onclick="chkMCQ('q29','B','B')"><span class="opt-letter">B</span>He was hiding his emotions</li>
+      <li onclick="chkMCQ('q29','C','B')"><span class="opt-letter">C</span>He was angry</li>
+      <li onclick="chkMCQ('q29','D','B')"><span class="opt-letter">D</span>He was cold and unfeeling</li>
+      <li onclick="chkMCQ('q29','E','B')"><span class="opt-letter">E</span>He was proud</li>
+    </ul>
+    <div class="mcq-feedback" id="q29-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q30. "The committee faced a labyrinth of regulations before they could begin construction." What does "labyrinth" mean in this context?<br>A) a physical maze &nbsp; B) a complex, confusing system &nbsp; C) a building &nbsp; D) a long delay &nbsp; E) a set of tools</div>
+    <ul class="mcq-opts" id="q30opts">
+      <li onclick="chkMCQ('q30','A','B')"><span class="opt-letter">A</span>a physical maze</li>
+      <li onclick="chkMCQ('q30','B','B')"><span class="opt-letter">B</span>a complex, confusing system</li>
+      <li onclick="chkMCQ('q30','C','B')"><span class="opt-letter">C</span>a building</li>
+      <li onclick="chkMCQ('q30','D','B')"><span class="opt-letter">D</span>a long delay</li>
+      <li onclick="chkMCQ('q30','E','B')"><span class="opt-letter">E</span>a set of tools</li>
+    </ul>
+    <div class="mcq-feedback" id="q30-fb"></div>
+  </div>
+</div>
+
+<hr class="div">
+<!-- ===== SECTION 7: WORD ROOTS ===== -->
+<div id="s7" class="sec-header">
+  <div class="sec-num teal">7</div>
+  <h2>Word Roots, Prefixes and Suffixes</h2>
+</div>
+
+<p>Knowing 25 roots can help you decode hundreds of words you've never seen before. Each root carries meaning — like a code inside the word.</p>
+
+<table class="root-table">
+<tr><th>Root / Prefix</th><th>Meaning</th><th>Example Words</th><th>In a Sentence</th></tr>
+<tr><td class="root-cell">bene-</td><td>good, well</td><td>benefit, benevolent, benefactor</td><td>The <em>benevolent</em> donor gave freely to all charities.</td></tr>
+<tr><td class="root-cell">mal-</td><td>bad, evil</td><td>malicious, malevolent, malfunction</td><td>The <em>malicious</em> rumour spread quickly through the school.</td></tr>
+<tr><td class="root-cell">aqua-</td><td>water</td><td>aquatic, aquarium, aqueduct</td><td>The <em>aquatic</em> plants thrived in the shallow pond.</td></tr>
+<tr><td class="root-cell">photo-</td><td>light</td><td>photograph, photosynthesis, photon</td><td><em>Photosynthesis</em> allows plants to convert light into food.</td></tr>
+<tr><td class="root-cell">bio-</td><td>life</td><td>biology, biography, biodiversity</td><td>The scientist studied <em>biodiversity</em> in the rainforest.</td></tr>
+<tr><td class="root-cell">graph-</td><td>write, draw</td><td>autograph, biography, graphite</td><td>She asked the author for an <em>autograph</em>.</td></tr>
+<tr><td class="root-cell">port-</td><td>carry</td><td>transport, portable, import</td><td>The <em>portable</em> speaker fitted easily in her bag.</td></tr>
+<tr><td class="root-cell">aud-</td><td>hear</td><td>audible, audience, auditorium</td><td>The whisper was barely <em>audible</em> across the room.</td></tr>
+<tr><td class="root-cell">vis- / vid-</td><td>see</td><td>visible, vision, visual, video</td><td>The mountain peak was <em>visible</em> from thirty miles.</td></tr>
+<tr><td class="root-cell">dict-</td><td>say, tell</td><td>dictate, predict, dictionary</td><td>The fortune teller claimed to <em>predict</em> the future.</td></tr>
+<tr><td class="root-cell">rupt-</td><td>break</td><td>interrupt, erupt, disrupt</td><td>The volcano began to <em>erupt</em> without warning.</td></tr>
+<tr><td class="root-cell">scrib- / script-</td><td>write</td><td>describe, inscribe, manuscript</td><td>The <em>manuscript</em> was written by hand in 1450.</td></tr>
+<tr><td class="root-cell">mit- / miss-</td><td>send</td><td>transmit, mission, dismiss</td><td>Radio waves <em>transmit</em> signals across the world.</td></tr>
+<tr><td class="root-cell">terr-</td><td>earth, land</td><td>terrain, territory, subterranean</td><td>The rocky <em>terrain</em> made the hike difficult.</td></tr>
+<tr><td class="root-cell">corp-</td><td>body</td><td>corpse, corporal, incorporate</td><td>The detectives found the <em>corpse</em> at the scene.</td></tr>
+<tr><td class="root-cell">vit- / viv-</td><td>life, alive</td><td>vital, vivid, survive</td><td>Water is <em>vital</em> for all living creatures.</td></tr>
+<tr><td class="root-cell">temp-</td><td>time</td><td>temporary, contemporary, tempo</td><td>The repairs were only <em>temporary</em> until the new part arrived.</td></tr>
+<tr><td class="root-cell">cred-</td><td>believe</td><td>credible, incredible, credentials</td><td>The witness's account was completely <em>credible</em>.</td></tr>
+<tr><td class="root-cell">loc-</td><td>place</td><td>location, local, relocate</td><td>They had to <em>relocate</em> the entire family to a new city.</td></tr>
+<tr><td class="root-cell">mov- / mot-</td><td>move</td><td>motion, motivate, remote</td><td>The speech was designed to <em>motivate</em> the team.</td></tr>
+<tr><td class="root-cell">pend-</td><td>hang</td><td>pendant, suspend, depend</td><td>The chandelier <em>suspended</em> from the ceiling by a fine chain.</td></tr>
+<tr><td class="root-cell">tract-</td><td>pull, drag</td><td>tractor, attract, distract</td><td>The bright colours were designed to <em>attract</em> attention.</td></tr>
+<tr><td class="root-cell">vert- / vers-</td><td>turn</td><td>invert, reverse, convert</td><td>They decided to <em>convert</em> the barn into a home.</td></tr>
+<tr><td class="root-cell">fract- / frag-</td><td>break</td><td>fracture, fragment, fraction</td><td>The glass shattered into tiny <em>fragments</em>.</td></tr>
+<tr><td class="root-cell">spec- / spect-</td><td>look, see</td><td>spectator, inspect, spectacular</td><td>The <em>spectators</em> cheered from the stands.</td></tr>
+</table>
+
+<div class="worked"><div class="worked-label">✦ Worked Example — Using Roots to Decode</div>
+<div class="passage"><div class="passage-label">📖</div>"The archaeologist uncovered an <strong>indecipherable</strong> inscription on the ancient tablet."</div>
+<p><strong>Step 1 — Spot the parts:</strong> in- + de- + cipher + -able</p>
+<p><strong>Step 2 — Decode:</strong> in- = not. cipher = a code/secret writing. -able = can be done.</p>
+<p><strong>Step 3 — Combine:</strong> not + able to be + decoded = cannot be decoded/read.</p>
+<p><strong>Answer:</strong> Indecipherable = impossible to read or decode.</p></div>
+
+<!-- PRACTICE SEC 7 -->
+<div class="quiz-section">
+  <div class="level-badge lv-easy">Easy — Root Meanings</div>
+  <div class="q-item">
+    <div class="q-text">Q31. What does "aqua-" mean? Use it to explain the word "aqueduct."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c7q1" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkKW('c7q1',['water','channel','duct','carry'],'Aqua = water. Duct = channel/pipe (from "duct" = to lead). An aqueduct is a structure that carries water from one place to another.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c7q1-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q32. Use the root "aud-" (hear) to work out the meaning of "audible." "The fire alarm was barely audible over the noise of the crowd."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c7q2" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkKW('c7q2',['hear','loud enough','heard','sound'],'Aud = hear + -ible = able to be. Audible = able to be heard.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c7q2-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q33. Which root helps you decode "disrupted"? What does "disrupted" mean? "The protest disrupted the morning commute."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c7q3" type="text" placeholder="Root name + meaning...">
+      <button class="check-btn" onclick="chkKW('c7q3',['rupt','break','interrupt','disturb'],'Root: rupt = break. Dis-rupt = break apart. Disrupted means interrupted or caused disorder in.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c7q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-adv">Advanced — Decode Unknown Words</div>
+  <div class="q-item">
+    <div class="q-text">Q34. Use roots to decode "circumspect." Hint: circum- = around, spec- = look. "He was circumspect in his decisions, always considering every possible consequence before acting."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c7q4" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkKW('c7q4',['careful','cautious','look around','consider','wary','deliberate'],'Circum = around + spect = look. Circumspect = looking all around before acting = cautious and careful in considering all possibilities.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c7q4-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q35. Decode "malcredible" is not a real word — but using roots, what would it mean if it were? (mal- + cred- + -ible)</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c7q5" type="text" placeholder="Type your constructed meaning...">
+      <button class="check-btn" onclick="chkKW('c7q5',['not believable','bad','evil','unbelievable','unable to believe','disbelieve'],'Mal = bad/evil + cred = believe + -ible = able to be. It would mean "able to be believed in a bad way" or more logically "not believable." This is exactly how roots work in real words like "incredible" (not believable) and "malicious" (bad-wishing).')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c7q5-fb"></div>
+  </div>
+</div>
+<hr class="div">
+<!-- ===== SECTION 8: SHADES OF MEANING ===== -->
+<div id="s8" class="sec-header">
+  <div class="sec-num gold">8</div>
+  <h2>Shades of Meaning</h2>
+</div>
+
+<p>Words with similar meanings are not identical. They differ in <strong>intensity</strong>, <strong>register</strong>, and <strong>connotation</strong>. Understanding these differences is what gets you to the precise answer rather than the roughly correct one.</p>
+
+<h3>Emotional Intensity Scales</h3>
+<p>These show how the same emotion can be expressed at different strengths:</p>
+
+<div style="margin:14px 0;">
+  <p style="font-weight:700;margin-bottom:6px;">Unhappy → Sad → Miserable → Devastated</p>
+  <div class="shade-scale">
+    <div class="shade-step s-mild">displeased<small>mildly unhappy</small></div>
+    <div class="shade-step s-mild" style="background:#b7dfc0;">upset<small>noticeably sad</small></div>
+    <div class="shade-step s-mid">distressed<small>very troubled</small></div>
+    <div class="shade-step s-mid" style="background:#e67e22;color:#fff;">anguished<small>deep suffering</small></div>
+    <div class="shade-step s-intense">devastated<small>completely destroyed by grief</small></div>
+  </div>
+</div>
+
+<div style="margin:14px 0;">
+  <p style="font-weight:700;margin-bottom:6px;">Happy → Pleased → Delighted → Ecstatic</p>
+  <div class="shade-scale">
+    <div class="shade-step s-mild">content<small>quietly satisfied</small></div>
+    <div class="shade-step s-mild" style="background:#b7dfc0;">pleased<small>happily satisfied</small></div>
+    <div class="shade-step s-mid">delighted<small>very happy</small></div>
+    <div class="shade-step s-mid" style="background:#27ae60;color:#fff;">elated<small>very joyful</small></div>
+    <div class="shade-step s-intense" style="background:#1a5c34;">ecstatic<small>overwhelmed with joy</small></div>
+  </div>
+</div>
+
+<div style="margin:14px 0;">
+  <p style="font-weight:700;margin-bottom:6px;">Nervous → Anxious → Afraid → Terrified</p>
+  <div class="shade-scale">
+    <div class="shade-step s-mild">uneasy<small>slightly uncomfortable</small></div>
+    <div class="shade-step s-mild" style="background:#b7dfc0;">worried<small>troubled in mind</small></div>
+    <div class="shade-step s-mid">anxious<small>fearful of what may happen</small></div>
+    <div class="shade-step s-mid" style="background:#e67e22;color:#fff;">afraid<small>feeling fear</small></div>
+    <div class="shade-step s-intense">petrified<small>paralysed with extreme fear</small></div>
+  </div>
+</div>
+
+<h3>Register Scales</h3>
+<p>The same idea can be expressed at different levels of formality:</p>
+<table class="con-table">
+<tr><th>Informal</th><th>Neutral</th><th>Formal / Literary</th></tr>
+<tr><td>grumpy</td><td>irritated</td><td>vexed / irascible</td></tr>
+<tr><td>walk around</td><td>wander</td><td>perambulate</td></tr>
+<tr><td>start</td><td>begin</td><td>commence / initiate</td></tr>
+<tr><td>home</td><td>residence</td><td>domicile / abode</td></tr>
+<tr><td>try</td><td>attempt</td><td>endeavour</td></tr>
+<tr><td>very tired</td><td>exhausted</td><td>fatigued / enervated</td></tr>
+</table>
+
+<div class="keyterm"><div class="keyterm-label">📘 GL Exam Connection</div>
+<p>Register matters in "Closest in Meaning" questions. If the passage is formal literary writing, the correct answer will be a formal/literary word — even if an informal word has the same basic meaning.</p></div>
+
+<h3>Connotation Polarity Pairs</h3>
+<p>These pairs have almost identical dictionary definitions, but carry <em>opposite emotional charges</em>:</p>
+
+<table class="con-table">
+<tr><th>Positive (+)</th><th>Neutral definition (both share this)</th><th>Negative (−)</th></tr>
+<tr><td class="pos-tag">thrifty</td><td>careful with money</td><td class="neg-tag">miserly / stingy</td></tr>
+<tr><td class="pos-tag">confident</td><td>assured of one's own abilities</td><td class="neg-tag">arrogant / conceited</td></tr>
+<tr><td class="pos-tag">curious</td><td>wanting to know more</td><td class="neg-tag">nosy / prying</td></tr>
+<tr><td class="pos-tag">determined</td><td>refusing to give up</td><td class="neg-tag">stubborn / obstinate</td></tr>
+<tr><td class="pos-tag">economical</td><td>not wasteful</td><td class="neg-tag">penny-pinching</td></tr>
+<tr><td class="pos-tag">assertive</td><td>willing to state one's position</td><td class="neg-tag">aggressive / pushy</td></tr>
+<tr><td class="pos-tag">slim</td><td>not heavy in build</td><td class="neg-tag">scrawny / gaunt</td></tr>
+<tr><td class="pos-tag">imaginative</td><td>creating new ideas</td><td class="neg-tag">fanciful / delusional</td></tr>
+</table>
+
+<!-- PRACTICE SEC 8 -->
+<div class="quiz-section">
+  <div class="level-badge lv-easy">Easy — Intensity and Charge</div>
+  <div class="q-item">
+    <div class="q-text">Q36. Which word is more intense: "upset" or "devastated"?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c8q1" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkAns('c8q1','devastated','Devastated means completely crushed by grief or loss — a far more extreme emotional state than upset, which is moderately sad.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c8q1-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q37. "Thrifty" and "miserly" both relate to being careful with money. Which has a POSITIVE connotation?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c8q2" type="text" placeholder="Type the word...">
+      <button class="check-btn" onclick="chkAns('c8q2','thrifty','Thrifty suggests admirable caution with money — it implies wisdom and care. Miserly suggests excessive, unpleasant tightfistedness — a selfish negative quality.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c8q2-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q38. Put these words in order from mildest to most intense: petrified / uneasy / afraid</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c8q3" type="text" placeholder="Mild → Intense order...">
+      <button class="check-btn" onclick="chkKW('c8q3',['uneasy','afraid','petrified'],'Uneasy (mildly uncomfortable) → afraid (feeling fear) → petrified (paralysed with extreme terror).')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c8q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-inter">Intermediate — Connotation Precision</div>
+  <div class="q-item">
+    <div class="q-text">Q39. The passage describes a character positively. Which word fits better — "curious" or "nosy"? "She was endlessly curious, always eager to learn something new about the world around her."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c8q4" type="text" placeholder="Type the word and explain...">
+      <button class="check-btn" onclick="chkKW('c8q4',['curious','positive'],'Curious (+) — the passage is positive (eager to learn, world around her). Nosy suggests prying into others\' private affairs with negative connotations. Curious is the correct match.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c8q4-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q40. Which is more formal: "home," "residence," or "domicile"?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c8q5" type="text" placeholder="Type the most formal word...">
+      <button class="check-btn" onclick="chkAns('c8q5','domicile','Domicile is the most formal and legal/archaic register. Residence is formal-neutral. Home is informal/everyday.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c8q5-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-chal">Challenging — Precision under Pressure</div>
+  <div class="q-item">
+    <div class="q-text">Q41. The writer describes an admired politician as "determined in the face of repeated setbacks." If the writer had instead used "stubborn," how would this change the meaning? Explain the connotation difference.</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c8q6" type="text" placeholder="Explain the difference...">
+      <button class="check-btn" onclick="chkKW('c8q6',['positive','negative','stubborn','admire','criticism','positive','praise','refus'],'Determined (+) suggests admirable persistence against difficulty. Stubborn (−) suggests unreasonable refusal to change or listen. The word swap would shift the sentence from praise to mild criticism — the same behaviour, viewed very differently.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c8q6-fb"></div>
+  </div>
+</div>
+
+<hr class="div">
+<!-- ===== SECTION 9: WRITER'S WORD CHOICE ===== -->
+<div id="s9" class="sec-header">
+  <div class="sec-num green">9</div>
+  <h2>Writer's Word Choice Questions</h2>
+</div>
+
+<p>The question stem: <strong>"Why has the writer chosen the word X rather than Y?"</strong> requires a three-part answer. Missing any part loses marks.</p>
+
+<div class="keyterm"><div class="keyterm-label">📘 Three-Part Answer Structure</div>
+<p><strong>Part 1 — Connotation:</strong> What does the word suggest beyond its basic definition?<br>
+<strong>Part 2 — Register:</strong> Does it match the tone and formality of the surrounding text?<br>
+<strong>Part 3 — Effect on reader:</strong> What does it make the reader feel or think?</p></div>
+
+<div class="passage"><div class="passage-label">📖 Full Worked Example Passage</div>
+"The ancient library had <strong>endured</strong> five centuries of war, fire, and neglect. Its walls still stood, its shelves still held their silent cargo, its stone floors still echoed beneath the footsteps of scholars who came from across the world to consult its treasures."</div>
+
+<div class="worked"><div class="worked-label">✦ Model Answer — 11+ Level</div>
+<p><strong>Question:</strong> "Why has the writer used the word 'endured' rather than 'survived' or 'lasted'?"</p>
+<p><strong>Part 1 — Connotation:</strong> "Endured" suggests not just continuing to exist, but suffering and bearing hardship over time. It implies the library has been tested and has persevered through pain — like a person who endures. "Survived" merely means it didn't perish. "Lasted" is purely neutral and temporal.</p>
+<p><strong>Part 2 — Register:</strong> "Endured" is formal and literary, matching the elevated, respectful tone of the passage. "Survived" would feel slightly dramatic; "lasted" would feel flat and journalistic — too ordinary for the poetic quality of the writing.</p>
+<p><strong>Part 3 — Effect on reader:</strong> The reader feels a sense of respect and even admiration for the library — as if it were a living, resilient creature that has earned its place. The word gives the library a heroic quality that makes the reader value it.</p></div>
+
+<!-- PRACTICE SEC 9 -->
+<div class="quiz-section">
+  <div class="level-badge lv-easy">Easy — Connotation Awareness</div>
+  <div class="q-item">
+    <div class="q-text">Q42. Why does "thundered" have a stronger effect than "said"? "The general thundered his commands across the battlefield."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c9q1" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkKW('c9q1',['power','loud','force','dramatic','intimidat','authority'],'Thundered connotates immense volume, power, and authority — like thunder itself. It makes the reader feel the commanding force of his voice. "Said" is neutral and has none of this impact.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c9q1-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q43. What does "crept" suggest that "walked" does not? "The spy crept through the shadows of the corridor."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c9q2" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkKW('c9q2',['stealth','quiet','secret','careful','slow','avoid','tension'],'Crept connotates stealth, secrecy, and care — someone trying not to be seen or heard. "Walked" is neutral and suggests none of the tension or secretive intent.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c9q2-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-adv">Advanced — Full Three-Part Answer</div>
+  <div class="q-item">
+    <div class="q-text">Q44. Write a full three-part word choice answer. "The factory belched black smoke into the pale morning sky." Why "belched" rather than "released"?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c9q3" type="text" placeholder="Write all three parts: connotation, register, effect...">
+      <button class="check-btn" onclick="chkKW('c9q3',['disgust','body','person','effect','reader','tone','atmosphere','revolting','grotesque','critical'],'Connotation: Belched is a bodily word associated with gross, involuntary expulsion — it personifies the factory as something gluttonous and disgusting. Register: The informal, visceral register of "belched" creates a deliberately uncomfortable tone, suggesting the writer is critical of the factory. Effect: The reader feels revulsion — the factory is made to seem ugly and harmful rather than neutral.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c9q3-fb"></div>
+  </div>
+</div>
+<hr class="div">
+<!-- ===== SECTION 10: HOMONYMS ===== -->
+<div id="s10" class="sec-header">
+  <div class="sec-num orange">10</div>
+  <h2>Homonyms — Words with Multiple Meanings</h2>
+</div>
+
+<p>Homonyms are words that look or sound the same but mean different things. GL examiners love to use these in passages because a student who doesn't read carefully will pick the first meaning they know.</p>
+
+<table class="hom-table">
+<tr><th>Word</th><th>Meaning A</th><th>Meaning B</th><th>Meaning C</th></tr>
+<tr><td><strong>current</strong></td><td>a flow of water or electricity</td><td>happening right now</td><td>—</td></tr>
+<tr><td><strong>scale</strong></td><td>to climb up something</td><td>a measuring tool (weighing)</td><td>a flake on a fish</td></tr>
+<tr><td><strong>grave</strong></td><td>a burial place</td><td>very serious or solemn</td><td>—</td></tr>
+<tr><td><strong>stern</strong></td><td>the back of a ship</td><td>very strict or serious</td><td>—</td></tr>
+<tr><td><strong>bark</strong></td><td>the sound a dog makes</td><td>the outer layer of a tree</td><td>to speak sharply</td></tr>
+<tr><td><strong>fair</strong></td><td>light in colour (hair/skin)</td><td>just and equal</td><td>an outdoor event/market</td></tr>
+<tr><td><strong>spring</strong></td><td>the season after winter</td><td>to jump or leap suddenly</td><td>a coiled device or water source</td></tr>
+<tr><td><strong>novel</strong></td><td>a long work of fiction</td><td>new and original</td><td>—</td></tr>
+<tr><td><strong>row</strong></td><td>a line of things</td><td>to propel a boat with oars</td><td>a loud argument</td></tr>
+<tr><td><strong>kind</strong></td><td>generous and caring</td><td>a type or category</td><td>—</td></tr>
+</table>
+
+<div class="worked"><div class="worked-label">✦ Worked Example — Homonym Elimination</div>
+<p><strong>Sentence:</strong> "The situation was <strong>grave</strong> — the doctor had never seen a patient deteriorate so rapidly."</p>
+<p><strong>Step 1 — List meanings:</strong> (a) a burial place (b) very serious/solemn</p>
+<p><strong>Step 2 — Substitute each:</strong>
+<br>• "The situation was [a burial place]" — makes no sense grammatically or logically. ✗
+<br>• "The situation was [very serious]" — a doctor, a deteriorating patient, a situation = very serious. ✓</p>
+<p><strong>Answer:</strong> Grave here means extremely serious.</p></div>
+
+<!-- PRACTICE SEC 10 -->
+<div class="quiz-section">
+  <div class="level-badge lv-easy">Easy — Pick the Right Meaning</div>
+  <div class="q-item">
+    <div class="q-text">Q45. Which meaning of "current" is used here? "The current of the river carried the canoe downstream faster than the paddlers expected." A) happening now B) a flow of water C) electrical charge</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c10q1" type="text" placeholder="A / B / C">
+      <button class="check-btn" onclick="chkAns('c10q1','b','Context: river, canoe, paddlers. This is clearly about flowing water — meaning B.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c10q1-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q46. Which meaning of "novel" is correct? "The scientist proposed a novel solution to the energy crisis that had never been attempted before." A) a long book B) new and original C) a type of writing</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c10q2" type="text" placeholder="A / B / C">
+      <button class="check-btn" onclick="chkAns('c10q2','b','Never been attempted before = new and original. B is correct. A (a long book) makes no sense — you can\'t "propose a book." Always substitute to test.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c10q2-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q47. What does "stern" mean here? "The headmistress gave him a stern look that instantly stopped his laughter." A) the back of a ship B) strict and serious C) quiet and cold</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c10q3" type="text" placeholder="A / B / C">
+      <button class="check-btn" onclick="chkAns('c10q3','b','A (back of a ship) makes no sense with "gave him a look." B (strict and serious) perfectly explains why laughter stopped. Stern here means severely serious.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c10q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-adv">Advanced — Full Elimination Process</div>
+  <div class="q-item">
+    <div class="q-text">Q48. Explain the two possible meanings of "bark" and then select the correct one. "The sergeant barked orders at the new recruits until they moved with military precision." A) the sound a dog makes B) the outer layer of a tree C) to speak sharply and loudly</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c10q4" type="text" placeholder="Letter + explain your elimination...">
+      <button class="check-btn" onclick="chkAns('c10q4','c','A (dog sound) — substituting "the sergeant made a dog noise" makes no sense. B (tree bark) — completely wrong grammatically. C (speak sharply) — "barked orders" = shouted commands in a sharp, aggressive way. Military context confirms this. C is correct.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c10q4-fb"></div>
+  </div>
+</div>
+
+<hr class="div">
+<!-- ===== SECTION 11: REGISTER AND FORMALITY ===== -->
+<div id="s11" class="sec-header">
+  <div class="sec-num teal">11</div>
+  <h2>Register and Formality</h2>
+</div>
+
+<p>GL passages come in many styles: formal Victorian prose, scientific reports, journalistic editorials, literary fiction. <strong>Register</strong> is the level of formality of the language. Sometimes a vocabulary question requires you to choose the answer that matches the <em>register of the passage</em>, not just the meaning.</p>
+
+<div class="keyterm"><div class="keyterm-label">📘 The Key Rule</div>
+<p>If the passage is formal, the correct answer will be a formal word. If you choose an informal word with the same basic meaning, you will lose the mark — even though you're technically "right."</p></div>
+
+<h3>Mini-Glossary: Formal and Archaic Words</h3>
+<table class="con-table">
+<tr><th>Formal / Archaic Word</th><th>Neutral Equivalent</th><th>Example in Context</th></tr>
+<tr><td><strong>domicile</strong></td><td>home</td><td>"Please state your permanent <em>domicile</em> on the form."</td></tr>
+<tr><td><strong>perambulate</strong></td><td>walk around</td><td>"He would <em>perambulate</em> the grounds each morning before breakfast."</td></tr>
+<tr><td><strong>commence</strong></td><td>begin / start</td><td>"The ceremony will <em>commence</em> at precisely noon."</td></tr>
+<tr><td><strong>endeavour</strong></td><td>try</td><td>"She would <em>endeavour</em> to complete the report by Friday."</td></tr>
+<tr><td><strong>fatigued</strong></td><td>very tired</td><td>"After the marathon, the athletes were utterly <em>fatigued</em>."</td></tr>
+<tr><td><strong>vexed</strong></td><td>annoyed / irritated</td><td>"The professor was clearly <em>vexed</em> by the interruption."</td></tr>
+<tr><td><strong>jubilant</strong></td><td>very happy</td><td>"The <em>jubilant</em> crowd cheered as the team lifted the trophy."</td></tr>
+<tr><td><strong>arid</strong></td><td>very dry</td><td>"The <em>arid</em> desert landscape stretched in every direction."</td></tr>
+<tr><td><strong>obscure</strong></td><td>unclear / little-known</td><td>"The reference was too <em>obscure</em> for most of the audience."</td></tr>
+<tr><td><strong>abode</strong></td><td>home / dwelling</td><td>"Welcome to my humble <em>abode</em>," said the host grandly.</td></tr>
+<tr><td><strong>antiquated</strong></td><td>old-fashioned</td><td>"The school's <em>antiquated</em> textbooks hadn't been updated in thirty years."</td></tr>
+<tr><td><strong>luminous</strong></td><td>glowing / bright</td><td>"The moon cast a <em>luminous</em> trail across the dark water."</td></tr>
+<tr><td><strong>tenacious</strong></td><td>determined / persistent</td><td>"She was a <em>tenacious</em> researcher who never gave up on a problem."</td></tr>
+<tr><td><strong>melancholy</strong></td><td>deep sadness</td><td>"A quiet <em>melancholy</em> had settled over the house since his departure."</td></tr>
+<tr><td><strong>trepidation</strong></td><td>fear / nervousness</td><td>"She approached the interview with considerable <em>trepidation</em>."</td></tr>
+<tr><td><strong>venerable</strong></td><td>respected because of age</td><td>"The <em>venerable</em> professor had taught at the university for fifty years."</td></tr>
+<tr><td><strong>clamour</strong></td><td>loud noise/demand</td><td>"There was a great <em>clamour</em> for reform after the election."</td></tr>
+<tr><td><strong>magnanimous</strong></td><td>generous / forgiving</td><td>"The victorious team was <em>magnanimous</em> in its celebrations."</td></tr>
+<tr><td><strong>impetuous</strong></td><td>acting without thinking</td><td>"His <em>impetuous</em> decision to resign surprised everyone."</td></tr>
+<tr><td><strong>taciturn</strong></td><td>habitually quiet</td><td>"The <em>taciturn</em> soldier spoke only when necessary."</td></tr>
+</table>
+
+<!-- PRACTICE SEC 11 -->
+<div class="quiz-section">
+  <div class="level-badge lv-easy">Easy — Formal Word Recognition</div>
+  <div class="q-item">
+    <div class="q-text">Q49. What is the neutral everyday equivalent of "fatigued"?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c11q1" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkKW('c11q1',['tired','exhausted','worn out'],'Fatigued is the formal/medical equivalent of tired or exhausted.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c11q1-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q50. The passage uses formal Victorian-style language. Which answer fits the register? "The traveller arrived at his _____ after three weeks on the road." A) house B) flat C) domicile D) place E) pad</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c11q2" type="text" placeholder="Type the letter: A B C D or E">
+      <button class="check-btn" onclick="chkAns('c11q2','c','The passage is formal Victorian — "flat" (B) and "pad" (E) are modern and informal. "Place" (D) is neutral but weak. "House" (A) is fine but ordinary. "Domicile" (C) is the only formal/archaic option that matches the passage\'s register.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c11q2-fb"></div>
+  </div>
+  <div class="q-item">
+    <div class="q-text">Q51. What does "trepidation" mean? "She approached the dark corridor with trepidation, pausing at every sound."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c11q3" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkKW('c11q3',['fear','nervous','anxious','dread','apprehension','worry'],'Trepidation means a feeling of nervousness or fear about something uncertain. The pausing at sounds confirms she is frightened.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c11q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-adv">Advanced — Register Matching</div>
+  <div class="q-item">
+    <div class="q-text">Q52. This sentence is from a formal Victorian novel. Which word fits the register best? "The statesman appeared _____ in his refusal to abandon his principles, despite years of criticism." A) stubborn B) pig-headed C) unwavering D) bullheaded E) set in his ways</div>
+    <div class="answer-row">
+      <input class="answer-input" id="c11q4" type="text" placeholder="Type the letter: A B C D or E">
+      <button class="check-btn" onclick="chkAns('c11q4','c','B, D, E are all informal/colloquial and don\'t fit a Victorian formal novel. A (stubborn) is neutral but has a negative connotation — the sentence is positive (principles, statesman). C (unwavering) is formal, positive, and perfectly matches the register and tone.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="c11q4-fb"></div>
+  </div>
+</div>
+<hr class="div">
+<!-- ===== SECTION 12: TIER 2 WORD BANK ===== -->
+<div id="s12" class="sec-header">
+  <div class="sec-num navy">12</div>
+  <h2>Tier 2 Word Bank</h2>
+</div>
+<p>Learn these words and you'll recognise them instantly in a passage. Each word includes its definition, an example sentence, and its connotation charge.</p>
+
+<table class="wb-table">
+<tr><th>Word</th><th>Definition</th><th>Example Sentence</th><th>Charge</th></tr>
+<!-- EMOTIONS AND CHARACTER -->
+<tr><td colspan="4" class="wb-section-header">🎭 Emotions and Character</td></tr>
+<tr><td><strong>anguish</strong></td><td>extreme mental pain</td><td>The anguish on her face told everyone the news was terrible.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>elated</strong></td><td>very happy and excited</td><td>She was elated when she heard she had won first place.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>melancholy</strong></td><td>a deep, lingering sadness</td><td>A melancholy settled over the house in winter.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>jubilant</strong></td><td>feeling great happiness</td><td>The jubilant crowd poured into the streets after the victory.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>trepidation</strong></td><td>nervousness about something uncertain</td><td>He approached the interview with great trepidation.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>indignant</strong></td><td>angry because of unfair treatment</td><td>She was indignant when accused of lying without evidence.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>magnanimous</strong></td><td>generous and forgiving</td><td>The champion was magnanimous in victory, praising his rivals.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>despondent</strong></td><td>having lost hope</td><td>After three failures, he was despondent about ever succeeding.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>tenacious</strong></td><td>very determined, not giving up</td><td>Her tenacious work ethic impressed every employer she had.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>impetuous</strong></td><td>acting suddenly without thinking</td><td>His impetuous decision to quit caused immediate regret.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>taciturn</strong></td><td>habitually quiet and saying little</td><td>The taciturn detective rarely shared his theories.</td><td class="neu-tag">0</td></tr>
+<tr><td><strong>vexed</strong></td><td>annoyed or worried</td><td>The teacher was visibly vexed by the constant interruptions.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>compassionate</strong></td><td>feeling sympathy and concern</td><td>The compassionate nurse held the patient's hand throughout.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>nonchalant</strong></td><td>casually calm, as if nothing matters</td><td>She walked in nonchalantly, as if she weren't an hour late.</td><td class="neu-tag">0</td></tr>
+<tr><td><strong>resolute</strong></td><td>firmly determined</td><td>She remained resolute even when all others had given up.</td><td class="pos-tag">+</td></tr>
+<!-- WEATHER AND NATURE -->
+<tr><td colspan="4" class="wb-section-header">🌿 Weather and Nature</td></tr>
+<tr><td><strong>tempestuous</strong></td><td>very stormy and turbulent</td><td>The tempestuous sea tossed the small vessel like a toy.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>arid</strong></td><td>having little or no rain; very dry</td><td>Nothing could grow in the arid desert without irrigation.</td><td class="neu-tag">0</td></tr>
+<tr><td><strong>verdant</strong></td><td>lush, green with vegetation</td><td>The verdant meadows stretched as far as the eye could see.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>ethereal</strong></td><td>delicate and light, as if not of this world</td><td>The morning mist gave the forest an ethereal, dreamlike quality.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>bleak</strong></td><td>cold, bare, and without hope</td><td>The bleak winter landscape matched his mood exactly.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>serene</strong></td><td>calm and peaceful</td><td>The lake was serene at dawn, its surface like glass.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>ominous</strong></td><td>suggesting something bad will happen</td><td>Ominous storm clouds gathered on the horizon.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>parched</strong></td><td>extremely dry or thirsty</td><td>The parched earth cracked in the summer heat.</td><td class="neg-tag">−</td></tr>
+<!-- MOVEMENT AND PACE -->
+<tr><td colspan="4" class="wb-section-header">🏃 Movement and Pace</td></tr>
+<tr><td><strong>saunter</strong></td><td>walk slowly in a relaxed way</td><td>He sauntered into the meeting ten minutes late without apology.</td><td class="neu-tag">0</td></tr>
+<tr><td><strong>trudge</strong></td><td>walk slowly with heavy steps</td><td>She trudged home through the mud after training.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>sprint</strong></td><td>run at full speed</td><td>He sprinted to the gate before it closed.</td><td class="neu-tag">0</td></tr>
+<tr><td><strong>meander</strong></td><td>follow a winding, unhurried path</td><td>The river meandered through the flat valley floor.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>dart</strong></td><td>move suddenly and quickly</td><td>The fox darted into the undergrowth at the first sound.</td><td class="neu-tag">0</td></tr>
+<tr><td><strong>lumber</strong></td><td>move in a slow, heavy, awkward way</td><td>The elephant lumbered through the shallow river.</td><td class="neu-tag">0</td></tr>
+<tr><td><strong>glide</strong></td><td>move smoothly and effortlessly</td><td>The skater glided across the ice as if weightless.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>lurch</strong></td><td>make sudden jerky movements</td><td>The bus lurched to a halt as the traffic stopped.</td><td class="neg-tag">−</td></tr>
+<!-- LIGHT AND DARKNESS -->
+<tr><td colspan="4" class="wb-section-header">💡 Light and Darkness</td></tr>
+<tr><td><strong>luminous</strong></td><td>bright, emitting or reflecting light</td><td>The luminous dial of the watch glowed in the dark.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>incandescent</strong></td><td>glowing with intense heat or bright light</td><td>The incandescent bulb flooded the room with warm light.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>murky</strong></td><td>dark, gloomy, and unclear</td><td>The murky water of the canal hid everything below the surface.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>resplendent</strong></td><td>brilliant and impressive in appearance</td><td>The palace was resplendent in the morning sun.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>shadowy</strong></td><td>full of shadows; difficult to see clearly</td><td>A shadowy figure waited at the end of the alley.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>dazzling</strong></td><td>extremely bright or impressive</td><td>The dazzling display of fireworks lit up the entire harbour.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>dim</strong></td><td>not bright; faint</td><td>The dim glow of a candle was all they had to read by.</td><td class="neu-tag">0</td></tr>
+<!-- SOUND -->
+<tr><td colspan="4" class="wb-section-header">🔊 Sound</td></tr>
+<tr><td><strong>cacophony</strong></td><td>a harsh, unpleasant mixture of sounds</td><td>The cacophony of car horns made conversation impossible.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>melodious</strong></td><td>having a pleasant musical sound</td><td>Her melodious voice hushed the entire audience.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>resonant</strong></td><td>deep, clear, and continuing to sound</td><td>His resonant voice carried easily to the back of the hall.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>discordant</strong></td><td>harsh and jarring; not in harmony</td><td>The discordant alarm shattered the morning silence.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>murmur</strong></td><td>a soft, indistinct sound</td><td>A murmur of conversation filled the waiting room.</td><td class="neu-tag">0</td></tr>
+<tr><td><strong>clamour</strong></td><td>a loud, confused noise; an insistent demand</td><td>The clamour of the crowd grew as the result was announced.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>hushed</strong></td><td>quiet and whispering</td><td>They spoke in hushed tones so as not to wake the baby.</td><td class="neu-tag">0</td></tr>
+<!-- FORMAL ARCHAIC -->
+<tr><td colspan="4" class="wb-section-header">📜 Formal / Archaic Vocabulary</td></tr>
+<tr><td><strong>antiquated</strong></td><td>very old-fashioned, no longer suitable</td><td>The antiquated equipment was long overdue for replacement.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>venerable</strong></td><td>respected due to age or wisdom</td><td>The venerable institution had stood for three centuries.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>obscure</strong></td><td>not well known; unclear</td><td>The reference was too obscure for a general audience.</td><td class="neu-tag">0</td></tr>
+<tr><td><strong>endeavour</strong></td><td>to try hard to do something</td><td>She endeavoured to complete every task before leaving.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>imminent</strong></td><td>about to happen very soon</td><td>The arrival of the storm was imminent — the sky had turned black.</td><td class="neu-tag">0</td></tr>
+<tr><td><strong>benevolent</strong></td><td>kind and generous</td><td>The benevolent patron funded the entire scholarship programme.</td><td class="pos-tag">+</td></tr>
+<tr><td><strong>nefarious</strong></td><td>wicked and criminal</td><td>The villain's nefarious plan was finally uncovered.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>austere</strong></td><td>severe or strict; without luxury</td><td>The austere dormitory had no heating and bare stone floors.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>imperious</strong></td><td>arrogantly dominant and commanding</td><td>Her imperious manner made all who worked for her uncomfortable.</td><td class="neg-tag">−</td></tr>
+<tr><td><strong>eloquent</strong></td><td>fluent and persuasive in expression</td><td>The eloquent speech moved several members of the audience to tears.</td><td class="pos-tag">+</td></tr>
+</table>
+<hr class="div">
+<!-- ===== SECTION 13: TIERED PRACTICE ===== -->
+<div id="s13" class="sec-header">
+  <div class="sec-num gold">13</div>
+  <h2>Tiered Practice Questions</h2>
+</div>
+<p>Three difficulty levels. Work through them in order — Foundation first, then Developing, then Challenging.</p>
+
+<h3>Foundation Level</h3>
+<div class="quiz-section">
+  <div class="level-badge lv-easy">Foundation — Straightforward Context</div>
+
+  <div class="q-item">
+    <div class="q-text">FQ1. Passage: "The rescuers worked with great <em>urgency</em>, sprinting across the beach as the tide rose rapidly around the stranded child." What does "urgency" most closely mean?<br>A) panic B) speed C) pressing importance D) carelessness E) determination</div>
+    <ul class="mcq-opts" id="fq1opts">
+      <li onclick="chkMCQ('fq1','A','C')"><span class="opt-letter">A</span>panic</li>
+      <li onclick="chkMCQ('fq1','B','C')"><span class="opt-letter">B</span>speed</li>
+      <li onclick="chkMCQ('fq1','C','C')"><span class="opt-letter">C</span>pressing importance</li>
+      <li onclick="chkMCQ('fq1','D','C')"><span class="opt-letter">D</span>carelessness</li>
+      <li onclick="chkMCQ('fq1','E','C')"><span class="opt-letter">E</span>determination</li>
+    </ul>
+    <div class="mcq-feedback" id="fq1-fb"></div>
+    <div style="font-size:.84rem;color:#555;margin-top:6px;">B (speed) is tempting but urgency is about the critical need to act fast, not the speed itself. C is the most precise definition.</div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">FQ2. "The mountain path was <em>treacherous</em> — loose stones tumbled away with every step, and the edge dropped sharply into darkness below." What does "treacherous" mean?<br>A) beautiful B) extremely dangerous C) very steep D) unknown E) winding</div>
+    <ul class="mcq-opts" id="fq2opts">
+      <li onclick="chkMCQ('fq2','A','B')"><span class="opt-letter">A</span>beautiful</li>
+      <li onclick="chkMCQ('fq2','B','B')"><span class="opt-letter">B</span>extremely dangerous</li>
+      <li onclick="chkMCQ('fq2','C','B')"><span class="opt-letter">C</span>very steep</li>
+      <li onclick="chkMCQ('fq2','D','B')"><span class="opt-letter">D</span>unknown</li>
+      <li onclick="chkMCQ('fq2','E','B')"><span class="opt-letter">E</span>winding</li>
+    </ul>
+    <div class="mcq-feedback" id="fq2-fb"></div>
+  </div>
+</div>
+
+<h3>Developing Level</h3>
+<div class="quiz-section">
+  <div class="level-badge lv-inter">Developing — Two Plausible Options</div>
+
+  <div class="q-item">
+    <div class="q-text">DQ1. Passage: "The detective's <em>astute</em> observation — that the clock had been moved slightly from its original position — broke the case wide open. Her colleagues had looked at the same clock for hours without noticing a thing." What does "astute" most closely mean?<br>A) patient B) intelligent C) sharp and perceptive D) lucky E) experienced</div>
+    <ul class="mcq-opts" id="dq1opts">
+      <li onclick="chkMCQ('dq1','A','C')"><span class="opt-letter">A</span>patient</li>
+      <li onclick="chkMCQ('dq1','B','C')"><span class="opt-letter">B</span>intelligent</li>
+      <li onclick="chkMCQ('dq1','C','C')"><span class="opt-letter">C</span>sharp and perceptive</li>
+      <li onclick="chkMCQ('dq1','D','C')"><span class="opt-letter">D</span>lucky</li>
+      <li onclick="chkMCQ('dq1','E','C')"><span class="opt-letter">E</span>experienced</li>
+    </ul>
+    <div class="mcq-feedback" id="dq1-fb"></div>
+    <div style="font-size:.84rem;color:#555;margin-top:6px;">Adjudication: B (intelligent) vs C (sharp and perceptive). The key is that others looked without seeing — astute means noticing what others miss, which is perceptive observation, not just general intelligence.</div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">DQ2. "The artist's studio was <em>chaotic</em> but strangely functional — canvases leaning in every direction, tubes of paint rolled under chairs, and brushes stiff with dried colour standing in every jar." Use substitution: which option works for meaning AND tone?<br>A) untidy B) disordered C) wild D) messy E) disorganised</div>
+    <ul class="mcq-opts" id="dq2opts">
+      <li onclick="chkMCQ('dq2','A','B')"><span class="opt-letter">A</span>untidy</li>
+      <li onclick="chkMCQ('dq2','B','B')"><span class="opt-letter">B</span>disordered</li>
+      <li onclick="chkMCQ('dq2','C','B')"><span class="opt-letter">C</span>wild</li>
+      <li onclick="chkMCQ('dq2','D','B')"><span class="opt-letter">D</span>messy</li>
+      <li onclick="chkMCQ('dq2','E','B')"><span class="opt-letter">E</span>disorganised</li>
+    </ul>
+    <div class="mcq-feedback" id="dq2-fb"></div>
+    <div style="font-size:.84rem;color:#555;margin-top:6px;">A, D are informal and don't match the literary register. C (wild) suggests dangerous energy. E implies a person who can't organise. B (disordered = without order) fits both the meaning and the neutral-literary tone best.</div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">DQ3. Find and copy ONE word from the passage that means deeply unhappy or without hope. "The soldiers returned from the battle worn and despondent, their heads bowed, their rifles silent at their sides. Those who had not returned would never leave their thoughts."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="dq3" type="text" placeholder="Type the word...">
+      <button class="check-btn" onclick="chkAns('dq3','despondent','Despondent means having lost all hope or spirit — deeply unhappy. "Worn" means tired/damaged but not hopeless. Despondent is the most precise match.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="dq3-fb"></div>
+  </div>
+</div>
+
+<h3>Challenging Level</h3>
+<div class="quiz-section">
+  <div class="level-badge lv-chal">Challenging — Figurative, Register, Word Choice</div>
+
+  <div class="q-item">
+    <div class="q-text">CQ1. Figurative vocabulary. "The news of her promotion spread like wildfire through the office." What does "wildfire" suggest about how the news spread?<br>A) dangerously B) extremely quickly and uncontrollably C) brightly D) quietly E) like a fire</div>
+    <ul class="mcq-opts" id="cq1opts">
+      <li onclick="chkMCQ('cq1','A','B')"><span class="opt-letter">A</span>dangerously</li>
+      <li onclick="chkMCQ('cq1','B','B')"><span class="opt-letter">B</span>extremely quickly and uncontrollably</li>
+      <li onclick="chkMCQ('cq1','C','B')"><span class="opt-letter">C</span>brightly</li>
+      <li onclick="chkMCQ('cq1','D','B')"><span class="opt-letter">D</span>quietly</li>
+      <li onclick="chkMCQ('cq1','E','B')"><span class="opt-letter">E</span>like a fire</li>
+    </ul>
+    <div class="mcq-feedback" id="cq1-fb"></div>
+    <div style="font-size:.84rem;color:#555;margin-top:6px;">E is the literal trap. A wildfire spreads in a way that cannot be stopped and covers ground very fast — B captures both the speed and the uncontrolled nature.</div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">CQ2. Writer's word choice. "The old city walls had <em>withstood</em> a thousand years of invasion, plague, and progress." Why "withstood" rather than "survived"?<br>A) withstood means the same as survived B) withstood suggests active resistance and endurance against attacks C) withstood is older-sounding D) survived is a negative word E) withstood means longer</div>
+    <ul class="mcq-opts" id="cq2opts">
+      <li onclick="chkMCQ('cq2','A','B')"><span class="opt-letter">A</span>withstood means exactly the same as survived</li>
+      <li onclick="chkMCQ('cq2','B','B')"><span class="opt-letter">B</span>withstood suggests active resistance and endurance against attacks</li>
+      <li onclick="chkMCQ('cq2','C','B')"><span class="opt-letter">C</span>withstood is older-sounding and therefore more poetic</li>
+      <li onclick="chkMCQ('cq2','D','B')"><span class="opt-letter">D</span>survived is a negative word</li>
+      <li onclick="chkMCQ('cq2','E','B')"><span class="opt-letter">E</span>withstood implies a longer time period</li>
+    </ul>
+    <div class="mcq-feedback" id="cq2-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">CQ3. Register and precision. Passage is from a formal Victorian novel. "The physician declared that the patient's condition was _____, and that without immediate intervention, the prognosis could not be favourable." Which word best fits?<br>A) bad B) really serious C) dire D) terrible E) rough</div>
+    <ul class="mcq-opts" id="cq3opts">
+      <li onclick="chkMCQ('cq3','A','C')"><span class="opt-letter">A</span>bad</li>
+      <li onclick="chkMCQ('cq3','B','C')"><span class="opt-letter">B</span>really serious</li>
+      <li onclick="chkMCQ('cq3','C','C')"><span class="opt-letter">C</span>dire</li>
+      <li onclick="chkMCQ('cq3','D','C')"><span class="opt-letter">D</span>terrible</li>
+      <li onclick="chkMCQ('cq3','E','C')"><span class="opt-letter">E</span>rough</li>
+    </ul>
+    <div class="mcq-feedback" id="cq3-fb"></div>
+    <div style="font-size:.84rem;color:#555;margin-top:6px;">A, D are too plain for formal Victorian. B is conversational. E is slang. C (dire = extremely serious and urgent) matches the formal medical register perfectly.</div>
+  </div>
+</div>
+<hr class="div">
+<!-- ===== MASTERY TEST ===== -->
+<div id="mastery">
+  <div class="mastery-banner">
+    <h2>⭐ Final Mastery Test</h2>
+    <p>10 questions · All skills · GL Assessment format</p>
+  </div>
+</div>
+
+<div class="passage"><div class="passage-label">📖 Mastery Test Passage</div>
+The old cartographer spread the map across the table with <strong>reverent</strong> hands, smoothing each crease with the care one might give a sleeping child. The parchment was ancient and <strong>fragile</strong>, its edges browned and frayed, its ink faded in places to a ghostly whisper. He had spent three <strong>laborious</strong> decades tracking down its whereabouts — following <strong>tenuous</strong> leads, chasing stories that turned to smoke, enduring ridicule from colleagues who deemed the whole enterprise <strong>futile</strong>. But here it was. The map that would, if his reading was correct, prove that an entire civilisation had existed two thousand years before the textbooks claimed. He straightened, drew a long breath, and felt something he had almost forgotten how to feel: certainty.</div>
+
+<div class="quiz-section">
+  <div class="level-badge lv-mastery">Mastery Test — 10 Questions</div>
+
+  <div id="mastery-score-box" style="background:#fff;border-radius:14px;padding:22px;text-align:center;margin:0 0 20px;box-shadow:0 4px 24px rgba(28,28,46,.10);display:none;">
+    <div style="font-size:2.8rem;font-weight:700;color:#264653;" id="mt-score-num">0/10</div>
+    <p id="mt-score-msg" style="margin-top:8px;font-weight:600;font-size:1rem;"></p>
+  </div>
+
+  <!-- MT1 -->
+  <div class="q-item">
+    <div class="q-text">MT1. What does "reverent" suggest about how the cartographer handles the map?<br>A) carefully B) with deep respect and care C) gently D) lovingly E) professionally</div>
+    <ul class="mcq-opts" id="mt1opts">
+      <li onclick="chkMT_MCQ('mt1','A','B')"><span class="opt-letter">A</span>carefully</li>
+      <li onclick="chkMT_MCQ('mt1','B','B')"><span class="opt-letter">B</span>with deep respect and care</li>
+      <li onclick="chkMT_MCQ('mt1','C','B')"><span class="opt-letter">C</span>gently</li>
+      <li onclick="chkMT_MCQ('mt1','D','B')"><span class="opt-letter">D</span>lovingly</li>
+      <li onclick="chkMT_MCQ('mt1','E','B')"><span class="opt-letter">E</span>professionally</li>
+    </ul>
+    <div class="mcq-feedback" id="mt1-fb"></div>
+  </div>
+
+  <!-- MT2 -->
+  <div class="q-item">
+    <div class="q-text">MT2. The word "fragile" is used in the passage. Find and copy ONE other word from the passage that also suggests the map is old and delicate.</div>
+    <div class="answer-row">
+      <input class="answer-input" id="mt2" type="text" placeholder="Type the word...">
+      <button class="check-btn" onclick="chkMT_KW('mt2',['frayed','browned','faded','ancient','parchment','ghostly'],'All of frayed, browned, ancient, faded suggest age and delicacy. Any of these is correct.')">Check</button>
+    </div>
+    <div class="feedback" id="mt2-fb"></div>
+  </div>
+
+  <!-- MT3 -->
+  <div class="q-item">
+    <div class="q-text">MT3. What does "laborious" most closely mean in the passage?<br>A) boring B) requiring great effort C) time-consuming D) frustrating E) exciting</div>
+    <ul class="mcq-opts" id="mt3opts">
+      <li onclick="chkMT_MCQ('mt3','A','B')"><span class="opt-letter">A</span>boring</li>
+      <li onclick="chkMT_MCQ('mt3','B','B')"><span class="opt-letter">B</span>requiring great effort</li>
+      <li onclick="chkMT_MCQ('mt3','C','B')"><span class="opt-letter">C</span>time-consuming</li>
+      <li onclick="chkMT_MCQ('mt3','D','B')"><span class="opt-letter">D</span>frustrating</li>
+      <li onclick="chkMT_MCQ('mt3','E','B')"><span class="opt-letter">E</span>exciting</li>
+    </ul>
+    <div class="mcq-feedback" id="mt3-fb"></div>
+  </div>
+
+  <!-- MT4 -->
+  <div class="q-item">
+    <div class="q-text">MT4. What does "tenuous" mean as used in the passage? ("following tenuous leads")<br>A) weak and uncertain B) very few C) dangerous D) false E) exciting</div>
+    <ul class="mcq-opts" id="mt4opts">
+      <li onclick="chkMT_MCQ('mt4','A','A')"><span class="opt-letter">A</span>weak and uncertain</li>
+      <li onclick="chkMT_MCQ('mt4','B','A')"><span class="opt-letter">B</span>very few</li>
+      <li onclick="chkMT_MCQ('mt4','C','A')"><span class="opt-letter">C</span>dangerous</li>
+      <li onclick="chkMT_MCQ('mt4','D','A')"><span class="opt-letter">D</span>false</li>
+      <li onclick="chkMT_MCQ('mt4','E','A')"><span class="opt-letter">E</span>exciting</li>
+    </ul>
+    <div class="mcq-feedback" id="mt4-fb"></div>
+  </div>
+
+  <!-- MT5 -->
+  <div class="q-item">
+    <div class="q-text">MT5. What does "futile" mean? ("deemed the whole enterprise futile") Use the +/− filter first.</div>
+    <div class="answer-row">
+      <input class="answer-input" id="mt5" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkMT_KW('mt5',['pointless','useless','hopeless','waste','no purpose','worthless'],'Context: colleagues ridiculed him — this is clearly negative. Futile means having no chance of success; pointless or useless.')">Check</button>
+    </div>
+    <div class="feedback" id="mt5-fb"></div>
+  </div>
+
+  <!-- MT6 -->
+  <div class="q-item">
+    <div class="q-text">MT6. "stories that turned to smoke" — is this literal or figurative? What does it mean?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="mt6" type="text" placeholder="Literal/figurative + meaning...">
+      <button class="check-btn" onclick="chkMT_KW('mt6',['figurative','disappear','vanish','nothing','dissolved','evaporated'],'Figurative — smoke disappears as soon as it forms. The stories "turning to smoke" means they dissolved or came to nothing — they were unreliable and vanished under scrutiny.')">Check</button>
+    </div>
+    <div class="feedback" id="mt6-fb"></div>
+  </div>
+
+  <!-- MT7 -->
+  <div class="q-item">
+    <div class="q-text">MT7. The writer uses "ghostly whisper" to describe the faded ink. What does this phrase suggest?<br>A) the ink is grey B) the writing is barely visible, faint and almost gone C) the map is haunted D) the ink has disappeared E) the writing was done in pencil</div>
+    <ul class="mcq-opts" id="mt7opts">
+      <li onclick="chkMT_MCQ('mt7','A','B')"><span class="opt-letter">A</span>the ink is grey</li>
+      <li onclick="chkMT_MCQ('mt7','B','B')"><span class="opt-letter">B</span>the writing is barely visible, faint and almost gone</li>
+      <li onclick="chkMT_MCQ('mt7','C','B')"><span class="opt-letter">C</span>the map is haunted</li>
+      <li onclick="chkMT_MCQ('mt7','D','B')"><span class="opt-letter">D</span>the ink has completely disappeared</li>
+      <li onclick="chkMT_MCQ('mt7','E','B')"><span class="opt-letter">E</span>the writing was done in pencil</li>
+    </ul>
+    <div class="mcq-feedback" id="mt7-fb"></div>
+  </div>
+
+  <!-- MT8 -->
+  <div class="q-item">
+    <div class="q-text">MT8. Which root in "civilisation" helps you understand its meaning? What does the root mean?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="mt8" type="text" placeholder="Root + meaning...">
+      <button class="check-btn" onclick="chkMT_KW('mt8',['civil','civ','citizen','city','town','people','settle'],'The root "civ-/civil-" comes from Latin "civis" meaning citizen or city. Civilisation means a society of people organised into cities/communities.')">Check</button>
+    </div>
+    <div class="feedback" id="mt8-fb"></div>
+  </div>
+
+  <!-- MT9 -->
+  <div class="q-item">
+    <div class="q-text">MT9. "He had almost forgotten how to feel: certainty." The word "certainty" here is used to show a contrasting emotion. What has he been feeling for most of the thirty years? Use the connotation polarity idea.</div>
+    <div class="answer-row">
+      <input class="answer-input" id="mt9" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="chkMT_KW('mt9',['doubt','uncertainty','unsure','question','unknown','hopeless','despair','wonder'],'Certainty (+) is the opposite of doubt/uncertainty (−). By saying he had "almost forgotten" certainty, the writer implies he has been living with doubt, uncertainty, and perhaps despair for most of his career.')">Check</button>
+    </div>
+    <div class="feedback" id="mt9-fb"></div>
+  </div>
+
+  <!-- MT10 -->
+  <div class="q-item">
+    <div class="q-text">MT10. "The map that would, if his reading was correct, prove that an entire civilisation had existed two thousand years before the textbooks claimed." What does "deemed" mean in the earlier sentence? Which C.L.A.S.S. strategy helps most?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="mt10" type="text" placeholder="Meaning + strategy name...">
+      <button class="check-btn" onclick="chkMT_KW('mt10',['considered','judged','thought','regarded','believed','logic'],'Deemed = considered or judged (to be). Strategy: Logic — colleagues judged/considered the enterprise futile. Substituting "considered" confirms it fits perfectly.')">Check</button>
+    </div>
+    <div class="feedback" id="mt10-fb"></div>
+  </div>
+
+  <div style="text-align:center;margin-top:26px;">
+    <button onclick="showMasteryScore()" style="background:var(--navy);color:#fff;border:none;border-radius:10px;padding:13px 40px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;">See My Score</button>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+// ===== CORE ANSWER CHECKERS =====
+function chkAns(id, correct, expl) {
+  const inp = document.getElementById(id);
+  const fb = document.getElementById(id + '-fb');
+  if (!inp || !fb) return;
+  const val = inp.value.trim().toLowerCase();
+  const cor = correct.trim().toLowerCase();
+  fb.style.display = 'block';
+  if (val === cor || val.includes(cor) || (cor.length > 3 && cor.includes(val) && val.length > 2)) {
+    fb.className = 'feedback correct';
+    fb.innerHTML = '✅ Correct! ' + expl;
+  } else {
+    fb.className = 'feedback wrong';
+    fb.innerHTML = '❌ Incorrect. Correct answer: <strong>' + correct + '</strong>. ' + expl;
+  }
+}
+
+function chkKW(id, keywords, expl) {
+  const inp = document.getElementById(id);
+  const fb = document.getElementById(id + '-fb');
+  if (!inp || !fb) return;
+  const val = inp.value.trim().toLowerCase();
+  if (val.length < 3) {
+    fb.style.display = 'block'; fb.className = 'feedback wrong';
+    fb.innerHTML = '❌ Please type a fuller answer.'; return;
+  }
+  let found = false;
+  for (let kw of keywords) { if (val.includes(kw.toLowerCase())) { found = true; break; } }
+  fb.style.display = 'block';
+  if (found) {
+    fb.className = 'feedback correct';
+    fb.innerHTML = '✅ Well done! ' + expl;
+  } else {
+    fb.className = 'feedback wrong';
+    fb.innerHTML = '❌ Not quite. Hint — think about: ' + keywords.slice(0,4).join(', ') + '. ' + expl;
+  }
+}
+
+function chkMCQ(qId, chosen, correct) {
+  const opts = document.getElementById(qId + 'opts');
+  if (!opts) return;
+  const items = opts.children;
+  const fb = document.getElementById(qId + '-fb');
+  const letters = ['A','B','C','D','E'];
+  for (let i = 0; i < items.length; i++) {
+    items[i].style.pointerEvents = 'none';
+    if (letters[i] === correct) items[i].classList.add('reveal');
+    if (letters[i] === chosen && chosen !== correct) items[i].classList.add('sw');
+    if (letters[i] === chosen && chosen === correct) items[i].classList.add('sc');
+  }
+  fb.style.display = 'block';
+  if (chosen === correct) {
+    fb.className = 'mcq-feedback correct';
+    fb.innerHTML = '✅ Correct! Option ' + correct + ' is the best contextual answer.';
+  } else {
+    fb.className = 'mcq-feedback wrong';
+    fb.innerHTML = '❌ Not quite. The correct answer is <strong>' + correct + '</strong>. Check the explanation below.';
+  }
+}
+
+// ===== MASTERY TEST TRACKER =====
+let mtAnswered = {};
+let mtCorrect = 0;
+
+function chkMT_MCQ(qId, chosen, correct) {
+  if (mtAnswered[qId] !== undefined) return;
+  const opts = document.getElementById(qId + 'opts');
+  const fb = document.getElementById(qId + '-fb');
+  const letters = ['A','B','C','D','E'];
+  if (opts) {
+    const items = opts.children;
+    for (let i = 0; i < items.length; i++) {
+      items[i].style.pointerEvents = 'none';
+      if (letters[i] === correct) items[i].classList.add('reveal');
+      if (letters[i] === chosen && chosen !== correct) items[i].classList.add('sw');
+      if (letters[i] === chosen && chosen === correct) items[i].classList.add('sc');
+    }
+  }
+  fb.style.display = 'block';
+  if (chosen === correct) {
+    fb.className = 'mcq-feedback correct';
+    fb.innerHTML = '✅ Correct!';
+    mtCorrect++; mtAnswered[qId] = true;
+  } else {
+    fb.className = 'mcq-feedback wrong';
+    fb.innerHTML = '❌ The correct answer is <strong>' + correct + '</strong>.';
+    mtAnswered[qId] = false;
+  }
+}
+
+function chkMT_KW(id, keywords, expl) {
+  if (mtAnswered[id] !== undefined) return;
+  const inp = document.getElementById(id);
+  const fb = document.getElementById(id + '-fb');
+  if (!inp || !fb) return;
+  const val = inp.value.trim().toLowerCase();
+  if (val.length < 3) {
+    fb.style.display = 'block'; fb.className = 'feedback wrong';
+    fb.innerHTML = '❌ Please type a fuller answer.'; return;
+  }
+  let found = false;
+  for (let kw of keywords) { if (val.includes(kw.toLowerCase())) { found = true; break; } }
+  fb.style.display = 'block';
+  if (found) {
+    fb.className = 'feedback correct';
+    fb.innerHTML = '✅ Correct! ' + expl;
+    mtCorrect++; mtAnswered[id] = true;
+  } else {
+    fb.className = 'feedback wrong';
+    fb.innerHTML = '❌ Not quite. Think about: ' + keywords.slice(0,4).join(', ') + '. ' + expl;
+    mtAnswered[id] = false;
+  }
+}
+
+function showMasteryScore() {
+  const box = document.getElementById('mastery-score-box');
+  const num = document.getElementById('mt-score-num');
+  const msg = document.getElementById('mt-score-msg');
+  box.style.display = 'block';
+  num.textContent = mtCorrect + '/10';
+  let m = '';
+  if (mtCorrect >= 9) m = '⭐ Outstanding — you are exam ready!';
+  else if (mtCorrect >= 7) m = '✅ Great work. Review any questions you missed.';
+  else if (mtCorrect >= 5) m = '📖 Good progress — revisit Sections 1, 4 and 8.';
+  else m = '🔄 Keep going! Work back through each section.';
+  msg.textContent = m;
+  box.scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

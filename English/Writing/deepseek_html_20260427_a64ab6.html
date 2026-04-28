@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>11+ GL Creative Writing | Descriptive Mastery - Zoom In, Show Don't Tell, Word Banks</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #fef7f0;
+      font-family: 'Inter', 'Segoe UI', 'Roboto', system-ui, sans-serif;
+      line-height: 1.5;
+      color: #2c221b;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.08);
+      padding: 2rem 2rem 3rem;
+    }
+    h1 {
+      font-size: 2.4rem;
+      background: linear-gradient(135deg, #b45309, #d97706);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      border-left: 7px solid #fbbf24;
+      padding-left: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .badge {
+      background: #b45309;
+      color: white;
+      padding: 0.25rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
+    .subhead {
+      color: #9b6a3e;
+      border-bottom: 2px solid #f3e5d8;
+      padding-bottom: 0.8rem;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      font-size: 1.8rem;
+      margin: 2rem 0 1rem;
+      color: #b45309;
+      border-left: 5px solid #fbbf24;
+      padding-left: 1rem;
+    }
+    h3 {
+      font-size: 1.3rem;
+      margin: 1.5rem 0 0.75rem;
+      color: #b45f2a;
+    }
+    .rule-card {
+      background: #fffbee;
+      border-left: 6px solid #f59e0b;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+    }
+    .wordbank {
+      background: #eef2e6;
+      border-radius: 1.2rem;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+    }
+    .question-block {
+      background: #fefaf5;
+      border-radius: 1.2rem;
+      padding: 1rem 1.3rem;
+      margin: 1rem 0;
+      border: 1px solid #f0dfce;
+    }
+    .question-title {
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    input {
+      padding: 8px 14px;
+      border-radius: 60px;
+      border: 1px solid #d6bfa8;
+      width: 280px;
+      font-family: monospace;
+      margin-right: 12px;
+    }
+    button {
+      background: #b45309;
+      border: none;
+      color: white;
+      padding: 6px 22px;
+      border-radius: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #8b3c06;
+    }
+    .feedback {
+      margin-top: 10px;
+      padding: 6px 14px;
+      border-radius: 28px;
+      background: #f0e7de;
+      display: inline-block;
+      font-size: 0.85rem;
+    }
+    .level-badge {
+      background: #e9dbc9;
+      border-radius: 50px;
+      padding: 2px 12px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      margin-right: 12px;
+      color: #644117;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    th, td {
+      border: 1px solid #ecdac8;
+      padding: 0.6rem;
+    }
+    th {
+      background: #f9efdf;
+    }
+    .footnote {
+      text-align: center;
+      margin-top: 2.2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #edd2bc;
+      color: #a57248;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="badge">✍️ 11+ GL ASSESSMENT • DESCRIPTIVE WRITING</div>
+  <h1>Creative Writing: Zoom-In, Show Don't Tell & Word Power</h1>
+  <div class="subhead">🎯 Interactive: figurative language • sensory details • sentence upgrades • fronted adverbials</div>
+
+  <div class="rule-card">
+    <strong>📌 THE ZOOM-IN METHOD (Movie Camera)</strong><br>
+    🎬 <strong>Wide shot:</strong> whole scene (forest, city, haunted house)<br>
+    🔍 <strong>Mid shot:</strong> main focus (a figure, a door, a tree)<br>
+    🔎 <strong>Close-up:</strong> tiny detail (splintered wood, a trembling hand)<br>
+    ➕ Always mix <strong>wide → mid → close</strong> for immersive description.
+  </div>
+  
+  <!-- ========= EASY: identify zoom levels, basic senses, show dont tell ========= -->
+  <h2>📘 Level 1 – Easy (Zoom-In & Sensory Basics)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 1</span> In the Zoom-In method, which shot describes "a single torn photograph on the mantelpiece"?</div><input id="easy1" placeholder="wide / mid / close-up"><button onclick="checkEasy1()">Check</button><div id="easy1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 2</span> Which sense is used in: "the musty smell of rotting wood"?</div><input id="easy2" placeholder="sight / smell / sound"><button onclick="checkEasy2()">Check</button><div id="easy2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 3</span> Upgrade: "He walked slowly" → replace with ONE powerful verb.</div><input id="easy3" placeholder="strong verb"><button onclick="checkEasy3()">Check</button><div id="easy3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 4</span> Show 'fear' without saying 'scared' — write 3–4 words (e.g., "hands trembled")</div><input id="easy4" placeholder="showing phrase"><button onclick="checkEasy4()">Check</button><div id="easy4fb" class="feedback"></div></div>
+  
+  <!-- ========= INTERMEDIATE: figurative language, colour palettes, strong verbs ========= -->
+  <h2>📘 Level 2 – Intermediate (Figurative Language & Colour)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 1</span> Identify: "The wind howled in rage" — simile, metaphor or personification?</div><input id="int1" placeholder="type answer"><button onclick="checkInt1()">Check</button><div id="int1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 2</span> Complete the simile: "The fog hung over the city like ___________" (2-4 words)</div><input id="int2" placeholder="finish simile"><button onclick="checkInt2()">Check</button><div id="int2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 3</span> Which colour creates a cold, ominous atmosphere? (crimson / amber / indigo)</div><input id="int3" placeholder="type colour"><button onclick="checkInt3()">Check</button><div id="int3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 4</span> Write a metaphor for the sun (e.g., "the sun was a golden coin") — your turn.</div><input id="int4" placeholder="metaphor"><button onclick="checkInt4()">Check</button><div id="int4fb" class="feedback"></div></div>
+
+  <!-- ========= ADVANCED: fronted adverbials, sentence starters, punctuation for effect ========= -->
+  <h2>📘 Level 3 – Advanced (Fronted Adverbials & Punctuation Power)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 1</span> Write a fronted adverbial of place (example: "At the edge of the forest,"). Type yours.</div><input id="adv1" placeholder="fronted adverbial"><button onclick="checkAdv1()">Check</button><div id="adv1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 2</span> Add a dash to create interruption: "I was about to open the door ______" (finish with dash)</div><input id="adv2" placeholder="type phrase with dash"><button onclick="checkAdv2()">Check</button><div id="adv2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 3</span> Which sentence uses ellipsis for suspense? A) "Help!" B) footsteps… closer… closer… C) "Run away!"</div><input id="adv3" placeholder="A, B, or C"><button onclick="checkAdv3()">Check</button><div id="adv3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 4</span> Rewrite: "The sun went down" → use personification (give the sun a human action).</div><input id="adv4" placeholder="personified sentence"><button onclick="checkAdv4()">Check</button><div id="adv4fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 5</span> Write a complex sentence starting with an '-ing' clause: "Running through the darkness, ..." (complete the sentence)</div><input id="adv5" placeholder="complete sentence"><button onclick="checkAdv5()">Check</button><div id="adv5fb" class="feedback"></div></div>
+
+  <!-- ========= CHALLENGING: rewrite weak sentences, self-assessment checklist items ========= -->
+  <h2>⚡ Level 4 – Challenging (Upgrade Drills & Editing)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 1</span> Upgrade this weak sentence: "The house was old and scary." (use 2 sensory details)</div><input id="chal1" placeholder="upgraded sentence"><button onclick="checkChal1()">Check</button><div id="chal1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 2</span> Add a colon to introduce a dramatic detail: "He saw only one thing ___" (complete with colon)</div><input id="chal2" placeholder="sentence with colon"><button onclick="checkChal2()">Check</button><div id="chal2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 3</span> Name three different senses you should use in a descriptive paragraph.</div><input id="chal3" placeholder="separate with commas"><button onclick="checkChal3()">Check</button><div id="chal3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 4</span> Write an upgraded version: "The wind was strong" → show it through action without using "strong".</div><input id="chal4" placeholder="showing sentence"><button onclick="checkChal4()">Check</button><div id="chal4fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 5</span> What punctuation creates a dramatic pause and works well in horror writing? (dash / ellipsis / colon)</div><input id="chal5" placeholder="type one"><button onclick="checkChal5()">Check</button><div id="chal5fb" class="feedback"></div></div>
+
+  <!-- ========= FINAL MASTERY TEST ========= -->
+  <h2>🎓 MASTERY TEST (12 mixed creative writing skills)</h2>
+  <div id="mastery">
+    <div class="question-block">1. What is the first stage of the Zoom-In method? (wide / mid / close-up)</div><input id="m1"><button onclick="checkM1()">Check</button><div id="m1fb" class="feedback"></div>
+    <div class="question-block">2. Write a simile to describe a silent character: "He was as silent as ____________"</div><input id="m2"><button onclick="checkM2()">Check</button><div id="m2fb" class="feedback"></div>
+    <div class="question-block">3. Personification: "The moon ___________ over the sleeping city." (give human action)</div><input id="m3"><button onclick="checkM3()">Check</button><div id="m3fb" class="feedback"></div>
+    <div class="question-block">4. Replace 'walked' with a stronger verb in: "He walked across the battlefield."</div><input id="m4"><button onclick="checkM4()">Check</button><div id="m4fb" class="feedback"></div>
+    <div class="question-block">5. Which colour palette fits a haunted house? (amber/crimson/charcoal vs honeyed/gilded)</div><input id="m5"><button onclick="checkM5()">Check</button><div id="m5fb" class="feedback"></div>
+    <div class="question-block">6. Write a fronted adverbial of time (example: "Before dawn,").</div><input id="m6"><button onclick="checkM6()">Check</button><div id="m6fb" class="feedback"></div>
+    <div class="question-block">7. Ellipsis creates... (suspense / excitement / joy) – type the correct effect.</div><input id="m7"><button onclick="checkM7()">Check</button><div id="m7fb" class="feedback"></div>
+    <div class="question-block">8. Show 'excitement' without saying excited (3–6 words).</div><input id="m8"><button onclick="checkM8()">Check</button><div id="m8fb" class="feedback"></div>
+    <div class="question-block">9. Name one type of sensory detail that ISN'T sight.</div><input id="m9"><button onclick="checkM9()">Check</button><div id="m9fb" class="feedback"></div>
+    <div class="question-block">10. Combine short sentences using a semicolon: "The rain fell. The streets flooded."</div><input id="m10"><button onclick="checkM10()">Check</button><div id="m10fb" class="feedback"></div>
+    <div class="question-block">11. Which style of sentence builds tension? (long / short / medium)</div><input id="m11"><button onclick="checkM11()">Check</button><div id="m11fb" class="feedback"></div>
+    <div class="question-block">12. Write a close-up detail from a storm scene (tiny focus, e.g., "a single raindrop sliding down glass").</div><input id="m12"><button onclick="checkM12()">Check</button><div id="m12fb" class="feedback"></div>
+  </div>
+  
+  <div class="wordbank">
+    <strong>📦 DESCRIPTIVE WORD BANK (sample – haunted house)</strong><br>
+    👁️ Sight: <em>dilapidated, crumbling, ivy-clad, boarded-up, cavernous</em><br>
+    🔊 Sound: <em>creaking, groaning, rattling, whispering, scratching</em><br>
+    👃 Smell: <em>musty, mildewed, stale, metallic</em><br>
+    ✋ Touch: <em>icy draught, splintered, cobwebbed, damp stone</em>
+  </div>
+  <div class="footnote">
+    ✅ All questions interactive – type your answer, click Check, see instant correct/incorrect + explanation. Master Zoom-In, show don't tell, word banks & punctuation.
+  </div>
+</div>
+
+<script>
+  // EASY checks
+  function checkEasy1() { let a=document.getElementById('easy1').value.trim().toLowerCase(); if(a==="close-up") document.getElementById('easy1fb').innerHTML="✅ Correct! Close-up zooms on small detail."; else document.getElementById('easy1fb').innerHTML="❌ Close-up."; }
+  function checkEasy2() { let a=document.getElementById('easy2').value.trim().toLowerCase(); if(a==="smell") document.getElementById('easy2fb').innerHTML="✅ Smell (musty, rotting wood)."; else document.getElementById('easy2fb').innerHTML="❌ smell."; }
+  function checkEasy3() { let a=document.getElementById('easy3').value.trim().toLowerCase(); const verbs=["trudged","staggered","crept","dashed","marched","scurried"]; if(verbs.includes(a)) document.getElementById('easy3fb').innerHTML="✅ Strong verb!"; else document.getElementById('easy3fb').innerHTML="❌ e.g., trudged, crept, dashed."; }
+  function checkEasy4() { let a=document.getElementById('easy4').value.trim().toLowerCase(); if(a.includes("tremble")||a.includes("sweat")||a.includes("heart")||a.includes("pale")) document.getElementById('easy4fb').innerHTML="✅ Shows fear well."; else document.getElementById('easy4fb').innerHTML="❌ Example: 'his knees knocked'."; }
+  // INTERMEDIATE
+  function checkInt1() { let a=document.getElementById('int1').value.trim().toLowerCase(); if(a==="personification") document.getElementById('int1fb').innerHTML="✅ Personification (wind howled in rage)."; else document.getElementById('int1fb').innerHTML="❌ Personification."; }
+  function checkInt2() { let a=document.getElementById('int2').value.trim().toLowerCase(); if(a.includes("blanket")||a.includes("shroud")||a.includes("veil")) document.getElementById('int2fb').innerHTML="✅ Strong simile."; else document.getElementById('int2fb').innerHTML="❌ e.g., 'a damp blanket'."; }
+  function checkInt3() { let a=document.getElementById('int3').value.trim().toLowerCase(); if(a==="indigo") document.getElementById('int3fb').innerHTML="✅ Indigo = cold, ominous."; else document.getElementById('int3fb').innerHTML="❌ indigo."; }
+  function checkInt4() { let a=document.getElementById('int4').value.trim().toLowerCase(); if(a.includes("like")||a.includes("a")||a.includes("is")) document.getElementById('int4fb').innerHTML="✅ Good metaphor attempt."; else document.getElementById('int4fb').innerHTML="❌ e.g., 'a blazing lantern'."; }
+  // ADVANCED
+  function checkAdv1() { let a=document.getElementById('adv1').value.trim(); if(a.endsWith(",") && a.split(" ").length>=2) document.getElementById('adv1fb').innerHTML="✅ Valid fronted adverbial."; else document.getElementById('adv1fb').innerHTML="❌ Must start phrase + comma. Example: 'Through the mist,'"; }
+  function checkAdv2() { let a=document.getElementById('adv2').value.trim(); if(a.includes("—")||a.includes("-")) document.getElementById('adv2fb').innerHTML="✅ Dash for interruption."; else document.getElementById('adv2fb').innerHTML="❌ Use em dash: 'I was about to open the door —'"; }
+  function checkAdv3() { let a=document.getElementById('adv3').value.trim().toUpperCase(); if(a==="B") document.getElementById('adv3fb').innerHTML="✅ Ellipsis creates suspense."; else document.getElementById('adv3fb').innerHTML="❌ B (footsteps… closer…)."; }
+  function checkAdv4() { let a=document.getElementById('adv4').value.trim().toLowerCase(); if(a.includes("slipped")||a.includes("hid")||a.includes("faded")||a.includes("retreated")) document.getElementById('adv4fb').innerHTML="✅ Personification works."; else document.getElementById('adv4fb').innerHTML="❌ e.g., 'The sun slipped below the horizon.'"; }
+  function checkAdv5() { let a=document.getElementById('adv5').value.trim(); if(a.startsWith("Running") && a.includes(",")) document.getElementById('adv5fb').innerHTML="✅ Good -ing clause sentence."; else document.getElementById('adv5fb').innerHTML="❌ e.g., 'Running through the darkness, he stumbled over roots.'"; }
+  // CHALLENGING
+  function checkChal1() { let a=document.getElementById('chal1').value.trim().toLowerCase(); if((a.includes("creak")||a.includes("musty")||a.includes("shattered")||a.includes("loom")) && a.length>20) document.getElementById('chal1fb').innerHTML="✅ Good upgrade with sensory detail."; else document.getElementById('chal1fb').innerHTML="❌ e.g., 'The dilapidated cottage loomed, its windows shattered, and a musty smell escaped.'"; }
+  function checkChal2() { let a=document.getElementById('chal2').value.trim(); if(a.includes(":") && a.length>12) document.getElementById('chal2fb').innerHTML="✅ Colon used for dramatic introduction."; else document.getElementById('chal2fb').innerHTML="❌ Example: 'He saw only one thing: darkness.'"; }
+  function checkChal3() { let a=document.getElementById('chal3').value.trim().toLowerCase(); if(a.includes("smell")&&a.includes("sound")||a.includes("touch")||a.includes("taste")) document.getElementById('chal3fb').innerHTML="✅ Great! Sight is obvious, add smell/sound/touch."; else document.getElementById('chal3fb').innerHTML="❌ e.g., smell, sound, touch."; }
+  function checkChal4() { let a=document.getElementById('chal4').value.trim().toLowerCase(); if(a.includes("bent")||a.includes("howled")||a.includes("snapped")||a.includes("whipped")) document.getElementById('chal4fb').innerHTML="✅ Showing action rather than 'strong'."; else document.getElementById('chal4fb').innerHTML="❌ e.g., 'The wind bent the trees and ripped tiles from roofs.'"; }
+  function checkChal5() { let a=document.getElementById('chal5').value.trim().toLowerCase(); if(a==="ellipsis"||a==="dash") document.getElementById('chal5fb').innerHTML="✅ Ellipsis and dash both create dramatic pause."; else document.getElementById('chal5fb').innerHTML="❌ ellipsis or dash."; }
+  // MASTERY TEST
+  function checkM1() { let a=document.getElementById('m1').value.trim().toLowerCase(); if(a==="wide") document.getElementById('m1fb').innerHTML="✅ Wide shot first."; else document.getElementById('m1fb').innerHTML="❌ wide."; }
+  function checkM2() { let a=document.getElementById('m2').value.trim().toLowerCase(); if(a.includes("ghost")||a.includes("shadow")||a.includes("mouse")||a.includes("night")) document.getElementById('m2fb').innerHTML="✅ Good simile."; else document.getElementById('m2fb').innerHTML="❌ e.g., 'a ghost'."; }
+  function checkM3() { let a=document.getElementById('m3').value.trim().toLowerCase(); if(a.includes("watched")||a.includes("peeked")||a.includes("glowed")) document.getElementById('m3fb').innerHTML="✅ Personification works."; else document.getElementById('m3fb').innerHTML="❌ e.g., 'watched over'."; }
+  function checkM4() { let a=document.getElementById('m4').value.trim().toLowerCase(); const strong=["staggered","marched","limped","crept","charged"]; if(strong.includes(a)) document.getElementById('m4fb').innerHTML="✅ Strong verb."; else document.getElementById('m4fb').innerHTML="❌ e.g., staggered, marched."; }
+  function checkM5() { let a=document.getElementById('m5').value.trim().toLowerCase(); if(a.includes("charcoal")||a.includes("indigo")||a.includes("slate")) document.getElementById('m5fb').innerHTML="✅ Charcoal/indigo fit haunted house."; else document.getElementById('m5fb').innerHTML="❌ charcoal, indigo, slate."; }
+  function checkM6() { let a=document.getElementById('m6').value.trim(); if(a.endsWith(",") && a.length>3) document.getElementById('m6fb').innerHTML="✅ Fronted adverbial of time."; else document.getElementById('m6fb').innerHTML="❌ e.g., 'After midnight,' or 'Before dawn,'"; }
+  function checkM7() { let a=document.getElementById('m7').value.trim().toLowerCase(); if(a==="suspense") document.getElementById('m7fb').innerHTML="✅ Ellipsis = suspense."; else document.getElementById('m7fb').innerHTML="❌ suspense."; }
+  function checkM8() { let a=document.getElementById('m8').value.trim().toLowerCase(); if(a.includes("jumped")||a.includes("grin")||a.includes("heart")||a.includes("bouncing")) document.getElementById('m8fb').innerHTML="✅ Shows excitement well."; else document.getElementById('m8fb').innerHTML="❌ e.g., 'her eyes sparkled'."; }
+  function checkM9() { let a=document.getElementById('m9').value.trim().toLowerCase(); if(a==="smell"||a==="sound"||a==="touch"||a==="taste") document.getElementById('m9fb').innerHTML="✅ Correct non-sight sense."; else document.getElementById('m9fb').innerHTML="❌ smell, sound, touch, or taste."; }
+  function checkM10() { let a=document.getElementById('m10').value.trim(); if(a.includes(";") && a.toLowerCase().includes("rain") && a.toLowerCase().includes("flooded")) document.getElementById('m10fb').innerHTML="✅ Semicolon connects two main clauses."; else document.getElementById('m10fb').innerHTML="❌ 'The rain fell; the streets flooded.'"; }
+  function checkM11() { let a=document.getElementById('m11').value.trim().toLowerCase(); if(a==="short") document.getElementById('m11fb').innerHTML="✅ Short sentences build tension."; else document.getElementById('m11fb').innerHTML="❌ short sentences."; }
+  function checkM12() { let a=document.getElementById('m12').value.trim(); if(a.split(" ").length>=3 && (a.includes("drop")||a.includes("leaf")||a.includes("splinter")||a.includes("crack"))) document.getElementById('m12fb').innerHTML="✅ Great close-up detail."; else document.getElementById('m12fb').innerHTML="❌ e.g., 'a single leaf torn from the tree'."; }
+</script>
+</body>
+</html>

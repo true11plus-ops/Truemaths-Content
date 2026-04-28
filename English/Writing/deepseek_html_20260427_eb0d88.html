@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>11+ GL Assessment: Creative Writing | Interactive Mastery</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #f4f0eb;
+      font-family: 'Segoe UI', 'Inter', 'Roboto', system-ui, sans-serif;
+      line-height: 1.5;
+      color: #1f2e3a;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.08);
+      padding: 2rem 2rem 3rem;
+    }
+    h1 {
+      font-size: 2.3rem;
+      background: linear-gradient(135deg, #7b4a2e, #b45f3b);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      border-left: 7px solid #e9b35f;
+      padding-left: 1.2rem;
+      margin-bottom: 0.25rem;
+    }
+    .badge {
+      background: #b45f3b;
+      color: white;
+      padding: 0.25rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 0.7rem;
+    }
+    .subhead {
+      color: #5f4c3b;
+      border-bottom: 2px solid #f0e2d4;
+      padding-bottom: 0.8rem;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      font-size: 1.8rem;
+      margin: 2rem 0 1rem;
+      color: #8b5a2e;
+      border-left: 5px solid #e9b35f;
+      padding-left: 1rem;
+    }
+    h3 {
+      font-size: 1.4rem;
+      margin: 1.5rem 0 0.75rem;
+      color: #b45f3b;
+    }
+    .rule-card {
+      background: #fef6ec;
+      border-left: 6px solid #e9b35f;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+    }
+    .question-block {
+      background: #fefaf5;
+      border-radius: 1.2rem;
+      padding: 0.9rem 1.3rem;
+      margin: 1rem 0;
+      border: 1px solid #f0e2d4;
+    }
+    .question-title {
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      font-size: 1rem;
+    }
+    input {
+      padding: 8px 12px;
+      border-radius: 60px;
+      border: 1px solid #d6c4b2;
+      width: 260px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      margin-right: 12px;
+    }
+    button {
+      background: #8b5a2e;
+      border: none;
+      color: white;
+      padding: 6px 20px;
+      border-radius: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #6b4220;
+    }
+    .feedback {
+      margin-top: 8px;
+      padding: 6px 12px;
+      border-radius: 28px;
+      background: #f2ece4;
+      display: inline-block;
+      font-size: 0.85rem;
+    }
+    .level-badge {
+      background: #e9d9cc;
+      border-radius: 50px;
+      padding: 2px 12px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      margin-right: 12px;
+      color: #5e3a1f;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    th, td {
+      border: 1px solid #e2cfbe;
+      padding: 0.7rem;
+    }
+    th {
+      background: #f0e2d4;
+      color: #4f2f17;
+    }
+    .footnote {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eddccd;
+      font-size: 0.8rem;
+      color: #a17a58;
+    }
+    @media (max-width: 650px) {
+      input { width: 170px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="badge">✍️ 11+ GL ASSESSMENT • CREATIVE WRITING</div>
+  <h1>Creative Writing: Structure, Vocabulary & Punctuation</h1>
+  <div class="subhead">🎯 Planning • Dialogue • Figurative language • Show don't tell • Mastery test</div>
+
+  <!-- ========== CONCEPT TEACHING ========= -->
+  <div class="rule-card">
+    <strong>📌 GL CREATIVE WRITING FORMULA</strong><br>
+    ✔ <strong>5‑min plan:</strong> WHO? WHERE? PROBLEM? CLIMAX? 5 WOW words.<br>
+    ✔ <strong>Show, don't tell:</strong> “sweaty palms” → nervous.<br>
+    ✔ <strong>TiP ToP paragraphs:</strong> Time, Place, Topic, Person change = new line.<br>
+    ✔ <strong>Dialogue rule:</strong> New speaker = new line + punctuation INSIDE speech marks.
+  </div>
+
+  <!-- ========= EASY: openers, show don't tell basics, banned words ========= -->
+  <h2>📘 Level 1 – Easy (Openings & Show, Don't Tell)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 1</span> Which opening hook uses ACTION? (type the letter) A) "Don't move," she whispered. B) The door burst open. C) Have you ever been truly lost?</div><input id="easy1" placeholder="A, B or C"><button onclick="checkEasy1()">Check</button><div id="easy1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 2</span> Rewrite to "show": "He was scared." (write a short showing phrase, e.g., "His heart thumped")</div><input id="easy2" placeholder="type showing phrase"><button onclick="checkEasy2()">Check</button><div id="easy2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 3</span> Upgrade "went" → better verb: "He went across the room." (replace 'went' with one powerful verb)</div><input id="easy3" placeholder="type verb"><button onclick="checkEasy3()">Check</button><div id="easy3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">EASY 4</span> Which sentence avoids cliché opening? A) Once upon a time, B) It was a dark and stormy night, C) The letter arrived on a Tuesday.</div><input id="easy4" placeholder="A, B or C"><button onclick="checkEasy4()">Check</button><div id="easy4fb" class="feedback"></div></div>
+
+  <!-- ========= INTERMEDIATE: dialogue formatting, paragraphing, hooks ========= -->
+  <h2>📘 Level 2 – Intermediate (Dialogue & Paragraphs)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 1</span> Correct dialogue punctuation: "I'm tired" she said. → insert comma. Type corrected version (one sentence).</div><input id="int1" placeholder="type corrected"><button onclick="checkInt1()">Check</button><div id="int1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 2</span> TiP ToP: When you change to a new place (e.g., from kitchen to garden), you should start a new ______ ? (single word)</div><input id="int2" placeholder="type answer"><button onclick="checkInt2()">Check</button><div id="int2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 3</span> Which reporting clause is placed correctly? A) "Look out" shouted James. B) "Look out," shouted James. C) "Look out" , shouted James.</div><input id="int3" placeholder="A, B or C"><button onclick="checkInt3()">Check</button><div id="int3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">INTERMEDIATE 4</span> Ellipsis for suspense: finish the sentence with a hint of fear: "The door creaked open…" (write 3–5 words)</div><input id="int4" placeholder="complete the phrase"><button onclick="checkInt4()">Check</button><div id="int4fb" class="feedback"></div></div>
+
+  <!-- ========= ADVANCED: figurative language, varied sentences, punctuation ========= -->
+  <h2>📘 Level 3 – Advanced (Similes, Metaphors, Punctuation Power)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 1</span> Complete the simile: "The night was as dark as ___" (one short phrase)</div><input id="adv1" placeholder="finish simile"><button onclick="checkAdv1()">Check</button><div id="adv1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 2</span> Write a metaphor to describe anger (e.g., "a blazing fire inside") – type yours.</div><input id="adv2" placeholder="metaphor"><button onclick="checkAdv2()">Check</button><div id="adv2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 3</span> Which sentence uses a semicolon correctly? A) The wind howled; the trees bent low. B) The wind howled, the trees bent low. C) The wind howled: the trees bent low.</div><input id="adv3" placeholder="A, B or C"><button onclick="checkAdv3()">Check</button><div id="adv3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 4</span> Add a dash for interruption: "I was going to ______" "No time!" (write the first half with dash)</div><input id="adv4" placeholder="type phrase with dash"><button onclick="checkAdv4()">Check</button><div id="adv4fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">ADVANCED 5</span> Personification: give the wind a human action. "The wind ___" (1–2 words)</div><input id="adv5" placeholder="type verb phrase"><button onclick="checkAdv5()">Check</button><div id="adv5fb" class="feedback"></div></div>
+
+  <!-- ========= CHALLENGING: planning, tense, editing, banned words ========= -->
+  <h2>⚡ Level 4 – Challenging (Planning, Tense & Editing)</h2>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 1</span> In a 30‑min task, how many minutes should you spend planning? (write number)</div><input id="chal1" placeholder="number"><button onclick="checkChal1()">Check</button><div id="chal1fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 2</span> Fix the tense error: "She opens the door and saw a shadow." (rewrite correctly)</div><input id="chal2" placeholder="corrected sentence"><button onclick="checkChal2()">Check</button><div id="chal2fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 3</span> Replace 'said' with a more vivid verb: "I hate you," he said. → "I hate you," he _____.</div><input id="chal3" placeholder="vivid verb"><button onclick="checkChal3()">Check</button><div id="chal3fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 4</span> Which ending is banned by GL examiners? A) circular ending B) cliffhanger C) "It was all a dream"</div><input id="chal4" placeholder="A, B or C"><button onclick="checkChal4()">Check</button><div id="chal4fb" class="feedback"></div></div>
+  <div class="question-block"><div class="question-title"><span class="level-badge">CHALLENGING 5</span> Name two senses (other than sight) you should include in a descriptive paragraph. (type two, separated by comma)</div><input id="chal5" placeholder="e.g., smell, touch"><button onclick="checkChal5()">Check</button><div id="chal5fb" class="feedback"></div></div>
+
+  <!-- ========= FINAL MASTERY TEST (10 mixed creative writing rules) ========= -->
+  <h2>🎓 MASTERY TEST – 11+ Creative Writing Essentials</h2>
+  <div id="mastery">
+    <div class="question-block">1. What does V.A.S.T. stand for? (four elements of showing character)</div><input id="m1"><button onclick="checkM1()">Check</button><div id="m1fb" class="feedback"></div>
+    <div class="question-block">2. Correct this dialogue: "Hello" said Tom (add comma and speech marks)</div><input id="m2"><button onclick="checkM2()">Check</button><div id="m2fb" class="feedback"></div>
+    <div class="question-block">3. Give one reason to start a new paragraph (TiP ToP rule).</div><input id="m3"><button onclick="checkM3()">Check</button><div id="m3fb" class="feedback"></div>
+    <div class="question-block">4. Write a fronted adverbial of time (e.g., "Later that night,").</div><input id="m4"><button onclick="checkM4()">Check</button><div id="m4fb" class="feedback"></div>
+    <div class="question-block">5. Which is better vocabulary: "good" or "remarkable"? (type the better word)</div><input id="m5"><button onclick="checkM5()">Check</button><div id="m5fb" class="feedback"></div>
+    <div class="question-block">6. Name one type of figurative language used in "The trees danced in the wind."</div><input id="m6"><button onclick="checkM6()">Check</button><div id="m6fb" class="feedback"></div>
+    <div class="question-block">7. In picture prompts, what should you identify first? (1 word: person / object / problem?)</div><input id="m7"><button onclick="checkM7()">Check</button><div id="m7fb" class="feedback"></div>
+    <div class="question-block">8. Write a 5‑word opening hook using action.</div><input id="m8"><button onclick="checkM8()">Check</button><div id="m8fb" class="feedback"></div>
+    <div class="question-block">9. Which viewpoint is more immersive? (1st person / 3rd person) – type answer</div><input id="m9"><button onclick="checkM9()">Check</button><div id="m9fb" class="feedback"></div>
+    <div class="question-block">10. During editing, which punctuation should you check for opening/closing pairs? (write one: speech marks / brackets / both)</div><input id="m10"><button onclick="checkM10()">Check</button><div id="m10fb" class="feedback"></div>
+  </div>
+  <div class="footnote">
+    ✍️ All questions interactive. Type your answer → click Check → get instant correct/incorrect + explanation. Covers planning, dialogue, clauses, and creative techniques.
+  </div>
+</div>
+
+<script>
+  // EASY
+  function checkEasy1() { let a=document.getElementById('easy1').value.trim().toUpperCase(); if(a==="B") document.getElementById('easy1fb').innerHTML="✅ Correct! Action opening: 'The door burst open.'"; else document.getElementById('easy1fb').innerHTML="❌ Correct: B (action)."; }
+  function checkEasy2() { let a=document.getElementById('easy2').value.trim().toLowerCase(); if(a.includes("heart")||a.includes("sweat")||a.includes("shake")||a.includes("pale")) document.getElementById('easy2fb').innerHTML="✅ Good showing! Physical signs of fear."; else document.getElementById('easy2fb').innerHTML="❌ Accept showing detail like 'His knees trembled'."; }
+  function checkEasy3() { let a=document.getElementById('easy3').value.trim().toLowerCase(); const strong=["strode","dashed","crept","marched","scrambled","stormed","drifted"]; if(strong.some(v=>a===v)) document.getElementById('easy3fb').innerHTML="✅ Great upgrade!"; else document.getElementById('easy3fb').innerHTML="❌ Better verb: strode, dashed, crept etc."; }
+  function checkEasy4() { let a=document.getElementById('easy4').value.trim().toUpperCase(); if(a==="C") document.getElementById('easy4fb').innerHTML="✅ Correct – original opening avoids cliché."; else document.getElementById('easy4fb').innerHTML="❌ C is best (non-cliché)."; }
+  // INTERMEDIATE
+  function checkInt1() { let a=document.getElementById('int1').value.trim(); if(a.includes("\"I'm tired,\" she said")||a.includes("‘I’m tired,’ she said")) document.getElementById('int1fb').innerHTML="✅ Correct! Comma before closing speech mark."; else document.getElementById('int1fb').innerHTML="❌ Correct: \"I'm tired,\" she said."; }
+  function checkInt2() { let a=document.getElementById('int2').value.trim().toLowerCase(); if(a==="paragraph"||a==="paragraphs") document.getElementById('int2fb').innerHTML="✅ Correct! New paragraph for new place."; else document.getElementById('int2fb').innerHTML="❌ Answer: paragraph."; }
+  function checkInt3() { let a=document.getElementById('int3').value.trim().toUpperCase(); if(a==="B") document.getElementById('int3fb').innerHTML="✅ Correct! Comma before closing speech mark."; else document.getElementById('int3fb').innerHTML="❌ B is correct: 'Look out,' shouted James."; }
+  function checkInt4() { let a=document.getElementById('int4').value.trim().toLowerCase(); if(a.length>3 && (a.includes("nothing")||a.includes("dark")||a.includes("whisper")||a.includes("creak"))) document.getElementById('int4fb').innerHTML="✅ Good suspense!"; else document.getElementById('int4fb').innerHTML="❌ Accept any eerie finish, e.g., '… and then nothing.'"; }
+  // ADVANCED
+  function checkAdv1() { let a=document.getElementById('adv1').value.trim().toLowerCase(); if(a.includes("coal")||a.includes("pitch")||a.includes("ink")||a.includes("velvet")) document.getElementById('adv1fb').innerHTML="✅ Great simile!"; else document.getElementById('adv1fb').innerHTML="❌ e.g., 'as dark as coal'."; }
+  function checkAdv2() { let a=document.getElementById('adv2').value.trim().toLowerCase(); if(a.includes("fire")||a.includes("storm")||a.includes("volcano")||a.includes("boiling")) document.getElementById('adv2fb').innerHTML="✅ Strong metaphor."; else document.getElementById('adv2fb').innerHTML="❌ e.g., 'a storm inside his chest'."; }
+  function checkAdv3() { let a=document.getElementById('adv3').value.trim().toUpperCase(); if(a==="A") document.getElementById('adv3fb').innerHTML="✅ Correct! Semicolon links two main clauses."; else document.getElementById('adv3fb').innerHTML="❌ A is correct; comma would be splice."; }
+  function checkAdv4() { let a=document.getElementById('adv4').value.trim(); if(a.includes("—")||a.includes("–")) document.getElementById('adv4fb').innerHTML="✅ Correct dash usage."; else document.getElementById('adv4fb').innerHTML="❌ Use dash: 'I was going to —'."; }
+  function checkAdv5() { let a=document.getElementById('adv5').value.trim().toLowerCase(); if(a.includes("whisper")||a.includes("howl")||a.includes("scream")||a.includes("moan")) document.getElementById('adv5fb').innerHTML="✅ Personification perfect."; else document.getElementById('adv5fb').innerHTML="❌ e.g., 'The wind whispered secrets'."; }
+  // CHALLENGING
+  function checkChal1() { let a=document.getElementById('chal1').value.trim(); if(a==="5") document.getElementById('chal1fb').innerHTML="✅ Correct! 5 minutes planning."; else document.getElementById('chal1fb').innerHTML="❌ 5 minutes."; }
+  function checkChal2() { let a=document.getElementById('chal2').value.trim().toLowerCase(); if(a.includes("opened")&&a.includes("saw")) document.getElementById('chal2fb').innerHTML="✅ Correct tense (past)."; else document.getElementById('chal2fb').innerHTML="❌ 'She opened the door and saw a shadow.'"; }
+  function checkChal3() { let a=document.getElementById('chal3').value.trim().toLowerCase(); const vivid=["hissed","snarled","spat","muttered","growled","screamed"]; if(vivid.includes(a)) document.getElementById('chal3fb').innerHTML="✅ Vivid verb!"; else document.getElementById('chal3fb').innerHTML="❌ Use: growled, hissed, snarled."; }
+  function checkChal4() { let a=document.getElementById('chal4').value.trim().toUpperCase(); if(a==="C") document.getElementById('chal4fb').innerHTML="✅ Correct! 'It was all a dream' loses marks."; else document.getElementById('chal4fb').innerHTML="❌ C is banned."; }
+  function checkChal5() { let a=document.getElementById('chal5').value.trim().toLowerCase(); if(a.includes("smell")&&a.includes("touch")||a.includes("sound")&&a.includes("smell")||a.includes("taste")&&a.includes("sound")) document.getElementById('chal5fb').innerHTML="✅ Great! Smell, touch, sound, taste all good."; else document.getElementById('chal5fb').innerHTML="❌ Example: smell, sound."; }
+  // MASTERY
+  function checkM1() { let a=document.getElementById('m1').value.trim().toLowerCase(); if(a.includes("voice")&&a.includes("actions")||a.includes("statements")&&a.includes("thoughts")) document.getElementById('m1fb').innerHTML="✅ Voice, Actions, Statements, Thoughts!"; else document.getElementById('m1fb').innerHTML="❌ V.A.S.T. = Voice, Actions, Statements, Thoughts."; }
+  function checkM2() { let a=document.getElementById('m2').value.trim(); if(a.includes("\"Hello,\"")||a.includes("‘Hello,’")) document.getElementById('m2fb').innerHTML="✅ Correct: \"Hello,\" said Tom."; else document.getElementById('m2fb').innerHTML="❌ 'Hello,' said Tom. (comma inside speech marks)."; }
+  function checkM3() { let a=document.getElementById('m3').value.trim().toLowerCase(); if(a.includes("time")||a.includes("place")||a.includes("topic")||a.includes("person")) document.getElementById('m3fb').innerHTML="✅ Correct! TiP ToP."; else document.getElementById('m3fb').innerHTML="❌ Time, Place, Topic, or Person change."; }
+  function checkM4() { let a=document.getElementById('m4').value.trim(); if(a.endsWith(",") && a.length>3) document.getElementById('m4fb').innerHTML="✅ Good fronted adverbial."; else document.getElementById('m4fb').innerHTML="❌ Examples: 'Later that night,' 'After the storm,'"; }
+  function checkM5() { let a=document.getElementById('m5').value.trim().toLowerCase(); if(a==="remarkable") document.getElementById('m5fb').innerHTML="✅ Yes! Upgrade vocabulary."; else document.getElementById('m5fb').innerHTML="❌ 'remarkable' is stronger."; }
+  function checkM6() { let a=document.getElementById('m6').value.trim().toLowerCase(); if(a.includes("personification")) document.getElementById('m6fb').innerHTML="✅ Personification – trees dancing."; else document.getElementById('m6fb').innerHTML="❌ Personification."; }
+  function checkM7() { let a=document.getElementById('m7').value.trim().toLowerCase(); if(a==="person"||a==="object") document.getElementById('m7fb').innerHTML="✅ Identify main subject first."; else document.getElementById('m7fb').innerHTML="❌ Person or object."; }
+  function checkM8() { let a=document.getElementById('m8').value.trim(); if(a.split(" ").length>=3 && a.includes(" ") && (a.includes("burst")||a.includes("shattered")||a.includes("ran")||a.includes("crashed"))) document.getElementById('m8fb').innerHTML="✅ Action hook!"; else document.getElementById('m8fb').innerHTML="❌ Action example: 'The door flew open.'"; }
+  function checkM9() { let a=document.getElementById('m9').value.trim().toLowerCase(); if(a.includes("1st")||a.includes("first person")) document.getElementById('m9fb').innerHTML="✅ 1st person is more immersive (I, me)."; else document.getElementById('m9fb').innerHTML="❌ 1st person."; }
+  function checkM10() { let a=document.getElementById('m10').value.trim().toLowerCase(); if(a.includes("speech marks")||a.includes("brackets")) document.getElementById('m10fb').innerHTML="✅ Correct – check pairs of speech marks / brackets."; else document.getElementById('m10fb').innerHTML="❌ Speech marks (or brackets)."; }
+</script>
+</body>
+</html>

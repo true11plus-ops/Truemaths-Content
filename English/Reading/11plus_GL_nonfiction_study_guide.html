@@ -1,0 +1,2411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11+ GL Assessment — Non-Fiction Comprehension Complete Study Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --ink: #1a1a2e;
+    --paper: #faf8f3;
+    --cream: #f0ebe0;
+    --rule: #d4c9b0;
+    --accent-red: #c0392b;
+    --accent-gold: #b8860b;
+    --accent-teal: #1a6b6b;
+    --accent-blue: #1a3a6b;
+    --accent-purple: #4a1a6b;
+    --accent-green: #1a5c2a;
+    --section-retrieval: #e8f4f8;
+    --section-inference: #fef9e7;
+    --section-vocab: #eafaf1;
+    --section-spag: #fdf2f8;
+    --section-devices: #f0f4ff;
+    --section-pos: #fff8f0;
+    --section-texttype: #f0fff4;
+    --section-purpose: #fff0f0;
+    --section-mc: #f0f0ff;
+    --section-tone: #fff5f5;
+    --section-structure: #f5fff0;
+    --section-protocol: #f0f5ff;
+    --section-timing: #fffaf0;
+    --section-mastery: #1a1a2e;
+    --correct: #1a7a1a;
+    --correct-bg: #e6f9e6;
+    --wrong: #9b1a1a;
+    --wrong-bg: #fce8e8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  /* COVER PAGE */
+  .cover {
+    background: var(--ink);
+    color: var(--paper);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 39px,
+      rgba(212,201,176,0.08) 39px,
+      rgba(212,201,176,0.08) 40px
+    );
+  }
+  .cover-badge {
+    display: inline-block;
+    border: 2px solid var(--accent-gold);
+    color: var(--accent-gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    max-width: 800px;
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .cover h1 span { color: var(--accent-gold); }
+  .cover-sub {
+    font-size: 1.15rem;
+    color: rgba(250,248,243,0.7);
+    max-width: 560px;
+    position: relative;
+    margin-bottom: 40px;
+    font-style: italic;
+  }
+  .cover-rule {
+    width: 80px;
+    height: 3px;
+    background: var(--accent-gold);
+    margin: 0 auto 40px;
+    position: relative;
+  }
+  .toc {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(212,201,176,0.3);
+    padding: 30px 40px;
+    text-align: left;
+    max-width: 680px;
+    width: 100%;
+    position: relative;
+    margin-top: 20px;
+  }
+  .toc h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 16px;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 30px;
+  }
+  .toc-item {
+    font-size: 13px;
+    color: rgba(250,248,243,0.8);
+    padding: 3px 0;
+    border-bottom: 1px solid rgba(212,201,176,0.1);
+    display: flex;
+    gap: 8px;
+  }
+  .toc-num {
+    color: var(--accent-gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* NAV */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    background: var(--ink);
+    z-index: 100;
+    padding: 8px 20px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-bottom: 2px solid var(--accent-gold);
+  }
+  .sticky-nav a {
+    color: rgba(250,248,243,0.7);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .sticky-nav a:hover { background: var(--accent-gold); color: var(--ink); }
+
+  /* SECTION WRAPPER */
+  .section {
+    padding: 60px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .section-block {
+    padding: 50px 0;
+    border-bottom: 2px solid var(--rule);
+  }
+  .section-block:last-child { border-bottom: none; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid currentColor;
+  }
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    opacity: 0.15;
+    flex-shrink: 0;
+  }
+  .section-title-group { flex: 1; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 4px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  /* COLOR BANDS */
+  .band-retrieval { background: var(--section-retrieval); }
+  .band-inference { background: var(--section-inference); }
+  .band-vocab { background: var(--section-vocab); }
+  .band-spag { background: var(--section-spag); }
+  .band-devices { background: var(--section-devices); }
+  .band-pos { background: var(--section-pos); }
+  .band-texttype { background: var(--section-texttype); }
+  .band-purpose { background: var(--section-purpose); }
+  .band-mc { background: var(--section-mc); }
+  .band-tone { background: var(--section-tone); }
+  .band-structure { background: var(--section-structure); }
+  .band-protocol { background: var(--section-protocol); }
+  .band-timing { background: var(--section-timing); }
+
+  .band-retrieval .section-header { color: var(--accent-blue); border-color: var(--accent-blue); }
+  .band-inference .section-header { color: var(--accent-gold); border-color: var(--accent-gold); }
+  .band-vocab .section-header { color: var(--accent-green); border-color: var(--accent-green); }
+  .band-spag .section-header { color: var(--accent-purple); border-color: var(--accent-purple); }
+  .band-devices .section-header { color: var(--accent-blue); border-color: var(--accent-blue); }
+  .band-pos .section-header { color: var(--accent-gold); border-color: var(--accent-gold); }
+  .band-texttype .section-header { color: var(--accent-green); border-color: var(--accent-green); }
+  .band-purpose .section-header { color: var(--accent-red); border-color: var(--accent-red); }
+  .band-mc .section-header { color: var(--accent-blue); border-color: var(--accent-blue); }
+  .band-tone .section-header { color: var(--accent-purple); border-color: var(--accent-purple); }
+  .band-structure .section-header { color: var(--accent-green); border-color: var(--accent-green); }
+  .band-protocol .section-header { color: var(--accent-blue); border-color: var(--accent-blue); }
+  .band-timing .section-header { color: var(--accent-gold); border-color: var(--accent-gold); }
+
+  /* CONTENT ELEMENTS */
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    margin: 28px 0 12px;
+    font-weight: 700;
+  }
+  h4 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 20px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  p { margin-bottom: 14px; }
+
+  .callout {
+    border-left: 4px solid var(--accent-gold);
+    background: rgba(184,134,11,0.08);
+    padding: 14px 20px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+    font-style: italic;
+  }
+  .callout strong { font-style: normal; color: var(--accent-gold); }
+
+  .tip-box {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 22px;
+    margin: 20px 0;
+    border-radius: 4px;
+  }
+  .tip-box strong { color: var(--accent-gold); }
+
+  .example-box {
+    border: 2px solid var(--rule);
+    padding: 18px 22px;
+    margin: 16px 0;
+    border-radius: 4px;
+    background: white;
+  }
+  .example-box .ex-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-red);
+    margin-bottom: 8px;
+  }
+  .example-box .passage {
+    background: var(--cream);
+    padding: 12px 16px;
+    border-left: 3px solid var(--rule);
+    margin: 10px 0;
+    font-style: italic;
+  }
+
+  /* TABLES */
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14.5px;
+  }
+  .ref-table th {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 14px;
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .ref-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .ref-table tr:nth-child(even) td { background: rgba(0,0,0,0.03); }
+  .ref-table tr:hover td { background: rgba(0,0,0,0.05); }
+
+  .device-term {
+    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+  }
+  .device-example {
+    font-style: italic;
+    color: #444;
+  }
+
+  /* QUESTION SYSTEM */
+  .quiz-section {
+    background: white;
+    border: 2px solid var(--rule);
+    border-radius: 6px;
+    padding: 24px;
+    margin: 28px 0;
+  }
+  .quiz-level-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--rule);
+  }
+  .level-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  .level-easy { background: #e8f5e9; color: #1a7a1a; border: 1px solid #a5d6a7; }
+  .level-inter { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+  .level-adv { background: #e3f2fd; color: #0d47a1; border: 1px solid #90caf9; }
+  .level-chal { background: #fce4ec; color: #880e4f; border: 1px solid #f48fb1; }
+
+  .q-item {
+    margin-bottom: 22px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .q-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .q-text {
+    font-size: 15px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+  .q-passage {
+    background: var(--cream);
+    border-left: 3px solid var(--rule);
+    padding: 10px 14px;
+    font-style: italic;
+    font-size: 14px;
+    margin-bottom: 10px;
+    border-radius: 0 3px 3px 0;
+  }
+  .q-input-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .q-input {
+    flex: 1;
+    min-width: 180px;
+    padding: 8px 12px;
+    border: 2px solid var(--rule);
+    border-radius: 4px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    background: var(--paper);
+    transition: border-color 0.2s;
+  }
+  .q-input:focus { outline: none; border-color: var(--accent-blue); }
+  .q-btn {
+    padding: 8px 18px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .q-btn:hover { background: var(--accent-blue); }
+  .q-feedback {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: none;
+    line-height: 1.5;
+  }
+  .feedback-correct {
+    background: var(--correct-bg);
+    color: var(--correct);
+    border: 1px solid #a5d6a7;
+  }
+  .feedback-wrong {
+    background: var(--wrong-bg);
+    color: var(--wrong);
+    border: 1px solid #f48fb1;
+  }
+
+  /* MASTERY TEST */
+  .mastery-section {
+    background: var(--section-mastery);
+    color: var(--paper);
+    padding: 60px 40px;
+  }
+  .mastery-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .mastery-section .section-header {
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+  }
+  .mastery-section .quiz-section {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.15);
+    color: var(--paper);
+  }
+  .mastery-section .q-passage {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.2);
+  }
+  .mastery-section .q-input {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.25);
+    color: var(--paper);
+  }
+  .mastery-section .q-btn {
+    background: var(--accent-gold);
+    color: var(--ink);
+  }
+  .mastery-section .q-btn:hover { background: #d4a017; }
+  .mastery-section .ref-table th { background: rgba(255,255,255,0.15); }
+  .mastery-section .ref-table td { border-color: rgba(255,255,255,0.1); color: var(--paper); }
+
+  /* COMMAND WORD CHIPS */
+  .command-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .command-chip {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .command-chip .word { color: var(--accent-gold); font-size: 14px; display: block; margin-bottom: 4px; }
+  .command-chip .meaning { color: rgba(250,248,243,0.6); font-size: 11px; }
+
+  /* STEPS */
+  .steps { counter-reset: step; }
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .step-num {
+    counter-increment: step;
+    width: 32px;
+    height: 32px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-content { flex: 1; }
+
+  /* TIMING TABLE */
+  .timing-bar {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+  }
+  .timing-bar .task { font-weight: 600; }
+  .timing-bar .time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    background: var(--ink);
+    color: var(--accent-gold);
+    padding: 3px 10px;
+    border-radius: 3px;
+  }
+
+  @media print {
+    .sticky-nav { display: none; }
+    .section-block { page-break-inside: avoid; }
+    .quiz-section { page-break-inside: avoid; }
+  }
+
+  @media (max-width: 600px) {
+    .section { padding: 40px 20px; }
+    .cover { padding: 40px 20px; }
+    .toc-grid { grid-template-columns: 1fr; }
+    .q-input-row { flex-direction: column; align-items: stretch; }
+    .q-btn { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-badge">GL Assessment · Year 5–6 · Non-Fiction English</div>
+  <h1>The Complete Guide to <span>Non-Fiction Comprehension</span></h1>
+  <p class="cover-sub">Everything a student needs to master GL 11+ English — from first principles to full exam technique</p>
+  <div class="cover-rule"></div>
+  <div class="toc">
+    <h3>Contents</h3>
+    <div class="toc-grid">
+      <div class="toc-item"><span class="toc-num">01</span> Question Type Framework</div>
+      <div class="toc-item"><span class="toc-num">02</span> Vocabulary in Context</div>
+      <div class="toc-item"><span class="toc-num">03</span> SPaG — Spelling, Punctuation & Grammar</div>
+      <div class="toc-item"><span class="toc-num">04</span> Literary Devices Glossary</div>
+      <div class="toc-item"><span class="toc-num">05</span> Parts of Speech</div>
+      <div class="toc-item"><span class="toc-num">06</span> Non-Fiction Text Types</div>
+      <div class="toc-item"><span class="toc-num">07</span> Author's Purpose</div>
+      <div class="toc-item"><span class="toc-num">08</span> Multiple-Choice Technique</div>
+      <div class="toc-item"><span class="toc-num">09</span> Tone & Register</div>
+      <div class="toc-item"><span class="toc-num">10</span> Text Structure Patterns</div>
+      <div class="toc-item"><span class="toc-num">11</span> Active Reading Protocol</div>
+      <div class="toc-item"><span class="toc-num">12</span> Timing & Paper Management</div>
+      <div class="toc-item"><span class="toc-num">★</span> Final Mastery Test</div>
+    </div>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav">
+  <a href="#s1">Q-Types</a>
+  <a href="#s2">Vocab</a>
+  <a href="#s3">SPaG</a>
+  <a href="#s4">Devices</a>
+  <a href="#s5">Parts of Speech</a>
+  <a href="#s6">Text Types</a>
+  <a href="#s7">Purpose</a>
+  <a href="#s8">MC Technique</a>
+  <a href="#s9">Tone</a>
+  <a href="#s10">Structure</a>
+  <a href="#s11">Protocol</a>
+  <a href="#s12">Timing</a>
+  <a href="#mastery">Mastery Test</a>
+</nav>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 1: QUESTION TYPE FRAMEWORK                          -->
+<!-- ============================================================ -->
+<div class="band-retrieval" id="s1">
+<div class="section">
+<div class="section-header">
+  <div class="section-num">01</div>
+  <div class="section-title-group">
+    <div class="section-label">The Foundation</div>
+    <div class="section-title">Question Type Framework</div>
+  </div>
+</div>
+
+<p>Every question in a GL comprehension paper belongs to one of four categories. Once you can identify the category, you know exactly how to answer it. This is the single most important skill in the exam.</p>
+
+<div class="section-block">
+<h3>A. Retrieval — "Look and Find"</h3>
+<p>The answer is stated directly in the passage. Your job is to locate it, not invent it. However, the question almost never uses the same words as the passage — it uses <strong>synonyms</strong>.</p>
+<div class="callout"><strong>The Synonym Trap:</strong> If the passage says the mountain was "colossal," the question might ask which word tells us the mountain was "very large." Train yourself to look for meaning, not identical words.</div>
+<div class="example-box">
+  <div class="ex-label">Worked Example</div>
+  <div class="passage">"The expedition team set off at dawn, carrying provisions for three weeks. Their leader, a stoical woman named Dr Farris, had completed this route twice before without incident."</div>
+  <p><strong>Question:</strong> According to the passage, how many times had Dr Farris completed the route previously?</p>
+  <p><strong>Answer:</strong> Twice. The word "previously" in the question tells you the answer is stated outright — find it, quote it.</p>
+</div>
+<p><strong>Strategy:</strong> Underline keywords in the question (how many? what colour? who?). Scan the passage for those keywords or their synonyms. Copy the answer exactly as it appears; do not add your own interpretation.</p>
+</div>
+
+<div class="section-block">
+<h3>B. Inference — "Read Between the Lines"</h3>
+<p>The answer is <em>not</em> stated directly. You must use clues in the text to work out what the writer implies — their attitude, a character's feelings, or an unstated meaning. The text hints; you conclude.</p>
+<div class="callout"><strong>Key signal words in questions:</strong> "suggest," "imply," "indicate," "what does this tell us about," "how does the writer feel."</div>
+<div class="example-box">
+  <div class="ex-label">Worked Example</div>
+  <div class="passage">"The city sprawled endlessly in every direction — glass towers that scraped the sky, roads choked with exhaust, pigeons pecking at discarded food. Marcus had grown up beside open fields. He did not speak for the first hour."</div>
+  <p><strong>Question:</strong> What does the final sentence suggest about Marcus's feelings?</p>
+  <p><strong>Answer:</strong> It suggests Marcus is overwhelmed or unsettled by the city. His silence implies he is struggling to process what he sees, especially given his rural background. The writer does not say he is shocked — we infer it.</p>
+</div>
+</div>
+
+<div class="section-block">
+<h3>C. Deduction — "Use Logic from the Text"</h3>
+<p>Deduction is different from inference. In <em>deduction</em>, the answer can be logically proven using stated facts — you are reaching a certain conclusion, not a probable one. Think of it as arithmetic with words: if A + B is true, then C must follow.</p>
+<div class="command-grid">
+  <div class="command-chip"><span class="word">Deduce</span><span class="meaning">reach a logical conclusion</span></div>
+  <div class="command-chip"><span class="word">Compare</span><span class="meaning">find similarities</span></div>
+  <div class="command-chip"><span class="word">Contrast</span><span class="meaning">find differences</span></div>
+  <div class="command-chip"><span class="word">Suggest</span><span class="meaning">find implied meaning</span></div>
+  <div class="command-chip"><span class="word">Infer</span><span class="meaning">read between lines</span></div>
+  <div class="command-chip"><span class="word">Explain</span><span class="meaning">give reason from text</span></div>
+</div>
+<div class="example-box">
+  <div class="ex-label">Worked Example</div>
+  <div class="passage">"The museum opens at 9 am and closes at 5 pm. Admission is free for children under 12. Amir is nine years old and arrives at half past ten."</div>
+  <p><strong>Question:</strong> Deduce whether Amir will be charged for entry.</p>
+  <p><strong>Answer:</strong> No — we can deduce this with certainty. He is nine (under 12) so admission is free. This is deduction: the facts prove it beyond doubt.</p>
+</div>
+</div>
+
+<div class="section-block">
+<h3>D. Language and Structure — "How and Why"</h3>
+<p>These questions ask about the <em>choices</em> the writer made. Why did they use a particular word? What effect does a literary device create? How does the structure of the text affect the reader?</p>
+<p>For language questions, you must: (1) Name the device or technique. (2) Quote the relevant word or phrase. (3) Explain the <em>effect</em> on the reader.</p>
+<div class="example-box">
+  <div class="ex-label">Worked Example</div>
+  <div class="passage">"The river devoured everything in its path, swallowing trees whole and spitting out soil like broken teeth."</div>
+  <p><strong>Question:</strong> Identify one language technique and explain its effect.</p>
+  <p><strong>Answer:</strong> The writer uses <em>personification</em> ("devoured," "swallowing," "spitting"). This makes the river seem aggressive and predatory, as though it has a violent will of its own — increasing the reader's sense of danger.</p>
+</div>
+</div>
+
+<!-- PRACTICE QUESTIONS SECTION 1 -->
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-easy">Easy</span>
+    <span style="font-size:13px;color:#666;">Retrieval — find the stated fact</span>
+  </div>
+
+  <div class="q-item" id="q1_1">
+    <div class="q-passage">"The blue whale is the largest animal ever known to have lived on Earth. It can reach lengths of up to 30 metres and weigh as much as 200 tonnes."</div>
+    <div class="q-text">According to the passage, what is the maximum weight of a blue whale? (Give the number and unit, e.g. "X tonnes")</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q1_1">
+      <button class="q-btn" onclick="checkQ('q1_1','200 tonnes','The passage states it can weigh \'as much as 200 tonnes\' — a direct retrieval answer.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_1"></div>
+  </div>
+
+  <div class="q-item" id="q1_2">
+    <div class="q-passage">"Florence Nightingale was born in 1820 and is celebrated as the founder of modern nursing. She became famous for her work during the Crimean War, when she dramatically reduced death rates in military hospitals."</div>
+    <div class="q-text">In which conflict did Florence Nightingale do her most famous work?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q1_2">
+      <button class="q-btn" onclick="checkQ('q1_2','the crimean war','The passage directly states she became famous for her work \'during the Crimean War\'. This is pure retrieval.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_2"></div>
+  </div>
+
+  <div class="q-item" id="q1_3">
+    <div class="q-passage">"The bakery opened its doors at six o'clock every morning, filling the narrow street with the scent of warm bread and cinnamon."</div>
+    <div class="q-text">What two smells filled the street?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q1_3">
+      <button class="q-btn" onclick="checkQ('q1_3','bread and cinnamon','The passage says the street filled with \'the scent of warm bread and cinnamon\'. Both must be included.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_3"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-inter">Intermediate</span>
+    <span style="font-size:13px;color:#666;">Inference — read between the lines</span>
+  </div>
+
+  <div class="q-item" id="q1_4">
+    <div class="q-passage">"Priya walked into the examination hall and placed her pencil on the desk with trembling hands. She had revised every topic twice, but now, looking at the rows of silent students, she could not recall a single formula."</div>
+    <div class="q-text">What does "trembling hands" suggest about Priya's emotional state?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q1_4">
+      <button class="q-btn" onclick="checkQ('q1_4','nervous','\'Trembling hands\' is a physical sign of anxiety or nerves. The word \'nervous\' (or anxious/afraid/scared) is the correct inference.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_4"></div>
+  </div>
+
+  <div class="q-item" id="q1_5">
+    <div class="q-passage">"The old soldier rarely spoke about the war. On Remembrance Day, he would sit by the window for hours, watching the rain, turning his medal over and over in his fingers."</div>
+    <div class="q-text">What does the soldier's behaviour on Remembrance Day suggest about how he feels?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q1_5">
+      <button class="q-btn" onclick="checkQ('q1_5','haunted','Sitting alone, watching rain, turning the medal repeatedly — all suggest he is haunted by memories or lost in grief. \'Haunted\', \'sorrowful\', or \'troubled\' are all valid inferences.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_5"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-adv">Advanced</span>
+    <span style="font-size:13px;color:#666;">Deduction — logic from stated facts</span>
+  </div>
+
+  <div class="q-item" id="q1_6">
+    <div class="q-passage">"The library charges 10p per day for overdue books. Reuben borrowed a book on Monday and returned it the following Friday."</div>
+    <div class="q-text">How much will Reuben be charged? (Write your answer in pence, e.g. "40p")</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q1_6">
+      <button class="q-btn" onclick="checkQ('q1_6','40p','Monday to Friday = 4 days overdue (Tue, Wed, Thu, Fri). 4 × 10p = 40p. This is deduction: the maths follows necessarily from the stated facts.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_6"></div>
+  </div>
+
+  <div class="q-item" id="q1_7">
+    <div class="q-passage">"Only members who joined before 2020 are eligible for the Legacy Discount. Subscribers who joined in 2020 or later pay full price. Yusuf has been a member since 2018."</div>
+    <div class="q-text">Will Yusuf receive the Legacy Discount? Write "yes" or "no" and one reason.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q1_7">
+      <button class="q-btn" onclick="checkQ('q1_7','yes','Yusuf joined in 2018, which is before 2020, so he meets the stated condition. This is deduction — the conclusion is certain, not probable.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_7"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-chal">Challenging</span>
+    <span style="font-size:13px;color:#666;">Language & Structure — explain the technique</span>
+  </div>
+
+  <div class="q-item" id="q1_8">
+    <div class="q-passage">"The storm was a living beast — it breathed, it roared, it hunted. No house was safe."</div>
+    <div class="q-text">Name the language technique used in this passage (one word is sufficient).</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q1_8">
+      <button class="q-btn" onclick="checkQ('q1_8','personification','The storm is given living qualities (breathed, roared, hunted) — this is personification. Extended metaphor is also acceptable.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_8"></div>
+  </div>
+
+  <div class="q-item" id="q1_9">
+    <div class="q-passage">"Can we really afford to ignore the crisis any longer? Every day we delay, the damage grows. Every hour we wait, another chance is lost."</div>
+    <div class="q-text">What technique is used in the final two sentences?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q1_9">
+      <button class="q-btn" onclick="checkQ('q1_9','repetition','\'Every day\' / \'Every hour\' — this is repetition (specifically anaphora: repeating at the start of sentences). It creates urgency and emphasises the mounting cost of inaction.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q1_9"></div>
+  </div>
+</div>
+
+</div></div>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 2: VOCABULARY IN CONTEXT                            -->
+<!-- ============================================================ -->
+<div class="band-vocab" id="s2">
+<div class="section">
+<div class="section-header">
+  <div class="section-num">02</div>
+  <div class="section-title-group">
+    <div class="section-label">Word Meaning Questions</div>
+    <div class="section-title">Vocabulary in Context</div>
+  </div>
+</div>
+
+<p>These questions appear in almost every GL paper. The question gives you a word or phrase from the passage and asks what it means, or asks you to choose the word "closest in meaning." The golden rule: a word's meaning depends entirely on the context around it.</p>
+
+<div class="section-block">
+<h3>The Substitution Method</h3>
+<p>When asked what a word means, replace it with your answer and check the sentence still makes sense. If it does, you have a strong candidate.</p>
+<div class="example-box">
+  <div class="ex-label">Step-by-Step Example</div>
+  <div class="passage">"The scientist remained <strong>impassive</strong> as her colleagues celebrated the result."</div>
+  <p><strong>Question:</strong> What does "impassive" mean in this context?</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-content">Try possible answers: "impassive" might mean calm, expressionless, or angry.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content">Substitute each: "The scientist remained <em>angry</em> as her colleagues celebrated." — possible, but odd. "Remained <em>expressionless</em>" — this fits perfectly. She is not joining in, but her face gives nothing away.</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content">Confirm with surrounding context: "remained" suggests her state didn't change despite the excitement around her. "Expressionless" or "unmoved" fits the full sentence.</div></div>
+  </div>
+</div>
+</div>
+
+<div class="section-block">
+<h3>Using Surrounding Sentences</h3>
+<p>Unfamiliar words often have clues in the sentence before or after. Look for words that are explained, contrasted, or restated nearby.</p>
+<div class="example-box">
+  <div class="ex-label">Clue-Hunting Example</div>
+  <div class="passage">"The jungle was utterly <strong>impenetrable</strong>. No path existed through the dense tangle of roots and vines; even machetes could not cut a passage."</div>
+  <p>Even without knowing "impenetrable," the next sentence explains it: nothing could get through — machetes failed, there was no path. <em>Impenetrable</em> = impossible to pass through. The surrounding sentences gave you the definition.</p>
+</div>
+<div class="tip-box"><strong>Tip:</strong> In GL papers, the word in the question will almost always have its meaning explained or strongly hinted at within 1–2 sentences of where it appears. Never guess blind — look around it first.</div>
+</div>
+
+<div class="section-block">
+<h3>"Closest in Meaning" Multiple-Choice Strategy</h3>
+<p>GL comprehension uses multiple choice. For vocabulary questions, you typically have four options. Two will be obviously wrong; two will seem plausible. Here is how to choose between the final two:</p>
+<div class="steps">
+  <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Eliminate the impossible.</strong> Cross out any option that cannot possibly fit the context (wrong part of speech, completely wrong meaning).</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Substitute both remaining options.</strong> Read the sentence aloud with each one in place of the target word.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Check the tone.</strong> If the passage is formal, the answer will likely be a formal synonym, not a casual one.</div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Watch for near-synonyms that shift the meaning.</strong> "Hesitant" and "terrified" both describe something negative, but only one fits a character who pauses before speaking vs. one who screams and runs.</div></div>
+</div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-easy">Easy</span>
+    <span style="font-size:13px;color:#666;">Vocabulary substitution</span>
+  </div>
+  <div class="q-item" id="q2_1">
+    <div class="q-passage">"The child was <strong>ravenous</strong> after the long hike; she ate three sandwiches before her mother could even sit down."</div>
+    <div class="q-text">What does "ravenous" mean in this context? (One word)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q2_1">
+      <button class="q-btn" onclick="checkQ('q2_1','starving','The clue is eating three sandwiches immediately. \'Ravenous\' means extremely hungry / starving.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_1"></div>
+  </div>
+  <div class="q-item" id="q2_2">
+    <div class="q-passage">"The new policy was <strong>controversial</strong>; supporters praised its ambition while critics called it reckless and poorly planned."</div>
+    <div class="q-text">What does "controversial" suggest about the policy?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q2_2">
+      <button class="q-btn" onclick="checkQ('q2_2','debated','Supporters vs critics = disagreement. Controversial means it causes debate/disagreement. \'Debated\' or \'disputed\' are correct.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_2"></div>
+  </div>
+  <div class="q-item" id="q2_3">
+    <div class="q-passage">"Despite his frail appearance, the mountaineer proved remarkably <strong>resilient</strong>, recovering from every setback on the route."</div>
+    <div class="q-text">Which word is closest in meaning to "resilient" as used here? (Type: tough / cowardly / impatient / cheerful)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q2_3">
+      <button class="q-btn" onclick="checkQ('q2_3','tough','\'Recovering from every setback\' = bouncing back = tough/resilient. \'Cheerful\' refers to mood not strength; \'resilient\' specifically means able to recover.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_3"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-inter">Intermediate</span>
+    <span style="font-size:13px;color:#666;">Context clues from surrounding sentences</span>
+  </div>
+  <div class="q-item" id="q2_4">
+    <div class="q-passage">"Her speech was <strong>eloquent</strong>. Every word seemed chosen with care; the audience was hushed, leaning forward as she spoke."</div>
+    <div class="q-text">Using the surrounding context, what does "eloquent" most likely mean?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q2_4">
+      <button class="q-btn" onclick="checkQ('q2_4','well-spoken','The clues: every word chosen carefully, audience hushed and attentive. Eloquent = speaking in a fluent, persuasive, and well-chosen way. \'Well-spoken\' or \'persuasive\' are correct.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_4"></div>
+  </div>
+  <div class="q-item" id="q2_5">
+    <div class="q-passage">"The ancient document was <strong>illegible</strong> in places; years of damp had blurred the ink until entire paragraphs were impossible to make out."</div>
+    <div class="q-text">What does "illegible" mean? Use the surrounding sentence as your clue.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q2_5">
+      <button class="q-btn" onclick="checkQ('q2_5','unreadable','The passage explains it directly: paragraphs were \'impossible to make out\'. Illegible = impossible to read/unreadable.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_5"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-adv">Advanced</span>
+    <span style="font-size:13px;color:#666;">Near-synonym discrimination</span>
+  </div>
+  <div class="q-item" id="q2_6">
+    <div class="q-passage">"The explorer felt a deep <strong>yearning</strong> for home as she gazed at the distant mountains."</div>
+    <div class="q-text">Which is closer in meaning to "yearning" — "longing" or "hatred"? One word only.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q2_6">
+      <button class="q-btn" onclick="checkQ('q2_6','longing','Yearning is a deep emotional desire or longing for something. It is positive (she wants to be home), not negative like hatred.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_6"></div>
+  </div>
+  <div class="q-item" id="q2_7">
+    <div class="q-passage">"He was known for his <strong>candour</strong> — he never softened his opinions to spare people's feelings, even when the truth was uncomfortable."</div>
+    <div class="q-text">What does "candour" mean? (One word)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q2_7">
+      <button class="q-btn" onclick="checkQ('q2_7','honesty','The context: never softened opinions, told uncomfortable truths. Candour = honesty / frankness.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_7"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-chal">Challenging</span>
+    <span style="font-size:13px;color:#666;">Tone-aware vocabulary</span>
+  </div>
+  <div class="q-item" id="q2_8">
+    <div class="q-passage">"The chairman delivered a <strong>perfunctory</strong> apology — two sentences, no eye contact, then a swift change of subject."</div>
+    <div class="q-text">Which best describes "perfunctory": (a) heartfelt (b) routine and careless (c) dramatic (d) silent? Type the letter.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q2_8">
+      <button class="q-btn" onclick="checkQ('q2_8','b','Two sentences, no eye contact, quick change of subject — this apology was minimal and insincere. Perfunctory = done as a routine duty with little care or effort.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q2_8"></div>
+  </div>
+</div>
+
+</div></div>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 3: SPaG                                             -->
+<!-- ============================================================ -->
+<div class="band-spag" id="s3">
+<div class="section">
+<div class="section-header">
+  <div class="section-num">03</div>
+  <div class="section-title-group">
+    <div class="section-label">Spelling, Punctuation & Grammar</div>
+    <div class="section-title">SPaG — The Third of the Paper</div>
+  </div>
+</div>
+
+<p>The GL English paper includes approximately 36 SPaG questions alongside the comprehension. They use two formats: <strong>Complete the Sentence</strong> (choose the correct word/phrase) and <strong>Spot the Error</strong> (find the mistake). These questions test grammar rules, punctuation, and spelling accuracy.</p>
+
+<div class="section-block">
+<h3>Punctuation Marks and Their Functions</h3>
+<table class="ref-table">
+  <thead><tr><th>Punctuation</th><th>Name</th><th>Function</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td><strong>.</strong></td><td>Full stop</td><td>Ends a sentence</td><td>She sat down.</td></tr>
+    <tr><td><strong>,</strong></td><td>Comma</td><td>Separates items in a list; joins clauses; after subordinate clauses</td><td>Slowly, she opened the door.</td></tr>
+    <tr><td><strong>?</strong></td><td>Question mark</td><td>Ends a direct question</td><td>Where did you go?</td></tr>
+    <tr><td><strong>!</strong></td><td>Exclamation mark</td><td>Expresses surprise, shock, or strong emotion</td><td>Watch out!</td></tr>
+    <tr><td><strong>;</strong></td><td>Semicolon</td><td>Joins two related main clauses (stronger than comma, weaker than full stop)</td><td>It was cold; she wore her coat.</td></tr>
+    <tr><td><strong>:</strong></td><td>Colon</td><td>Introduces a list, explanation, or quotation</td><td>She needed three things: courage, patience, and luck.</td></tr>
+    <tr><td><strong>'</strong></td><td>Apostrophe</td><td>Contraction (it's) or possession (the dog's bowl)</td><td>Don't touch Emma's bag.</td></tr>
+    <tr><td><strong>" "</strong></td><td>Speech marks / inverted commas</td><td>Enclose direct speech or a quotation</td><td>"Come here," she said.</td></tr>
+    <tr><td><strong>—</strong></td><td>Dash / em-dash</td><td>Adds emphasis or inserts extra information</td><td>He arrived — finally — at midnight.</td></tr>
+    <tr><td><strong>( )</strong></td><td>Parentheses / brackets</td><td>Inserts additional, non-essential information</td><td>The result (announced at noon) was surprising.</td></tr>
+    <tr><td><strong>...</strong></td><td>Ellipsis</td><td>Shows a pause, trailing thought, or omission</td><td>She hesitated... then spoke.</td></tr>
+    <tr><td><strong>-</strong></td><td>Hyphen</td><td>Joins compound words or adjectives before nouns</td><td>A well-known author.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="section-block">
+<h3>Key Grammar Rules Tested in GL</h3>
+<h4>1. Subject–Verb Agreement</h4>
+<p>A singular subject needs a singular verb; a plural subject needs a plural verb.</p>
+<div class="example-box">
+  <div class="ex-label">Common Errors</div>
+  <p>❌ "The team <u>are</u> playing tomorrow." → ✅ "The team <u>is</u> playing tomorrow." (team = singular collective noun)</p>
+  <p>❌ "Neither of the boys <u>are</u> ready." → ✅ "Neither of the boys <u>is</u> ready." (neither = singular)</p>
+</div>
+
+<h4>2. Apostrophe Rules</h4>
+<p><strong>Contraction:</strong> Combine two words, replacing missing letters with an apostrophe: <em>it is → it's</em>, <em>they are → they're</em>, <em>would not → wouldn't</em>.</p>
+<p><strong>Possession:</strong> Add apostrophe + s after the owner noun: <em>the girl's hat</em> (one girl), <em>the girls' hats</em> (several girls — apostrophe after the s).</p>
+<div class="callout"><strong>Never</strong> use an apostrophe for a simple plural: ❌ "three apple's" → ✅ "three apples".</div>
+
+<h4>3. Comma Use</h4>
+<p>Commas are required: (a) between items in a list; (b) after an introductory phrase; (c) around a parenthetical clause.</p>
+<div class="example-box">
+  <div class="ex-label">Examples</div>
+  <p><em>List:</em> "She packed a map, a compass, a torch, and a first-aid kit."</p>
+  <p><em>Introductory:</em> "Despite the rain, the match continued."</p>
+  <p><em>Parenthetical:</em> "The scientist, who had worked for twenty years, finally succeeded."</p>
+</div>
+
+<h4>4. Speech Punctuation Rules</h4>
+<p>Speech marks go around the spoken words only. The punctuation before closing speech marks depends on what follows: comma if a reporting verb follows ("said," "whispered"), full stop if the sentence ends.</p>
+<div class="example-box">
+  <div class="ex-label">Correct Speech Punctuation</div>
+  <p>✅ "Come quickly," she whispered.</p>
+  <p>✅ "Come quickly." She turned and ran.</p>
+  <p>❌ "Come quickly". She turned and ran.</p>
+</div>
+
+<h4>5. Tense Consistency</h4>
+<p>Once a piece of writing is in a particular tense, it should remain in that tense throughout. Shifting unexpectedly from past to present (or vice versa) is a common error in "Spot the Error" questions.</p>
+
+<h4>6. Pronoun Agreement</h4>
+<p>A pronoun must match the noun it replaces in number and gender: <em>"Every student must bring their own pencil"</em> — correct modern usage. <em>"Each of the boys lost his way"</em> — formal, but also correct.</p>
+</div>
+
+<div class="section-block">
+<h3>Spot the Error Format</h3>
+<p>GL gives you a sentence with one error — it might be spelling, punctuation, or grammar. Read every word carefully. The error is often subtle.</p>
+<div class="example-box">
+  <div class="ex-label">How to Approach</div>
+  <p><strong>Step 1:</strong> Read the whole sentence first for overall sense.</p>
+  <p><strong>Step 2:</strong> Check each individual word: is it spelled correctly? Is it the right word (their/there/they're)?</p>
+  <p><strong>Step 3:</strong> Check punctuation: does the sentence start with a capital? Are apostrophes used correctly? Is a comma missing or incorrectly placed?</p>
+  <p><strong>Step 4:</strong> Check subject-verb agreement.</p>
+</div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-easy">Easy</span>
+    <span style="font-size:13px;color:#666;">Punctuation identification</span>
+  </div>
+  <div class="q-item" id="q3_1">
+    <div class="q-text">What punctuation mark is used to show that letters are missing in a contraction such as "can't" or "it's"?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q3_1">
+      <button class="q-btn" onclick="checkQ('q3_1','apostrophe','An apostrophe replaces missing letters in contractions: can\'t (cannot), it\'s (it is), they\'re (they are).')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_1"></div>
+  </div>
+  <div class="q-item" id="q3_2">
+    <div class="q-text">Which sentence uses an apostrophe correctly? Type A or B.<br>A: "The dogs bowl was empty." &nbsp;&nbsp; B: "The dog's bowl was empty."</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="A or B" id="inp_q3_2">
+      <button class="q-btn" onclick="checkQ('q3_2','b','The bowl belongs to the dog — this is possession, so we write dog\'s (apostrophe before the s). Sentence A has no apostrophe, which is incorrect.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_2"></div>
+  </div>
+  <div class="q-item" id="q3_3">
+    <div class="q-text">What punctuation mark introduces a list? For example: "She needed three things___ courage, patience, and luck."</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q3_3">
+      <button class="q-btn" onclick="checkQ('q3_3','colon','A colon (:) introduces a list, explanation, or elaboration. It signals \'here comes the detail\'.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_3"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-inter">Intermediate</span>
+    <span style="font-size:13px;color:#666;">Spot the Error</span>
+  </div>
+  <div class="q-item" id="q3_4">
+    <div class="q-text">Find the error. Type the incorrect word: "The childrens' coats were left in the corridor."</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Incorrect word..." id="inp_q3_4">
+      <button class="q-btn" onclick="checkQ('q3_4','childrens\'','Children is already plural (irregular), so possession is shown as children\'s — not childrens\'.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_4"></div>
+  </div>
+  <div class="q-item" id="q3_5">
+    <div class="q-text">Find the grammar error: "Neither of the teachers were available to help." What is the correct form of the verb?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Correct verb..." id="inp_q3_5">
+      <button class="q-btn" onclick="checkQ('q3_5','was','\'Neither\' is singular, so it takes a singular verb: \'Neither of the teachers WAS available.\'')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_5"></div>
+  </div>
+  <div class="q-item" id="q3_6">
+    <div class="q-text">Which word correctly completes this sentence? "We need to decide ______ we leave now or later." (whether / weather / wether)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q3_6">
+      <button class="q-btn" onclick="checkQ('q3_6','whether','\'Whether\' introduces a choice or alternative. \'Weather\' = climate. \'Wether\' = a castrated male sheep (rarely used).')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_6"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-adv">Advanced</span>
+    <span style="font-size:13px;color:#666;">Complete the sentence — grammar</span>
+  </div>
+  <div class="q-item" id="q3_7">
+    <div class="q-text">Choose the correct option: "The scientist and her assistant ______ been working all night." (has / have)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="has or have" id="inp_q3_7">
+      <button class="q-btn" onclick="checkQ('q3_7','have','Two subjects (scientist AND assistant) = plural, so \'have\'. If it were \'the scientist with her assistant\', it would be \'has\' (main subject only is singular).')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_7"></div>
+  </div>
+  <div class="q-item" id="q3_8">
+    <div class="q-text">Identify the punctuation error: "She said, 'I'm coming tomorrow'." Is this correct? Type "correct" or describe the error.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q3_8">
+      <button class="q-btn" onclick="checkQ('q3_8','correct','This is correct. Single quotes within reported speech are valid; the comma follows \'said\' before the speech; the full stop is inside the closing quote when it ends the sentence. Well spotted if you checked all elements.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_8"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-chal">Challenging</span>
+    <span style="font-size:13px;color:#666;">Complex error detection</span>
+  </div>
+  <div class="q-item" id="q3_9">
+    <div class="q-text">This sentence has one error. Name the type of error (spelling / grammar / punctuation): "Everyday, the postman would arrive at precisely 8am; however he never rang the bell."</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Type of error..." id="inp_q3_9">
+      <button class="q-btn" onclick="checkQ('q3_9','punctuation','After \'however\' used as a conjunctive adverb mid-sentence, a comma is required: \'however, he never rang\'. Also, \'Everyday\' (adjective) should be \'Every day\' (adverb phrase). Punctuation is the primary answer expected.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_9"></div>
+  </div>
+  <div class="q-item" id="q3_10">
+    <div class="q-text">Correct the apostrophe: "Its a well-known fact that its wings give it its speed." — how many apostrophe errors are there?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Number of errors..." id="inp_q3_10">
+      <button class="q-btn" onclick="checkQ('q3_10','1','Only the first \'Its\' is wrong — it should be \'It\'s\' (it is). The other two uses are possessive (its wings, its speed) and correctly have NO apostrophe.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q3_10"></div>
+  </div>
+</div>
+
+</div></div>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 4: LITERARY DEVICES GLOSSARY                        -->
+<!-- ============================================================ -->
+<div class="band-devices" id="s4">
+<div class="section">
+<div class="section-header">
+  <div class="section-num">04</div>
+  <div class="section-title-group">
+    <div class="section-label">15 Essential Techniques</div>
+    <div class="section-title">Literary Devices Glossary</div>
+  </div>
+</div>
+
+<p>In Language & Structure questions, you must name the device, quote the relevant text, and explain the <em>effect</em> on the reader. This table gives you everything you need. Study both the definition and the example sentence — then practise explaining why a writer might have chosen each one.</p>
+
+<table class="ref-table">
+  <thead><tr><th>Device</th><th>Definition</th><th>Example sentence</th><th>Typical effect</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="device-term">Simile</td>
+      <td>A comparison using "like" or "as"</td>
+      <td class="device-example">"The fog moved like a slow grey tide."</td>
+      <td>Creates a vivid picture; makes the unfamiliar familiar</td>
+    </tr>
+    <tr>
+      <td class="device-term">Metaphor</td>
+      <td>States something IS something else (no "like" or "as")</td>
+      <td class="device-example">"The city was a furnace in July."</td>
+      <td>Creates a stronger, more direct comparison than a simile</td>
+    </tr>
+    <tr>
+      <td class="device-term">Personification</td>
+      <td>Gives human qualities to a non-human thing</td>
+      <td class="device-example">"The wind howled through the empty streets."</td>
+      <td>Makes objects or forces seem alive; increases drama</td>
+    </tr>
+    <tr>
+      <td class="device-term">Alliteration</td>
+      <td>Repetition of the same consonant sound at the start of close words</td>
+      <td class="device-example">"Seven silver stars shimmered softly."</td>
+      <td>Creates rhythm; draws attention to key ideas; memorable</td>
+    </tr>
+    <tr>
+      <td class="device-term">Rhetorical Question</td>
+      <td>A question asked for effect, not expecting an answer</td>
+      <td class="device-example">"How can we stand by and do nothing?"</td>
+      <td>Engages the reader; makes them consider the writer's view</td>
+    </tr>
+    <tr>
+      <td class="device-term">Onomatopoeia</td>
+      <td>A word that sounds like what it describes</td>
+      <td class="device-example">"The leaves rustled; branches cracked and snapped."</td>
+      <td>Makes description more vivid and immediate</td>
+    </tr>
+    <tr>
+      <td class="device-term">Hyperbole</td>
+      <td>Deliberate exaggeration for effect (not meant to be taken literally)</td>
+      <td class="device-example">"I've told you a million times."</td>
+      <td>Emphasises extreme emotion; can create humour or urgency</td>
+    </tr>
+    <tr>
+      <td class="device-term">Repetition</td>
+      <td>Deliberately repeating a word, phrase, or structure</td>
+      <td class="device-example">"We shall fight on the beaches, we shall fight on the landing grounds."</td>
+      <td>Creates rhythm and emphasis; drives home a key point</td>
+    </tr>
+    <tr>
+      <td class="device-term">Rule of Three</td>
+      <td>Three words, phrases, or clauses used together for emphasis</td>
+      <td class="device-example">"The plan was bold, brilliant, and beautiful."</td>
+      <td>Feels complete and satisfying; memorable; persuasive</td>
+    </tr>
+    <tr>
+      <td class="device-term">Direct Address</td>
+      <td>Speaking directly to the reader using "you"</td>
+      <td class="device-example">"You know the feeling — that moment when everything changes."</td>
+      <td>Creates intimacy; involves the reader personally</td>
+    </tr>
+    <tr>
+      <td class="device-term">Contrast</td>
+      <td>Placing opposite ideas or images next to each other</td>
+      <td class="device-example">"He was born in poverty; he died a billionaire."</td>
+      <td>Highlights differences; creates drama or irony</td>
+    </tr>
+    <tr>
+      <td class="device-term">Oxymoron</td>
+      <td>Two contradictory words placed together</td>
+      <td class="device-example">"A deafening silence fell over the crowd."</td>
+      <td>Creates a striking paradox; captures complex ideas</td>
+    </tr>
+    <tr>
+      <td class="device-term">Assonance</td>
+      <td>Repetition of the same vowel sound in nearby words</td>
+      <td class="device-example">"The evening breeze seemed to freeze the trees."</td>
+      <td>Creates musicality; slows or speeds the reading pace</td>
+    </tr>
+    <tr>
+      <td class="device-term">Imagery</td>
+      <td>Language that appeals to the senses (sight, sound, smell, taste, touch)</td>
+      <td class="device-example">"The market smelled of copper coins, crushed herbs, and river mud."</td>
+      <td>Helps the reader experience the scene directly</td>
+    </tr>
+    <tr>
+      <td class="device-term">Juxtaposition</td>
+      <td>Placing two contrasting ideas side by side to highlight their differences</td>
+      <td class="device-example">"The mansion overlooked a row of crumbling cottages."</td>
+      <td>Creates irony or social commentary; forces comparison</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="tip-box"><strong>How to answer a language technique question:</strong> Name it → Quote it → Explain the effect. Never say a technique "makes the reader interested" or "paints a picture." Be specific: which emotion does it create? What does it make the reader think or feel?</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-easy">Easy</span>
+    <span style="font-size:13px;color:#666;">Device identification</span>
+  </div>
+  <div class="q-item" id="q4_1">
+    <div class="q-passage">"Her voice was like warm honey — smooth, golden, irresistible."</div>
+    <div class="q-text">What literary device is used in this sentence? (One word)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q4_1">
+      <button class="q-btn" onclick="checkQ('q4_1','simile','\'Like warm honey\' is a simile — a comparison using \'like\'. The comparison makes her voice vivid and appealing.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_1"></div>
+  </div>
+  <div class="q-item" id="q4_2">
+    <div class="q-passage">"The thunder crashed and the rain hammered the roof."</div>
+    <div class="q-text">Which device is used by "crashed" and "hammered"? (One word)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q4_2">
+      <button class="q-btn" onclick="checkQ('q4_2','onomatopoeia','\'Crashed\' and \'hammered\' are words that sound like what they describe — this is onomatopoeia.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_2"></div>
+  </div>
+  <div class="q-item" id="q4_3">
+    <div class="q-passage">"The wind whispered warnings through the winter willows."</div>
+    <div class="q-text">What device is used here? (One word)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q4_3">
+      <button class="q-btn" onclick="checkQ('q4_3','alliteration','The repeated \'w\' sound at the start of words — wind, whispered, warnings, winter, willows — is alliteration.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_3"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-inter">Intermediate</span>
+    <span style="font-size:13px;color:#666;">Device + effect</span>
+  </div>
+  <div class="q-item" id="q4_4">
+    <div class="q-passage">"Can we really call ourselves civilised when millions go to bed hungry?"</div>
+    <div class="q-text">What device is this, and what is its purpose? Name the device only.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Device name..." id="inp_q4_4">
+      <button class="q-btn" onclick="checkQ('q4_4','rhetorical question','A question asked for effect, not expecting an answer. It forces the reader to consider a moral point and feel implicated in the problem.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_4"></div>
+  </div>
+  <div class="q-item" id="q4_5">
+    <div class="q-passage">"The old library was alive with secrets — every shelf breathed history, every page held a whispered confession."</div>
+    <div class="q-text">Name two devices used in this sentence.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Device 1 and Device 2..." id="inp_q4_5">
+      <button class="q-btn" onclick="checkQ('q4_5','personification and metaphor','Personification: \'breathed history\', \'whispered confession\' give the library human qualities. Metaphor: \'alive with secrets\' — it IS alive (not \'like\' something alive). Either order is correct.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_5"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-adv">Advanced</span>
+    <span style="font-size:13px;color:#666;">Contrast and juxtaposition</span>
+  </div>
+  <div class="q-item" id="q4_6">
+    <div class="q-passage">"At the gala, diamonds glittered under the chandeliers while, three streets away, children slept on cardboard in the cold."</div>
+    <div class="q-text">What device is used by placing these two images next to each other?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_q4_6">
+      <button class="q-btn" onclick="checkQ('q4_6','juxtaposition','Two contrasting scenes placed side by side — wealth and poverty — to highlight inequality. Both \'juxtaposition\' and \'contrast\' are correct here.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_6"></div>
+  </div>
+  <div class="q-item" id="q4_7">
+    <div class="q-passage">"It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness."</div>
+    <div class="q-text">Name TWO devices used in this famous opening. (Separate with comma)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Device 1, Device 2..." id="inp_q4_7">
+      <button class="q-btn" onclick="checkQ('q4_7','repetition, contrast','Repetition: \'it was the ___ of times\' repeated. Contrast: best/worst, wisdom/foolishness. Oxymoron could also be argued for \'best...worst\'.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_7"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-chal">Challenging</span>
+    <span style="font-size:13px;color:#666;">Effect explanation</span>
+  </div>
+  <div class="q-item" id="q4_8">
+    <div class="q-passage">"The crowd roared, cheered, surged — a single creature with a thousand hearts."</div>
+    <div class="q-text">What is the device used in "a single creature with a thousand hearts"?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Device name..." id="inp_q4_8">
+      <button class="q-btn" onclick="checkQ('q4_8','metaphor','The crowd IS described as a single creature — a metaphor. It is not compared \'like\' something. It suggests the crowd has merged into one unified, powerful being.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_8"></div>
+  </div>
+  <div class="q-item" id="q4_9">
+    <div class="q-passage">"A deafening silence greeted his confession."</div>
+    <div class="q-text">What is the device where two contradictory words are placed together?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Device name..." id="inp_q4_9">
+      <button class="q-btn" onclick="checkQ('q4_9','oxymoron','\'Deafening silence\' is an oxymoron — silence cannot be deafening, yet the combination captures a total, overwhelming absence of sound.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q4_9"></div>
+  </div>
+</div>
+
+</div></div>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 5: PARTS OF SPEECH                                  -->
+<!-- ============================================================ -->
+<div class="band-pos" id="s5">
+<div class="section">
+<div class="section-header">
+  <div class="section-num">05</div>
+  <div class="section-title-group">
+    <div class="section-label">Grammar Building Blocks</div>
+    <div class="section-title">Parts of Speech Quick Reference</div>
+  </div>
+</div>
+<p>GL comprehension questions may ask you to identify the part of speech of a word in context. The key skill is identifying function: the same word can be different parts of speech depending on how it is used.</p>
+
+<table class="ref-table">
+  <thead><tr><th>Part of Speech</th><th>Definition</th><th>Examples</th><th>Identification Tip</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Noun</strong></td>
+      <td>A person, place, thing, or idea</td>
+      <td>river, courage, Amelia, London</td>
+      <td>Can follow "the" or "a". Can be made plural.</td>
+    </tr>
+    <tr>
+      <td><strong>Verb</strong></td>
+      <td>An action or state of being</td>
+      <td>ran, is, consider, had eaten</td>
+      <td>Changes tense (run → ran → will run)</td>
+    </tr>
+    <tr>
+      <td><strong>Adjective</strong></td>
+      <td>Describes or modifies a noun</td>
+      <td>enormous, silent, three, northern</td>
+      <td>Answers "What kind?" or "How many?" about a noun</td>
+    </tr>
+    <tr>
+      <td><strong>Adverb</strong></td>
+      <td>Modifies a verb, adjective, or another adverb</td>
+      <td>quickly, very, never, surprisingly</td>
+      <td>Often ends in -ly; asks "How?" "When?" "Where?" "How much?"</td>
+    </tr>
+    <tr>
+      <td><strong>Pronoun</strong></td>
+      <td>Replaces a noun to avoid repetition</td>
+      <td>he, she, it, they, who, which, mine</td>
+      <td>Takes the place of a noun already mentioned</td>
+    </tr>
+    <tr>
+      <td><strong>Preposition</strong></td>
+      <td>Shows the relationship between a noun and other words (position, time, direction)</td>
+      <td>in, on, under, after, despite, beside</td>
+      <td>Usually followed by a noun phrase: "under the bridge"</td>
+    </tr>
+    <tr>
+      <td><strong>Conjunction</strong></td>
+      <td>Joins words, phrases, or clauses</td>
+      <td>and, but, because, although, so, however</td>
+      <td>Coordinating: FANBOYS (For, And, Nor, But, Or, Yet, So). Subordinating: because, although, when, if, since</td>
+    </tr>
+    <tr>
+      <td><strong>Determiner</strong></td>
+      <td>Specifies which noun is referred to</td>
+      <td>the, a, an, this, those, every, each</td>
+      <td>Always followed by a noun; cannot stand alone</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout"><strong>Watch out:</strong> "Light" can be a noun (the light), a verb (to light a candle), or an adjective (a light bag). Always look at how the word is used — its function in the sentence — not just the word itself.</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-easy">Easy</span>
+  </div>
+  <div class="q-item" id="q5_1">
+    <div class="q-text">In the sentence "The old man walked slowly," what part of speech is "slowly"?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Part of speech..." id="inp_q5_1">
+      <button class="q-btn" onclick="checkQ('q5_1','adverb','\'Slowly\' modifies the verb \'walked\' — it tells us HOW he walked. That makes it an adverb.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q5_1"></div>
+  </div>
+  <div class="q-item" id="q5_2">
+    <div class="q-text">In "She placed the book beside the lamp," what part of speech is "beside"?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Part of speech..." id="inp_q5_2">
+      <button class="q-btn" onclick="checkQ('q5_2','preposition','\'Beside\' shows the positional relationship between the book and the lamp. It is a preposition.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q5_2"></div>
+  </div>
+  <div class="q-item" id="q5_3">
+    <div class="q-text">What part of speech is "every" in the sentence "Every student passed the test"?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Part of speech..." id="inp_q5_3">
+      <button class="q-btn" onclick="checkQ('q5_3','determiner','\'Every\' comes before the noun \'student\' and specifies which students. It is a determiner.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q5_3"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-inter">Intermediate</span>
+  </div>
+  <div class="q-item" id="q5_4">
+    <div class="q-text">In "Although it rained, they played outside," what part of speech is "Although"?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Part of speech..." id="inp_q5_4">
+      <button class="q-btn" onclick="checkQ('q5_4','conjunction','\'Although\' joins two clauses, introducing the subordinate clause. It is a subordinating conjunction.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q5_4"></div>
+  </div>
+  <div class="q-item" id="q5_5">
+    <div class="q-text">In "The light was fading fast," what part of speech is "light"?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Part of speech..." id="inp_q5_5">
+      <button class="q-btn" onclick="checkQ('q5_5','noun','Here \'light\' is the subject of the verb \'was fading\'. It is used as a noun. (It could also be a verb or adjective in different sentences.)')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q5_5"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-adv">Advanced</span>
+  </div>
+  <div class="q-item" id="q5_6">
+    <div class="q-text">In "She was remarkably calm," what part of speech is "remarkably"?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Part of speech..." id="inp_q5_6">
+      <button class="q-btn" onclick="checkQ('q5_6','adverb','\'Remarkably\' modifies the adjective \'calm\', telling us HOW calm she was. An adverb modifying an adjective.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q5_6"></div>
+  </div>
+  <div class="q-item" id="q5_7">
+    <div class="q-text">In "The teacher gave her the highest mark," what part of speech is "her"?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Part of speech..." id="inp_q5_7">
+      <button class="q-btn" onclick="checkQ('q5_7','pronoun','\'Her\' replaces a named person (a noun). It is an object pronoun here (the mark was given TO her).')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q5_7"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-chal">Challenging</span>
+  </div>
+  <div class="q-item" id="q5_8">
+    <div class="q-text">"They fast on the first day of the month." What part of speech is "fast" here?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Part of speech..." id="inp_q5_8">
+      <button class="q-btn" onclick="checkQ('q5_8','verb','\'They fast\' — they perform the action of fasting. Here \'fast\' is a verb. (It can also be an adjective: \'a fast car\', or an adverb: \'he ran fast\')')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q5_8"></div>
+  </div>
+</div>
+
+</div></div>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 6: NON-FICTION TEXT TYPES                           -->
+<!-- ============================================================ -->
+<div class="band-texttype" id="s6">
+<div class="section">
+<div class="section-header">
+  <div class="section-num">06</div>
+  <div class="section-title-group">
+    <div class="section-label">Genre Recognition</div>
+    <div class="section-title">Non-Fiction Text Types Guide</div>
+  </div>
+</div>
+
+<p>Identifying the text type quickly is a high-value skill. Each type has a recognisable set of structural features, language choices, and purposes. Identifying the type early helps you anticipate what questions will ask.</p>
+
+<table class="ref-table">
+  <thead><tr><th>Text Type</th><th>Key Features</th><th>Language Clues</th><th>How to Identify</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Newspaper Article</strong></td>
+      <td>Headline, byline, lead paragraph (who/what/when/where), inverted pyramid structure (most important first)</td>
+      <td>Third person, formal, factual; quotes from sources; passive voice common</td>
+      <td>Begins with the key facts immediately; references named people with titles ("Dr Smith said..."); often includes statistics</td>
+    </tr>
+    <tr>
+      <td><strong>Travel Writing</strong></td>
+      <td>Vivid description of place; personal reactions; often chronological journey narrative</td>
+      <td>First person; rich sensory imagery; present or past tense; enthusiastic or reflective tone</td>
+      <td>Strong sense of place; writer's personal feelings prominent; often begins mid-scene ("I stepped off the train and...")</td>
+    </tr>
+    <tr>
+      <td><strong>Autobiography / Memoir</strong></td>
+      <td>Personal narrative of the writer's own life; reflective commentary on past events</td>
+      <td>First person singular (I); past tense; includes personal feelings and reflections; sometimes addresses reader</td>
+      <td>Writer IS the subject; reflects on their younger self; uses phrases like "I remember" or "looking back"</td>
+    </tr>
+    <tr>
+      <td><strong>Speech</strong></td>
+      <td>Direct address to audience; persuasive or informative; rhetorical devices heavily used</td>
+      <td>Second person ("you," "we"); rhetorical questions; rule of three; repetition; exclamatory sentences</td>
+      <td>Directly addresses "you" or "we"; high energy language; clear call to action at the end</td>
+    </tr>
+    <tr>
+      <td><strong>Formal Letter</strong></td>
+      <td>Sender's address, date, recipient's address; formal greeting and sign-off; paragraphed body</td>
+      <td>Formal register; third person where possible; no contractions; polite but direct tone</td>
+      <td>Structured layout; "Dear Sir/Madam" or "Dear Mr/Ms"; closes with "Yours sincerely" (named) or "Yours faithfully" (unnamed)</td>
+    </tr>
+    <tr>
+      <td><strong>Report</strong></td>
+      <td>Subheadings; sections; often includes findings, conclusions, recommendations</td>
+      <td>Formal; third person; passive voice; objective tone; technical vocabulary</td>
+      <td>Uses subheadings; clear section structure; concludes with "Recommendations" or summary; written for a specific audience</td>
+    </tr>
+    <tr>
+      <td><strong>Review</strong></td>
+      <td>Description + evaluation; star ratings sometimes; recommendation to reader</td>
+      <td>First person opinions mixed with factual description; positive or negative adjectives; hedging language ("overall," "on balance")</td>
+      <td>Combines factual information with clear personal opinion; ends with a verdict or recommendation</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-easy">Easy</span>
+  </div>
+  <div class="q-item" id="q6_1">
+    <div class="q-passage">"Dear Ms Thornton, I am writing to express my concern about the proposed closure of the local library. As a resident of twenty years..."</div>
+    <div class="q-text">What type of non-fiction text is this?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Text type..." id="inp_q6_1">
+      <button class="q-btn" onclick="checkQ('q6_1','formal letter','\'Dear Ms Thornton\' is a formal greeting; \'I am writing\' is the opening of a letter. This is a formal letter.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q6_1"></div>
+  </div>
+  <div class="q-item" id="q6_2">
+    <div class="q-passage">"We must act. We must stand together. We must refuse to accept a future where our children breathe polluted air. The time is now!"</div>
+    <div class="q-text">What type of non-fiction text is this?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Text type..." id="inp_q6_2">
+      <button class="q-btn" onclick="checkQ('q6_2','speech','Direct address (\'we must\'), repetition, exclamation, call to action — all hallmarks of a speech.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q6_2"></div>
+  </div>
+  <div class="q-item" id="q6_3">
+    <div class="q-passage">"I remember the summer I turned twelve as the summer everything changed. Our small house in Aberystwyth smelled of salt and furniture polish..."</div>
+    <div class="q-text">What type of non-fiction text is this?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Text type..." id="inp_q6_3">
+      <button class="q-btn" onclick="checkQ('q6_3','autobiography','First person, past tense, writer reflecting on their own life (\'I remember\', \'our small house\'). This is autobiography or memoir.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q6_3"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-inter">Intermediate</span>
+  </div>
+  <div class="q-item" id="q6_4">
+    <div class="q-passage">"The Grand Bazaar in Istanbul is overwhelming in the best possible way. I stepped through the arched entrance and was immediately swallowed by colour — bolts of silk, copper lanterns, the smell of cardamom and rosewater."</div>
+    <div class="q-text">Name the text type and one feature that tells you what it is.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Text type and feature..." id="inp_q6_4">
+      <button class="q-btn" onclick="checkQ('q6_4','travel writing','Travel writing: first person (\'I stepped\'), vivid sensory description (colour, smell), personal reaction (\'overwhelming in the best possible way\'). Any one of these is sufficient.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q6_4"></div>
+  </div>
+  <div class="q-item" id="q6_5">
+    <div class="q-passage">"Overall, this film is a masterpiece of animation. The visuals are breathtaking, the story is original, and the voice acting is superb. I would recommend it to anyone over the age of eight."</div>
+    <div class="q-text">What type of text is this?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Text type..." id="inp_q6_5">
+      <button class="q-btn" onclick="checkQ('q6_5','review','Opinion + evaluation (\'masterpiece\', \'breathtaking\') + recommendation (\'I would recommend\') = review.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q6_5"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-chal">Challenging</span>
+  </div>
+  <div class="q-item" id="q6_6">
+    <div class="q-passage">"Background: This report examines rising absence rates in secondary schools across the region. Findings: Absence rates increased by 14% between 2022 and 2024. Recommendations: Schools should introduce mentoring programmes..."</div>
+    <div class="q-text">What text type is this, and what structural feature most clearly identifies it?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Type and feature..." id="inp_q6_6">
+      <button class="q-btn" onclick="checkQ('q6_6','report','Report: subheadings (Background, Findings, Recommendations) are the clearest structural marker. Formal third person and recommendation section also confirm it.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q6_6"></div>
+  </div>
+</div>
+
+</div></div>
+
+<!-- ============================================================ -->
+<!--  SECTION 7: AUTHOR'S PURPOSE                                  -->
+<!-- ============================================================ -->
+<div class="band-purpose" id="s7">
+<div class="section">
+<div class="section-header">
+  <div class="section-num">07</div>
+  <div class="section-title-group">
+    <div class="section-label">IDAPA / PEDAL Framework</div>
+    <div class="section-title">Author's Purpose Taxonomy</div>
+  </div>
+</div>
+
+<p>Every non-fiction text is written for a reason. Understanding that reason helps you answer "Why has the writer written this?" questions and helps you understand why certain language choices were made. Learn the IDAPA framework — then justify your answer from the text.</p>
+
+<table class="ref-table">
+  <thead><tr><th>Purpose</th><th>Definition</th><th>Language Clues</th><th>Text Type Examples</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Inform</strong></td><td>Give the reader facts and knowledge</td><td>Third person; present tense; factual statements; statistics; definitions</td><td>Textbook, encyclopaedia, news article</td></tr>
+    <tr><td><strong>Describe</strong></td><td>Create a vivid picture of something through sensory detail</td><td>Adjectives; imagery; sensory language; metaphors and similes; slow, detailed pace</td><td>Travel writing, autobiography, nature writing</td></tr>
+    <tr><td><strong>Argue</strong></td><td>Present a logical case for or against a position</td><td>Modal verbs ("should," "must"); counter-arguments addressed; evidence and statistics; logical connectives</td><td>Essay, opinion column, letter to newspaper</td></tr>
+    <tr><td><strong>Persuade</strong></td><td>Convince the reader to agree or act using emotional appeals</td><td>Emotive language; direct address ("you"); rhetorical questions; exaggeration; appeals to fear or sympathy</td><td>Advertising, charity appeals, speeches, campaign leaflets</td></tr>
+    <tr><td><strong>Advise</strong></td><td>Guide the reader on how to do something or make decisions</td><td>Second person ("you should"); imperative verbs ("try," "remember"); helpful tone; often uses lists or bullet points</td><td>Self-help books, advice columns, information leaflets</td></tr>
+    <tr><td><strong>Explain</strong></td><td>Clarify how or why something works or happens</td><td>Causal connectives ("because," "therefore," "as a result"); present tense; logical order; definitions of technical terms</td><td>How-to guides, science writing, explainer articles</td></tr>
+  </tbody>
+</table>
+
+<div class="tip-box"><strong>Key exam skill:</strong> Many texts have MORE than one purpose. A charity leaflet might both INFORM (statistics about poverty) and PERSUADE (emotional language about suffering). Always name the primary purpose first, then mention secondary purposes if relevant.</div>
+
+<div class="example-box">
+  <div class="ex-label">Justifying Purpose from the Text</div>
+  <div class="passage">"Every year, 3.1 million children die from malnutrition — that's one child every ten seconds. You could change this. A donation of just £5 a month provides a family with enough food for a week. Don't wait. Act now."</div>
+  <p><strong>Question:</strong> What is the primary purpose of this text? Justify your answer with evidence.</p>
+  <p><strong>Model Answer:</strong> The primary purpose is to <em>persuade</em> the reader to donate money. The statistic ("one child every ten seconds") creates an emotional impact; "you could change this" uses direct address to make the reader feel personally responsible; "Don't wait. Act now" are imperative sentences demanding immediate action. These are all persuasive techniques, not simply informative ones.</p>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-easy">Easy</span>
+  </div>
+  <div class="q-item" id="q7_1">
+    <div class="q-passage">"The Moon is approximately 384,400 km from Earth. It orbits our planet roughly every 27 days and has no atmosphere."</div>
+    <div class="q-text">What is the primary purpose of this text? (One word)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Purpose..." id="inp_q7_1">
+      <button class="q-btn" onclick="checkQ('q7_1','inform','Facts, statistics, third person, no emotive language — this text exists purely to give the reader information. Purpose: to inform.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q7_1"></div>
+  </div>
+  <div class="q-item" id="q7_2">
+    <div class="q-passage">"To make a strong cup of tea, first boil the kettle. Next, place a teabag in your mug. Pour in the hot water and leave for three minutes. Finally, remove the bag and add milk if desired."</div>
+    <div class="q-text">What is the purpose of this text? (One word)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Purpose..." id="inp_q7_2">
+      <button class="q-btn" onclick="checkQ('q7_2','advise','Imperatives (\'boil\', \'place\', \'pour\'), second person (\'your mug\'), sequential steps — this text advises the reader on how to perform a task.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q7_2"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-inter">Intermediate</span>
+  </div>
+  <div class="q-item" id="q7_3">
+    <div class="q-passage">"The old lighthouse stood alone on the cliff, its white walls stained with salt and age. At night its beam swept the dark sea like a long, searching arm — patient, solitary, enduring."</div>
+    <div class="q-text">What is the main purpose? (One word)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Purpose..." id="inp_q7_3">
+      <button class="q-btn" onclick="checkQ('q7_3','describe','No facts, no argument, no advice — just vivid imagery (simile, adjectives, sensory language). The writer\'s goal is to paint a picture. Purpose: to describe.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q7_3"></div>
+  </div>
+  <div class="q-item" id="q7_4">
+    <div class="q-passage">"Social media causes anxiety because constant comparison with others\' highlight reels leads to unrealistic expectations. As a result, teenagers who use social media for more than three hours daily report significantly higher levels of dissatisfaction."</div>
+    <div class="q-text">What is the purpose? (One word) Clue: the writer is building a logical case.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Purpose..." id="inp_q7_4">
+      <button class="q-btn" onclick="checkQ('q7_4','argue','\'Because\', \'as a result\', causal reasoning, and evidence — this is a logical argument being built. Purpose: to argue.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q7_4"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-chal">Challenging</span>
+  </div>
+  <div class="q-item" id="q7_5">
+    <div class="q-passage">"Rainforests are disappearing at a rate of one football field every second. These are not just trees — they are the lungs of our planet. How can we breathe if we destroy what breathes for us? You can help by signing our petition today."</div>
+    <div class="q-text">Name TWO purposes evident in this text. (Separate with comma)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Purpose 1, Purpose 2..." id="inp_q7_5">
+      <button class="q-btn" onclick="checkQ('q7_5','inform, persuade','Inform: the statistic (\'one football field every second\') gives factual information. Persuade: rhetorical question, metaphor (\'lungs of our planet\'), direct address (\'you can help\'), call to action (\'signing our petition\').')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q7_5"></div>
+  </div>
+</div>
+
+</div></div>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 8: MULTIPLE-CHOICE TECHNIQUE                        -->
+<!-- ============================================================ -->
+<div class="band-mc" id="s8">
+<div class="section">
+<div class="section-header">
+  <div class="section-num">08</div>
+  <div class="section-title-group">
+    <div class="section-label">GL Exam Strategy</div>
+    <div class="section-title">Multiple-Choice Technique</div>
+  </div>
+</div>
+
+<p>GL comprehension is entirely multiple choice. Every question has four options, and only one is correct. Knowing how to eliminate wrong answers is just as important as knowing the right one — and it's a learnable skill.</p>
+
+<div class="section-block">
+<h3>The Four-Step Elimination Process</h3>
+<div class="steps">
+  <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Cover the options first.</strong> Read the question and form your own answer before looking at the choices. This protects you from being led astray by plausible-sounding wrong answers.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Eliminate the impossible.</strong> Cross out any option that is clearly wrong — factually impossible, completely off-topic, or contradicted by the text.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Eliminate the almost-right.</strong> Distractor options are designed to look tempting. They often mix one true detail with one false one. Check every word of the option against the text.</div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Choose the option most supported by the text.</strong> The correct answer to a comprehension question is always provable from the passage. If you cannot point to the supporting text, you may have the wrong answer.</div></div>
+</div>
+</div>
+
+<div class="section-block">
+<h3>Common Distractor Types</h3>
+<table class="ref-table">
+  <thead><tr><th>Distractor Type</th><th>How It Works</th><th>How to Beat It</th></tr></thead>
+  <tbody>
+    <tr><td><strong>The True-but-Irrelevant</strong></td><td>The option is factually correct from the passage, but doesn't answer the specific question asked</td><td>Always re-read the question. Does this option actually answer what's being asked?</td></tr>
+    <tr><td><strong>The Overreach</strong></td><td>The option goes further than the text supports — makes a claim the text hints at but doesn't confirm</td><td>Ask: Is this stated or proven in the text, or am I adding my own knowledge?</td></tr>
+    <tr><td><strong>The Near-Synonym Trap</strong></td><td>For vocabulary questions, an option has a similar meaning but with a different nuance (e.g. "angry" vs "frustrated")</td><td>Substitute each option into the sentence and check which fits the context most precisely</td></tr>
+    <tr><td><strong>The Opposite</strong></td><td>One option is the exact opposite of the correct answer — designed to catch students who misread</td><td>Slow down. Check whether the text says something positive or negative about the subject.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="section-block">
+<h3>Handling "Which Word is Closest in Meaning?"</h3>
+<p>For these questions, the trap is choosing a word you know rather than the word that fits this specific context. "Resolute" and "stubborn" both mean unwilling to change, but resolute has a positive connotation and stubborn a negative one — context determines which is correct.</p>
+<div class="callout"><strong>Checklist:</strong> Same part of speech? Same connotation (positive/negative)? Does it fit when substituted into the original sentence?</div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-inter">Intermediate</span>
+    <span style="font-size:13px;color:#666;">Elimination practice</span>
+  </div>
+  <div class="q-item" id="q8_1">
+    <div class="q-passage">"The ancient Roman city of Pompeii was buried by the eruption of Mount Vesuvius in 79 AD. Thousands of residents perished, preserved forever beneath layers of volcanic ash. The site was rediscovered in 1748 and remains one of the most visited archaeological sites in the world."</div>
+    <div class="q-text">Which option is NOT supported by the passage? A: Pompeii was buried in ash. B: The eruption killed people. C: Romans knew the eruption was coming. D: The site was rediscovered in 1748. Type the letter.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="A, B, C, or D..." id="inp_q8_1">
+      <button class="q-btn" onclick="checkQ('q8_1','c','Option C (Romans knew it was coming) is not stated in the passage. The other three options are directly stated. Never add your own knowledge to a comprehension answer.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q8_1"></div>
+  </div>
+  <div class="q-item" id="q8_2">
+    <div class="q-passage">"She spoke with quiet confidence — not arrogance, but the calm certainty of someone who had prepared thoroughly."</div>
+    <div class="q-text">Which word is closest in meaning to "arrogance" as implied in this sentence? A: pride  B: modesty  C: nervousness  D: experience. Type the letter.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="A, B, C, or D..." id="inp_q8_2">
+      <button class="q-btn" onclick="checkQ('q8_2','a','Arrogance is an excessive sense of superiority — closest to \'pride\' (but excessive). The sentence contrasts it with genuine confidence. B is opposite; C and D are unrelated.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q8_2"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-adv">Advanced</span>
+    <span style="font-size:13px;color:#666;">Near-synonym discrimination</span>
+  </div>
+  <div class="q-item" id="q8_3">
+    <div class="q-passage">"The headteacher was resolute in her decision to expand the school day, despite protests from parents and staff."</div>
+    <div class="q-text">Which word best replaces "resolute"? A: stubborn  B: determined  C: angry  D: confused. Type the letter.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="A, B, C, or D..." id="inp_q8_3">
+      <button class="q-btn" onclick="checkQ('q8_3','b','Resolute = firmly determined. Both A (stubborn) and B (determined) suggest not changing one\'s mind, but resolute has a positive connotation (principled persistence), making B the better answer.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q8_3"></div>
+  </div>
+</div>
+
+</div></div>
+
+<!-- ============================================================ -->
+<!--  SECTION 9: TONE AND REGISTER                                 -->
+<!-- ============================================================ -->
+<div class="band-tone" id="s9">
+<div class="section">
+<div class="section-header">
+  <div class="section-num">09</div>
+  <div class="section-title-group">
+    <div class="section-label">Advanced Vocabulary</div>
+    <div class="section-title">Tone and Register Vocabulary</div>
+  </div>
+</div>
+
+<p>Identifying the <em>tone</em> of a passage — the writer's attitude toward the subject — is a sophisticated skill. The vocabulary below goes well beyond "happy" or "sad." In GL papers, questions often ask: "How does the writer feel about...?" or "What is the tone of paragraph 3?"</p>
+
+<table class="ref-table">
+  <thead><tr><th>Tone Word</th><th>Meaning</th><th>Typical Context</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Objective</strong></td><td>Factual, neutral; no personal feelings expressed</td><td>Scientific reports, news articles</td></tr>
+    <tr><td><strong>Subjective</strong></td><td>Based on personal opinion or feeling</td><td>Reviews, personal essays, diaries</td></tr>
+    <tr><td><strong>Formal</strong></td><td>Professional, structured language; no contractions or slang</td><td>Official letters, academic essays, speeches</td></tr>
+    <tr><td><strong>Colloquial</strong></td><td>Casual, conversational, everyday language</td><td>Blog posts, personal letters, modern reviews</td></tr>
+    <tr><td><strong>Sombre</strong></td><td>Serious and solemn; often used in the context of death, loss, or grave issues</td><td>War memorials, obituaries, tragedy narratives</td></tr>
+    <tr><td><strong>Wistful</strong></td><td>A gentle, reflective sadness about something past or unattainable</td><td>Memoir, travel writing about a place left behind</td></tr>
+    <tr><td><strong>Sardonic</strong></td><td>Mocking or cynical; saying the opposite of what is meant (a sharp form of sarcasm)</td><td>Opinion columns, satire</td></tr>
+    <tr><td><strong>Urgent</strong></td><td>Pressing, compelling action; conveys that something must happen immediately</td><td>Charity appeals, political speeches, emergency notices</td></tr>
+    <tr><td><strong>Authoritative</strong></td><td>Confident, expert, commanding; the writer positions themselves as a reliable source</td><td>Textbooks, expert opinion pieces</td></tr>
+    <tr><td><strong>Nostalgic</strong></td><td>A fond, slightly melancholy longing for the past</td><td>Memoir, heritage articles, retrospectives</td></tr>
+    <tr><td><strong>Indignant</strong></td><td>Angry at perceived injustice or unfairness</td><td>Protest writing, letters of complaint</td></tr>
+    <tr><td><strong>Cautious</strong></td><td>Careful, hedging; avoids strong claims</td><td>Scientific writing, reports with uncertain findings</td></tr>
+    <tr><td><strong>Impassioned</strong></td><td>Filled with strong feeling; written with emotional intensity</td><td>Campaigning letters, speeches</td></tr>
+    <tr><td><strong>Detached</strong></td><td>Emotionally distant, impersonal; the writer avoids any personal involvement</td><td>Crime reports, post-incident analysis</td></tr>
+    <tr><td><strong>Ironic</strong></td><td>Saying one thing while meaning the opposite; often understated</td><td>Satire, humorous journalism</td></tr>
+  </tbody>
+</table>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-inter">Intermediate</span>
+  </div>
+  <div class="q-item" id="q9_1">
+    <div class="q-passage">"Naturally, the planning committee's decision to demolish the town's oldest building in order to build a car park was greeted with universal delight."</div>
+    <div class="q-text">What tone is this sentence written in? Choose from: sardonic / wistful / authoritative / urgent</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Tone word..." id="inp_q9_1">
+      <button class="q-btn" onclick="checkQ('q9_1','sardonic','The writer says it was greeted with \'universal delight\' — clearly this is the opposite of what they believe. This mocking tone is sardonic (sharp irony used to criticise).')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q9_1"></div>
+  </div>
+  <div class="q-item" id="q9_2">
+    <div class="q-passage">"I think often of the summers we spent at that old cottage — the smell of wood smoke, the sound of the brook outside the window. It was a simpler time, and I miss it in a way I cannot quite name."</div>
+    <div class="q-text">What is the tone? Choose from: indignant / nostalgic / objective / urgent</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Tone word..." id="inp_q9_2">
+      <button class="q-btn" onclick="checkQ('q9_2','nostalgic','A fond longing for a past place and time, mixed with gentle sadness (\'I miss it\') — this is nostalgia.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q9_2"></div>
+  </div>
+  <div class="q-item" id="q9_3">
+    <div class="q-passage">"The situation is critical. Every minute of delay costs lives. We cannot afford to hesitate — the time for action is right now, not tomorrow."</div>
+    <div class="q-text">What is the tone? (One word)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Tone word..." id="inp_q9_3">
+      <button class="q-btn" onclick="checkQ('q9_3','urgent','\'Critical\', \'every minute\', \'cannot afford to hesitate\', \'right now\' — all convey urgency. The tone is urgent.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q9_3"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-chal">Challenging</span>
+  </div>
+  <div class="q-item" id="q9_4">
+    <div class="q-passage">"The report's findings were, at best, inconclusive. Further research may be warranted before any firm conclusions can be drawn."</div>
+    <div class="q-text">What is the tone? Choose from: cautious / impassioned / colloquial / indignant</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Tone word..." id="inp_q9_4">
+      <button class="q-btn" onclick="checkQ('q9_4','cautious','\'At best, inconclusive\', \'may be warranted\', \'before any firm conclusions\' — the writer hedges carefully, avoiding strong claims. This is a cautious tone.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q9_4"></div>
+  </div>
+</div>
+
+</div></div>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 10: TEXT STRUCTURE PATTERNS                         -->
+<!-- ============================================================ -->
+<div class="band-structure" id="s10">
+<div class="section">
+<div class="section-header">
+  <div class="section-num">10</div>
+  <div class="section-title-group">
+    <div class="section-label">How Texts Are Built</div>
+    <div class="section-title">Text Structure Patterns</div>
+  </div>
+</div>
+
+<p>Structure questions ask you about the <em>organisation</em> of a text rather than its language. Understanding how a text is built helps you locate information quickly and answers questions like "Why does the writer end the article with this paragraph?"</p>
+
+<table class="ref-table">
+  <thead><tr><th>Structure</th><th>Definition</th><th>Signal Words</th><th>Used In</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Chronological</strong></td><td>Events ordered by time, from earliest to latest</td><td>first, then, next, after, finally, in 1987, the following year</td><td>Autobiography, history articles, news reports</td></tr>
+    <tr><td><strong>Cause and Effect</strong></td><td>Explains why something happened and what resulted from it</td><td>because, therefore, as a result, consequently, this led to</td><td>Science writing, analysis, argument essays</td></tr>
+    <tr><td><strong>Problem and Solution</strong></td><td>Identifies an issue then proposes how to fix it</td><td>the problem is..., one solution..., however, this can be addressed by</td><td>Reports, advice articles, campaign writing</td></tr>
+    <tr><td><strong>Compare and Contrast</strong></td><td>Examines similarities and differences between two or more subjects</td><td>similarly, however, on the other hand, in contrast, both, whereas</td><td>Review articles, travel writing comparing destinations</td></tr>
+    <tr><td><strong>General to Specific</strong></td><td>Opens with a broad statement, then narrows to detail and evidence</td><td>for example, such as, specifically, in particular, to illustrate</td><td>Textbooks, explanatory journalism</td></tr>
+    <tr><td><strong>Question and Answer</strong></td><td>Raises a question then answers it — sometimes explicitly, sometimes implicitly</td><td>So why...? The answer lies in... / What causes...? Scientists have found...</td><td>Magazine features, explainer articles, FAQs</td></tr>
+  </tbody>
+</table>
+
+<div class="section-block">
+<h3>Structural Features as Answerable Elements</h3>
+<h4>Subheadings</h4>
+<p>Subheadings divide a text into sections and tell you the topic of each. In an exam, a question asking "What is the purpose of the subheading 'The Hidden Costs'?" expects you to explain what it signals to the reader about the content that follows.</p>
+
+<h4>Topic Sentences</h4>
+<p>The <em>first sentence</em> of a non-fiction paragraph usually states the main point of that paragraph. This is the topic sentence. The rest of the paragraph provides evidence, examples, or elaboration. Scanning topic sentences lets you locate information without reading every word.</p>
+
+<h4>Concluding Paragraphs</h4>
+<p>In non-fiction, the final paragraph often: (a) summarises the key argument; (b) issues a call to action; (c) returns to an image or idea from the opening (a "circular structure"); or (d) leaves the reader with a thought-provoking question or statement.</p>
+<div class="callout"><strong>Exam question:</strong> "Why does the writer end with this sentence?" → Your answer should explain what effect this structural choice has on the reader.</div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-easy">Easy</span>
+  </div>
+  <div class="q-item" id="q10_1">
+    <div class="q-passage">"First, the water is collected in a reservoir. Then it is filtered to remove particles. Next, chemicals are added to kill bacteria. Finally, it reaches your tap."</div>
+    <div class="q-text">What is the structural pattern of this text?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Structure type..." id="inp_q10_1">
+      <button class="q-btn" onclick="checkQ('q10_1','chronological','Signal words: first, then, next, finally — events in time order. This is chronological (or sequential) structure.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q10_1"></div>
+  </div>
+  <div class="q-item" id="q10_2">
+    <div class="q-passage">"Pollution levels in cities are rising rapidly. This is largely because of increased vehicle emissions. As a result, respiratory diseases have increased by 20% over the past decade."</div>
+    <div class="q-text">What structural pattern is used here?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Structure type..." id="inp_q10_2">
+      <button class="q-btn" onclick="checkQ('q10_2','cause and effect','\'Because\' (cause) and \'as a result\' (effect) are the signal words. This is cause-and-effect structure.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q10_2"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-inter">Intermediate</span>
+  </div>
+  <div class="q-item" id="q10_3">
+    <div class="q-passage">"Plastic waste in our oceans is reaching critical levels. However, there is hope. Scientists have developed a biodegradable packaging material that dissolves in seawater within six months. Governments can also introduce extended producer responsibility laws."</div>
+    <div class="q-text">What structural pattern organises this paragraph?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Structure type..." id="inp_q10_3">
+      <button class="q-btn" onclick="checkQ('q10_3','problem and solution','The passage identifies a problem (plastic waste) then proposes solutions (biodegradable packaging, new laws). This is problem-and-solution structure.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q10_3"></div>
+  </div>
+  <div class="q-item" id="q10_4">
+    <div class="q-passage">"Dogs are loyal and affectionate companions. Cats, on the other hand, tend to be more independent and less demanding of attention. Both, however, provide emotional comfort to their owners."</div>
+    <div class="q-text">What structural pattern is used?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Structure type..." id="inp_q10_4">
+      <button class="q-btn" onclick="checkQ('q10_4','compare and contrast','\'On the other hand\' and \'however...both\' signal comparison and contrast between dogs and cats.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q10_4"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="quiz-level-header">
+    <span class="level-badge level-chal">Challenging</span>
+  </div>
+  <div class="q-item" id="q10_5">
+    <div class="q-passage">"The writer opens with the image of an empty playground. In the final paragraph, she returns to this image, but now children are playing there again."</div>
+    <div class="q-text">What is the name for this structural technique where the end echoes the beginning?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Technique name..." id="inp_q10_5">
+      <button class="q-btn" onclick="checkQ('q10_5','circular structure','When a text ends by returning to its opening image or idea, this is called circular structure. It creates a sense of completeness and often gives the ending extra resonance.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_q10_5"></div>
+  </div>
+</div>
+
+</div></div>
+
+<!-- ============================================================ -->
+<!--  SECTION 11: ACTIVE READING PROTOCOL                         -->
+<!-- ============================================================ -->
+<div class="band-protocol" id="s11">
+<div class="section">
+<div class="section-header">
+  <div class="section-num">11</div>
+  <div class="section-title-group">
+    <div class="section-label">GL Two-Page Format</div>
+    <div class="section-title">Active Reading Protocol</div>
+  </div>
+</div>
+
+<p>The GL comprehension passage is approximately two A4 pages long. Below is a step-by-step method calibrated to this format. Practice it until it becomes automatic.</p>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <strong>Read the title and any blurb (30 seconds)</strong>
+      <p>The title immediately tells you the text type, topic, and sometimes purpose. "An Extract from 'Wild: A Journey Across Antarctica'" tells you this is travel writing/memoir, it is set in Antarctica, and it is likely descriptive. Adjust your expectations accordingly.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <strong>Skim the questions before reading the passage (60 seconds)</strong>
+      <p>Read through all 13 questions without trying to answer them. You are hunting for: what topics they cover, any vocabulary words they highlight, and which question types appear. This tells you what to look for while reading.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <strong>Read the passage actively (3–4 minutes)</strong>
+      <p>Read the full passage at a steady pace — not rushing, not dawdling. As you read: underline or circle key ideas; note the tone of each paragraph in the margin (e.g. "descriptive," "argumentative," "nostalgic"); mark any striking language techniques; note the structural pattern.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <strong>Scan the first and last sentences of each paragraph</strong>
+      <p>If you are short on time, topic sentences (first sentence) and clincher sentences (last sentence) contain the most important information. A quick scan confirms your understanding of the text's structure.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-content">
+      <strong>Answer retrieval questions first</strong>
+      <p>Return to the questions. Retrieval questions (look-and-find) can be answered with a quick scan and are the fastest marks to earn. Do these first to build confidence and momentum.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">6</div>
+    <div class="step-content">
+      <strong>Answer inference and deduction questions</strong>
+      <p>These require more thought. Return to the relevant section of the text; re-read the two or three sentences around the focus area; ask yourself "what is the writer implying?" or "what conclusion do the facts lead to?"</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">7</div>
+    <div class="step-content">
+      <strong>Answer language/structure questions last</strong>
+      <p>These require the most time and thought. Identify the device, quote it mentally, and think about its specific effect. Use the formula: Device + Quote + Effect.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">8</div>
+    <div class="step-content">
+      <strong>Review any skipped questions</strong>
+      <p>If you skipped a question, return to it now. Use elimination to narrow down the options. Never leave a multiple-choice question blank — an educated guess is better than no answer.</p>
+    </div>
+  </div>
+</div>
+
+<div class="tip-box"><strong>The cardinal rule:</strong> Every answer must come from the text. Do not use general knowledge. Do not use personal experience. The passage is the only source of truth.</div>
+
+</div></div>
+
+<!-- ============================================================ -->
+<!--  SECTION 12: TIMING AND PAPER MANAGEMENT                     -->
+<!-- ============================================================ -->
+<div class="band-timing" id="s12">
+<div class="section">
+<div class="section-header">
+  <div class="section-num">12</div>
+  <div class="section-title-group">
+    <div class="section-label">Exam Strategy</div>
+    <div class="section-title">Timing and Paper Management</div>
+  </div>
+</div>
+
+<p>The GL English paper is 50 minutes long and contains 25 questions: 13 comprehension questions and approximately 12 SPaG questions. Efficient time management is the difference between completing the paper comfortably and running out of time.</p>
+
+<div class="section-block">
+<h3>Time Allocation Per Section</h3>
+<div class="timing-bar"><span class="task">Reading the title + skimming questions</span><span class="time">~2 min</span></div>
+<div class="timing-bar"><span class="task">Reading the full passage (actively)</span><span class="time">~5 min</span></div>
+<div class="timing-bar"><span class="task">Answering 13 comprehension questions</span><span class="time">~18 min</span></div>
+<div class="timing-bar"><span class="task">Answering ~12 SPaG questions</span><span class="time">~18 min</span></div>
+<div class="timing-bar"><span class="task">Reviewing skipped / uncertain answers</span><span class="time">~7 min</span></div>
+<div class="timing-bar" style="background:var(--ink);color:var(--paper);"><span class="task" style="color:var(--paper);">Total</span><span class="time">50 min</span></div>
+
+<div class="callout"><strong>Target pace:</strong> Approximately 80–90 seconds per comprehension question. If you are spending more than 2 minutes on a single question, mark it and move on. Retrieve those marks at the end.</div>
+</div>
+
+<div class="section-block">
+<h3>The Skip-and-Return Strategy</h3>
+<p>Some questions are harder than others. Spending 4 minutes on one hard question when you could have answered 3 easier questions in the same time is poor strategy. Mark difficult questions clearly (circle the number) and return after completing the rest.</p>
+<div class="tip-box"><strong>Mark answer sheets carefully:</strong> If you skip a question on the answer sheet, be careful not to shift all subsequent answers one line down. Double-check the question number matches the row you are filling in.</div>
+</div>
+
+<div class="section-block">
+<h3>Reading vs Answering Split</h3>
+<p>Many students make the mistake of reading the passage too slowly (spending 10+ minutes reading) and then running out of time for questions. The reading is only there to enable the answering — it is not an end in itself.</p>
+<p>Practise reading the passage in 4–5 minutes with active annotation (underline key ideas, note paragraph purposes). The goal is comprehension sufficient to locate answers, not memorisation of every detail.</p>
+</div>
+
+<div class="section-block">
+<h3>When You Don't Know the Answer</h3>
+<div class="steps">
+  <div class="step"><div class="step-num">1</div><div class="step-content">Re-read the question — have you understood it correctly?</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-content">Return to the passage and scan the relevant section again.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-content">Use elimination to remove impossible options.</div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-content">If still unsure, choose the option most supported by the text and move on. Do not leave it blank.</div></div>
+</div>
+</div>
+
+</div></div>
+
+
+<!-- ============================================================ -->
+<!--  FINAL MASTERY TEST                                          -->
+<!-- ============================================================ -->
+<div class="mastery-section" id="mastery">
+<div class="mastery-inner">
+<div class="section-header">
+  <div class="section-num" style="color:var(--accent-gold);opacity:1;">★</div>
+  <div class="section-title-group">
+    <div class="section-label" style="color:rgba(250,248,243,0.6);">All Topics · Mixed Format</div>
+    <div class="section-title" style="color:var(--paper);">Final Mastery Test</div>
+  </div>
+</div>
+
+<p style="color:rgba(250,248,243,0.8);margin-bottom:30px;">This test draws from every section of the guide. Work through all 12 questions without looking back at the notes. This simulates real exam conditions.</p>
+
+<div style="background:rgba(184,134,11,0.15);border:1px solid var(--accent-gold);padding:14px 20px;border-radius:4px;margin-bottom:30px;color:var(--paper);">
+<strong style="color:var(--accent-gold);">PASSAGE</strong> — Read this carefully before answering Questions 1–8.
+<div style="background:rgba(255,255,255,0.06);border-left:3px solid var(--accent-gold);padding:16px 20px;margin-top:14px;font-style:italic;line-height:1.8;">
+"The coral reefs that once ringed the island in crowns of colour are retreating now, bleached pale as bone in the warming water. Scientists have recorded a 40% decline in reef coverage over the past decade alone — a statistic that ought to stop us mid-sentence. And yet, the cruise ships still arrive each morning, their passengers trailing cameras and sunscreen down to the shore, cheerfully oblivious to the quiet catastrophe unfolding beneath the surface.<br><br>
+Local fisherman Mateo Cruz watched the change begin in 2012. 'One summer,' he told me, 'the fish were gone. Not fewer — gone. And the reef was white, like someone had painted it.' His voice carried no anger; only the flat exhaustion of someone who has said the same thing too many times to people who did not listen.<br><br>
+There is no shortage of proposed solutions: stricter regulation of tourist numbers, investment in coral nurseries, a global reduction in carbon emissions. Whether any of these will come in time is another question entirely."
+</div>
+</div>
+
+<div class="quiz-section">
+  <div class="q-item" id="qm1">
+    <div class="q-text"><strong>Q1 [Retrieval]</strong> According to the passage, by what percentage have coral reefs declined in the past decade?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_qm1">
+      <button class="q-btn" onclick="checkQ('qm1','40%','Directly stated: \'a 40% decline in reef coverage over the past decade alone\'.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_qm1"></div>
+  </div>
+
+  <div class="q-item" id="qm2">
+    <div class="q-text"><strong>Q2 [Inference]</strong> What does "cheerfully oblivious" suggest about the tourists?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_qm2">
+      <button class="q-btn" onclick="checkQ('qm2','unaware','\'Cheerfully oblivious\' suggests the tourists are happily unaware of the environmental damage — they are enjoying themselves without realising the harm. \'Unaware\', \'ignorant\', or \'oblivious\' are all correct.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_qm2"></div>
+  </div>
+
+  <div class="q-item" id="qm3">
+    <div class="q-text"><strong>Q3 [Language]</strong> "Bleached pale as bone" — what literary device is this?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Device name..." id="inp_qm3">
+      <button class="q-btn" onclick="checkQ('qm3','simile','\'Pale AS bone\' — a comparison using \'as\'. This is a simile. It evokes death and lifelessness, reinforcing the tragedy of the bleached reef.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_qm3"></div>
+  </div>
+
+  <div class="q-item" id="qm4">
+    <div class="q-text"><strong>Q4 [Deduction]</strong> In what year did Mateo Cruz first notice the change, and how many years before the article was written is that (assuming the article was written in 2022)?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Year and number of years..." id="inp_qm4">
+      <button class="q-btn" onclick="checkQ('qm4','10','Cruz says the change began in 2012. 2022 − 2012 = 10 years before the article. The passage states it; the arithmetic is deduction.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_qm4"></div>
+  </div>
+
+  <div class="q-item" id="qm5">
+    <div class="q-text"><strong>Q5 [Tone]</strong> How does the writer describe the tone of Mateo Cruz's voice? Use one tone word from the guide.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Tone word..." id="inp_qm5">
+      <button class="q-btn" onclick="checkQ('qm5','exhausted','\'Flat exhaustion of someone who has said the same thing too many times\' — the tone of his voice is exhausted or weary (sombre is also acceptable).')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_qm5"></div>
+  </div>
+
+  <div class="q-item" id="qm6">
+    <div class="q-text"><strong>Q6 [Purpose]</strong> What is the primary purpose of this text? Choose from: inform / argue / persuade / describe.</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Purpose..." id="inp_qm6">
+      <button class="q-btn" onclick="checkQ('qm6','argue','The writer uses statistics, a personal testimony (Cruz), and emotive language to build a case that the reef crisis demands urgent action. The overall structure is argumentative. Persuade is also acceptable.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_qm6"></div>
+  </div>
+
+  <div class="q-item" id="qm7">
+    <div class="q-text"><strong>Q7 [Structure]</strong> The final paragraph lists potential solutions then raises a doubt. What structural pattern does this represent?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Structure pattern..." id="inp_qm7">
+      <button class="q-btn" onclick="checkQ('qm7','problem and solution','The text identifies the problem (declining reefs), then in the final paragraph lists solutions, but questions their timeliness. This is problem-and-solution structure.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_qm7"></div>
+  </div>
+
+  <div class="q-item" id="qm8">
+    <div class="q-text"><strong>Q8 [Language + Effect]</strong> "A statistic that ought to stop us mid-sentence" — what technique is implied by "us"?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Technique..." id="inp_qm8">
+      <button class="q-btn" onclick="checkQ('qm8','direct address','The writer uses \'us\' to include the reader in the problem — this is direct address. It makes the reader feel personally implicated in the crisis.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_qm8"></div>
+  </div>
+</div>
+
+<div class="quiz-section" style="margin-top:30px;">
+<div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent-gold);margin-bottom:16px;">SPaG + Vocabulary Questions (Q9–Q12)</div>
+
+  <div class="q-item" id="qm9">
+    <div class="q-text"><strong>Q9 [SPaG — Apostrophe]</strong> Which sentence is correct? Type A or B.<br>A: "The tourists cameras clicked constantly." &nbsp;&nbsp; B: "The tourists' cameras clicked constantly."</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="A or B..." id="inp_qm9">
+      <button class="q-btn" onclick="checkQ('qm9','b','Multiple tourists own the cameras — plural possessive. Apostrophe goes after the s: tourists\' (not tourist\'s, which would mean one tourist).')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_qm9"></div>
+  </div>
+
+  <div class="q-item" id="qm10">
+    <div class="q-text"><strong>Q10 [Vocabulary]</strong> In "the quiet catastrophe unfolding beneath the surface," what does "catastrophe" mean? (One word)</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Your answer..." id="inp_qm10">
+      <button class="q-btn" onclick="checkQ('qm10','disaster','Catastrophe = a sudden, terrible disaster or calamity. \'Disaster\' or \'calamity\' are correct.')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_qm10"></div>
+  </div>
+
+  <div class="q-item" id="qm11">
+    <div class="q-text"><strong>Q11 [Parts of Speech]</strong> In "the warming water," what part of speech is "warming"?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Part of speech..." id="inp_qm11">
+      <button class="q-btn" onclick="checkQ('qm11','adjective','Here \'warming\' modifies the noun \'water\', telling us what kind of water it is. It functions as an adjective (a participial adjective).')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_qm11"></div>
+  </div>
+
+  <div class="q-item" id="qm12">
+    <div class="q-text"><strong>Q12 [Text Type]</strong> Based on internal evidence (first person, direct quotation of a local resident, statistics, journalistic tone), what type of non-fiction text is this passage most likely from?</div>
+    <div class="q-input-row">
+      <input class="q-input" type="text" placeholder="Text type..." id="inp_qm12">
+      <button class="q-btn" onclick="checkQ('qm12','newspaper article','Features: statistics, a named source with a direct quote (Mateo Cruz), journalistic first-person narrator, factual reporting mixed with opinion — this is a newspaper or magazine article (feature journalism).')">Check Answer</button>
+    </div>
+    <div class="q-feedback" id="fb_qm12"></div>
+  </div>
+</div>
+
+<div id="mastery-score" style="background:rgba(184,134,11,0.15);border:2px solid var(--accent-gold);padding:24px;border-radius:6px;margin-top:30px;text-align:center;color:var(--paper);">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-gold);margin-bottom:12px;">Your Score</div>
+  <div id="score-display" style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:var(--accent-gold);">—</div>
+  <div style="font-size:14px;color:rgba(250,248,243,0.6);margin-top:8px;">Complete all 12 questions to see your score</div>
+  <button onclick="calcMasteryScore()" style="margin-top:16px;padding:10px 28px;background:var(--accent-gold);color:var(--ink);border:none;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:2px;cursor:pointer;font-weight:600;">CALCULATE SCORE</button>
+</div>
+
+</div>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+// Answers storage
+const answers = {};
+
+function normalise(str) {
+  return str.toLowerCase().trim()
+    .replace(/['']/g, "'")
+    .replace(/[""]/g, '"')
+    .replace(/\s+/g,' ');
+}
+
+function checkQ(qid, correct, explanation) {
+  const input = document.getElementById('inp_' + qid);
+  const feedback = document.getElementById('fb_' + qid);
+  const val = normalise(input.value);
+  const correctNorm = normalise(correct);
+  
+  // Accept multiple possible answers separated by |
+  const alternatives = correctNorm.split('|');
+  
+  // Flexible matching: check if student answer contains or matches key answer
+  let isCorrect = false;
+  for (let alt of alternatives) {
+    const altClean = alt.trim();
+    if (val === altClean) { isCorrect = true; break; }
+    // Partial match for compound answers (e.g. "bread and cinnamon")
+    if (altClean.includes(val) && val.length > 2) { isCorrect = true; break; }
+    if (val.includes(altClean) && altClean.length > 2) { isCorrect = true; break; }
+  }
+  
+  answers[qid] = isCorrect;
+  feedback.style.display = 'block';
+  
+  if (isCorrect) {
+    feedback.className = 'q-feedback feedback-correct';
+    feedback.innerHTML = '✅ Correct! ' + explanation;
+  } else {
+    feedback.className = 'q-feedback feedback-wrong';
+    feedback.innerHTML = '❌ Incorrect. Correct answer: <strong>' + correct + '</strong>. ' + explanation;
+  }
+}
+
+function calcMasteryScore() {
+  const masteryQs = ['qm1','qm2','qm3','qm4','qm5','qm6','qm7','qm8','qm9','qm10','qm11','qm12'];
+  let answered = 0;
+  let correct = 0;
+  for (let q of masteryQs) {
+    if (answers[q] !== undefined) {
+      answered++;
+      if (answers[q]) correct++;
+    }
+  }
+  const display = document.getElementById('score-display');
+  if (answered < 12) {
+    display.textContent = correct + ' / ' + answered + ' so far';
+    document.querySelector('#mastery-score > div:last-of-type').textContent = answered + ' of 12 questions answered — complete the rest!';
+  } else {
+    display.textContent = correct + ' / 12';
+    const pct = Math.round((correct/12)*100);
+    let msg = '';
+    if (pct >= 90) msg = 'Outstanding — you are exam-ready.';
+    else if (pct >= 75) msg = 'Very good — review any incorrect questions.';
+    else if (pct >= 60) msg = 'Good foundation — revisit weaker sections.';
+    else msg = 'Keep going — re-read the sections on missed topics and try again.';
+    document.querySelector('#mastery-score > div:last-of-type').textContent = pct + '% — ' + msg;
+  }
+}
+</script>
+
+</body>
+</html>

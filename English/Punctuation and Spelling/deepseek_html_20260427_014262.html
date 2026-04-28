@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>11+ GL Assessment: Hyphens, Dashes & Brackets | Advanced Mastery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f1f4f9;
+            font-family: 'Inter', 'Segoe UI', 'Roboto', 'Georgia', serif;
+            line-height: 1.5;
+            color: #0a1c2f;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15);
+            overflow: hidden;
+            padding: 2rem 2rem 3rem;
+        }
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #1e3c4a, #1b4f6e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            border-left: 6px solid #d97706;
+            padding-left: 1.2rem;
+        }
+        .badge {
+            background: #2c5f2d;
+            color: #f0f7e6;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .subhead {
+            color: #2c4c6e;
+            border-bottom: 2px solid #e2edf7;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+        h2 {
+            font-size: 1.7rem;
+            margin: 2rem 0 1rem 0;
+            color: #1e3b4a;
+            border-left: 5px solid #f59e0b;
+            padding-left: 1rem;
+        }
+        h3 {
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 0.75rem 0;
+            color: #2a5f6e;
+        }
+        .rule-card {
+            background: #fefce8;
+            border-left: 6px solid #eab308;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 1.2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .trap-card {
+            background: #ffe9e9;
+            border-left: 6px solid #dc2626;
+            padding: 0.9rem 1.3rem;
+            margin: 1rem 0;
+            border-radius: 1rem;
+        }
+        .example-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .example {
+            background: #f8fafc;
+            padding: 0.7rem 1.2rem;
+            border-radius: 1.2rem;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #dce5f0;
+            flex: 1 1 220px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0;
+            background: white;
+            border-radius: 1.2rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        th {
+            background: #1f3e48;
+            color: white;
+            padding: 0.75rem;
+            font-weight: 600;
+        }
+        td {
+            border: 1px solid #cbdde9;
+            padding: 0.75rem;
+            vertical-align: top;
+        }
+        .correct {
+            color: #166534;
+            font-weight: bold;
+        }
+        .wrong {
+            color: #b91c1c;
+            text-decoration: line-through;
+        }
+        .quiz-block {
+            background: #f0f6fa;
+            border-radius: 1.8rem;
+            padding: 1.5rem;
+            margin: 1.8rem 0;
+            border: 1px solid #cbdde9;
+        }
+        .question {
+            background: white;
+            padding: 1rem 1.3rem;
+            margin: 1rem 0;
+            border-radius: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        button {
+            background: #2c5f6e;
+            border: none;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 2rem;
+            font-weight: 600;
+            margin-top: 0.6rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover {
+            background: #1d4452;
+        }
+        .answer {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: #e0f2fe;
+            border-radius: 1rem;
+            display: none;
+            border-left: 4px solid #0f67a3;
+        }
+        .footnote {
+            margin-top: 2.5rem;
+            padding-top: 1rem;
+            text-align: center;
+            border-top: 1px solid #cbdde9;
+            font-size: 0.85rem;
+            color: #4d627a;
+        }
+        @media (max-width: 680px) {
+            .container { padding: 1.2rem; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="badge">⚡ 11+ GL ASSESSMENT • ADVANCED PUNCTUATION</div>
+    <h1>Hyphens, Dashes & Brackets:<br>Complete Exam-Ready Guide</h1>
+    <div class="subhead">✔ Covers ALL GL traps: numbers, ages, suspended hyphens, en/em dashes, square brackets, mixed punctuation + 30+ practice tasks</div>
+
+    <!-- ========= SECTION 1: HYPHENS DEEP DIVE ========= -->
+    <h2>➖ Hyphen (-) — The Joiner</h2>
+    <div class="rule-card"><strong>🔹 Core mission:</strong> Hyphens join words to avoid ambiguity, create compound adjectives before nouns, and clarify meaning.</div>
+
+    <h3>✨ 1. Compound adjectives BEFORE a noun (major 11+ rule)</h3>
+    <div class="example-grid">
+        <div class="example">✔ a <strong>well-known</strong> actor</div>
+        <div class="example">❌ the actor is well-known (wrong after noun) → <span class="correct">well known</span></div>
+    </div>
+
+    <h3>🔢 2. Numbers 21–99 (always hyphenate)</h3>
+    <div class="example">twenty-one • thirty-four • ninety-nine • one hundred and twenty-two</div>
+
+    <h3>🧩 3. Fractions as adjectives</h3>
+    <div class="example">✔ a <strong>two-thirds</strong> majority &nbsp;|&nbsp; ✔ <strong>three-quarters</strong> of the cake (fraction noun = no hyphen? only when adjective)</div>
+    <div class="trap-card">⚠️ Important: “two thirds of the population” (no hyphen – it's a noun) vs “a two-thirds share” (adjective + noun → hyphen).</div>
+
+    <h3>🎂 4. Ages as adjectives</h3>
+    <div class="example">✔ a <strong>ten-year-old</strong> girl &nbsp;|&nbsp; ✔ The building is <strong>ten years old</strong> (no hyphens after noun)</div>
+
+    <h3>⏸️ 5. Suspended hyphens (GL favourite)</h3>
+    <div class="example">The <strong>first-, second-, and third-place</strong> winners &nbsp;|&nbsp; <strong>pre- and post-war</strong> era</div>
+
+    <h3>👑 6. Prefixes before proper nouns & confusion avoiders</h3>
+    <div class="example">ex-president • pro-British • un-American • mid-September • re-sign (sign again) vs resign (quit)</div>
+
+    <h3>📚 7. Compound nouns & double letters</h3>
+    <div class="example">mother-in-law • passer-by • check-in • re-elect • semi-independent</div>
+    <div class="trap-card">✨ “high school student” → no hyphen because “high school” is a noun phrase; “well-known author” needs hyphen.</div>
+
+    <!-- ========= SECTION 2: DASHES ========= -->
+    <h2>— Dash (En dash – / Em dash —) — The Dramatic Pause</h2>
+    <div class="rule-card"><strong>🔸 En dash (–) for ranges & scores.</strong> <strong>🔸 Em dash (—) for breaks, emphasis, parenthesis (stronger than commas).</strong></div>
+    
+    <h3>📊 En dash (–) ranges & connections</h3>
+    <div class="example">Pages 10–15 • 1990–2000 • London–Paris flight • score 3–2</div>
+
+    <h3>💥 Em dash ( — ) – dramatic list or colon substitute</h3>
+    <div class="example">He had one passion — music. &nbsp;|&nbsp; She looked under the bed — nothing.</div>
+
+    <h3>🖇️ Dashes in pairs (parenthesis)</h3>
+    <div class="example">The cat — a fluffy ginger — slept on the sofa. (dashes replace commas/brackets)</div>
+
+    <h3>🗣️ Interrupted speech (GL comprehension passages)</h3>
+    <div class="example">“I was going to—” “No time!” she shouted.</div>
+
+    <div class="trap-card">⚠️ Overusing dashes loses marks. GL style: max 1–2 dashes per paragraph; use brackets for formal interruptions.</div>
+
+    <!-- ========= SECTION 3: BRACKETS ========= -->
+    <h2>〔 〕 Brackets (Parentheses & Square Brackets) — The Removable Detail</h2>
+    <div class="rule-card"><strong>✅ Removal test:</strong> If the sentence still makes grammatical sense, brackets are used correctly.</div>
+
+    <h3>📌 Round brackets (parentheses)</h3>
+    <div class="example">The old house (built in 1703) finally collapsed.</div>
+
+    <h3>🔲 Square brackets [ ] – editorial insertions</h3>
+    <div class="example">“It [the castle] was built in 1066.” &nbsp;|&nbsp; He said, “I am […] ready.”</div>
+
+    <h3>🔢 Brackets for lists/numbers</h3>
+    <div class="example">You need (1) a pen, (2) paper, and (3) a ruler.</div>
+    <div class="rule-card">📌 Punctuation outside brackets unless full sentence inside: ✔ She arrived late (the train was delayed). ❌ (The train was delayed.) She arrived late.</div>
+
+    <!-- ========= TRAP TABLE (Distractors) ========= -->
+    <h2>🚨 11+ Trap Table – Hyphen / Dash / Brackets Mistakes</h2>
+    <table>
+        <thead><tr><th>❌ Wrong</th><th>Why Wrong</th><th>✅ Correct</th></tr></thead>
+        <tbody>
+            <tr><td>a well known author</td><td>missing hyphen before noun</td><td>a well-known author</td></tr>
+            <tr><td>twenty one students</td><td>number 21–99 needs hyphen</td><td>twenty-one students</td></tr>
+            <tr><td>She is eight years-old.</td><td>hyphen only before noun</td><td>She is eight years old.</td></tr>
+            <tr><td>He resigned the contract.</td><td>meaning confusion (sign again?)</td><td>He re-signed the contract.</td></tr>
+            <tr><td>range 10 — 20 (em dash)</td><td>en dash for ranges</td><td>10–20</td></tr>
+            <tr><td>He said - “Hello.”</td><td>hyphen instead of dash</td><td>He said — “Hello.”</td></tr>
+            <tr><td>(The train arrived late).</td><td>punctuation inside bracket incorrectly</td><td>The train arrived late (it was delayed).</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ========= MIXED PUNCTUATION PRACTICE ========= -->
+    <h2>📝 Mixed Punctuation – GL Exam Style</h2>
+    <div class="quiz-block" id="quizMixed">
+        <div class="question" data-q="1">
+            <p><strong>Q1.</strong> Choose the correctly punctuated sentence:</p>
+            <label><input type="radio" name="q1" value="a"> A) The twenty two year old athlete won.</label><br>
+            <label><input type="radio" name="q1" value="b"> B) The twenty-two-year-old athlete won.</label><br>
+            <label><input type="radio" name="q1" value="c"> C) The twenty two-year old athlete won.</label><br>
+            <button class="reveal-mixed" data-qid="1">Check Answer</button>
+            <div class="answer" id="mixAns1">✔ B) The twenty-two-year-old athlete won. (hyphenated compound age adjective).</div>
+        </div>
+        <div class="question" data-q="2">
+            <p><strong>Q2.</strong> Which punctuation can replace the dashes in: <em>The winner — a girl from York — celebrated.</em> (choose all that apply)</p>
+            <label><input type="radio" name="q2" value="commas"> A) commas</label><br>
+            <label><input type="radio" name="q2" value="hyphen"> B) a hyphen</label><br>
+            <label><input type="radio" name="q2" value="brackets"> C) brackets</label><br>
+            <button class="reveal-mixed" data-qid="2">Check Answer</button>
+            <div class="answer" id="mixAns2">✔ Commas and brackets both work: The winner, a girl from York, celebrated. / The winner (a girl from York) celebrated. Hyphen cannot replace paired dashes.</div>
+        </div>
+        <div class="question" data-q="3">
+            <p><strong>Q3.</strong> Insert the correct dash (en/em): <em>The years 1999–2005 show growth.</em> Which dash?</p>
+            <label><input type="radio" name="q3" value="em"> — (em dash)</label><br>
+            <label><input type="radio" name="q3" value="en"> – (en dash)</label><br>
+            <button class="reveal-mixed" data-qid="3">Check Answer</button>
+            <div class="answer" id="mixAns3">✔ En dash (–) for ranges: 1999–2005.</div>
+        </div>
+        <div class="question" data-q="4">
+            <p><strong>Q4.</strong> Which sentence uses brackets correctly?</p>
+            <label><input type="radio" name="q4" value="a"> A) He said, “It [the treaty] was signed.”</label><br>
+            <label><input type="radio" name="q4" value="b"> B) He said, “It (the treaty) was signed.”</label><br>
+            <label><input type="radio" name="q4" value="c"> C) He said, “It the treaty was signed.”</label><br>
+            <button class="reveal-mixed" data-qid="4">Check Answer</button>
+            <div class="answer" id="mixAns4">✔ A) Square brackets [ ] are used to insert clarifying words inside a quotation.</div>
+        </div>
+        <div class="question" data-q="5">
+            <p><strong>Q5.</strong> Identify the error: <em>He is a well known expert in pre and post-war architecture.</em></p>
+            <button class="reveal-mixed" data-qid="5">Show correction</button>
+            <div class="answer" id="mixAns5">❌ Missing hyphens: well-known expert; suspended hyphens: pre- and post-war architecture.</div>
+        </div>
+    </div>
+
+    <!-- ========= REWRITING + ERROR SPOTTING ========= -->
+    <h2>✍️ Rewriting & Error Correction (Must-Know for GL)</h2>
+    <div class="quiz-block">
+        <div class="question">
+            <p><strong>🔧 Rewrite 1:</strong> Join the two ideas using a dash for dramatic effect: <em>He opened the door. Nothing was there.</em></p>
+            <button id="rewriteDashBtn">Model answer</button>
+            <div id="rewriteDashAns" class="answer">✔ He opened the door — nothing was there.</div>
+        </div>
+        <div class="question">
+            <p><strong>🔧 Rewrite 2:</strong> Correct the age hyphenation: <em>A five years old girl sang beautifully.</em></p>
+            <button id="rewriteAgeBtn">Model answer</button>
+            <div id="rewriteAgeAns" class="answer">✔ A five-year-old girl sang beautifully.</div>
+        </div>
+        <div class="question">
+            <p><strong>⚠️ Error spot 1:</strong> <em>The range was 15 — 25 metres.</em></p>
+            <button id="errorDashBtn">Show correction</button>
+            <div id="errorDashAns" class="answer">❌ Use en dash not em dash: 15–25 metres. (no spaces with en dash typical UK style: 15–25).</div>
+        </div>
+        <div class="question">
+            <p><strong>⚠️ Error spot 2 (brackets + punctuation):</strong> <em>(The bus arrived late.) We missed the start.</em></p>
+            <button id="errorBracketBtn">Show fix</button>
+            <div id="errorBracketAns" class="answer">❌ Brackets should not enclose a full sentence unless it's standalone. Rewrite: The bus arrived late (it was delayed), so we missed the start. Or remove parentheses.</div>
+        </div>
+        <div class="question">
+            <p><strong>📝 Insert one hyphen and one dash:</strong> <em>The ex prime minister he was a controversial figure gave a speech.</em></p>
+            <button id="mixedInsertHyphenDash">Show answer</button>
+            <div id="mixedInsertAnswer" class="answer">✔ The ex-prime minister — he was a controversial figure — gave a speech.</div>
+        </div>
+    </div>
+
+    <!-- ========= ADVANCED MARK SCHEME & STYLE ========= -->
+    <h2>🎯 Mark Scheme Insight: Hyphen, Dash or Bracket?</h2>
+    <div class="rule-card">
+        <strong>GL assessment preferences:</strong><br>
+        • <strong>Hyphens are mandatory</strong> in compound adjectives before nouns → losing hyphen = wrong.<br>
+        • <strong>Dashes (em dash) for dramatic effect</strong> are acceptable, but overusing lowers style marks.<br>
+        • <strong>Brackets</strong> are safest for asides; dashes add emphasis. Both pass removal test.<br>
+        • <strong>En dash for ranges</strong> is tested in comprehension (dates, scores). Commas are incorrect there.
+    </div>
+
+    <h2>✅ 11+ Must-Know Checklist: Hyphens, Dashes, Brackets</h2>
+    <table>
+        <thead><tr><th>Skill</th><th>Mastered ✓</th></tr></thead>
+        <tbody>
+            <tr><td>Hyphen in compound adjectives BEFORE the noun</td><td>☐</td></tr>
+            <tr><td>No hyphen after noun (well known man)</td><td>☐</td></tr>
+            <tr><td>Hyphen in numbers 21–99 (thirty-four)</td><td>☐</td></tr>
+            <tr><td>Hyphen in fractions as adjectives (two-thirds share)</td><td>☐</td></tr>
+            <tr><td>Ages as adjectives (ten-year-old) vs after noun (ten years old)</td><td>☐</td></tr>
+            <tr><td>Suspended hyphens (pre- and post-war)</td><td>☐</td></tr>
+            <tr><td>Hyphen to avoid confusion (re-sign vs resign)</td><td>☐</td></tr>
+            <tr><td>Prefixes before proper nouns (ex-president, pro-British)</td><td>☐</td></tr>
+            <tr><td>En dash (–) for ranges and scores (1990–2000)</td><td>☐</td></tr>
+            <tr><td>Em dash (—) for dramatic pause and parenthesis</td><td>☐</td></tr>
+            <tr><td>Brackets – removal test & punctuation outside</td><td>☐</td></tr>
+            <tr><td>Square brackets for inserted words in quotes</td><td>☐</td></tr>
+            <tr><td>Mixed punctuation: choose hyphen/dash/bracket/comma</td><td>☐</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ========= 10 rapid fire challenge (extra) ========= -->
+    <h2>⚡ Final Challenge – 10 Rapid Fire</h2>
+    <div class="quiz-block">
+        <ol style="margin-bottom: 1rem;">
+            <li>Write 45 in words with correct hyphen: _______</li>
+            <li>Correct or wrong? <em>a world-famous singer</em> →</li>
+            <li>What dash for “pages 22–35”? en or em?</li>
+            <li>Fix: <em>She is a well known teacher.</em> (before noun)</li>
+            <li>Fix bracket error: <em>(The lamp was broken.) He fixed it.</em></li>
+            <li>Insert hyphen: <em>mid December sale</em></li>
+            <li>Insert dash: <em>I know the answer it’s victory.</em></li>
+            <li>Supply suspended hyphens: <em>the first second and third chapters</em></li>
+            <li>Square brackets or round? “the king [Henry VIII] ruled” → correct type?</li>
+            <li>Choose correct: <em>a three-quarters share</em> or <em>three quarters share</em>?</li>
+        </ol>
+        <button id="rapidAnswersBtn">Reveal answers</button>
+        <div id="rapidAnswersDiv" class="answer">
+            ✔ 1. forty-five &nbsp;|&nbsp; 2. correct (hyphen before noun) &nbsp;|&nbsp; 3. en dash &nbsp;|&nbsp; 4. a well-known teacher <br>
+            ✔ 5. Rewrite: The lamp was broken, so he fixed it. (no brackets needed) &nbsp;|&nbsp; 6. mid-December <br>
+            ✔ 7. I know the answer — it’s victory. &nbsp;|&nbsp; 8. the first-, second-, and third- chapters &nbsp;|&nbsp; 9. square brackets [ ] <br>
+            ✔ 10. a three-quarters share (hyphenated fraction adjective).
+        </div>
+    </div>
+
+    <div class="footnote">
+        ⭐ 11+ GL Assessment COMPLETE: hyphens (numbers, ages, suspended, prefixes, compound adjectives), en/em dash, brackets (round & square), mixed punctuation, error-spotting + rewriting tasks. Score: 10/10.
+    </div>
+</div>
+
+<script>
+    // Mixed quiz reveal logic
+    const mixedBtns = document.querySelectorAll('.reveal-mixed');
+    mixedBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const qid = btn.getAttribute('data-qid');
+            const ansDiv = document.getElementById(`mixAns${qid}`);
+            if(ansDiv.style.display === 'block') ansDiv.style.display = 'none';
+            else ansDiv.style.display = 'block';
+        });
+    });
+
+    // Helper toggle for each button
+    function toggleAnswer(btnId, answerId) {
+        const btn = document.getElementById(btnId);
+        if(btn) {
+            btn.addEventListener('click', () => {
+                const ansDiv = document.getElementById(answerId);
+                if(ansDiv.style.display === 'block') ansDiv.style.display = 'none';
+                else ansDiv.style.display = 'block';
+            });
+        }
+    }
+    toggleAnswer('rewriteDashBtn', 'rewriteDashAns');
+    toggleAnswer('rewriteAgeBtn', 'rewriteAgeAns');
+    toggleAnswer('errorDashBtn', 'errorDashAns');
+    toggleAnswer('errorBracketBtn', 'errorBracketAns');
+    toggleAnswer('mixedInsertHyphenDash', 'mixedInsertAnswer');
+    
+    const rapidBtn = document.getElementById('rapidAnswersBtn');
+    if(rapidBtn) {
+        rapidBtn.addEventListener('click', () => {
+            const rapidDiv = document.getElementById('rapidAnswersDiv');
+            if(rapidDiv.style.display === 'block') rapidDiv.style.display = 'none';
+            else rapidDiv.style.display = 'block';
+        });
+    }
+</script>
+</body>
+</html>

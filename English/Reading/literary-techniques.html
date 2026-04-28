@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Language &amp; Literary Techniques — GL Assessment 11+ English</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --ink: #18181b;
+  --ink-soft: #3f3f46;
+  --ink-muted: #71717a;
+  --page: #f8f7f4;
+  --page-warm: #f0ede6;
+  --page-card: #ffffff;
+  --border: #e4e0d8;
+  --border-strong: #c4bfb4;
+
+  --red: #b91c1c;
+  --red-soft: #fef2f2;
+  --red-mid: #fecaca;
+  --amber: #92400e;
+  --amber-soft: #fffbeb;
+  --amber-mid: #fde68a;
+  --teal: #0f5959;
+  --teal-soft: #f0fafa;
+  --teal-mid: #99d6d6;
+  --blue: #1e3a8a;
+  --blue-soft: #eff6ff;
+  --blue-mid: #bfdbfe;
+  --purple: #581c87;
+  --purple-soft: #faf5ff;
+  --purple-mid: #e9d5ff;
+  --green: #14532d;
+  --green-soft: #f0fdf4;
+  --green-mid: #bbf7d0;
+
+  --correct: #15803d;
+  --correct-bg: #f0fdf4;
+  --correct-border: #86efac;
+  --wrong: #b91c1c;
+  --wrong-bg: #fef2f2;
+  --wrong-border: #fca5a5;
+
+  --r: 8px;
+  --rlg: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  background: var(--page);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.8;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 28px 80px;
+}
+
+/* ─── TYPE ─── */
+h1 { font-family: 'Outfit', sans-serif; font-size: clamp(2rem,5vw,3.4rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; }
+h2 { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 600; letter-spacing: -0.02em; margin: 3rem 0 1rem; padding-bottom: .5rem; border-bottom: 2px solid var(--ink); display: flex; align-items: center; gap: .6rem; }
+h3 { font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 600; margin: 2rem 0 .5rem; color: var(--ink-soft); }
+h4 { font-family: 'JetBrains Mono', monospace; font-size: .72rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-muted); margin: 1.5rem 0 .4rem; }
+p { margin-bottom: .8rem; }
+strong { font-weight: 700; }
+em { font-style: italic; }
+ul, ol { padding-left: 1.4rem; margin-bottom: .8rem; }
+li { margin: .3rem 0; }
+
+/* ─── HEADER ─── */
+.hdr {
+  background: var(--ink);
+  color: #faf8f4;
+  border-radius: var(--rlg);
+  padding: 44px 48px;
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.hdr::before { content:''; position:absolute; top:-50px; right:-50px; width:280px; height:280px; border-radius:50%; background:var(--red); opacity:.15; }
+.hdr::after  { content:''; position:absolute; bottom:-60px; left:60px; width:200px; height:200px; border-radius:50%; background:var(--amber); opacity:.1; }
+.hdr-label { font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:#a1a1aa; margin-bottom:.8rem; position:relative; z-index:1; }
+.hdr h1 { color:#faf8f4; position:relative; z-index:1; margin-bottom:.6rem; }
+.hdr p  { color:#d4d4d8; font-family:'Outfit',sans-serif; font-size:1rem; max-width:520px; position:relative; z-index:1; margin:0; line-height:1.6; }
+
+/* ─── TOC ─── */
+.toc { background:var(--page-warm); border:1px solid var(--border); border-radius:var(--rlg); padding:26px 30px; margin-bottom:3rem; }
+.toc h4 { margin-top:0; }
+.toc ol { columns:2; column-gap:2rem; font-family:'Outfit',sans-serif; font-size:.9rem; }
+.toc li { margin:.2rem 0; }
+.toc a { color:var(--red); text-decoration:none; }
+.toc a:hover { text-decoration:underline; }
+
+/* ─── CALLOUTS ─── */
+.pill { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:.68rem; padding:2px 10px; border-radius:99px; font-weight:500; letter-spacing:.05em; text-transform:uppercase; }
+.pill-red    { background:var(--red-mid);    color:var(--red);    }
+.pill-amber  { background:var(--amber-mid);  color:var(--amber);  }
+.pill-teal   { background:var(--teal-mid);   color:var(--teal);   }
+.pill-blue   { background:var(--blue-mid);   color:var(--blue);   }
+.pill-purple { background:var(--purple-mid); color:var(--purple); }
+.pill-green  { background:var(--green-mid);  color:var(--green);  }
+
+.box { border-radius:var(--r); padding:16px 20px; margin:1rem 0; }
+.box-red    { background:var(--red-soft);    border-left:4px solid var(--red);    }
+.box-amber  { background:var(--amber-soft);  border-left:4px solid var(--amber);  }
+.box-teal   { background:var(--teal-soft);   border-left:4px solid var(--teal);   }
+.box-blue   { background:var(--blue-soft);   border-left:4px solid var(--blue);   }
+.box-purple { background:var(--purple-soft); border-left:4px solid var(--purple); }
+.box-green  { background:var(--green-soft);  border-left:4px solid var(--green);  }
+.box p:last-child { margin-bottom:0; }
+
+/* ─── IEE FRAMEWORK ─── */
+.iee-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin:1.2rem 0; }
+.iee-step { background:var(--page-card); border:1px solid var(--border); border-radius:var(--rlg); padding:20px; text-align:center; }
+.iee-letter { font-family:'Outfit',sans-serif; font-size:3rem; font-weight:700; line-height:1; margin-bottom:6px; }
+.iee-name   { font-family:'Outfit',sans-serif; font-weight:600; font-size:.95rem; margin-bottom:4px; }
+.iee-desc   { font-family:'Outfit',sans-serif; font-size:.83rem; color:var(--ink-soft); line-height:1.5; }
+.iee-i .iee-letter { color:var(--red); }
+.iee-e .iee-letter { color:var(--teal); }
+.iee-e2 .iee-letter { color:var(--purple); }
+
+/* ─── MARK BANDS ─── */
+.marks-compare { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:1.2rem 0; }
+.mark-band { background:var(--page-card); border:1px solid var(--border); border-radius:var(--rlg); overflow:hidden; }
+.mark-band-head { padding:12px 16px; font-family:'Outfit',sans-serif; font-size:.85rem; font-weight:600; }
+.mark-band-body { padding:14px 16px; font-size:.88rem; }
+
+/* ─── TECHNIQUE CARDS ─── */
+.technique-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:1.2rem 0; }
+.tc {
+  background:var(--page-card);
+  border:1px solid var(--border);
+  border-radius:var(--rlg);
+  padding:18px 20px;
+  transition:box-shadow .15s;
+}
+.tc:hover { box-shadow:0 4px 18px rgba(0,0,0,.08); }
+.tc-name { font-family:'Outfit',sans-serif; font-weight:700; font-size:1rem; margin-bottom:4px; }
+.tc-def  { font-size:.86rem; margin-bottom:8px; color:var(--ink-soft); }
+.tc-effect { font-size:.82rem; background:var(--page-warm); border-radius:6px; padding:8px 11px; margin-bottom:8px; }
+.tc-effect strong { color:var(--red); }
+.tc-example { font-style:italic; font-size:.83rem; border-left:2px solid var(--teal); padding-left:10px; color:var(--teal); margin-bottom:6px; }
+.tc-student { font-size:.8rem; background:var(--blue-soft); border-radius:6px; padding:8px 10px; color:var(--blue); }
+.tc-student strong { color:var(--blue); display:block; margin-bottom:2px; font-family:'JetBrains Mono',monospace; font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; }
+
+/* ─── WORKED EXAMPLES ─── */
+.worked-strong {
+  background:var(--ink);
+  color:#faf8f4;
+  border-radius:var(--rlg);
+  padding:26px 30px;
+  margin:1rem 0;
+  font-size:.93rem;
+  line-height:1.75;
+  position:relative;
+}
+.worked-strong h4 { color:#a1a1aa; margin-top:0; }
+.anno { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:.63rem; padding:1px 7px; border-radius:4px; font-weight:500; letter-spacing:.04em; vertical-align:middle; margin-left:2px; font-style:normal; }
+.anno-r { background:var(--red);    color:#fff; }
+.anno-t { background:var(--teal);   color:#fff; }
+.anno-p { background:var(--purple); color:#fff; }
+.anno-a { background:var(--amber);  color:#fff; }
+
+.worked-weak { background:#fef9f0; border:1.5px dashed #d4a040; border-radius:var(--rlg); padding:22px 26px; margin:1rem 0; font-size:.91rem; line-height:1.7; }
+.worked-weak h4 { color:var(--amber); margin-top:0; }
+.strike-anno { background:#fde68a; border-radius:3px; padding:0 4px; font-size:.78rem; color:#78350f; }
+
+/* ─── WEAK/STRONG TABLE ─── */
+.ws-table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:.86rem; border-radius:var(--rlg); overflow:hidden; border:1px solid var(--border); }
+.ws-table thead th { background:var(--ink); color:#faf8f4; padding:11px 14px; font-family:'JetBrains Mono',monospace; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; text-align:left; }
+.ws-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.55; }
+.ws-table tbody tr:nth-child(even) { background:var(--page-warm); }
+.ws-weak  { color:var(--wrong); font-style:italic; }
+.ws-strong { color:var(--correct); font-style:italic; }
+
+/* ─── PASSAGE ─── */
+.passage-wrap {
+  border:2px solid var(--ink);
+  border-radius:var(--rlg);
+  padding:34px 40px;
+  margin:2rem 0;
+  background:var(--page-card);
+  position:relative;
+}
+.passage-wrap::before {
+  content:'UNSEEN EXTRACT';
+  position:absolute; top:-13px; left:20px;
+  background:var(--ink); color:#faf8f4;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem; letter-spacing:.12em; padding:2px 12px; border-radius:99px;
+}
+.passage-text { font-size:.97rem; line-height:1.9; color:var(--ink-soft); }
+.passage-text p { margin-bottom:1rem; }
+
+/* ─── QUESTIONS ─── */
+.qblock { background:var(--page-card); border:1px solid var(--border); border-radius:var(--rlg); padding:20px 22px; margin:12px 0; }
+.qblock:hover { border-color:var(--border-strong); }
+.q-label { font-family:'JetBrains Mono',monospace; font-size:.67rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-muted); margin-bottom:5px; }
+.q-text  { font-size:.95rem; font-weight:700; margin-bottom:10px; font-family:'Outfit',sans-serif; line-height:1.45; }
+.q-input {
+  width:100%; padding:10px 13px;
+  border:1.5px solid var(--border);
+  border-radius:var(--r);
+  font-family:'Libre Baskerville',serif;
+  font-size:.93rem;
+  background:var(--page-warm);
+  color:var(--ink);
+  resize:vertical; min-height:42px;
+  transition:border-color .2s, box-shadow .2s;
+}
+.q-input:focus { outline:none; border-color:var(--red); box-shadow:0 0 0 3px rgba(185,28,28,.1); }
+.q-btn {
+  margin-top:9px; padding:9px 22px;
+  background:var(--red); color:#fff; border:none;
+  border-radius:var(--r); cursor:pointer;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+  transition:background .15s, transform .1s;
+}
+.q-btn:hover { background:#991b1b; }
+.q-btn:active { transform:scale(.97); }
+.q-fb { margin-top:10px; padding:11px 15px; border-radius:var(--r); font-size:.88rem; line-height:1.55; display:none; }
+.q-fb.ok  { background:var(--correct-bg); border:1px solid var(--correct-border); color:var(--correct); }
+.q-fb.no  { background:var(--wrong-bg);   border:1px solid var(--wrong-border);   color:var(--wrong);   }
+.fb-head { font-weight:700; display:block; margin-bottom:3px; font-family:'Outfit',sans-serif; }
+.fb-body { font-style:italic; font-size:.84rem; }
+
+/* ─── LEVELS ─── */
+.lev { display:flex; align-items:center; gap:10px; margin:2rem 0 .8rem; }
+.lev-badge { font-family:'JetBrains Mono',monospace; font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; padding:4px 12px; border-radius:99px; font-weight:500; }
+.lv-easy  { background:var(--green-soft);  color:var(--green);  border:1px solid var(--green-mid); }
+.lv-int   { background:var(--blue-soft);   color:var(--blue);   border:1px solid var(--blue-mid); }
+.lv-adv   { background:var(--amber-soft);  color:var(--amber);  border:1px solid var(--amber-mid); }
+.lv-chal  { background:var(--red-soft);    color:var(--red);    border:1px solid var(--red-mid); }
+
+/* ─── MARK SCHEME ─── */
+details { margin:1rem 0; border:1px solid var(--border); border-radius:var(--rlg); overflow:hidden; }
+summary {
+  background:var(--page-warm); padding:13px 20px; cursor:pointer;
+  font-family:'JetBrains Mono',monospace; font-size:.75rem; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink-soft); user-select:none; list-style:none;
+  display:flex; justify-content:space-between; align-items:center;
+}
+summary::after { content:'▼'; font-size:.6rem; transition:transform .2s; }
+details[open] summary::after { transform:rotate(180deg); }
+details[open] summary { border-bottom:1px solid var(--border); }
+.ms-body { padding:22px 28px; }
+.ms-q { margin-bottom:1.3rem; }
+.ms-ql { font-family:'Outfit',sans-serif; font-weight:600; font-size:.9rem; margin-bottom:4px; }
+.ms-marks { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:.67rem; padding:1px 8px; background:var(--ink); color:#faf8f4; border-radius:99px; margin-left:7px; }
+.ms-accept { font-size:.86rem; color:var(--ink-soft); }
+
+/* ─── MASTERY ─── */
+.mastery-hdr { background:linear-gradient(135deg,var(--ink) 0%,#2d1b00 100%); color:#faf8f4; border-radius:var(--rlg); padding:30px 36px; margin:3rem 0 1.5rem; position:relative; overflow:hidden; }
+.mastery-hdr::before { content:''; position:absolute; top:-30px; right:-30px; width:200px; height:200px; border-radius:50%; background:var(--amber); opacity:.1; }
+.mastery-hdr h2 { border:none; color:#faf8f4; margin:0 0 .3rem; position:relative; z-index:1; }
+.mastery-hdr p  { color:#d4d4d8; font-family:'Outfit',sans-serif; font-size:.9rem; margin:0; position:relative; z-index:1; }
+.score-box { display:none; background:var(--ink); color:#faf8f4; border-radius:var(--rlg); padding:26px 30px; margin:1.5rem 0; text-align:center; }
+.score-big { font-family:'Outfit',sans-serif; font-size:4rem; font-weight:700; color:#fde68a; line-height:1; margin-bottom:6px; }
+.score-sub { color:#a1a1aa; font-family:'Outfit',sans-serif; font-size:.9rem; }
+
+/* ─── COMPARE TABLE (mood vs viewpoint) ─── */
+.compare-tbl { width:100%; border-collapse:collapse; margin:1rem 0; font-size:.88rem; border:1px solid var(--border); border-radius:var(--rlg); overflow:hidden; }
+.compare-tbl th { background:var(--ink); color:#faf8f4; padding:11px 15px; text-align:left; font-family:'JetBrains Mono',monospace; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; }
+.compare-tbl td { padding:11px 15px; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.6; }
+.compare-tbl tbody tr:nth-child(even) { background:var(--page-warm); }
+.compare-tbl tr:last-child td { border-bottom:none; }
+
+@media (max-width:640px) {
+  body { padding:18px 16px 60px; font-size:15px; }
+  .iee-row, .technique-grid, .marks-compare { grid-template-columns:1fr; }
+  .toc ol { columns:1; }
+  .passage-wrap { padding:22px 18px; }
+}
+@media print {
+  .q-btn { display:none; }
+  details > div { display:block !important; }
+  summary::after { display:none; }
+  .hdr { background:var(--ink); -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-label">GL Assessment 11+ English · Language &amp; Literary Techniques</div>
+  <h1>How Writers Build<br>Worlds with Words</h1>
+  <p>A complete guide to identifying techniques, analysing effects, and writing responses that earn full marks — from single word choices to sustained analytical paragraphs.</p>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h4>Contents</h4>
+  <ol>
+    <li><a href="#iee">The I.E.E. Framework</a></li>
+    <li><a href="#qtypes">Question Types &amp; Mark Allocation</a></li>
+    <li><a href="#mood-vs-viewpoint">Atmosphere vs Viewpoint Questions</a></li>
+    <li><a href="#imagery">Imagery Techniques</a></li>
+    <li><a href="#sound">Sound Techniques</a></li>
+    <li><a href="#structural">Structural Techniques</a></li>
+    <li><a href="#rhetorical">Rhetorical &amp; Persuasive Techniques</a></li>
+    <li><a href="#other">Further Techniques</a></li>
+    <li><a href="#wordlevel">Word-Level Analysis</a></li>
+    <li><a href="#worked">Worked Examples: Weak vs Strong</a></li>
+    <li><a href="#practice">Unseen Extract &amp; Practice Questions</a></li>
+    <li><a href="#mastery">Final Mastery Test</a></li>
+  </ol>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     1. IEE FRAMEWORK
+═══════════════════════════════════════════ -->
+<section id="iee">
+<h2>① The I.E.E. Framework</h2>
+<p>Every extended language analysis answer — whether it is two sentences or a full paragraph — must contain all three of the following components. Missing even one will cost you marks.</p>
+
+<div class="iee-row">
+  <div class="iee-step iee-i">
+    <div class="iee-letter">I</div>
+    <div class="iee-name">Identify</div>
+    <div class="iee-desc">Name the technique. Be precise: "personification" not "language."</div>
+  </div>
+  <div class="iee-step iee-e">
+    <div class="iee-letter">E</div>
+    <div class="iee-name">Evidence</div>
+    <div class="iee-desc">Quote the specific word or phrase from the text. Keep it short — a few words, not a whole sentence.</div>
+  </div>
+  <div class="iee-step iee-e2">
+    <div class="iee-letter">E</div>
+    <div class="iee-name">Explain</div>
+    <div class="iee-desc">Explain exactly what this does to the reader's mind. Say: "This makes the reader feel / think / picture..." and connect to the writer's purpose.</div>
+  </div>
+</div>
+
+<div class="box box-red">
+  <h4 style="margin-top:0">The Golden Rule</h4>
+  <p>Naming the technique alone earns <strong>zero marks</strong> for explanation questions. The examiner needs to know what the technique <em>does</em> — to the reader, in this specific context, given what the writer is trying to achieve.</p>
+</div>
+
+<h3>Practice — I.E.E. Framework</h3>
+<div class="lev"><span class="lev-badge lv-easy">Easy</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q1 · Easy</div>
+  <div class="q-text">What does the "I" in I.E.E. stand for?</div>
+  <input class="q-input" type="text" id="iee1" placeholder="Write your answer">
+  <br><button class="q-btn" onclick="chk('iee1','identify',['identify'],'The I stands for <b>Identify</b> — you must name the literary technique before you can explain it.')">Check Answer</button>
+  <div class="q-fb" id="fb-iee1"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q2 · Easy</div>
+  <div class="q-text">Which part of I.E.E. requires you to copy a short phrase from the text?</div>
+  <input class="q-input" type="text" id="iee2" placeholder="Write your answer">
+  <br><button class="q-btn" onclick="chk('iee2','evidence',['evidence','e','second e'],'The second step is <b>Evidence</b> — you must quote directly from the text (a word or short phrase) to support your analysis.')">Check Answer</button>
+  <div class="q-fb" id="fb-iee2"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q3 · Easy</div>
+  <div class="q-text">A student writes: "The writer uses a simile." How many marks would this answer typically score for a three-mark analysis question?</div>
+  <input class="q-input" type="text" id="iee3" placeholder="Write the number">
+  <br><button class="q-btn" onclick="chk('iee3','0',['0','zero','none'],'<b>Zero marks</b> (or at best one). Naming the technique without evidence or explanation earns no credit for the explanation component. You must complete all three parts of I.E.E.')">Check Answer</button>
+  <div class="q-fb" id="fb-iee3"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-int">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q4 · Intermediate</div>
+  <div class="q-text">Arrange the three I.E.E. steps in the correct order: Explain, Identify, Evidence.</div>
+  <input class="q-input" type="text" id="iee4" placeholder="Write: first, second, third">
+  <br><button class="q-btn" onclick="chk('iee4','identify',['identify, evidence, explain','identify evidence explain','i e e','identify then evidence then explain'],'The correct order is: <b>Identify → Evidence → Explain</b>. Name the technique first, then quote, then explain the effect.')">Check Answer</button>
+  <div class="q-fb" id="fb-iee4"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q5 · Intermediate</div>
+  <div class="q-text">The "Explain" step should always start with a phrase connecting to the reader. Which of these is the best way to begin your explanation? A) "This is because…" B) "This makes the reader feel…" C) "The writer writes…"</div>
+  <input class="q-input" type="text" id="iee5" placeholder="Write A, B, or C">
+  <br><button class="q-btn" onclick="chk('iee5','b',['b','b)','option b','this makes the reader'],'<b>B</b> — "This makes the reader feel/picture/think…" directly addresses the effect on the reader, which is what the examiner is looking for. Always connect your explanation to the reader\'s experience.')">Check Answer</button>
+  <div class="q-fb" id="fb-iee5"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-adv">Advanced</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q6 · Advanced</div>
+  <div class="q-text">A student writes: "The writer uses metaphor, calling the city 'a hungry beast.' This makes it sound dangerous." Is this a full I.E.E. answer? What is missing?</div>
+  <textarea class="q-input" rows="3" id="iee6" placeholder="Explain what is present and what is missing..."></textarea>
+  <br><button class="q-btn" onclick="chk('iee6','purpose',['purpose','why','writer','intent','connection to writer','link to purpose','not connected','no link'],'The I and E (evidence) are present. The explanation is there but <b>thin</b> — it needs to explain <em>why</em> this effect matters: what does the writer want the reader to understand? A fuller answer would say: "This makes the reader feel threatened and overwhelmed by the city, reinforcing the writer\'s view that urban life is relentless and consuming."')">Check Answer</button>
+  <div class="q-fb" id="fb-iee6"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     2. QUESTION TYPES
+═══════════════════════════════════════════ -->
+<section id="qtypes">
+<h2>② Question Types &amp; Mark Allocation</h2>
+<p>GL Assessment papers contain different question types that require very different lengths and depths of response. Recognising which type you are answering is crucial — over-answering a one-mark question wastes time; under-answering a three-mark question loses marks.</p>
+
+<div class="marks-compare">
+  <div class="mark-band">
+    <div class="mark-band-head" style="background:var(--teal-soft); color:var(--teal);">One-Mark: Technique Identification</div>
+    <div class="mark-band-body">
+      <p><strong>Question wording:</strong> "Identify a technique used in paragraph 2." / "Name the literary device in line 7."</p>
+      <p><strong>What to write:</strong> One or two words only. Name the technique. You do <em>not</em> need to explain anything.</p>
+      <div class="box box-teal">
+        <strong>Example answer:</strong> "Personification."<br>
+        <span style="font-size:.85rem; color:var(--ink-muted);">— Full marks. That's all that's needed.</span>
+      </div>
+    </div>
+  </div>
+  <div class="mark-band">
+    <div class="mark-band-head" style="background:var(--red-soft); color:var(--red);">Three-Mark: Extended Language Analysis</div>
+    <div class="mark-band-body">
+      <p><strong>Question wording:</strong> "How does the writer use language to describe the storm?" / "Explain the effect of the phrase 'iron bones' on the reader."</p>
+      <p><strong>What to write:</strong> A full paragraph: technique + quote + detailed effect linked to writer's purpose.</p>
+      <div class="box box-red">
+        <strong>Must include:</strong> Named technique · Short quote · Effect on reader (at least 2 sentences) · Link to mood or purpose.
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>Practice — Question Types</h3>
+<div class="lev"><span class="lev-badge lv-easy">Easy</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q1 · Easy</div>
+  <div class="q-text">The question says: "Identify a technique used to describe the weather in paragraph 1. [1 mark]" How long should your answer be?</div>
+  <input class="q-input" type="text" id="qt1" placeholder="Describe the ideal answer length">
+  <br><button class="q-btn" onclick="chk('qt1','one',['one word','one or two words','short','word or two','name only','1-2 words'],'<b>One or two words</b> — just name the technique. "Personification" or "Pathetic fallacy" is a complete answer for a one-mark identification question. Do not write a full explanation.')">Check Answer</button>
+  <div class="q-fb" id="fb-qt1"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q2 · Easy</div>
+  <div class="q-text">Which key words in a question signal that you need a full I.E.E. paragraph response? Choose from: "Identify" / "How does the writer" / "Name" / "Explain the effect"</div>
+  <input class="q-input" type="text" id="qt2" placeholder="Write the signal phrases">
+  <br><button class="q-btn" onclick="chk('qt2','how does',['how does the writer','explain the effect','how does','effect'],'The phrases <b>"How does the writer…"</b> and <b>"Explain the effect…"</b> signal extended analysis. "Identify" and "Name" signal a one-word response only.')">Check Answer</button>
+  <div class="q-fb" id="fb-qt2"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q3 · Easy</div>
+  <div class="q-text">For a three-mark language question, how many marks would a student earn by only naming a technique and quoting from the text, without explaining the effect?</div>
+  <input class="q-input" type="text" id="qt3" placeholder="Write the number">
+  <br><button class="q-btn" onclick="chk('qt3','1',['1','one','one mark','at most 1','maximum 1'],'<b>One mark</b> at most — for identifying the technique. The remaining two marks require a clear explanation of the effect on the reader.')">Check Answer</button>
+  <div class="q-fb" id="fb-qt3"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-int">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q4 · Intermediate</div>
+  <div class="q-text">A question asks: "What technique is used in the phrase 'the sun murdered the day'? [1 mark]" A student writes: "The writer uses personification, calling the sun 'murdered', which makes the sun seem violent and powerful." How many marks should this score?</div>
+  <input class="q-input" type="text" id="qt4" placeholder="Write the number of marks">
+  <br><button class="q-btn" onclick="chk('qt4','1',['1','one','one mark'],'<b>One mark</b> — this is a one-mark identification question. The student has written a full explanation, which earns no extra credit. They should have simply written "Personification" and moved on.')">Check Answer</button>
+  <div class="q-fb" id="fb-qt4"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     3. ATMOSPHERE vs VIEWPOINT
+═══════════════════════════════════════════ -->
+<section id="mood-vs-viewpoint">
+<h2>③ Atmosphere vs Viewpoint Questions</h2>
+<p>These two question types look similar but are asking for very different things. Students who confuse them lose marks on both.</p>
+
+<table class="compare-tbl">
+  <thead><tr><th></th><th>Atmosphere / Mood Question</th><th>Writer's Viewpoint Question</th></tr></thead>
+  <tbody>
+    <tr><td><strong>What it asks</strong></td><td>How does the writer create a specific feeling, atmosphere, or mood?</td><td>What does the writer think or believe about the topic? How do they reveal their opinion?</td></tr>
+    <tr><td><strong>Focus</strong></td><td>The <em>reader's</em> emotional experience of the text</td><td>The <em>writer's</em> personal attitude or bias</td></tr>
+    <tr><td><strong>Key question words</strong></td><td>"Atmosphere," "mood," "feeling," "how does the reader feel"</td><td>"Viewpoint," "opinion," "attitude," "perspective," "what does the writer think"</td></tr>
+    <tr><td><strong>Evidence to use</strong></td><td>Sensory language, pathetic fallacy, imagery, pace, short sentences</td><td>Adjective choices, selection of detail, rhetorical questions, emotive language</td></tr>
+  </tbody>
+</table>
+
+<h3>Example: Atmosphere Question</h3>
+<div class="box box-teal">
+  <p><strong>Question:</strong> How does the writer create a sense of menace in this extract? [3 marks]</p>
+  <p><strong>Model answer:</strong> The writer uses personification in the phrase "the shadows crept towards the door," giving the darkness a deliberate, predatory movement. This makes the reader feel as though the house itself is threatening — as if the dark is hunting the character. The short sentence that follows, "Silence," amplifies this unease by cutting off sound entirely, leaving the reader in the same suspended, breathless state as the character. Together, these techniques build a tense, menacing atmosphere that makes the reader feel unsafe and alert.</p>
+</div>
+
+<h3>Example: Viewpoint Question</h3>
+<div class="box box-purple">
+  <p><strong>Question:</strong> What is the writer's viewpoint on urban development? How do you know? [3 marks]</p>
+  <p><strong>Model answer:</strong> The writer holds a <em>critical</em> viewpoint toward urban development. This is revealed through their choice of the verb "gouged" to describe how construction has changed the landscape — a word normally associated with pain and violence, which suggests the writer sees development as destructive rather than progressive. They further reveal their bias through selection of detail: they describe only what has been lost (open fields, hedgerows, birdsong) without acknowledging any benefits. The rhetorical question "How long before there is nothing left?" confirms their alarm, implying the answer is obvious — that this level of destruction cannot continue.</p>
+</div>
+
+<h3>Practice — Atmosphere vs Viewpoint</h3>
+<div class="lev"><span class="lev-badge lv-easy">Easy</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q1 · Easy</div>
+  <div class="q-text">A question asks: "How does the writer create a sense of sadness in this passage?" Is this an atmosphere question or a viewpoint question?</div>
+  <input class="q-input" type="text" id="mv1" placeholder="Atmosphere or Viewpoint?">
+  <br><button class="q-btn" onclick="chk('mv1','atmosphere',['atmosphere','mood','atmosphere/mood'],'<b>Atmosphere</b> — the question asks how the writer creates a <em>feeling</em> in the reader. You should analyse techniques that make the reader sad, not what the writer personally believes.')">Check Answer</button>
+  <div class="q-fb" id="fb-mv1"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q2 · Easy</div>
+  <div class="q-text">A question asks: "What is the writer's attitude toward foxhunting? Use evidence to support your answer." Is this an atmosphere question or a viewpoint question?</div>
+  <input class="q-input" type="text" id="mv2" placeholder="Atmosphere or Viewpoint?">
+  <br><button class="q-btn" onclick="chk('mv2','viewpoint',['viewpoint','view','opinion','attitude','writer viewpoint'],'<b>Viewpoint</b> — the question asks what the <em>writer thinks or believes</em>. You should identify language that reveals bias, opinion, or attitude.')">Check Answer</button>
+  <div class="q-fb" id="fb-mv2"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q3 · Easy</div>
+  <div class="q-text">For an atmosphere question, should your analysis focus on: A) what the writer personally believes, or B) how the reader feels when reading?</div>
+  <input class="q-input" type="text" id="mv3" placeholder="Write A or B">
+  <br><button class="q-btn" onclick="chk('mv3','b',['b','b)','reader','how the reader feels'],'<b>B</b> — atmosphere questions are about the reader\'s experience. You analyse techniques that create a feeling or emotional response in the reader, not the writer\'s own opinion.')">Check Answer</button>
+  <div class="q-fb" id="fb-mv3"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-int">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q4 · Intermediate</div>
+  <div class="q-text">A passage describes a factory using phrases like "the machinery wailed," "the workers' hollow eyes," and "a relentless iron heartbeat." Is a question about this passage more likely to be an atmosphere question or a viewpoint question? Explain your reasoning.</div>
+  <textarea class="q-input" rows="3" id="mv4" placeholder="Write your reasoning..."></textarea>
+  <br><button class="q-btn" onclick="chk('mv4','both',['both','either','atmosphere','viewpoint','could be either'],'<b>Either</b> is possible — and both are valid. The imagery creates atmosphere (oppressive, inhuman, relentless), but the word choices also reveal a viewpoint (critical of industrial working conditions). In the exam, read the question carefully to see which one is being asked.')">Check Answer</button>
+  <div class="q-fb" id="fb-mv4"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q5 · Intermediate</div>
+  <div class="q-text">Which technique is most useful for answering a viewpoint question: pathetic fallacy or selection of detail?</div>
+  <input class="q-input" type="text" id="mv5" placeholder="Write your answer and explain briefly">
+  <br><button class="q-btn" onclick="chk('mv5','selection',['selection of detail','selection','detail','what is left out','omission'],'<b>Selection of detail</b> — viewpoint is revealed by what a writer chooses to include (and leave out). Pathetic fallacy creates atmosphere; selection of detail reveals bias and opinion. Both can contribute, but selection of detail is the primary viewpoint clue.')">Check Answer</button>
+  <div class="q-fb" id="fb-mv5"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     4. IMAGERY TECHNIQUES
+═══════════════════════════════════════════ -->
+<section id="imagery">
+<h2>④ Imagery Techniques</h2>
+<p>These techniques help the reader visualise or feel something vividly. They work by connecting the unknown to the known.</p>
+
+<div class="technique-grid">
+  <div class="tc">
+    <div class="tc-name" style="color:var(--red)">Simile</div>
+    <div class="tc-def">A comparison using "like" or "as" — explicitly stating the resemblance.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Creates a precise, vivid mental image by borrowing qualities from something familiar. The more unexpected the comparison, the more striking the image.</div>
+    <div class="tc-example">"The old woman's hands were like knotted driftwood — pale, worn, and shaped by years of invisible tide."</div>
+    <div class="tc-student"><strong>Student model:</strong> The writer uses a simile, comparing the woman's hands to "knotted driftwood." This makes the reader picture something weathered, pale, and shaped by forces beyond the person's control — suggesting a life of hard, invisible labour.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--red)">Metaphor</div>
+    <div class="tc-def">States that one thing IS another — a direct comparison without "like" or "as." More powerful than simile because there is no distance between the two things.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Forces the reader to see the subject through the qualities of the comparison. The stronger the metaphor, the more it changes how the reader understands the subject.</div>
+    <div class="tc-example">"The classroom was a battlefield by midday — desks overturned, voices raised, no corner left untouched."</div>
+    <div class="tc-student"><strong>Student model:</strong> The writer uses a metaphor, calling the classroom "a battlefield." This makes the reader picture chaos and conflict as if it were warfare, suggesting that the situation has escalated completely beyond normal order.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--red)">Personification</div>
+    <div class="tc-def">Giving human qualities, emotions, or actions to something non-human: objects, animals, nature, or abstract ideas.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Makes the non-human feel alive, purposeful, or even threatening. It creates empathy or tension depending on the quality assigned.</div>
+    <div class="tc-example">"The old house groaned with each footstep, as if protesting the intrusion."</div>
+    <div class="tc-student"><strong>Student model:</strong> The writer uses personification, saying the house "groaned" and "protesting." This gives the building a sense of discomfort and agency — making the reader feel as though the house itself is hostile to visitors, which builds a threatening atmosphere.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--purple)">Pathetic Fallacy</div>
+    <div class="tc-def">When the weather or natural environment reflects or amplifies a character's mood or the atmosphere of a scene.</div>
+    <div class="tc-effect"><strong>Effect:</strong> The world becomes an extension of the character's inner state. This deepens the reader's emotional connection to the character's feelings and makes the atmosphere feel inevitable.</div>
+    <div class="tc-example">"As she received the news, the sky split open and rain hammered the windows without mercy."</div>
+    <div class="tc-student"><strong>Student model:</strong> The writer uses pathetic fallacy — the violent storm mirrors the character's shock and grief. The word "hammered" emphasises relentlessness, suggesting that even the natural world is responding to her devastation, which amplifies the reader's sense of her pain.</div>
+  </div>
+</div>
+
+<h3>Practice — Imagery Techniques</h3>
+<div class="lev"><span class="lev-badge lv-easy">Easy</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q1 · Easy</div>
+  <div class="q-text">"The moon was a silver coin tossed carelessly into the sky." Is this a simile or a metaphor? Explain how you know.</div>
+  <input class="q-input" type="text" id="img1" placeholder="Simile or Metaphor? Explain...">
+  <br><button class="q-btn" onclick="chk('img1','metaphor',['metaphor','a metaphor'],'<b>Metaphor</b> — the moon is described as directly <em>being</em> a coin ("the moon was a silver coin"), not compared to one with "like" or "as." A simile would say "the moon was like a silver coin."')">Check Answer</button>
+  <div class="q-fb" id="fb-img1"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q2 · Easy</div>
+  <div class="q-text">"The thunder bellowed across the valley." Which technique is used?</div>
+  <input class="q-input" type="text" id="img2" placeholder="Name the technique">
+  <br><button class="q-btn" onclick="chk('img2','personification',['personification'],'<b>Personification</b> — "bellowed" is a sound made by animals or humans. Giving this action to thunder makes it feel alive and aggressive.')">Check Answer</button>
+  <div class="q-fb" id="fb-img2"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q3 · Easy</div>
+  <div class="q-text">"Her laughter was as bright as a new penny." Is this a simile or a metaphor?</div>
+  <input class="q-input" type="text" id="img3" placeholder="Simile or Metaphor?">
+  <br><button class="q-btn" onclick="chk('img3','simile',['simile','a simile'],'<b>Simile</b> — the comparison uses the word "as" ("as bright as a new penny"), which makes it a simile. The word "as" or "like" always signals a simile.')">Check Answer</button>
+  <div class="q-fb" id="fb-img3"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-int">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q4 · Intermediate</div>
+  <div class="q-text">"As he stood at the graveside, a bitter wind tore the last leaves from the trees." Identify the technique and explain its effect in one sentence.</div>
+  <textarea class="q-input" rows="2" id="img4" placeholder="Technique + effect..."></textarea>
+  <br><button class="q-btn" onclick="chk('img4','pathetic fallacy',['pathetic fallacy','pathetic','fallacy'],'<b>Pathetic fallacy</b> — the bitter wind and falling leaves mirror the character\'s grief and sense of loss, making the natural world respond to his emotional state and intensifying the reader\'s feeling of sadness.')">Check Answer</button>
+  <div class="q-fb" id="fb-img4"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q5 · Intermediate</div>
+  <div class="q-text">Why is a metaphor often considered MORE powerful than a simile? Explain the key difference.</div>
+  <textarea class="q-input" rows="2" id="img5" placeholder="Explain the difference..."></textarea>
+  <br><button class="q-btn" onclick="chk('img5','direct',['direct','no distance','is not like','no comparison word','states it is','not compared'],'A metaphor is more powerful because it states something IS something else directly — there is no distance. A simile says X is "like" Y, which the reader can dismiss; a metaphor insists X IS Y, forcing the two things to fully merge in the reader\'s mind.')">Check Answer</button>
+  <div class="q-fb" id="fb-img5"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-adv">Advanced</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q6 · Advanced</div>
+  <div class="q-text">Write a complete I.E.E. sentence (two to three sentences) for the following: <em>"The fog swallowed the village whole, leaving nothing but silence and the dim outline of the church spire."</em></div>
+  <textarea class="q-input" rows="4" id="img6" placeholder="Write your full I.E.E. response..."></textarea>
+  <br><button class="q-btn" onclick="chk('img6','personification',['personification','metaphor'],'A strong answer: <b>Personification</b> (or metaphor) — "swallowed" gives the fog a predatory, consuming quality, as if it deliberately devours the village. This makes the reader feel that the village has been erased — isolated and helpless — which creates an atmosphere of vulnerability and quiet dread. The word "whole" emphasises completeness of the obliteration.')">Check Answer</button>
+  <div class="q-fb" id="fb-img6"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     5. SOUND TECHNIQUES
+═══════════════════════════════════════════ -->
+<section id="sound">
+<h2>⑤ Sound Techniques</h2>
+<p>Sound techniques use the <em>music of language</em> — the physical sensation of words in the mouth and ear — to create atmosphere and texture.</p>
+
+<div class="technique-grid">
+  <div class="tc">
+    <div class="tc-name" style="color:var(--teal)">Alliteration</div>
+    <div class="tc-def">The repetition of the same consonant sound at the start of nearby words.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Creates rhythm and musicality, making phrases memorable and highlighting the words that share the sound. The type of consonant matters: harsh sounds create aggression; soft sounds create calm.</div>
+    <div class="tc-example">"The bold, brutal bear broke through the barrier."</div>
+    <div class="tc-student"><strong>Student model:</strong> The writer uses alliteration with the "b" sound. The harsh, plosive repetition of "bold, brutal" and "broke" creates a sense of unstoppable power and aggression — the reader almost <em>hears</em> the force of the bear's movement.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--teal)">Sibilance</div>
+    <div class="tc-def">A specific form of alliteration using the "s," "sh," or soft "c" sounds repeatedly.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Creates a hushed, hissing, or sinister quality. Often used for secretive, threatening, or snake-like descriptions. The sound itself feels slippery and untrustworthy.</div>
+    <div class="tc-example">"The snake slid silently across the stones, seeking shelter."</div>
+    <div class="tc-student"><strong>Student model:</strong> The writer uses sibilance — the repeated "s" sound across "slid silently...stones, seeking shelter" — to mimic the sound of the snake moving. This creates an eerie, whispered quality that makes the reader feel unsettled, as if the snake is close by and unseen.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--teal)">Onomatopoeia</div>
+    <div class="tc-def">Words that sound like the noise they describe: crash, hiss, murmur, crackle, buzz.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Places the reader inside the physical world of the text by recreating real sounds. Makes descriptions immediate and sensory rather than abstract.</div>
+    <div class="tc-example">"The fire crackled and spat, and the logs hissed as the sap escaped."</div>
+    <div class="tc-student"><strong>Student model:</strong> The writer uses onomatopoeia — "crackled," "spat," and "hissed" all recreate the actual sounds of burning wood. This places the reader beside the fire, making the scene feel immediate and real rather than merely described.</div>
+  </div>
+</div>
+
+<h3>Practice — Sound Techniques</h3>
+<div class="lev"><span class="lev-badge lv-easy">Easy</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q1 · Easy</div>
+  <div class="q-text">"The bees buzzed lazily in the bright afternoon." Which sound technique is used?</div>
+  <input class="q-input" type="text" id="snd1" placeholder="Name the technique">
+  <br><button class="q-btn" onclick="chk('snd1','onomatopoeia',['onomatopoeia','alliteration','onomatopoeia and alliteration'],'<b>Onomatopoeia</b> — "buzzed" sounds like the actual sound bees make. (Alliteration with "b" — bees, buzzed, bright — is also present. Accept either or both.)')">Check Answer</button>
+  <div class="q-fb" id="fb-snd1"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q2 · Easy</div>
+  <div class="q-text">What specific type of alliteration uses repeated "s" and "sh" sounds to create a hushed, sinister effect?</div>
+  <input class="q-input" type="text" id="snd2" placeholder="Name the specific technique">
+  <br><button class="q-btn" onclick="chk('snd2','sibilance',['sibilance','sibilant'],'<b>Sibilance</b> — this is the specific term for alliteration using the "s" or "sh" sound. Always use this term when you spot it, as it is more precise than just writing "alliteration."')">Check Answer</button>
+  <div class="q-fb" id="fb-snd2"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q3 · Easy</div>
+  <div class="q-text">"Surely the soft, silver stream still sings in the valley." Identify the technique used in this sentence.</div>
+  <input class="q-input" type="text" id="snd3" placeholder="Name the technique">
+  <br><button class="q-btn" onclick="chk('snd3','sibilance',['sibilance','alliteration','sibilant'],'<b>Sibilance</b> — the repeated "s" sounds (surely, soft, silver, stream, still, sings) create a gentle, flowing, musical quality that mirrors the movement of the stream.')">Check Answer</button>
+  <div class="q-fb" id="fb-snd3"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-int">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q4 · Intermediate</div>
+  <div class="q-text">"The heavy hammer hit the hot iron with a resounding bang." Identify TWO sound techniques and explain the effect of one of them.</div>
+  <textarea class="q-input" rows="3" id="snd4" placeholder="Technique 1, Technique 2, and effect of one..."></textarea>
+  <br><button class="q-btn" onclick="chk('snd4','alliteration',['alliteration','onomatopoeia','alliteration and onomatopoeia'],'<b>Alliteration</b> (heavy, hammer, hit, hot) and <b>onomatopoeia</b> ("bang"). The hard "h" alliteration creates a percussive, forceful rhythm that mimics the blows of the hammer — the reader can almost feel the weight and effort in each strike. "Bang" reinforces this with a sound that matches the impact.')">Check Answer</button>
+  <div class="q-fb" id="fb-snd4"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-chal">Challenging</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q5 · Challenging</div>
+  <div class="q-text">Explain why a writer might choose to use sibilance to describe a villain rather than simply describing them as "dangerous." What does sibilance do that a direct adjective cannot?</div>
+  <textarea class="q-input" rows="3" id="snd5" placeholder="Write your explanation..."></textarea>
+  <br><button class="q-btn" onclick="chk('snd5','feel',['feel','experience','sound','hear','reader','subconscious','auditory','show not tell'],'Sibilance creates an <em>effect</em> rather than just stating a quality. The reader hears the hissing sound and <em>feels</em> unease subconsciously — they experience danger through their senses rather than being told about it. This is far more immersive than a direct adjective, which a reader can note and move on from. Sound works on the reader without them necessarily noticing it.')">Check Answer</button>
+  <div class="q-fb" id="fb-snd5"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     6. STRUCTURAL TECHNIQUES
+═══════════════════════════════════════════ -->
+<section id="structural">
+<h2>⑥ Structural Techniques</h2>
+<p>These techniques concern how the writer arranges words and sentences on the page — the shape and rhythm of the writing itself.</p>
+
+<div class="technique-grid">
+  <div class="tc">
+    <div class="tc-name" style="color:var(--amber)">Rule of Three (Tricolon)</div>
+    <div class="tc-def">Grouping three words, phrases, or clauses together in a series.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Feels rhythmically complete and emphasises the listed qualities. Three items feel comprehensive; fewer feel insufficient; more feel excessive.</div>
+    <div class="tc-example">"The room was cold, dark, and utterly silent."</div>
+    <div class="tc-student"><strong>Student model:</strong> The rule of three in "cold, dark, and utterly silent" emphasises the room's emptiness from three different angles — temperature, light, and sound — making the isolation feel total and inescapable to the reader.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--amber)">Short Sentences</div>
+    <div class="tc-def">Sentences of only a few words — sometimes just one.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Creates tension, drama, or shock. The sudden change from longer sentences stops the reader dead — mimicking a physical jolt of surprise or fear.</div>
+    <div class="tc-example">"She ran down the corridor. Turned left. Pushed the door. Nothing."</div>
+    <div class="tc-student"><strong>Student model:</strong> The short sentences create a rapid, breathless pace that mirrors the character's panicked running. Each sentence is a beat — and the final one-word sentence "Nothing" stops everything, hitting the reader with the same sudden, hollow shock the character experiences.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--amber)">Juxtaposition</div>
+    <div class="tc-def">Placing two contrasting things directly side by side to highlight the difference between them.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Makes the contrast between the two things more striking. Forces the reader to see both things more clearly because of what they are placed next to.</div>
+    <div class="tc-example">"A single bright daffodil grew from a crack in the bombed-out wall."</div>
+    <div class="tc-student"><strong>Student model:</strong> The writer juxtaposes the bright, living daffodil against the destruction of the bombed wall. This contrast makes both elements more powerful — the flower's resilience seems miraculous precisely because of the devastation surrounding it.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--amber)">Contrast</div>
+    <div class="tc-def">Highlighting the difference between two things — more broadly than juxtaposition, which requires physical side-by-side placement.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Emphasises the gap between two ideas, times, or states. Often used to show change, hypocrisy, or inequality.</div>
+    <div class="tc-example">"Where there had once been laughter, there was now only the echo of it."</div>
+    <div class="tc-student"><strong>Student model:</strong> The writer contrasts the past (laughter) with the present (only its echo), which highlights the depth of what has been lost. The word "echo" is itself a fading repetition — reinforcing how the joy has been reduced to a ghost of itself.</div>
+  </div>
+</div>
+
+<h3>Practice — Structural Techniques</h3>
+<div class="lev"><span class="lev-badge lv-easy">Easy</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q1 · Easy</div>
+  <div class="q-text">"The forest was ancient, vast, and impenetrable." What structural technique is used here?</div>
+  <input class="q-input" type="text" id="str1" placeholder="Name the technique">
+  <br><button class="q-btn" onclick="chk('str1','rule of three',['rule of three','tricolon','list of three','three','trio'],'<b>Rule of three</b> (tricolon) — three adjectives grouped together. This makes the description feel complete, as though the forest is defined from every angle: age, size, and difficulty of access.')">Check Answer</button>
+  <div class="q-fb" id="fb-str1"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q2 · Easy</div>
+  <div class="q-text">Look at this sequence: "She knocked. Waited. Knocked again. Silence." What technique is the writer using, and what is its effect?</div>
+  <textarea class="q-input" rows="2" id="str2" placeholder="Technique and effect..."></textarea>
+  <br><button class="q-btn" onclick="chk('str2','short sentences',['short sentences','short','sentence','fragmented'],'<b>Short sentences</b> — each action is given its own sentence, creating a tense, pause-heavy rhythm. The reader experiences the waiting alongside the character; the final "Silence" is the most impactful because it ends the sequence with emptiness.')">Check Answer</button>
+  <div class="q-fb" id="fb-str2"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q3 · Easy</div>
+  <div class="q-text">What is the difference between juxtaposition and contrast?</div>
+  <textarea class="q-input" rows="2" id="str3" placeholder="Explain the difference..."></textarea>
+  <br><button class="q-btn" onclick="chk('str3','side',['side by side','next to','physical','placed','same place','immediately','directly','alongside'],'<b>Juxtaposition</b> places two contrasting things directly side by side in the same moment — they are physically adjacent. <b>Contrast</b> is the broader technique of highlighting differences, which can happen across a whole text or between ideas not immediately adjacent.')">Check Answer</button>
+  <div class="q-fb" id="fb-str3"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-adv">Advanced</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q4 · Advanced</div>
+  <div class="q-text">Why do writers deliberately vary sentence length — mixing long and short sentences? What is the effect of a single short sentence after a long one?</div>
+  <textarea class="q-input" rows="3" id="str4" placeholder="Explain the effect..."></textarea>
+  <br><button class="q-btn" onclick="chk('str4','contrast',['contrast','sudden','stop','pace','punch','impact','jolt','emphasis','shock'],'Varying sentence length creates <b>contrast in pace</b>. Long sentences build up momentum, detail, and complexity — then a short sentence cuts through it like a knife. The short sentence carries disproportionate weight because the reader has been moving quickly and suddenly stops. This is used for dramatic emphasis, shocking revelations, or moments of eerie calm.')">Check Answer</button>
+  <div class="q-fb" id="fb-str4"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     7. RHETORICAL & PERSUASIVE TECHNIQUES
+═══════════════════════════════════════════ -->
+<section id="rhetorical">
+<h2>⑦ Rhetorical &amp; Persuasive Techniques</h2>
+
+<div class="technique-grid">
+  <div class="tc">
+    <div class="tc-name" style="color:var(--purple)">Rhetorical Question</div>
+    <div class="tc-def">A question that does not expect an answer — the answer is already implied.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Engages the reader directly; forces them to mentally formulate the implied answer, which makes them feel as though they arrived at the writer's conclusion independently.</div>
+    <div class="tc-example">"How many more children must suffer before we act?"</div>
+    <div class="tc-student"><strong>Student model:</strong> The rhetorical question "How many more children must suffer?" does not expect an answer — it implies the answer is already too many. This forces the reader to confront their own sense of moral urgency, making the call for action feel like the reader's own conclusion rather than the writer's demand.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--purple)">Hypophora</div>
+    <div class="tc-def">The writer asks a question AND immediately answers it themselves.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Controls the reader's thinking completely — the question creates curiosity, and the immediate answer satisfies it on the writer's terms. Prevents the reader from forming a different conclusion.</div>
+    <div class="tc-example">"Why do libraries matter? Because they are the one place where knowledge belongs to everyone."</div>
+    <div class="tc-student"><strong>Student model:</strong> The writer uses hypophora — asking "Why do libraries matter?" and immediately answering it. This controls the reader's response: the question creates engagement, then the answer guides them to the writer's specific conclusion before they can form their own.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--purple)">Anaphora</div>
+    <div class="tc-def">Repeating the same word or phrase at the <em>start</em> of successive sentences or clauses.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Builds rhythm, intensity, and cumulative emotional power. Each repeated phrase adds weight to the next. Often used in speeches for maximum impact.</div>
+    <div class="tc-example">"We will not rest. We will not falter. We will not surrender."</div>
+    <div class="tc-student"><strong>Student model:</strong> The writer uses anaphora, repeating "We will not" three times. Each repetition adds weight and determination — by the third clause, the reader feels the absolute resolution of the speaker. The structure also links all three clauses, making the commitment feel unified and unbreakable.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--purple)">Direct Address</div>
+    <div class="tc-def">Using "you" or "we" to speak directly to the reader, making them part of the text.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Creates a personal connection; the reader cannot remain detached. "We" creates shared identity and responsibility; "you" creates individual accountability.</div>
+    <div class="tc-example">"You have seen the news. You know what is happening. Now it is time to act."</div>
+    <div class="tc-student"><strong>Student model:</strong> The writer uses direct address, repeating "You" at the start of each sentence. This implicates the reader personally — they cannot pretend this is happening to someone else. The effect is to make inaction feel like a personal moral failure.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--purple)">Repetition</div>
+    <div class="tc-def">Deliberately repeating a word, phrase, or idea for emphasis (not necessarily at the start of sentences).</div>
+    <div class="tc-effect"><strong>Effect:</strong> Drives the repeated idea into the reader's mind with increasing force. The more times something is repeated, the more it feels central and inarguable.</div>
+    <div class="tc-example">"The waiting was agony. Every hour was agony. Every minute was a new kind of agony."</div>
+    <div class="tc-student"><strong>Student model:</strong> The repetition of "agony" escalates the character's suffering with each iteration — it moves from the hour to the minute, showing the pain intensifying rather than fading, and the reader feels trapped in this endless discomfort alongside them.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--purple)">Emotive Language</div>
+    <div class="tc-def">Words chosen specifically to provoke a strong emotional reaction in the reader.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Bypasses rational analysis and appeals directly to feeling — sympathy, fear, outrage, or hope. The more specific and concrete the emotive language, the stronger the effect.</div>
+    <div class="tc-example">"The defenceless child crouched alone in the rubble of what had been her home."</div>
+    <div class="tc-student"><strong>Student model:</strong> The writer uses emotive language — "defenceless," "alone," and "rubble" — to build maximum sympathy. "Defenceless" highlights vulnerability; "alone" isolates the child; "rubble" replaces the word "home," emphasising destruction. Together, they make the reader feel outrage and sorrow.</div>
+  </div>
+</div>
+
+<h3>Practice — Rhetorical Techniques</h3>
+<div class="lev"><span class="lev-badge lv-easy">Easy</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q1 · Easy</div>
+  <div class="q-text">"Is it fair that some children go to school hungry? Of course it is not." What technique is used here?</div>
+  <input class="q-input" type="text" id="rh1" placeholder="Name the technique">
+  <br><button class="q-btn" onclick="chk('rh1','hypophora',['hypophora','rhetorical question','question and answer'],'<b>Hypophora</b> — the writer asks a question and immediately answers it. This controls the reader\'s response, guiding them to the writer\'s conclusion before they can think differently. (Rhetorical question is acceptable if the student does not yet know this more precise term.)')">Check Answer</button>
+  <div class="q-fb" id="fb-rh1"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q2 · Easy</div>
+  <div class="q-text">What is the difference between anaphora and repetition?</div>
+  <textarea class="q-input" rows="2" id="rh2" placeholder="Explain the difference..."></textarea>
+  <br><button class="q-btn" onclick="chk('rh2','start',['start','beginning','opens','opening','start of','beginning of','each sentence','each clause'],'<b>Anaphora</b> is repetition of a word or phrase specifically at the <em>start</em> of successive sentences. <b>Repetition</b> is the broader technique — the word or phrase can appear anywhere in the sentence.')">Check Answer</button>
+  <div class="q-fb" id="fb-rh2"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q3 · Easy</div>
+  <div class="q-text">"We know the problem. We know the solution. Now we must act." Which technique is used?</div>
+  <input class="q-input" type="text" id="rh3" placeholder="Name the technique">
+  <br><button class="q-btn" onclick="chk('rh3','anaphora',['anaphora','repetition','direct address','anaphora and direct address'],'<b>Anaphora</b> — "We know" is repeated at the start of successive sentences. <b>Direct address</b> using "we" is also present. Accept either or both.')">Check Answer</button>
+  <div class="q-fb" id="fb-rh3"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-int">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q4 · Intermediate</div>
+  <div class="q-text">Why is hypophora more effective than just asking a rhetorical question? Explain the key difference in effect.</div>
+  <textarea class="q-input" rows="3" id="rh4" placeholder="Explain the difference in effect..."></textarea>
+  <br><button class="q-btn" onclick="chk('rh4','control',['control','answer','controls','reader','their own terms','directs','guides','prevents'],'Hypophora gives the writer <b>complete control</b> of the reader\'s response — a rhetorical question leaves a moment where the reader might form their own answer, but hypophora immediately supplies the "correct" one on the writer\'s terms. There is no gap for disagreement.')">Check Answer</button>
+  <div class="q-fb" id="fb-rh4"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-chal">Challenging</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q5 · Challenging</div>
+  <div class="q-text">"The children were starving. The elderly were forgotten. The sick were turned away." Identify the technique AND explain why it is more powerful than listing all three in a single sentence with commas.</div>
+  <textarea class="q-input" rows="3" id="rh5" placeholder="Technique + comparative explanation..."></textarea>
+  <br><button class="q-btn" onclick="chk('rh5','anaphora',['anaphora','repetition','short sentences','anaphora and short sentences'],'<b>Anaphora</b> and <b>short sentences</b>. Three separate sentences give each group its own moment — each is a complete, weighty statement before the next arrives. A single sentence with commas would blur them together and reduce their individual impact. Here, the reader must pause after each one, giving the injustice time to register before the next is revealed.')">Check Answer</button>
+  <div class="q-fb" id="fb-rh5"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     8. FURTHER TECHNIQUES
+═══════════════════════════════════════════ -->
+<section id="other">
+<h2>⑧ Further Techniques</h2>
+
+<div class="technique-grid">
+  <div class="tc">
+    <div class="tc-name" style="color:var(--blue)">Hyperbole</div>
+    <div class="tc-def">Deliberate, extreme exaggeration — never meant to be taken literally.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Amplifies emotion or urgency; conveys the scale of a feeling rather than a fact. Often creates dark humour or highlights absurdity.</div>
+    <div class="tc-example">"He had been standing in that queue for approximately ten thousand years."</div>
+    <div class="tc-student"><strong>Student model:</strong> The hyperbole "ten thousand years" exaggerates the wait to absurd proportions, conveying the character's frustrated sense that time itself has slowed. The humour makes the frustration vivid without requiring literal description.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--blue)">Oxymoron</div>
+    <div class="tc-def">Two contradictory words placed directly together to create a paradoxical effect.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Creates a sense of complexity, contradiction, or confusion. Suggests that the subject cannot be captured in simple terms — it is two opposite things simultaneously.</div>
+    <div class="tc-example">"The deafening silence after the explosion was almost worse than the noise itself."</div>
+    <div class="tc-student"><strong>Student model:</strong> The oxymoron "deafening silence" places two contradictions together — silence cannot be loud, and yet the phrase captures the overwhelming, ringing emptiness that follows extreme sound. This paradox makes the reader feel the strangeness of the moment more powerfully than either word alone could.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--blue)">Irony</div>
+    <div class="tc-def">When the literal meaning is the opposite of the intended meaning — or when events turn out contrary to expectations.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Creates distance between what is said and what is meant, inviting the reader to be "in on it." Can be humorous, bitter, or cutting depending on context.</div>
+    <div class="tc-example">"The health inspector who condemned the restaurant was himself found eating there the next day."</div>
+    <div class="tc-student"><strong>Student model:</strong> The irony of the health inspector eating at the restaurant he condemned reveals hypocrisy — the person enforcing standards fails to uphold them. This makes the reader feel a mixture of amusement and contempt, which reinforces any critical viewpoint the writer holds toward authority figures.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--blue)">Symbolism</div>
+    <div class="tc-def">When an object, colour, or image is used to represent an abstract idea beyond its literal meaning.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Adds depth and layers of meaning. A reader who spots the symbol understands the text on two levels — the literal and the metaphorical.</div>
+    <div class="tc-example">"She left the key on the table and walked out without looking back."</div>
+    <div class="tc-student"><strong>Student model:</strong> The key is symbolic — keys represent access, belonging, and ownership. Leaving it behind symbolises a permanent departure, a surrender of everything the house represented. The detail "without looking back" reinforces her decision, and the reader understands she is severing more than a tenancy.</div>
+  </div>
+
+  <div class="tc">
+    <div class="tc-name" style="color:var(--blue)">Euphemism</div>
+    <div class="tc-def">A mild or indirect expression used in place of something harsh, blunt, or uncomfortable.</div>
+    <div class="tc-effect"><strong>Effect:</strong> Reveals what the speaker is trying to avoid saying — the choice of softer language makes the reader aware of the reality being obscured. Often used to reveal bias, evasion, or hypocrisy.</div>
+    <div class="tc-example">"The council announced that the library would be 'rationalised' by the end of the year."</div>
+    <div class="tc-student"><strong>Student model:</strong> The euphemism "rationalised" replaces "closed" — a word the council clearly wishes to avoid. The word choice reveals that they are aware closing the library is unpopular and are attempting to make the decision sound reasonable and bureaucratic rather than harmful.</div>
+  </div>
+</div>
+
+<h3>Practice — Further Techniques</h3>
+<div class="lev"><span class="lev-badge lv-easy">Easy</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q1 · Easy</div>
+  <div class="q-text">"I've been waiting forever for this!" What technique does "forever" demonstrate?</div>
+  <input class="q-input" type="text" id="oth1" placeholder="Name the technique">
+  <br><button class="q-btn" onclick="chk('oth1','hyperbole',['hyperbole'],'<b>Hyperbole</b> — "forever" is a deliberate exaggeration. The speaker has not literally been waiting forever; they are conveying the intensity of their impatience through extreme overstatement.')">Check Answer</button>
+  <div class="q-fb" id="fb-oth1"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q2 · Easy</div>
+  <div class="q-text">"The living dead walked the streets at dawn." What technique is "living dead"?</div>
+  <input class="q-input" type="text" id="oth2" placeholder="Name the technique">
+  <br><button class="q-btn" onclick="chk('oth2','oxymoron',['oxymoron','contradiction','paradox'],'<b>Oxymoron</b> — "living" and "dead" are direct contradictions placed together. The phrase creates a paradox that captures something in-between states of existence — neither fully alive nor fully dead.')">Check Answer</button>
+  <div class="q-fb" id="fb-oth2"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q3 · Easy</div>
+  <div class="q-text">A government minister says soldiers who died in battle "made the ultimate sacrifice." What technique is being used?</div>
+  <input class="q-input" type="text" id="oth3" placeholder="Name the technique">
+  <br><button class="q-btn" onclick="chk('oth3','euphemism',['euphemism'],'<b>Euphemism</b> — "made the ultimate sacrifice" softens the reality of death in war. The phrase sounds noble and voluntary, which is a gentler framing than "were killed." The choice reveals the speaker\'s desire to present the deaths as meaningful rather than simply tragic.')">Check Answer</button>
+  <div class="q-fb" id="fb-oth3"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-int">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q4 · Intermediate</div>
+  <div class="q-text">"Throughout the passage, the broken clock that never ticks appears repeatedly." What technique is the broken clock most likely functioning as?</div>
+  <input class="q-input" type="text" id="oth4" placeholder="Name the technique">
+  <br><button class="q-btn" onclick="chk('oth4','symbolism',['symbolism','symbol','symbolic'],'<b>Symbolism</b> — a clock that does not tick represents stopped time, a refusal to move forward, or being trapped in the past. Its repeated appearance makes this symbolic meaning increasingly clear to the reader.')">Check Answer</button>
+  <div class="q-fb" id="fb-oth4"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-chal">Challenging</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q5 · Challenging</div>
+  <div class="q-text">Explain how euphemism can reveal a writer's viewpoint — even when the writer is NOT the one using it. (Hint: think about who IS using the euphemism in the text, and what the writer's decision to include it tells us.)</div>
+  <textarea class="q-input" rows="4" id="oth5" placeholder="Write your explanation..."></textarea>
+  <br><button class="q-btn" onclick="chk('oth5','reveal',['reveal','critical','exposes','shows','implies','aware','evasive','contrast','ironic','reader sees through'],'When a writer quotes or describes a character using a euphemism, the writer is inviting the reader to see through the evasion. By choosing to <em>show</em> a politician saying "rationalise" rather than "close," the writer reveals their own critical viewpoint — they are exposing the gap between the pleasant word and the unpleasant reality. The reader, prompted by the writer, sees the dishonesty that the character is trying to conceal.')">Check Answer</button>
+  <div class="q-fb" id="fb-oth5"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     9. WORD-LEVEL ANALYSIS
+═══════════════════════════════════════════ -->
+<section id="wordlevel">
+<h2>⑨ Word-Level Analysis</h2>
+<p>Not every technique has a name. Some of the strongest exam answers are built on the analysis of a <em>single word</em> — a verb, an adjective, or a noun — without naming any literary device at all.</p>
+
+<h3>Connotation</h3>
+<p>Every word carries not just a definition but a set of associations — feelings, images, and social meanings that come with it. These are its <strong>connotations</strong>.</p>
+
+<div class="box box-blue">
+  <p><strong>"Home"</strong> and <strong>"house"</strong> both describe a building — but "home" carries connotations of warmth, safety, belonging, and family. "House" is neutral: just bricks and windows. A writer who chooses "home" is doing something very different from a writer who chooses "house."</p>
+  <p style="margin-bottom:0;"><strong>Rule:</strong> Ask yourself: what feelings, images, or social associations does this word bring? Why did the writer choose <em>this</em> word rather than a simpler or more neutral option?</p>
+</div>
+
+<h3>Register</h3>
+<p>Register is the level of formality of language choices. A writer who uses formal language signals authority, seriousness, or distance. A writer who uses informal language signals intimacy, accessibility, or perhaps condescension.</p>
+
+<table class="compare-tbl">
+  <thead><tr><th>Formal</th><th>Informal</th><th>Effect of the Contrast</th></tr></thead>
+  <tbody>
+    <tr><td>"The individual declined to comment."</td><td>"He wouldn't say anything."</td><td>Formal creates distance and authority; informal creates immediacy and personality.</td></tr>
+    <tr><td>"She is fatigued."</td><td>"She's exhausted." / "She's shattered."</td><td>"Fatigued" is clinical; "shattered" carries an image of breaking, making the tiredness feel more physical.</td></tr>
+    <tr><td>"The matter is under consideration."</td><td>"We're thinking about it."</td><td>Formal language often obscures meaning; informality exposes it.</td></tr>
+  </tbody>
+</table>
+
+<h3>Diction: Analysing Single Words</h3>
+<p>This is the most important skill for top-mark answers. You do not need a technique name to analyse a word — you just need to ask: <strong>what does this specific word do that another word would not?</strong></p>
+
+<div class="box box-amber">
+  <h4 style="margin-top:0">Compare these verbs:</h4>
+  <p><strong>"walked"</strong> — neutral; simply describes movement. No emotional colouring.<br>
+  <strong>"trudged"</strong> — implies heaviness, exhaustion, reluctance. The reader feels the weight in every step.<br>
+  <strong>"crept"</strong> — implies stealth, fear, or deliberate quietness. The reader senses secrecy or danger.<br>
+  <strong>"stormed"</strong> — implies anger, force, and speed. The reader sees aggression and urgency.</p>
+  <p style="margin-bottom:0;">All four words describe someone moving through a space. But each one creates a completely different picture and emotional tone.</p>
+</div>
+
+<div class="box box-red">
+  <h4 style="margin-top:0">Compare these colour adjectives:</h4>
+  <p><strong>"red"</strong> — neutral; just a colour.<br>
+  <strong>"crimson"</strong> — darker, richer, more violent; associated with blood, danger, passion. Feels deliberate and intense.<br>
+  <strong>"scarlet"</strong> — brighter, associated with shame (Scarlet Letter) and vivid displays. Feels theatrical.<br>
+  <strong>"ruby"</strong> — warm, precious, associated with gems and wealth. Feels romantic or valuable.</p>
+  <p style="margin-bottom:0;">When a writer writes "crimson" instead of "red," they are making a <em>choice</em> — and that choice carries meaning.</p>
+</div>
+
+<h3>Worked Word-Level Examples</h3>
+
+<div class="box box-teal">
+  <p><strong>Extract:</strong> "The child <em>clutched</em> her teddy bear as the ambulance doors closed."</p>
+  <p><strong>Analysis:</strong> The verb "clutched" carries connotations of desperate, fearful holding — as if something precious might be taken away. A neutral verb like "held" would suggest calm security; "clutched" suggests the child is terrified and is using the bear as a lifeline against the overwhelming situation. The reader feels the depth of her fear through this single verb choice.</p>
+</div>
+
+<div class="box box-purple">
+  <p><strong>Extract:</strong> "The politician described the policy as a <em>bold</em> step forward."</p>
+  <p><strong>Analysis:</strong> "Bold" carries connotations of courage, confidence, and decisiveness — all positive qualities. However, in the context of a policy that many citizens opposed, the word choice reveals spin: the politician is using a word that sounds heroic to frame a controversial decision as brave leadership rather than recklessness. The connotation does the persuasive work that a straightforward defence could not.</p>
+</div>
+
+<div class="box box-green">
+  <p><strong>Extract:</strong> "Where the <em>mansion</em> once stood, there was nothing."</p>
+  <p><strong>Analysis:</strong> "Mansion" carries connotations of wealth, status, and excess — far beyond "house" or "home." By using this specific noun, the writer ensures the reader imagines something grand and valuable being destroyed. The loss is magnified precisely because of what the building represented — power and permanence — and "nothing" is made more devastating by contrast.</p>
+</div>
+
+<h3>Practice — Word-Level Analysis</h3>
+<div class="lev"><span class="lev-badge lv-easy">Easy</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q1 · Easy</div>
+  <div class="q-text">What is the difference in connotation between "thin" and "slender"?</div>
+  <textarea class="q-input" rows="2" id="wl1" placeholder="Explain the connotation difference..."></textarea>
+  <br><button class="q-btn" onclick="chk('wl1','positive',['positive','slender is positive','thin is negative','elegant','graceful','attractive','neutral or negative'],'<b>"Slender"</b> has positive connotations — elegance, grace, attractiveness. <b>"Thin"</b> is neutral or slightly negative — it simply describes a lack of weight without the grace. A writer who writes "slender" is praising; a writer who writes "thin" is simply observing or perhaps criticising.')">Check Answer</button>
+  <div class="q-fb" id="fb-wl1"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q2 · Easy</div>
+  <div class="q-text">"She gazed at the painting." What does the verb "gazed" suggest that "looked" would not?</div>
+  <textarea class="q-input" rows="2" id="wl2" placeholder="Explain the difference..."></textarea>
+  <br><button class="q-btn" onclick="chk('wl2','long',['long','lingered','absorbed','admire','deep','thoughtful','intense','lost','fixed'],'<b>"Gazed"</b> suggests a prolonged, absorbed, or emotionally engaged way of looking — she is lost in the painting, not merely glancing at it. "Looked" is neutral and brief. "Gazed" implies depth of engagement or emotion.')">Check Answer</button>
+  <div class="q-fb" id="fb-wl2"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Q3 · Easy</div>
+  <div class="q-text">Which carries more negative connotations: "old" or "ancient"? Explain why.</div>
+  <textarea class="q-input" rows="2" id="wl3" placeholder="Explain..."></textarea>
+  <br><button class="q-btn" onclick="chk('wl3','depends',['depends','context','ancient is grander','old is more negative','ancient has dignity','old sounds worn out','neither','both'],'<b>It depends on context</b> — "old" often sounds worn or tired; "ancient" carries connotations of greatness, history, and durability. For a building, "ancient" suggests majesty; "old" suggests dilapidation. A writer who wants to convey grandeur chooses "ancient"; one who wants to suggest neglect chooses "old."')">Check Answer</button>
+  <div class="q-fb" id="fb-wl3"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-int">Intermediate</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q4 · Intermediate</div>
+  <div class="q-text">"The government <em>admitted</em> that mistakes had been made." What connotations does "admitted" carry, and what would change if the writer had used "said" instead?</div>
+  <textarea class="q-input" rows="3" id="wl4" placeholder="Explain the connotation difference..."></textarea>
+  <br><button class="q-btn" onclick="chk('wl4','reluctant',['reluctant','reluctance','forced','confession','against their will','unwilling','concede','resist'],'<b>"Admitted"</b> carries connotations of reluctance — one admits something only when denial is no longer possible. It implies the government resisted acknowledging the mistakes for as long as possible. "Said" is neutral and would imply a voluntary, straightforward communication. The choice of "admitted" reveals the writer\'s critical viewpoint.')">Check Answer</button>
+  <div class="q-fb" id="fb-wl4"></div>
+</div>
+
+<div class="lev"><span class="lev-badge lv-adv">Advanced</span></div>
+
+<div class="qblock">
+  <div class="q-label">Q5 · Advanced</div>
+  <div class="q-text">Analyse the word "devoured" in this sentence: "She devoured every book she could find." Write a short word-level analysis (3–4 sentences) without naming any literary technique.</div>
+  <textarea class="q-input" rows="4" id="wl5" placeholder="Write your word-level analysis..."></textarea>
+  <br><button class="q-btn" onclick="chk('wl5','hungry',['hungry','hunger','appetite','intense','voracious','physical','consume','absorbed','eagerness','greed'],'A strong answer: The verb "devoured" carries connotations of animal hunger and complete consumption — one devours food with urgency and without restraint. Applied to reading, it suggests an almost physical appetite for books: she does not merely read them, she absorbs them entirely. The word implies an intensity of focus and desire that a neutral verb like "read" would completely fail to capture. The reader understands immediately that this is not casual reading but an urgent, consuming need.')">Check Answer</button>
+  <div class="q-fb" id="fb-wl5"></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     10. WORKED EXAMPLES
+═══════════════════════════════════════════ -->
+<section id="worked">
+<h2>⑩ Weak vs Strong: Worked Examples</h2>
+<p>Read the following extract, then compare the two responses below. The difference between them is the difference between one mark and three marks.</p>
+
+<div class="passage-wrap" style="margin-bottom:1rem;">
+  <div class="passage-text">
+    <p>"The factory had eaten this town alive. Its chimneys were black fingers pointing accusations at a sky it had permanently stained. The workers filed in at dawn — grey, silent, hunched — and the gates swallowed them without ceremony, as if they had never existed at all."</p>
+  </div>
+</div>
+
+<p><strong>Question:</strong> How does the writer use language to present the factory? Use evidence from the extract to support your answer. [3 marks]</p>
+
+<div class="worked-weak">
+  <h4>⚠ Weak Response — Likely to score 0–1 mark</h4>
+  <p>"The writer uses personification when they say the factory 'eaten this town alive.' <span class="strike-anno">This is effective.</span> <span class="strike-anno">The writer uses lots of good imagery.</span> There is also a simile when the chimneys are compared to 'black fingers.' <span class="strike-anno">This is a good description.</span>"</p>
+  <p style="margin-top:12px; font-size:.84rem; color:var(--amber)">Annotations: "This is effective" — no explanation of <em>what</em> effect. "Lots of good imagery" — vague and unspecific. "This is a good description" — the examiner does not care if you like it; explain what it does to the reader.</p>
+</div>
+
+<div class="worked-strong">
+  <h4>✓ Strong Response — Full marks</h4>
+  <p>
+    The writer uses <strong>personification</strong> <span class="anno anno-r">TECHNIQUE</span> throughout the extract to present the factory as predatory and alive. The opening metaphor "eaten this town alive" <span class="anno anno-t">EVIDENCE</span> gives the factory the qualities of a creature that consumes — suggesting it has destroyed not just buildings but the community's entire way of life. <span class="anno anno-p">EFFECT</span> This makes the reader feel a sense of violation, as if the town were helpless prey rather than a place of human habitation. <span class="anno anno-a">LINKS TO PURPOSE</span>
+  </p>
+  <p>
+    The chimneys as <strong>"black fingers pointing accusations"</strong> <span class="anno anno-t">EVIDENCE</span> extends this personification, making the factory appear morally aware of its own damage — and defiant about it. <span class="anno anno-p">EFFECT</span> The word <strong>"accusations"</strong> implies the factory knows it has wronged the town, which adds a layer of bitter irony: the thing causing harm is presented as though it is blaming others for it. <span class="anno anno-r">WORD ANALYSIS</span>
+  </p>
+</div>
+
+<h3>Side-by-Side Comparison</h3>
+<table class="ws-table">
+  <thead><tr><th>Aspect</th><th>Weak Response</th><th>Strong Response</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Technique named?</strong></td><td class="ws-weak">Yes, but imprecisely ("simile" is wrong here — it's a metaphor)</td><td class="ws-strong">Yes, correctly identified as personification and metaphor</td></tr>
+    <tr><td><strong>Evidence used?</strong></td><td class="ws-weak">Yes, but quotes are too long</td><td class="ws-strong">Yes, short and precise quotes embedded in sentences</td></tr>
+    <tr><td><strong>Effect explained?</strong></td><td class="ws-weak">No — "This is effective" says nothing</td><td class="ws-strong">Yes — reader feels "violation," "helpless prey," "bitter irony"</td></tr>
+    <tr><td><strong>Word-level analysis?</strong></td><td class="ws-weak">None</td><td class="ws-strong">"accusations" analysed for connotation and irony</td></tr>
+    <tr><td><strong>Connected to purpose?</strong></td><td class="ws-weak">No</td><td class="ws-strong">Yes — links to what the writer is trying to make the reader feel</td></tr>
+    <tr><td><strong>Estimated marks</strong></td><td class="ws-weak">0–1 out of 3</td><td class="ws-strong">3 out of 3</td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     11. PRACTICE EXTRACT
+═══════════════════════════════════════════ -->
+<section id="practice">
+<h2>⑪ Unseen Extract &amp; Practice Questions</h2>
+<p>Read the extract carefully twice before attempting any question. Pay attention to specific word choices, imagery, and the writer's overall purpose.</p>
+
+<div class="passage-wrap">
+  <div class="passage-text">
+    <p>The market had been there for three hundred years. Not the same stalls, not the same faces — but the same stone flags, worn smooth as worry beads by generations of feet, and the same particular noise: a human tide of voices bargaining, laughing, arguing, greeting. It was the kind of noise that only a living place makes.</p>
+
+    <p>Now the council's decision sat like a stone in the chest of the town. The new development would "revitalise" the area, they said. It would bring "investment" and "footfall." The language was smooth and careful, each word chosen to slide past resistance. But nobody who had ever stood in the market on a cold Tuesday morning, hands wrapped around a paper cup of tea while a stranger's dog investigated their shopping bag, could read these words without a hollow, sinking sensation.</p>
+
+    <p>The traders had operated here in some cases for four decades. Mrs Farida, who sold spices and called everyone "love," had taught half the town how to cook. Old Tom, whose vintage tools occupied an entire corner, had salvaged memories that would otherwise have rusted into nothing. The market was not footfall. It was not investment. It was a place where the city came to remember that it was made of people, not of profit.</p>
+  </div>
+</div>
+
+<h3>Questions</h3>
+
+<div class="qblock" style="border-left:4px solid var(--green);">
+  <div class="q-label">Q1 · One Mark · Technique Identification</div>
+  <div class="q-text">Identify ONE literary technique used in the phrase "The council's decision sat like a stone in the chest of the town."</div>
+  <input class="q-input" type="text" id="pq1" placeholder="Name the technique only">
+  <br><button class="q-btn" onclick="chk('pq1','simile',['simile','personification','metaphor'],'<b>Simile</b> — the comparison uses "like" ("like a stone"). Personification is also present (the town has a "chest"). Accept either. For a one-mark question, naming the technique is the complete answer.')">Check Answer</button>
+  <div class="q-fb" id="fb-pq1"></div>
+</div>
+
+<div class="qblock" style="border-left:4px solid var(--blue);">
+  <div class="q-label">Q2 · Two Marks · Effect Explanation</div>
+  <div class="q-text">The writer describes the stone flags as "worn smooth as worry beads by generations of feet." Explain the effect of this phrase on the reader. [2 marks]</div>
+  <textarea class="q-input" rows="3" id="pq2" placeholder="Explain the effect in 2–3 sentences..."></textarea>
+  <br><button class="q-btn" onclick="chk('pq2','human',['human','history','generations','people','connection','worn','time','repetition','lived in','continuity','memory'],'Strong answer: The simile "worn smooth as worry beads" connects the flags to something deeply personal — worry beads are held by individuals in moments of anxiety and habit. This gives the stone flags human meaning: they have been touched, repeatedly, intimately, by people who needed the market. The phrase conveys great age and great continuity — generations of human presence, distilled into physical smoothness.')">Check Answer</button>
+  <div class="q-fb" id="fb-pq2"></div>
+</div>
+
+<div class="qblock" style="border-left:4px solid var(--red);">
+  <div class="q-label">Q3 · Three Marks · Extended Language Analysis (I.E.E.)</div>
+  <div class="q-text">How does the writer use language in paragraph 2 to reveal a viewpoint about the council's decision? Use the I.E.E. structure and write a full analytical paragraph. [3 marks]</div>
+  <textarea class="q-input" rows="5" id="pq3" placeholder="Write your full I.E.E. paragraph..."></textarea>
+  <br><button class="q-btn" onclick="chk('pq3','euphemism',['euphemism','revitalise','language','smooth','irony','scare quotes','quotation marks'],'A full-mark answer uses I.E.E. to analyse the council\'s language. Key points: <b>Euphemism</b> — words like "revitalise," "investment," and "footfall" replace honest language; the writer puts them in inverted commas to signal scepticism. The phrase "smooth and careful, each word chosen to slide past resistance" (personification/metaphor) implies deliberate manipulation — the language is designed to prevent objection. The writer\'s viewpoint is <em>critical</em>: they present the council as evasive and calculating. Full marks require: technique named + short quote + effect on reader + link to viewpoint.')">Check Answer</button>
+  <div class="q-fb" id="fb-pq3"></div>
+</div>
+
+<div class="qblock" style="border-left:4px solid var(--purple);">
+  <div class="q-label">Q4 · Four Marks · Atmosphere / Viewpoint (Sustained Analysis)</div>
+  <div class="q-text">How does the writer present the market as something of value? Explore how language, techniques, and specific word choices across the whole passage create this impression. [4 marks]</div>
+  <textarea class="q-input" rows="6" id="pq4" placeholder="Write your sustained, multi-technique analysis..."></textarea>
+  <br><button class="q-btn" onclick="chk('pq4','contrast',['contrast','people not profit','living','human','juxtaposition','anaphora','repetition','not footfall','not investment','made of people'],'A full-mark answer addresses <em>multiple</em> techniques across the whole extract. Key elements: (1) The contrast between the market\'s human description (names, personalities, actions) and the council\'s cold abstract nouns ("footfall," "investment"); (2) The anaphora "It was not footfall. It was not investment. It was..." which builds to a climax of what the market really is; (3) Individual characterisation of Mrs Farida and Old Tom — giving the market a human face; (4) The closing line "made of people, not of profit" — the juxtaposition of "people" and "profit" encapsulates the entire argument. Award yourself marks for each distinct technique and quotation you engaged with.')">Check Answer</button>
+  <div class="q-fb" id="fb-pq4"></div>
+</div>
+
+<!-- MODEL ANSWERS -->
+<h3>Modelled Top-Mark Responses</h3>
+<h4>Model Answer — Q3 (3 marks)</h4>
+<div class="worked-strong">
+  <p>
+    The writer reveals a <strong>critical viewpoint</strong> toward the council through the sustained use of <strong>euphemism</strong> <span class="anno anno-r">TECHNIQUE</span> in paragraph two. The words "revitalise," "investment," and "footfall" <span class="anno anno-t">EVIDENCE</span> are placed in inverted commas, signalling to the reader that these are the council's words — not the writer's. This creates immediate <strong>irony</strong>: the reader is invited to distrust the very language being used, and the inverted commas become a kind of silent editorial comment. <span class="anno anno-p">EFFECT</span> The phrase "smooth and careful, each word chosen to slide past resistance" <span class="anno anno-t">EVIDENCE</span> uses the metaphor of language as something physically slippery to suggest the council is deliberately evasive — they are not communicating but performing communication, choosing words that prevent opposition rather than enable understanding. This confirms the writer's viewpoint: <span class="anno anno-a">VIEWPOINT LINK</span> the council is presented as calculating and disingenuous, treating the community's concerns as obstacles to be avoided rather than objections to be addressed.
+  </p>
+</div>
+
+<h4>Model Answer — Q4 (4 marks)</h4>
+<div class="worked-strong">
+  <p>
+    Throughout the passage, the writer builds a portrait of the market as irreplaceable human infrastructure through contrasting language registers. The council's language — "revitalise," "investment," "footfall" — is <strong>abstract and economic</strong> <span class="anno anno-r">TECHNIQUE: REGISTER CONTRAST</span>; the writer's own language for the market is physical, named, and personal: Mrs Farida "who called everyone 'love'," Old Tom who "salvaged memories." <span class="anno anno-t">EVIDENCE</span> By giving the traders names and specific actions, the writer forces the reader to see individuals — human lives — where the council sees only statistics. <span class="anno anno-p">EFFECT</span>
+  </p>
+  <p>
+    The anaphora in the final paragraph — <strong>"It was not footfall. It was not investment. It was a place where the city came to remember it was made of people"</strong> <span class="anno anno-t">EVIDENCE</span> — directly confronts the council's vocabulary, dismissing each economic term before replacing it with a human truth. <span class="anno anno-r">TECHNIQUE: ANAPHORA + CONTRAST</span> The repetition builds momentum, and the final clause lands with the force of a conclusion: "made of people, not of profit." The juxtaposition of "people" and "profit" encapsulates the entire argument in seven words — one side sees human community, the other sees a balance sheet. <span class="anno anno-p">EFFECT ON READER</span> The reader is left feeling that something irreplaceable is being lost, and that the language used to justify its loss is itself part of the injustice. <span class="anno anno-a">VIEWPOINT LINK</span>
+  </p>
+</div>
+
+<!-- MARK SCHEME -->
+<details>
+  <summary>Mark Scheme — Click to Reveal After Attempting All Questions</summary>
+  <div class="ms-body">
+    <div class="ms-q">
+      <div class="ms-ql">Q1 <span class="ms-marks">1 mark</span></div>
+      <div class="ms-accept">Accept: simile (correct — uses "like"), personification (correct — town has a chest), metaphor (accept — "stone in the chest" can be read as metaphor). Do not accept vague answers such as "imagery" alone. 1 mark for any correctly named technique.</div>
+    </div>
+    <div class="ms-q">
+      <div class="ms-ql">Q2 <span class="ms-marks">2 marks</span></div>
+      <div class="ms-accept">1 mark: Identifies that the simile connects the flags to something human and personal (worry beads are held by people in habitual/anxious moments). 1 mark: Explains the effect on the reader — the reader understands the flags carry the weight of human history and repeated human presence, making the market feel deeply personal and irreplaceable. Do not award mark 2 for simply paraphrasing; require engagement with the specific connotations of "worry beads."</div>
+    </div>
+    <div class="ms-q">
+      <div class="ms-ql">Q3 <span class="ms-marks">3 marks</span></div>
+      <div class="ms-accept">1 mark: Names a technique (euphemism, irony, metaphor — any correctly identified). 1 mark: Provides a short, relevant quote from paragraph 2. 1 mark: Explains the effect on the reader and connects to the writer's critical viewpoint of the council. A top-mark answer will use I.E.E. structure, note the inverted commas as a signal of the writer's scepticism, and use words like "critical," "evasive," or "calculated" to describe the viewpoint.</div>
+    </div>
+    <div class="ms-q">
+      <div class="ms-ql">Q4 <span class="ms-marks">4 marks</span></div>
+      <div class="ms-accept">1 mark: Identifies and analyses ONE technique with a quote and effect. 2 marks: Identifies and analyses TWO techniques with quotes and effects. 3 marks: Analyses techniques across different paragraphs of the extract (not all from the same section). 4 marks: Sustained analysis of at least three distinct techniques across the passage, with clear connection to the writer's overall purpose — to present the market as a human community of irreplaceable value, against economic language that reduces it. Top answers will use phrases like "throughout the passage" and draw evidence from multiple paragraphs.</div>
+    </div>
+  </div>
+</details>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     12. MASTERY TEST
+═══════════════════════════════════════════ -->
+<div class="mastery-hdr" id="mastery">
+  <h2>⑫ Final Mastery Test</h2>
+  <p>12 questions covering every skill in this module. Complete without referring back. Calculate your score at the end.</p>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Mastery Q1 · Technique ID</div>
+  <div class="q-text">"The wind howled through the broken window." Identify the technique used in this sentence.</div>
+  <input class="q-input" type="text" id="m1" placeholder="Name the technique">
+  <br><button class="q-btn" onclick="chkM('m1','personification',['personification','onomatopoeia','personification/onomatopoeia'],'<b>Personification</b> — "howled" gives the wind a human/animal voice. Onomatopoeia could also be argued as "howled" mimics the sound. Accept either or both.')">Check</button>
+  <div class="q-fb" id="fb-m1"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Mastery Q2 · I.E.E.</div>
+  <div class="q-text">Which part of the I.E.E. structure are you missing from this answer? "The writer uses a metaphor. This is powerful." </div>
+  <input class="q-input" type="text" id="m2" placeholder="Name the missing part">
+  <br><button class="q-btn" onclick="chkM('m2','evidence',['evidence','quote','e','evidence and explain','quotation','both evidence and explain','explain'],'Both <b>Evidence</b> (no quote from the text) and <b>Explain</b> (no effect on the reader — "this is powerful" says nothing specific) are missing. Accept either.')">Check</button>
+  <div class="q-fb" id="fb-m2"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Mastery Q3 · Sound</div>
+  <div class="q-text">"Silently, she slipped past the sleeping sentry." What specific sound technique is used here?</div>
+  <input class="q-input" type="text" id="m3" placeholder="Name the technique">
+  <br><button class="q-btn" onclick="chkM('m3','sibilance',['sibilance','alliteration','sibilant'],'<b>Sibilance</b> — the repeated "s" sound creates a hushed, secretive quality that mirrors the character\'s quiet, stealthy movement.')">Check</button>
+  <div class="q-fb" id="fb-m3"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Mastery Q4 · Connotation</div>
+  <div class="q-text">A writer describes a politician's office as a "den." What connotations does this word carry, and what viewpoint does it suggest?</div>
+  <textarea class="q-input" rows="3" id="m4" placeholder="Explain the connotations and viewpoint..."></textarea>
+  <br><button class="q-btn" onclick="chkM('m4','animal',['animal','lair','scheming','predator','secretive','hiding','suspicious','corrupt','cunning','fox','wolf'],'<b>"Den"</b> has connotations of a predatory animal\'s hiding place — secretive, dark, and associated with scheming or corruption. By calling it a "den" rather than an "office," the writer implies the politician operates in a hidden, possibly dishonest way. The viewpoint is critical and suspicious.')">Check</button>
+  <div class="q-fb" id="fb-m4"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Mastery Q5 · Question Type</div>
+  <div class="q-text">The question says "How does the writer use language to build tension? [3 marks]" Should this be an atmosphere answer or a viewpoint answer?</div>
+  <input class="q-input" type="text" id="m5" placeholder="Atmosphere or Viewpoint?">
+  <br><button class="q-btn" onclick="chkM('m5','atmosphere',['atmosphere','mood','atmosphere/mood','tension'],'<b>Atmosphere</b> — "build tension" asks about the reader\'s emotional experience, not the writer\'s personal opinion. Analyse techniques that create suspense and unease in the reader.')">Check</button>
+  <div class="q-fb" id="fb-m5"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Mastery Q6 · Techniques</div>
+  <div class="q-text">"Should we really stand by while the last green spaces in our city are paved over?" Name this technique and explain ONE effect it has on the reader.</div>
+  <textarea class="q-input" rows="3" id="m6" placeholder="Technique and effect..."></textarea>
+  <br><button class="q-btn" onclick="chkM('m6','rhetorical question',['rhetorical question','rhetorical','direct address','rhetorical question and direct address'],'<b>Rhetorical question</b> — no answer is expected; the implied answer is "no, we shouldn\'t." This forces the reader to mentally agree with the writer before they have consciously decided to, making the argument feel like their own conclusion. Direct address ("we") also implicates the reader personally. Accept either or both.')">Check</button>
+  <div class="q-fb" id="fb-m6"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Mastery Q7 · Hypophora vs Rhetorical Q</div>
+  <div class="q-text">What is the key structural difference between a rhetorical question and hypophora?</div>
+  <input class="q-input" type="text" id="m7" placeholder="Explain the difference">
+  <br><button class="q-btn" onclick="chkM('m7','answer',['answer','answers it','answered','response provided','immediately answers','provides the answer','question and answer'],'In <b>hypophora</b>, the writer asks a question and immediately answers it themselves. A <b>rhetorical question</b> leaves the implied answer unstated — the reader is expected to supply it.')">Check</button>
+  <div class="q-fb" id="fb-m7"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Mastery Q8 · Oxymoron</div>
+  <div class="q-text">"It was the beginning of the end." Identify the technique and explain its effect in one sentence.</div>
+  <textarea class="q-input" rows="2" id="m8" placeholder="Technique and one-sentence effect..."></textarea>
+  <br><button class="q-btn" onclick="chkM('m8','oxymoron',['oxymoron','paradox','contradiction'],'<b>Oxymoron</b> — "beginning" and "end" are contradictions placed together. The effect is to suggest something is simultaneously starting and concluding — a sense of inevitability and tragedy, that even as something new begins, its doom is already sealed.')">Check</button>
+  <div class="q-fb" id="fb-m8"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Mastery Q9 · Short Sentences</div>
+  <div class="q-text">A passage builds through long, complex sentences describing a journey, then ends: "She was home." Why is this short sentence particularly effective at this moment?</div>
+  <textarea class="q-input" rows="3" id="m9" placeholder="Explain the effect..."></textarea>
+  <br><button class="q-btn" onclick="chkM('m9','contrast',['contrast','pace','stop','arrival','relief','journey','different','end','simple'],'The short sentence creates a dramatic <b>contrast in pace</b> — after the long, complex sentences of the journey, the simplicity and brevity of "She was home" mirrors the sudden arrival, the cessation of movement and complexity. The plainness of the language itself conveys the relief: there is nothing more to describe, nothing more to endure.')">Check</button>
+  <div class="q-fb" id="fb-m9"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Mastery Q10 · Word Level</div>
+  <div class="q-text">Compare the verbs "stumbled" and "walked" in this context: "He stumbled out of the meeting room." What does "stumbled" add that "walked" would not?</div>
+  <textarea class="q-input" rows="3" id="m10" placeholder="Explain the connotation difference..."></textarea>
+  <br><button class="q-btn" onclick="chkM('m10','unsteady',['unsteady','loss of control','dazed','shock','disturbed','disoriented','shock','physical state','shaken','barely able','struggling'],'<b>"Stumbled"</b> carries connotations of loss of physical control — the meeting has affected him so profoundly that his body is no longer functioning normally. It implies shock, distress, or devastation. "Walked" suggests nothing beyond movement. Through this single verb, the reader understands the emotional impact of the meeting without being told.')">Check</button>
+  <div class="q-fb" id="fb-m10"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Mastery Q11 · Juxtaposition</div>
+  <div class="q-text">"The laughing children played in the shadow of the abandoned factory." Explain how juxtaposition works in this sentence and what it makes the reader feel.</div>
+  <textarea class="q-input" rows="3" id="m11" placeholder="Explain the juxtaposition and its effect..."></textarea>
+  <br><button class="q-btn" onclick="chkM('m11','contrast',['contrast','children','factory','life and decay','innocence','life','death','past and present','joy and sadness','uneasy'],'The juxtaposition of "laughing children" (life, innocence, joy) against the "abandoned factory" (decay, industry, past) creates unease — the children\'s joy is placed in the shadow of something broken and forgotten. The reader feels both the children\'s carefree present and the weight of an industrial past hanging over them, which creates a complex, melancholy atmosphere.')">Check</button>
+  <div class="q-fb" id="fb-m11"></div>
+</div>
+
+<div class="qblock">
+  <div class="q-label">Mastery Q12 · Full I.E.E.</div>
+  <div class="q-text">Write a complete I.E.E. analytical paragraph (minimum 60 words) for this sentence: <em>"The sea devoured the cliffs with patient, ancient hunger."</em></div>
+  <textarea class="q-input" rows="6" id="m12" placeholder="Write your full I.E.E. paragraph..."></textarea>
+  <br><button class="q-btn" onclick="chkM('m12','personification',['personification','metaphor','personification/metaphor','word-level'],'A full-mark answer: Identifies <b>personification</b> or metaphor — "devoured" and "hunger" give the sea a predatory, living quality. Quotes briefly. Explains: "devoured" suggests violent, complete consumption; "patient, ancient" adds the sense that this destruction is slow and inevitable — the sea is not rushing but methodically erasing the land. This makes the reader feel helpless, even frightened, by nature\'s indifferent power. The word "ancient" suggests the sea has been doing this long before humans and will continue long after — making human resistance seem futile.')">Check</button>
+  <div class="q-fb" id="fb-m12"></div>
+</div>
+
+<div style="margin-top:1.5rem">
+  <button class="q-btn" onclick="calcScore()" style="font-size:.82rem; padding:12px 28px;">Calculate My Score ↗</button>
+</div>
+
+<div class="score-box" id="score-box">
+  <div class="score-big" id="score-num">0/12</div>
+  <div class="score-sub">Review every question's explanation above — the feedback is where the learning happens.</div>
+</div>
+
+<div style="margin-top:4rem; border-top:1px solid var(--border); padding-top:1.5rem;">
+  <p style="font-family:'JetBrains Mono',monospace; font-size:.7rem; color:var(--ink-muted); letter-spacing:.06em;">GL Assessment 11+ English · Language &amp; Literary Techniques · Complete Teaching Module</p>
+</div>
+
+<script>
+const norm = s => s.toLowerCase().replace(/[^a-z0-9\s]/g,'').replace(/\s+/,' ').trim();
+
+function showFB(id, correct, explanation) {
+  const fb = document.getElementById('fb-' + id);
+  fb.style.display = 'block';
+  fb.className = 'q-fb ' + (correct ? 'ok' : 'no');
+  fb.innerHTML = correct
+    ? '<span class="fb-head">✅ Correct!</span><span class="fb-body">' + explanation + '</span>'
+    : '<span class="fb-head">❌ Not quite — see below.</span><span class="fb-body">' + explanation + '</span>';
+}
+
+function chk(id, primary, accepted, explanation) {
+  const v = norm(document.getElementById(id).value);
+  if (!v) { showFB(id, false, 'Please write an answer first.'); return; }
+  const match = accepted.some(a => v.includes(norm(a)));
+  showFB(id, match, explanation);
+}
+
+// mastery tracking
+const masteryIds = ['m1','m2','m3','m4','m5','m6','m7','m8','m9','m10','m11','m12'];
+const masteryAcc = {
+  m1:  ['personification','onomatopoeia'],
+  m2:  ['evidence','quote','explain','quotation'],
+  m3:  ['sibilance','alliteration'],
+  m4:  ['animal','lair','scheming','predator','secretive','corrupt','cunning'],
+  m5:  ['atmosphere','mood','tension'],
+  m6:  ['rhetorical','direct address'],
+  m7:  ['answer','answers it','provides the answer','question and answer'],
+  m8:  ['oxymoron','paradox','contradiction'],
+  m9:  ['contrast','pace','relief','arrival'],
+  m10: ['unsteady','loss of control','dazed','shock','shaken'],
+  m11: ['contrast','children','factory','juxtaposition'],
+  m12: ['personification','metaphor','devoured','hunger','ancient']
+};
+
+function chkM(id, primary, accepted, explanation) {
+  chk(id, primary, accepted, explanation);
+}
+
+function calcScore() {
+  let s = 0;
+  masteryIds.forEach(id => {
+    const v = norm(document.getElementById(id).value || '');
+    if (masteryAcc[id].some(a => v.includes(norm(a)))) s++;
+  });
+  document.getElementById('score-num').textContent = s + '/12';
+  const box = document.getElementById('score-box');
+  box.style.display = 'block';
+  box.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

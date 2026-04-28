@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11+ GL Assessment — Poetry Comprehension Complete Study Guide</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --ink: #0f0e0c;
+  --vellum: #f7f3ec;
+  --cream: #ede8de;
+  --rule: #c9bfa8;
+  --gold: #9a7b2f;
+  --gold-light: #c4a052;
+  --crimson: #8b1a1a;
+  --teal: #1a5c52;
+  --slate: #2a3a4a;
+  --dusk: #4a3060;
+  --olive: #4a5a1a;
+  --rust: #7a3010;
+  --s1:#e8f0f8; --s2:#fdf5e0; --s3:#e8f5f0; --s4:#f5e8f5;
+  --s5:#f0f8e8; --s6:#fdf0e8; --s7:#e8f0f0; --s8:#f5f0ff;
+  --s9:#fff0f0; --s10:#f0fff0; --s11:#f8f0e8; --s12:#e8f8f8;
+  --s13:#f8e8f0; --s14:#f0f8ff; --s15:#fffae8; --s16:#e8ffe8;
+  --correct-bg:#e6f5e6; --correct:#1a6b1a;
+  --wrong-bg:#fce8e8; --wrong:#8b1a1a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Libre Baskerville',Georgia,serif;background:var(--vellum);color:var(--ink);font-size:15.5px;line-height:1.8;}
+
+/* COVER */
+.cover{
+  background:var(--ink);
+  color:var(--vellum);
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:60px 40px;position:relative;overflow:hidden;
+}
+.cover::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 30%,rgba(154,123,47,0.12) 0%,transparent 70%),
+    radial-gradient(ellipse 400px 600px at 80% 70%,rgba(74,48,96,0.15) 0%,transparent 70%);
+}
+.cover::after{
+  content:'❝';
+  position:absolute;top:40px;left:60px;
+  font-family:'Cormorant Garamond',serif;font-size:12rem;
+  color:rgba(154,123,47,0.1);line-height:1;pointer-events:none;
+}
+.cover-eyebrow{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:4px;
+  text-transform:uppercase;color:var(--gold-light);
+  border:1px solid var(--gold);padding:6px 18px;display:inline-block;
+  margin-bottom:36px;position:relative;
+}
+.cover h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.4rem,7vw,4.5rem);font-weight:700;
+  line-height:1.05;max-width:780px;position:relative;margin-bottom:16px;
+}
+.cover h1 em{color:var(--gold-light);font-style:italic;}
+.cover-sub{
+  font-style:italic;color:rgba(247,243,236,0.65);
+  font-size:1.05rem;max-width:520px;position:relative;margin-bottom:40px;
+}
+.cover-rule{width:60px;height:2px;background:var(--gold);margin:0 auto 40px;}
+.toc{
+  background:rgba(255,255,255,0.04);border:1px solid rgba(154,123,47,0.3);
+  padding:28px 36px;max-width:700px;width:100%;position:relative;text-align:left;
+}
+.toc-title{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold-light);margin-bottom:14px;
+}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px 28px;}
+.toc-item{
+  font-size:12px;color:rgba(247,243,236,0.7);
+  padding:3px 0;border-bottom:1px solid rgba(154,123,47,0.1);
+  display:flex;gap:8px;align-items:baseline;
+}
+.toc-n{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold-light);flex-shrink:0;}
+
+/* NAV */
+.snav{
+  position:sticky;top:0;background:var(--ink);z-index:100;
+  padding:7px 16px;display:flex;gap:4px;flex-wrap:wrap;justify-content:center;
+  border-bottom:2px solid var(--gold);
+}
+.snav a{
+  color:rgba(247,243,236,0.6);text-decoration:none;
+  font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:1px;
+  text-transform:uppercase;padding:4px 8px;border-radius:2px;transition:all 0.2s;
+}
+.snav a:hover{background:var(--gold);color:var(--ink);}
+
+/* SECTIONS */
+.sec{padding:56px 40px;max-width:920px;margin:0 auto;}
+.sh{
+  display:flex;align-items:flex-start;gap:18px;
+  margin-bottom:28px;padding-bottom:18px;border-bottom:2px solid currentColor;
+}
+.sn{
+  font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:700;
+  line-height:1;opacity:0.12;flex-shrink:0;
+}
+.sg{flex:1;}
+.sl{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;
+  text-transform:uppercase;opacity:0.55;margin-bottom:3px;
+}
+.st{font-family:'Cormorant Garamond',serif;font-size:1.85rem;font-weight:700;line-height:1.2;}
+
+/* COLOUR BANDS */
+.b1{background:var(--s1);} .b1 .sh{color:var(--slate);border-color:var(--slate);}
+.b2{background:var(--s2);} .b2 .sh{color:var(--gold);border-color:var(--gold);}
+.b3{background:var(--s3);} .b3 .sh{color:var(--teal);border-color:var(--teal);}
+.b4{background:var(--s4);} .b4 .sh{color:var(--dusk);border-color:var(--dusk);}
+.b5{background:var(--s5);} .b5 .sh{color:var(--olive);border-color:var(--olive);}
+.b6{background:var(--s6);} .b6 .sh{color:var(--rust);border-color:var(--rust);}
+.b7{background:var(--s7);} .b7 .sh{color:var(--teal);border-color:var(--teal);}
+.b8{background:var(--s8);} .b8 .sh{color:var(--dusk);border-color:var(--dusk);}
+.b9{background:var(--s9);} .b9 .sh{color:var(--crimson);border-color:var(--crimson);}
+.b10{background:var(--s10);} .b10 .sh{color:var(--olive);border-color:var(--olive);}
+.b11{background:var(--s11);} .b11 .sh{color:var(--rust);border-color:var(--rust);}
+.b12{background:var(--s12);} .b12 .sh{color:var(--teal);border-color:var(--teal);}
+.b13{background:var(--s13);} .b13 .sh{color:var(--dusk);border-color:var(--dusk);}
+.b14{background:var(--s14);} .b14 .sh{color:var(--slate);border-color:var(--slate);}
+.b15{background:var(--s15);} .b15 .sh{color:var(--gold);border-color:var(--gold);}
+.b16{background:var(--ink);}
+
+/* PROSE */
+h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;margin:26px 0 10px;}
+h4{font-family:'Libre Baskerville',serif;font-size:.9rem;font-weight:700;margin:18px 0 6px;letter-spacing:.5px;text-transform:uppercase;}
+p{margin-bottom:13px;}
+.sb{border-bottom:1px solid var(--rule);padding-bottom:36px;margin-bottom:36px;}
+.sb:last-of-type{border-bottom:none;}
+
+/* CALLOUTS */
+.callout{
+  border-left:4px solid var(--gold);background:rgba(154,123,47,0.08);
+  padding:13px 18px;margin:18px 0;border-radius:0 4px 4px 0;font-style:italic;
+}
+.callout strong{font-style:normal;color:var(--gold);}
+.tip{
+  background:var(--ink);color:var(--vellum);
+  padding:14px 20px;margin:18px 0;border-radius:4px;
+}
+.tip strong{color:var(--gold-light);}
+
+/* POEM BOXES */
+.poem-box{
+  background:white;border:2px solid var(--rule);border-radius:4px;
+  padding:20px 28px;margin:16px 0;font-style:italic;
+  font-family:'Cormorant Garamond',serif;font-size:1.05rem;line-height:2;
+}
+.poem-box .poem-label{
+  font-style:normal;font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:2px;text-transform:uppercase;color:var(--crimson);margin-bottom:8px;
+}
+.ex-box{
+  background:#fff;border:2px solid var(--rule);border-radius:4px;
+  padding:18px 22px;margin:14px 0;
+}
+.ex-box .ex-l{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--crimson);margin-bottom:8px;
+}
+.ex-box .passage{
+  background:var(--cream);padding:10px 14px;
+  border-left:3px solid var(--rule);margin:10px 0;
+  font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.02rem;
+}
+
+/* TABLES */
+.rt{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;}
+.rt th{background:var(--ink);color:var(--vellum);padding:9px 13px;text-align:left;
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;}
+.rt td{padding:9px 13px;border-bottom:1px solid var(--rule);vertical-align:top;}
+.rt tr:nth-child(even) td{background:rgba(0,0,0,0.025);}
+.rt tr:hover td{background:rgba(0,0,0,0.045);}
+
+/* STEPS */
+.steps{counter-reset:step;}
+.step{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start;}
+.step-n{
+  counter-increment:step;width:30px;height:30px;background:var(--ink);color:var(--vellum);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-weight:700;font-size:14px;flex-shrink:0;margin-top:2px;
+}
+.step-c{flex:1;}
+
+/* CHIPS */
+.chip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:14px 0;}
+.chip{background:var(--ink);color:var(--vellum);padding:9px 12px;border-radius:3px;}
+.chip .cw{color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;display:block;margin-bottom:2px;}
+.chip .cm{font-family:'DM Mono',monospace;font-size:10px;color:rgba(247,243,236,0.55);}
+
+/* QUIZ */
+.qs{background:white;border:2px solid var(--rule);border-radius:5px;padding:22px;margin:24px 0;}
+.qlh{display:flex;align-items:center;gap:8px;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--rule);}
+.lb{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 11px;border-radius:20px;font-weight:600;}
+.le{background:#e8f5e9;color:#1a7a1a;border:1px solid #a5d6a7;}
+.li{background:#fff3e0;color:#e65100;border:1px solid #ffcc80;}
+.la{background:#e3f2fd;color:#0d47a1;border:1px solid #90caf9;}
+.lc{background:#fce4ec;color:#880e4f;border:1px solid #f48fb1;}
+.qi{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--rule);}
+.qi:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.qt{font-size:14.5px;margin-bottom:9px;line-height:1.6;}
+.qp{background:var(--cream);border-left:3px solid var(--rule);padding:9px 13px;
+  font-style:italic;font-size:13.5px;margin-bottom:9px;
+  font-family:'Cormorant Garamond',serif;font-size:1rem;border-radius:0 3px 3px 0;}
+.qr{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.qi input{
+  flex:1;min-width:160px;padding:7px 11px;border:2px solid var(--rule);
+  border-radius:3px;font-family:'Libre Baskerville',serif;font-size:14px;
+  background:var(--vellum);transition:border-color 0.2s;
+}
+.qi input:focus{outline:none;border-color:var(--slate);}
+.qb{
+  padding:7px 16px;background:var(--ink);color:var(--vellum);
+  border:none;border-radius:3px;font-family:'DM Mono',monospace;
+  font-size:11px;letter-spacing:1px;cursor:pointer;transition:background 0.2s;white-space:nowrap;
+}
+.qb:hover{background:var(--slate);}
+.qf{margin-top:9px;padding:9px 13px;border-radius:3px;font-size:13.5px;display:none;line-height:1.5;}
+.fc{background:var(--correct-bg);color:var(--correct);border:1px solid #a5d6a7;}
+.fw{background:var(--wrong-bg);color:var(--wrong);border:1px solid #f48fb1;}
+
+/* MASTERY */
+.mastery{background:var(--ink);color:var(--vellum);padding:60px 40px;}
+.mastery-inner{max-width:920px;margin:0 auto;}
+.mastery .sh{color:var(--gold-light);border-color:var(--gold);}
+.mastery .qs{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.12);color:var(--vellum);}
+.mastery .qp{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.18);}
+.mastery .qi input{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.2);color:var(--vellum);}
+.mastery .qb{background:var(--gold);color:var(--ink);}
+.mastery .qb:hover{background:var(--gold-light);}
+.mastery .rt th{background:rgba(255,255,255,0.12);}
+.mastery .rt td{border-color:rgba(255,255,255,0.08);color:var(--vellum);}
+
+/* ANNOTATION GRID for worked poem */
+.annot{display:grid;grid-template-columns:1fr 1.4fr;gap:20px;margin:16px 0;}
+.annot-poem{
+  background:white;border:2px solid var(--rule);border-radius:4px;padding:20px;
+  font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;line-height:2.2;
+}
+.annot-notes{display:flex;flex-direction:column;gap:8px;}
+.annot-note{
+  background:var(--cream);border-left:3px solid var(--gold);
+  padding:8px 12px;border-radius:0 3px 3px 0;font-size:13px;line-height:1.5;
+}
+.annot-note strong{font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;color:var(--crimson);display:block;margin-bottom:3px;}
+
+/* TIMING BAR */
+.tbar{
+  background:var(--cream);border:1px solid var(--rule);border-radius:3px;
+  padding:10px 14px;margin:7px 0;display:flex;justify-content:space-between;align-items:center;font-size:13.5px;
+}
+.tbar .tname{font-weight:700;}
+.tbar .ttime{
+  font-family:'DM Mono',monospace;font-size:12px;
+  background:var(--ink);color:var(--gold-light);padding:3px 9px;border-radius:2px;
+}
+
+@media(max-width:640px){
+  .sec{padding:36px 18px;}
+  .cover{padding:40px 18px;}
+  .toc-grid{grid-template-columns:1fr;}
+  .qr{flex-direction:column;align-items:stretch;}
+  .qb{width:100%;text-align:center;}
+  .annot{grid-template-columns:1fr;}
+}
+@media print{.snav,.mastery .qb{display:none;} .sb{page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-eyebrow">GL Assessment · Year 5–6 · Poetry Comprehension</div>
+  <h1>The Complete Guide to<br><em>Poetry Analysis</em></h1>
+  <p class="cover-sub">From first reading to full examiner-ready response — everything a student needs to master poetry at 11+ level</p>
+  <div class="cover-rule"></div>
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <div class="toc-grid">
+      <div class="toc-item"><span class="toc-n">01</span> Question Type Framework</div>
+      <div class="toc-item"><span class="toc-n">02</span> SLIFFT Framework (Revised)</div>
+      <div class="toc-item"><span class="toc-n">03</span> Sound Devices</div>
+      <div class="toc-item"><span class="toc-n">04</span> Enjambment & Caesura</div>
+      <div class="toc-item"><span class="toc-n">05</span> Volta / Turning Point</div>
+      <div class="toc-item"><span class="toc-n">06</span> Rhyme Scheme</div>
+      <div class="toc-item"><span class="toc-n">07</span> Rhythm & Metre</div>
+      <div class="toc-item"><span class="toc-n">08</span> Literary Devices Glossary</div>
+      <div class="toc-item"><span class="toc-n">09</span> Mood vs. Tone</div>
+      <div class="toc-item"><span class="toc-n">10</span> Symbolism Reference</div>
+      <div class="toc-item"><span class="toc-n">11</span> Semantic Field</div>
+      <div class="toc-item"><span class="toc-n">12</span> Full Worked Analysis</div>
+      <div class="toc-item"><span class="toc-n">13</span> Written Response Structure</div>
+      <div class="toc-item"><span class="toc-n">14</span> Unseen Poem Strategy</div>
+      <div class="toc-item"><span class="toc-n">15</span> Tone & Mood Vocabulary Table</div>
+      <div class="toc-item"><span class="toc-n">★</span> Final Mastery Test</div>
+    </div>
+  </div>
+</div>
+
+<nav class="snav">
+  <a href="#s1">Q-Types</a><a href="#s2">SLIFFT</a><a href="#s3">Sound</a>
+  <a href="#s4">Enj/Caes</a><a href="#s5">Volta</a><a href="#s6">Rhyme</a>
+  <a href="#s7">Metre</a><a href="#s8">Devices</a><a href="#s9">Mood/Tone</a>
+  <a href="#s10">Symbolism</a><a href="#s11">Sem Field</a><a href="#s12">Analysis</a>
+  <a href="#s13">Response</a><a href="#s14">Strategy</a><a href="#s15">Vocab</a>
+  <a href="#mastery">Mastery</a>
+</nav>
+
+
+<!-- S1: QUESTION TYPES -->
+<div class="b1" id="s1"><div class="sec">
+<div class="sh"><div class="sn">01</div><div class="sg"><div class="sl">The Foundation</div><div class="st">Question Type Framework</div></div></div>
+
+<p>Every poetry question in a GL or grammar school exam belongs to one of three categories. Identifying the category tells you exactly how to construct your answer — and more importantly, what the examiner is actually looking for.</p>
+
+<div class="sb">
+<h3>A. Evidence Questions — "Quote and Locate"</h3>
+<p>These ask you to find a specific word or phrase in the poem that demonstrates something. Your job is to select the most precise quotation — not the first line that comes to mind.</p>
+<div class="chip-grid">
+  <div class="chip"><span class="cw">Find a phrase…</span><span class="cm">locate + quote</span></div>
+  <div class="chip"><span class="cw">Which word suggests…</span><span class="cm">identify + quote</span></div>
+  <div class="chip"><span class="cw">Write down a line…</span><span class="cm">select evidence</span></div>
+  <div class="chip"><span class="cw">Give an example of…</span><span class="cm">locate a technique</span></div>
+</div>
+<div class="ex-box"><div class="ex-l">Worked Example</div>
+<div class="passage">"The sea snarled at the cliff face, dragging stones back into its throat."</div>
+<p><strong>Q:</strong> Find a phrase that suggests the sea is aggressive.</p>
+<p><strong>A:</strong> "snarled at the cliff face" — the verb "snarled" implies an animal's aggression, making the sea seem predatory and violent.</p></div>
+<div class="callout"><strong>Strategy:</strong> Read the question, cover the poem, form your answer, then scan for the most precise evidence. Avoid copying whole stanzas — one powerful phrase is worth more than three vague lines.</div>
+</div>
+
+<div class="sb">
+<h3>B. Effect Questions — "Technique + Impact"</h3>
+<p>These are the most common and most rewarded question type. They ask <em>why</em> the poet made a specific choice. Never say a technique "makes it sound nice" or "makes it more interesting." Describe the precise emotional or sensory impact.</p>
+<div class="chip-grid">
+  <div class="chip"><span class="cw">Why does the poet use…</span><span class="cm">name + explain effect</span></div>
+  <div class="chip"><span class="cw">What effect does…</span><span class="cm">describe the impact</span></div>
+  <div class="chip"><span class="cw">How does the poet create…</span><span class="cm">technique → reader response</span></div>
+  <div class="chip"><span class="cw">Explain the effect of…</span><span class="cm">technique + feeling</span></div>
+</div>
+<div class="ex-box"><div class="ex-l">Worked Example</div>
+<div class="passage">"Silent, sliding snakes of smoke rose from the chimney."</div>
+<p><strong>Q:</strong> Why does the poet use alliteration in this line?</p>
+<p><strong>A:</strong> The repeated 's' sounds in "silent, sliding snakes" create a sinister, whispering atmosphere. The softness of the sound mirrors the slow, stealthy movement of the smoke, making it feel unsettling rather than peaceful.</p></div>
+</div>
+
+<div class="sb">
+<h3>C. Meaning Questions — "Inference, Deduction, Vocabulary in Context"</h3>
+<p>These ask what the poet <em>means</em> — not just what they say. You must interpret metaphors, infer attitudes, and explain vocabulary by using the surrounding lines as evidence.</p>
+<div class="chip-grid">
+  <div class="chip"><span class="cw">What is meant by…</span><span class="cm">interpret the image</span></div>
+  <div class="chip"><span class="cw">What does this suggest…</span><span class="cm">infer the meaning</span></div>
+  <div class="chip"><span class="cw">What does X tell us about…</span><span class="cm">deduce + explain</span></div>
+  <div class="chip"><span class="cw">How does the poet feel about…</span><span class="cm">infer tone + attitude</span></div>
+</div>
+<div class="ex-box"><div class="ex-l">Worked Example</div>
+<div class="passage">"The golden coin of the sun sank slowly below the hill."</div>
+<p><strong>Q:</strong> What is meant by the metaphor "the golden coin of the sun"?</p>
+<p><strong>A:</strong> This metaphor compares the sun to a coin to suggest that it is perfectly round, brilliantly bright, and incredibly precious or valuable. It implies the light of day is something rare and worth treasuring — which makes its "sinking" feel like a loss.</p></div>
+</div>
+
+<!-- Quiz S1 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span><span style="font-size:12px;color:#666;">Identify the question type</span></div>
+<div class="qi" id="q1a">
+<div class="qt">The examiner asks: "Find a word that shows the bird is frightened." What question type is this?</div>
+<div class="qr"><input type="text" placeholder="Question type..." id="in_q1a"><button class="qb" onclick="chk('q1a','evidence','Evidence questions ask you to locate and quote a specific word or phrase from the poem.')">Check</button></div>
+<div class="qf" id="fb_q1a"></div></div>
+<div class="qi" id="q1b">
+<div class="qt">The examiner asks: "What effect does the repetition of 'never' create?" What question type is this?</div>
+<div class="qr"><input type="text" placeholder="Question type..." id="in_q1b"><button class="qb" onclick="chk('q1b','effect','Effect questions ask you to name a technique and explain the specific impact it has on the reader.')">Check</button></div>
+<div class="qf" id="fb_q1b"></div></div>
+<div class="qi" id="q1c">
+<div class="qt">The examiner asks: "What is meant by 'the iron fist of winter'?" What question type is this?</div>
+<div class="qr"><input type="text" placeholder="Question type..." id="in_q1c"><button class="qb" onclick="chk('q1c','meaning','Meaning questions ask you to interpret a metaphor, image, or vocabulary item by explaining what the poet intends.')">Check</button></div>
+<div class="qf" id="fb_q1c"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span><span style="font-size:12px;color:#666;">Command word recognition</span></div>
+<div class="qi" id="q1d">
+<div class="qp">"The wolves' howling tore the silence apart."</div>
+<div class="qt">The question asks: "Which verb best shows the violence of the sound?" — what ONE thing must your answer include?</div>
+<div class="qr"><input type="text" placeholder="Your answer..." id="in_q1d"><button class="qb" onclick="chk('q1d','quotation','An evidence question always requires a direct quotation from the poem. The answer here is \'tore\'.')">Check</button></div>
+<div class="qf" id="fb_q1d"></div></div>
+<div class="qi" id="q1e">
+<div class="qt">For an Effect question, which TWO things must your answer always contain? (Separate with comma)</div>
+<div class="qr"><input type="text" placeholder="Thing 1, Thing 2..." id="in_q1e"><button class="qb" onclick="chk('q1e','technique, effect','Every effect answer must name the technique used AND explain the specific impact/feeling it creates in the reader.')">Check</button></div>
+<div class="qf" id="fb_q1e"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb la">Advanced</span><span style="font-size:12px;color:#666;">Selecting the best evidence</span></div>
+<div class="qi" id="q1f">
+<div class="qp">"The river stumbled over rocks,<br>whimpering like a wounded thing,<br>dragging its slow body to the sea."</div>
+<div class="qt">The question asks: "Find a phrase that gives the river human qualities." Which phrase is the strongest single piece of evidence? (Write the phrase exactly)</div>
+<div class="qr"><input type="text" placeholder="Quote from poem..." id="in_q1f"><button class="qb" onclick="chk('q1f','whimpering like a wounded thing','All three lines use personification, but \'whimpering like a wounded thing\' is the richest — it uses simile + personification to make the river seem in pain, giving it the strongest human quality.')">Check</button></div>
+<div class="qf" id="fb_q1f"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Challenging</span><span style="font-size:12px;color:#666;">Full effect explanation</span></div>
+<div class="qi" id="q1g">
+<div class="qp">"Darkness crept across the fields,<br>swallowing the last pale light."</div>
+<div class="qt">What effect does personifying the darkness create? Name the technique, then write what feeling it gives the reader. (One or two words for the feeling.)</div>
+<div class="qr"><input type="text" placeholder="Feeling word(s)..." id="in_q1g"><button class="qb" onclick="chk('q1g','menacing','Personification (\'crept\', \'swallowing\') makes the darkness feel intentional and predatory — as if it has a will to consume the light. The feeling is menacing or threatening.')">Check</button></div>
+<div class="qf" id="fb_q1g"></div></div>
+</div>
+
+</div></div>
+
+<!-- S2: SLIFFT -->
+<div class="b2" id="s2"><div class="sec">
+<div class="sh"><div class="sn">02</div><div class="sg"><div class="sl">Systematic Deconstruction</div><div class="st">The SLIFFT Framework (Revised)</div></div></div>
+
+<p>SLIFFT is a systematic method for working through any unseen poem. Each letter prompts a specific analytical question. Work through the layers in order — the framework stops you from making vague comments and forces you to generate precise, examiner-ready observations.</p>
+
+<div class="sb">
+<h3>S — Structure</h3>
+<p>Ask: <em>How is the poem physically arranged, and what does that arrangement tell me?</em></p>
+<p>Count the stanzas. Note whether they are equal in length — if they suddenly shorten or lengthen, that is a deliberate choice. Short lines create tension, speed, or fragmentation. Long, flowing lines can suggest ease, calm, or an overwhelming rush of feeling. Look also at whether the poem breaks rules: an irregular final stanza often signals a shift in the speaker's state of mind.</p>
+</div>
+
+<div class="sb">
+<h3>L — Language</h3>
+<p>Ask: <em>What specific word choices carry the most weight?</em></p>
+<p>Focus on powerful verbs first — they do the most work. Then look for emotive adjectives and nouns that cluster around a theme (semantic fields). Consider connotations: a word's associations beyond its dictionary meaning. "Thin" and "slender" mean similar things, but "thin" often implies fragility or poverty, while "slender" implies elegance. Poets choose words for their full weight.</p>
+</div>
+
+<div class="sb">
+<h3>I — Imagery</h3>
+<p>Ask: <em>What mental picture is the poet creating, and why?</em></p>
+<p>Imagery is any language that appeals to the senses — sight, sound, smell, taste, touch. This layer focuses on the <em>content</em> of comparisons and descriptions: what is being compared to what, and what qualities are being highlighted? A simile that compares grief to a stone in the chest is doing something quite different from one that compares it to a fog — the stone is heavy and permanent, the fog is diffuse and obscuring.</p>
+</div>
+
+<div class="sb">
+<h3>F — Form</h3>
+<p>Ask: <em>Is this poem following a recognised form, and what rules is it keeping or breaking?</em></p>
+<p>Form covers rhyme scheme (does it rhyme at all? regularly or irregularly?), metre (the rhythmic beat of syllables), and any named forms: sonnet (14 lines, turning point), ballad (tells a story, often ABCB rhyme), ode (extended praise), elegy (lament for the dead). When a poet chooses a strict form, it can create a sense of control or inevitability. When they break it, that break is almost always significant.</p>
+</div>
+
+<div class="sb">
+<h3>F — Feeling</h3>
+<p>Ask: <em>What emotions does this poem produce in the reader, and how do they shift?</em></p>
+<p>This is distinct from tone (the poet's attitude). Feeling is the reader's emotional experience — the mood the poem creates. A poem can be written with a cold, detached tone but produce a deeply unsettling feeling in the reader. Trace how the feeling changes across stanzas: does it move from hope to despair? from calm to sudden panic? Identifying the shift helps you locate the volta.</p>
+</div>
+
+<div class="sb">
+<h3>T — Tone</h3>
+<p>Ask: <em>What is the poet's attitude toward their subject?</em></p>
+<p>Tone is the voice behind the poem — what the poet seems to feel or think. It is separate from the content: two poets writing about the same war could have entirely different tones (bitter vs. heroic; ironic vs. solemn). Identify the tone in each stanza and notice if it changes — this often marks the volta. Use precise vocabulary: not "happy" but <em>euphoric</em>; not "sad" but <em>elegiac</em> or <em>mournful</em>.</p>
+</div>
+
+<div class="sb">
+<h3>+ Voice / Perspective</h3>
+<p>Ask: <em>Who is speaking, to whom, and from what position?</em></p>
+<p>Voice is the additional layer often missed by students. Consider: Is the poem in first person (I/we), second person (you), or third person (he/she/they)? First person creates intimacy; second person implicates the reader directly; third person can feel distant or observational. Also consider whether the speaker is reliable — do you trust their account? Some poets create a persona whose perspective we are meant to question.</p>
+</div>
+
+<div class="ex-box"><div class="ex-l">How to use SLIFFT on an unseen poem</div>
+<div class="steps">
+<div class="step"><div class="step-n">1</div><div class="step-c"><strong>S:</strong> Count stanzas, note line lengths. Ask: does the structure change?</div></div>
+<div class="step"><div class="step-n">2</div><div class="step-c"><strong>L:</strong> Circle the most powerful verb in each stanza. What do they collectively suggest?</div></div>
+<div class="step"><div class="step-n">3</div><div class="step-c"><strong>I:</strong> Underline every comparison (simile/metaphor). What quality does each highlight?</div></div>
+<div class="step"><div class="step-n">4</div><div class="step-c"><strong>F:</strong> Mark end sounds. Does it rhyme? Regularly? Is there a pattern?</div></div>
+<div class="step"><div class="step-n">5</div><div class="step-c"><strong>F:</strong> Write one word for the feeling of each stanza in the margin.</div></div>
+<div class="step"><div class="step-n">6</div><div class="step-c"><strong>T:</strong> One word for the poet's tone overall. Does it shift?</div></div>
+<div class="step"><div class="step-n">+</div><div class="step-c"><strong>V:</strong> Who is speaking? First, second, or third person? What effect does this create?</div></div>
+</div></div>
+
+<!-- Quiz S2 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q2a">
+<div class="qt">What does the S in SLIFFT stand for?</div>
+<div class="qr"><input type="text" placeholder="..." id="in_q2a"><button class="qb" onclick="chk('q2a','structure','S = Structure: how the poem is physically arranged — stanzas, line lengths, regularity vs. irregularity.')">Check</button></div>
+<div class="qf" id="fb_q2a"></div></div>
+<div class="qi" id="q2b">
+<div class="qt">In SLIFFT, which layer asks about the poet's attitude toward their subject?</div>
+<div class="qr"><input type="text" placeholder="Layer name..." id="in_q2b"><button class="qb" onclick="chk('q2b','tone','T = Tone: the poet\'s attitude — what they seem to think or feel about the subject they\'re writing about.')">Check</button></div>
+<div class="qf" id="fb_q2b"></div></div>
+<div class="qi" id="q2c">
+<div class="qt">Which layer of SLIFFT focuses on the reader's emotional experience rather than the poet's attitude?</div>
+<div class="qr"><input type="text" placeholder="Layer name..." id="in_q2c"><button class="qb" onclick="chk('q2c','feeling','F (second F) = Feeling: the atmosphere or emotion the reader experiences — which can differ from the poet\'s tone.')">Check</button></div>
+<div class="qf" id="fb_q2c"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q2d">
+<div class="qt">A poem has ten stanzas of four lines each, then a final stanza of only two lines. Which SLIFFT layer does this observation belong to?</div>
+<div class="qr"><input type="text" placeholder="Layer..." id="in_q2d"><button class="qb" onclick="chk('q2d','structure','The physical arrangement of stanzas and line lengths belongs to S = Structure. A shortened final stanza is a structural signal worth commenting on.')">Check</button></div>
+<div class="qf" id="fb_q2d"></div></div>
+<div class="qi" id="q2e">
+<div class="qt">A poem is written in the second person ("you"). Which SLIFFT layer covers this observation?</div>
+<div class="qr"><input type="text" placeholder="Layer..." id="in_q2e"><button class="qb" onclick="chk('q2e','voice','Voice/Perspective is the additional layer. Second-person address implicates the reader directly in the poem\'s situation.')">Check</button></div>
+<div class="qf" id="fb_q2e"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb la">Advanced</span></div>
+<div class="qi" id="q2f">
+<div class="qp">"She pressed her palm to the cold glass<br>and watched the streetlights blur to gold.<br>Outside: the ordinary world.<br>Inside: whatever this was becoming."</div>
+<div class="qt">Using the L layer of SLIFFT, identify the most powerful verb in this stanza. One word only.</div>
+<div class="qr"><input type="text" placeholder="Verb..." id="in_q2f"><button class="qb" onclick="chk('q2f','becoming','\'Becoming\' is the most powerful verb — it is open, unfinished, and implies a transformation that even the speaker cannot name, creating mystery and emotional tension.')">Check</button></div>
+<div class="qf" id="fb_q2f"></div></div>
+</div>
+
+</div></div>
+
+
+<!-- S3: SOUND DEVICES -->
+<div class="b3" id="s3"><div class="sec">
+<div class="sh"><div class="sn">03</div><div class="sg"><div class="sl">Sonic Techniques</div><div class="st">Sound Devices — Complete Section</div></div></div>
+
+<div class="callout"><strong>The Core Principle:</strong> In poetry, sound should mirror meaning. The sounds a poet chooses create an atmosphere that works beneath the level of conscious understanding. When you comment on a sound device, always explain what the sound <em>feels like</em> and how that feeling matches what the poem is describing.</div>
+
+<div class="sb">
+<h3>Alliteration</h3>
+<p><strong>Definition:</strong> The repetition of the same consonant sound at the start of nearby words.</p>
+<div class="poem-box"><div class="poem-label">Example</div>"The bold, black bird broke from the branches."</div>
+<p><strong>Effects it can create:</strong></p>
+<ul style="margin:0 0 12px 22px;line-height:2;">
+  <li><strong>Emphasis:</strong> draws the reader's attention to a key idea or image</li>
+  <li><strong>Rhythm and musicality:</strong> creates a pleasing beat that makes lines memorable</li>
+  <li><strong>Mood through sound:</strong> hard consonants (b, d, k, p) feel harsh and violent; soft consonants (l, m, n) feel gentle and soothing</li>
+</ul>
+</div>
+
+<div class="sb">
+<h3>Sibilance <span style="font-size:0.8rem;font-style:italic;font-weight:normal;">(a named subset of alliteration)</span></h3>
+<p><strong>Definition:</strong> The repetition of 's', 'sh', and 'z' sounds — hissing sounds — in close proximity. Sibilance is a specific named technique and examiners reward naming it precisely.</p>
+<div class="poem-box"><div class="poem-label">Example</div>"Soft, sinister sounds slid across the surface of the swamp."</div>
+<p><strong>Effects it can create:</strong></p>
+<ul style="margin:0 0 12px 22px;line-height:2;">
+  <li><strong>Menace and danger:</strong> the hissing sound associates with snakes, whispers, conspiracies</li>
+  <li><strong>Softness and stealth:</strong> something moving quietly, perhaps deceptively</li>
+  <li><strong>Unease:</strong> the sound itself can feel slippery or untrustworthy</li>
+</ul>
+</div>
+
+<div class="sb">
+<h3>Assonance</h3>
+<p><strong>Definition:</strong> The repetition of the same <em>vowel</em> sound in nearby words (not necessarily the same letters — the same sound).</p>
+<div class="poem-box"><div class="poem-label">Example</div>"The <u>ea</u>gling r<u>ea</u>ches for the bl<u>ea</u>ching sky." (long 'ee' sound repeated)</div>
+<p><strong>Effects it can create:</strong></p>
+<ul style="margin:0 0 12px 22px;line-height:2;">
+  <li><strong>Musicality and internal rhyme:</strong> creates a musical quality without end rhyme</li>
+  <li><strong>Pace control:</strong> long vowels (oo, ah, ee) slow the reader down; short vowels (i, u) speed up</li>
+  <li><strong>Mood through sound:</strong> long, open sounds feel expansive or melancholic; closed sounds feel urgent or tight</li>
+</ul>
+</div>
+
+<div class="sb">
+<h3>Consonance</h3>
+<p><strong>Definition:</strong> The repetition of consonant sounds within or at the end of words (not just at the start — that would be alliteration).</p>
+<div class="poem-box"><div class="poem-label">Example</div>"The bl<u>ack</u> tra<u>ck</u> ba<u>ck</u>ed into the dar<u>k</u>." (repeated 'k' sound)</div>
+<p><strong>Effects it can create:</strong></p>
+<ul style="margin:0 0 12px 22px;line-height:2;">
+  <li><strong>Texture and density:</strong> creates a rich, woven sonic quality</li>
+  <li><strong>Harshness:</strong> repeated hard consonants can feel grating or brutal</li>
+  <li><strong>Unity:</strong> links words across a line, binding images together</li>
+</ul>
+</div>
+
+<div class="sb">
+<h3>Onomatopoeia</h3>
+<p><strong>Definition:</strong> A word whose sound imitates what it describes.</p>
+<div class="poem-box"><div class="poem-label">Example</div>"The bees buzzed; the brook babbled; somewhere a door slammed."</div>
+<p><strong>Effects it can create:</strong></p>
+<ul style="margin:0 0 12px 22px;line-height:2;">
+  <li><strong>Immediacy:</strong> the sound makes the reader feel present in the scene</li>
+  <li><strong>Vividness:</strong> activates the reader's auditory imagination</li>
+  <li><strong>Contrast:</strong> a single jarring onomatopoeic word amid quiet description creates shock</li>
+</ul>
+</div>
+
+<!-- Quiz S3 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q3a">
+<div class="qp">"Peter Piper picked a peck of pickled pepper."</div>
+<div class="qt">What sound device is used here?</div>
+<div class="qr"><input type="text" placeholder="Device name..." id="in_q3a"><button class="qb" onclick="chk('q3a','alliteration','Repeated \'p\' sounds at the start of words = alliteration.')">Check</button></div>
+<div class="qf" id="fb_q3a"></div></div>
+<div class="qi" id="q3b">
+<div class="qp">"The snake slid silently through the silver grass."</div>
+<div class="qt">What SPECIFIC named sound device is used here? (Not just alliteration.)</div>
+<div class="qr"><input type="text" placeholder="Specific device..." id="in_q3b"><button class="qb" onclick="chk('q3b','sibilance','Repeated s and sl sounds — specifically hissing sounds — make this sibilance. This is a named subset of alliteration and earns extra marks when named precisely.')">Check</button></div>
+<div class="qf" id="fb_q3b"></div></div>
+<div class="qi" id="q3c">
+<div class="qp">"The bees buzzed lazily over the flowers."</div>
+<div class="qt">What sound device is "buzzed"?</div>
+<div class="qr"><input type="text" placeholder="Device name..." id="in_q3c"><button class="qb" onclick="chk('q3c','onomatopoeia','\'Buzzed\' imitates the sound bees actually make — this is onomatopoeia.')">Check</button></div>
+<div class="qf" id="fb_q3c"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span><span style="font-size:12px;color:#666;">Device + effect</span></div>
+<div class="qi" id="q3d">
+<div class="qp">"Soft shadows slipped silently from room to room."</div>
+<div class="qt">The sibilance here creates what type of atmosphere? (One word)</div>
+<div class="qr"><input type="text" placeholder="Atmosphere..." id="in_q3d"><button class="qb" onclick="chk('q3d','sinister','The hissing s sounds create a sinister, stealthy atmosphere. \'Menacing\' or \'unsettling\' are also correct.')">Check</button></div>
+<div class="qf" id="fb_q3d"></div></div>
+<div class="qi" id="q3e">
+<div class="qp">"The long moon hung low and slow over the moor."</div>
+<div class="qt">What sound device uses the repeated 'oh' vowel sound? (One word)</div>
+<div class="qr"><input type="text" placeholder="Device..." id="in_q3e"><button class="qb" onclick="chk('q3e','assonance','The long \'oh\' vowel sound in long, moon, low, slow is repeated — this is assonance. The long sounds slow the reader down, creating a heavy, melancholic pace.')">Check</button></div>
+<div class="qf" id="fb_q3e"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb la">Advanced</span></div>
+<div class="qi" id="q3f">
+<div class="qp">"The hammers struck the dark, thick rock."</div>
+<div class="qt">The repeated 'k' sound throughout this line (struck, dark, thick, rock) is an example of which device?</div>
+<div class="qr"><input type="text" placeholder="Device..." id="in_q3f"><button class="qb" onclick="chk('q3f','consonance','Repeated consonant sounds within/at ends of words (not just at the start) = consonance. The hard k sound reinforces the physical impact of the hammers.')">Check</button></div>
+<div class="qf" id="fb_q3f"></div></div>
+<div class="qi" id="q3g">
+<div class="qt">What is the key principle about why poets use sound devices? Complete this sentence: "Sound should mirror ___."</div>
+<div class="qr"><input type="text" placeholder="One word..." id="in_q3g"><button class="qb" onclick="chk('q3g','meaning','The core principle: sound should mirror meaning. The sounds a poet chooses reinforce the content, mood, and ideas of the poem.')">Check</button></div>
+<div class="qf" id="fb_q3g"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Challenging</span><span style="font-size:12px;color:#666;">Full analysis</span></div>
+<div class="qi" id="q3h">
+<div class="qp">"The bitter wind bit through bone and bark alike."</div>
+<div class="qt">Name the sound device used and explain ONE effect it creates. Type just the device name first, then a comma, then the effect word.</div>
+<div class="qr"><input type="text" placeholder="Device, effect..." id="in_q3h"><button class="qb" onclick="chk('q3h','alliteration, harsh','The repeated \'b\' sounds (bitter, bit, bone, bark) are alliteration. The hard plosive \'b\' sound reinforces the physical violence of the cold — it feels harsh and punishing.')">Check</button></div>
+<div class="qf" id="fb_q3h"></div></div>
+</div>
+
+</div></div>
+
+<!-- S4: ENJAMBMENT & CAESURA -->
+<div class="b4" id="s4"><div class="sec">
+<div class="sh"><div class="sn">04</div><div class="sg"><div class="sl">Line and Pause</div><div class="st">Enjambment & Caesura — Paired Teaching</div></div></div>
+
+<p>Enjambment and caesura are opposite techniques: one keeps moving, the other stops. Both are deliberate structural choices, and both are regularly tested.</p>
+
+<div class="sb">
+<h3>Enjambment</h3>
+<p><strong>Definition:</strong> When a sentence or phrase continues from one line into the next <em>without</em> punctuation at the end of the line — the thought flows across the line break.</p>
+<div class="poem-box"><div class="poem-label">Example</div>"She walked through every door that opened<br>into corridors that seemed to lead<br>to other corridors, endlessly<br>folding inward."</div>
+<p><strong>Four distinct effects enjambment can create:</strong></p>
+<ul style="margin:0 0 12px 22px;line-height:2.2;">
+  <li><strong>Speed and momentum:</strong> the reader is pulled forward without pause, creating breathless urgency</li>
+  <li><strong>Ambiguity:</strong> a word at the end of an enjambed line temporarily holds two meanings before the next line resolves it. In the example, "lead" is briefly a verb (lead = guide) before "to other corridors" completes the thought.</li>
+  <li><strong>Linked ideas:</strong> enjambment across a stanza break can connect two otherwise separate ideas or images</li>
+  <li><strong>Mirroring loss of control:</strong> when a character is overwhelmed or panicking, enjambment mirrors that spilling-over quality — the thought cannot be contained within neat lines</li>
+</ul>
+</div>
+
+<div class="sb">
+<h3>Caesura</h3>
+<p><strong>Definition:</strong> A deliberate pause within a line, usually created by punctuation (a full stop, comma, dash, or semicolon) in the middle of the line rather than at the end.</p>
+<div class="poem-box"><div class="poem-label">Example</div>"She stopped. The world kept moving.<br>He was gone; she stayed."</div>
+<p><strong>Three distinct effects caesura can create:</strong></p>
+<ul style="margin:0 0 12px 22px;line-height:2.2;">
+  <li><strong>Pause for emphasis:</strong> the stop forces the reader to linger on what immediately precedes it, giving that word or phrase extra weight. "She stopped." is isolated and powerful.</li>
+  <li><strong>Mimicking shock or hesitation:</strong> a sudden full stop mid-line captures the feeling of breath being knocked away — time momentarily halting</li>
+  <li><strong>Creating contrast:</strong> a caesura can split a line into two opposing halves, placing contrasting ideas in tension with each other: "He was gone; she stayed."</li>
+</ul>
+</div>
+
+<!-- Quiz S4 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q4a">
+<div class="qp">"The bird flew beyond the<br>last ridge of mountains."</div>
+<div class="qt">Does this use enjambment or caesura?</div>
+<div class="qr"><input type="text" placeholder="..." id="in_q4a"><button class="qb" onclick="chk('q4a','enjambment','The sentence continues from line 1 to line 2 without any punctuation at the line end — this is enjambment.')">Check</button></div>
+<div class="qf" id="fb_q4a"></div></div>
+<div class="qi" id="q4b">
+<div class="qp">"She ran. She fell. She did not rise again."</div>
+<div class="qt">What technique creates the pauses within these short lines?</div>
+<div class="qr"><input type="text" placeholder="Technique..." id="in_q4b"><button class="qb" onclick="chk('q4b','caesura','The full stops within and between the short lines create caesura — deliberate pauses that make each action feel heavy and final.')">Check</button></div>
+<div class="qf" id="fb_q4b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span><span style="font-size:12px;color:#666;">Effect identification</span></div>
+<div class="qi" id="q4c">
+<div class="qp">"He searched every drawer, every shelf, every<br>corner of the house she used to fill with light."</div>
+<div class="qt">The enjambment here (after "every") temporarily leaves "every" hanging. What feeling does this create before the line resolves?</div>
+<div class="qr"><input type="text" placeholder="Feeling..." id="in_q4c"><button class="qb" onclick="chk('q4c','desperation','The enjambment after \'every\' creates a sense of desperate, exhaustive searching — the list keeps spilling over, as if the search will never end. \'Desperate\' or \'frantic\' are both correct.')">Check</button></div>
+<div class="qf" id="fb_q4c"></div></div>
+<div class="qi" id="q4d">
+<div class="qp">"The war was over. The fields remained."</div>
+<div class="qt">What does the caesura (full stop after "over") force the reader to do?</div>
+<div class="qr"><input type="text" placeholder="Your answer..." id="in_q4d"><button class="qb" onclick="chk('q4d','pause','The full stop forces the reader to pause and absorb the weight of "The war was over" before being told that the fields simply remain — creating a stark, understated contrast.')">Check</button></div>
+<div class="qf" id="fb_q4d"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Challenging</span></div>
+<div class="qi" id="q4e">
+<div class="qp">"I looked for you in every sound — the wind,<br>the creak of stairs, the ordinary knock of pipes —<br>and found, instead, the absence of your name."</div>
+<div class="qt">Which technique is used at the end of lines 1 and 2? One word.</div>
+<div class="qr"><input type="text" placeholder="Technique..." id="in_q4e"><button class="qb" onclick="chk('q4e','enjambment','Lines 1 and 2 both end mid-phrase and continue into the next line — this is enjambment. It mirrors the restless, incomplete searching of the speaker.')">Check</button></div>
+<div class="qf" id="fb_q4e"></div></div>
+<div class="qi" id="q4f">
+<div class="qp">"Youth, which is forgiven everything, forgives itself nothing: that is its grace."<br><span style="font-size:12px;font-style:normal;">— Logan Pearsall Smith (adapted)</span></div>
+<div class="qt">Identify ONE caesura in this line (name the punctuation mark that creates it).</div>
+<div class="qr"><input type="text" placeholder="Punctuation mark..." id="in_q4f"><button class="qb" onclick="chk('q4f','colon','The colon after \'nothing\' is a caesura — it pauses the line and introduces the conclusion (\'that is its grace\'), giving the final clause extra revelatory weight.')">Check</button></div>
+<div class="qf" id="fb_q4f"></div></div>
+</div>
+
+</div></div>
+
+
+<!-- S5: VOLTA -->
+<div class="b5" id="s5"><div class="sec">
+<div class="sh"><div class="sn">05</div><div class="sg"><div class="sl">The Turn</div><div class="st">Volta / Turning Point — Full Section</div></div></div>
+
+<p>The volta is one of the most important and most tested features of poetry at 11+ level. Missing it costs marks; identifying and explaining it earns them.</p>
+
+<div class="sb">
+<h3>What Is the Volta?</h3>
+<p>The volta (Italian for "turn") is the moment in a poem when something shifts: the tone changes, the argument reverses, the mood darkens or lightens, or a new perspective is introduced. It is the poem's emotional turning point — the moment the poet changes direction.</p>
+<div class="callout"><strong>Important:</strong> The volta is not always signalled by "But" or "Yet." It can be structural (a new stanza), tonal (the language suddenly changes register), or imagistic (a new metaphor replaces the previous one). Train yourself to ask: "Where does this poem change direction, and why?"</div>
+</div>
+
+<div class="sb">
+<h3>How to Identify the Volta</h3>
+<p>Look for any of these signals:</p>
+<ul style="margin:0 0 12px 22px;line-height:2.2;">
+  <li><strong>Connective words:</strong> but, yet, however, although, and yet, still, nevertheless</li>
+  <li><strong>A change in tense:</strong> from past to present, or from present to future</li>
+  <li><strong>A change in person:</strong> from "I" to "you," or from singular to plural</li>
+  <li><strong>A change in tone vocabulary:</strong> words that shift from positive to negative connotations, or vice versa</li>
+  <li><strong>A change in structure:</strong> a shorter or longer stanza, a change in rhyme scheme, a sudden use of caesura where there was enjambment before</li>
+  <li><strong>A new image or symbol:</strong> the poem was using one extended metaphor; suddenly a different one appears</li>
+</ul>
+</div>
+
+<div class="sb">
+<h3>What to Explain When You Find the Volta</h3>
+<p>A complete volta analysis answers three questions:</p>
+<ol style="margin:0 0 12px 22px;line-height:2.2;">
+  <li><strong>What changes?</strong> (tone, mood, argument, perspective, structure)</li>
+  <li><strong>How does it change?</strong> (the specific language or structural signal)</li>
+  <li><strong>Why does the shift matter?</strong> (what does it reveal about the poem's theme or the speaker's experience?)</li>
+</ol>
+</div>
+
+<div class="ex-box"><div class="ex-l">Worked Example</div>
+<div class="poem-box">
+"The garden in those years was full of bees,<br>
+warm bread, and the sound of my mother singing.<br>
+Summer lasted a century. The plums were heavy.<br>
+<em>But I am writing this at fifty-two,<br>
+and the garden is a car park now,<br>
+and she has been gone twelve years."</em></div>
+<p><strong>Q:</strong> Where is the volta, and what changes?</p>
+<p><strong>A:</strong> The volta occurs at "But I am writing this at fifty-two" — the connective "But" signals the shift from past memory to present reality. The tone changes from <em>nostalgic and sensory</em> (bees, bread, singing) to <em>bleak and factual</em> (a car park, twelve years gone). The volta is also structural: the second part moves to the present tense. The shift matters because it reveals that the warmth of the first stanza exists only in memory — the contrast makes the loss feel devastating.</p>
+</div>
+
+<!-- Quiz S5 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q5a">
+<div class="qt">What is the Italian word for "turn" that describes the poem's turning point?</div>
+<div class="qr"><input type="text" placeholder="..." id="in_q5a"><button class="qb" onclick="chk('q5a','volta','Volta is the formal term for the turning point in a poem — where the tone, mood, or direction shifts.')">Check</button></div>
+<div class="qf" id="fb_q5a"></div></div>
+<div class="qi" id="q5b">
+<div class="qt">True or false: the volta is only signalled by the words "But" or "Yet." (Type true or false)</div>
+<div class="qr"><input type="text" placeholder="true or false" id="in_q5b"><button class="qb" onclick="chk('q5b','false','False. The volta can be structural, tonal, imagistic, or marked by a change in tense or person — not just conjunctions like But or Yet.')">Check</button></div>
+<div class="qf" id="fb_q5b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q5c">
+<div class="qp">"All summer she laughed and swam and grew brown in the sun.<br>Yet when autumn came, she did not return."</div>
+<div class="qt">Which word signals the volta?</div>
+<div class="qr"><input type="text" placeholder="Word..." id="in_q5c"><button class="qb" onclick="chk('q5c','yet','\'Yet\' is the connective that signals the volta — the shift from the happiness of summer to the ominous absence of autumn.')">Check</button></div>
+<div class="qf" id="fb_q5c"></div></div>
+<div class="qi" id="q5d">
+<div class="qt">After identifying a volta, what THREE things must your answer explain? (Separate with comma)</div>
+<div class="qr"><input type="text" placeholder="1, 2, 3..." id="in_q5d"><button class="qb" onclick="chk('q5d','what changes, how it changes, why it matters','A complete volta answer must explain: (1) WHAT changes, (2) HOW it changes (the specific signal), and (3) WHY the shift matters to the poem\'s meaning.')">Check</button></div>
+<div class="qf" id="fb_q5d"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Challenging</span></div>
+<div class="qi" id="q5e">
+<div class="qp">"The child ran through the sprinkler, shrieking with delight,<br>and the long afternoon turned gold and slow.<br>I took a photograph. She is seven in it still."</div>
+<div class="qt">Where is the volta and what type of shift is it? (Structural answer needed — what changes?)</div>
+<div class="qr"><input type="text" placeholder="Type of shift..." id="in_q5e"><button class="qb" onclick="chk('q5e','tense','The volta is at \'I took a photograph.\' The shift is in TENSE — from present continuous (the living moment) to simple past and then to a kind of permanent present (\'She is seven in it still\'). The tone shifts from joyful and expansive to something more melancholic and frozen.')">Check</button></div>
+<div class="qf" id="fb_q5e"></div></div>
+</div>
+
+</div></div>
+
+<!-- S6: RHYME SCHEME -->
+<div class="b6" id="s6"><div class="sec">
+<div class="sh"><div class="sn">06</div><div class="sg"><div class="sl">Pattern and Form</div><div class="st">Rhyme Scheme — Identification Tutorial</div></div></div>
+
+<div class="sb">
+<h3>How to Assign Letters to End Sounds</h3>
+<div class="steps">
+<div class="step"><div class="step-n">1</div><div class="step-c">Read the last word of each line only. Write them in a vertical list.</div></div>
+<div class="step"><div class="step-n">2</div><div class="step-c">Give the very first end sound the letter A.</div></div>
+<div class="step"><div class="step-n">3</div><div class="step-c">If the next line's end sound rhymes with A, it is also A. If it is new, call it B.</div></div>
+<div class="step"><div class="step-n">4</div><div class="step-c">Continue: each new sound gets the next letter; matching sounds keep the same letter.</div></div>
+<div class="step"><div class="step-n">5</div><div class="step-c">Repeat the pattern for each stanza.</div></div>
+</div>
+<div class="ex-box"><div class="ex-l">Step-by-Step Example</div>
+<div class="poem-box">
+"Shall I compare thee to a summer's day? → A<br>
+Thou art more lovely and more temperate: → B<br>
+Rough winds do shake the darling buds of May, → A<br>
+And summer's lease hath all too short a date." → B</div>
+<p>End sounds: day (A) / temperate (B) / May (A) / date (B) → Scheme: <strong>ABAB</strong></p>
+</div>
+</div>
+
+<div class="sb">
+<h3>Types of Rhyme</h3>
+<table class="rt">
+<thead><tr><th>Type</th><th>Definition</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><strong>Full Rhyme</strong></td><td>End sounds match perfectly</td><td>light / night, moon / tune</td></tr>
+<tr><td><strong>Half Rhyme</strong><br><em>(slant/near rhyme)</em></td><td>Consonant sounds match but vowel sounds differ</td><td>room / storm, cold / filled</td></tr>
+<tr><td><strong>Internal Rhyme</strong></td><td>Rhyme occurs within a single line, not at the end</td><td>"Once upon a midnight dreary, while I pondered, weak and weary"</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sb">
+<h3>What Different Schemes Suggest</h3>
+<table class="rt">
+<thead><tr><th>Scheme</th><th>Name</th><th>What It Typically Suggests</th></tr></thead>
+<tbody>
+<tr><td><strong>AABB</strong></td><td>Rhyming couplets</td><td>Certainty, resolution, satisfaction — each pair of lines closes neatly. Can feel sing-song if overused.</td></tr>
+<tr><td><strong>ABAB</strong></td><td>Alternating rhyme</td><td>Balance and tension — two ideas interweave, the second always answering the first. Common in classical verse.</td></tr>
+<tr><td><strong>ABCB</strong></td><td>Ballad rhyme</td><td>Storytelling, folk tradition — only every other line rhymes, creating a narrative, forward-moving feel.</td></tr>
+<tr><td><strong>Free verse</strong></td><td>No fixed scheme</td><td>Freedom, naturalism, or chaos — the absence of rhyme can suggest a lack of control, or that the subject resists neat resolution.</td></tr>
+<tr><td><strong>Half rhyme only</strong></td><td>Slant rhyme</td><td>Unease, imperfection, tension — the near-miss of a rhyme that never quite lands creates a feeling of incompleteness or discomfort.</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Quiz S6 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q6a">
+<div class="qp">"Roses are red, (A)<br>Violets are blue, (B)<br>Sugar is sweet, (C)<br>And so are you." (B)</div>
+<div class="qt">What is the rhyme scheme of this verse? (Four letters)</div>
+<div class="qr"><input type="text" placeholder="e.g. ABAB" id="in_q6a"><button class="qb" onclick="chk('q6a','abcb','Red (A) / blue (B) / sweet (C) / you (B) — only the 2nd and 4th lines rhyme. Scheme: ABCB. This is ballad rhyme.')">Check</button></div>
+<div class="qf" id="fb_q6a"></div></div>
+<div class="qi" id="q6b">
+<div class="qt">What type of rhyme matches consonant sounds but not vowel sounds? (Two words)</div>
+<div class="qr"><input type="text" placeholder="Type of rhyme..." id="in_q6b"><button class="qb" onclick="chk('q6b','half rhyme','Half rhyme (also called slant rhyme or near rhyme) — the end consonants match but the vowels differ. E.g. \'room\' and \'storm\'.')">Check</button></div>
+<div class="qf" id="fb_q6b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q6c">
+<div class="qp">"Once upon a midnight dreary, while I pondered, weak and weary."<br><span style="font-size:12px;font-style:normal;">— Edgar Allan Poe, The Raven</span></div>
+<div class="qt">What type of rhyme appears within this single line? (Two words)</div>
+<div class="qr"><input type="text" placeholder="Type of rhyme..." id="in_q6c"><button class="qb" onclick="chk('q6c','internal rhyme','\'Dreary\' and \'weary\' appear within the same line and rhyme — this is internal rhyme. It creates a musical, incantatory effect.')">Check</button></div>
+<div class="qf" id="fb_q6c"></div></div>
+<div class="qi" id="q6d">
+<div class="qt">A poem with AABB rhyme scheme ends each pair of lines with a rhyme. What feeling does this typically create?</div>
+<div class="qr"><input type="text" placeholder="Feeling word..." id="in_q6d"><button class="qb" onclick="chk('q6d','certainty','AABB (rhyming couplets) creates a sense of certainty, closure, and satisfaction — each pair resolves neatly.')">Check</button></div>
+<div class="qf" id="fb_q6d"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb la">Advanced</span></div>
+<div class="qi" id="q6e">
+<div class="qp">"I felt a Funeral, in my Brain,<br>And Mourners to and fro<br>Kept treading — treading — till it seemed<br>That Sense was breaking through."<br><span style="font-size:12px;font-style:normal;">— Emily Dickinson (adapted)</span></div>
+<div class="qt">What is the rhyme scheme of this stanza? (Four letters)</div>
+<div class="qr"><input type="text" placeholder="e.g. ABAB" id="in_q6e"><button class="qb" onclick="chk('q6e','abcb','Brain (A) / fro (B) / seemed (C) / through (B) — only lines 2 and 4 rhyme (fro/through = half rhyme). Scheme: ABCB.')">Check</button></div>
+<div class="qf" id="fb_q6e"></div></div>
+</div>
+
+</div></div>
+
+
+<!-- S7: RHYTHM & METRE -->
+<div class="b7" id="s7"><div class="sec">
+<div class="sh"><div class="sn">07</div><div class="sg"><div class="sl">Beat and Stress</div><div class="st">Rhythm & Metre — Primer</div></div></div>
+
+<div class="sb">
+<h3>What Is Metre?</h3>
+<p>Metre is the pattern of <strong>stressed</strong> (/) and <strong>unstressed</strong> (×) syllables in a line of poetry. When you read a poem aloud, some syllables naturally receive more emphasis — these are stressed. The pattern these stresses create is the metre.</p>
+<div class="ex-box"><div class="ex-l">Reading for Stress</div>
+<p>"She WALKED / through FIELDS / of GOLD- / en GRAIN" — the stressed syllables are capitalised. Notice they fall in a regular pattern: unstressed-STRESSED, unstressed-STRESSED, unstressed-STRESSED, unstressed-STRESSED. This pattern has a name.</p>
+</div>
+</div>
+
+<div class="sb">
+<h3>Iambic Pentameter</h3>
+<p>An <strong>iamb</strong> is the most common unit of metre in English poetry: one unstressed syllable followed by one stressed syllable (da-DUM). <strong>Pentameter</strong> means five of these units per line (penta = five). So iambic pentameter = 10 syllables in a da-DUM × 5 pattern.</p>
+<div class="poem-box"><div class="poem-label">Classic Example</div>
+"Shall <strong>I</strong> com-<strong>PARE</strong> thee <strong>TO</strong> a <strong>SUM</strong>-mer's <strong>DAY</strong>?"<br>
+× / × / × / × / × /<br>
+5 iambs = iambic pentameter</div>
+<p><strong>Why poets use it:</strong> iambic pentameter closely mirrors the natural rhythm of English speech — it sounds like a heartbeat (da-DUM, da-DUM). This makes it feel both formal and natural simultaneously. Shakespeare used it to show characters speaking eloquently but believably.</p>
+</div>
+
+<div class="sb">
+<h3>Trochaic Inversion</h3>
+<p>A <strong>trochee</strong> is the opposite of an iamb: <strong>stressed then unstressed</strong> (DUM-da). When a poet places a trochee at the start of an otherwise iambic line, this is called a <strong>trochaic inversion</strong> — also called a "trochaic substitution." It is always deliberate.</p>
+<div class="poem-box"><div class="poem-label">Example</div>
+"<strong>RUN-</strong>ning <strong>THROUGH</strong> the <strong>DARK</strong> be-<strong>FORE</strong> the <strong>DAWN</strong>"<br>
+The first foot is stressed-unstressed (RUN-ning) — a trochee where an iamb was expected.</div>
+<p><strong>Effect:</strong> A trochaic inversion at the start of a line creates sudden energy and emphasis — the first word is hit hard, creating urgency or surprise. It can also signal a moment of emotional intensity where the speaker's control breaks down.</p>
+</div>
+
+<div class="sb">
+<h3>Why a Poet Might Disrupt Their Own Metre</h3>
+<ul style="margin:0 0 12px 22px;line-height:2.2;">
+  <li><strong>To create emphasis:</strong> the disruption draws attention to the word or moment that breaks the pattern</li>
+  <li><strong>To mirror emotional breakdown:</strong> a character losing control may be represented by a metre that loses control</li>
+  <li><strong>To mark the volta:</strong> a rhythmic shift can signal the turning point of the poem</li>
+  <li><strong>To create unease:</strong> a regular pattern that suddenly fails feels unsettling, much like a heartbeat that skips</li>
+</ul>
+</div>
+
+<!-- Quiz S7 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q7a">
+<div class="qt">What is an iamb? (Describe the stress pattern — two words: unstressed-stressed or stressed-unstressed)</div>
+<div class="qr"><input type="text" placeholder="Stress pattern..." id="in_q7a"><button class="qb" onclick="chk('q7a','unstressed-stressed','An iamb = one unstressed syllable followed by one stressed syllable: da-DUM. E.g. a-LONE, be-CAUSE, to-DAY.')">Check</button></div>
+<div class="qf" id="fb_q7a"></div></div>
+<div class="qi" id="q7b">
+<div class="qt">How many syllables does a line of iambic pentameter contain?</div>
+<div class="qr"><input type="text" placeholder="Number..." id="in_q7b"><button class="qb" onclick="chk('q7b','10','Iambic pentameter = 5 iambs × 2 syllables = 10 syllables per line.')">Check</button></div>
+<div class="qf" id="fb_q7b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q7c">
+<div class="qt">A trochee is the opposite of an iamb. What is a trochee's stress pattern? (Two words)</div>
+<div class="qr"><input type="text" placeholder="Stress pattern..." id="in_q7c"><button class="qb" onclick="chk('q7c','stressed-unstressed','A trochee = stressed syllable followed by unstressed: DUM-da. E.g. RUN-ning, MUR-mur, TI-ger.')">Check</button></div>
+<div class="qf" id="fb_q7c"></div></div>
+<div class="qi" id="q7d">
+<div class="qt">When a poet places a trochee at the start of an iambic line, what is this called? (Two words)</div>
+<div class="qr"><input type="text" placeholder="Technical term..." id="in_q7d"><button class="qb" onclick="chk('q7d','trochaic inversion','A trochaic inversion (or trochaic substitution) — placing a stressed-unstressed foot where an unstressed-stressed was expected. Always deliberate; creates emphasis.')">Check</button></div>
+<div class="qf" id="fb_q7d"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb la">Advanced</span></div>
+<div class="qi" id="q7e">
+<div class="qt">A poet writes a regular da-DUM poem but suddenly has a line that goes DUM-da-DUM-da-DUM. What might this metrical disruption signal?</div>
+<div class="qr"><input type="text" placeholder="What it might signal..." id="in_q7e"><button class="qb" onclick="chk('q7e','volta','A metrical disruption often signals the volta — the emotional turning point. It can also indicate emphasis, loss of control, or a moment of heightened emotion where the regular pattern breaks down.')">Check</button></div>
+<div class="qf" id="fb_q7e"></div></div>
+</div>
+
+</div></div>
+
+<!-- S8: LITERARY DEVICES GLOSSARY -->
+<div class="b8" id="s8"><div class="sec">
+<div class="sh"><div class="sn">08</div><div class="sg"><div class="sl">18 Essential Techniques</div><div class="st">Literary Devices — Complete Poetry Glossary</div></div></div>
+
+<p>For each device: name it, quote it, and explain the specific effect it creates. Never use vague phrases like "it makes it more interesting." Be precise about the emotional or imaginative impact.</p>
+
+<table class="rt">
+<thead><tr><th>Device</th><th>Definition</th><th>Example Line</th><th>Typical Effect</th></tr></thead>
+<tbody>
+<tr><td><strong>Simile</strong></td><td>Comparison using "like" or "as"</td><td>"Her grief was like a stone she carried everywhere."</td><td>Creates a vivid, specific comparison; makes an abstract feeling concrete</td></tr>
+<tr><td><strong>Metaphor</strong></td><td>States something IS something else; no "like" or "as"</td><td>"Memory is a country without maps."</td><td>Stronger than simile; creates direct identification between two things</td></tr>
+<tr><td><strong>Personification</strong></td><td>Gives human qualities to a non-human subject</td><td>"The moon watched us coldly from behind the clouds."</td><td>Makes the described subject feel intentional, alive, often menacing or sympathetic</td></tr>
+<tr><td><strong>Onomatopoeia</strong></td><td>A word that sounds like what it describes</td><td>"The thunder cracked and the rain hissed on the stones."</td><td>Creates immediacy; activates the reader's sense of hearing</td></tr>
+<tr><td><strong>Alliteration</strong></td><td>Same consonant sound repeated at the start of nearby words</td><td>"Dark, dead December drained the daylight dry."</td><td>Creates rhythm and emphasis; sound mirrors mood</td></tr>
+<tr><td><strong>Sibilance</strong></td><td>Repeated s/sh/z sounds (subset of alliteration)</td><td>"She slid softly through the silver shadows."</td><td>Creates a whispering, sinister, or stealthy atmosphere</td></tr>
+<tr><td><strong>Assonance</strong></td><td>Repeated vowel sounds in nearby words</td><td>"The wild night tide rides high tonight."</td><td>Creates internal musicality; controls pace (long sounds slow, short sounds speed)</td></tr>
+<tr><td><strong>Consonance</strong></td><td>Repeated consonant sounds within/at end of words</td><td>"He struck the black rock with a back-handed crack."</td><td>Creates texture; hard consonants feel harsh; soft ones feel gentle</td></tr>
+<tr><td><strong>Symbolism</strong></td><td>An object or image that represents something beyond its literal meaning</td><td>A white dove appearing at a moment of conflict</td><td>Adds depth; communicates complex ideas through a single image</td></tr>
+<tr><td><strong>Pathetic Fallacy</strong></td><td>Nature reflects the emotional state of the speaker or character</td><td>"The storm raged outside as she read the letter."</td><td>Creates atmosphere; makes the natural world mirror human feeling</td></tr>
+<tr><td><strong>Oxymoron</strong></td><td>Two contradictory words placed directly together</td><td>"The deafening silence of the abandoned house."</td><td>Captures a complex paradox in two words; forces the reader to sit with contradiction</td></tr>
+<tr><td><strong>Paradox</strong></td><td>A statement that appears self-contradictory but contains a truth</td><td>"The more I learned, the less I seemed to know."</td><td>Creates a thought-provoking puzzle; rewards careful reflection</td></tr>
+<tr><td><strong>Anaphora</strong></td><td>Repetition of a word or phrase at the start of successive lines or clauses</td><td>"We shall fight on the beaches. We shall fight on the landing grounds. We shall fight…"</td><td>Creates powerful rhythm and emphasis; builds emotional intensity</td></tr>
+<tr><td><strong>Apostrophe</strong><br><em>(poetic)</em></td><td>Direct address to an absent person, a dead subject, or an abstract idea</td><td>"O Death, where is thy sting?"</td><td>Creates emotional intensity; the absent subject feels suddenly present</td></tr>
+<tr><td><strong>Hyperbole</strong></td><td>Deliberate exaggeration not meant to be taken literally</td><td>"I've walked a thousand miles in her name."</td><td>Emphasises extreme emotion; conveys the speaker's overwhelming feeling</td></tr>
+<tr><td><strong>Juxtaposition</strong></td><td>Placing contrasting images, ideas, or characters side by side</td><td>"The palace rose behind the children begging at the gate."</td><td>Highlights the contrast between two things; often creates social or moral commentary</td></tr>
+<tr><td><strong>Semantic Field</strong></td><td>A group of words related to the same theme or subject area</td><td>Blade, wound, shield, retreat, march (semantic field of war)</td><td>Reinforces the central theme; creates unity; establishes mood</td></tr>
+<tr><td><strong>Rule of Three</strong></td><td>Three words, images, or clauses used together for emphasis</td><td>"It was cold, dark, and perfectly still."</td><td>Feels rhythmically complete and emphatic; persuasive and memorable</td></tr>
+</tbody>
+</table>
+
+<!-- Quiz S8 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q8a">
+<div class="qp">"O wild West Wind, thou breath of Autumn's being!"<br><span style="font-size:12px;font-style:normal;">— Shelley</span></div>
+<div class="qt">The poet addresses the wind directly. What device is this?</div>
+<div class="qr"><input type="text" placeholder="Device name..." id="in_q8a"><button class="qb" onclick="chk('q8a','apostrophe','Poetic apostrophe = direct address to an absent or non-human subject (here, the wind). Not the punctuation mark — this is a distinct poetic device.')">Check</button></div>
+<div class="qf" id="fb_q8a"></div></div>
+<div class="qi" id="q8b">
+<div class="qp">"The storm outside mirrored the chaos in her heart."</div>
+<div class="qt">The storm reflects the character's emotional state. What device is this? (Two words)</div>
+<div class="qr"><input type="text" placeholder="Device name..." id="in_q8b"><button class="qb" onclick="chk('q8b','pathetic fallacy','Pathetic fallacy = when the natural world (weather, seasons) reflects the emotional state of a person.')">Check</button></div>
+<div class="qf" id="fb_q8b"></div></div>
+<div class="qi" id="q8c">
+<div class="qp">"The boy ran. The boy hid. The boy never came back."</div>
+<div class="qt">What device repeats "The boy" at the start of each sentence?</div>
+<div class="qr"><input type="text" placeholder="Device name..." id="in_q8c"><button class="qb" onclick="chk('q8c','anaphora','Anaphora = repetition of a word or phrase at the start of successive clauses or lines. Here it creates a rhythmic inevitability and builds tension.')">Check</button></div>
+<div class="qf" id="fb_q8c"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q8d">
+<div class="qp">"Love is a battlefield strewn with beautiful flowers."</div>
+<div class="qt">This sentence contains TWO devices — name them both. (Separate with comma)</div>
+<div class="qr"><input type="text" placeholder="Device 1, Device 2..." id="in_q8d"><button class="qb" onclick="chk('q8d','metaphor, oxymoron','Metaphor: \'Love IS a battlefield\' (no like/as). Oxymoron: \'beautiful flowers\' on a battlefield places beauty and violence together — or more precisely, the whole image is oxymoronic. Both answers accepted.')">Check</button></div>
+<div class="qf" id="fb_q8d"></div></div>
+<div class="qi" id="q8e">
+<div class="qp">"The more she tried to forget him, the more he remained."</div>
+<div class="qt">This statement appears self-contradictory but expresses a truth about memory. What device is this?</div>
+<div class="qr"><input type="text" placeholder="Device name..." id="in_q8e"><button class="qb" onclick="chk('q8e','paradox','A paradox appears contradictory but reveals a truth. Here: forgetting something makes you remember it more — a true psychological experience expressed as paradox.')">Check</button></div>
+<div class="qf" id="fb_q8e"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Challenging</span></div>
+<div class="qi" id="q8f">
+<div class="qp">"The mansion's gates stood golden in the afternoon light;<br>behind the railings, thin children pressed their faces to the bars."</div>
+<div class="qt">What device is used by placing these two contrasting images together?</div>
+<div class="qr"><input type="text" placeholder="Device name..." id="in_q8f"><button class="qb" onclick="chk('q8f','juxtaposition','Juxtaposition — placing the golden gates (wealth) directly beside the thin children (poverty) highlights the contrast and creates a powerful image of inequality.')">Check</button></div>
+<div class="qf" id="fb_q8f"></div></div>
+</div>
+
+</div></div>
+
+
+<!-- S9: MOOD vs TONE -->
+<div class="b9" id="s9"><div class="sec">
+<div class="sh"><div class="sn">09</div><div class="sg"><div class="sl">Two Distinct Concepts</div><div class="st">Mood vs. Tone — The Critical Distinction</div></div></div>
+
+<div class="sb">
+<h3>The Key Difference</h3>
+<p><strong>Tone</strong> is the poet's attitude toward their subject — what the <em>poet</em> thinks or feels. It is present in the voice behind the poem: their word choices, level of formality, use of irony.</p>
+<p><strong>Mood</strong> is the emotional atmosphere the poem creates in the <em>reader</em> — how it makes you feel while reading. Tone and mood are not the same thing and they can pull in different directions.</p>
+<div class="ex-box"><div class="ex-l">How They Can Differ</div>
+<p>A poet writing about a war atrocity might use a deliberately <em>clinical, detached tone</em> — recording facts without visible emotion, as if filing a report. Yet this very coldness creates an <em>unsettling, disturbing mood</em> in the reader. The absence of emotion in the poet's voice makes the horror feel more total, not less.</p>
+<p>Another example: a poet writes about death with a <em>sardonic, almost amused tone</em> — yet the subject matter creates a <em>melancholic mood</em> in the reader, even if the poet seems untroubled.</p>
+</div>
+</div>
+
+<div class="sb">
+<h3>Tone Vocabulary Bank</h3>
+<table class="rt">
+<thead><tr><th>Tone Word</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td><strong>Detached</strong></td><td>Emotionally distant, impersonal — the poet avoids personal involvement</td></tr>
+<tr><td><strong>Mournful</strong></td><td>Expressing deep sorrow or grief for a loss</td></tr>
+<tr><td><strong>Bitter</strong></td><td>Angry and resentful, often at perceived unfairness or betrayal</td></tr>
+<tr><td><strong>Sardonic</strong></td><td>Grimly mocking; cynical humour used to criticise</td></tr>
+<tr><td><strong>Reverent</strong></td><td>Showing deep respect or awe — as if in the presence of something sacred</td></tr>
+<tr><td><strong>Elegiac</strong></td><td>Expressing sorrowful lamentation for the dead or for something lost</td></tr>
+<tr><td><strong>Indignant</strong></td><td>Angry at perceived injustice — morally outraged</td></tr>
+<tr><td><strong>Contemplative</strong></td><td>Thoughtful, reflective — turning something over quietly in the mind</td></tr>
+<tr><td><strong>Tender</strong></td><td>Gentle and affectionate, often toward a loved person or memory</td></tr>
+<tr><td><strong>Ironic</strong></td><td>Saying one thing while meaning the opposite — understated critique</td></tr>
+<tr><td><strong>Celebratory</strong></td><td>Joyfully praising or commemorating</td></tr>
+<tr><td><strong>Resigned</strong></td><td>Accepting an unhappy situation without protest</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sb">
+<h3>Mood Vocabulary Bank</h3>
+<table class="rt">
+<thead><tr><th>Mood Word</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td><strong>Unsettling</strong></td><td>Creates a sense of discomfort or unease in the reader</td></tr>
+<tr><td><strong>Melancholic</strong></td><td>A deep, gentle sadness — more reflective than desperate</td></tr>
+<tr><td><strong>Tense</strong></td><td>Creates expectation and anxiety — something is about to happen</td></tr>
+<tr><td><strong>Euphoric</strong></td><td>Intensely joyful — an elevated, almost overwhelming happiness</td></tr>
+<tr><td><strong>Ominous</strong></td><td>A sense that something bad is coming — threatening and foreboding</td></tr>
+<tr><td><strong>Peaceful</strong></td><td>Calm, undisturbed, harmonious — a sense of safety or resolution</td></tr>
+<tr><td><strong>Dreamlike</strong></td><td>Hazy, surreal, or otherworldly — reality blurred at the edges</td></tr>
+<tr><td><strong>Claustrophobic</strong></td><td>Oppressively confined — the reader feels trapped or overwhelmed</td></tr>
+<tr><td><strong>Nostalgic</strong></td><td>A bittersweet longing for a past that cannot be recovered</td></tr>
+<tr><td><strong>Harrowing</strong></td><td>Deeply distressing — difficult to read without feeling pain</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Quiz S9 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q9a">
+<div class="qt">Is "tone" about the poet's attitude or the reader's emotional experience?</div>
+<div class="qr"><input type="text" placeholder="..." id="in_q9a"><button class="qb" onclick="chk('q9a','poet','Tone = the POET\'S attitude toward their subject. Mood = the emotional atmosphere felt by the reader.')">Check</button></div>
+<div class="qf" id="fb_q9a"></div></div>
+<div class="qi" id="q9b">
+<div class="qt">Which word describes a tone that says one thing but means the opposite — understated critique?</div>
+<div class="qr"><input type="text" placeholder="Tone word..." id="in_q9b"><button class="qb" onclick="chk('q9b','ironic','Ironic tone = saying the opposite of what is meant, often used to criticise without being direct.')">Check</button></div>
+<div class="qf" id="fb_q9b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span><span style="font-size:12px;color:#666;">Identify tone and mood separately</span></div>
+<div class="qi" id="q9c">
+<div class="qp">"She has been dead eleven years. The kitchen still smells of her bread. I make no fuss about it."</div>
+<div class="qt">What is the poet's TONE here? (One tone word from the bank)</div>
+<div class="qr"><input type="text" placeholder="Tone word..." id="in_q9c"><button class="qb" onclick="chk('q9c','detached','The poet reports facts without expressing visible emotion (\'I make no fuss\') — the tone is detached or resigned.')">Check</button></div>
+<div class="qf" id="fb_q9c"></div></div>
+<div class="qi" id="q9d">
+<div class="qp">"She has been dead eleven years. The kitchen still smells of her bread. I make no fuss about it."</div>
+<div class="qt">What MOOD does this create for the reader? (One mood word from the bank)</div>
+<div class="qr"><input type="text" placeholder="Mood word..." id="in_q9d"><button class="qb" onclick="chk('q9d','melancholic','Although the poet\'s tone is detached, the detail of the bread smell creates a deeply melancholic mood in the reader — it\'s a small, intimate grief that the restraint makes more powerful.')">Check</button></div>
+<div class="qf" id="fb_q9d"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Challenging</span></div>
+<div class="qi" id="q9e">
+<div class="qp">"Ah, how fortunate we are to live in such enlightened times —<br>when children work twelve hours in the dark<br>and call it progress."</div>
+<div class="qt">What is the tone? (One word)</div>
+<div class="qr"><input type="text" placeholder="Tone word..." id="in_q9e"><button class="qb" onclick="chk('q9e','sardonic','The poet says \'how fortunate\' and \'enlightened\' sarcastically — the opposite of their true meaning. This mocking, cynical use of false praise is sardonic.')">Check</button></div>
+<div class="qf" id="fb_q9e"></div></div>
+</div>
+
+</div></div>
+
+<!-- S10: SYMBOLISM -->
+<div class="b10" id="s10"><div class="sec">
+<div class="sh"><div class="sn">10</div><div class="sg"><div class="sl">Beyond the Literal</div><div class="st">Symbolism Reference Table</div></div></div>
+
+<p>Poets rarely mean <em>only</em> the literal thing they describe. A symbol carries meaning beyond its surface. At 11+ level, recognising conventional symbols — and knowing when a poet subverts them — is a high-value skill.</p>
+
+<div class="callout"><strong>Important:</strong> Poets can subvert conventional symbols. Water usually means life and renewal — but a poet could use still, stagnant water to represent death or stasis. Always check how the symbol is used in context before applying its conventional meaning.</div>
+
+<table class="rt">
+<thead><tr><th>Symbol</th><th>Conventional Meaning</th><th>Possible Subversions</th></tr></thead>
+<tbody>
+<tr><td><strong>Water / Sea</strong></td><td>Life, renewal, the unconscious mind, the passage of time</td><td>Drowning / overwhelming force / stagnant water = death, stasis</td></tr>
+<tr><td><strong>Fire</strong></td><td>Passion, destruction, purification, warmth and comfort</td><td>A dying fire = loss of love or hope</td></tr>
+<tr><td><strong>Winter / Snow</strong></td><td>Death, endings, coldness, isolation, hardship</td><td>First snow = purity, magical transformation</td></tr>
+<tr><td><strong>Spring</strong></td><td>New beginnings, hope, youth, rebirth</td><td>False spring = hope that is quickly crushed</td></tr>
+<tr><td><strong>Birds</strong></td><td>Freedom, the human soul, aspiration, transcendence</td><td>A caged bird = imprisonment, loss of freedom</td></tr>
+<tr><td><strong>Light / Sun</strong></td><td>Knowledge, hope, truth, life, divine presence</td><td>Blinding light = knowledge that destroys</td></tr>
+<tr><td><strong>Darkness / Night</strong></td><td>Death, ignorance, the unconscious, evil, fear</td><td>Night = peace, freedom from the world's demands</td></tr>
+<tr><td><strong>Storm</strong></td><td>Chaos, emotional turmoil, divine anger, upheaval</td><td>A storm that clears the air = necessary crisis leading to resolution</td></tr>
+<tr><td><strong>Journey / Path</strong></td><td>Life itself, progress toward a goal, passage of time, quest</td><td>A road not taken = choices and regret</td></tr>
+<tr><td><strong>Seasons (full cycle)</strong></td><td>The cycle of life: birth (spring), growth (summer), decline (autumn), death (winter)</td><td>A winter that never ends = unresolved grief; a single season's extension = obsession</td></tr>
+</tbody>
+</table>
+
+<!-- Quiz S10 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q10a">
+<div class="qt">In poetry, what does a caged bird conventionally symbolise?</div>
+<div class="qr"><input type="text" placeholder="..." id="in_q10a"><button class="qb" onclick="chk('q10a','imprisonment','A caged bird = loss of freedom / imprisonment. It is the subverted form of the bird symbol (birds normally = freedom).')">Check</button></div>
+<div class="qf" id="fb_q10a"></div></div>
+<div class="qi" id="q10b">
+<div class="qt">What does winter conventionally symbolise in poetry? (One word)</div>
+<div class="qr"><input type="text" placeholder="..." id="in_q10b"><button class="qb" onclick="chk('q10b','death','Winter conventionally symbolises death, endings, cold, isolation, and hardship.')">Check</button></div>
+<div class="qf" id="fb_q10b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q10c">
+<div class="qp">"She walked through the house at midnight, turning on every lamp."</div>
+<div class="qt">What might the act of turning on lights symbolise here? (One concept)</div>
+<div class="qr"><input type="text" placeholder="Symbolic meaning..." id="in_q10c"><button class="qb" onclick="chk('q10c','hope','Light conventionally symbolises knowledge, hope, and truth. Turning on every lamp suggests she is trying to dispel darkness/fear/grief — the action symbolises hope or the search for truth.')">Check</button></div>
+<div class="qf" id="fb_q10c"></div></div>
+<div class="qi" id="q10d">
+<div class="qt">Water usually symbolises life and renewal. In what context might a poet use water to symbolise the opposite?</div>
+<div class="qr"><input type="text" placeholder="Context..." id="in_q10d"><button class="qb" onclick="chk('q10d','drowning','Drowning, or still/stagnant water, can subvert the conventional meaning and symbolise death, being overwhelmed, or stasis (being stuck).')">Check</button></div>
+<div class="qf" id="fb_q10d"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb la">Advanced</span></div>
+<div class="qi" id="q10e">
+<div class="qp">"Spring came, as it always did, without apology.<br>The crocuses pushed up through the frost.<br>She found this intolerable."</div>
+<div class="qt">Spring conventionally means hope and renewal. What might the character's reaction tell us about this poem's use of the spring symbol?</div>
+<div class="qr"><input type="text" placeholder="Your answer..." id="in_q10e"><button class="qb" onclick="chk('q10e','subverted','The character finds spring\'s renewal \'intolerable\' — the poet is subverting the conventional symbol. For someone deep in grief, the world\'s indifferent renewal feels like a betrayal rather than a comfort.')">Check</button></div>
+<div class="qf" id="fb_q10e"></div></div>
+</div>
+
+</div></div>
+
+
+<!-- S11: SEMANTIC FIELD -->
+<div class="b11" id="s11"><div class="sec">
+<div class="sh"><div class="sn">11</div><div class="sg"><div class="sl">Word Clusters</div><div class="st">Semantic Field — Taught and Practised</div></div></div>
+
+<div class="sb">
+<h3>What Is a Semantic Field?</h3>
+<p>A semantic field is a cluster of words in a poem that all relate to the same theme or concept. Identifying it is a high-value analytical move because it shows you can see the poem's thematic architecture, not just its surface content.</p>
+<p><strong>Why poets create semantic fields:</strong></p>
+<ul style="margin:0 0 12px 22px;line-height:2.2;">
+  <li><strong>To establish mood:</strong> a cluster of words from one domain (darkness, cold, silence) builds the poem's atmosphere systematically</li>
+  <li><strong>To reinforce theme:</strong> if the poem is about war, a field of battle-related words threads the theme through every stanza</li>
+  <li><strong>To create unity:</strong> semantic fields bind the poem together; the reader feels the theme is everywhere, not just in an obvious line</li>
+</ul>
+<div class="callout"><strong>Why examiners reward this:</strong> Commenting on a semantic field shows you can analyse the poem as a whole, not just line by line. It demonstrates sophisticated thinking about how poets construct meaning over the full text.</div>
+</div>
+
+<div class="sb">
+<h3>Three Worked Examples</h3>
+
+<div class="ex-box"><div class="ex-l">Example 1 — Semantic Field of War</div>
+<div class="passage">"The orders came like artillery fire. She was ambushed by questions. Her composure retreated. By evening, she had surrendered."</div>
+<p><strong>Identification:</strong> artillery, ambushed, retreated, surrendered — all words from the field of military conflict</p>
+<p><strong>Comment:</strong> The semantic field of warfare throughout this extract transforms an ordinary difficult meeting into a battle. This suggests the speaker experiences professional life as a constant fight for survival — always under attack, always losing ground.</p>
+</div>
+
+<div class="ex-box"><div class="ex-l">Example 2 — Semantic Field of Decay</div>
+<div class="passage">"The summer rotted slowly into autumn. The leaves fell, riddled and brown. The garden grew hollow. The light thinned and withdrew."</div>
+<p><strong>Identification:</strong> rotted, riddled, hollow, thinned, withdrew — words of decomposition and absence</p>
+<p><strong>Comment:</strong> The semantic field of decay runs through the entire stanza. Rather than celebrating autumn's colours, the poet frames the season as a form of corruption — reinforcing a theme of inevitable loss and the death of summer's joys.</p>
+</div>
+
+<div class="ex-box"><div class="ex-l">Example 3 — Semantic Field of Music</div>
+<div class="passage">"Her words had a rhythm I had not expected. They arrived in cadences, paused, swelled again like a chorus, and left me in silence — an audience of one."</div>
+<p><strong>Identification:</strong> rhythm, cadences, chorus, audience — words from music and performance</p>
+<p><strong>Comment:</strong> By using a semantic field of music to describe speech, the poet elevates the woman's words to the level of art. Her conversation becomes a performance — suggesting the narrator is captivated, passive, and perhaps overwhelmed by her presence.</p>
+</div>
+</div>
+
+<!-- Quiz S11 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q11a">
+<div class="qt">What is a semantic field? (Complete this: "A cluster of words that all relate to the same ___")</div>
+<div class="qr"><input type="text" placeholder="One word..." id="in_q11a"><button class="qb" onclick="chk('q11a','theme','A semantic field is a cluster of words that all relate to the same theme or concept. Poets use them to reinforce mood and meaning.')">Check</button></div>
+<div class="qf" id="fb_q11a"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q11b">
+<div class="qp">"The hospital of winter admitted everyone.<br>Its cold wards stretched for miles. The nurses —<br>frost and silence — gave no comfort."</div>
+<div class="qt">Identify the semantic field used here. What is the unifying theme of the words? (Two words)</div>
+<div class="qr"><input type="text" placeholder="Semantic field of..." id="in_q11b"><button class="qb" onclick="chk('q11b','hospital','Words: hospital, admitted, wards, nurses — all belong to the semantic field of healthcare/hospital. Combined with winter imagery, this makes winter feel clinical and institutionalised — a kind of enforced suffering.')">Check</button></div>
+<div class="qf" id="fb_q11b"></div></div>
+<div class="qi" id="q11c">
+<div class="qt">Name ONE reason why examiners reward observations about semantic fields.</div>
+<div class="qr"><input type="text" placeholder="Reason..." id="in_q11c"><button class="qb" onclick="chk('q11c','whole poem','A semantic field comment shows you can analyse the poem as a WHOLE, not just one line. It demonstrates sophisticated thinking about how a poet constructs meaning across the full text.')">Check</button></div>
+<div class="qf" id="fb_q11c"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Challenging</span></div>
+<div class="qi" id="q11d">
+<div class="qp">"Her silence was a courtroom. I stood<br>accused before her eyes — the evidence<br>of every wrong word I had ever spoken<br>presented without mercy, without appeal."</div>
+<div class="qt">Name the semantic field in this extract. What is the unifying concept? (One word)</div>
+<div class="qr"><input type="text" placeholder="Semantic field of..." id="in_q11d"><button class="qb" onclick="chk('q11d','law','Words: courtroom, accused, evidence, mercy, appeal — all from the semantic field of law/justice. This transforms a personal confrontation into a formal trial, suggesting the speaker feels judged and condemned.')">Check</button></div>
+<div class="qf" id="fb_q11d"></div></div>
+</div>
+
+</div></div>
+
+<!-- S12: FULL WORKED ANALYSIS -->
+<div class="b12" id="s12"><div class="sec">
+<div class="sh"><div class="sn">12</div><div class="sg"><div class="sl">SLIFFT in Action</div><div class="st">Full Worked Poem Analysis</div></div></div>
+
+<p>Below is William Blake's "The Sick Rose" (1794) — a short, dense poem ideal for 11+ analysis. Read it first for sense, then study the SLIFFT annotations alongside.</p>
+
+<div class="poem-box" style="text-align:center;font-size:1.15rem;">
+<div class="poem-label">William Blake — "The Sick Rose" (1794)</div>
+<br>
+O Rose, thou art sick!<br>
+The invisible worm<br>
+That flies in the night,<br>
+In the howling storm,<br>
+<br>
+Has found out thy bed<br>
+Of crimson joy,<br>
+And his dark secret love<br>
+Does thy life destroy.
+</div>
+
+<div class="annot">
+<div class="annot-poem">
+O Rose, thou art sick!<br>
+The invisible worm<br>
+That flies in the night,<br>
+In the howling storm,<br>
+<br>
+Has found out thy bed<br>
+Of crimson joy,<br>
+And his dark secret love<br>
+Does thy life destroy.
+</div>
+<div class="annot-notes">
+  <div class="annot-note"><strong>Structure (S)</strong> Two equal stanzas of four short lines. The brevity creates intensity — each word carries enormous weight. The short lines feel like short, ragged breaths, creating a sense of dread.</div>
+  <div class="annot-note"><strong>Language (L)</strong> Powerful contrasting words: "crimson joy" vs. "dark secret love." The verb "destroy" is placed last in the poem — its position gives it devastating finality. "Invisible" and "secret" belong to a semantic field of concealment.</div>
+  <div class="annot-note"><strong>Imagery (I)</strong> The rose is a conventional symbol of beauty, love, perfection. The worm is associated with death, corruption, the serpent (evil). The image of the worm "finding" the rose's bed merges violation with corruption.</div>
+  <div class="annot-note"><strong>Form (F)</strong> The rhyme scheme is ABCB / ABCB — ballad rhyme. This gives the poem a deceptively simple, song-like feel, making the darkness of the content more shocking. The metre is irregular, creating unease.</div>
+  <div class="annot-note"><strong>Feeling (F)</strong> Stanza 1: ominous, threatening. Stanza 2: the ominous threat becomes a reality — the mood turns harrowing. The poem leaves the reader with a sense of irreversible corruption.</div>
+  <div class="annot-note"><strong>Tone (T)</strong> The opening apostrophe ("O Rose") is direct, urgent — almost panicked. The tone is elegiac: Blake mourns the rose's destruction. There is also a quality of moral outrage: the worm's "secret love" is presented as predatory.</div>
+  <div class="annot-note"><strong>Voice (V)</strong> First person implied — the poet addresses the rose directly (apostrophe). This creates intimacy and grief. The poet positions himself as a witness to the rose's destruction, unable to prevent it.</div>
+</div>
+</div>
+
+<div class="ex-box" style="margin-top:20px;"><div class="ex-l">Model Examiner Comment — Symbolism</div>
+<p>The rose is a symbol of natural beauty, innocence, and love — and it is conventionally linked to joy and perfection. By introducing the worm, which carries connotations of decay, death, and the biblical serpent, Blake places corruption at the very heart of beauty. The poem suggests that beauty is always vulnerable to hidden, "secret" forces of destruction — that nothing perfect can survive. This is reinforced by "crimson joy": crimson is the colour of both pleasure and blood, suggesting that joy always contains the seeds of its own destruction.</p>
+</div>
+
+<!-- Quiz S12 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q12a">
+<div class="qt">In "The Sick Rose," what does the rose conventionally symbolise?</div>
+<div class="qr"><input type="text" placeholder="Symbol meaning..." id="in_q12a"><button class="qb" onclick="chk('q12a','beauty','The rose conventionally symbolises beauty, love, innocence, and perfection.')">Check</button></div>
+<div class="qf" id="fb_q12a"></div></div>
+<div class="qi" id="q12b">
+<div class="qt">What device is used in the opening line "O Rose, thou art sick!"?</div>
+<div class="qr"><input type="text" placeholder="Device name..." id="in_q12b"><button class="qb" onclick="chk('q12b','apostrophe','Direct address to an absent/non-human subject (the rose) = poetic apostrophe. It creates urgency and intimacy.')">Check</button></div>
+<div class="qf" id="fb_q12b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q12c">
+<div class="qt">What rhyme scheme does "The Sick Rose" use? (Four letters)</div>
+<div class="qr"><input type="text" placeholder="Scheme..." id="in_q12c"><button class="qb" onclick="chk('q12c','abcb','sick(A)/worm(B)/night(C)/storm(B) — only lines 2 and 4 rhyme. Scheme: ABCB. This is ballad rhyme.')">Check</button></div>
+<div class="qf" id="fb_q12c"></div></div>
+<div class="qi" id="q12d">
+<div class="qt">"Invisible" and "secret" belong to what kind of semantic field?</div>
+<div class="qr"><input type="text" placeholder="Semantic field of..." id="in_q12d"><button class="qb" onclick="chk('q12d','concealment','Both words relate to things hidden or unseen — a semantic field of concealment or secrecy, reinforcing the worm\'s predatory, covert nature.')">Check</button></div>
+<div class="qf" id="fb_q12d"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb lc">Challenging</span></div>
+<div class="qi" id="q12e">
+<div class="qp">"And his dark secret love / Does thy life destroy."</div>
+<div class="qt">Blake places "destroy" as the final word of the poem. Which SLIFFT layer does this observation belong to? (One word)</div>
+<div class="qr"><input type="text" placeholder="Layer..." id="in_q12e"><button class="qb" onclick="chk('q12e','structure','Placing \'destroy\' last is a structural choice — the word\'s position at the very end of the poem gives it maximum weight and finality. This belongs to the S = Structure layer of SLIFFT.')">Check</button></div>
+<div class="qf" id="fb_q12e"></div></div>
+</div>
+
+</div></div>
+
+
+<!-- S13: WRITTEN RESPONSE STRUCTURE -->
+<div class="b13" id="s13"><div class="sec">
+<div class="sh"><div class="sn">13</div><div class="sg"><div class="sl">Extended Answers</div><div class="st">Written Response Structure — P.E.E.L. for Poetry</div></div></div>
+
+<p>For schools requiring written answers (not multiple choice), every paragraph of your poetry response should follow the P.E.E.L. structure. Poetry P.E.E.L. differs from prose P.E.E.L. in one key way: the Evidence step must include the name of the technique used.</p>
+
+<div class="sb">
+<h3>The Poetry P.E.E.L. Framework</h3>
+<div class="ex-box">
+<p><strong>P — Point:</strong> Make a clear claim about what the poet does or how they make you feel. This is your topic sentence.</p>
+<p><strong>E — Evidence:</strong> Quote the relevant word or phrase. Then name the technique. Both are required.</p>
+<p><strong>E — Effect:</strong> Explain the specific impact of that technique on the reader — the precise emotion or idea it creates.</p>
+<p><strong>L — Link:</strong> Connect your comment to the poem's wider theme, or link forward to your next point. This earns the final marks.</p>
+</div>
+</div>
+
+<div class="sb">
+<h3>Model Answer: "How does Blake create a sense of menace in 'The Sick Rose'?"</h3>
+<div class="ex-box"><div class="ex-l">Full Model Response</div>
+<p><strong>[Point]</strong> Blake creates menace through his use of language that suggests concealment and predatory intent.</p>
+
+<p><strong>[Evidence + Technique]</strong> He describes the worm as "invisible" and acting with "dark secret love" — the adjectives "invisible" and "secret" create a semantic field of concealment, while "dark" has connotations of evil and threat.</p>
+
+<p><strong>[Effect]</strong> This combination makes the worm feel predatory rather than merely present — it hides, it seeks, it acts in the night where it cannot be seen. The reader feels the menace of a threat that cannot be confronted or identified, which is more frightening than open danger.</p>
+
+<p><strong>[Link]</strong> This sense of hidden corruption reinforces the poem's wider theme: that beauty and innocence are always vulnerable to forces they cannot perceive, let alone resist.</p>
+</div>
+</div>
+
+<!-- Quiz S13 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q13a">
+<div class="qt">What does the E in "Effect" (the second E in P.E.E.L.) require you to explain?</div>
+<div class="qr"><input type="text" placeholder="..." id="in_q13a"><button class="qb" onclick="chk('q13a','impact','The second E = Effect: the specific impact on the READER — the emotion, image, or idea the technique creates in them.')">Check</button></div>
+<div class="qf" id="fb_q13a"></div></div>
+<div class="qi" id="q13b">
+<div class="qt">In poetry P.E.E.L., the Evidence step requires TWO things. What are they? (Separate with comma)</div>
+<div class="qr"><input type="text" placeholder="1, 2..." id="in_q13b"><button class="qb" onclick="chk('q13b','quotation, technique','Poetry Evidence = quotation from the poem PLUS the name of the technique used. Both are essential.')">Check</button></div>
+<div class="qf" id="fb_q13b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q13c">
+<div class="qp">"The moon watches us coldly."</div>
+<div class="qt">Write a P (Point) sentence for a response about how the poet creates a sense of indifference. Begin with "The poet creates..."</div>
+<div class="qr"><input type="text" placeholder="Your point sentence..." id="in_q13c"><button class="qb" onclick="chk('q13c','the poet creates','Any sentence beginning \'The poet creates a sense of indifference through...\' is correct as a Point. It makes a clear claim that the rest of the paragraph will support.')">Check</button></div>
+<div class="qf" id="fb_q13c"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb la">Advanced</span></div>
+<div class="qi" id="q13d">
+<div class="qt">What is the PURPOSE of the L (Link) in P.E.E.L.? Why does it earn extra marks?</div>
+<div class="qr"><input type="text" placeholder="Purpose..." id="in_q13d"><button class="qb" onclick="chk('q13d','whole poem','The Link connects a single observation to the poem\'s WIDER THEME or the overall meaning. It shows you can think about the poem as a whole, not just one line — this earns the highest marks.')">Check</button></div>
+<div class="qf" id="fb_q13d"></div></div>
+</div>
+
+</div></div>
+
+<!-- S14: UNSEEN POEM STRATEGY -->
+<div class="b14" id="s14"><div class="sec">
+<div class="sh"><div class="sn">14</div><div class="sg"><div class="sl">Exam Conditions</div><div class="st">Unseen Poem Strategy — Step by Step</div></div></div>
+
+<p>An unseen poem is one you have never encountered before. It appears in the exam with no prior preparation possible. The following method, used consistently, will ensure you always have something precise and intelligent to say.</p>
+
+<div class="sb">
+<h3>Read 1 — Sense and Subject (2 minutes)</h3>
+<p>Read the poem through completely without stopping. Ask: <em>What is literally happening here?</em> Who is the speaker? What situation are they in? What does the title tell you? Do not write anything yet. Just understand the surface narrative.</p>
+<div class="tip"><strong>Title check:</strong> The title is the poet's first choice — it is never accidental. A title like "The Veteran" immediately tells you the poem will be about someone with experience of war. A title like "Photograph" tells you time, memory, and loss may feature. Always read the title before the poem.</div>
+</div>
+
+<div class="sb">
+<h3>Read 2 — Craft (3 minutes)</h3>
+<p>Read again, this time pencil in hand. Look for the poet's choices. Annotate in this order:</p>
+<div class="steps">
+<div class="step"><div class="step-n">1</div><div class="step-c"><strong>Circle the most powerful verb in each stanza.</strong> Ask: why this verb, not a safer one?</div></div>
+<div class="step"><div class="step-n">2</div><div class="step-c"><strong>Underline every comparison</strong> (simile or metaphor) and note what quality is being highlighted.</div></div>
+<div class="step"><div class="step-n">3</div><div class="step-c"><strong>Mark end sounds</strong> and identify the rhyme scheme quickly: does it rhyme? Regularly or irregularly?</div></div>
+<div class="step"><div class="step-n">4</div><div class="step-c"><strong>Look for the volta.</strong> Where does the poem change direction? Mark it.</div></div>
+<div class="step"><div class="step-n">5</div><div class="step-c"><strong>Note the tone of each stanza</strong> in the margin with one word (e.g. "angry," "tender," "ominous").</div></div>
+<div class="step"><div class="step-n">6</div><div class="step-c"><strong>Check for sound devices:</strong> any alliteration, sibilance, assonance, or onomatopoeia that links to the poem's mood.</div></div>
+</div>
+</div>
+
+<div class="sb">
+<h3>Handling Difficult Vocabulary</h3>
+<p>If a word is archaic or unfamiliar, do not panic. Use these strategies in order:</p>
+<ol style="margin:0 0 12px 22px;line-height:2.2;">
+  <li><strong>Context:</strong> what do the surrounding lines suggest the word means?</li>
+  <li><strong>Root:</strong> can you break the word into parts? (e.g. "indomitable" — "in" = not, "domit" from "dominate" = so something that cannot be dominated = unconquerable)</li>
+  <li><strong>Connotation:</strong> even if you are unsure of the exact meaning, what feeling does the word carry? (Long, Latinate words often feel formal or grand; short, Anglo-Saxon words feel direct or harsh)</li>
+</ol>
+</div>
+
+<div class="sb">
+<h3>Timing Guidance</h3>
+<div class="tbar"><span class="tname">Read 1 (sense/narrative)</span><span class="ttime">~2 min</span></div>
+<div class="tbar"><span class="tname">Read 2 (craft/annotation)</span><span class="ttime">~3 min</span></div>
+<div class="tbar"><span class="tname">Answer evidence questions</span><span class="ttime">~5 min</span></div>
+<div class="tbar"><span class="tname">Answer effect/meaning questions</span><span class="ttime">~8 min</span></div>
+<div class="tbar"><span class="tname">Check and review</span><span class="ttime">~2 min</span></div>
+<div class="tbar" style="background:var(--ink);color:var(--vellum);"><span class="tname" style="color:var(--vellum);">Total</span><span class="ttime">~20 min</span></div>
+</div>
+
+<!-- Quiz S14 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q14a">
+<div class="qt">When reading an unseen poem for the FIRST time, what should you be trying to understand?</div>
+<div class="qr"><input type="text" placeholder="What you're looking for..." id="in_q14a"><button class="qb" onclick="chk('q14a','sense','First reading = sense and subject: what is literally happening? Who is speaking? What situation are they in?')">Check</button></div>
+<div class="qf" id="fb_q14a"></div></div>
+<div class="qi" id="q14b">
+<div class="qt">During the second read, what is the FIRST thing you should circle in each stanza?</div>
+<div class="qr"><input type="text" placeholder="What to circle..." id="in_q14b"><button class="qb" onclick="chk('q14b','verb','The most powerful verb in each stanza. Verbs do the most work in poetry — they tell you how the poet sees the action.')">Check</button></div>
+<div class="qf" id="fb_q14b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q14c">
+<div class="qt">Name ONE strategy for working out the meaning of an unfamiliar word in an unseen poem.</div>
+<div class="qr"><input type="text" placeholder="Strategy..." id="in_q14c"><button class="qb" onclick="chk('q14c','context','Use context: look at the surrounding lines to work out what the word means. Also valid: breaking the word into roots.')">Check</button></div>
+<div class="qf" id="fb_q14c"></div></div>
+<div class="qi" id="q14d">
+<div class="qt">Why should you always read the title before reading the poem?</div>
+<div class="qr"><input type="text" placeholder="Reason..." id="in_q14d"><button class="qb" onclick="chk('q14d','theme','The title is the poet\'s first deliberate choice — it signals the poem\'s theme, subject, or emotional register. It gives you crucial context before the first line.')">Check</button></div>
+<div class="qf" id="fb_q14d"></div></div>
+</div>
+
+</div></div>
+
+<!-- S15: TONE AND MOOD VOCABULARY TABLE -->
+<div class="b15" id="s15"><div class="sec">
+<div class="sh"><div class="sn">15</div><div class="sg"><div class="sl">25-Word Reference</div><div class="st">Tone & Mood Vocabulary Table</div></div></div>
+
+<p>Learn these 25 words. At the end of your second read of any poem, you should be able to select at least one precise tone word and one precise mood word from memory.</p>
+
+<table class="rt">
+<thead><tr><th>Word</th><th>Type</th><th>Precise Meaning</th></tr></thead>
+<tbody>
+<tr><td><strong>Elegiac</strong></td><td>Tone</td><td>A sorrowful lament, especially for the dead or for something lost; mournfully beautiful</td></tr>
+<tr><td><strong>Sardonic</strong></td><td>Tone</td><td>Grimly mocking; using dark humour to criticise; cynical</td></tr>
+<tr><td><strong>Reverent</strong></td><td>Tone</td><td>Showing deep respect, awe, or devotion — as if before something sacred</td></tr>
+<tr><td><strong>Indignant</strong></td><td>Tone</td><td>Morally outraged at perceived injustice or unfairness</td></tr>
+<tr><td><strong>Detached</strong></td><td>Tone</td><td>Emotionally distant, impersonal; the poet holds back from personal involvement</td></tr>
+<tr><td><strong>Contemplative</strong></td><td>Tone</td><td>Quietly thoughtful and reflective; turning an idea over slowly</td></tr>
+<tr><td><strong>Tender</strong></td><td>Tone</td><td>Gentle and affectionate, especially toward a person or memory</td></tr>
+<tr><td><strong>Resigned</strong></td><td>Tone</td><td>Calmly accepting an unhappy situation without protest or hope of change</td></tr>
+<tr><td><strong>Bitter</strong></td><td>Tone</td><td>Angry and resentful, often due to betrayal or loss; unable to forgive</td></tr>
+<tr><td><strong>Ironic</strong></td><td>Tone</td><td>Saying the opposite of what is meant; often used to critique without directness</td></tr>
+<tr><td><strong>Celebratory</strong></td><td>Tone</td><td>Joyfully commemorating or praising; full of admiration and delight</td></tr>
+<tr><td><strong>Mournful</strong></td><td>Tone</td><td>Expressing deep, aching sorrow, especially for a loss</td></tr>
+<tr><td><strong>Urgent</strong></td><td>Tone</td><td>Pressing, insistent; the poet communicates that something must happen now</td></tr>
+<tr><td><strong>Melancholic</strong></td><td>Mood</td><td>A deep, reflective sadness — quieter and longer-lasting than grief</td></tr>
+<tr><td><strong>Unsettling</strong></td><td>Mood</td><td>Creates discomfort and unease in the reader; something feels wrong but hard to name</td></tr>
+<tr><td><strong>Ominous</strong></td><td>Mood</td><td>A heavy sense that something bad is approaching; foreboding</td></tr>
+<tr><td><strong>Euphoric</strong></td><td>Mood</td><td>An overwhelming, almost ecstatic joy; feeling elevated and intensely alive</td></tr>
+<tr><td><strong>Harrowing</strong></td><td>Mood</td><td>Deeply distressing; extremely difficult to read without feeling pain or grief</td></tr>
+<tr><td><strong>Dreamlike</strong></td><td>Mood</td><td>Hazy, surreal, or otherworldly; the boundary between real and unreal blurs</td></tr>
+<tr><td><strong>Claustrophobic</strong></td><td>Mood</td><td>Oppressively confined; the reader feels trapped or suffocated</td></tr>
+<tr><td><strong>Tense</strong></td><td>Mood</td><td>Anxious anticipation; something is about to happen and the reader braces</td></tr>
+<tr><td><strong>Peaceful</strong></td><td>Mood</td><td>Calm, undisturbed, harmonious; a sense of safety or resolution</td></tr>
+<tr><td><strong>Nostalgic</strong></td><td>Mood</td><td>Bittersweet longing for a past that cannot be returned to</td></tr>
+<tr><td><strong>Wistful</strong></td><td>Mood/Tone</td><td>A gentle, yearning sadness for something desired but unattainable or past</td></tr>
+<tr><td><strong>Desolate</strong></td><td>Mood</td><td>A vast, empty feeling of abandonment and hopelessness; bleak and comfortless</td></tr>
+</tbody>
+</table>
+
+<!-- Quiz S15 -->
+<div class="qs"><div class="qlh"><span class="lb le">Easy</span></div>
+<div class="qi" id="q15a">
+<div class="qt">What is the difference between "elegiac" and "mournful"? Name what "elegiac" specifically relates to that "mournful" does not.</div>
+<div class="qr"><input type="text" placeholder="What elegiac relates to..." id="in_q15a"><button class="qb" onclick="chk('q15a','dead','Elegiac comes from elegy — a lament specifically for the dead or something that has ended permanently. Mournful is a more general term for deep sadness.')">Check</button></div>
+<div class="qf" id="fb_q15a"></div></div>
+<div class="qi" id="q15b">
+<div class="qt">Is "ominous" a tone word or a mood word?</div>
+<div class="qr"><input type="text" placeholder="tone or mood" id="in_q15b"><button class="qb" onclick="chk('q15b','mood','Ominous describes the atmosphere the reader experiences — the heavy sense of approaching threat. This is a mood word.')">Check</button></div>
+<div class="qf" id="fb_q15b"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb li">Intermediate</span></div>
+<div class="qi" id="q15c">
+<div class="qp">"O Death, where is thy sting?" the soldier wrote,<br>between the forms, the lists, the daily count."</div>
+<div class="qt">The poet records the soldier's words with clinical distance, no emotion. Which tone word best describes the poet's voice?</div>
+<div class="qr"><input type="text" placeholder="Tone word..." id="in_q15c"><button class="qb" onclick="chk('q15c','detached','The clinical, impersonal listing (forms, lists, count) shows the poet holding emotion at arm\'s length — the tone is detached.')">Check</button></div>
+<div class="qf" id="fb_q15c"></div></div>
+<div class="qi" id="q15d">
+<div class="qt">Which mood word describes the feeling when something very bad is about to happen and the reader senses it approaching?</div>
+<div class="qr"><input type="text" placeholder="Mood word..." id="in_q15d"><button class="qb" onclick="chk('q15d','ominous','Ominous = a sense that something bad is approaching; foreboding dread.')">Check</button></div>
+<div class="qf" id="fb_q15d"></div></div>
+</div>
+
+<div class="qs"><div class="qlh"><span class="lb la">Advanced</span></div>
+<div class="qi" id="q15e">
+<div class="qt">What is the difference between "nostalgic" and "wistful"? (Which one implies something is unattainable, not just past?)</div>
+<div class="qr"><input type="text" placeholder="Your answer..." id="in_q15e"><button class="qb" onclick="chk('q15e','wistful','Wistful implies longing for something desired but unattainable (or not yet had). Nostalgic is specifically about the past. You can be wistful about something you have never had; nostalgia requires something once possessed.')">Check</button></div>
+<div class="qf" id="fb_q15e"></div></div>
+</div>
+
+</div></div>
+
+
+<!-- FINAL MASTERY TEST -->
+<div class="mastery" id="mastery"><div class="mastery-inner">
+<div class="sh"><div class="sn" style="color:var(--gold-light);opacity:1;">★</div><div class="sg"><div class="sl" style="color:rgba(247,243,236,0.5);">All Sections · Mixed Format</div><div class="st" style="color:var(--vellum);">Final Mastery Test</div></div></div>
+
+<p style="color:rgba(247,243,236,0.75);margin-bottom:28px;">Work through all 12 questions using only your knowledge — no notes. This tests the full guide under exam conditions. The poem below is by Christina Rossetti (public domain).</p>
+
+<div style="background:rgba(154,123,47,0.12);border:1px solid var(--gold);padding:18px 24px;border-radius:4px;margin-bottom:28px;color:var(--vellum);">
+<div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:10px;">MASTERY POEM — Christina Rossetti: "Song" (1848)</div>
+<div style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;line-height:2.2;background:rgba(255,255,255,0.04);padding:16px 20px;border-left:3px solid var(--gold);border-radius:0 3px 3px 0;">
+When I am dead, my dearest,<br>
+Sing no sad songs for me;<br>
+Plant thou no roses at my head,<br>
+Nor shady cypress tree:<br>
+Be the green grass above me<br>
+With showers and dewdrops wet;<br>
+And if thou wilt, remember,<br>
+And if thou wilt, forget.<br>
+<br>
+I shall not see the shadows,<br>
+I shall not feel the rain;<br>
+I shall not hear the nightingale<br>
+Sing on, as if in pain:<br>
+And dreaming through the twilight<br>
+That doth not rise nor set,<br>
+Haply I may remember,<br>
+And haply may forget.
+</div></div>
+
+<div class="qs">
+<div class="qi" id="qm1">
+<div class="qt"><strong>Q1 [Rhyme]</strong> What is the rhyme scheme of the first stanza? (Four letters — use the end words: dearest, me, head, tree)</div>
+<div class="qr"><input type="text" placeholder="e.g. ABAB" id="in_qm1"><button class="qb" onclick="chk('qm1','abcb','dearest(A)/me(B)/head(C)/tree(B) — lines 2 and 4 rhyme. Scheme: ABCB = ballad rhyme.')">Check</button></div>
+<div class="qf" id="fb_qm1"></div></div>
+
+<div class="qi" id="qm2">
+<div class="qt"><strong>Q2 [Volta]</strong> Where does the poem's volta occur? (Name the line number OR the first word of the volta line)</div>
+<div class="qr"><input type="text" placeholder="Line or first word..." id="in_qm2"><button class="qb" onclick="chk('qm2','i shall','The volta is at \'I shall not see the shadows\' — the opening of stanza 2. The poem shifts from instructions to the living (what they should do) to the speaker\'s own future state. The tone moves from directive to serene acceptance.')">Check</button></div>
+<div class="qf" id="fb_qm2"></div></div>
+
+<div class="qi" id="qm3">
+<div class="qt"><strong>Q3 [Anaphora]</strong> "I shall not see... I shall not feel... I shall not hear..." — what device repeats "I shall not"?</div>
+<div class="qr"><input type="text" placeholder="Device name..." id="in_qm3"><button class="qb" onclick="chk('qm3','anaphora','Anaphora = repetition of a phrase at the start of successive lines. It creates a cumulative, rhythmic effect here — each denial adds to the sense of the speaker\'s complete detachment from the living world.')">Check</button></div>
+<div class="qf" id="fb_qm3"></div></div>
+
+<div class="qi" id="qm4">
+<div class="qt"><strong>Q4 [Tone]</strong> What is the poet's tone throughout this poem? Choose the most precise word from the vocabulary bank.</div>
+<div class="qr"><input type="text" placeholder="Tone word..." id="in_qm4"><button class="qb" onclick="chk('qm4','resigned','The speaker calmly accepts death without fear or bitterness — accepting what cannot be changed. The tone is resigned. Contemplative or elegiac are also acceptable.')">Check</button></div>
+<div class="qf" id="fb_qm4"></div></div>
+
+<div class="qi" id="qm5">
+<div class="qt"><strong>Q5 [Symbolism]</strong> The poet mentions a "shady cypress tree." Cypress trees are associated with mourning and funeral rites. What does the instruction NOT to plant one suggest?</div>
+<div class="qr"><input type="text" placeholder="What it suggests..." id="in_qm5"><button class="qb" onclick="chk('qm5','mourning','Rejecting the cypress tree (conventional symbol of mourning) suggests the speaker does not want to be mourned. She wants those she leaves behind to move on, not dwell in grief.')">Check</button></div>
+<div class="qf" id="fb_qm5"></div></div>
+
+<div class="qi" id="qm6">
+<div class="qt"><strong>Q6 [Evidence]</strong> Find a phrase that suggests the speaker is uncertain whether she will be remembered after death.</div>
+<div class="qr"><input type="text" placeholder="Quote from poem..." id="in_qm6"><button class="qb" onclick="chk('qm6','and if thou wilt, forget','\'And if thou wilt, forget\' — the conditional \'if thou wilt\' shows the speaker accepts that she may be forgotten. The ability to name forgetting without bitterness is the crucial evidence.')">Check</button></div>
+<div class="qf" id="fb_qm6"></div></div>
+
+<div class="qi" id="qm7">
+<div class="qt"><strong>Q7 [Semantic Field]</strong> "Shadows, rain, nightingale, twilight" — these words all belong to which semantic field? (Two words)</div>
+<div class="qr"><input type="text" placeholder="Semantic field of..." id="in_qm7"><button class="qb" onclick="chk('qm7','natural world','All these words — shadows, rain, nightingale, twilight — belong to the semantic field of the natural world. This reinforces the idea that death is simply a return to nature, not something to be feared.')">Check</button></div>
+<div class="qf" id="fb_qm7"></div></div>
+
+<div class="qi" id="qm8">
+<div class="qt"><strong>Q8 [Enjambment/Caesura]</strong> "And if thou wilt, remember, / And if thou wilt, forget." Does the comma after "remember" create enjambment or caesura?</div>
+<div class="qr"><input type="text" placeholder="..." id="in_qm8"><button class="qb" onclick="chk('qm8','caesura','The comma after \'remember\' creates a caesura — a pause mid-line that holds the two equal options (remember / forget) in balance, making them feel equally acceptable to the speaker.')">Check</button></div>
+<div class="qf" id="fb_qm8"></div></div>
+
+<div class="qi" id="qm9">
+<div class="qt"><strong>Q9 [Meaning]</strong> What does "dreaming through the twilight / That doth not rise nor set" suggest about the speaker's state after death?</div>
+<div class="qr"><input type="text" placeholder="Your interpretation..." id="in_qm9"><button class="qb" onclick="chk('qm9','timeless','Twilight that does not rise or set is neither day nor night — it is a timeless in-between state. The speaker imagines death as a kind of eternal dreaming, outside of time entirely.')">Check</button></div>
+<div class="qf" id="fb_qm9"></div></div>
+
+<div class="qi" id="qm10">
+<div class="qt"><strong>Q10 [Voice]</strong> The poem is addressed to "my dearest." What device is the poet using in addressing a named person? (One word)</div>
+<div class="qr"><input type="text" placeholder="Device..." id="in_qm10"><button class="qb" onclick="chk('qm10','apostrophe','Poetic apostrophe — direct address to an absent or future-absent person. The intimacy of \'my dearest\' makes the poem feel like a private message, not a public statement.')">Check</button></div>
+<div class="qf" id="fb_qm10"></div></div>
+
+<div class="qi" id="qm11">
+<div class="qt"><strong>Q11 [SLIFFT]</strong> Using the S layer of SLIFFT: how many stanzas does the poem have, and what might the equal length of the stanzas suggest?</div>
+<div class="qr"><input type="text" placeholder="Number of stanzas..." id="in_qm11"><button class="qb" onclick="chk('qm11','two','Two equal stanzas of eight lines each. The structural symmetry mirrors the poem\'s central balance: between remembering and forgetting, between life (stanza 1) and death (stanza 2).')">Check</button></div>
+<div class="qf" id="fb_qm11"></div></div>
+
+<div class="qi" id="qm12">
+<div class="qt"><strong>Q12 [P.E.E.L.]</strong> Write the Point sentence for a response to: "How does Rossetti create a sense of calm acceptance?" Begin with "Rossetti creates..."</div>
+<div class="qr"><input type="text" placeholder="Your Point sentence..." id="in_qm12"><button class="qb" onclick="chk('qm12','rossetti creates','Any sentence beginning \'Rossetti creates a sense of calm acceptance through...\' is correct as a Point. The rest of the paragraph would provide evidence, name a technique, explain its effect, and link to the theme of peaceful death.')">Check</button></div>
+<div class="qf" id="fb_qm12"></div></div>
+</div>
+
+<div id="score-box" style="background:rgba(154,123,47,0.15);border:2px solid var(--gold);padding:24px;border-radius:5px;margin-top:28px;text-align:center;color:var(--vellum);">
+<div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:10px;">Your Score</div>
+<div id="score-n" style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:var(--gold-light);">—</div>
+<div id="score-msg" style="font-size:13px;color:rgba(247,243,236,0.55);margin-top:6px;">Complete all 12 questions, then calculate.</div>
+<button onclick="calcScore()" style="margin-top:14px;padding:9px 26px;background:var(--gold);color:var(--ink);border:none;border-radius:3px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;cursor:pointer;font-weight:600;">CALCULATE SCORE</button>
+</div>
+
+</div></div>
+
+<script>
+const ans={};
+function norm(s){return s.toLowerCase().trim().replace(/['']/g,"'").replace(/\s+/,' ');}
+function chk(id,correct,expl){
+  const inp=document.getElementById('in_'+id);
+  const fb=document.getElementById('fb_'+id);
+  const val=norm(inp.value);
+  const alts=norm(correct).split('|');
+  let ok=false;
+  for(let a of alts){
+    a=a.trim();
+    if(val===a||val.includes(a)&&a.length>2||a.includes(val)&&val.length>2){ok=true;break;}
+  }
+  ans[id]=ok;
+  fb.style.display='block';
+  if(ok){fb.className='qf fc';fb.innerHTML='✅ Correct! '+expl;}
+  else{fb.className='qf fw';fb.innerHTML='❌ Incorrect. Correct answer: <strong>'+correct+'</strong>. '+expl;}
+}
+function calcScore(){
+  const qs=['qm1','qm2','qm3','qm4','qm5','qm6','qm7','qm8','qm9','qm10','qm11','qm12'];
+  let done=0,right=0;
+  for(let q of qs){if(ans[q]!==undefined){done++;if(ans[q])right++;}}
+  const sn=document.getElementById('score-n');
+  const sm=document.getElementById('score-msg');
+  sn.textContent=right+' / '+done;
+  const p=Math.round((right/12)*100);
+  if(done<12){sm.textContent=done+' of 12 answered — complete the rest!';}
+  else{
+    let msg='';
+    if(p>=90)msg='Outstanding — fully exam-ready.';
+    else if(p>=75)msg='Very strong — review any missed areas.';
+    else if(p>=60)msg='Good foundation — revisit weaker sections.';
+    else msg='Keep working — re-read the sections on incorrect answers.';
+    sm.textContent=p+'% — '+msg;
+  }
+}
+</script>
+</body>
+</html>

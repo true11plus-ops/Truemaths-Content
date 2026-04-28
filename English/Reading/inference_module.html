@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inference in Reading Comprehension — 11+ GL Assessment</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap');
+
+  :root {
+    --ink: #1a1a2e;
+    --bg: #f7f4ef;
+    --cream: #fdf9f3;
+    --accent: #e8572a;
+    --accent2: #2a7ae8;
+    --accent3: #27ae60;
+    --gold: #f4a932;
+    --lavender: #7b5ea7;
+    --passage-bg: #eef4fb;
+    --passage-border: #2a7ae8;
+    --worked-bg: #f0faf3;
+    --worked-border: #27ae60;
+    --tip-bg: #fff8ec;
+    --tip-border: #f4a932;
+    --warn-bg: #fff0ee;
+    --warn-border: #e8572a;
+    --mcq-bg: #f5f0fb;
+    --mcq-border: #7b5ea7;
+    --shadow: 0 4px 20px rgba(26,26,46,0.10);
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 17px;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    background: var(--ink);
+    color: #fff;
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(232,87,42,0.35) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(42,122,232,0.30) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 99px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p {
+    font-size: 1.1rem;
+    opacity: 0.85;
+    max-width: 600px;
+    margin: 0 auto 28px;
+  }
+  .hero-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-nav a {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 99px;
+    padding: 6px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .hero-nav a:hover { background: rgba(255,255,255,0.25); }
+
+  /* ---- LAYOUT ---- */
+  .container { max-width: 860px; margin: 0 auto; padding: 0 20px 80px; }
+
+  /* ---- SECTION HEADINGS ---- */
+  .section-header {
+    margin: 60px 0 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-number {
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 900;
+    min-width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: clamp(1.3rem, 3vw, 1.75rem);
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .section-header.blue .section-number { background: var(--accent2); }
+  .section-header.green .section-number { background: var(--accent3); }
+  .section-header.purple .section-number { background: var(--lavender); }
+  .section-header.gold .section-number { background: var(--gold); }
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin: 28px 0 10px;
+    color: var(--ink);
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 800;
+    margin: 18px 0 8px;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  p { margin-bottom: 14px; }
+
+  /* ---- EQUATION BOX ---- */
+  .equation-box {
+    background: var(--ink);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    text-align: center;
+    margin: 24px 0;
+    box-shadow: var(--shadow);
+  }
+  .equation-box .eq {
+    font-size: clamp(1.1rem, 4vw, 1.6rem);
+    font-weight: 900;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .eq-term {
+    background: rgba(255,255,255,0.12);
+    border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 10px;
+    padding: 10px 20px;
+  }
+  .eq-term.highlight { background: var(--accent); border-color: var(--accent); }
+  .eq-op { color: var(--gold); font-size: 1.8rem; }
+
+  /* ---- PASSAGE BOX ---- */
+  .passage {
+    background: var(--passage-bg);
+    border-left: 5px solid var(--passage-border);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 22px 24px;
+    margin: 18px 0;
+    font-family: 'Merriweather', serif;
+    font-size: 0.97rem;
+    line-height: 1.85;
+  }
+  .passage-label {
+    font-family: 'Nunito', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 10px;
+  }
+
+  /* ---- WORKED EXAMPLE ---- */
+  .worked {
+    background: var(--worked-bg);
+    border: 2px solid var(--worked-border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin: 18px 0;
+  }
+  .worked-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent3);
+    margin-bottom: 12px;
+  }
+
+  /* ---- TIP / WARN ---- */
+  .tip {
+    background: var(--tip-bg);
+    border: 2px solid var(--tip-border);
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+  .tip-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .warn {
+    background: var(--warn-bg);
+    border: 2px solid var(--warn-border);
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+  .warn-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  /* ---- MCQ BLOCK ---- */
+  .mcq-block {
+    background: var(--mcq-bg);
+    border: 2px solid var(--mcq-border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin: 18px 0;
+  }
+  .mcq-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--lavender);
+    margin-bottom: 12px;
+  }
+  .mcq-options { list-style: none; margin: 12px 0; }
+  .mcq-options li {
+    padding: 8px 14px;
+    margin: 5px 0;
+    background: #fff;
+    border: 1.5px solid #d5c9ea;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-weight: 600;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .mcq-options li:hover { border-color: var(--lavender); background: #f0ebfa; }
+  .mcq-options li.selected-correct {
+    background: #e6f9ed; border-color: var(--accent3); color: #1a5c34;
+  }
+  .mcq-options li.selected-wrong {
+    background: #fff0ee; border-color: var(--accent); color: #a33;
+  }
+  .mcq-options li.reveal-correct {
+    background: #e6f9ed; border-color: var(--accent3);
+  }
+  .opt-letter {
+    background: var(--lavender);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .distractor-note {
+    font-size: 12px;
+    color: #888;
+    font-style: italic;
+    margin-left: 32px;
+    margin-top: 3px;
+  }
+
+  /* ---- COMPARISON TABLE ---- */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 0.95rem;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .compare-table th {
+    background: var(--ink);
+    color: #fff;
+    padding: 13px 16px;
+    text-align: left;
+    font-weight: 800;
+  }
+  .compare-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e0dbd3;
+    vertical-align: top;
+  }
+  .compare-table tr:nth-child(even) td { background: #f7f4ef; }
+  .compare-table tr:nth-child(odd) td { background: #fff; }
+  .bad { color: #c0392b; font-weight: 700; }
+  .good { color: #1a7a40; font-weight: 700; }
+
+  /* ---- CHAIN BOX ---- */
+  .chain {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+    margin: 18px 0;
+  }
+  .chain-step {
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    text-align: center;
+    flex: 1;
+    min-width: 140px;
+  }
+  .chain-step.c1 { background: var(--accent2); }
+  .chain-step.c2 { background: var(--lavender); }
+  .chain-step.c3 { background: var(--accent3); }
+  .chain-arrow {
+    font-size: 1.6rem;
+    color: var(--gold);
+    font-weight: 900;
+    padding: 0 6px;
+  }
+
+  /* ---- INTERACTIVE QUESTIONS ---- */
+  .quiz-section {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    margin: 28px 0;
+    box-shadow: var(--shadow);
+  }
+  .level-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 99px;
+    margin-bottom: 16px;
+  }
+  .level-easy { background: #d4edda; color: #1a5c34; }
+  .level-intermediate { background: #d1ecf1; color: #0c5460; }
+  .level-advanced { background: #fff3cd; color: #856404; }
+  .level-challenging { background: #f8d7da; color: #721c24; }
+  .level-mastery { background: var(--ink); color: #fff; }
+
+  .q-item {
+    margin: 20px 0 28px;
+    padding-bottom: 24px;
+    border-bottom: 1.5px dashed #ddd;
+  }
+  .q-item:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+  .q-text { font-weight: 700; margin-bottom: 10px; }
+  .q-passage {
+    background: var(--passage-bg);
+    border-left: 4px solid var(--passage-border);
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-family: 'Merriweather', serif;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .answer-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .answer-input {
+    flex: 1;
+    min-width: 180px;
+    padding: 10px 14px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    transition: border 0.2s;
+    outline: none;
+  }
+  .answer-input:focus { border-color: var(--accent2); }
+  .check-btn {
+    background: var(--accent2);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+  }
+  .check-btn:hover { background: #1a5ec0; }
+  .check-btn:active { transform: scale(0.97); }
+
+  .feedback {
+    margin-top: 10px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: none;
+    line-height: 1.6;
+  }
+  .feedback.correct { background: #e6f9ed; color: #1a5c34; border: 1.5px solid #27ae60; }
+  .feedback.wrong { background: #fff0ee; color: #a33; border: 1.5px solid #e8572a; }
+
+  /* MCQ interactive */
+  .mcq-interactive .mcq-options li { cursor: pointer; }
+  .mcq-feedback {
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: none;
+    line-height: 1.6;
+  }
+  .mcq-feedback.correct { background: #e6f9ed; color: #1a5c34; border: 1.5px solid #27ae60; }
+  .mcq-feedback.wrong { background: #fff0ee; color: #a33; border: 1.5px solid #e8572a; }
+
+  /* ---- DIVIDER ---- */
+  hr.divider {
+    border: none;
+    border-top: 3px solid #e8e2d8;
+    margin: 48px 0;
+  }
+
+  /* ---- TYPE CARDS ---- */
+  .type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .type-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 20px 18px;
+    box-shadow: var(--shadow);
+    border-top: 5px solid var(--accent);
+  }
+  .type-card.blue { border-top-color: var(--accent2); }
+  .type-card.green { border-top-color: var(--accent3); }
+  .type-card.purple { border-top-color: var(--lavender); }
+  .type-card .type-icon { font-size: 2rem; margin-bottom: 8px; }
+  .type-card h4 { color: var(--ink); text-transform: none; letter-spacing: 0; margin-top: 0; }
+  .type-card p { font-size: 0.88rem; margin: 0; }
+
+  /* ---- THREE-WAY COMPARISON ---- */
+  .three-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .three-card {
+    border-radius: var(--radius);
+    padding: 20px 18px;
+    box-shadow: var(--shadow);
+  }
+  .three-card.retrieval { background: #fff8f0; border: 2px solid #f4a932; }
+  .three-card.deduction { background: #f0f4ff; border: 2px solid #2a7ae8; }
+  .three-card.inference { background: #f5f0fb; border: 2px solid #7b5ea7; }
+  .three-card h4 { margin-top: 0; }
+  .three-card.retrieval h4 { color: #b07000; text-transform:none; letter-spacing:0; }
+  .three-card.deduction h4 { color: #1a4e90; text-transform:none; letter-spacing:0; }
+  .three-card.inference h4 { color: var(--lavender); text-transform:none; letter-spacing:0; }
+  .three-card .def { font-size: 0.88rem; margin-bottom: 10px; }
+  .three-card .ex { font-size: 0.86rem; font-style: italic; border-top: 1px dashed rgba(0,0,0,0.15); padding-top: 8px; margin-top: 8px; }
+
+  /* ---- WRONG PATTERNS ---- */
+  .wrong-card {
+    background: var(--warn-bg);
+    border: 2px solid var(--warn-border);
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    margin: 14px 0;
+  }
+  .wrong-card .wc-type {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  /* ---- TIMED STRATEGY ---- */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin: 20px 0;
+  }
+  .strategy-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 18px 16px;
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--accent2);
+  }
+  .strategy-card .sc-num {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--accent2);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .strategy-card p { font-size: 0.9rem; margin: 0; }
+
+  /* ---- MASTERY BANNER ---- */
+  .mastery-banner {
+    background: var(--ink);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    text-align: center;
+    margin: 48px 0 28px;
+  }
+  .mastery-banner h2 { font-size: 1.6rem; font-weight: 900; color: var(--gold); margin-bottom: 10px; }
+  .mastery-banner p { opacity: 0.85; margin: 0; }
+
+  /* ---- SCORE DISPLAY ---- */
+  #mastery-score-display {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 22px;
+    text-align: center;
+    margin: 20px 0;
+    box-shadow: var(--shadow);
+    display: none;
+  }
+  #mastery-score-display .score-big {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--accent2);
+  }
+
+  @media(max-width:600px){
+    .chain { flex-direction: column; }
+    .chain-arrow { transform: rotate(90deg); }
+    .answer-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">11+ GL Assessment · English</div>
+  <h1>Mastering <span>Inference</span><br>in Reading Comprehension</h1>
+  <p>Everything you need to go from guessing to scoring full marks on inference questions — step by step.</p>
+  <nav class="hero-nav">
+    <a href="#sec1">The Equation</a>
+    <a href="#sec2">3 Question Types</a>
+    <a href="#sec3">4 Inference Types</a>
+    <a href="#sec4">Writer's Attitude</a>
+    <a href="#sec5">Writer's Craft</a>
+    <a href="#sec6">Point + Evidence</a>
+    <a href="#sec7">Substitution Trick</a>
+    <a href="#sec8">Layered Inference</a>
+    <a href="#sec9">Negative Inference</a>
+    <a href="#sec10">GL-Format MCQ</a>
+    <a href="#sec11">Non-Fiction</a>
+    <a href="#sec12">Poetry</a>
+    <a href="#sec13">Wrong Answers</a>
+    <a href="#sec14">Exam Strategy</a>
+    <a href="#mastery">Mastery Test</a>
+  </nav>
+</div>
+
+<div class="container">
+
+<!-- ===== SECTION 1: THE INFERENCE EQUATION ===== -->
+<div id="sec1" class="section-header">
+  <div class="section-number">1</div>
+  <h2>The Inference Equation</h2>
+</div>
+
+<p>When an exam question asks you to <em>infer</em> something, it is asking you to figure out information that the writer has <strong>hinted at but not directly stated</strong>. Think of it as detective work. Every inference follows the same formula:</p>
+
+<div class="equation-box">
+  <div class="eq">
+    <div class="eq-term">Textual Clue</div>
+    <div class="eq-op">+</div>
+    <div class="eq-term">Prior Knowledge</div>
+    <div class="eq-op">=</div>
+    <div class="eq-term highlight">Inference</div>
+  </div>
+</div>
+
+<div class="worked">
+  <div class="worked-label">✦ Worked Example</div>
+  <p><strong>Clue from the text:</strong> <em>"Priya's hands were shaking as she held the sealed envelope."</em></p>
+  <p><strong>Prior knowledge:</strong> People's hands shake when they are nervous or very excited about something unknown.</p>
+  <p><strong>Inference:</strong> Priya is anxious and probably anticipating important or life-changing news.</p>
+</div>
+
+<div class="tip">
+  <div class="tip-label">💡 Remember</div>
+  <p>Your inference must be <strong>grounded in the text</strong>. You are not inventing — you are reading between the lines using clues the author has deliberately placed there.</p>
+</div>
+
+<!-- Practice: Section 1 -->
+<div class="quiz-section">
+  <div class="level-badge level-easy">Easy Practice — The Equation</div>
+
+  <div class="q-item">
+    <div class="q-text">Q1. Read the clue below. Which word best completes the inference?</div>
+    <div class="q-passage">"Marcus slammed the door and threw his bag across the room."</div>
+    <p style="font-size:0.92rem;">The inference is: Marcus is feeling very <strong>_____</strong>. (Choose one word: happy / angry / bored)</p>
+    <div class="answer-row">
+      <input class="answer-input" id="s1q1" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkAnswer('s1q1','angry','People slam doors and throw things when they are angry — these actions are signs of frustration or rage, not happiness or boredom.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s1q1-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q2. What is the 'prior knowledge' part of the inference equation?</div>
+    <div class="q-passage">"Layla pulled her coat tighter and buried her chin in her scarf."</div>
+    <p style="font-size:0.92rem;">Inference: It is cold outside. What is the prior knowledge that links the clue to this inference? (Answer in one sentence.)</p>
+    <div class="answer-row">
+      <input class="answer-input" id="s1q2" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s1q2',['cold','wrap','warm','coat','scarf','shiver'],'People wrap up in coats and scarves when the temperature is cold — this is the prior knowledge that makes the inference work.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s1q2-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q3. Complete the inference equation for this clue.</div>
+    <div class="q-passage">"The dog's tail wagged furiously as Noah walked through the front door."</div>
+    <p style="font-size:0.92rem;">What can you infer about how the dog feels? (One word is enough.)</p>
+    <div class="answer-row">
+      <input class="answer-input" id="s1q3" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s1q3',['happy','excited','pleased','joyful','delighted'],'Dogs wag their tails furiously when they are excited or happy to see someone.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s1q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-intermediate">Intermediate Practice — Inference from Clues</div>
+
+  <div class="q-item">
+    <div class="q-text">Q4. Read the extract and answer the inference question.</div>
+    <div class="q-passage">"The classroom fell silent the moment Mr Hargreaves stepped through the door. Every student straightened in their chair and eyes fixed on their textbooks."</div>
+    <p style="font-size:0.92rem;">What does this suggest about Mr Hargreaves? (Write a full inference.)</p>
+    <div class="answer-row">
+      <input class="answer-input" id="s1q4" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s1q4',['strict','feared','respect','authority','discipline','stern','intimidating'],'Students silencing themselves and straightening up is a behaviour people display around authority figures they respect or fear — suggesting Mr Hargreaves is strict or commands authority.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s1q4-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q5. What can you infer about where this scene is set?</div>
+    <div class="q-passage">"Neon signs reflected in the puddles below. Taxis honked without pause, and the smell of roasting chestnuts drifted from a nearby stall as commuters rushed past without a glance at one another."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s1q5" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s1q5',['city','urban','busy','town','street','metropolis'],'Neon signs, taxis, rushing commuters who ignore each other, and street stalls are all clues associated with a busy city environment.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s1q5-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-advanced">Advanced Practice — Applying the Equation</div>
+
+  <div class="q-item">
+    <div class="q-text">Q6. What two separate inferences can you draw from this single clue?</div>
+    <div class="q-passage">"She put the letter back in the envelope without finishing it and slid it beneath the stack of unopened post."</div>
+    <p style="font-size:0.92rem;">Inference 1 should be about her feelings. Inference 2 should be about her relationship with the letter-sender. Write at least one of them.</p>
+    <div class="answer-row">
+      <input class="answer-input" id="s1q6" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s1q6',['avoid','unwilling','reluctant','uncomfortable','ignore','difficult','troubled','upset','distressed','conflict','strained'],'The letter being unfinished and deliberately hidden suggests she is avoiding or unwilling to deal with its contents — possibly because the relationship with the sender is troubled or painful.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s1q6-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q7. Both clues below support the same inference. What is it?</div>
+    <div class="q-passage">Clue A: "His shoes were held together with a strip of tape."<br>Clue B: "He ordered just a glass of water at the café and watched the others eat."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s1q7" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s1q7',['poor','money','afford','wealth','financial','struggling','lack','hardship'],'Both clues point to financial hardship — he cannot afford new shoes or food.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s1q7-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-challenging">Challenging Practice — Precise Inference</div>
+
+  <div class="q-item">
+    <div class="q-text">Q8. This clue offers a more complex inference. What does it reveal about the character's internal conflict?</div>
+    <div class="q-passage">"Every morning, Theo walked to the end of the pier, stared at the boats on the horizon, and then turned back towards town without ever stepping aboard one."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s1q8" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s1q8',['want','desire','longing','wish','held back','unable','fear','conflict','dream','trapped','hesitate'],'Theo is drawn to the boats (longing, desire to leave or explore) but cannot bring himself to act on it — suggesting internal conflict between what he wants and what he feels able to do.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s1q8-fb"></div>
+  </div>
+</div>
+
+
+<hr class="divider">
+
+<!-- ===== SECTION 2: INFERENCE vs DEDUCTION vs LITERAL ===== -->
+<div id="sec2" class="section-header blue">
+  <div class="section-number">2</div>
+  <h2>Three Types of Question: Retrieval, Deduction, and Inference</h2>
+</div>
+
+<p>Not every reading comprehension question asks you to infer. It is important to identify <em>which type of thinking</em> a question requires — because using the wrong approach loses marks.</p>
+
+<div class="passage">
+  <div class="passage-label">📖 Reference Passage — used for all three examples below</div>
+  The old lighthouse stood at the very edge of the cliff. A sign nailed to its door read: <em>CLOSED TO THE PUBLIC — STRUCTURAL DAMAGE.</em> Inside, Finn could see a spiral staircase through the cracked window pane. A thin layer of grime covered every step, and a single spider's web, thick and undisturbed, stretched from one wall to the other. He had heard from the village elder that no keeper had lived here for almost forty years.
+</div>
+
+<div class="three-grid">
+  <div class="three-card retrieval">
+    <h4>🔍 Literal Retrieval</h4>
+    <div class="def">The answer is <strong>directly stated</strong> in the text. Find it and copy or paraphrase it. No extra thinking needed.</div>
+    <div class="ex"><strong>Q:</strong> What does the sign on the door say?<br><strong>A:</strong> "CLOSED TO THE PUBLIC — STRUCTURAL DAMAGE." (directly in the text)</div>
+  </div>
+  <div class="three-card deduction">
+    <h4>🔗 Deduction</h4>
+    <div class="def">You combine <strong>two or more stated facts</strong> to reach a logical conclusion. The answer is not stated but follows directly from facts that are.</div>
+    <div class="ex"><strong>Q:</strong> How long has the lighthouse been abandoned?<br><strong>A:</strong> Almost forty years. (stated, but requires identifying the right fact and linking it to "abandoned")</div>
+  </div>
+  <div class="three-card inference">
+    <h4>💭 Inference</h4>
+    <div class="def">The answer is <strong>not stated anywhere</strong>. You use clues + prior knowledge to figure out something the writer has left unsaid.</div>
+    <div class="ex"><strong>Q:</strong> What does the spider's web tell us about the lighthouse?<br><strong>A:</strong> Nobody has entered for a very long time — an undisturbed web indicates complete absence of activity.</div>
+  </div>
+</div>
+
+<div class="tip">
+  <div class="tip-label">💡 How to Spot Which Type</div>
+  <p>Ask yourself: <em>Can I find the exact answer by re-reading?</em> → Retrieval. <em>Can I calculate it by combining stated facts?</em> → Deduction. <em>Do I need to "read between the lines"?</em> → Inference.</p>
+</div>
+
+<!-- Practice Section 2 -->
+<div class="quiz-section">
+  <div class="level-badge level-easy">Easy Practice — Identify the Question Type</div>
+
+  <div class="q-item">
+    <div class="q-passage">Use the lighthouse passage above for these questions.</div>
+    <div class="q-text">Q9. "What material is the staircase made of?" — Is this Retrieval, Deduction, or Inference?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s2q1" type="text" placeholder="Type: Retrieval / Deduction / Inference">
+      <button class="check-btn" onclick="checkAnswer('s2q1','retrieval','The passage directly states "a spiral staircase" — you just need to find and copy that detail. No extra thinking required.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s2q1-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q10. "What atmosphere does the lighthouse have?" — Is this Retrieval, Deduction, or Inference?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s2q2" type="text" placeholder="Type: Retrieval / Deduction / Inference">
+      <button class="check-btn" onclick="checkAnswer('s2q2','inference','The word "atmosphere" is never stated. You must use the clues (grime, spider's web, cracked window, abandoned) and prior knowledge to infer the mood — likely eerie, neglected, or foreboding.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s2q2-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q11. Answer this retrieval question from the passage: What does Finn see through the cracked window?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s2q3" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s2q3',['staircase','spiral','steps'],'The passage states directly: "a spiral staircase" — this is retrieval.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s2q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-intermediate">Intermediate Practice</div>
+
+  <div class="q-item">
+    <div class="q-text">Q12. Answer this inference question: What does the "thick and undisturbed" spider's web suggest about the lighthouse?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s2q4" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s2q4',['nobody','no one','unused','empty','abandoned','entered','long time','disturb'],'A thick, undisturbed web indicates nobody has walked through that space for a very long time — the web would have been broken if anyone had passed by.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s2q4-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q13. Is this a deduction or an inference? "The lighthouse has not been properly maintained." Explain your answer.</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s2q5" type="text" placeholder="Type: Deduction or Inference, and why">
+      <button class="check-btn" onclick="checkKeywords('s2q5',['deduction','grime','web','damage','facts','stated','combine'],'This is deduction — the text states structural damage, grime on every step, and forty years without a keeper. Combining these stated facts leads logically to the conclusion that it has not been maintained.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s2q5-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-advanced">Advanced Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q14. Write one retrieval answer, one deduction, and one inference — all about the same character below. Label each clearly.</div>
+    <div class="q-passage">"Detective Morse arrived at precisely 8:47 am, as she always did. Her badge was polished, her notebook already open. She had solved eleven cases this year alone."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s2q6" type="text" placeholder="Write all three, labelled...">
+      <button class="check-btn" onclick="checkKeywords('s2q6',['retrieval','deduction','inference'],'Good answer example — Retrieval: She solved eleven cases this year. Deduction: She is punctual and prepared (notebook open, always on time). Inference: She is highly professional, disciplined, and takes pride in her work — suggested by the polished badge and precise timekeeping.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s2q6-fb"></div>
+  </div>
+</div>
+
+
+<hr class="divider">
+
+<!-- ===== SECTION 3: FOUR TYPES OF INFERENCE ===== -->
+<div id="sec3" class="section-header green">
+  <div class="section-number">3</div>
+  <h2>Four Types of Inference</h2>
+</div>
+
+<p>Inference is not just about how a character <em>feels</em>. It can reveal different kinds of information. Recognising the type being asked about helps you give a focused answer.</p>
+
+<div class="type-grid">
+  <div class="type-card">
+    <div class="type-icon">🧑</div>
+    <h4>Character Inference</h4>
+    <p>What a person is like based on their actions, dialogue, or choices.</p>
+  </div>
+  <div class="type-card blue">
+    <div class="type-icon">🏛️</div>
+    <h4>Setting Inference</h4>
+    <p>Where or when a story takes place, deduced from details in the scene.</p>
+  </div>
+  <div class="type-card green">
+    <div class="type-icon">✍️</div>
+    <h4>Attitude Inference</h4>
+    <p>How the writer or narrator feels about the subject they are describing.</p>
+  </div>
+  <div class="type-card purple">
+    <div class="type-icon">📚</div>
+    <h4>Vocabulary Inference</h4>
+    <p>Working out the meaning of an unfamiliar word from its context.</p>
+  </div>
+</div>
+
+<h3>Character Inference</h3>
+<div class="passage">
+  <div class="passage-label">📖 Extract</div>
+  When the younger children crowded round the vending machine with their coins, Jasper quietly counted his own and slipped two to the smallest boy without being asked.
+</div>
+<div class="worked">
+  <div class="worked-label">✦ Worked Example</div>
+  <p><strong>Question:</strong> What does this tell us about Jasper's character?</p>
+  <p><strong>Answer:</strong> Jasper is generous and perceptive. He notices the younger boy's need without being prompted and gives up his own money — suggesting he is selfless and kind-hearted.</p>
+</div>
+
+<h3>Setting Inference</h3>
+<div class="passage">
+  <div class="passage-label">📖 Extract</div>
+  The cobbled street was lit by flickering gas lamps, and the clip-clop of a horse-drawn carriage echoed past the rows of soot-blackened terraced houses.
+</div>
+<div class="worked">
+  <div class="worked-label">✦ Worked Example</div>
+  <p><strong>Question:</strong> When is this story set? How do you know?</p>
+  <p><strong>Answer:</strong> The story is set in the Victorian era (19th century). Gas lamps, horse-drawn carriages, and soot-blackened terraces are all features associated with industrial Victorian England, before the widespread use of electricity or motor vehicles.</p>
+</div>
+
+<h3>Vocabulary Inference</h3>
+<div class="passage">
+  <div class="passage-label">📖 Extract</div>
+  The new student was ebullient — she burst into every room with a wide grin, striking up conversations with everyone she met and filling the corridors with laughter.
+</div>
+<div class="worked">
+  <div class="worked-label">✦ Worked Example</div>
+  <p><strong>Question:</strong> What does the word "ebullient" suggest about the student?</p>
+  <p><strong>Answer:</strong> From the context — bursting in, grinning, talking to everyone, filling space with laughter — "ebullient" means enthusiastically cheerful or lively.</p>
+</div>
+
+<!-- Practice Section 3 -->
+<div class="quiz-section">
+  <div class="level-badge level-easy">Easy Practice — Identify the Inference Type</div>
+
+  <div class="q-item">
+    <div class="q-text">Q15. "What time period is this story set in?" — Which type of inference does this question ask for?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s3q1" type="text" placeholder="Character / Setting / Attitude / Vocabulary">
+      <button class="check-btn" onclick="checkAnswer('s3q1','setting','Questions about when or where a story is set are always setting inferences.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s3q1-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q16. "What does the word 'gaunt' tell you about the man's appearance?" — Which type?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s3q2" type="text" placeholder="Character / Setting / Attitude / Vocabulary">
+      <button class="check-btn" onclick="checkAnswer('s3q2','vocabulary','Working out the meaning of a specific word from its context is always a vocabulary inference.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s3q2-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q17. Read the clue. Use context to infer the meaning of the underlined word.</div>
+    <div class="q-passage">"The lecture hall fell into a hush of <u>reverence</u> as the elderly scientist walked in — students rose from their seats and one even began to applaud."</div>
+    <p style="font-size:0.92rem;">What does "reverence" mean in this context?</p>
+    <div class="answer-row">
+      <input class="answer-input" id="s3q3" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s3q3',['respect','admiration','awe','honour','regard','esteem'],'Rising from seats and applauding are signs of deep respect or admiration — so "reverence" means deep respect.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s3q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-intermediate">Intermediate Practice</div>
+
+  <div class="q-item">
+    <div class="q-text">Q18. Write a character inference from this extract.</div>
+    <div class="q-passage">"When the teacher asked who had forgotten their homework, Zara immediately raised her hand before anyone else could be accused."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s3q4" type="text" placeholder="Type your inference...">
+      <button class="check-btn" onclick="checkKeywords('s3q4',['honest','brave','responsible','integrity','protect','fair','confident'],'Zara acts before others can be blamed — this shows she is honest, courageous, and takes responsibility for her actions.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s3q4-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q19. Write a setting inference from this extract.</div>
+    <div class="q-passage">"Through the porthole, all they could see was darkness and the occasional distant flicker of a city far below. The engines hummed at a pitch that made the seats vibrate."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s3q5" type="text" placeholder="Type your inference...">
+      <button class="check-btn" onclick="checkKeywords('s3q5',['plane','aircraft','flying','air','sky','altitude','flight'],'Portholes, seeing cities below, humming engines and vibrating seats all indicate the setting is inside a high-altitude aircraft.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s3q5-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-advanced">Advanced Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q20. Write both a character inference AND a vocabulary inference from the same passage.</div>
+    <div class="q-passage">"The councillor was known for her <u>acerbic</u> comments — at the meeting she dismissed three proposals in five minutes with crisp, cutting remarks that left no room for debate."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s3q6" type="text" placeholder="Write both inferences, labelled...">
+      <button class="check-btn" onclick="checkKeywords('s3q6',['sharp','cutting','harsh','abrasive','critical','direct','dismissive'],'Character: She is sharp-tongued, dismissive and does not suffer argument gladly. Vocabulary: "Acerbic" means sharp, harsh or bitingly critical — shown by the "cutting remarks" and speed of dismissal.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s3q6-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-challenging">Challenging Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q21. This passage contains clues for all four inference types. Identify one inference for any TWO types. Label each.</div>
+    <div class="q-passage">"The cobbled marketplace was lit by swinging oil lanterns. A hawker with a <u>stentorian</u> voice — booming like a church bell — bellowed the price of fish to the indifferent crowd. In the far corner, a thin woman in a frayed cloak pressed herself against the wall, eyes darting to every pocket and purse that passed."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s3q7" type="text" placeholder="Write two labelled inferences...">
+      <button class="check-btn" onclick="checkKeywords('s3q7',['setting','character','vocabulary','attitude'],'Examples — Setting: oil lanterns + cobbles suggest pre-electricity, likely 18th/19th century. Character: the thin woman watching purses suggests she may be desperate or planning to steal — she is likely poor and possibly a pickpocket. Vocabulary: "stentorian" = extremely loud, from the booming comparison.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s3q7-fb"></div>
+  </div>
+</div>
+
+
+<hr class="divider">
+
+<!-- ===== SECTION 4: WRITER'S ATTITUDE ===== -->
+<div id="sec4" class="section-header purple">
+  <div class="section-number">4</div>
+  <h2>Writer's Attitude Questions</h2>
+</div>
+
+<p>When a question asks <em>"What is the writer's attitude towards…?"</em> it is asking you to identify how the author <strong>feels</strong> about the subject they are describing. The writer rarely states their attitude directly — instead, you must read it from three signals:</p>
+
+<div class="type-grid">
+  <div class="type-card purple">
+    <div class="type-icon">🎭</div>
+    <h4>Tone Words</h4>
+    <p>The emotional quality of the language — e.g. admiring, mocking, sorrowful, enthusiastic.</p>
+  </div>
+  <div class="type-card">
+    <div class="type-icon">⚖️</div>
+    <h4>Word Connotation</h4>
+    <p>The feeling a word carries beyond its basic meaning — e.g. "home" feels warm; "dwelling" feels cold and clinical.</p>
+  </div>
+  <div class="type-card blue">
+    <div class="type-icon">🎯</div>
+    <h4>Selection of Detail</h4>
+    <p>What the writer chose to include (or leave out) tells you what they want you to notice — and feel.</p>
+  </div>
+</div>
+
+<div class="passage">
+  <div class="passage-label">📖 Extract for Attitude Question</div>
+  The new shopping centre sprawled across what was once a quiet meadow, its glass and steel bulk casting long shadows over the remaining hedgerows. Families filed in through its wide automatic doors, exchanging birdsong for the tinny chime of tills. Somewhere above, a skylark sang — but no one paused to listen.
+</div>
+
+<div class="worked">
+  <div class="worked-label">✦ Full Worked Example — Attitude Question</div>
+  <p><strong>Question:</strong> What is the writer's attitude towards the shopping centre? Use evidence from the passage.</p>
+  <p><strong>Step 1 — Tone words:</strong> "sprawled" (aggressive, ungainly expansion), "cast long shadows" (ominous), "tinny" (cheap, unpleasant).</p>
+  <p><strong>Step 2 — Connotation:</strong> "quiet meadow" and "birdsong" have warm, peaceful connotations; replacing them with "glass and steel bulk" signals loss. "Tinny chime of tills" implies shallowness versus the natural world.</p>
+  <p><strong>Step 3 — Selection of detail:</strong> The writer chooses to end on the image of a skylark singing while nobody listens — this detail is not neutral. It is a deliberate contrast to highlight what has been lost.</p>
+  <p><strong>Full Answer:</strong> The writer is critical of and saddened by the shopping centre. By contrasting the lost "quiet meadow" and "birdsong" with the "glass and steel bulk" and "tinny chime of tills," the writer presents the development as something that has driven out natural beauty. The final image of the unheard skylark suggests the writer believes something irreplaceable has been sacrificed.</p>
+</div>
+
+<div class="tip">
+  <div class="tip-label">💡 Attitude Can Be Nuanced</div>
+  <p>Attitude is rarely just "positive" or "negative." It can be: <strong>affectionate mockery, cautious admiration, nostalgic sadness, angry resignation, ironic detachment.</strong> The more precise your word, the more marks you earn.</p>
+</div>
+
+<!-- Practice Section 4 -->
+<div class="quiz-section">
+  <div class="level-badge level-easy">Easy Practice — Tone Words</div>
+
+  <div class="q-item">
+    <div class="q-text">Q22. Does the word "sprawled" have a positive or negative connotation in the passage above?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s4q1" type="text" placeholder="Positive / Negative — and why">
+      <button class="check-btn" onclick="checkKeywords('s4q1',['negative','ungainly','aggressive','messy','spread','uncontrolled'],'Sprawled has negative connotations of something large and ungainly spreading without control — it suggests the development is excessive.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s4q1-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q23. Read this sentence. Is the writer's attitude towards the factory owner admiring or critical?</div>
+    <div class="q-passage">"Mr Gripp had amassed his fortune through what he called 'efficiency' — a word that, in his mouth, seemed to mean the removal of everything inconvenient, including the workers who might object to it."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s4q2" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s4q2',['critical','mocking','sarcastic','ironic','disapprove','cynical'],'The writer uses ironic quotation marks around "efficiency" and the phrase "including the workers" to reveal Mr Gripp as callous — the attitude is critical and satirical.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s4q2-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-intermediate">Intermediate Practice</div>
+
+  <div class="q-item">
+    <div class="q-text">Q24. Identify three words or phrases that reveal the writer's attitude, and state what that attitude is.</div>
+    <div class="q-passage">"The young athlete crossed the finish line with arms flung wide, face blazing with uncontainable joy. She had given everything — and the track had given it back."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s4q3" type="text" placeholder="List three words/phrases + state the attitude">
+      <button class="check-btn" onclick="checkKeywords('s4q3',['admiring','celebratory','joyful','inspiring','positive','triumphant'],'Words like "blazing," "uncontainable joy," "given everything" all carry positive, admiring, celebratory connotations — the writer\'s attitude is one of admiration and delight in the athlete\'s achievement.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s4q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-advanced">Advanced Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q25. Identify a nuanced (mixed or complex) attitude in this passage. What two feelings does the writer hold at the same time?</div>
+    <div class="q-passage">"The old library, with its smell of dust and quiet certainty, closed its doors for the last time on a Thursday. A new one, bright and digital, would open in its place — full of screens and very few books. Progress, they called it. Perhaps it was."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s4q4" type="text" placeholder="Name both feelings and support with evidence...">
+      <button class="check-btn" onclick="checkKeywords('s4q4',['nostalg','loss','resign','accept','sad','ambival','doubt','uncertain','mourn'],'The writer feels nostalgic loss ("smell of dust and quiet certainty," "closed its doors") alongside reluctant, uncertain acceptance ("Perhaps it was"). The phrase "Progress, they called it" is ironic — the writer is not entirely convinced, suggesting ambivalence.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s4q4-fb"></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ===== SECTION 5: WRITER'S CRAFT ===== -->
+<div id="sec5" class="section-header">
+  <div class="section-number">5</div>
+  <h2>Writer's Craft and Authorial Intent</h2>
+</div>
+
+<p>Some questions ask not just <em>what</em> you infer, but <em>why the writer made a specific language choice</em>. These questions follow a three-step move:</p>
+
+<div class="chain">
+  <div class="chain-step c1">Language Choice<br><small>What word or technique did the writer use?</small></div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-step c2">Purpose<br><small>Why did the writer choose it?</small></div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-step c3">Effect on Reader<br><small>What does it make the reader feel or think?</small></div>
+</div>
+
+<div class="passage">
+  <div class="passage-label">📖 Extract</div>
+  The river did not flow that winter — it <em>crawled</em>, thick and grey, between banks of frost-hardened mud.
+</div>
+
+<div class="worked">
+  <div class="worked-label">✦ Full Worked Example — Craft Question</div>
+  <p><strong>Question:</strong> Why has the writer used the word "crawled" instead of "flowed"? What effect does this create?</p>
+  <p><strong>Language Choice:</strong> "Crawled" — a verb usually associated with something slow, weak, or struggling.</p>
+  <p><strong>Purpose:</strong> The writer replaces the neutral "flowed" with "crawled" to suggest the river has been reduced to something laboured and barely alive — it personifies the river as a creature in distress.</p>
+  <p><strong>Effect on Reader:</strong> The reader senses a bleakness and oppressive heaviness to the scene. The river's struggle mirrors the wider mood of the passage — something that should be powerful and free has been reduced and slowed by the harsh winter.</p>
+</div>
+
+<div class="tip">
+  <div class="tip-label">💡 The Question Stem</div>
+  <p>Craft questions often use stems like: <em>"Why has the writer chosen…?", "What is the effect of…?", "How does the writer create a sense of…?"</em></p>
+</div>
+
+<!-- Practice Section 5 -->
+<div class="quiz-section">
+  <div class="level-badge level-easy">Easy Practice — Language Choice and Effect</div>
+
+  <div class="q-item">
+    <div class="q-text">Q26. Why might a writer use the verb "thundered" instead of "said" in a piece of dialogue?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s5q1" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s5q1',['loud','angry','power','force','volume','intimidat','dramatic'],'Thundered suggests the character spoke with immense volume and force, possibly angrily. It makes the reader feel the weight and power behind the words, whereas "said" is neutral.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s5q1-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q27. What is the effect of calling a character's smile "blade-thin"?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s5q2" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s5q2',['sharp','dangerous','cold','insincere','false','threat','unnerv','sinister'],'A "blade-thin" smile combines sharpness and danger — the reader senses it is not a warm or genuine smile but something cold, possibly threatening or calculating.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s5q2-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-intermediate">Intermediate Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q28. Apply the three-step move (Choice → Purpose → Effect) to the underlined word.</div>
+    <div class="q-passage">"The children <u>swarmed</u> into the playground at the sound of the bell."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s5q3" type="text" placeholder="Write all three steps...">
+      <button class="check-btn" onclick="checkKeywords('s5q3',['insect','chaotic','overwhelm','energy','mass','uncontrolled','buzzing'],'Choice: "swarmed" (usually used for insects, particularly bees). Purpose: to compare the mass of children to insects — many small creatures moving in an overwhelming rush. Effect: the reader pictures a chaotic, energetic, almost unstoppable flood of movement.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s5q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-advanced">Advanced Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q29. Compare the effect of the two versions. What does the original word choice add that the replacement removes?</div>
+    <div class="q-passage">Original: "The old house <u>brooded</u> at the end of the lane."<br>Replacement: "The old house <u>stood</u> at the end of the lane."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s5q4" type="text" placeholder="Type your comparison...">
+      <button class="check-btn" onclick="checkKeywords('s5q4',['personif','moody','menac','atmosphere','emotion','dark','alive','threat','sinister'],'Brooded personifies the house as something with a dark, heavy inner emotional state — as if it is alive and brooding with menace or sorrow. "Stood" is neutral and tells us only the physical fact. "Brooded" creates atmosphere and unease the replacement completely removes.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s5q4-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-challenging">Challenging Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q30. Write a full craft-question answer (all three steps) for the highlighted phrase below. Use at least three sentences.</div>
+    <div class="q-passage">"He had not laughed in three years — not a real laugh, at least. The kind that <u>starts somewhere deep and arrives at your face as a surprise</u>."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s5q5" type="text" placeholder="Type your full answer...">
+      <button class="check-btn" onclick="checkKeywords('s5q5',['involuntary','genuine','lost','authentic','surprise','deep','physical','emotional','contrast'],'The phrase personalises laughter as something involuntary and authentic — it rises from within without being planned. The writer contrasts this genuine laughter with the character\'s current state to show the reader how much joy he has lost. The phrase makes the reader feel both the warmth of what real laughter is and the sadness that the character no longer experiences it.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s5q5-fb"></div>
+  </div>
+</div>
+
+
+<hr class="divider">
+
+<!-- ===== SECTION 6: POINT + EVIDENCE ===== -->
+<div id="sec6" class="section-header blue">
+  <div class="section-number">6</div>
+  <h2>The Point + Evidence Model</h2>
+</div>
+
+<p>On open-ended inference questions, you must not only <em>state</em> your inference — you must <em>prove</em> it. The Point + Evidence model is the structure every full-mark answer uses.</p>
+
+<div class="equation-box">
+  <div class="eq">
+    <div class="eq-term">Make your Point<br><small style="opacity:0.7">(your inference)</small></div>
+    <div class="eq-op">+</div>
+    <div class="eq-term highlight">Give Evidence<br><small style="opacity:0.7">(a quote or detail)</small></div>
+  </div>
+</div>
+
+<table class="compare-table">
+  <tr>
+    <th>Question</th>
+    <th>❌ Weak Answer (0–1 marks)</th>
+    <th>✅ Strong Answer (2 marks)</th>
+  </tr>
+  <tr>
+    <td>How is Sarah feeling?</td>
+    <td class="bad">She is sad.</td>
+    <td class="good">Sarah is feeling deeply upset (Point) because the author tells us she had "puffy, red eyes" (Evidence), which suggests she has been crying for some time.</td>
+  </tr>
+  <tr>
+    <td>What is the atmosphere of the house?</td>
+    <td class="bad">It is scary.</td>
+    <td class="good">The atmosphere is ominous and neglected (Point) as the gate is described as "hanging by a single rusted hinge" (Evidence), suggesting the property has been abandoned and is in a state of decay.</td>
+  </tr>
+  <tr>
+    <td>What does this tell us about Mr Kelvin?</td>
+    <td class="bad">He is strict.</td>
+    <td class="good">Mr Kelvin is exacting and demands high standards (Point) — the text states he "returned the report without a word, simply pointing to a single misplaced comma" (Evidence), which shows he will not overlook even the smallest error.</td>
+  </tr>
+</table>
+
+<div class="warn">
+  <div class="warn-label">⚠️ Common Mistake</div>
+  <p>Do not quote a long passage and then fail to explain it. Evidence without explanation scores no more than a bare point. Always add a brief "which suggests/shows/tells us…" after your quote.</p>
+</div>
+
+<!-- Practice Section 6 -->
+<div class="quiz-section">
+  <div class="level-badge level-easy">Easy Practice — Point + Evidence</div>
+
+  <div class="q-item">
+    <div class="q-text">Q31. Does this answer contain both a Point and Evidence? (Yes/No)</div>
+    <p style="font-size:0.92rem;"><em>"The dog is friendly because it wagged its tail."</em></p>
+    <div class="answer-row">
+      <input class="answer-input" id="s6q1" type="text" placeholder="Yes or No">
+      <button class="check-btn" onclick="checkAnswer('s6q1','yes','The answer has a Point (the dog is friendly) and Evidence (it wagged its tail). To score full marks it should also explain: "which shows it is pleased to see people."')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s6q1-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q32. Upgrade this weak answer using Point + Evidence + Explanation:</div>
+    <div class="q-passage">"She ran away from the noise." — Original weak answer: "She is scared."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s6q2" type="text" placeholder="Write the upgraded answer...">
+      <button class="check-btn" onclick="checkKeywords('s6q2',['scared','frightened','afraid','evidence','because','suggests','shows','ran'],'Good structure: "She is frightened (Point) because the text tells us she ran away from the noise (Evidence), which shows she wants to escape from whatever is threatening her (Explanation)."')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s6q2-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-intermediate">Intermediate Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q33. Write a full Point + Evidence + Explanation answer for this question.</div>
+    <div class="q-passage">"The old farmer looked at the cracked earth, ran a hand through the dust where seedlings should have been, and turned away without speaking."</div>
+    <p style="font-size:0.92rem;"><strong>Question:</strong> How is the farmer feeling?</p>
+    <div class="answer-row">
+      <input class="answer-input" id="s6q3" type="text" placeholder="Write your full P+E+E answer...">
+      <button class="check-btn" onclick="checkKeywords('s6q3',['despair','hopeless','grief','lost','ruin','silent','turned','shows','suggests','evidence','because'],'Strong answer example: The farmer is devastated and perhaps despairing (Point). The text shows he "turned away without speaking" after examining the ruined crop (Evidence), which suggests he has no words left — his silence implies a sense of total loss or hopelessness.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s6q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-advanced">Advanced Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q34. Write TWO separate Point + Evidence answers — one about the character's feelings, one about the character's personality.</div>
+    <div class="q-passage">"Every time the door opened, Nadia flinched. But when the youngest child in the shelter began to cry, she was on her feet immediately, whispering calm words and making up a story about a rabbit who was very brave."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s6q4" type="text" placeholder="Write two labelled answers...">
+      <button class="check-btn" onclick="checkKeywords('s6q4',['anxiety','brave','nurturing','kind','protective','flinch','immediately','calm','suggests'],'Feelings: Nadia is on edge and anxious (Point) — she flinches every time the door opens (Evidence), suggesting she is in a heightened state of fear. Personality: Despite her own fear, she is deeply nurturing (Point) — she immediately tends to the crying child and creates a comforting story (Evidence), showing compassion that overrides her personal distress.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s6q4-fb"></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ===== SECTION 7: SUBSTITUTION TRICK ===== -->
+<div id="sec7" class="section-header green">
+  <div class="section-number">7</div>
+  <h2>The Substitution Trick</h2>
+</div>
+
+<p>When a question asks what a specific word <em>suggests</em>, try replacing it with a simple, neutral alternative. The difference between the two versions reveals exactly what the original word adds.</p>
+
+<div class="worked">
+  <div class="worked-label">✦ Worked Example</div>
+  <p><strong>Original:</strong> <em>"The wind <strong>howled</strong> through the rafters."</em></p>
+  <p><strong>Substitution:</strong> <em>"The wind <strong>blew</strong> through the rafters."</em></p>
+  <p><strong>Analysis:</strong> "Blew" is neutral — it tells us the wind moved. "Howled" suggests the wind made a loud, almost mournful, animal sound. It creates a sense of wildness, eeriness, and discomfort that "blew" completely lacks. The writer chose "howled" to make the setting feel threatening and alive.</p>
+</div>
+
+<div class="tip">
+  <div class="tip-label">💡 How to Use This Trick in Exams</div>
+  <p>Mentally swap the key word for "went", "moved", "looked", "said", or "walked" — whichever neutral equivalent fits. Then ask: what did I just lose? That loss is your answer.</p>
+</div>
+
+<!-- Practice Section 7 -->
+<div class="quiz-section">
+  <div class="level-badge level-easy">Easy Practice — The Substitution Trick</div>
+
+  <div class="q-item">
+    <div class="q-text">Q35. Replace "glared" with "looked." What does "glared" add that "looked" doesn't?</div>
+    <div class="q-passage">"The inspector <strong>glared</strong> at the suspect across the table."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s7q1" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s7q1',['anger','hostile','intense','piercing','intimidat','pressure','aggress'],'Glared adds hostility, intensity, and pressure — it implies the inspector is angry or challenging the suspect. "Looked" is neutral and gives none of this.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s7q1-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q36. What does "devoured" suggest that "ate" would not?</div>
+    <div class="q-passage">"She had not eaten since morning, so she <strong>devoured</strong> the meal in minutes."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s7q2" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s7q2',['hungry','desperate','fast','intense','animal','eager','ravenous'],'Devoured suggests animal-like hunger and desperation — it implies an almost frantic, intense eating, whereas "ate" is completely neutral.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s7q2-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-intermediate">Intermediate Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q37. Apply the substitution trick. Replace the underlined word and explain what is lost.</div>
+    <div class="q-passage">"The factory <u>belched</u> black smoke into the pale morning sky."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s7q3" type="text" placeholder="Name your substitute + explain what belched adds...">
+      <button class="check-btn" onclick="checkKeywords('s7q3',['disgust','ugly','violent','grotesque','excess','spit','vile','revolting','release','pump'],'Replacing "belched" with "released" removes the sense of bodily disgust. "Belched" personifies the factory as something gross and gluttonous, making it seem both alive and repulsive — the writer is clearly critical of the factory\'s pollution.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s7q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-advanced">Advanced Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q38. Use the substitution trick on ALL THREE underlined words. What overall mood does the writer create?</div>
+    <div class="q-passage">"The market <u>buzzed</u>, the colours <u>clashed</u> and the smell of spices <u>ambushed</u> every passer-by."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s7q4" type="text" placeholder="Analyse all three words + overall mood...">
+      <button class="check-btn" onclick="checkKeywords('s7q4',['energy','vibrant','overwhelm','sensory','alive','busy','shock','surprise','intense'],'Buzzed (vs was busy) → alive, energetic, like bees. Clashed (vs contrasted) → violent, overwhelming visual. Ambushed (vs greeted) → sudden, surprising, inescapable. Together, the writer creates a mood of joyful but overwhelming sensory overload — the market is thrillingly alive and almost too much to take in.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s7q4-fb"></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ===== SECTION 8: LAYERED INFERENCE ===== -->
+<div id="sec8" class="section-header purple">
+  <div class="section-number">8</div>
+  <h2>Two-Step and Layered Inference</h2>
+</div>
+
+<div class="tip">
+  <div class="tip-label">⭐ This Is What Separates 8/10 from 10/10</div>
+  <p>Most students can make one inference. Top-band students chain inferences together — each step leads to a deeper insight. This is called a <strong>layered inference</strong>.</p>
+</div>
+
+<p>The structure works like this:</p>
+
+<div class="chain">
+  <div class="chain-step c1">Character does X</div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-step c2">…which means they feel Y</div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-step c3">…which reveals they believe Z</div>
+</div>
+
+<div class="passage">
+  <div class="passage-label">📖 Extract</div>
+  Every evening, when the rest of the family had gone to bed, Elara would take out the old photograph and set it carefully on the table beside her cup of tea. She never spoke of it to anyone.
+</div>
+
+<div class="worked">
+  <div class="worked-label">✦ Full Worked Example — Layered Inference</div>
+  <p><strong>Single-step (average answer):</strong> Elara is secretive because she hides the photograph from her family.</p>
+  <p><strong>Layered (top-band answer):</strong></p>
+  <p><strong>Step 1 (Action):</strong> Elara takes out the photograph only when alone and never mentions it.</p>
+  <p><strong>Step 2 (Feeling):</strong> This suggests she has a strong emotional attachment to whoever is in the photograph — strong enough to need private time with it.</p>
+  <p><strong>Step 3 (Belief / Deeper Meaning):</strong> Her secrecy implies she believes her grief or longing is something the family would not understand, or perhaps something too painful to share — suggesting she carries a private sorrow she has chosen to bear alone.</p>
+</div>
+
+<!-- Practice Section 8 -->
+<div class="quiz-section">
+  <div class="level-badge level-easy">Easy Practice — Identify the Chain</div>
+
+  <div class="q-item">
+    <div class="q-text">Q39. Complete the chain for the clue below.</div>
+    <div class="q-passage">"When the teacher praised someone else's painting, Daniel quietly turned his own canvas face-down."</div>
+    <p style="font-size:0.92rem;">Daniel does X (turns canvas down). This means he feels Y (_____). Which reveals he believes Z (_____).</p>
+    <div class="answer-row">
+      <input class="answer-input" id="s8q1" type="text" placeholder="Fill in Y and Z...">
+      <button class="check-btn" onclick="checkKeywords('s8q1',['insecure','ashamed','inferior','unworthy','jealous','comparison','talent','better'],'Y: He feels insecure or ashamed about his own work by comparison. Z: He believes his painting is not good enough — and perhaps that he is less talented than the praised student.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s8q1-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-intermediate">Intermediate Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q40. Write a two-step layered inference from this clue.</div>
+    <div class="q-passage">"When the letter arrived confirming her scholarship, Mira folded it carefully and placed it in the drawer without telling anyone."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s8q2" type="text" placeholder="Write your two-step inference...">
+      <button class="check-btn" onclick="checkKeywords('s8q2',['private','protect','fear','doubt','afraid','disbelief','real','jinx','superstit','alone','modest'],'Step 1: She does not share the news even though it is good — this suggests she is keeping it private. Step 2: This may reveal she fears something will go wrong, is superstitious about celebrating too early, or is simply a very private person who does not need others\' validation to feel proud.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s8q2-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-advanced">Advanced Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q41. Write a full three-step layered inference. Label each step clearly.</div>
+    <div class="q-passage">"At the end of each shift, before leaving the hospital, Dr Varma would stop at the window of the children's ward and watch the children sleeping — just for a moment — before turning off the corridor light."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s8q3" type="text" placeholder="Write all three steps, labelled...">
+      <button class="check-btn" onclick="checkKeywords('s8q3',['care','dedication','compassion','beyond','duty','meaning','protect','purpose','ritual','personal'],'Step 1 (Action): She pauses to watch the children sleeping at the end of her shift, making it a consistent ritual. Step 2 (Feeling): This suggests a deep emotional investment in her patients that goes beyond professional duty. Step 3 (Belief): The ritual implies she derives personal meaning and perhaps reassurance from seeing the children safe — her work is not merely a job but something she feels personally and deeply responsible for.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s8q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-challenging">Challenging Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q42. This passage contains a layered inference about a relationship. Write a full three-step chain about what the relationship between the two characters might be like.</div>
+    <div class="q-passage">"When Clem entered the room, her uncle rose from his chair. It was the kind of standing up a person does not plan — quick, reflexive, as if some part of him expected something he had learned not to ask for."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s8q4" type="text" placeholder="Write your full layered inference...">
+      <button class="check-btn" onclick="checkKeywords('s8q4',['longing','estranged','distance','hope','reflex','suppress','guarded','restrain','history','complex','careful'],'Step 1: The uncle rises involuntarily — his body reacts before he can control it. Step 2: This physical reflex suggests a deep emotional response to Clem\'s presence — perhaps longing or hope. Step 3: The phrase "learned not to ask for" implies the relationship is strained or estranged — he has suppressed what he wants from Clem, suggesting a painful history between them.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s8q4-fb"></div>
+  </div>
+</div>
+
+
+<hr class="divider">
+
+<!-- ===== SECTION 9: NEGATIVE INFERENCE ===== -->
+<div id="sec9" class="section-header gold">
+  <div class="section-number">9</div>
+  <h2>Negative Inference — What the Writer Left Out</h2>
+</div>
+
+<p>Advanced inference is not only about what a character <em>does</em> — it is also about what they <em>don't</em> do, what the writer chose <em>not</em> to describe, or what a character's <strong>silence or inaction</strong> tells us.</p>
+
+<div class="passage">
+  <div class="passage-label">📖 Extract</div>
+  The awards ceremony ended. Everyone cheered as each name was called. When they read out the winner of the writing prize — the competition Theo had entered every year for six years — he did not move. He did not clap. He did not look up.
+</div>
+
+<div class="worked">
+  <div class="worked-label">✦ Worked Example — Negative Inference</div>
+  <p><strong>Question:</strong> What does Theo's inaction tell us about how he is feeling?</p>
+  <p><strong>Answer:</strong> Theo's complete stillness — not moving, not clapping, not looking up — speaks more than any action could. The writer deliberately withholds movement or speech from Theo; this silence tells us he is stunned or crushed by the result. The detail that he has entered for six years shows how much it mattered, making his inaction a measure of profound disappointment. His refusal to even look up suggests he is either close to tears or too hurt to let anyone see his face.</p>
+</div>
+
+<div class="tip">
+  <div class="tip-label">💡 Key Phrase to Use</div>
+  <p>In your answer, you can write: <em>"The writer's decision not to describe X is significant because…"</em> or <em>"The absence of Y suggests that…"</em></p>
+</div>
+
+<!-- Practice Section 9 -->
+<div class="quiz-section">
+  <div class="level-badge level-easy">Easy Practice — Negative Inference</div>
+
+  <div class="q-item">
+    <div class="q-text">Q43. What does the mother's silence tell us?</div>
+    <div class="q-passage">"When Rafi told his mother he had failed the test, she said nothing. She just turned back to the sink and continued washing the dishes."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s9q1" type="text" placeholder="Type your inference...">
+      <button class="check-btn" onclick="checkKeywords('s9q1',['disappoint','unable','lost','words','shock','numb','beyond','upset','express','sorrow'],'Her silence and continued movement suggest she is either deeply disappointed, too hurt for words, or deliberately withholding a reaction — which itself may be a form of punishment or an inability to cope with the news.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s9q1-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-intermediate">Intermediate Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q44. What does the writer's choice NOT to name the other person tell us?</div>
+    <div class="q-passage">"There was someone standing at the edge of the wood. Iris saw them. She did not call out. She did not wave. She walked the other way."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s9q2" type="text" placeholder="Type your inference...">
+      <button class="check-btn" onclick="checkKeywords('s9q2',['avoid','fear','knows','recognise','deliberate','conflict','tense','relationship','hostile','uncomfortable'],'The writer deliberately withholds the identity of the person — keeping them nameless creates tension and suggests Iris recognises them. Her deliberate choice to walk away, combined with the lack of any greeting, implies the relationship is strained, hostile, or one she is actively avoiding.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s9q2-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-advanced">Advanced Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q45. What does the writer's decision NOT to describe the outcome tell us about the mood they want to create?</div>
+    <div class="q-passage">"The surgeon placed the scalpel down. The room was quiet. The nurses looked at each other. Nobody spoke for a long time. Then someone reached for the telephone."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s9q3" type="text" placeholder="Type your inference about mood and effect...">
+      <button class="check-btn" onclick="checkKeywords('s9q3',['tension','suspense','reader','imagine','dread','ambiguous','worst','fear','unknown','deliberate','withheld'],'The writer deliberately withholds the outcome — we never learn if the operation succeeded. This creates suspense and dread, forcing the reader to fill the silence with their own fear. The telephone call implies bad news but the writer refuses to confirm it, leaving the reader in a state of anxious uncertainty. This is more powerful than stating the outcome directly.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s9q3-fb"></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ===== SECTION 10: GL-FORMAT MCQ ===== -->
+<div id="sec10" class="section-header purple">
+  <div class="section-number">10</div>
+  <h2>GL-Format Multiple Choice — With Distractor Analysis</h2>
+</div>
+
+<p>In the actual GL Assessment exam, inference questions are multiple choice. You choose from five options (A–E). <strong>Two options will seem plausible</strong> — but only one is fully supported by the text. Learning to eliminate is as important as knowing the right answer.</p>
+
+<div class="passage">
+  <div class="passage-label">📖 GL-Style Passage — Read carefully before answering all four questions</div>
+  The mountain path grew narrower with every step. Surrounded by pine trees so tall that they blocked the afternoon light, Kira paused and checked her compass for the third time in an hour. The map showed a refuge shelter two kilometres ahead, but the map had been wrong before. She adjusted the straps of her pack — heavier now than when she had set out — and pressed on. Below her, the valley had disappeared into cloud, and the wind had taken on a new, colder edge. Kira did not let herself think about the alternative. She simply looked at the next step, then the one after that.
+</div>
+
+<h3>Question 1</h3>
+<div class="mcq-block">
+  <div class="mcq-label">GL-Style MCQ — Select the best answer</div>
+  <p><strong>What does the phrase "checked her compass for the third time in an hour" suggest about Kira?</strong></p>
+  <ul class="mcq-options" id="mcq1-opts">
+    <li onclick="checkMCQ('mcq1','A','C')"><span class="opt-letter">A</span>She is enjoying the challenge of navigating in the mountains.</li>
+    <li onclick="checkMCQ('mcq1','B','C')"><span class="opt-letter">B</span>She has forgotten how to use a compass.</li>
+    <li onclick="checkMCQ('mcq1','C','C')"><span class="opt-letter">C</span>She is feeling uncertain about her direction and anxious about the route.</li>
+    <li onclick="checkMCQ('mcq1','D','C')"><span class="opt-letter">D</span>She enjoys using technology while hiking.</span></li>
+    <li onclick="checkMCQ('mcq1','E','C')"><span class="opt-letter">E</span>She has checked her compass three times because it is broken.</li>
+  </ul>
+  <div class="mcq-feedback" id="mcq1-fb"></div>
+  <div style="margin-top:14px; background:#f5f0fb; border-radius:10px; padding:14px 16px; font-size:0.9rem;">
+    <strong style="color:#7b5ea7;">Distractor Analysis (Study This)</strong><br>
+    <strong>A — Too extreme / unsupported:</strong> Nothing in the text suggests enjoyment. Checking three times signals anxiety, not pleasure.<br>
+    <strong>B — Too literal and implausible:</strong> Someone who cannot use a compass would not be using one to navigate alone.<br>
+    <strong>C — ✅ Correct:</strong> Checking repeatedly is a behaviour associated with uncertainty and anxiety. Combined with the earlier detail that "the map had been wrong before," this confirms her worry.<br>
+    <strong>D — Off-topic:</strong> A compass is not technology in any relevant sense, and the text gives no hint she enjoys gadgets.<br>
+    <strong>E — Too literal:</strong> The text does not say the compass is broken.
+  </div>
+</div>
+
+<h3>Question 2</h3>
+<div class="mcq-block">
+  <div class="mcq-label">GL-Style MCQ</div>
+  <p><strong>What does "Kira did not let herself think about the alternative" most likely suggest?</strong></p>
+  <ul class="mcq-options" id="mcq2-opts">
+    <li onclick="checkMCQ('mcq2','A','B')"><span class="opt-letter">A</span>She is unable to think of any other route to take.</li>
+    <li onclick="checkMCQ('mcq2','B','B')"><span class="opt-letter">B</span>She is deliberately avoiding frightening thoughts to stay focused and calm.</li>
+    <li onclick="checkMCQ('mcq2','C','B')"><span class="opt-letter">C</span>She is certain that the shelter will be where the map says it is.</li>
+    <li onclick="checkMCQ('mcq2','D','B')"><span class="opt-letter">D</span>She has decided to turn back and go home.</li>
+    <li onclick="checkMCQ('mcq2','E','B')"><span class="opt-letter">E</span>She is a professional mountaineer who never feels fear.</li>
+  </ul>
+  <div class="mcq-feedback" id="mcq2-fb"></div>
+  <div style="margin-top:14px; background:#f5f0fb; border-radius:10px; padding:14px 16px; font-size:0.9rem;">
+    <strong style="color:#7b5ea7;">Distractor Analysis (Study This)</strong><br>
+    <strong>A — Too literal:</strong> "The alternative" is not a route; it refers to what might happen if she fails.<br>
+    <strong>B — ✅ Correct:</strong> The phrase "did not let herself think" shows conscious self-control under pressure — she is managing fear by focusing only on the next step.<br>
+    <strong>C — Contradicts the text (plausible distractor):</strong> The text says the map had been wrong before — so she is NOT certain.<br>
+    <strong>D — Directly contradicts evidence:</strong> She "pressed on," meaning she continued forward.<br>
+    <strong>E — Too extreme / unsupported:</strong> Her repeated compass-checking and conscious avoidance of fear prove she is not fearless.
+  </div>
+</div>
+
+<h3>Question 3</h3>
+<div class="mcq-block">
+  <div class="mcq-label">GL-Style MCQ</div>
+  <p><strong>What atmosphere does the writer create in this passage?</strong></p>
+  <ul class="mcq-options" id="mcq3-opts">
+    <li onclick="checkMCQ('mcq3','A','D')"><span class="opt-letter">A</span>Peaceful and beautiful</li>
+    <li onclick="checkMCQ('mcq3','B','D')"><span class="opt-letter">B</span>Joyful and exciting</li>
+    <li onclick="checkMCQ('mcq3','C','D')"><span class="opt-letter">C</span>Calm and reassuring</li>
+    <li onclick="checkMCQ('mcq3','D','D')"><span class="opt-letter">D</span>Tense and isolating</li>
+    <li onclick="checkMCQ('mcq3','E','D')"><span class="opt-letter">E</span>Nostalgic and reflective</li>
+  </ul>
+  <div class="mcq-feedback" id="mcq3-fb"></div>
+</div>
+
+<h3>Question 4</h3>
+<div class="mcq-block">
+  <div class="mcq-label">GL-Style MCQ</div>
+  <p><strong>What does "the pack — heavier now than when she had set out" suggest?</strong></p>
+  <ul class="mcq-options" id="mcq4-opts">
+    <li onclick="checkMCQ('mcq4','A','C')"><span class="opt-letter">A</span>She has bought new supplies along the way.</li>
+    <li onclick="checkMCQ('mcq4','B','C')"><span class="opt-letter">B</span>She packed too many things and regrets it.</li>
+    <li onclick="checkMCQ('mcq4','C','C')"><span class="opt-letter">C</span>The physical exertion and difficult conditions are making the journey feel harder as it progresses.</li>
+    <li onclick="checkMCQ('mcq4','D','C')"><span class="opt-letter">D</span>The weather has made her pack absorb water.</li>
+    <li onclick="checkMCQ('mcq4','E','C')"><span class="opt-letter">E</span>She is carrying provisions for the whole group.</li>
+  </ul>
+  <div class="mcq-feedback" id="mcq4-fb"></div>
+</div>
+
+<!-- Interactive MCQ section practice -->
+<div class="quiz-section">
+  <div class="level-badge level-easy">Easy MCQ Practice — Elimination Skills</div>
+  <div class="q-item">
+    <div class="q-text">Q46. In a GL MCQ question, which type of wrong option sounds right but goes beyond what the text says?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s10q1" type="text" placeholder="Too literal / Too extreme / Unsupported / Off-topic">
+      <button class="check-btn" onclick="checkAnswer('s10q1','too extreme','Too extreme options make bigger claims than the text supports — for example, saying a character is "terrified" when the text only shows mild nervousness.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s10q1-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q47. Which option type ignores the context and just repeats a word from the passage?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s10q2" type="text" placeholder="Too literal / Too extreme / Unsupported / Off-topic">
+      <button class="check-btn" onclick="checkAnswer('s10q2','too literal','Too literal options take a word from the text at face value without thinking about what it implies. For example, if a text says someone "ran" a too-literal option might say they "were in a hurry" without going any deeper.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s10q2-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q48. What should you do FIRST when approaching a GL MCQ inference question?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s10q3" type="text" placeholder="Type your strategy...">
+      <button class="check-btn" onclick="checkKeywords('s10q3',['read','passage','text','eliminate','wrong','evidence','find'],'Go back to the relevant part of the passage first, then eliminate options that are too extreme, off-topic, or contradict the text. Only then select from the remaining plausible options.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s10q3-fb"></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ===== SECTION 11: NON-FICTION ===== -->
+<div id="sec11" class="section-header blue">
+  <div class="section-number">11</div>
+  <h2>Non-Fiction Passage — Inference Practice</h2>
+</div>
+
+<p>Inference is just as important in non-fiction. With editorials, journalism, or reports, you are often asked to infer the <strong>writer's viewpoint, purpose, or assumptions</strong>.</p>
+
+<div class="passage">
+  <div class="passage-label">📖 Non-Fiction Extract — Editorial</div>
+  Every year, another village school closes its doors. The children are bussed further and further away to larger, more "efficient" centres of learning, while the buildings where their parents and grandparents first learned to read now stand empty, windows boarded, playgrounds silent. We are told this is progress. We are invited to celebrate the economies of scale, the improved facilities, the higher exam results — as if a child's education could be measured only in percentages. What is never counted, and what can never be counted, is what is lost when a community loses its school.
+</div>
+
+<div class="worked">
+  <div class="worked-label">✦ Worked Example — Non-Fiction Inference Q1</div>
+  <p><strong>Question:</strong> What is the writer's attitude towards the closure of village schools?</p>
+  <p><strong>Answer:</strong> The writer is strongly opposed to the closures and saddened by them. The use of quotation marks around "efficient" signals irony — the writer disputes that the closures are truly efficient. The image of "windows boarded, playgrounds silent" carries a mournful, funereal quality, suggesting irreversible loss. The phrase "as if a child's education could be measured only in percentages" is openly critical of the authorities' reasoning.</p>
+</div>
+
+<div class="worked">
+  <div class="worked-label">✦ Worked Example — Non-Fiction Inference Q2</div>
+  <p><strong>Question:</strong> What does the writer imply about the authorities' reasons for the closures?</p>
+  <p><strong>Answer:</strong> The writer implies the authorities are prioritising financial and statistical efficiency over human and community values. The phrase "economies of scale" is presented as cold and bureaucratic, while the phrase "what can never be counted" suggests the writer believes the most important things — community, belonging, local identity — are things the authorities are not even attempting to measure.</p>
+</div>
+
+<!-- Practice Section 11 -->
+<div class="quiz-section">
+  <div class="level-badge level-easy">Easy Practice — Non-Fiction</div>
+  <div class="q-item">
+    <div class="q-text">Q49. Why does the writer put the word "efficient" in quotation marks?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s11q1" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s11q1',['irony','ironic','disagree','dispute','sarcas','not really','question','challenge','mock'],'The quotation marks signal irony — the writer is distancing themselves from the word, implying they do not believe the closures are truly efficient, despite what authorities claim.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s11q1-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-intermediate">Intermediate Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q50. What does the writer imply by describing the old school buildings as having "windows boarded, playgrounds silent"?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s11q2" type="text" placeholder="Type your inference...">
+      <button class="check-btn" onclick="checkKeywords('s11q2',['loss','mourn','sadness','abandoned','dead','ghost','permanent','irreversibl','community','life'],'These details paint a picture of abandonment and death — boarding up windows and silencing playgrounds suggests something vital has been permanently removed from the community. The contrast with living, noisy children is implied but powerful.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s11q2-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q51. The writer mentions "their parents and grandparents." What does this detail add to the argument?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s11q3" type="text" placeholder="Type your inference...">
+      <button class="check-btn" onclick="checkKeywords('s11q3',['generation','history','tradition','roots','heritage','identity','belong','connect','depth'],'By invoking multiple generations, the writer emphasises the depth of community connection to these schools — they are not just buildings but repositories of shared history. Closing them does not just affect today\'s children but severs a generational thread.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s11q3-fb"></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ===== SECTION 12: POETRY ===== -->
+<div id="sec12" class="section-header green">
+  <div class="section-number">12</div>
+  <h2>Poetry — Inference Through Imagery and Emotion</h2>
+</div>
+
+<p>In poetry, inference often comes from <strong>imagery</strong> (the pictures a poet creates with words) and <strong>emotion</strong> (the feeling the poem builds). The same skills apply — clue + prior knowledge — but the clues are denser and more compressed.</p>
+
+<div class="passage">
+  <div class="passage-label">📖 Original Poem — Read carefully</div>
+  <div style="font-family:'Merriweather',serif; line-height:2; font-size:0.97rem;">
+  She cleared the house in half a day,<br>
+  folding silence into cardboard boxes,<br>
+  wrapping the clock that had stopped at four<br>
+  in the paper from last year's birthday.<br>
+  <br>
+  She did not cry. She made a list.<br>
+  She counted teacups, stacked the chairs.<br>
+  Outside the window, the garden waited,<br>
+  neither helping nor understanding.<br>
+  <br>
+  She left one photograph on the shelf.<br>
+  Only one. She did not say why.
+  </div>
+</div>
+
+<div class="worked">
+  <div class="worked-label">✦ Worked Example — Poetry Inference Q1</div>
+  <p><strong>Question:</strong> What does the image "folding silence into cardboard boxes" suggest about how the speaker feels?</p>
+  <p><strong>Answer:</strong> The poet personifies "silence" as something physical — something that can be packed away. This suggests the house is now associated with emptiness and absence. Packing it up implies the speaker is trying to contain or manage their grief by giving it a physical form. The act of folding and boxing suggests a need to control emotions through practical activity.</p>
+</div>
+
+<div class="worked">
+  <div class="worked-label">✦ Worked Example — Poetry Inference Q2</div>
+  <p><strong>Question:</strong> What can you infer about why the speaker "left one photograph on the shelf"?</p>
+  <p><strong>Answer:</strong> The deliberate choice to leave a single photograph — rather than pack it with everything else — suggests it holds a specific significance the speaker cannot yet let go of. The final line "She did not say why" creates a sense of private, unshared grief. The decision to leave one thing behind in an otherwise emptied house suggests the photograph represents a connection too painful to sever completely.</p>
+</div>
+
+<!-- Practice Section 12 -->
+<div class="quiz-section">
+  <div class="level-badge level-easy">Easy Practice — Poetry</div>
+  <div class="q-item">
+    <div class="q-text">Q52. What is suggested by "the clock that had stopped at four"? What might this symbolise?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s12q1" type="text" placeholder="Type your inference...">
+      <button class="check-btn" onclick="checkKeywords('s12q1',['time','frozen','stop','moment','death','loss','still','mark','stuck','unchanged'],'A stopped clock is often associated with the moment something ended — death, departure, or loss. It suggests time itself froze at a significant moment, and by wrapping it in birthday paper, the speaker links a moment of celebration to a moment of ending.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s12q1-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q53. "She did not cry. She made a list." What does this contrast tell us about how she is coping?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s12q2" type="text" placeholder="Type your inference...">
+      <button class="check-btn" onclick="checkKeywords('s12q2',['control','suppress','practical','hold','task','avoid','cope','emotion','busy','numb'],'The contrast shows she is suppressing emotion by focusing on practical tasks. Making a list is a way of imposing order on chaos. The short, declarative sentences suggest a controlled, almost mechanical coping strategy — she is keeping grief at a distance through action.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s12q2-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-intermediate">Intermediate Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q54. "Outside the window, the garden waited, / neither helping nor understanding." What does this personification of the garden add to the poem?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s12q3" type="text" placeholder="Type your inference...">
+      <button class="check-btn" onclick="checkKeywords('s12q3',['alone','isolated','indifferent','world','uncaring','solitude','neutral','grief','own','outside'],'The garden is made alive enough to "wait" but indifferent enough to neither help nor understand. This mirrors the speaker\'s isolation — the outside world carries on, neutral to her grief. The personification makes the garden\'s indifference feel more painful than simple absence would.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s12q3-fb"></div>
+  </div>
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-advanced">Advanced Practice</div>
+  <div class="q-item">
+    <div class="q-text">Q55. What is the overall emotion the poet creates in this poem? Use evidence from at least THREE images.</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s12q4" type="text" placeholder="Write a full answer with three pieces of evidence...">
+      <button class="check-btn" onclick="checkKeywords('s12q4',['grief','loss','quiet','restrain','suppressed','control','silence','photograph','clock'],'The poem creates a mood of quiet, controlled grief. The speaker does not weep but works — the silence packed in boxes, the stopped clock, and the single remaining photograph all suggest a loss too large to be openly expressed. The restrained tone mirrors the speaker\'s emotional restraint, making the grief feel more profound.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s12q4-fb"></div>
+  </div>
+</div>
+
+
+<hr class="divider">
+
+<!-- ===== SECTION 13: COMMON WRONG ANSWERS ===== -->
+<div id="sec13" class="section-header">
+  <div class="section-number">13</div>
+  <h2>Common Wrong Answer Patterns — and Why They Fail</h2>
+</div>
+
+<p>In GL MCQ exams, two or three options are designed to <em>tempt</em> you. Here are the four most common traps, with examples from real exam-style questions.</p>
+
+<div class="wrong-card">
+  <div class="wc-type">❌ Pattern 1 — Too Extreme</div>
+  <p><strong>The trap:</strong> The option makes a much bigger claim than the text supports.</p>
+  <p><strong>Example:</strong> Text says a character "hesitated before speaking." Wrong option: <em>"She was absolutely terrified."</em></p>
+  <p><strong>Why it fails:</strong> "Hesitation" suggests uncertainty or nervousness — not outright terror. The option leaps too far beyond the evidence.</p>
+  <p><strong>Correct approach:</strong> Match the intensity of your inference to the intensity of the clue.</p>
+</div>
+
+<div class="wrong-card">
+  <div class="wc-type">❌ Pattern 2 — Too Literal</div>
+  <p><strong>The trap:</strong> The option describes only the surface fact — it finds the words but misses the meaning.</p>
+  <p><strong>Example:</strong> Text says a character "stared at the closed door for a long time." Wrong option: <em>"She was looking at the door."</em></p>
+  <p><strong>Why it fails:</strong> This is merely retrieval, not inference. An inference question requires you to go deeper — why is she staring? What does it mean?</p>
+  <p><strong>Correct approach:</strong> Always ask: what does this action tell us about how the character feels or thinks?</p>
+</div>
+
+<div class="wrong-card">
+  <div class="wc-type">❌ Pattern 3 — Plausible but Unsupported</div>
+  <p><strong>The trap:</strong> The option sounds reasonable but is not backed by any evidence in the text. It is something you invented, not inferred.</p>
+  <p><strong>Example:</strong> Text says a character is late to a meeting. Wrong option: <em>"She had been in an accident on the way."</em></p>
+  <p><strong>Why it fails:</strong> The text gives no clue about the reason for her lateness — this is guessing, not inference. The correct answer must be grounded in textual clues.</p>
+  <p><strong>Correct approach:</strong> Ask: where exactly in the text is this supported? If you can't point to a word or phrase, reject it.</p>
+</div>
+
+<div class="wrong-card">
+  <div class="wc-type">❌ Pattern 4 — Contradicts the Text</div>
+  <p><strong>The trap:</strong> The option directly contradicts something the passage states.</p>
+  <p><strong>Example:</strong> Text says the character "pressed on despite everything." Wrong option: <em>"She gave up and turned back."</em></p>
+  <p><strong>Why it fails:</strong> This simply contradicts the text. Eliminate anything that cannot co-exist with stated facts.</p>
+  <p><strong>Correct approach:</strong> Treat contradictions as the easiest options to eliminate — cross them out first.</p>
+</div>
+
+<!-- Practice Section 13 -->
+<div class="quiz-section">
+  <div class="level-badge level-easy">Easy Practice — Identify the Wrong Pattern</div>
+
+  <div class="q-item">
+    <div class="q-text">Q56. The text says "Bea smiled faintly." A student answers: "Bea was overcome with happiness." Which wrong pattern is this?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s13q1" type="text" placeholder="Too extreme / Too literal / Unsupported / Contradicts">
+      <button class="check-btn" onclick="checkAnswer('s13q1','too extreme','A faint smile is a small, contained expression — "overcome with happiness" is far too intense a claim to be supported by such a quiet, restrained gesture.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s13q1-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q57. The text says "He walked quickly across the square." A student answers: "He was walking." Which wrong pattern is this?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s13q2" type="text" placeholder="Too extreme / Too literal / Unsupported / Contradicts">
+      <button class="check-btn" onclick="checkAnswer('s13q2','too literal','This describes the surface fact but does not infer anything from it. A good inference would consider why he was hurrying — urgency, anxiety, lateness etc.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s13q2-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q58. A text describes a character nervously entering a hospital. A student answers: "She had been visiting someone in hospital every week for years." Which wrong pattern?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s13q3" type="text" placeholder="Too extreme / Too literal / Unsupported / Contradicts">
+      <button class="check-btn" onclick="checkAnswer('s13q3','unsupported','This is a plausible story but there is nothing in the text to support it. The student has invented a backstory that does not appear anywhere in the passage.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s13q3-fb"></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ===== SECTION 14: TIMED STRATEGY ===== -->
+<div id="sec14" class="section-header blue">
+  <div class="section-number">14</div>
+  <h2>Exam Strategy — Timing and Technique</h2>
+</div>
+
+<p>Knowing <em>how to answer</em> is only half the skill. Knowing <em>how to manage your time</em> in the actual exam is just as important.</p>
+
+<div class="strategy-grid">
+  <div class="strategy-card">
+    <div class="sc-num">3 min</div>
+    <p><strong>Read the passage first.</strong> Read the whole passage once without reading the questions. Build a mental map of the text.</p>
+  </div>
+  <div class="strategy-card">
+    <div class="sc-num">~60s</div>
+    <p><strong>Per MCQ question.</strong> Find the relevant part of the text → eliminate 2–3 clearly wrong options → choose between remaining 1–2.</p>
+  </div>
+  <div class="strategy-card">
+    <div class="sc-num">Stuck?</div>
+    <p><strong>Use the 2-minute rule.</strong> If you've been on one question more than 2 minutes: eliminate what you can, pick the best remaining option, and move on.</p>
+  </div>
+  <div class="strategy-card">
+    <div class="sc-num">Always</div>
+    <p><strong>Answer every question.</strong> <strong>There is no penalty for wrong answers in GL Assessment.</strong> A guess scores more than a blank.</p>
+  </div>
+</div>
+
+<h3>MCQ Elimination Order</h3>
+<div class="worked">
+  <div class="worked-label">✦ The Four-Step Elimination Process</div>
+  <p><strong>Step 1:</strong> Immediately eliminate anything that directly contradicts the text. (Usually 1–2 options.)</p>
+  <p><strong>Step 2:</strong> Eliminate anything that is completely off-topic or irrelevant to the question asked.</p>
+  <p><strong>Step 3:</strong> Be cautious of any option that sounds "too extreme" — check it against the actual words in the passage.</p>
+  <p><strong>Step 4:</strong> Between the remaining plausible options, ask: which one is most fully supported by specific words or phrases in the text?</p>
+</div>
+
+<div class="tip">
+  <div class="tip-label">💡 If Two Options Both Look Right</div>
+  <p>Go back to the text. Re-read the exact sentence or phrase the question asks about. The correct answer will be the one where you can point to specific textual support. The tempting wrong answer will require you to invent or assume something the text does not provide.</p>
+</div>
+
+<!-- Practice Section 14 -->
+<div class="quiz-section">
+  <div class="level-badge level-easy">Easy Practice — Strategy</div>
+  <div class="q-item">
+    <div class="q-text">Q59. In GL Assessment, should you leave a question blank if you are not sure of the answer?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s14q1" type="text" placeholder="Yes or No — explain why">
+      <button class="check-btn" onclick="checkAnswer('s14q1','no','GL Assessment does not use negative marking — wrong answers do not lose marks. Always attempt every question. A guess gives you a chance; a blank gives you zero.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s14q1-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q60. What is the FIRST step when approaching an inference MCQ question?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s14q2" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkKeywords('s14q2',['read','passage','text','find','locate','return','re-read'],'Go back to the relevant section of the passage before looking at the options. Reading with the question in mind helps you spot the key clue before you are influenced by the options.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s14q2-fb"></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-text">Q61. Which type of wrong option should you eliminate FIRST in any MCQ question?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="s14q3" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkAnswer('s14q3','contradicts','Anything that directly contradicts a stated fact in the passage is definitely wrong and easiest to eliminate. Remove these first to narrow your choice quickly.')">Check Answer</button>
+    </div>
+    <div class="feedback" id="s14q3-fb"></div>
+  </div>
+</div>
+
+
+<hr class="divider">
+
+<!-- ===== MASTERY TEST ===== -->
+<div id="mastery">
+  <div class="mastery-banner">
+    <h2>⭐ Final Mastery Test</h2>
+    <p>10 questions · All skills combined · Same format as GL Assessment</p>
+  </div>
+</div>
+
+<div class="passage">
+  <div class="passage-label">📖 Mastery Test Passage — Read before answering all questions</div>
+  The post office had served Millford for a hundred and twelve years. Mr Pereira had run it for the last twenty-two, and before him, his mother for eighteen. The notice in the window — <em>CLOSING: FINAL DAY THIS FRIDAY</em> — had been there for three weeks, but people still seemed to pause when they read it, as if the words had not yet decided to become true.<br><br>
+  On his last morning, Mr Pereira arrived at six, as he always had. He unlocked the door, turned on the lights, and stood for a moment in the centre of the room before he began. Nobody knew exactly what he did in those few minutes. But when Mrs Chen arrived at eight and found him behind the counter, his apron on, pen in hand, he looked, she said later, exactly as he always had — except his eyes.
+</div>
+
+<div class="quiz-section">
+  <div class="level-badge level-mastery">Mastery Test — 10 Questions</div>
+
+
+  <!-- Q1 -->
+  <div class="q-item">
+    <div class="q-text">MT1. What type of question is this: "How many years has the post office been open?"</div>
+    <div class="answer-row">
+      <input class="answer-input" id="mt1" type="text" placeholder="Retrieval / Deduction / Inference">
+      <button class="check-btn" onclick="checkMastery('mt1','retrieval','The passage directly states the post office served Millford for 112 years — this is a retrieval question.')">Check</button>
+    </div>
+    <div class="feedback" id="mt1-fb"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-item">
+    <div class="q-text">MT2. What does the detail "people still seemed to pause when they read it" suggest about the community's feelings?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="mt2" type="text" placeholder="Type your inference...">
+      <button class="check-btn" onclick="checkMastery_kw('mt2',['disbelief','shock','loss','grieve','denial','accept','mourn','unable','real','truth'],'The pausing suggests the community cannot quite accept or process the closure — it is as if the news has not fully registered emotionally, despite being physically present.')">Check</button>
+    </div>
+    <div class="feedback" id="mt2-fb"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-item">
+    <div class="q-text">MT3. The writer says the notice's words "had not yet decided to become true." What effect does this phrase create?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="mt3" type="text" placeholder="Apply the craft move: choice → purpose → effect">
+      <button class="check-btn" onclick="checkMastery_kw('mt3',['personif','surreal','denial','cannot','believe','words','alive','resist','reader'],'The writer personifies the words as if they have agency — this creates a surreal, dreamlike quality that mirrors the community\'s denial. The reader shares the sense that something this significant should not be allowed to simply "become true."')">Check</button>
+    </div>
+    <div class="feedback" id="mt3-fb"></div>
+  </div>
+
+  <!-- Q4 MCQ -->
+  <div class="q-item">
+    <div class="q-text">MT4. (MCQ) What does Mr Pereira arriving "at six, as he always had" suggest about his character?</div>
+    <ul class="mcq-options" id="mt4-opts">
+      <li onclick="checkMasteryMCQ('mt4','A','C')"><span class="opt-letter">A</span>He was eager to leave the post office for the last time.</li>
+      <li onclick="checkMasteryMCQ('mt4','B','C')"><span class="opt-letter">B</span>He was unable to sleep and arrived early by accident.</li>
+      <li onclick="checkMasteryMCQ('mt4','C','C')"><span class="opt-letter">C</span>He is a man of deep routine and professional discipline, maintaining his habits even on the hardest day.</li>
+      <li onclick="checkMasteryMCQ('mt4','D','C')"><span class="opt-letter">D</span>He wanted to say goodbye to the building before anyone arrived.</li>
+      <li onclick="checkMasteryMCQ('mt4','E','C')"><span class="opt-letter">E</span>He did not realise it was his last day.</li>
+    </ul>
+    <div class="mcq-feedback" id="mt4-fb"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-item">
+    <div class="q-text">MT5. "He stood for a moment in the centre of the room before he began." Write a layered inference — what does he feel (Step 1) and what does this reveal about what the place means to him (Step 2)?</div>
+    <div class="answer-row">
+      <input class="answer-input" id="mt5" type="text" placeholder="Write both steps of your inference...">
+      <button class="check-btn" onclick="checkMastery_kw('mt5',['grief','farewell','memory','absorb','final','mean','cherish','mark','moment','solemn','private','belong'],'Step 1: He pauses — perhaps to absorb or mark the moment, to feel what the room has been. Step 2: This reveals the post office is not simply a workplace but something central to his identity — the deliberate standing suggests he is saying a private farewell that is too significant to rush.')">Check</button>
+    </div>
+    <div class="feedback" id="mt5-fb"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-item">
+    <div class="q-text">MT6. What does "Nobody knew exactly what he did in those few minutes" add to the passage? (This is a negative inference.)</div>
+    <div class="answer-row">
+      <input class="answer-input" id="mt6" type="text" placeholder="Type your negative inference...">
+      <button class="check-btn" onclick="checkMastery_kw('mt6',['private','mystery','withheld','reader','imagine','sacred','alone','personal','silent','grieve'],'The writer deliberately withholds what Mr Pereira does — this preserves the privacy of his farewell. It invites the reader to imagine, and makes the moment feel sacred and personal. His private grief is more powerful for being unobserved and undescribed.')">Check</button>
+    </div>
+    <div class="feedback" id="mt6-fb"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-item">
+    <div class="q-text">MT7. "He looked exactly as he always had — except his eyes." Use the substitution trick to explain why "except his eyes" is more powerful than "but he seemed sad."</div>
+    <div class="answer-row">
+      <input class="answer-input" id="mt7" type="text" placeholder="Type your answer...">
+      <button class="check-btn" onclick="checkMastery_kw('mt7',['specific','show','tell','eyes','reveal','mask','control','surface','precise','window','understated'],'The substitution shows that "but he seemed sad" simply tells us the emotion. "Except his eyes" shows it, specifically and precisely — his whole body maintained professionalism but his eyes betrayed him. This is far more moving because it implies controlled grief breaking through despite his discipline.')">Check</button>
+    </div>
+    <div class="feedback" id="mt7-fb"></div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-item">
+    <div class="q-text">MT8. What is the writer's attitude towards Mr Pereira? Give evidence from at least two details.</div>
+    <div class="answer-row">
+      <input class="answer-input" id="mt8" type="text" placeholder="State the attitude + give two pieces of evidence...">
+      <button class="check-btn" onclick="checkMastery_kw('mt8',['admire','respect','dignit','honour','warmth','routine','six','apron','eyes','dedication','tribute'],'The writer\'s attitude is deeply admiring and affectionate. Evidence: Mr Pereira arrives at six as always (showing unwavering dedication), and maintains his professional appearance to the end (apron on, pen in hand) — the writer frames these as dignified and moving rather than ordinary.')">Check</button>
+    </div>
+    <div class="feedback" id="mt8-fb"></div>
+  </div>
+
+  <!-- Q9 MCQ -->
+  <div class="q-item">
+    <div class="q-text">MT9. (MCQ) What does the family history — Mr Pereira's 22 years and his mother's 18 before him — add to the significance of the closure?</div>
+    <ul class="mcq-options" id="mt9-opts">
+      <li onclick="checkMasteryMCQ('mt9','A','B')"><span class="opt-letter">A</span>It tells us the post office is very old and rundown.</li>
+      <li onclick="checkMasteryMCQ('mt9','B','B')"><span class="opt-letter">B</span>It shows the closure severs a multigenerational personal and community bond, making the loss more profound.</li>
+      <li onclick="checkMasteryMCQ('mt9','C','B')"><span class="opt-letter">C</span>It proves that Mr Pereira has worked there longer than his mother.</li>
+      <li onclick="checkMasteryMCQ('mt9','D','B')"><span class="opt-letter">D</span>It suggests the family were the owners of the building.</li>
+      <li onclick="checkMasteryMCQ('mt9','E','B')"><span class="opt-letter">E</span>It shows that the post office has always been run by the same person.</li>
+    </ul>
+    <div class="mcq-feedback" id="mt9-fb"></div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-item">
+    <div class="q-text">MT10. Write the strongest possible answer to this question — using Point, Evidence, and a layered inference: <em>"What does this passage tell us about how Mr Pereira feels about closing the post office?"</em></div>
+    <div class="answer-row">
+      <input class="answer-input" id="mt10" type="text" placeholder="Write your best full answer...">
+      <button class="check-btn" onclick="checkMastery_kw('mt10',['grief','dedicated','routine','maintain','eyes','layered','private','control','identity','loss','six','apron','farewell'],'A top-band answer uses Point + Evidence + layered inference: "Mr Pereira is profoundly grief-stricken but controls it through routine and duty. He arrives at six as he always has (Evidence) — showing that even on his last day, professionalism overrides personal distress (Inference 1). But his eyes give him away (Evidence), suggesting the grief is real and deep, breaking through his composed surface — his sense of identity is inseparable from the post office (Inference 2)."')">Check</button>
+    </div>
+    <div class="feedback" id="mt10-fb"></div>
+  </div>
+
+  <div style="text-align:center; margin-top:28px;">
+    <button onclick="showMasteryScore()" style="background:var(--ink);color:#fff;border:none;border-radius:10px;padding:14px 40px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;">See My Score</button>
+  </div>
+  <div id="mastery-score-display" style="background:#fff;border-radius:var(--radius);padding:28px;text-align:center;margin:20px 0;box-shadow:var(--shadow);display:none;">
+    <div style="font-size:3rem;font-weight:900;color:var(--accent2);" id="mastery-score-num">0/10</div>
+    <p id="mastery-score-msg" style="margin-top:10px;font-size:1.05rem;font-weight:700;"></p>
+  </div>
+
+</div>
+
+</div><!-- end container -->
+
+
+<script>
+// ============================================================
+// CORE UTILITY — check exact answer (case-insensitive)
+// ============================================================
+function checkAnswer(inputId, correctAnswer, explanation) {
+  const input = document.getElementById(inputId);
+  const fb = document.getElementById(inputId + '-fb');
+  const val = input.value.trim().toLowerCase();
+  const correct = correctAnswer.trim().toLowerCase();
+
+  fb.style.display = 'block';
+  if (val === correct || val.includes(correct) || correct.includes(val) && val.length > 2) {
+    fb.className = 'feedback correct';
+    fb.innerHTML = '✅ Correct! ' + explanation;
+  } else {
+    fb.className = 'feedback wrong';
+    fb.innerHTML = '❌ Incorrect. Correct answer: <strong>' + correctAnswer + '</strong>. ' + explanation;
+  }
+}
+
+// ============================================================
+// KEYWORD CHECK — student must include at least one keyword
+// ============================================================
+function checkKeywords(inputId, keywords, explanation) {
+  const input = document.getElementById(inputId);
+  const fb = document.getElementById(inputId + '-fb');
+  const val = input.value.trim().toLowerCase();
+
+  if (val.length < 4) {
+    fb.style.display = 'block';
+    fb.className = 'feedback wrong';
+    fb.innerHTML = '❌ Please write a fuller answer before checking.';
+    return;
+  }
+
+  let found = false;
+  for (let kw of keywords) {
+    if (val.includes(kw.toLowerCase())) { found = true; break; }
+  }
+
+  fb.style.display = 'block';
+  if (found) {
+    fb.className = 'feedback correct';
+    fb.innerHTML = '✅ Well done! ' + explanation;
+  } else {
+    fb.className = 'feedback wrong';
+    fb.innerHTML = '❌ Not quite. Hint: Think about — ' + keywords.slice(0,4).join(', ') + '. ' + explanation;
+  }
+}
+
+// ============================================================
+// MCQ — click option to check
+// ============================================================
+function checkMCQ(qId, chosen, correct) {
+  const opts = document.getElementById(qId + '-opts').children;
+  const fb = document.getElementById(qId + '-fb');
+  const letters = ['A','B','C','D','E'];
+
+  for (let i = 0; i < opts.length; i++) {
+    opts[i].style.pointerEvents = 'none';
+    if (letters[i] === correct) {
+      opts[i].classList.add('selected-correct');
+    }
+    if (letters[i] === chosen && chosen !== correct) {
+      opts[i].classList.add('selected-wrong');
+    }
+  }
+
+  fb.style.display = 'block';
+  if (chosen === correct) {
+    fb.className = 'mcq-feedback correct';
+    fb.innerHTML = '✅ Correct! Option ' + correct + ' is the best answer — it is directly supported by evidence in the passage.';
+  } else {
+    fb.className = 'mcq-feedback wrong';
+    fb.innerHTML = '❌ Not quite. The correct answer is <strong>' + correct + '</strong>. Re-read the distractor analysis below to see why your choice doesn\'t hold up.';
+  }
+}
+
+// ============================================================
+// MASTERY TEST — track score
+// ============================================================
+let masteryAnswered = {};
+let masteryCorrect = 0;
+
+function checkMastery(inputId, correctAnswer, explanation) {
+  const input = document.getElementById(inputId);
+  const fb = document.getElementById(inputId + '-fb');
+  const val = input.value.trim().toLowerCase();
+  const correct = correctAnswer.trim().toLowerCase();
+
+  if (masteryAnswered[inputId]) return;
+
+  const isCorrect = val === correct || val.includes(correct) || (correct.includes(val) && val.length > 3);
+
+  fb.style.display = 'block';
+  if (isCorrect) {
+    fb.className = 'feedback correct';
+    fb.innerHTML = '✅ Correct! ' + explanation;
+    if (!masteryAnswered[inputId]) { masteryCorrect++; masteryAnswered[inputId] = true; }
+  } else {
+    fb.className = 'feedback wrong';
+    fb.innerHTML = '❌ Incorrect. Correct answer: <strong>' + correctAnswer + '</strong>. ' + explanation;
+    masteryAnswered[inputId] = false;
+  }
+}
+
+function checkMastery_kw(inputId, keywords, explanation) {
+  const input = document.getElementById(inputId);
+  const fb = document.getElementById(inputId + '-fb');
+  const val = input.value.trim().toLowerCase();
+
+  if (val.length < 4) {
+    fb.style.display = 'block';
+    fb.className = 'feedback wrong';
+    fb.innerHTML = '❌ Please write a fuller answer before checking.';
+    return;
+  }
+
+  if (masteryAnswered[inputId] !== undefined) return;
+
+  let found = false;
+  for (let kw of keywords) {
+    if (val.includes(kw.toLowerCase())) { found = true; break; }
+  }
+
+  fb.style.display = 'block';
+  if (found) {
+    fb.className = 'feedback correct';
+    fb.innerHTML = '✅ Well done! ' + explanation;
+    masteryCorrect++;
+    masteryAnswered[inputId] = true;
+  } else {
+    fb.className = 'feedback wrong';
+    fb.innerHTML = '❌ Not quite. Think about: ' + keywords.slice(0,4).join(', ') + '. ' + explanation;
+    masteryAnswered[inputId] = false;
+  }
+}
+
+function checkMasteryMCQ(qId, chosen, correct) {
+  if (masteryAnswered[qId] !== undefined) return;
+
+  const opts = document.getElementById(qId + '-opts').children;
+  const fb = document.getElementById(qId + '-fb');
+  const letters = ['A','B','C','D','E'];
+
+  for (let i = 0; i < opts.length; i++) {
+    opts[i].style.pointerEvents = 'none';
+    if (letters[i] === correct) opts[i].classList.add('selected-correct');
+    if (letters[i] === chosen && chosen !== correct) opts[i].classList.add('selected-wrong');
+  }
+
+  fb.style.display = 'block';
+  if (chosen === correct) {
+    fb.className = 'mcq-feedback correct';
+    fb.innerHTML = '✅ Correct! Option ' + correct + ' is directly supported by the passage.';
+    masteryCorrect++;
+    masteryAnswered[qId] = true;
+  } else {
+    fb.className = 'mcq-feedback wrong';
+    fb.innerHTML = '❌ The correct answer is <strong>' + correct + '</strong>. Go back and re-read the relevant part of the passage.';
+    masteryAnswered[qId] = false;
+  }
+}
+
+function showMasteryScore() {
+  const display = document.getElementById('mastery-score-display');
+  const num = document.getElementById('mastery-score-num');
+  const msg = document.getElementById('mastery-score-msg');
+
+  display.style.display = 'block';
+  num.textContent = masteryCorrect + '/10';
+
+  let message = '';
+  if (masteryCorrect >= 9) message = '⭐ Outstanding! You are exam-ready.';
+  else if (masteryCorrect >= 7) message = '✅ Strong work. Review the questions you missed and you\'re ready.';
+  else if (masteryCorrect >= 5) message = '📖 Good progress. Re-read sections 8 and 9 and try again.';
+  else message = '🔄 Keep practising. Go back through each section and retry.';
+
+  msg.textContent = message;
+  display.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ============================================================
+// Fix the s5q2 inline JS typo — extra apostrophe in selector
+// (corrected in the button, handled here by targeting the real input)
+// ============================================================
+// Q27 check — button has a typo in the onclick. Patch it:
+document.addEventListener('DOMContentLoaded', function() {
+  const btn27 = document.querySelector('[onclick*="s5q2,"]');
+  if (btn27) {
+    btn27.setAttribute('onclick', "checkKeywords('s5q2',['sharp','dangerous','cold','insincere','false','threat','unnerv','sinister'],'A blade-thin smile combines sharpness and danger — the reader senses it is not a warm or genuine smile but something cold, possibly threatening or calculating.')");
+  }
+});
+</script>
+
+</body>
+</html>
