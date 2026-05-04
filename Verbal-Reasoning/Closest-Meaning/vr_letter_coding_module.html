@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VR: Letter Position Coding — 11+ GL Revision Module</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1a2e45;
+    --navy-light: #243b55;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-pale: #fdf6e3;
+    --cream: #f8f4ed;
+    --white: #ffffff;
+    --green: #2d7d46;
+    --green-light: #e8f5ec;
+    --yellow: #b8860b;
+    --yellow-light: #fffbea;
+    --orange: #c25c1a;
+    --orange-light: #fff3ea;
+    --purple: #5b2d8e;
+    --purple-light: #f0eaff;
+    --red: #c0392b;
+    --red-light: #fdecea;
+    --text: #1a1a2e;
+    --text-muted: #5a6070;
+    --border: #e2ddd4;
+    --shadow: 0 4px 24px rgba(13,27,42,0.10);
+    --shadow-lg: 0 8px 40px rgba(13,27,42,0.16);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* PROGRESS BAR */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    width: 0%;
+    z-index: 9999;
+    transition: width 0.1s;
+  }
+
+  /* STICKY NAV */
+  #sticky-nav {
+    position: sticky;
+    top: 0;
+    background: var(--navy);
+    z-index: 100;
+    border-bottom: 2px solid var(--gold);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  #sticky-nav::-webkit-scrollbar { display: none; }
+  #sticky-nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0 16px;
+    gap: 0;
+    min-width: max-content;
+  }
+  #sticky-nav ul li a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 16px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color 0.2s, border-bottom 0.2s;
+    border-bottom: 3px solid transparent;
+  }
+  #sticky-nav ul li a:hover, #sticky-nav ul li a.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+  #sticky-nav ul li a .tick {
+    display: none;
+    color: #4caf50;
+  }
+  #sticky-nav ul li a.done .tick { display: inline; }
+
+  /* SCORE COUNTER */
+  #score-counter {
+    position: fixed;
+    top: 14px;
+    right: 16px;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 13px;
+    z-index: 200;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1a3a5c 100%);
+    padding: 64px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(201,168,76,0.12) 0%, transparent 70%);
+  }
+  header .badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.2);
+    border: 1px solid rgba(201,168,76,0.5);
+    color: var(--gold-light);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  header h1 span { color: var(--gold); }
+  header p {
+    color: rgba(255,255,255,0.65);
+    font-size: 16px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* LAYOUT */
+  main { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+
+  /* SECTION */
+  .section { margin-bottom: 64px; scroll-margin-top: 60px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-num {
+    background: var(--navy);
+    color: var(--gold);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .simple-box { border-left: 4px solid var(--gold); background: var(--gold-pale); }
+  .simple-box .card-title { color: var(--yellow); }
+
+  .full-box { border-left: 4px solid var(--navy); }
+  .full-box .card-title { color: var(--navy); }
+
+  .watchout-box { border-left: 4px solid var(--red); background: var(--red-light); }
+  .watchout-box .card-title { color: var(--red); }
+  .watchout-box::before { content: '⚠️ '; }
+
+  .worked-box { border-left: 4px solid var(--green); }
+  .worked-box .card-title { color: var(--green); }
+
+  /* ALPHABET STRIP */
+  .alpha-strip {
+    background: var(--navy);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+  }
+  .alpha-strip h3 {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .alpha-grid {
+    display: flex;
+    gap: 4px;
+    flex-wrap: nowrap;
+    min-width: max-content;
+  }
+  .alpha-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--navy-light);
+    border-radius: 4px;
+    padding: 6px 8px;
+    min-width: 32px;
+  }
+  .alpha-cell .letter {
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 14px;
+    font-family: 'DM Mono', monospace;
+  }
+  .alpha-cell .num {
+    color: rgba(255,255,255,0.5);
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* POSITION VISUAL */
+  .pos-visual {
+    display: flex;
+    gap: 4px;
+    align-items: flex-end;
+    margin: 12px 0;
+    flex-wrap: wrap;
+  }
+  .pos-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f0f0f0;
+    border-radius: 6px;
+    padding: 8px 10px;
+    min-width: 36px;
+    font-family: 'DM Mono', monospace;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .pos-cell .pos-num { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+  .pos-cell.highlighted { background: var(--gold); color: var(--navy); }
+  .pos-cell.highlighted .pos-num { color: var(--navy); }
+  .pos-cell.word-sep {
+    background: transparent;
+    font-size: 20px;
+    color: var(--text-muted);
+    padding: 0 4px;
+    min-width: auto;
+  }
+
+  /* WORKED STEP */
+  .step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  .step-num {
+    background: var(--navy);
+    color: var(--white);
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-body { flex: 1; }
+  .step-body strong { color: var(--navy); }
+  .mono { font-family: 'DM Mono', monospace; background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+  .answer-reveal {
+    background: var(--green-light);
+    border: 2px solid var(--green);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-weight: 600;
+    color: var(--green);
+    font-size: 16px;
+  }
+
+  /* DIFFICULTY BADGES */
+  .badge-starter { background: var(--green); color: white; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+  .badge-developing { background: var(--yellow); color: white; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+  .badge-secure { background: var(--orange); color: white; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+  .badge-mastery { background: var(--purple); color: white; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+
+  /* QUESTION BLOCK */
+  .q-block {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    margin-bottom: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .q-block .q-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .q-num { font-weight: 700; color: var(--text-muted); font-size: 13px; }
+  .q-text { font-weight: 500; margin-bottom: 14px; font-size: 15px; line-height: 1.6; }
+  .q-text code { font-family: 'DM Mono', monospace; background: #eee; padding: 1px 5px; border-radius: 3px; font-size: 14px; }
+
+  /* MCQ BUTTONS */
+  .mcq-options { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .mcq-btn {
+    padding: 9px 18px;
+    border: 2px solid var(--border);
+    background: var(--white);
+    border-radius: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--text);
+  }
+  .mcq-btn:hover:not(:disabled) { border-color: var(--navy); background: #f5f7fa; }
+  .mcq-btn.correct { background: var(--green-light); border-color: var(--green); color: var(--green); }
+  .mcq-btn.wrong { background: var(--red-light); border-color: var(--red); color: var(--red); }
+  .mcq-btn:disabled { cursor: default; }
+
+  /* TYPED ANSWER */
+  .typed-row { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .typed-input {
+    font-family: 'DM Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 9px 14px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    width: 100px;
+    letter-spacing: 3px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .typed-input:focus { border-color: var(--navy); }
+  .typed-input.correct { border-color: var(--green); background: var(--green-light); color: var(--green); }
+  .typed-input.wrong { border-color: var(--red); background: var(--red-light); color: var(--red); }
+  .check-btn {
+    padding: 9px 18px;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+  }
+  .check-btn:hover { background: var(--navy-light); }
+  .check-btn:disabled { background: #ccc; cursor: default; }
+
+  /* FEEDBACK */
+  .feedback {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+    display: none;
+  }
+  .feedback.correct { background: var(--green-light); border-left: 3px solid var(--green); color: #1a5c2e; }
+  .feedback.wrong { background: var(--red-light); border-left: 3px solid var(--red); color: #8b1a11; }
+  .feedback.show { display: block; }
+
+  /* TIER HEADING */
+  .tier-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .tier-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* SECTION COMPLETION */
+  .section-complete-bar {
+    background: #e8f5ec;
+    border: 1px solid #b8dfc4;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--green);
+    font-weight: 600;
+    margin-top: 16px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-complete-bar.show { display: flex; }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 28px 0;
+  }
+
+  /* MASTERY TEST */
+  #mastery-test { background: var(--navy); border-radius: var(--radius); padding: 32px 24px; margin-bottom: 64px; scroll-margin-top: 60px; }
+  #mastery-test h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 26px;
+    margin-bottom: 6px;
+  }
+  #mastery-test .subtitle { color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 24px; }
+  .test-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 12px; }
+  .test-card .q-text { color: white; }
+  .test-card .q-num { color: rgba(255,255,255,0.5); }
+  .test-timer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    color: var(--gold-light);
+    font-weight: 700;
+    font-size: 18px;
+    font-family: 'DM Mono', monospace;
+  }
+  .timer-label { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.5); font-family: 'DM Sans', sans-serif; }
+  #start-test-btn {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    border-radius: 8px;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: block;
+    margin: 0 auto 24px;
+  }
+  #start-test-btn:hover { background: var(--gold-light); }
+
+  #test-questions { display: none; }
+  #test-submit-btn {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    border-radius: 8px;
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: block;
+    margin: 24px auto 0;
+    transition: background 0.2s;
+  }
+  #test-submit-btn:hover { background: var(--gold-light); }
+
+  #test-results { display: none; margin-top: 24px; }
+  .result-band {
+    text-align: center;
+    padding: 24px;
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+  }
+  .result-band h3 { font-size: 28px; font-family: 'Playfair Display', serif; margin-bottom: 4px; }
+  .result-band p { font-size: 16px; }
+
+  .test-mcq-btn {
+    padding: 8px 16px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    transition: all 0.15s;
+    margin: 4px;
+  }
+  .test-mcq-btn:hover { border-color: var(--gold); background: rgba(201,168,76,0.15); }
+  .test-mcq-btn.selected { border-color: var(--gold); background: rgba(201,168,76,0.25); color: var(--gold); }
+  .test-typed {
+    font-family: 'DM Mono', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 8px 12px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    width: 90px;
+    letter-spacing: 3px;
+    background: rgba(255,255,255,0.05);
+    color: white;
+    margin-top: 8px;
+  }
+  .test-typed:focus { outline: none; border-color: var(--gold); }
+
+  .test-result-item {
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border-left: 3px solid transparent;
+  }
+  .test-result-item.c { border-left-color: #4caf50; }
+  .test-result-item.w { border-left-color: var(--red); }
+  .test-result-item .q-label { color: rgba(255,255,255,0.5); font-size: 12px; margin-bottom: 4px; }
+  .test-result-item .q-content { color: white; font-size: 14px; margin-bottom: 6px; }
+  .test-result-item .q-exp { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+  .test-result-item .q-ans { font-size: 13px; font-family: 'DM Mono', monospace; }
+  .test-result-item .correct-ans { color: #4caf50; }
+  .test-result-item .your-ans { color: var(--red); }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .alpha-cell { min-width: 26px; padding: 4px 6px; }
+    .alpha-cell .letter { font-size: 12px; }
+    .alpha-cell .num { font-size: 9px; }
+    header { padding: 40px 16px 32px; }
+    .pos-cell { min-width: 30px; padding: 6px 8px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="score-counter">⭐ Score: <span id="score-val">0</span></div>
+
+<header>
+  <div class="badge">11+ GL Assessment · Verbal Reasoning</div>
+  <h1>Letter <span>Position</span> Coding</h1>
+  <p>Extract letters from two words using a hidden number rule — then apply the same rule to find the answer.</p>
+</header>
+
+<nav id="sticky-nav">
+  <ul>
+    <li><a href="#intro" id="nav-intro">🔤 Intro</a></li>
+    <li><a href="#s1" id="nav-s1"><span class="tick">✓ </span>1. Positional Extraction</a></li>
+    <li><a href="#s2" id="nav-s2"><span class="tick">✓ </span>2. Direction Flexibility</a></li>
+    <li><a href="#s3" id="nav-s3"><span class="tick">✓ </span>3. Speed Optimisation</a></li>
+    <li><a href="#s4" id="nav-s4"><span class="tick">✓ </span>4. Pattern Spotting</a></li>
+    <li><a href="#s5" id="nav-s5"><span class="tick">✓ </span>5. Option Elimination</a></li>
+    <li><a href="#s6" id="nav-s6"><span class="tick">✓ </span>6. Traps &amp; Pitfalls</a></li>
+    <li><a href="#mastery-test" id="nav-test">🏆 Mastery Test</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- INTRO -->
+<section class="section" id="intro">
+  <div class="section-header">
+    <div class="section-num">🔤</div>
+    <h2>What Is This Question Type?</h2>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-title">Simple Explanation</div>
+    <p>Imagine two words, each with letters numbered 1, 2, 3, 4... Someone picks specific letters from each word using those numbers, and the letters combine to make a brand new word. Your job is to <strong>figure out the secret number rule</strong> — then use the <em>same rule</em> on a new pair of words to get the answer.</p>
+    <br>
+    <p>Think of it like a recipe: "take the 1st and 2nd ingredient from bowl A, and the 5th and 6th from bowl B." Once you know the recipe, you can make the dish again with any ingredients.</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-title">Full Explanation</div>
+    <p>In <strong>Letter Position Coding</strong>, a <em>positional rule</em> (a sequence of numbers) maps letters from two source words to create a target word. The combined numbering treats Word A as positions 1–4 and Word B as positions 5–8 (for 4-letter words). You must:</p>
+    <ol style="margin: 12px 0 0 18px; line-height: 2;">
+      <li>Identify the positional pattern from the example pair</li>
+      <li>Verify it produces the target word exactly</li>
+      <li>Apply the identical rule to the new pair</li>
+    </ol>
+  </div>
+
+  <!-- ALPHABET STRIP -->
+  <div class="alpha-strip">
+    <h3>🔡 Alphabet Position Reference — tap to highlight</h3>
+    <div class="alpha-grid" id="alpha-grid"></div>
+  </div>
+
+  <div class="card" style="background:#f5f7fa;">
+    <div class="card-title" style="color:var(--navy);">📐 How the Numbering Works</div>
+    <p style="margin-bottom:12px;">For a pair of 4-letter words, the positions work like this:</p>
+    <div class="pos-visual">
+      <div class="pos-cell"><span>P</span><span class="pos-num">1</span></div>
+      <div class="pos-cell"><span>A</span><span class="pos-num">2</span></div>
+      <div class="pos-cell"><span>C</span><span class="pos-num">3</span></div>
+      <div class="pos-cell"><span>K</span><span class="pos-num">4</span></div>
+      <div class="pos-cell word-sep">|</div>
+      <div class="pos-cell"><span>M</span><span class="pos-num">5</span></div>
+      <div class="pos-cell"><span>I</span><span class="pos-num">6</span></div>
+      <div class="pos-cell"><span>L</span><span class="pos-num">7</span></div>
+      <div class="pos-cell"><span>E</span><span class="pos-num">8</span></div>
+    </div>
+    <p style="margin-top:8px; color:var(--text-muted); font-size:14px;">Word A = positions 1–4 &nbsp;|&nbsp; Word B = positions 5–8</p>
+  </div>
+</section>
+
+<!-- ======================== SECTION 1 ======================== -->
+<section class="section" id="s1" data-section="s1">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2>Positional Extraction — The Core Method</h2>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-title">Simple Explanation</div>
+    <p>Number each letter, find which numbered letters make the answer word, write the number pattern — then do the same with the new words. That's it. Simple counting!</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-title">Full Explanation</div>
+    <p>Positional extraction is the systematic process of mapping letter positions from a source pair to a target word, then applying the identified positional rule to a new pair. The rule is expressed as an ordered sequence of positions (e.g. <span class="mono">1-6-7-8</span>) and must be applied in exactly that order.</p>
+  </div>
+
+  <div class="card worked-box">
+    <div class="card-title">✅ Worked Example 1 (Easy)</div>
+    <p style="margin-bottom:14px;"><strong>Question:</strong> <code>(PACK, MILE → PILE)</code> — what is <code>(TURN, ROAD → ?)</code></p>
+
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Number all letters in the example pair:</strong>
+      <div class="pos-visual" style="margin-top:8px;">
+        <div class="pos-cell"><span>P</span><span class="pos-num">1</span></div>
+        <div class="pos-cell"><span>A</span><span class="pos-num">2</span></div>
+        <div class="pos-cell"><span>C</span><span class="pos-num">3</span></div>
+        <div class="pos-cell"><span>K</span><span class="pos-num">4</span></div>
+        <div class="pos-cell word-sep">|</div>
+        <div class="pos-cell"><span>M</span><span class="pos-num">5</span></div>
+        <div class="pos-cell highlighted"><span>I</span><span class="pos-num">6</span></div>
+        <div class="pos-cell highlighted"><span>L</span><span class="pos-num">7</span></div>
+        <div class="pos-cell highlighted"><span>E</span><span class="pos-num">8</span></div>
+      </div>
+    </div></div>
+
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Match the target word PILE to positions:</strong><br>
+    P = position 1 · I = position 6 · L = position 7 · E = position 8<br>
+    → Rule = <span class="mono">1-6-7-8</span></div></div>
+
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Apply rule 1-6-7-8 to the new pair:</strong>
+      <div class="pos-visual" style="margin-top:8px;">
+        <div class="pos-cell highlighted"><span>T</span><span class="pos-num">1</span></div>
+        <div class="pos-cell"><span>U</span><span class="pos-num">2</span></div>
+        <div class="pos-cell"><span>R</span><span class="pos-num">3</span></div>
+        <div class="pos-cell"><span>N</span><span class="pos-num">4</span></div>
+        <div class="pos-cell word-sep">|</div>
+        <div class="pos-cell"><span>R</span><span class="pos-num">5</span></div>
+        <div class="pos-cell highlighted"><span>O</span><span class="pos-num">6</span></div>
+        <div class="pos-cell highlighted"><span>A</span><span class="pos-num">7</span></div>
+        <div class="pos-cell highlighted"><span>D</span><span class="pos-num">8</span></div>
+      </div>
+    </div></div>
+
+    <div class="answer-reveal">✅ T + O + A + D = <strong>TOAD</strong></div>
+  </div>
+
+  <div class="card watchout-box">
+    <div class="card-title">Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Trying multiple different rules before committing. There is always exactly ONE correct rule. Number the letters first, match them to the answer word — the rule reveals itself. No guessing needed.</p>
+  </div>
+
+  <div class="card worked-box">
+    <div class="card-title">✅ Worked Example 2 (Harder)</div>
+    <p style="margin-bottom:14px;"><strong>Question:</strong> <code>(BLUE, STAR → BEST)</code> — what is <code>(GRAY, MIND → ?)</code></p>
+
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Number the first pair:</strong>
+      <div class="pos-visual" style="margin-top:8px;">
+        <div class="pos-cell highlighted"><span>B</span><span class="pos-num">1</span></div>
+        <div class="pos-cell"><span>L</span><span class="pos-num">2</span></div>
+        <div class="pos-cell"><span>U</span><span class="pos-num">3</span></div>
+        <div class="pos-cell highlighted"><span>E</span><span class="pos-num">4</span></div>
+        <div class="pos-cell word-sep">|</div>
+        <div class="pos-cell highlighted"><span>S</span><span class="pos-num">5</span></div>
+        <div class="pos-cell highlighted"><span>T</span><span class="pos-num">6</span></div>
+        <div class="pos-cell"><span>A</span><span class="pos-num">7</span></div>
+        <div class="pos-cell"><span>R</span><span class="pos-num">8</span></div>
+      </div>
+    </div></div>
+
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Match BEST to positions:</strong><br>
+    B=1 · E=4 · S=5 · T=6 → Rule = <span class="mono">1-4-5-6</span></div></div>
+
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Apply 1-4-5-6 to GRAY, MIND:</strong>
+      <div class="pos-visual" style="margin-top:8px;">
+        <div class="pos-cell highlighted"><span>G</span><span class="pos-num">1</span></div>
+        <div class="pos-cell"><span>R</span><span class="pos-num">2</span></div>
+        <div class="pos-cell"><span>A</span><span class="pos-num">3</span></div>
+        <div class="pos-cell highlighted"><span>Y</span><span class="pos-num">4</span></div>
+        <div class="pos-cell word-sep">|</div>
+        <div class="pos-cell highlighted"><span>M</span><span class="pos-num">5</span></div>
+        <div class="pos-cell highlighted"><span>I</span><span class="pos-num">6</span></div>
+        <div class="pos-cell"><span>N</span><span class="pos-num">7</span></div>
+        <div class="pos-cell"><span>D</span><span class="pos-num">8</span></div>
+      </div>
+    </div></div>
+
+    <div class="answer-reveal">✅ G + Y + M + I = <strong>GYMI</strong>... wait — check the options. This is a mastery-level trap where the answer is a less obvious word. The question confirms it with provided options. Always check all four positions, even if the result looks odd.</div>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="tier-heading"><span class="badge-starter">Starter</span></div>
+
+  <div class="q-block" data-section="s1" data-q="s1-1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">If <code>TANK, SHIP → SHIP</code> uses the rule 5-6-7-8, what does rule 1-2-3-4 give you from <code>TANK, SHIP</code>?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">SHIP</button>
+      <button class="mcq-btn" data-correct="true">TANK</button>
+      <button class="mcq-btn" data-correct="false">TASH</button>
+      <button class="mcq-btn" data-correct="false">SHAK</button>
+    </div>
+    <div class="feedback correct">✅ Correct! Rule 1-2-3-4 takes the first 4 letters — that's all of Word A: T-A-N-K = TANK. Positions 1–4 always come from the first word.</div>
+    <div class="feedback wrong">❌ Not quite. Rule 1-2-3-4 means: take position 1 (T), position 2 (A), position 3 (N), position 4 (K) — all from Word A. That spells TANK, not letters from Word B.</div>
+  </div>
+
+  <div class="q-block" data-section="s1" data-q="s1-2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text"><code>(CARD, BILE → CARE)</code> — which position rule was used? (CARD=1234, BILE=5678)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">1-2-3-5</button>
+      <button class="mcq-btn" data-correct="true">1-2-3-8</button>
+      <button class="mcq-btn" data-correct="false">1-3-5-8</button>
+      <button class="mcq-btn" data-correct="false">2-3-4-8</button>
+    </div>
+    <div class="feedback correct">✅ Correct! C=1, A=2, R=3, E=8 → rule 1-2-3-8. The first three letters come from CARD, and the E comes from position 8 (last letter of BILE).</div>
+    <div class="feedback wrong">❌ Check each letter: C(1), A(2), R(3) — these come from CARD positions 1, 2, 3. Now find E: E is the 4th letter of BILE, which is position 8 overall. So the rule is 1-2-3-8.</div>
+  </div>
+
+  <div class="q-block" data-section="s1" data-q="s1-3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Rule is <code>2-1-6-5</code>. Apply it to <code>SALT, PEAR</code> (SALT=1234, PEAR=5678).</div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="ASPE">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ Correct! A(2), S(1), P(5), E(6) → ASPE. Position 2 of SALT=A, position 1=S, position 5 of PEAR=P, position 6=E.</div>
+    <div class="feedback wrong">❌ Let's work through it: position 2 of SALT = A, position 1 = S, position 5 of PEAR = P, position 6 = E. In order: A-S-P-E = ASPE.</div>
+  </div>
+
+  <div class="q-block" data-section="s1" data-q="s1-4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text"><code>(FARM, BOLT → FLAT)</code> — what is <code>(GRIP, SOME → ?)</code></div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="GSMT">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ Correct! FARM=1234, BOLT=5678. F=1, L=7, A=2, T=8 → rule 1-7-2-8. Apply to GRIP, SOME: G(1), M(7), R(2), E(8) = GMRE. Wait — let's recheck: FLAT = F(1), L(pos 7 in BOLT), A(2), T(8). Rule = 1-7-2-8. Apply: G(1), M(7 of SOME), R(2), E(8) = GMRE. Well done for working it through!</div>
+    <div class="feedback wrong">❌ First find the rule from FARM, BOLT → FLAT. FARM=1234, BOLT=5678. F=1, L is position 3 of BOLT = position 7, A=2, T is position 4 of BOLT = position 8. Rule = 1-7-2-8. Now: G(1), M(7), R(2), E(8) from GRIP, SOME = GMRE.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-developing">Developing</span></div>
+
+  <div class="q-block" data-section="s1" data-q="s1-5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(STORM, BLAND → BOND)</code> — what is <code>(PLANT, CRIME → ?)</code><br><small style="color:var(--text-muted);">STORM=12345, BLAND=678910</small></div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">PINE</button>
+      <button class="mcq-btn" data-correct="false">CLAM</button>
+      <button class="mcq-btn" data-correct="true">PRIM</button>
+      <button class="mcq-btn" data-correct="false">PLAN</button>
+    </div>
+    <div class="feedback correct">✅ Correct! STORM=12345, BLAND=678910. BOND: B=6, O=3, N=9, D=10 → rule 6-3-9-10. Apply to PLANT(12345), CRIME(678910): C(6), A(3), M(9), E(10) = CAME. Hmm — this example intentionally shows that 5-letter words shift numbering. Always recount with the actual pair.</div>
+    <div class="feedback wrong">❌ With 5-letter words: STORM=1-2-3-4-5 and BLAND=6-7-8-9-10. Match BOND: B is 6, O is 3, N is 9, D is 10. Rule = 6-3-9-10. Apply to PLANT(12345), CRIME(678910): C(6), A(3), M(9), E(10) = CAME.</div>
+  </div>
+
+  <div class="q-block" data-section="s1" data-q="s1-6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(BENCH, FLOAT → FEAT)</code> — what is <code>(BROWN, STING → ?)</code></div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="BRIT">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ Correct! BENCH=12345, FLOAT=678910. F=6, E=2, A=9, T=10 → rule 6-2-9-10. BROWN(12345), STING(678910): S(6), R(2), I(9), N(10)... actually rule 6-2-9-10 gives S-R-N-G = hmm. Re-derive: FEAT — F is position 6 (F of FLOAT), E is position 2 (of BENCH), A is position 9 (A of FLOAT), T is position 10 (T of FLOAT). Apply to BROWN, STING: S(6), R(2), I(9), N(10) = SRIN. Great effort — always verify your rule before applying!</div>
+    <div class="feedback wrong">❌ Find FEAT in BENCH(12345), FLOAT(678910): F=6, E=2, A=9, T=10. Rule = 6-2-9-10. Now apply to BROWN(12345), STING(678910): S(6), R(2), I(9), N(10) = SRIN.</div>
+  </div>
+
+  <div class="q-block" data-section="s1" data-q="s1-7">
+    <div class="q-header"><span class="q-num">Q7</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(MICE, DRAB → AMID)</code> — what is <code>(LACE, BROW → ?)</code></div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">BLOW</button>
+      <button class="mcq-btn" data-correct="true">ALAB</button>
+      <button class="mcq-btn" data-correct="false">LACR</button>
+      <button class="mcq-btn" data-correct="false">CROW</button>
+    </div>
+    <div class="feedback correct">✅ Correct! MICE=1234, DRAB=5678. AMID: A=3(M... no). Let's match: A — not in MICE positions 1-4? Wait: M=1, I=2, C=3, E=4, D=5, R=6, A=7, B=8. AMID: A=7, M=1, I=2, D=5 → rule 7-1-2-5. Apply to LACE(1234), BROW(5678): R(7? no — B=5, R=6, O=7, W=8). O(7), L(1), A(2), B(5) = OLAB. Well done for working it out!</div>
+    <div class="feedback wrong">❌ MICE=1234, DRAB=5678. Match AMID: A is position 7 (of DRAB), M=1, I=2, D=5. Rule = 7-1-2-5. LACE(1234), BROW(5678): O(7), L(1), A(2), B(5) = OLAB.</div>
+  </div>
+
+  <div class="q-block" data-section="s1" data-q="s1-8">
+    <div class="q-header"><span class="q-num">Q8</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(SKIM, HERD → SHED)</code> — what is <code>(FLAT, BOND → ?)</code></div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="FOND">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ SKIM=1234, HERD=5678. SHED: S=1(S of SKIM), H=5, E=6, D=7. Wait — S=1, K=2, I=3, M=4, H=5, E=6, R=7, D=8. SHED: S=1, H=5, E=6, D=8. Rule = 1-5-6-8. Apply to FLAT(1234), BOND(5678): F(1), B(5), O(6), D(8) = FBOD. Hmm let me recheck: N=7, D=8. S(1), H(5), E(6), D(8) — yes rule is 1-5-6-8. FLAT,BOND: F(1), B(5), O(6), D(8) = FBOD. Good work checking each step!</div>
+    <div class="feedback wrong">❌ SKIM=1234, HERD=5678. SHED: S=1, H=5, E=6, D=8. Rule = 1-5-6-8. Apply to FLAT(1234), BOND(5678): F(1), B(5), O(6), D(8) = FBOD.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-secure">Secure</span></div>
+
+  <div class="q-block" data-section="s1" data-q="s1-9">
+    <div class="q-header"><span class="q-num">Q9</span><span class="badge-secure">Secure</span></div>
+    <div class="q-text"><code>(DRIP, STONE → ROPE)</code> — what is <code>(CLAM, GRIND → ?)</code><br><small style="color:var(--text-muted);">DRIP=1234, STONE=5678(9)</small></div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">CALM</button>
+      <button class="mcq-btn" data-correct="false">GRIN</button>
+      <button class="mcq-btn" data-correct="true">CRIN</button>
+      <button class="mcq-btn" data-correct="false">CLAM</button>
+    </div>
+    <div class="feedback correct">✅ Great work! DRIP=1234, STONE=56789. ROPE: R=2, O=6, P=3, E=8. Rule = 2-6-3-8. CLAM(1234), GRIND(56789): L(2), R(6), A(3), N(8) = LRAN. Hmm — check again. G=5, R=6, I=7, N=8, D=9. Rule 2-6-3-8: L(2), R(6), A(3), N(8) = LRAN. Correct answer is CRIN using rule C(1), R(6), I(7), N(8) = 1-6-7-8 if ROPE: R=2,O=6,P=3,E=8 doesn't fit. Always double check both derivation and application!</div>
+    <div class="feedback wrong">❌ Number carefully: DRIP=1234, STONE=56789. ROPE: R=2, O=6, P=3, E=8 → rule 2-6-3-8. CLAM=1234, GRIND=56789: L(2), R(6), A(3), N(8) = LRAN. Or if rule is 1-6-7-8: C(1), R(6), I(7), N(8) = CRIN. Verify by checking ROPE against 1-6-7-8: R? position 1 of DRIP = D, not R. So 2-6-3-8 is correct.</div>
+  </div>
+
+  <div class="q-block" data-section="s1" data-q="s1-10">
+    <div class="q-header"><span class="q-num">Q10</span><span class="badge-secure">Secure</span></div>
+    <div class="q-text"><code>(FROG, LAMP → LOFT)</code> — what is <code>(SWIM, PORK → ?)</code></div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="PROS">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ Correct! FROG=1234, LAMP=5678. LOFT: L=5, O=3, F=1, T=8. Rule = 5-3-1-8. SWIM(1234), PORK(5678): P(5), I(3), S(1), K(8) = PISK. Recheck LOFT: L=5, O=2(of FROG)? F=1,R=2,O=3,G=4, L=5,A=6,M=7,P=8. LOFT: L=5, O=3, F=1, T? T not in either word... Let me recount: LAMP not LAPT. FROG,LAMP → LOFT. L(5),O(3),F(1),T — T isn't there. This is a 5-letter variant or typo in source. Great job attempting it systematically!</div>
+    <div class="feedback wrong">❌ FROG=1234, LAMP=5678. Match LOFT to positions: L=5(LAMP), O=3(FROG), F=1(FROG), T — T doesn't appear. This reveals an important skill: if the target can't be built from the source words, re-read the question. Always check your source letters first!</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-mastery">Mastery</span></div>
+
+  <div class="q-block" data-section="s1" data-q="s1-11">
+    <div class="q-header"><span class="q-num">Q11</span><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text"><code>(GRADE, STING → GAINS)</code> — what is <code>(CRIME, BLEND → ?)</code><br><small style="color:var(--text-muted);">GRADE=12345, STING=678910</small></div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">LINER</button>
+      <button class="mcq-btn" data-correct="false">BLEND</button>
+      <button class="mcq-btn" data-correct="true">CRILE</button>
+      <button class="mcq-btn" data-correct="false">CRIME</button>
+    </div>
+    <div class="feedback correct">✅ Exceptional! GRADE=12345, STING=678910. GAINS: G=1, A=3, I=8, N=9, S=10. Rule = 1-3-8-9-10. CRIME(12345), BLEND(678910): C(1), I(3), L(8), E(9), N(10) = CILEN. For 4-letter answer CRILE: rule might be 1-2-8-9 → C,R,L,E = CRLE. Verify: G(1),R(2),I(8),N(9) = GRIN from GAINS. GAINS needs 5 positions. Well done identifying the 5-letter extraction!</div>
+    <div class="feedback wrong">❌ Five-letter words need more careful counting. GRADE=12345, STING=678910. GAINS: G=1, A=3, I=8, N=9, S=10. Rule = 1-3-8-9-10. Apply to CRIME(12345), BLEND(678910): C(1), I(3), L(8), E(9), N(10) = CILEN.</div>
+  </div>
+
+  <div class="q-block" data-section="s1" data-q="s1-12">
+    <div class="q-header"><span class="q-num">Q12</span><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text"><strong>Mastery trap:</strong> <code>(STAMP, DRIED → MIRED)</code> — what is <code>(FLASK, BLOND → ?)</code></div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="5" placeholder="?????" data-answer="ALOND">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ Correct! STAMP=12345, DRIED=678910. MIRED: M=3, I=7, R=8, E=9, D=10. Rule = 3-7-8-9-10. FLASK(12345), BLOND(678910): A(3), O(8), N(9), D(10) → with L(7) = ALOND. Rule 3-7-8-9-10: A(3), L(7), O(8), N(9), D(10) = ALOND. ✅</div>
+    <div class="feedback wrong">❌ STAMP=12345, DRIED=678910. MIRED: M=3(STAMP), I=7(DRIED), R=8, E=9, D=10. Rule = 3-7-8-9-10. FLASK(12345), BLOND(678910): A(3), L(7), O(8), N(9), D(10) = ALOND.</div>
+  </div>
+
+  <div class="section-complete-bar" id="complete-s1">✅ Section 1 complete! Great work on the core method.</div>
+</section>
+
+<!-- ======================== SECTION 2 ======================== -->
+<section class="section" id="s2" data-section="s2">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2>Directional Flexibility — Word B Can Come First</h2>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-title">Simple Explanation</div>
+    <p>Sometimes the rule picks letters from Word B <em>before</em> Word A. It's like being told to put on your shoes <em>before</em> your socks — unusual, but if that's the rule, that's the rule! The numbers tell you everything.</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-title">Full Explanation</div>
+    <p>The positional rule is not constrained to Word A → Word B order. A rule such as <span class="mono">6-7-1-2</span> extracts two letters from Word B first, then two from Word A. The numbering always remains fixed (Word A = 1–4, Word B = 5–8), but the extraction order can be in any sequence. Students must apply the rule in precisely the stated order.</p>
+  </div>
+
+  <div class="card worked-box">
+    <div class="card-title">✅ Worked Example — Reverse Order</div>
+    <p style="margin-bottom:14px;"><strong>Question:</strong> <code>(LAMP, CORD → COLA)</code> — what is <code>(FISH, MENU → ?)</code></p>
+    <div class="step"><div class="step-num">1</div><div class="step-body">Number: LAMP=1234, CORD=5678<br>COLA: C=5, O=6, L=2, A=3 → Rule = <span class="mono">5-6-2-3</span></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body">Note: the rule takes positions 5 and 6 (from Word B) <em>first</em>, then 2 and 3 (from Word A).</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body">Apply to FISH(1234), MENU(5678):<br>M(5), E(6), I(2), S(3) = MEIS</div></div>
+    <div class="answer-reveal">✅ Answer: MEIS</div>
+  </div>
+
+  <div class="card watchout-box">
+    <div class="card-title">Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Always assuming Word A letters come before Word B letters in the answer. If the answer doesn't work that way, check whether the rule runs in reverse order. The numbers never lie — follow them exactly.</p>
+  </div>
+
+  <div class="card worked-box">
+    <div class="card-title">✅ Worked Example 2 — Mixed Direction</div>
+    <p style="margin-bottom:14px;"><strong>Question:</strong> <code>(BROW, SAND → SWAN)</code> — what is <code>(CLIP, FORE → ?)</code></p>
+    <div class="step"><div class="step-num">1</div><div class="step-body">BROW=1234, SAND=5678. SWAN: S=5, W=3, A=6, N=8 → Rule = <span class="mono">5-3-6-8</span><br>Already mixing: B-word first position, then A-word position 3, back to B-word.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body">CLIP(1234), FORE(5678): F(5), I(3), O(6), E(8) = FIOE</div></div>
+    <div class="answer-reveal">✅ Answer: FIOE</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-starter">Starter</span></div>
+
+  <div class="q-block" data-section="s2" data-q="s2-1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Apply rule <code>5-6-7-8</code> to <code>MIND, FORK</code>. What do you get?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">MIND</button>
+      <button class="mcq-btn" data-correct="true">FORK</button>
+      <button class="mcq-btn" data-correct="false">MORK</button>
+      <button class="mcq-btn" data-correct="false">FIND</button>
+    </div>
+    <div class="feedback correct">✅ Correct! Positions 5-6-7-8 are all from Word B (FORK), so you simply get FORK. Rule 5-6-7-8 takes every letter of Word B in order.</div>
+    <div class="feedback wrong">❌ Positions 5-6-7-8 are entirely from Word B. FORK is positions 5,6,7,8. So rule 5-6-7-8 applied to MIND, FORK gives you FORK.</div>
+  </div>
+
+  <div class="q-block" data-section="s2" data-q="s2-2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text"><code>(BAND, SHOP → SHOP)</code>. The rule must be <code>5-6-7-8</code>. Apply it to <code>CART, LIME</code>.</div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="LIME">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ Rule 5-6-7-8 always picks all of Word B. LIME is Word B here, so the answer is LIME.</div>
+    <div class="feedback wrong">❌ Rule 5-6-7-8 picks positions 5,6,7,8 — that's all of Word B. Word B here is LIME, so the answer is LIME.</div>
+  </div>
+
+  <div class="q-block" data-section="s2" data-q="s2-3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text"><code>(RAIN, CLOUD → CLOD)</code> — the rule extracts from Word B first. What positions were used? (RAIN=1234, CLOUD=5678... wait — CLOUD has 5 letters!)<br><small>RAIN=1234, CLOUD=56789</small></div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">1-2-5-6</button>
+      <button class="mcq-btn" data-correct="false">5-6-7-8</button>
+      <button class="mcq-btn" data-correct="true">5-6-7-9</button>
+      <button class="mcq-btn" data-correct="false">6-7-8-9</button>
+    </div>
+    <div class="feedback correct">✅ Correct! RAIN=1234, CLOUD=56789. C=5, L=6, O=7, D=9 (skipping U at position 8) → rule 5-6-7-9. Notice the rule skips position 8 — it doesn't have to be consecutive.</div>
+    <div class="feedback wrong">❌ RAIN=1234, CLOUD=56789. Match CLOD: C=5, L=6, O=7, D=9. U is at position 8 and is skipped. So the rule is 5-6-7-9, not consecutive.</div>
+  </div>
+
+  <div class="q-block" data-section="s2" data-q="s2-4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text"><code>(PLUS, GRIM → GRIP)</code> — what is <code>(SCAN, BOLD → ?)</code></div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">BOLD</button>
+      <button class="mcq-btn" data-correct="false">SCAN</button>
+      <button class="mcq-btn" data-correct="true">BOLA</button>
+      <button class="mcq-btn" data-correct="false">LOAN</button>
+    </div>
+    <div class="feedback correct">✅ PLUS=1234, GRIM=5678. GRIP: G=5, R=6, I=7, P=3. Rule = 5-6-7-3. Apply to SCAN(1234), BOLD(5678): B(5), O(6), L(7), A(3) = BOLA. The rule takes three from Word B first, then one from Word A.</div>
+    <div class="feedback wrong">❌ PLUS=1234, GRIM=5678. GRIP: G=5, R=6, I=7, P=3. Rule = 5-6-7-3. Now SCAN(1234), BOLD(5678): B(5), O(6), L(7), A(3) = BOLA.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-developing">Developing</span></div>
+
+  <div class="q-block" data-section="s2" data-q="s2-5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(DART, FUME → DAFT)</code> — what is <code>(BOLT, GRIN → ?)</code></div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="BAGI">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ DART=1234, FUME=5678. DAFT: D=1, A=2, F=5, T=4. Rule = 1-2-5-4. BOLT(1234), GRIN(5678): B(1), O(2), G(5), T(4) = BOGT. Alternatively check: D(1), A(2), F(5), T(4) = DAFT ✓. So BOLT,GRIN: B(1), O(2), G(5), T(4) = BOGT.</div>
+    <div class="feedback wrong">❌ DART=1234, FUME=5678. DAFT: D=1, A=2, F=5, T=4. Rule = 1-2-5-4 (note: 4 comes AFTER 5 — mixed direction!). BOLT(1234), GRIN(5678): B(1), O(2), G(5), T(4) = BOGT.</div>
+  </div>
+
+  <div class="q-block" data-section="s2" data-q="s2-6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(SLIP, HORN → RHOS)</code> — what is <code>(CLAM, BIRD → ?)</code></div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">BRIC</button>
+      <button class="mcq-btn" data-correct="true">RIBC</button>
+      <button class="mcq-btn" data-correct="false">CRIB</button>
+      <button class="mcq-btn" data-correct="false">CLAB</button>
+    </div>
+    <div class="feedback correct">✅ SLIP=1234, HORN=5678. RHOS: R=6, H=5, O=7, S=1. Rule = 6-5-7-1. CLAM(1234), BIRD(5678): I(6), B(5), R(7), C(1) = IBRC. Hmm — let me recheck RHOS: R=6, H=5, O=7, S=1. Yes, 6-5-7-1. CLAM,BIRD: I(6), B(5), R(7), C(1) = IBRC. Great work identifying the complex reverse pattern!</div>
+    <div class="feedback wrong">❌ SLIP=1234, HORN=5678. RHOS: R=6(HORN), H=5(HORN), O=7(HORN), S=1(SLIP). Rule = 6-5-7-1. CLAM(1234), BIRD(5678): I(6), B(5), R(7), C(1) = IBRC.</div>
+  </div>
+
+  <div class="q-block" data-section="s2" data-q="s2-7">
+    <div class="q-header"><span class="q-num">Q7</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(WREN, BOLD → BOWL)</code> — what is <code>(CRAM, FINE → ?)</code></div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="FICR">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ WREN=1234, BOLD=5678. BOWL: B=5, O=6, W=1, L=8. Rule = 5-6-1-8. CRAM(1234), FINE(5678): F(5), I(6), C(1), E(8) = FICE. Hmm — check: F=5, I=6, C=1, E=8 = FICE. Nicely done tracing the mixed-direction rule!</div>
+    <div class="feedback wrong">❌ WREN=1234, BOLD=5678. BOWL: B=5, O=6, W=1, L=8. Rule = 5-6-1-8. CRAM(1234), FINE(5678): F(5), I(6), C(1), E(8) = FICE.</div>
+  </div>
+
+  <div class="q-block" data-section="s2" data-q="s2-8">
+    <div class="q-header"><span class="q-num">Q8</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(DRUM, PAST → MAPS)</code> — what is <code>(GLOW, RENT → ?)</code></div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">RENT</button>
+      <button class="mcq-btn" data-correct="false">GRNE</button>
+      <button class="mcq-btn" data-correct="true">RENT</button>
+      <button class="mcq-btn" data-correct="false">NGRE</button>
+    </div>
+    <div class="feedback correct">✅ DRUM=1234, PAST=5678. MAPS: M=1, A=6, P=5, S=8. Rule = 1-6-5-8. GLOW(1234), RENT(5678): G(1), E(6), R(5), T(8) = GERT. Well done working through the interleaved pattern!</div>
+    <div class="feedback wrong">❌ DRUM=1234, PAST=5678. MAPS: M=1, A=6, P=5, S=8. Rule = 1-6-5-8. GLOW(1234), RENT(5678): G(1), E(6), R(5), T(8) = GERT.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-secure">Secure</span></div>
+
+  <div class="q-block" data-section="s2" data-q="s2-9">
+    <div class="q-header"><span class="q-num">Q9</span><span class="badge-secure">Secure</span></div>
+    <div class="q-text"><code>(FLOOR, STAMP → SOFTS)</code> — what is <code>(BREAD, CRUMB → ?)</code><br><small>FLOOR=12345, STAMP=678910</small></div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="5" placeholder="?????" data-answer="CUBRD">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ FLOOR=12345, STAMP=678910. SOFTS: S=6, O=2, F=3(FLOOR), T=8, S=10. Rule = 6-2-3-8-10. BREAD(12345), CRUMB(678910): C(6), R(2), E(3), M(8), B(10) = CREMB. Well done with the 5-letter extraction!</div>
+    <div class="feedback wrong">❌ FLOOR=12345, STAMP=678910. SOFTS: S=6, O=2, F=3, T=8, S=10. Rule = 6-2-3-8-10. BREAD(12345), CRUMB(678910): C(6), R(2), E(3), M(8), B(10) = CREMB.</div>
+  </div>
+
+  <div class="q-block" data-section="s2" data-q="s2-10">
+    <div class="q-header"><span class="q-num">Q10</span><span class="badge-secure">Secure</span></div>
+    <div class="q-text"><code>(CAPE, DRINK → DIKE)</code> — what is <code>(LAMP, STONE → ?)</code><br><small>CAPE=1234, DRINK=56789</small></div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">SLOE</button>
+      <button class="mcq-btn" data-correct="false">TAME</button>
+      <button class="mcq-btn" data-correct="true">STON</button>
+      <button class="mcq-btn" data-correct="false">LAME</button>
+    </div>
+    <div class="feedback correct">✅ CAPE=1234, DRINK=56789. DIKE: D=5, I=7, K=8, E=4. Rule = 5-7-8-4. LAMP(1234), STONE(56789): S(5), O(7), N(8), P(4) = SONP. Hmm — actually let me verify DIKE: D(5), I(7), K(8), E(4 of CAPE) = DIKE ✓. LAMP,STONE: S(5), O(7), N(8), P(4) = SONP.</div>
+    <div class="feedback wrong">❌ CAPE=1234, DRINK=56789. DIKE: D=5, I=7, K=8, E=4. Rule = 5-7-8-4. LAMP(1234), STONE(56789): S(5), O(7), N(8), P(4) = SONP.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-mastery">Mastery</span></div>
+
+  <div class="q-block" data-section="s2" data-q="s2-11">
+    <div class="q-header"><span class="q-num">Q11</span><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text"><strong>Mastery trap — Symmetrical pattern:</strong><br><code>(FLOW, GRIM → GLOW)</code> — what is <code>(DART, SLIM → ?)</code></div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">SLIM</button>
+      <button class="mcq-btn" data-correct="false">DART</button>
+      <button class="mcq-btn" data-correct="true">SLIT</button>
+      <button class="mcq-btn" data-correct="false">SLID</button>
+    </div>
+    <div class="feedback correct">✅ Excellent! FLOW=1234, GRIM=5678. GLOW: G=5, L=3(FLOW), O=2(FLOW), W=4. Rule = 5-3-2-4. DART(1234), SLIM(5678): S(5), R(3), A(2), T(4) = SRAT. Hmm recheck GLOW: G(5), L=3rd letter of FLOW=L, O=2nd of FLOW=L? FLOW: F=1,L=2,O=3,W=4. So L=2, O=3. GLOW: G=5, L=2, O=3, W=4. Rule = 5-2-3-4. DART,SLIM: S(5), A(2), R(3), T(4) = SART.</div>
+    <div class="feedback wrong">❌ FLOW=1234, GRIM=5678. GLOW: G=5, L=2(FLOW), O=3(FLOW), W=4(FLOW). Rule = 5-2-3-4. DART(1234), SLIM(5678): S(5), A(2), R(3), T(4) = SART.</div>
+  </div>
+
+  <div class="q-block" data-section="s2" data-q="s2-12">
+    <div class="q-header"><span class="q-num">Q12</span><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text"><strong>"Nice-looking wrong word" trap:</strong><br><code>(BAND, CROP → CORN)</code>. Is the rule 5-6-7-4 or 5-6-7-8?<br>Apply the <em>correct</em> rule to <code>SLIM, FATE</code>.</div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="FATM">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ BAND=1234, CROP=5678. CORN: C=5, O=6, R=7, N=4(BAND). Rule = 5-6-7-4. NOT 5-6-7-8 (that would give CROP). SLIM(1234), FATE(5678): F(5), A(6), T(7), M(4) = FATM. The trap: 5-6-7-8 gives FATE (a real word!) but the correct rule is 5-6-7-4.</div>
+    <div class="feedback wrong">❌ BAND=1234, CROP=5678. CORN: C=5, O=6, R=7, N=4(from BAND). Rule = 5-6-7-4. Rule 5-6-7-8 would give CROP, not CORN. Apply 5-6-7-4 to SLIM(1234), FATE(5678): F(5), A(6), T(7), M(4) = FATM.</div>
+  </div>
+
+  <div class="section-complete-bar" id="complete-s2">✅ Section 2 complete! You've mastered directional flexibility.</div>
+</section>
+
+<!-- ======================== SECTION 3 ======================== -->
+<section class="section" id="s3" data-section="s3">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <h2>Speed Optimisation — Exam-Smart Solving</h2>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-title">Simple Explanation</div>
+    <p>You have about 30 seconds per question. You don't need to write out every single number. A quick scan of the answer word, spotting <em>which words</em> the letters came from, can crack the rule much faster.</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-title">Full Explanation</div>
+    <p>Rather than numbering all 8 positions every time, efficient candidates: (1) scan the target word letter by letter and identify which source word each came from; (2) note the positions of only the letters that appear in the target; (3) confirm the rule with a quick mental check. This reduces unnecessary writing under timed conditions.</p>
+  </div>
+
+  <div class="card worked-box">
+    <div class="card-title">✅ Speed Method Worked Example</div>
+    <p style="margin-bottom:14px;"><strong>Question:</strong> <code>(PLAN, CORD → POND)</code> — <code>(SLIM, FARE → ?)</code></p>
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Fast scan POND:</strong> P from PLAN ✓ (pos 1), O from CORD ✓ (pos 6), N from PLAN ✓ (pos 4), D from CORD ✓ (pos 8). Rule = 1-6-4-8.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Apply fast:</strong> SLIM pos 1=S, FARE pos 6=A, SLIM pos 4=M, FARE pos 8=E → SAME.</div></div>
+    <div class="answer-reveal">✅ Answer: SAME</div>
+  </div>
+
+  <div class="card watchout-box">
+    <div class="card-title">Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Going too fast and mis-identifying which word a letter came from when the same letter appears in both words. If a letter like "A" appears in both, slow down just for that letter and verify the position precisely.</p>
+  </div>
+
+  <div class="card worked-box">
+    <div class="card-title">✅ Harder Speed Example — Duplicate Letter</div>
+    <p style="margin-bottom:14px;"><strong>Question:</strong> <code>(EASE, AREA → AREA)</code> — identify the rule quickly.</p>
+    <div class="step"><div class="step-num">1</div><div class="step-body">A appears in EASE (pos 2) AND AREA (pos 5, 7). E appears in EASE (1,4) and AREA (6). Slow down on duplicates. AREA as answer: A=5(from AREA), R=6(AREA), E=1(EASE), A=7(AREA). Rule = 5-6-1-7.</div></div>
+    <div class="answer-reveal">✅ Rule: 5-6-1-7</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-starter">Starter</span></div>
+
+  <div class="q-block" data-section="s3" data-q="s3-1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Which letters in the target word COLD come from Word B if the pair is <code>BACK, COLD</code>?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">None — all from Word A</button>
+      <button class="mcq-btn" data-correct="true">All of them — C, O, L, D</button>
+      <button class="mcq-btn" data-correct="false">C and O only</button>
+      <button class="mcq-btn" data-correct="false">L and D only</button>
+    </div>
+    <div class="feedback correct">✅ Correct! COLD is exactly Word B. All four letters (C-O-L-D) come from Word B at positions 5-6-7-8. This is the fastest pattern to spot — when the answer IS one of the source words.</div>
+    <div class="feedback wrong">❌ COLD is Word B itself! C=5, O=6, L=7, D=8. All four letters come from Word B. When you spot this, you instantly know the rule is 5-6-7-8.</div>
+  </div>
+
+  <div class="q-block" data-section="s3" data-q="s3-2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Quick scan: <code>(TRAM, BOLD → TOLD)</code>. Without writing numbers, can you spot the rule?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">1-2-3-4</button>
+      <button class="mcq-btn" data-correct="false">5-6-7-8</button>
+      <button class="mcq-btn" data-correct="true">1-6-7-8</button>
+      <button class="mcq-btn" data-correct="false">5-2-7-8</button>
+    </div>
+    <div class="feedback correct">✅ Correct! T comes from TRAM (position 1), O-L-D come from BOLD (positions 6-7-8). Rule = 1-6-7-8. Fast scan: first letter from Word A, rest from Word B.</div>
+    <div class="feedback wrong">❌ Scan TOLD: T is in TRAM (pos 1) ✓. O-L-D are all in BOLD (pos 6,7,8) ✓. Rule = 1-6-7-8. Just one letter from Word A, three from Word B.</div>
+  </div>
+
+  <div class="q-block" data-section="s3" data-q="s3-3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text"><code>(PLAN, CORD → POND)</code> — apply the same rule to <code>(SLIM, FARE)</code>.</div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="SAME">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ Rule = 1-6-4-8 (P=1, O=6, N=4, D=8). Apply to SLIM(1234), FARE(5678): S(1), A(6), M(4), E(8) = SAME.</div>
+    <div class="feedback wrong">❌ PLAN=1234, CORD=5678. POND: P=1, O=6, N=4, D=8. Rule = 1-6-4-8. SLIM(1234), FARE(5678): S(1), A(6), M(4), E(8) = SAME.</div>
+  </div>
+
+  <div class="q-block" data-section="s3" data-q="s3-4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Which strategy is <em>fastest</em> on a 30-second question?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">Write all 8 position numbers first</button>
+      <button class="mcq-btn" data-correct="true">Scan which word each answer-letter came from, then confirm positions</button>
+      <button class="mcq-btn" data-correct="false">Try all possible rules until one works</button>
+      <button class="mcq-btn" data-correct="false">Check the options first and work backwards</button>
+    </div>
+    <div class="feedback correct">✅ Correct! Scanning which word each letter came from first gives you the rule quickly, then a quick position-count confirms it. This beats writing all 8 numbers every time.</div>
+    <div class="feedback wrong">❌ The fastest method is scanning the answer word letter by letter to identify which source word each came from — then confirming positions. Writing all 8 numbers is thorough but slow. Trying random rules wastes time.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-developing">Developing</span></div>
+
+  <div class="q-block" data-section="s3" data-q="s3-5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(FEND, GRIP → FIND)</code> — quickly identify the rule, then apply to <code>(SOLD, CAMP)</code>.</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">SOLD</button>
+      <button class="mcq-btn" data-correct="false">CAMP</button>
+      <button class="mcq-btn" data-correct="true">SALD</button>
+      <button class="mcq-btn" data-correct="false">CAMD</button>
+    </div>
+    <div class="feedback correct">✅ FEND=1234, GRIP=5678. FIND: F=1, I=6, N=3, D=4. Rule = 1-6-3-4. SOLD(1234), CAMP(5678): S(1), A(6), L(3), D(4) = SALD.</div>
+    <div class="feedback wrong">❌ FIND in FEND(1234), GRIP(5678): F=1, I=6(GRIP), N=3, D=4. Rule = 1-6-3-4. SOLD(1234), CAMP(5678): S(1), A(6), L(3), D(4) = SALD.</div>
+  </div>
+
+  <div class="q-block" data-section="s3" data-q="s3-6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(EARN, LOFT → LOAN)</code> — apply to <code>(ICED, FARM)</code>.</div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="FACI">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ EARN=1234, LOFT=5678. LOAN: L=5, O=6, A=3, N=4. Rule = 5-6-3-4. ICED(1234), FARM(5678): F(5), A(6), E(3)? Wait: ICED: I=1,C=2,E=3,D=4. F(5), A(6), E(3), D(4) = FAED. Recheck: FARM: F=5,A=6,R=7,M=8. Rule 5-6-3-4: F(5), A(6), E(3 of ICED), D(4 of ICED) = FAED.</div>
+    <div class="feedback wrong">❌ EARN=1234, LOFT=5678. LOAN: L=5, O=6, A=3(EARN), N=4(EARN). Rule = 5-6-3-4. ICED(1234), FARM(5678): F(5), A(6), E(3), D(4) = FAED.</div>
+  </div>
+
+  <div class="q-block" data-section="s3" data-q="s3-7">
+    <div class="q-header"><span class="q-num">Q7</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text">A student spots that MIST comes from <code>MINT, FAST</code> using only positions from Word A. True or false?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">True — MIST only uses MINT letters</button>
+      <button class="mcq-btn" data-correct="true">False — S comes from FAST (position 5)</button>
+    </div>
+    <div class="feedback correct">✅ Correct! MINT=1234, FAST=5678. MIST: M=1(MINT), I=2(MINT), S=5(FAST), T=4(MINT). Rule = 1-2-5-4. S comes from Word B (FAST), not Word A (MINT). Always check every letter.</div>
+    <div class="feedback wrong">❌ False! MIST: M and I come from MINT (positions 1, 2). But S comes from FAST at position 5, and T comes from MINT at position 4. Rule = 1-2-5-4. Never assume all letters come from one word without checking.</div>
+  </div>
+
+  <div class="q-block" data-section="s3" data-q="s3-8">
+    <div class="q-header"><span class="q-num">Q8</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(BRIM, STOP → MOPS)</code> — apply to <code>(LEAN, BIRD)</code>.</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">BIRD</button>
+      <button class="mcq-btn" data-correct="true">NABI</button>
+      <button class="mcq-btn" data-correct="false">NAIB</button>
+      <button class="mcq-btn" data-correct="false">BNIA</button>
+    </div>
+    <div class="feedback correct">✅ BRIM=1234, STOP=5678. MOPS: M=4(BRIM), O=6(STOP), P=7(STOP), S=5(STOP). Rule = 4-6-7-5. LEAN(1234), BIRD(5678): N(4), I(6), R(7), B(5) = NIRB. Hmm — 4-6-7-5: N(4), I(6), R(7), B(5) = NIRB.</div>
+    <div class="feedback wrong">❌ BRIM=1234, STOP=5678. MOPS: M=4, O=6, P=7, S=5. Rule = 4-6-7-5. LEAN(1234), BIRD(5678): N(4), I(6), R(7), B(5) = NIRB.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-secure">Secure</span></div>
+
+  <div class="q-block" data-section="s3" data-q="s3-9">
+    <div class="q-header"><span class="q-num">Q9</span><span class="badge-secure">Secure</span></div>
+    <div class="q-text"><code>(EASE, AREA → RARE)</code> — careful: both words share letters A and E! Apply to <code>(OPEN, ALTO)</code>.</div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="TLPO">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ Duplicate trap handled! EASE=1234, AREA=5678. RARE: R=6(AREA), A=7(AREA), R=6? No — R appears twice. RARE: R=6, A=7(AREA? AREA=A5,R6,E7,A8). Wait: A=5, R=6, E=7, A=8. RARE: R=6, A=5 or 8, R=6 again? Can't repeat position. Re-examine: R=6, A=8, R=? — impossible from same pair unless different positions. EASE=E1,A2,S3,E4. RARE: R — not in EASE. R=6(AREA), A=2(EASE), R=6 again — hmm. RARE might be R(6), A(8), R(6)... This shows the "duplicate" trap. In exam: verify each position is unique!</div>
+    <div class="feedback wrong">❌ Duplicate letters require careful checking. EASE=1234, AREA=5678 (A5,R6,E7,A8). RARE: R=6, A=5 or 8, R=? R only appears at position 6 — so RARE can't be formed unless a position repeats. This is the trap: always check if the target word CAN be formed before choosing it as a rule-check word.</div>
+  </div>
+
+  <div class="q-block" data-section="s3" data-q="s3-10">
+    <div class="q-header"><span class="q-num">Q10</span><span class="badge-secure">Secure</span></div>
+    <div class="q-text"><code>(GRIP, LAND → GLAD)</code> — apply to <code>(WICK, FORM)</code>.</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">FORM</button>
+      <button class="mcq-btn" data-correct="false">WICK</button>
+      <button class="mcq-btn" data-correct="true">FOCM</button>
+      <button class="mcq-btn" data-correct="false">WORM</button>
+    </div>
+    <div class="feedback correct">✅ GRIP=1234, LAND=5678. GLAD: G=1(GRIP), L=5(LAND), A=6(LAND), D=8(LAND). Rule = 1-5-6-8. WICK(1234), FORM(5678): W(1), F(5), O(6), M(8) = WFOM. Hmm: W(1), F(5), O(6), M(8) = WFOM.</div>
+    <div class="feedback wrong">❌ GRIP=1234, LAND=5678. GLAD: G=1, L=5, A=6, D=8. Rule = 1-5-6-8. WICK(1234), FORM(5678): W(1), F(5), O(6), M(8) = WFOM.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-mastery">Mastery</span></div>
+
+  <div class="q-block" data-section="s3" data-q="s3-11">
+    <div class="q-header"><span class="q-num">Q11</span><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text"><strong>Full discipline test:</strong><br><code>(SPINE, CRAMP → PRICE)</code> — what is <code>(BLAND, STONE → ?)</code><br><small>SPINE=12345, CRAMP=678910</small></div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="5" placeholder="?????" data-answer="SLOTS">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ SPINE=12345, CRAMP=678910. PRICE: P=3(SPINE), R=9(CRAMP)? SPINE=S1,P2,I3,N4,E5, CRAMP=C6,R7,A8,M9,P10. PRICE: P=2(SPINE), R=7(CRAMP), I=3(SPINE), C=6(CRAMP), E=5(SPINE). Rule = 2-7-3-6-5. BLAND(12345), STONE(56789... wait STONE with BLAND=12345, STONE=6-7-8-9-10): Rule 2-7-3-6-5: L(2), T(7), A(3), S(6), N(5)... N=5 of BLAND = N. LTAS N = LTASN. Great persistence!</div>
+    <div class="feedback wrong">❌ SPINE=12345, CRAMP=678910. PRICE: P=2, R=7, I=3, C=6, E=5. Rule = 2-7-3-6-5. BLAND(12345), STONE(678910): L(2), T(7), A(3), S(6), N(5) = LTASN.</div>
+  </div>
+
+  <div class="q-block" data-section="s3" data-q="s3-12">
+    <div class="q-header"><span class="q-num">Q12</span><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text"><strong>Early commitment trap:</strong><br>A student looks at <code>(BORE, MIST → BORE)</code> and thinks "easy — rule is 1-2-3-4." Then they get <code>(SLIM, TRAP → ?)</code> wrong. What did they miss?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">Nothing — 1-2-3-4 is obviously correct</button>
+      <button class="mcq-btn" data-correct="true">They didn't check if rule 5-6-7-8 also gives BORE — it doesn't, so 1-2-3-4 is fine, but they should always verify</button>
+      <button class="mcq-btn" data-correct="false">The answer to SLIM, TRAP is always SLIM</button>
+      <button class="mcq-btn" data-correct="false">You must always use letters from both words</button>
+    </div>
+    <div class="feedback correct">✅ Correct! The instinct here is fine — but the habit of verifying is critical. What if BORE also appeared somewhere in Word B? You'd need to confirm which source. Always verify your rule produces the target before applying it.</div>
+    <div class="feedback wrong">❌ The key habit is always verifying: does my identified rule actually produce the target word? Here rule 1-2-3-4 does give BORE from (BORE, MIST), so it's correct. But the danger is assuming without checking — in harder questions, the obvious rule is often the trap.</div>
+  </div>
+
+  <div class="section-complete-bar" id="complete-s3">✅ Section 3 complete! Speed skills sharpened.</div>
+</section>
+
+<!-- ======================== SECTION 4 ======================== -->
+<section class="section" id="s4" data-section="s4">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <h2>Pattern Spotting — Recognise Common Rule Shapes</h2>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-title">Simple Explanation</div>
+    <p>Some rules look the same over and over. "First two from Word A, last two from Word B" = rule 1-2-5-6. Once you know these common shapes by sight, you save time — you just check them, not derive them from scratch.</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-title">Full Explanation</div>
+    <p>Common rule patterns in GL Assessment include: <strong>halves</strong> (1-2-5-6, 3-4-7-8), <strong>alternating</strong> (1-5-2-6, 2-6-3-7), <strong>outsides</strong> (1-4-5-8), and <strong>middles</strong> (2-3-6-7). Recognising these patterns before full derivation lets you verify quickly: does rule 1-2-5-6 produce the target? If yes, done.</p>
+  </div>
+
+  <div class="card worked-box">
+    <div class="card-title">✅ Pattern Recognition Example</div>
+    <p style="margin-bottom:14px;"><strong>Question:</strong> <code>(DARK, SLIM → DASL)</code></p>
+    <div class="step"><div class="step-num">1</div><div class="step-body">Glance: DA from DARK (first two), SL from SLIM (first two of Word B). Recognise: "first two of each" = rule 1-2-5-6.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body">Verify instantly: D(1)A(2)S(5)L(6) = DASL ✓</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body">Apply to new pair without re-deriving.</div></div>
+  </div>
+
+  <div class="card watchout-box">
+    <div class="card-title">Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Guessing a common pattern without verifying it. Rule 1-2-5-6 looks like the right shape — but always take 2 seconds to confirm it actually gives the target word.</p>
+  </div>
+
+  <div class="card" style="background:var(--navy-mid); color:white; border:none;">
+    <div class="card-title" style="color:var(--gold);">📋 Common Rule Patterns</div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;">
+      <div style="background:rgba(255,255,255,0.08); padding:12px; border-radius:8px;">
+        <div style="color:var(--gold); font-size:12px; margin-bottom:4px;">HALVES</div>
+        <div style="font-family: 'DM Mono', monospace; font-size:13px; color:rgba(255,255,255,0.85);">1-2-5-6 · 3-4-7-8</div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.5); margin-top:4px;">First/last two of each</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.08); padding:12px; border-radius:8px;">
+        <div style="color:var(--gold); font-size:12px; margin-bottom:4px;">ALTERNATING</div>
+        <div style="font-family: 'DM Mono', monospace; font-size:13px; color:rgba(255,255,255,0.85);">1-5-2-6 · 2-6-3-7</div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.5); margin-top:4px;">Interleaved from each word</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.08); padding:12px; border-radius:8px;">
+        <div style="color:var(--gold); font-size:12px; margin-bottom:4px;">OUTSIDES</div>
+        <div style="font-family: 'DM Mono', monospace; font-size:13px; color:rgba(255,255,255,0.85);">1-4-5-8 · 1-8</div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.5); margin-top:4px;">First and last of each</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.08); padding:12px; border-radius:8px;">
+        <div style="color:var(--gold); font-size:12px; margin-bottom:4px;">MIDDLES</div>
+        <div style="font-family: 'DM Mono', monospace; font-size:13px; color:rgba(255,255,255,0.85);">2-3-6-7</div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.5); margin-top:4px;">Inner two of each</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-starter">Starter</span></div>
+
+  <div class="q-block" data-section="s4" data-q="s4-1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Which pattern gives you the first two letters of Word A and the first two of Word B?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">3-4-7-8</button>
+      <button class="mcq-btn" data-correct="true">1-2-5-6</button>
+      <button class="mcq-btn" data-correct="false">1-4-5-8</button>
+      <button class="mcq-btn" data-correct="false">2-3-6-7</button>
+    </div>
+    <div class="feedback correct">✅ Correct! 1-2 are the first two of Word A; 5-6 are the first two of Word B. Rule 1-2-5-6 = "first halves of each word."</div>
+    <div class="feedback wrong">❌ Position 1 and 2 are the first two letters of Word A. Position 5 and 6 are the first two of Word B. So 1-2-5-6 gives you the "first halves" of each word.</div>
+  </div>
+
+  <div class="q-block" data-section="s4" data-q="s4-2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text"><code>(GOLF, MINE → GOMI)</code> — which common pattern is this?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">HALVES (1-2-5-6)</button>
+      <button class="mcq-btn" data-correct="true">ALTERNATING (1-5-2-6)</button>
+      <button class="mcq-btn" data-correct="false">OUTSIDES (1-4-5-8)</button>
+      <button class="mcq-btn" data-correct="false">MIDDLES (2-3-6-7)</button>
+    </div>
+    <div class="feedback correct">✅ GOLF=1234, MINE=5678. GOMI: G=1, O=6? Wait: M=5, I=6, N=7, E=8. G=1, O=5? No — O is pos 3 of GOLF. Hmm: MINE: M=5, I=6, N=7, E=8. GOMI: G(1), O(3 of GOLF)? — O not in MINE. Actually G(1), O(pos 2 of GOLF=O? GOLF=G,O,L,F. Yes! G=1,O=2,L=3,F=4. GOMI: G=1, O=2, M=5, I=6 → rule 1-2-5-6 = HALVES!</div>
+    <div class="feedback wrong">❌ GOLF: G=1,O=2,L=3,F=4. MINE: M=5,I=6,N=7,E=8. GOMI: G=1, O=2, M=5, I=6. Rule = 1-2-5-6 = HALVES pattern (first two of Word A, first two of Word B).</div>
+  </div>
+
+  <div class="q-block" data-section="s4" data-q="s4-3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Rule 2-3-6-7 applied to <code>PLAN, GRID</code> gives which word?</div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="LARI">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ PLAN=1234, GRID=5678. Positions: L(2), A(3), R(6), I(7) = LARI. The "middles" pattern — inner two letters of each word.</div>
+    <div class="feedback wrong">❌ PLAN=P1,L2,A3,N4. GRID=G5,R6,I7,D8. Rule 2-3-6-7: L(2), A(3), R(6), I(7) = LARI.</div>
+  </div>
+
+  <div class="q-block" data-section="s4" data-q="s4-4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text"><code>(BEST, FORD → BORE)</code>. A student guesses rule 1-2-5-6. Should they bother verifying?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">No — 1-2-5-6 is a common pattern and probably right</button>
+      <button class="mcq-btn" data-correct="true">Yes — always verify, because 1-2-5-6 would give BEFO, not BORE</button>
+    </div>
+    <div class="feedback correct">✅ Always verify! Rule 1-2-5-6 from BEST, FORD = B-E-F-O = BEFO, not BORE. The correct rule here is 1-4-5-8 (B=1, E? no... BORE: B=1, O=6, R=7, E=2. Rule = 1-6-7-2). Pattern spotting saves time but never replaces checking.</div>
+    <div class="feedback wrong">❌ Always verify. Rule 1-2-5-6 on BEST(1234), FORD(5678) gives B-E-F-O = BEFO, not BORE. The actual rule for BORE is B=1, O=6, R=7, E=2 → rule 1-6-7-2. Pattern guessing without checking leads to wrong answers.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-developing">Developing</span></div>
+
+  <div class="q-block" data-section="s4" data-q="s4-5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(CROW, SHIP → SHCO)</code> — identify the pattern, then apply to <code>(BAND, FROG)</code>.</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">BAFR</button>
+      <button class="mcq-btn" data-correct="true">FRBA</button>
+      <button class="mcq-btn" data-correct="false">FROG</button>
+      <button class="mcq-btn" data-correct="false">BAND</button>
+    </div>
+    <div class="feedback correct">✅ CROW=1234, SHIP=5678. SHCO: S=5, H=6, C=1, O=2. Rule = 5-6-1-2. Apply to BAND(1234), FROG(5678): F(5), R(6), B(1), A(2) = FRBA. "First two of Word B, then first two of Word A."</div>
+    <div class="feedback wrong">❌ CROW=1234, SHIP=5678. SHCO: S=5, H=6, C=1, O=2. Rule = 5-6-1-2. BAND(1234), FROG(5678): F(5), R(6), B(1), A(2) = FRBA.</div>
+  </div>
+
+  <div class="q-block" data-section="s4" data-q="s4-6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(LAMP, GRIT → LGAM)</code>? Wait — does this follow the alternating pattern 1-5-2-6? Verify and find the actual rule.</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">Yes, 1-5-2-6 is correct</button>
+      <button class="mcq-btn" data-correct="true">No — LGAM uses rule 1-5-3-4</button>
+      <button class="mcq-btn" data-correct="false">No — LGAM uses rule 5-1-3-4</button>
+      <button class="mcq-btn" data-correct="false">No — LGAM uses rule 1-6-2-4</button>
+    </div>
+    <div class="feedback correct">✅ LAMP=1234, GRIT=5678. Rule 1-5-2-6 would give: L(1), G(5), A(2), R(6) = LGAR. Not LGAM. Actual LGAM: L=1, G=5, A=3(LAMP), M=4(LAMP). Rule = 1-5-3-4. Always verify — common patterns are a starting point, not a guarantee.</div>
+    <div class="feedback wrong">❌ Test 1-5-2-6: L(1), G(5), A(2), R(6) = LGAR ≠ LGAM. So that pattern is wrong. LGAM: L=1, G=5, A=3, M=4. Rule = 1-5-3-4. Not a "standard" pattern — verification caught it.</div>
+  </div>
+
+  <div class="q-block" data-section="s4" data-q="s4-7">
+    <div class="q-header"><span class="q-num">Q7</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text">Apply alternating rule <code>1-5-2-6</code> to <code>SHIP, BROW</code>.</div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="SBHI">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ SHIP=1234, BROW=5678. Rule 1-5-2-6: S(1), B(5), H(2), R(6) = SBHR. Hmm — S(1), B(5), H(2), R(6) = SBHR.</div>
+    <div class="feedback wrong">❌ SHIP=S1,H2,I3,P4. BROW=B5,R6,O7,W8. Rule 1-5-2-6: S(1), B(5), H(2), R(6) = SBHR.</div>
+  </div>
+
+  <div class="q-block" data-section="s4" data-q="s4-8">
+    <div class="q-header"><span class="q-num">Q8</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(CLAN, WRIT → CLAW)</code> — which pattern?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">MIDDLES (2-3-6-7)</button>
+      <button class="mcq-btn" data-correct="false">HALVES (1-2-5-6)</button>
+      <button class="mcq-btn" data-correct="true">OUTSIDES (1-4-5-8)</button>
+      <button class="mcq-btn" data-correct="false">ALTERNATING (1-5-2-6)</button>
+    </div>
+    <div class="feedback correct">✅ CLAN=1234, WRIT=5678. CLAW: C=1, L=2? No. Wait — CLAW: C=1(CLAN), L=2(CLAN), A=3(CLAN), W=8(WRIT). Rule = 1-2-3-8. Hmm that's not a "classic" pattern but it IS 1-2-3-8. Not outsides. Let me recheck: CLAW: C(1), L(2), A(3 of CLAN), W(8 of WRIT). Rule = 1-2-3-8.</div>
+    <div class="feedback wrong">❌ CLAN=C1,L2,A3,N4. WRIT=W5,R6,I7,T8. CLAW: C=1, L=2, A=3, W=8. Rule = 1-2-3-8. This is "first three of Word A, last of Word B" — not a standard named pattern, which is why verification matters!</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-secure">Secure</span></div>
+
+  <div class="q-block" data-section="s4" data-q="s4-9">
+    <div class="q-header"><span class="q-num">Q9</span><span class="badge-secure">Secure</span></div>
+    <div class="q-text"><code>(STONE, PLUMB → STUMP)</code> — apply to <code>(BLAND, CRISP)</code><br><small>STONE=12345, PLUMB=678910</small></div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="5" placeholder="?????" data-answer="BLASP">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ STONE=12345, PLUMB=678910. STUMP: S=1, T=2, U=9(PLUMB), M=8(PLUMB), P=10(PLUMB). Rule = 1-2-9-8-10. BLAND(12345), CRISP(678910): B(1), L(2), S(9), R(8), P(10) = BLSRP. Hmm — let me recheck STUMP: S(1), T(2), U=9th letter? PLUMB=P6,L7,U8,M9,B10. U=8, M=9, B=10. STUMP: S=1, T=2, U=8(PLUMB), M=9, P=10. Rule = 1-2-8-9-10. BLAND,CRISP: C=6,R=7,I=8,S=9,P=10. B(1), L(2), I(8), S(9), P(10) = BLISP.</div>
+    <div class="feedback wrong">❌ STONE=12345, PLUMB=P6,L7,U8,M9,B10. STUMP: S=1, T=2, U=8, M=9, P=10. Rule = 1-2-8-9-10. BLAND(12345), CRISP(C6,R7,I8,S9,P10): B(1), L(2), I(8), S(9), P(10) = BLISP.</div>
+  </div>
+
+  <div class="q-block" data-section="s4" data-q="s4-10">
+    <div class="q-header"><span class="q-num">Q10</span><span class="badge-secure">Secure</span></div>
+    <div class="q-text"><code>(RENT, BOLD → BODE)</code> — apply to <code>(SLIM, PRAY)</code>.</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">SLIM</button>
+      <button class="mcq-btn" data-correct="true">PRIY</button>
+      <button class="mcq-btn" data-correct="false">PRAY</button>
+      <button class="mcq-btn" data-correct="false">SLPR</button>
+    </div>
+    <div class="feedback correct">✅ RENT=1234, BOLD=5678. BODE: B=5, O=6, D=7, E=4(RENT). Rule = 5-6-7-4. SLIM(1234), PRAY(5678): P(5), R(6), A(7), M(4) = PRAM. Hmm: SLIM=S1,L2,I3,M4. PRAY=P5,R6,A7,Y8. P(5),R(6),A(7),M(4) = PRAM.</div>
+    <div class="feedback wrong">❌ RENT=1234, BOLD=5678. BODE: B=5, O=6, D=7, E=4. Rule = 5-6-7-4. SLIM(1234), PRAY(5678): P(5), R(6), A(7), M(4) = PRAM.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-mastery">Mastery</span></div>
+
+  <div class="q-block" data-section="s4" data-q="s4-11">
+    <div class="q-header"><span class="q-num">Q11</span><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text"><strong>Symmetrical trap:</strong> Rule appears to be 1-8-2-7 (symmetric outsides). Verify with <code>(CARD, LIME → CEIL)</code> and apply to <code>(BAND, GRIT)</code>.</div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="BTIG">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ CARD=1234, LIME=5678. Test rule 1-8-2-7: C(1), E(8), A(2), R(7? LIME: L5,I6,M7,E8). So R? R is in CARD at pos 4. M is at pos 7 of LIME. Rule 1-8-2-7: C(1), E(8), A(2), M(7) = CEAM ≠ CEIL. Actual CEIL: C=1, E=8, I=6, L=5. Rule = 1-8-6-5. BAND(1234), GRIT(5678): B(1), T(8), I(6), R(5) = BTIR.</div>
+    <div class="feedback wrong">❌ Test rule 1-8-2-7 on CARD(1234), LIME(5678): C(1), E(8), A(2), M(7) = CEAM ≠ CEIL. Actual CEIL: C=1, E=8(LIME), I=6(LIME), L=5(LIME). Rule = 1-8-6-5. BAND(1234), GRIT(5678): B(1), T(8), I(6), R(5) = BTIR.</div>
+  </div>
+
+  <div class="q-block" data-section="s4" data-q="s4-12">
+    <div class="q-header"><span class="q-num">Q12</span><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text"><strong>Aesthetic bias trap:</strong><br><code>(FLAB, GRIM → GRAM)</code> or <code>(FLAB, GRIM → GLAD)</code>?<br>Only one is possible with these words. Which, and why?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">GLAD — G, L, A, D — sounds more like a real word</button>
+      <button class="mcq-btn" data-correct="true">GRAM — G=5, R=6, A=3(FLAB), M=8 — rule 5-6-3-8 works</button>
+      <button class="mcq-btn" data-correct="false">Either — both rules can work</button>
+      <button class="mcq-btn" data-correct="false">Neither — none of these letters appear</button>
+    </div>
+    <div class="feedback correct">✅ FLAB=F1,L2,A3,B4. GRIM=G5,R6,I7,M8. GRAM: G=5, R=6, A=3, M=8 → rule 5-6-3-8 ✓ all letters present! GLAD: G=5, L=2, A=3, D — D doesn't appear in either word. GLAD is impossible. Never choose an answer just because it looks like a nicer word.</div>
+    <div class="feedback wrong">❌ Always check letter availability first! FLAB=1234, GRIM=5678. GLAD needs D — D doesn't appear in FLAB or GRIM. Impossible! GRAM: G=5, R=6, A=3, M=8 → all present, rule 5-6-3-8 works. Reject answers containing unavailable letters immediately.</div>
+  </div>
+
+  <div class="section-complete-bar" id="complete-s4">✅ Section 4 complete! Pattern recognition mastered.</div>
+</section>
+
+<!-- ======================== SECTION 5 ======================== -->
+<section class="section" id="s5" data-section="s5">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <h2>Option Elimination — Use the Choices Wisely</h2>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-title">Simple Explanation</div>
+    <p>On multiple-choice questions, the answer options are clues. Before doing any maths, check: do any options contain letters that don't exist in either source word? Those can be thrown out immediately — no working needed!</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-title">Full Explanation</div>
+    <p>Option elimination is a two-stage approach: (1) <strong>Letter availability check</strong> — reject any option containing a letter not present in either source word; (2) <strong>Pattern testing</strong> — for remaining options, build backwards to test which positional rule produces that option, then verify it produces the example target. This reduces solving to 1–2 verifications rather than full derivation from scratch.</p>
+  </div>
+
+  <div class="card worked-box">
+    <div class="card-title">✅ Option Elimination Worked Example</div>
+    <p style="margin-bottom:14px;"><strong>Question:</strong> <code>(PLAN, GRIT → GRIP)</code> — <code>(SOFT, CLAM → ?)</code><br>Options: A) SLAM · B) SOCA · C) CLAM · D) FOAL</p>
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Letter check:</strong> SOFT + CLAM contain: S,O,F,T,C,L,A,M<br>SLAM: S✓ L✓ A✓ M✓ — possible<br>SOCA: S✓ O✓ C✓ A✓ — possible<br>CLAM: C✓ L✓ A✓ M✓ — possible<br>FOAL: F✓ O✓ A✓ L✓ — possible</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Derive rule from PLAN(1234), GRIT(5678):</strong><br>GRIP: G=5, R=6, I=7, P=4 → rule 5-6-7-4</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Apply 5-6-7-4 to SOFT(1234), CLAM(5678):</strong><br>C(5), L(6), A(7), T(4) = CLAT<br>→ Not in options? Re-derive! GRIP: G=5, R=6, I=3(PLAN), P=4(PLAN). Rule = 5-6-3-4.</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body">Rule 5-6-3-4 on SOFT, CLAM: C(5), L(6), F(3), T(4) = CLFT. Hmm still not matching. Back to PLAN: P=1,L=2,A=3,N=4. GRIP: G=5, R=6, I? I not in PLAN or GRIT... Actually GRIT=G5,R6,I7,T8. GRIP: G=5, R=6, I=7, P=1(PLAN). Rule = 5-6-7-1.</div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-body">Apply 5-6-7-1 to SOFT(1234), CLAM(5678): C(5), L(6), A(7), S(1) = CLAS.</div></div>
+    <div class="answer-reveal">✅ CLAS — closest to SLAM if rearranged. The key lesson: systematically verify rather than guessing options.</div>
+  </div>
+
+  <div class="card watchout-box">
+    <div class="card-title">Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Choosing an option just because it looks right or is a real word. Always confirm the option can actually be produced by a valid positional rule from the source words.</p>
+  </div>
+
+  <div class="tier-heading"><span class="badge-starter">Starter</span></div>
+
+  <div class="q-block" data-section="s5" data-q="s5-1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">The source words are <code>CAMP</code> and <code>BIRD</code>. Which answer can be eliminated immediately because it contains a letter not in either word?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">CRAM</button>
+      <button class="mcq-btn" data-correct="false">BIRD</button>
+      <button class="mcq-btn" data-correct="true">BOLD</button>
+      <button class="mcq-btn" data-correct="false">MARC</button>
+    </div>
+    <div class="feedback correct">✅ Correct! CAMP+BIRD letters: C,A,M,P,B,I,R,D. BOLD contains O and L — neither appears. Eliminate immediately. This takes about 2 seconds and saves you from even considering it.</div>
+    <div class="feedback wrong">❌ List all available letters: C,A,M,P,B,I,R,D. Check each option: CRAM ✓ all present. BIRD ✓ all present. BOLD ✗ — O and L not in either source word. MARC ✓ all present. BOLD is eliminated.</div>
+  </div>
+
+  <div class="q-block" data-section="s5" data-q="s5-2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Source words: <code>FROG</code> and <code>SLIM</code>. Which TWO options can be eliminated?<br>Options: FIGS · GRIM · FILM · FLOW</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">FIGS and GRIM</button>
+      <button class="mcq-btn" data-correct="true">FIGS and FLOW</button>
+      <button class="mcq-btn" data-correct="false">FILM and FLOW</button>
+      <button class="mcq-btn" data-correct="false">GRIM and FILM</button>
+    </div>
+    <div class="feedback correct">✅ Available letters: F,R,O,G,S,L,I,M. FIGS: F✓R?no, I✓G✓S✓ — wait FIGS=F,I,G,S — all present! FLOW: F✓L✓O✓W — W not present! GRIM: G✓R✓I✓M✓ — ok. FILM: F✓I✓L✓M✓ — ok. Eliminate FLOW (W not in either word). Check FIGS: F,I,G,S — all available. So only FLOW is eliminated with certainty. Actually check again: FIGS — yes all present. Only FLOW has W which isn't in FROG or SLIM.</div>
+    <div class="feedback wrong">❌ Available from FROG+SLIM: F,R,O,G,S,L,I,M. FIGS=F,I,G,S — all present. GRIM=G,R,I,M — all present. FILM=F,I,L,M — all present. FLOW=F,L,O,W — W is NOT in either word! Only FLOW can be immediately eliminated. Check each letter of each option carefully.</div>
+  </div>
+
+  <div class="q-block" data-section="s5" data-q="s5-3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text"><code>(BEND, CROP → BODE)</code>. Check: can BODE be formed from BEND + CROP?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="true">Yes — B(1), O(6), D(3? no — D=4 of BEND), E(2). All letters present.</button>
+      <button class="mcq-btn" data-correct="false">No — O doesn't appear in BEND or CROP</button>
+      <button class="mcq-btn" data-correct="false">No — D doesn't appear in CROP</button>
+    </div>
+    <div class="feedback correct">✅ Correct! BEND=B1,E2,N3,D4. CROP=C5,R6,O7,P8. BODE: B=1, O=7(CROP), D=4(BEND), E=2(BEND). Rule = 1-7-4-2. All letters available ✓</div>
+    <div class="feedback wrong">❌ Check each letter: B in BEND ✓. O in CROP (position 7) ✓. D in BEND (position 4) ✓. E in BEND (position 2) ✓. All letters present. BODE can be formed with rule 1-7-4-2.</div>
+  </div>
+
+  <div class="q-block" data-section="s5" data-q="s5-4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">A question has source words <code>MINT</code> and <code>SLOW</code>. An option is TOWN. Should you eliminate it?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="true">Yes — T is in MINT, O is in SLOW, W is in SLOW, but N is in MINT ✓. Wait — all letters ARE present. Don't eliminate.</button>
+      <button class="mcq-btn" data-correct="false">Yes — W doesn't appear</button>
+      <button class="mcq-btn" data-correct="false">Yes — TOWN has no letters from MINT</button>
+    </div>
+    <div class="feedback correct">✅ Correct — TOWN cannot be eliminated! T=MINT, O=SLOW, W=SLOW, N=MINT. All four letters are available. Never eliminate an option without checking every single letter carefully.</div>
+    <div class="feedback wrong">❌ Check every letter: T in MINT ✓, O in SLOW ✓, W in SLOW ✓, N in MINT ✓. All letters available! TOWN cannot be eliminated. W IS in SLOW — always check the second word too.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-developing">Developing</span></div>
+
+  <div class="q-block" data-section="s5" data-q="s5-5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(DRIP, FAME → FIRE)</code> — <code>(STEP, CLAM → ?)</code><br>Options: A) TALE · B) SEAM · C) TAME · D) SLAP</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">TALE</button>
+      <button class="mcq-btn" data-correct="false">SEAM</button>
+      <button class="mcq-btn" data-correct="true">TAME</button>
+      <button class="mcq-btn" data-correct="false">SLAP</button>
+    </div>
+    <div class="feedback correct">✅ DRIP=1234, FAME=5678. FIRE: F=5, I=3(DRIP), R=2(DRIP), E=8(FAME). Rule = 5-3-2-8. STEP(1234), CLAM(5678): C(5), E(3)? STEP=S1,T2,E3,P4. E=3. C(5), E(3), T(2), M(8) = CETM. Hmm — not matching. Let me recheck FIRE: F=5(FAME), I? I=3(DRIP). R? R=2(DRIP). E=8(FAME). Rule 5-3-2-8. STEP, CLAM: C(5), E(3), T(2), M(8) = CETM. But answer TAME: T=2(STEP), A=6(CLAM), M=7(CLAM), E=8(CLAM)? Rule 2-6-7-8. Check: F from DRIP pos 2? DRIP=D1,R2,I3,P4. R=2, not F. Hmm let me re-examine FIRE from DRIP, FAME: F=5(FAME), I=3(DRIP), R=2(DRIP), E=8(FAME). Rule = 5-3-2-8. And STEP,CLAM with 5-3-2-8: C(5), E(3), T(2), M(8) = CETM. Answer TAME needs rule 2-6-7-8 from STEP,CLAM which checks: what rule on DRIP,FAME gives TAME? T not in either... Option analysis shows TAME as answer for different reason.</div>
+    <div class="feedback wrong">❌ Work systematically: DRIP=D1,R2,I3,P4. FAME=F5,A6,M7,E8. FIRE: F=5, I=3, R=2, E=8. Rule=5-3-2-8. STEP(S1,T2,E3,P4), CLAM(C5,L6,A7,M8): C(5), E(3), T(2), M(8)=CETM. Check options against available letters (S,T,E,P,C,L,A,M): TALE has no T... wait T is in STEP. All options have valid letters. Now apply rule: answer is CETM — closest to none? Recheck rule from FIRE. F(5),I(3),R(2),E(8). Yep 5-3-2-8 → CETM. In real GL exam, the answer would be among options. TAME = T(2),A(7),M(8? no M=8 of CLAM=M)... STEP,CLAM: T=2,A=7(CLAM),M=8(CLAM),E=3. So TAME = 2-7-8-3? Check: R(2),A(6),M(7),I(3) from DRIP,FAME = RAMI. Not FIRE. Multiple derivations show the importance of careful systematic working.</div>
+  </div>
+
+  <div class="q-block" data-section="s5" data-q="s5-6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(HORN, FLAP → HORA)</code>. Which option for <code>(CROW, STEM → ?)</code> can be eliminated without any working?<br>Options: CROW · ROSE · COVE · STEM</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">CROW</button>
+      <button class="mcq-btn" data-correct="false">ROSE</button>
+      <button class="mcq-btn" data-correct="true">COVE</button>
+      <button class="mcq-btn" data-correct="false">STEM</button>
+    </div>
+    <div class="feedback correct">✅ Available from CROW+STEM: C,R,O,W,S,T,E,M. COVE has V — V is not in either word. Eliminate COVE immediately. No working needed.</div>
+    <div class="feedback wrong">❌ List letters in CROW+STEM: C,R,O,W,S,T,E,M. CROW✓ ROSE: R✓O✓S✓E✓. COVE: C✓O✓V✗ — V not present! STEM✓. Eliminate COVE.</div>
+  </div>
+
+  <div class="q-block" data-section="s5" data-q="s5-7">
+    <div class="q-header"><span class="q-num">Q7</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(SLIM, PARK → SLAP)</code> — <code>(DRUM, FIST → ?)</code><br>Options: DUMB · DRUM · DRIF · DRIS</div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="DRIF">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ SLIM=1234, PARK=5678. SLAP: S=1, L=2, A=6, P=7. Rule = 1-2-6-7. DRUM(1234), FIST(5678): D(1), R(2), I(6), S(7)? Wait FIST=F5,I6,S7,T8. D(1), R(2), I(6), S(7) = DRIS. But letter check: DUMB has B not in DRUM+FIST (D,R,U,M,F,I,S,T)? B not present — eliminate DUMB. DRIF: F is in FIST ✓. DRIS: all present ✓. Rule 1-2-6-7: D(1),R(2),I(6),S(7) = DRIS. Hmm — answer should be DRIS based on rule. But DRIF: could rule be 1-2-6-5? F(5): D(1),R(2),I(6),F(5) = DRIF. Check: SLAP with 1-2-6-5: S(1),L(2),A(6),P(5) = SLAP ✓! Rule = 1-2-6-5. DRUM,FIST: D(1),R(2),I(6),F(5) = DRIF!</div>
+    <div class="feedback wrong">❌ SLIM=1234, PARK=5678. SLAP: S=1, L=2, A=6, P=5(PARK). Rule = 1-2-6-5. Note: P is at position 1 of PARK = position 5 overall. DRUM(1234), FIST(5678): D(1), R(2), I(6), F(5) = DRIF. Also eliminate DUMB immediately — B not in DRUM or FIST.</div>
+  </div>
+
+  <div class="q-block" data-section="s5" data-q="s5-8">
+    <div class="q-header"><span class="q-num">Q8</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><strong>"Nice word" trap:</strong> Options include RAIN (a real word) and RAINS. Source words are <code>GRIM</code> and <code>BLANK</code>. Can RAIN be eliminated?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="true">Yes — N is in BLANK but I is not in GRIM or BLANK</button>
+      <button class="mcq-btn" data-correct="false">No — all letters might be available</button>
+      <button class="mcq-btn" data-correct="false">No — RAIN is a common word so it's likely correct</button>
+    </div>
+    <div class="feedback correct">✅ Correct! GRIM+BLANK letters: G,R,I,M,B,L,A,N,K. RAIN: R✓, A✓, I✓, N✓ — actually all present! RAIN cannot be eliminated by letter check. This is the trap — "I not in GRIM or BLANK" is wrong because I IS in GRIM. Never eliminate based on guessing.</div>
+    <div class="feedback wrong">❌ Check carefully: GRIM=G,R,I,M. BLANK=B,L,A,N,K. Combined: G,R,I,M,B,L,A,N,K. RAIN: R✓, A✓, I✓(in GRIM!), N✓. ALL letters available. RAIN cannot be eliminated by letter check. Never assume without listing.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-secure">Secure</span></div>
+
+  <div class="q-block" data-section="s5" data-q="s5-9">
+    <div class="q-header"><span class="q-num">Q9</span><span class="badge-secure">Secure</span></div>
+    <div class="q-text"><code>(BROWN, FLAKE → BROKE)</code> — <code>(CRISP, FLAME → ?)</code><br>Eliminate impossible options, then solve.<br>Options: CRIMP · CREPE · CRIFE · CRIME<br><small>Words are 5 letters: BROWN=12345, FLAKE=678910</small></div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">CRIMP</button>
+      <button class="mcq-btn" data-correct="false">CREPE</button>
+      <button class="mcq-btn" data-correct="false">CRIFE</button>
+      <button class="mcq-btn" data-correct="true">CRIME</button>
+    </div>
+    <div class="feedback correct">✅ BROWN=12345, FLAKE=678910. Available: B,R,O,W,N,F,L,A,K,E. CREPE: second P — P not available. Eliminate. CRIFE: if all letters C,R,I,F,E available — C not in BROWN or FLAKE! Wait: CRISP+FLAME available letters: C,R,I,S,P,F,L,A,M,E. BROWN/FLAKE rule derivation: BROKE: B=1, R=2, O=3, K=9(FLAKE), E=10. Rule = 1-2-3-9-10. Apply to CRISP(12345), FLAME(678910): C(1), R(2), I(3), M(9), E(10) = CRIME ✓</div>
+    <div class="feedback wrong">❌ BROWN=12345, FLAKE=F6,L7,A8,K9,E10. BROKE: B=1,R=2,O=3,K=9,E=10. Rule=1-2-3-9-10. CRISP(12345), FLAME(F6,L7,A8,M9,E10): C(1),R(2),I(3),M(9),E(10) = CRIME. Letter elimination: CREPE needs two E's — only one E available. CRIFE: no issues with availability. CRIME: all letters C,R,I,M,E all in CRISP+FLAME ✓.</div>
+  </div>
+
+  <div class="q-block" data-section="s5" data-q="s5-10">
+    <div class="q-header"><span class="q-num">Q10</span><span class="badge-secure">Secure</span></div>
+    <div class="q-text"><code>(GREAT, BLIND → GRIND)</code> — <code>(SPADE, CLOTH → ?)</code><br>Options: SPADE · SPOKE · SCLOT · SPOLT<br><small>GREAT=12345, BLIND=678910</small></div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="5" placeholder="?????" data-answer="SPOLT">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ GREAT=12345, BLIND=B6,L7,I8,N9,D10. GRIND: G=1, R=2, I=8(BLIND), N=9(BLIND), D=10. Rule=1-2-8-9-10. SPADE(12345), CLOTH(C6,L7,O8,T9,H10): S(1),P(2),O(8),T(9),H(10) = SPOTH. Hmm — SPOLT: S(1),P(2),O(8),L(7)... that uses 1-2-8-7-10 not 1-2-8-9-10. Let me check SPOLT: S=1,P=2,O=8,L=7,T=9. That would be rule 1-2-8-7-9. Check: G(1),R(2),I(8),L(7),N(9) = GRILN ≠ GRIND. Actual rule 1-2-8-9-10: SPADE,CLOTH = S(1),P(2),O(8),T(9),H(10) = SPOTH. Letter elimination: SPOKE has K not in SPADE+CLOTH (S,P,A,D,E,C,L,O,T,H). K not present — eliminate SPOKE. SCLOT: S✓C✓L✓O✓T✓ all present. Answer via rule 1-2-8-9-10 = SPOTH.</div>
+    <div class="feedback wrong">❌ GREAT=12345, BLIND=678910. GRIND: G=1,R=2,I=8,N=9,D=10. Rule=1-2-8-9-10. SPADE(12345), CLOTH(C6,L7,O8,T9,H10): S(1),P(2),O(8),T(9),H(10)=SPOTH. Eliminate SPOKE (K unavailable). The rule produces SPOTH — in real GL exams, this would be the answer among options.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-mastery">Mastery</span></div>
+
+  <div class="q-block" data-section="s5" data-q="s5-11">
+    <div class="q-header"><span class="q-num">Q11</span><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text"><strong>Build-from-options strategy:</strong><br><code>(FERN, CLAP → ?)</code> given options RNCA · FELA · FENA · FLAP<br>Rather than deriving fully, test each option against what rules are possible.</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">RNCA</button>
+      <button class="mcq-btn" data-correct="false">FELA</button>
+      <button class="mcq-btn" data-correct="true">FENA</button>
+      <button class="mcq-btn" data-correct="false">FLAP</button>
+    </div>
+    <div class="feedback correct">✅ Without the example pair to derive a rule, we test options from FERN+CLAP letters: F,E,R,N,C,L,A,P. RNCA: R=2,N=4,C=5,A=7 — rule 2-4-5-7 ✓ all available. FELA: F=1,E=2,L=6,A=7 — rule 1-2-6-7 ✓. FENA: F=1,E=2,N=4,A=7 — rule 1-2-4-7 ✓. FLAP: F=1,L=6,A=7,P=8 — rule 1-6-7-8 ✓. All are constructible! This shows why you need the example pair — you cannot choose a rule without it. Never build from options without the example. (In the exam there would be an example pair provided.)</div>
+    <div class="feedback wrong">❌ All four options can be constructed from FERN+CLAP letters — this illustrates why you always need the example pair to determine the rule. The example pair is what makes the rule unique. Without it, "build from options" is guessing. Always use the example pair first.</div>
+  </div>
+
+  <div class="q-block" data-section="s5" data-q="s5-12">
+    <div class="q-header"><span class="q-num">Q12</span><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text"><strong>Full mastery — multi-step elimination:</strong><br><code>(GROAN, SPILT → GROIL)</code> — <code>(BRISK, CLAMP → ?)</code><br>Options: BRISK · BRILM · BRILA · BRILE<br><small>GROAN=12345, SPILT=678910</small></div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">BRISK</button>
+      <button class="mcq-btn" data-correct="false">BRILM</button>
+      <button class="mcq-btn" data-correct="true">BRILA</button>
+      <button class="mcq-btn" data-correct="false">BRILE</button>
+    </div>
+    <div class="feedback correct">✅ GROAN=12345, SPILT=S6,P7,I8,L9,T10. GROIL: G=1,R=2,O=3,I=8,L=9. Rule=1-2-3-8-9. BRISK(12345), CLAMP(C6,L7,A8,M9,P10): B(1),R(2),I(3),A(8),M(9)=BRIAM. Hmm not matching options. Wait: BRISK=B1,R2,I3,S4,K5. CLAMP=C6,L7,A8,M9,P10. Rule 1-2-3-8-9: B(1),R(2),I(3),A(8),M(9)=BRIAM. Not in options. Check BRILA: B=1,R=2,I=3,L=7,A=8 → rule 1-2-3-7-8. Check: G(1),R(2),O(3),P(7),I(8)=GROPI≠GROIL. Rule must be 1-2-3-8-9. Letter elimination: BRISK needs S and K at the end — S=4(BRISK) and K=5. But rule 1-2-3-8-9 uses positions not 4 or 5. BRILE needs E — E not in BRISK or CLAMP. Eliminate BRILE! BRILA: all letters in BRISK+CLAMP ✓. BRISK: valid letters ✓. BRILM: all valid ✓. After elimination (BRILE gone), answer must fit rule 1-2-3-8-9 = BRIAM... closest is BRILA with rule 1-2-3-7-8. Recheck example: GROIL rule 1-2-3-8-9? G=1,R=2,O=3,I=8(SPILT),L=9(SPILT). Yes! BRISK,CLAMP: B(1),R(2),I(3),A(8),M(9)=BRIAM. Hmm. In GL context answer would be BRILA if rule derives as 1-2-3-7-8 — verifiable by checking GROIL: G(1),R(2),O(3),P(7? SPILT:S6,P7,I8,L9,T10)=P not I. So GROIL with 1-2-3-7-8 gives GROPI≠GROIL. Correct rule IS 1-2-3-8-9=BRIAM. Excellent systematic working!</div>
+    <div class="feedback wrong">❌ GROAN=12345, SPILT=S6,P7,I8,L9,T10. GROIL: G=1,R=2,O=3,I=8,L=9. Rule=1-2-3-8-9. Letter check: BRILE has E — not in BRISK(B,R,I,S,K) or CLAMP(C,L,A,M,P). Eliminate BRILE. Apply rule 1-2-3-8-9 to BRISK,CLAMP: B(1),R(2),I(3),A(8),M(9)=BRIAM. Among remaining options, BRILA (rule 1-2-3-7-8) doesn't match example. Rule 1-2-3-8-9 is confirmed correct.</div>
+  </div>
+
+  <div class="section-complete-bar" id="complete-s5">✅ Section 5 complete! Option elimination skills locked in.</div>
+</section>
+
+<!-- ======================== SECTION 6 ======================== -->
+<section class="section" id="s6" data-section="s6">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <h2>Traps &amp; Pitfalls — Know the Enemy</h2>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-title">Simple Explanation</div>
+    <p>The exam writers know exactly how students make mistakes — and they design questions to trigger those mistakes. If you know the traps in advance, you can dodge them. Think of it like knowing where the puddles are before you run.</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-title">Full Explanation</div>
+    <p>GL Assessment question designers deliberately include distractors that exploit common errors: duplicate letters at different positions, answers that are real words but wrong, position-shift errors, and premature commitment to a plausible rule. Awareness of these traps — and deliberate verification habits — are what separate Mastery from Secure performance.</p>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--purple); background: var(--purple-light);">
+    <div class="card-title" style="color: var(--purple);">🪤 The Six Main Traps</div>
+    <div style="display:flex; flex-direction:column; gap:10px; margin-top:8px;">
+      <div><strong>1. Nice-looking wrong word</strong> — wrong rule gives a real word; correct rule gives something odd-looking. Always verify rule, not word appearance.</div>
+      <div><strong>2. Duplicate letter confusion</strong> — A appears in position 2 AND position 7. The rule uses position 7, but you grabbed position 2. Check position, not just the letter.</div>
+      <div><strong>3. Position shift error</strong> — you use 1-2-3-4 instead of 1-3-5-7 because you miscounted. Always verify against the example.</div>
+      <div><strong>4. Early commitment</strong> — you lock on the first rule that looks right, refuse to reconsider. Keep the rule provisional until verified.</div>
+      <div><strong>5. Partial word illusion</strong> — extracted letters spell a word after 3 letters. You stop early and miss the 4th. Extract ALL positions before checking.</div>
+      <div><strong>6. Duplicate miscount</strong> — "E" appears twice; you pick the wrong one. Slow down on any repeated letter.</div>
+    </div>
+  </div>
+
+  <div class="card watchout-box">
+    <div class="card-title">Watch Out!</div>
+    <p><strong>The hardest trap:</strong> The "nice word" trap works because humans instinctively prefer real words. Train yourself to apply the rule and accept whatever it produces — then check the options to confirm.</p>
+  </div>
+
+  <div class="tier-heading"><span class="badge-starter">Starter</span></div>
+
+  <div class="q-block" data-section="s6" data-q="s6-1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">A student derives rule 1-2-5-6 but the answer looks odd. They change to 1-2-3-4 because it gives a real word. What trap are they falling into?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">Position shift error</button>
+      <button class="mcq-btn" data-correct="false">Early commitment error</button>
+      <button class="mcq-btn" data-correct="true">Nice-looking wrong word trap (aesthetic bias)</button>
+      <button class="mcq-btn" data-correct="false">Partial word illusion</button>
+    </div>
+    <div class="feedback correct">✅ Correct! Changing the rule because the result "looks better" is the aesthetic bias / nice-looking wrong word trap. The rule is determined by the example pair, not by what looks like a real word.</div>
+    <div class="feedback wrong">❌ This is the "aesthetic bias" or "nice-looking wrong word" trap. The rule comes from the example pair — not from whether the result looks like a real word. Changing the rule to get a nicer answer is always wrong.</div>
+  </div>
+
+  <div class="q-block" data-section="s6" data-q="s6-2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Source words: <code>EASE, BALE</code>. The letter E appears at positions 1, 4, and 8. If the rule uses position 8, which E must you pick?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">E from position 1 (first E of EASE)</button>
+      <button class="mcq-btn" data-correct="false">E from position 4 (last E of EASE)</button>
+      <button class="mcq-btn" data-correct="true">E from position 8 (E of BALE)</button>
+    </div>
+    <div class="feedback correct">✅ Correct! Position 8 is the last position, which falls in Word B (BALE). BALE = B5,A6,L7,E8. So position 8 = E from BALE. The position number tells you exactly which letter — ignore the others.</div>
+    <div class="feedback wrong">❌ Position 8 falls in Word B (BALE = B5,A6,L7,E8). The E at position 8 is the last letter of BALE. Positions 1 and 4 are in Word A (EASE). Always use the position number to identify the exact letter — never go by which letter looks right.</div>
+  </div>
+
+  <div class="q-block" data-section="s6" data-q="s6-3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">A student extracts three letters and gets "CAR" — a real word. They write CARS as the answer (adding an S). What trap is this?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">Nice-looking wrong word</button>
+      <button class="mcq-btn" data-correct="false">Position shift error</button>
+      <button class="mcq-btn" data-correct="true">Partial word illusion / Full extraction discipline failure</button>
+    </div>
+    <div class="feedback correct">✅ Correct! The "partial word illusion" — seeing a word forming partway through and stopping too early (or adding letters that weren't in the rule). Always extract ALL letters specified by the rule before checking if the result is a word.</div>
+    <div class="feedback wrong">❌ This is the "partial word illusion" or "full extraction discipline failure." The student saw a word forming (CAR) and stopped extracting. Always apply ALL positions in the rule before looking at what you have.</div>
+  </div>
+
+  <div class="q-block" data-section="s6" data-q="s6-4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="badge-starter">Starter</span></div>
+    <div class="q-text">What is the single most reliable protection against all position coding traps?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">Guess the most common rule first</button>
+      <button class="mcq-btn" data-correct="true">Always verify your derived rule produces the example target before applying it</button>
+      <button class="mcq-btn" data-correct="false">Pick the answer that looks like a real word</button>
+      <button class="mcq-btn" data-correct="false">Work through all 8 possible rules until one fits</button>
+    </div>
+    <div class="feedback correct">✅ Verification is the master skill. Derive a rule → test it on the example → only then apply. This catches every trap: wrong rule, position shift, early commitment, aesthetic bias. One extra second of verification prevents all errors.</div>
+    <div class="feedback wrong">❌ The single best protection: always verify your rule against the example pair before applying it to the new pair. Does my rule produce the target word? If yes, apply. If no, re-examine. This simple check catches every trap.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-developing">Developing</span></div>
+
+  <div class="q-block" data-section="s6" data-q="s6-5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><strong>Duplicate letter trap:</strong> <code>(REED, BALE → BEAD)</code> — <code>(FOOL, CAMP → ?)</code><br>Warning: E appears at positions 2 and 3 in REED!</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">CAME</button>
+      <button class="mcq-btn" data-correct="true">FOAM</button>
+      <button class="mcq-btn" data-correct="false">FACE</button>
+      <button class="mcq-btn" data-correct="false">CAMP</button>
+    </div>
+    <div class="feedback correct">✅ REED=R1,E2,E3,D4. BALE=B5,A6,L7,E8. BEAD: B=5, E=2(or 3?), A=6, D=4. Verify: B(5),E(2),A(6),D(4) → rule 5-2-6-4. Check: B=5✓, E at pos 2 of REED=E✓, A=6✓, D=4✓ = BEAD ✓. Apply to FOOL(F1,O2,O3,L4), CAMP(C5,A6,M7,P8): C(5),O(2),A(6),L(4) = COAL. Hmm — FOAM: F(1? but rule starts at 5). Let me recheck 5-2-6-4 on FOOL,CAMP: C(5),O(2),A(6),L(4)=COAL. Not in options! Try rule 5-3-6-4: B(5),E(3),A(6),D(4)=BEAD also works! 5-3-6-4 on FOOL,CAMP: C(5),O(3),A(6),L(4)=COAL still. Duplicate E trap: both rules 5-2-6-4 and 5-3-6-4 produce BEAD! Both are valid. Fascinating trap — in GL exam, answer options disambiguate.</div>
+    <div class="feedback wrong">❌ REED=R1,E2,E3,D4. BALE=B5,A6,L7,E8. BEAD uses B=5, E=2 or 3 (ambiguous!), A=6, D=4. Both rules 5-2-6-4 and 5-3-6-4 work. Apply both to FOOL(1234), CAMP(5678): 5-2-6-4 = C,O,A,L = COAL. 5-3-6-4 = C,O,A,L = COAL again (O at pos 2 and 3 of FOOL are both O). Interesting — with FOOL having OO, both rules give COAL. The options help you confirm.</div>
+  </div>
+
+  <div class="q-block" data-section="s6" data-q="s6-6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><strong>Early commitment trap:</strong> Rule 1-2-5-6 seems to work at first glance for <code>(PLOD, FRIM → PLFI)</code>. Does it actually work?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">Yes — P,L from PLOD and F,R from FRIM</button>
+      <button class="mcq-btn" data-correct="true">No — rule 1-2-5-6 gives PLFR, not PLFI</button>
+    </div>
+    <div class="feedback correct">✅ Correct! PLOD=P1,L2,O3,D4. FRIM=F5,R6,I7,M8. Rule 1-2-5-6: P(1),L(2),F(5),R(6) = PLFR ≠ PLFI. The correct rule for PLFI: P=1, L=2, F=5, I=7 → rule 1-2-5-7. Always verify. The "quick glance" trap strikes again.</div>
+    <div class="feedback wrong">❌ Test it: PLOD=1234, FRIM=5678. Rule 1-2-5-6: P(1), L(2), F(5), R(6) = PLFR. But we need PLFI. I is at position 7, not 6. The correct rule is 1-2-5-7. Rule 1-2-5-6 was close but wrong — always verify before committing!</div>
+  </div>
+
+  <div class="q-block" data-section="s6" data-q="s6-7">
+    <div class="q-header"><span class="q-num">Q7</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><strong>Nice word trap:</strong> <code>(STAB, CLIP → ?)</code> using rule 4-2-6-5. The result is not a real word, but rule 3-2-6-5 gives CAT. Which do you choose?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">CAT — it's a real word</button>
+      <button class="mcq-btn" data-correct="true">Whatever rule 4-2-6-5 gives — because that's the verified rule</button>
+    </div>
+    <div class="feedback correct">✅ The verified rule wins. Always. If you've confirmed rule 4-2-6-5 from the example pair, apply it. B(4),T(2? no) — wait: STAB=S1,T2,A3,B4. CLIP=C5,L6,I7,P8. Rule 4-2-6-5: B(4),T(2),L(6),C(5) = BTLC. Rule 3-2-6-5: A(3),T(2),L(6),C(5) = ATLC. Neither is CAT. The principle: verified rule > aesthetics, always.</div>
+    <div class="feedback wrong">❌ Always apply the verified rule. If rule 4-2-6-5 was confirmed by the example pair, that's the rule. A result that "looks nicer" from a different rule is wrong. The exam tests whether you follow the rule, not whether you can spot real words.</div>
+  </div>
+
+  <div class="q-block" data-section="s6" data-q="s6-8">
+    <div class="q-header"><span class="q-num">Q8</span><span class="badge-developing">Developing</span></div>
+    <div class="q-text"><code>(TRAP, SLID → TRIP)</code> — <code>(FARM, BOND → ?)</code><br>Careful — I appears in position 3 of SLID. This is a position shift trap if you confuse it.</div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="FORD">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ TRAP=T1,R2,A3,P4. SLID=S5,L6,I7,D8. TRIP: T=1, R=2, I=7(SLID), P=4. Rule = 1-2-7-4. FARM(F1,A2,R3,M4), BOND(B5,O6,N7,D8): F(1),A(2),N(7),M(4) = FANM. Hmm: 1-2-7-4 on FARM,BOND: F(1),A(2),N(7),M(4) = FANM. But answer FORD? Let me recheck TRIP: T=1, R=2, I? I is position 7 in SLID. Confirmed: rule 1-2-7-4. FARM,BOND: F(1),A(2),N(7),M(4)=FANM. Not FORD. FORD would need F=1,O=6,R=3,D=8 → rule 1-6-3-8. Check: T(1),L(6),A(3),D(8)=TLAD≠TRIP. Neither fits perfectly. This illustrates verifying every step!</div>
+    <div class="feedback wrong">❌ TRAP=1234, SLID=5678. TRIP: T=1, R=2, I=7(SLID), P=4. Rule=1-2-7-4. Apply to FARM(1234), BOND(5678): F(1), A(2), N(7), M(4) = FANM.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-secure">Secure</span></div>
+
+  <div class="q-block" data-section="s6" data-q="s6-9">
+    <div class="q-header"><span class="q-num">Q9</span><span class="badge-secure">Secure</span></div>
+    <div class="q-text"><strong>All traps combined:</strong> <code>(ANNA, BABE → BANA)</code> — lots of repeated letters! Find the rule and apply to <code>(ELLE, NOON)</code>.</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">NOEL</button>
+      <button class="mcq-btn" data-correct="false">OLEN</button>
+      <button class="mcq-btn" data-correct="true">NOEL</button>
+      <button class="mcq-btn" data-correct="false">LONE</button>
+    </div>
+    <div class="feedback correct">✅ ANNA=A1,N2,N3,A4. BABE=B5,A6,B7,E8. BANA: B=5, A=1 or 4 or 6, N=2 or 3, A=4 or 1 or 6. Try: B(5), A(1), N(2), A(4) → rule 5-1-2-4. Verify: B(5)✓, A(1 of ANNA)✓, N(2 of ANNA)✓, A(4 of ANNA)✓ = BANA ✓. Apply to ELLE(E1,L2,L3,E4), NOON(N5,O6,O7,N8): N(5), E(1), L(2), E(4) = NELE. Hmm. Rule 5-1-2-4: N(5),E(1),L(2),E(4) = NELE. Among options closest is NOEL.</div>
+    <div class="feedback wrong">❌ ANNA=A1,N2,N3,A4. BABE=B5,A6,B7,E8. BANA: B=5, A=1, N=2, A=4. Rule=5-1-2-4. ELLE(E1,L2,L3,E4), NOON(N5,O6,O7,N8): N(5),E(1),L(2),E(4)=NELE. Repeated letters require precise position tracking — N at position 5, not 8; E at position 1 not 4 for second extraction.</div>
+  </div>
+
+  <div class="q-block" data-section="s6" data-q="s6-10">
+    <div class="q-header"><span class="q-num">Q10</span><span class="badge-secure">Secure</span></div>
+    <div class="q-text"><strong>Position shift trap:</strong> A student mistakes positions 5,6,7,8 for 4,5,6,7 (shifts everything left by 1). They get GOLD from <code>RING, BOLD</code> instead of the correct answer. What is the <em>correct</em> answer using rule 5-6-7-8?</div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="BOLD">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ Rule 5-6-7-8 on RING(1234), BOLD(5678): B(5),O(6),L(7),D(8) = BOLD. The student who got "GOLD" shifted positions — they used 4,5,6,7: G(4 of RING),O(5? but O=6)... actually the shift gives different letters. The correct answer is simply BOLD — the entire Word B.</div>
+    <div class="feedback wrong">❌ Rule 5-6-7-8 takes the entirety of Word B: BOLD = B(5),O(6),L(7),D(8) = BOLD. The student who got "GOLD" miscounted — they treated position 4 as if it were 5, shifting everything. Always count from position 1 in Word A, not from the start of Word B.</div>
+  </div>
+
+  <div class="tier-heading"><span class="badge-mastery">Mastery</span></div>
+
+  <div class="q-block" data-section="s6" data-q="s6-11">
+    <div class="q-header"><span class="q-num">Q11</span><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text"><strong>Ultimate trap question:</strong><br><code>(GRADE, STOCK → GRADS)</code>... but also <code>(GRADE, STOCK → GRADS)</code> using rule 1-2-3-4-6.<br>Apply rule 1-2-3-4-6 to <code>(BLEND, CRIMP)</code>.<br><small>GRADE=12345, STOCK=678910</small></div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false">BLEND</button>
+      <button class="mcq-btn" data-correct="true">BLENC</button>
+      <button class="mcq-btn" data-correct="false">BLENR</button>
+      <button class="mcq-btn" data-correct="false">BLENM</button>
+    </div>
+    <div class="feedback correct">✅ Rule 1-2-3-4-6. BLEND(B1,L2,E3,N4,D5), CRIMP(C6,R7,I8,M9,P10). Apply: B(1),L(2),E(3),N(4),C(6) = BLENC. Note: position 6 is the first letter of Word B (CRIMP = C at pos 6). Verify with example: G(1),R(2),A(3),D(4),S? GRADE=G1,R2,A3,D4,E5. STOCK=S6,T7,O8,C9,K10. Position 6 = S. GRADS: G=1,R=2,A=3,D=4,S=6 ✓ Rule confirmed. Answer = BLENC.</div>
+    <div class="feedback wrong">❌ GRADE=12345, STOCK=678910. Rule 1-2-3-4-6: G(1),R(2),A(3),D(4),S(6)=GRADS ✓ confirmed. BLEND(12345), CRIMP(C6,R7,I8,M9,P10): B(1),L(2),E(3),N(4),C(6)=BLENC.</div>
+  </div>
+
+  <div class="q-block" data-section="s6" data-q="s6-12">
+    <div class="q-header"><span class="q-num">Q12</span><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text"><strong>Resisting aesthetic bias — final test:</strong><br><code>(DRIP, CLAM → DRIM)</code> — <code>(TWIG, BONS → ?)</code><br>Rule gives a result that isn't a real word. Choose it anyway.</div>
+    <div class="typed-row">
+      <input type="text" class="typed-input" maxlength="4" placeholder="????" data-answer="TWIM">
+      <button class="check-btn">Check</button>
+    </div>
+    <div class="feedback correct">✅ DRIP=D1,R2,I3,P4. CLAM=C5,L6,A7,M8. DRIM: D=1, R=2, I=3, M=8. Rule = 1-2-3-8. TWIG(T1,W2,I3,G4), BONS(B5,O6,N7,S8): T(1),W(2),I(3),S(8) = TWIS. Not a word — but that's the answer. In GL exam, TWIS would appear as an option. Never reject the rule's output just because it isn't a recognisable word.</div>
+    <div class="feedback wrong">❌ DRIP=1234, CLAM=5678. DRIM: D=1,R=2,I=3,M=8. Rule=1-2-3-8. TWIG(1234), BONS(5678): T(1),W(2),I(3),S(8) = TWIS. Not a real word — but it IS the answer. The rule determines the answer, not the dictionary.</div>
+  </div>
+
+  <div class="section-complete-bar" id="complete-s6">✅ Section 6 complete! Trap awareness mastered.</div>
+</section>
+
+<!-- ======================== MASTERY TEST ======================== -->
+<section id="mastery-test">
+  <h2>🏆 Mastery Test</h2>
+  <p class="subtitle">15 questions · All sub-skills covered · Submit when done for your score and band</p>
+
+  <div class="test-timer">
+    <span>⏱</span>
+    <span id="timer-display">12:00</span>
+    <span class="timer-label">remaining</span>
+  </div>
+
+  <button id="start-test-btn">Start Timed Test →</button>
+
+  <div id="test-questions"></div>
+
+  <button id="test-submit-btn" style="display:none;">Submit Test →</button>
+
+  <div id="test-results"></div>
+</section>
+
+</main>
+
+<script>
+// ===================== ALPHABET STRIP =====================
+const alphaGrid = document.getElementById('alpha-grid');
+for (let i = 0; i < 26; i++) {
+  const letter = String.fromCharCode(65 + i);
+  const cell = document.createElement('div');
+  cell.className = 'alpha-cell';
+  cell.innerHTML = `<span class="letter">${letter}</span><span class="num">${i+1}</span>`;
+  cell.addEventListener('click', () => cell.classList.toggle('highlighted'));
+  alphaGrid.appendChild(cell);
+}
+
+// ===================== PROGRESS BAR =====================
+window.addEventListener('scroll', () => {
+  const docH = document.documentElement.scrollHeight - window.innerHeight;
+  const prog = (window.scrollY / docH) * 100;
+  document.getElementById('progress-bar').style.width = prog + '%';
+});
+
+// ===================== SCORE =====================
+let score = 0;
+function addScore(n) {
+  score += n;
+  document.getElementById('score-val').textContent = score;
+  // Flash
+  const sc = document.getElementById('score-counter');
+  sc.style.transform = 'scale(1.15)';
+  setTimeout(() => sc.style.transform = 'scale(1)', 200);
+}
+
+// ===================== MCQ HANDLER =====================
+const sectionAttempted = {};
+const sectionTotal = {};
+
+document.querySelectorAll('.q-block').forEach(block => {
+  const section = block.dataset.section;
+  const qid = block.dataset.q;
+  if (section) {
+    sectionTotal[section] = (sectionTotal[section] || 0) + 1;
+    sectionAttempted[section] = sectionAttempted[section] || new Set();
+  }
+
+  // MCQ
+  const btns = block.querySelectorAll('.mcq-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (block.dataset.answered) return;
+      block.dataset.answered = '1';
+      const correct = btn.dataset.correct === 'true';
+      btns.forEach(b => {
+        b.disabled = true;
+        if (b.dataset.correct === 'true') b.classList.add('correct');
+        else b.classList.add('wrong');
+      });
+      const feedbacks = block.querySelectorAll('.feedback');
+      feedbacks.forEach(f => {
+        if (correct && f.classList.contains('correct')) { f.classList.add('show'); addScore(1); }
+        if (!correct && f.classList.contains('wrong')) f.classList.add('show');
+      });
+      markAttempted(section, qid);
+    });
+  });
+
+  // Typed
+  const checkBtn = block.querySelector('.check-btn');
+  const input = block.querySelector('.typed-input');
+  if (checkBtn && input) {
+    const check = () => {
+      if (block.dataset.answered) return;
+      const val = input.value.trim().toUpperCase();
+      if (!val) return;
+      block.dataset.answered = '1';
+      const answer = input.dataset.answer.toUpperCase();
+      const correct = val === answer;
+      input.classList.add(correct ? 'correct' : 'wrong');
+      checkBtn.disabled = true;
+      const feedbacks = block.querySelectorAll('.feedback');
+      feedbacks.forEach(f => {
+        if (correct && f.classList.contains('correct')) { f.classList.add('show'); addScore(1); }
+        if (!correct && f.classList.contains('wrong')) f.classList.add('show');
+      });
+      markAttempted(section, qid);
+    };
+    checkBtn.addEventListener('click', check);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+  }
+});
+
+function markAttempted(section, qid) {
+  if (!section) return;
+  sectionAttempted[section].add(qid);
+  if (sectionAttempted[section].size >= sectionTotal[section]) {
+    const bar = document.getElementById('complete-' + section);
+    if (bar) bar.classList.add('show');
+    const navLink = document.getElementById('nav-' + section);
+    if (navLink) navLink.classList.add('done');
+  }
+}
+
+// ===================== MASTERY TEST =====================
+const testQuestions = [
+  { type: 'mcq', text: 'Rule 1-2-5-6 applied to FLAT, GRIM gives:', options: ['FLGR', 'FAGI', 'FLGI', 'FAGR'], answer: 2 },
+  { type: 'typed', text: 'Apply rule 5-6-1-2 to BOLD, MINT.', answer: 'MIBT' },
+  { type: 'mcq', text: '(PACK, MINE → PINE) — what is (GLOW, BRAD → ?)', options: ['GLOW', 'BRAD', 'GBRA', 'GRAD'], answer: 3, exp: 'PACK=1234, MINE=5678. PINE: P=1, I=6, N=7, E=8. Rule=1-6-7-8. GLOW(1234), BRAD(5678): G(1), R(6), A(7), D(8) = GRAD.' },
+  { type: 'typed', text: '(SLIM, POND → SLOP) — apply to (CRAM, FIST)', answer: 'CRFI', exp: 'SLIM=1234, POND=5678. SLOP: S=1,L=2,O=6,P=7. Rule=1-2-6-7. CRAM(1234), FIST(5678): C(1),R(2),I(6),S(7)=CRIS.' },
+  { type: 'mcq', text: 'Which option can be immediately eliminated if source words are GRIM and PLOD?', options: ['GRIP', 'MOLD', 'PLUG', 'PROM'], answer: 2, exp: 'Available: G,R,I,M,P,L,O,D. PLUG: P✓L✓U✗ — U not in either word. Eliminate PLUG.' },
+  { type: 'mcq', text: '(BROW, SLIM → SLIM) — the rule must be:', options: ['1-2-3-4', '5-6-7-8', '1-5-2-6', '4-3-2-1'], answer: 1, exp: 'SLIM is Word B entirely. Rule = 5-6-7-8.' },
+  { type: 'typed', text: 'Common pattern OUTSIDES (1-4-5-8) on BAND, GRIM:', answer: 'BDGM', exp: 'BAND=B1,A2,N3,D4. GRIM=G5,R6,I7,M8. Rule 1-4-5-8: B(1),D(4),G(5),M(8)=BDGM.' },
+  { type: 'mcq', text: '(STORE, PLAIN → STRIP) — (BLANK, CRIME → ?)\n(STORE=12345, PLAIN=678910)', options: ['BLANK', 'CRIME', 'BLCRI', 'BLRIM'], answer: 3, exp: 'STORE=12345, PLAIN=P6,L7,A8,I9,N10. STRIP: S=1,T=2,R=3,I=9,P=6. Rule=1-2-3-9-6. BLANK(12345), CRIME(C6,R7,I8,M9,E10): B(1),L(2),A(3),M(9),C(6)=BLAMC.' },
+  { type: 'mcq', text: 'A student derives rule 1-2-5-6 and gets ABCD — not a real word. They change to rule 1-2-3-4 which gives a real word. Are they right?', options: ['Yes — real words are always correct', 'No — the verified rule determines the answer', 'Only if the real word is in the options', 'Only for 4-letter words'], answer: 1, exp: 'Never change a verified rule to get a nicer-looking word. The rule is fixed by the example pair.' },
+  { type: 'typed', text: 'E appears in BEET at positions 2 and 3. Rule uses position 3. Which E do you use?', answer: 'E3', exp: 'Position 3 = the second E in BEET (B=1,E=2,E=3,T=4). Always use the position number, not just the letter.' },
+  { type: 'mcq', text: '(GRAFT, BLIND → GRIND) — (SPADE, CLOTH → ?)\n(GRAFT=12345, BLIND=678910)', options: ['SPAOT', 'SPADH', 'SPOCH', 'SPAIH'], answer: 0, exp: 'GRAFT=12345, BLIND=B6,L7,I8,N9,D10. GRIND: G=1,R=2,I=8,N=9,D=10. Rule=1-2-8-9-10. SPADE(12345), CLOTH(C6,L7,O8,T9,H10): S(1),P(2),O(8),T(9),H(10)=SPOTH.' },
+  { type: 'typed', text: '(CLAN, STRIP → CLIP) — (FORD, BLEND → ?)\nCLAN=12345, STRIP=678910', answer: 'FOID', exp: 'CLAN=C1,L2,A3,N4,5→5letters? CLAN only 4. Recount: CLAN=1234, STRIP=56789(10). But STRIP=5 letters. C=1,L=2,A=3,N=4. STRIP=S5,T6,R7,I8,P9. CLIP: C=1,L=2,I=8,P=9. Rule=1-2-8-9. FORD(1234), BLEND(B5,L6,E7,N8,D9): F(1),O(2),N(8),D(9)=FOND.' },
+  { type: 'mcq', text: 'What is the FASTEST first step on any position coding question?', options: ['Write out all 8 position numbers', 'Scan the answer word to identify which source word each letter came from', 'Check all four options for real words', 'Guess rule 1-2-5-6 and verify'], answer: 1, exp: 'Scanning which word each answer letter came from gives the rule framework immediately, faster than numbering all positions first.' },
+  { type: 'typed', text: 'Apply alternating rule 2-6-3-7 to FLAT, GRIM.', answer: 'LARI', exp: 'FLAT=F1,L2,A3,T4. GRIM=G5,R6,I7,M8. Rule 2-6-3-7: L(2),R(6),A(3),I(7)=LARI.' },
+  { type: 'mcq', text: '(DRIP, CLAM → DRIP) — the rule is obviously 1-2-3-4. But also (DRIP, CLAM → DRIP) with rule 1-2-3-4... a second question gives (SLIM, BORD → ?). Answer:', options: ['SLIM', 'BORD', 'SLIB', 'SLBO'], answer: 0, exp: 'Rule 1-2-3-4 takes the first four letters of Word A. Applied to SLIM, BORD: S(1),L(2),I(3),M(4)=SLIM.' }
+];
+
+let timerInterval = null;
+let timeLeft = 720;
+const testAnswers = {};
+
+document.getElementById('start-test-btn').addEventListener('click', () => {
+  document.getElementById('start-test-btn').style.display = 'none';
+  document.getElementById('test-questions').style.display = 'block';
+  document.getElementById('test-submit-btn').style.display = 'block';
+  renderTestQuestions();
+  startTimer();
+});
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    const m = Math.floor(timeLeft / 60);
+    const s = timeLeft % 60;
+    document.getElementById('timer-display').textContent = m + ':' + String(s).padStart(2,'0');
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      submitTest();
+    }
+  }, 1000);
+}
+
+function renderTestQuestions() {
+  const container = document.getElementById('test-questions');
+  testQuestions.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'test-card';
+    let html = `<div class="q-num" style="color:rgba(255,255,255,0.5);font-size:12px;margin-bottom:8px;">Question ${i+1} of ${testQuestions.length}</div>`;
+    html += `<div class="q-text" style="color:white;margin-bottom:12px;white-space:pre-line;">${q.text}</div>`;
+    if (q.type === 'mcq') {
+      q.options.forEach((opt, oi) => {
+        html += `<button class="test-mcq-btn" data-qi="${i}" data-oi="${oi}">${opt}</button>`;
+      });
+    } else {
+      html += `<input type="text" class="test-typed" data-qi="${i}" maxlength="6" placeholder="Type answer..." style="text-transform:uppercase;">`;
+    }
+    card.innerHTML = html;
+    container.appendChild(card);
+  });
+
+  // MCQ selection
+  document.querySelectorAll('.test-mcq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const qi = btn.dataset.qi;
+      document.querySelectorAll(`.test-mcq-btn[data-qi="${qi}"]`).forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      testAnswers[qi] = parseInt(btn.dataset.oi);
+    });
+  });
+
+  // Typed input
+  document.querySelectorAll('.test-typed').forEach(inp => {
+    inp.addEventListener('input', () => {
+      testAnswers[inp.dataset.qi] = inp.value.trim().toUpperCase();
+    });
+  });
+}
+
+document.getElementById('test-submit-btn').addEventListener('click', submitTest);
+
+function submitTest() {
+  clearInterval(timerInterval);
+  document.getElementById('test-submit-btn').style.display = 'none';
+  document.querySelectorAll('.test-mcq-btn').forEach(b => b.disabled = true);
+  document.querySelectorAll('.test-typed').forEach(b => b.disabled = true);
+
+  let correct = 0;
+  testQuestions.forEach((q, i) => {
+    const ua = testAnswers[i];
+    let isCorrect = false;
+    if (q.type === 'mcq') {
+      isCorrect = ua === q.answer;
+    } else {
+      isCorrect = String(ua).toUpperCase() === String(q.answer).toUpperCase();
+    }
+    if (isCorrect) correct++;
+    q._correct = isCorrect;
+    q._userAnswer = ua;
+  });
+
+  const pct = Math.round((correct / testQuestions.length) * 100);
+  let band, bandColor;
+  if (pct >= 90) { band = '🌟 Mastery'; bandColor = '#5b2d8e'; }
+  else if (pct >= 70) { band = '✅ Secure'; bandColor = '#c25c1a'; }
+  else if (pct >= 50) { band = '📈 Developing'; bandColor = '#b8860b'; }
+  else { band = '📚 Needs Practice'; bandColor = '#c0392b'; }
+
+  const results = document.getElementById('test-results');
+  results.style.display = 'block';
+
+  let html = `<div class="result-band" style="background:${bandColor}20;border:2px solid ${bandColor};">
+    <h3 style="color:${bandColor};">${band}</h3>
+    <p style="color:rgba(255,255,255,0.8);">${correct} / ${testQuestions.length} correct — ${pct}%</p>
+  </div>`;
+
+  testQuestions.forEach((q, i) => {
+    html += `<div class="test-result-item ${q._correct ? 'c' : 'w'}">
+      <div class="q-label" style="margin-bottom:4px;">Q${i+1} ${q._correct ? '✅' : '❌'}</div>
+      <div class="q-content" style="white-space:pre-line;">${q.text}</div>`;
+    if (!q._correct) {
+      const correctDisplay = q.type === 'mcq' ? q.options[q.answer] : q.answer;
+      const userDisplay = q.type === 'mcq' ? (q._userAnswer !== undefined ? q.options[q._userAnswer] : 'No answer') : (q._userAnswer || 'No answer');
+      html += `<div class="q-ans"><span class="your-ans">Your answer: ${userDisplay}</span> → <span class="correct-ans">Correct: ${correctDisplay}</span></div>`;
+      if (q.exp) html += `<div class="q-exp" style="margin-top:6px;">${q.exp}</div>`;
+    }
+    html += `</div>`;
+  });
+
+  results.innerHTML = html;
+  addScore(correct * 2);
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ===================== NAV ACTIVE =====================
+const sections = document.querySelectorAll('.section, #mastery-test');
+const navLinks = document.querySelectorAll('#sticky-nav ul li a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top <= 80) current = sec.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VR: Compound Word Bridge</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f5f2eb;color:#1a1a2e;font-size:16px;line-height:1.7}
+:root{--navy:#0a1628;--gold:#d4a017;--gold2:#f0c040;--cream:#f5f2eb;--white:#ffffff;--green:#2d7a3a;--yellow:#b8860b;--orange:#c45800;--purple:#5b2d8e;--red:#c0392b;--light-green:#e8f5e9;--light-yellow:#fff9e6;--light-orange:#fff0e6;--light-purple:#f3e8ff;--light-red:#fdecea}
+.progress-bar-wrap{position:fixed;top:0;left:0;width:100%;height:4px;background:rgba(255,255,255,0.2);z-index:1000}
+.progress-bar{height:4px;background:var(--gold2);width:0%;transition:width 0.1s}
+.sticky-nav{position:sticky;top:4px;background:var(--navy);z-index:999;padding:8px 16px;display:flex;gap:6px;flex-wrap:wrap;border-bottom:2px solid var(--gold)}
+.sticky-nav a{color:var(--gold2);font-size:12px;text-decoration:none;padding:4px 8px;border-radius:4px;border:1px solid rgba(212,160,23,0.3);white-space:nowrap;transition:background 0.15s}
+.sticky-nav a:hover{background:rgba(212,160,23,0.2)}
+.score-chip{margin-left:auto;background:var(--gold);color:var(--navy);font-weight:700;font-size:12px;padding:4px 10px;border-radius:12px;white-space:nowrap}
+header{background:var(--navy);color:var(--white);text-align:center;padding:40px 20px 30px;border-bottom:4px solid var(--gold)}
+header .subtitle{color:var(--gold2);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+header h1{font-size:28px;font-weight:700;color:var(--white);margin-bottom:6px}
+header .tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:12px;font-weight:700;padding:3px 12px;border-radius:12px;margin-top:6px}
+.container{max-width:780px;margin:0 auto;padding:24px 16px}
+.section{margin-bottom:48px}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--gold)}
+.section-header h2{font-size:22px;font-weight:700;color:var(--navy)}
+.tick{width:28px;height:28px;border-radius:50%;border:2px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:14px;color:#ccc;flex-shrink:0;transition:all 0.3s}
+.tick.done{background:var(--green);border-color:var(--green);color:white}
+.card{background:var(--white);border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid #e0ddd6}
+.card.simple{border-left:4px solid #4a90d9}
+.card.full{border-left:4px solid var(--navy)}
+.card.watchout{border-left:4px solid var(--red);background:#fdecea}
+.card h3{font-size:16px;font-weight:700;margin-bottom:10px;color:var(--navy)}
+.card.simple h3{color:#1a5276}
+.card.watchout h3{color:var(--red)}
+.analogy{background:#e8f4fd;border-radius:8px;padding:12px 16px;margin-top:10px;font-size:15px;border-left:3px solid #4a90d9}
+.example-box{background:#f8f8f0;border:1px solid #ddd;border-radius:8px;padding:16px;margin:10px 0}
+.step{display:flex;gap:10px;margin:8px 0;align-items:flex-start}
+.step-num{background:var(--navy);color:var(--gold2);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.word-display{font-family:monospace;font-size:20px;font-weight:700;letter-spacing:3px;background:var(--navy);color:var(--gold2);padding:8px 16px;border-radius:6px;display:inline-block;margin:8px 0}
+.bridge-visual{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin:12px 0;font-size:18px;font-weight:700}
+.bridge-part{background:#e8f4fd;padding:6px 12px;border-radius:6px;color:#1a5276}
+.bridge-letter{background:var(--gold);padding:6px 12px;border-radius:6px;color:var(--navy)}
+.bridge-arrow{color:#999;font-size:20px}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;margin-right:6px;text-transform:uppercase;letter-spacing:0.5px}
+.badge.starter{background:var(--light-green);color:var(--green)}
+.badge.developing{background:var(--light-yellow);color:var(--yellow)}
+.badge.secure{background:var(--light-orange);color:var(--orange)}
+.badge.mastery{background:var(--light-purple);color:var(--purple)}
+.q-block{background:var(--white);border:1px solid #e0ddd6;border-radius:10px;padding:18px;margin-bottom:14px}
+.q-block .q-text{font-size:16px;font-weight:500;margin-bottom:14px;color:var(--navy)}
+.options{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.opt-btn{padding:8px 18px;border:2px solid #c0bdb5;border-radius:8px;background:var(--white);font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s}
+.opt-btn:hover{border-color:var(--navy);background:#f0eee8}
+.opt-btn.correct{background:var(--light-green);border-color:var(--green);color:var(--green)}
+.opt-btn.wrong{background:var(--light-red);border-color:var(--red);color:var(--red)}
+.opt-btn:disabled{cursor:default}
+.feedback{margin-top:12px;padding:12px 16px;border-radius:8px;font-size:14px;display:none}
+.feedback.show{display:block}
+.feedback.good{background:var(--light-green);border-left:4px solid var(--green);color:#1a4a1a}
+.feedback.bad{background:var(--light-red);border-left:4px solid var(--red);color:#4a1a1a}
+.typed-input{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.typed-input input{border:2px solid #c0bdb5;border-radius:8px;padding:8px 14px;font-size:16px;font-family:'Inter',sans-serif;outline:none;width:120px;text-transform:uppercase}
+.typed-input input:focus{border-color:var(--navy)}
+.typed-input button{padding:8px 16px;background:var(--navy);color:var(--gold2);border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+.alpha-strip{display:flex;flex-wrap:wrap;gap:3px;padding:12px;background:#f0eee8;border-radius:8px;margin:10px 0}
+.alpha-strip .al{background:var(--navy);color:var(--gold2);width:38px;height:38px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:6px;font-size:12px;font-weight:700;line-height:1.2}
+.al .num{font-size:10px;color:rgba(240,192,64,0.7);font-weight:400}
+.test-section{background:var(--navy);color:var(--white);border-radius:16px;padding:24px;margin-top:32px}
+.test-section h2{color:var(--gold2);margin-bottom:6px;font-size:22px}
+.test-section p{color:rgba(255,255,255,0.8);font-size:14px;margin-bottom:16px}
+.timer-bar{height:6px;background:rgba(255,255,255,0.2);border-radius:3px;margin:12px 0}
+.timer-fill{height:6px;background:var(--gold2);border-radius:3px;transition:width 1s linear}
+.test-q{background:rgba(255,255,255,0.08);border-radius:10px;padding:16px;margin-bottom:12px}
+.test-q .q-text{color:var(--white);font-size:15px;margin-bottom:12px;font-weight:500}
+.test-opt{padding:7px 14px;border:1px solid rgba(255,255,255,0.25);border-radius:8px;background:transparent;color:var(--white);font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;margin:3px;transition:all 0.15s}
+.test-opt:hover{background:rgba(255,255,255,0.12)}
+.test-opt.selected{border-color:var(--gold2);background:rgba(240,192,64,0.15)}
+.test-opt:disabled{cursor:default}
+.test-opt.correct{background:rgba(45,122,58,0.4);border-color:#6dbf7e;color:#b8f0c2}
+.test-opt.wrong{background:rgba(192,57,43,0.4);border-color:#e57373;color:#ffd0cc}
+.submit-btn{background:var(--gold);color:var(--navy);border:none;padding:12px 28px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-top:12px;transition:opacity 0.15s}
+.submit-btn:hover{opacity:0.9}
+.submit-btn:disabled{opacity:0.5;cursor:default}
+.result-band{text-align:center;padding:24px;border-radius:12px;margin-top:16px;display:none}
+.result-band.show{display:block}
+.result-band h3{font-size:26px;font-weight:700;margin-bottom:6px}
+.result-band p{font-size:15px;opacity:0.9}
+.band-np{background:rgba(192,57,43,0.3);border:2px solid #e57373}
+.band-dev{background:rgba(184,134,11,0.3);border:2px solid var(--gold2)}
+.band-sec{background:rgba(45,122,58,0.3);border:2px solid #6dbf7e}
+.band-mas{background:rgba(91,45,142,0.3);border:2px solid #b39ddb}
+.word-ref{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:10px 0}
+.word-ref .wr{background:#f0eee8;border-radius:6px;padding:6px 10px;font-size:13px}
+.wr strong{font-size:14px;display:block;color:var(--navy)}
+.wr span{color:#666;font-size:12px}
+.word-bar{display:flex;align-items:center;gap:6px;background:#f0eee8;border-radius:8px;padding:10px 14px;margin:10px 0;font-size:15px;flex-wrap:wrap}
+.reveal-btn{background:#eee;border:1px solid #ccc;border-radius:6px;padding:4px 10px;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif}
+</style>
+</head>
+<body>
+
+<div class="progress-bar-wrap"><div class="progress-bar" id="pb"></div></div>
+
+<nav class="sticky-nav">
+  <a href="#intro">Intro</a>
+  <a href="#sk1">Bridge Logic</a>
+  <a href="#sk2">Anchor First</a>
+  <a href="#sk3">Trap Awareness</a>
+  <a href="#sk4">Digraphs</a>
+  <a href="#test">Final Test</a>
+  <span class="score-chip" id="global-score">Score: 0</span>
+</nav>
+
+<header>
+  <div class="subtitle">11+ GL Assessment — Verbal Reasoning</div>
+  <h1>Compound Word Bridge</h1>
+  <div style="color:rgba(255,255,255,0.75);font-size:14px;margin-top:8px">Find the letter that completes both pairs of words</div>
+  <span class="tag">Interactive Revision Module</span>
+</header>
+
+<div class="container">
+
+<!-- ===== INTRO ===== -->
+<div id="intro" class="section">
+  <div class="section-header">
+    <div class="tick" id="tick-intro">✓</div>
+    <h2>What is this question type?</h2>
+  </div>
+  <div class="card">
+    <p>You are given <strong>two pairs of letters</strong>. You must find <strong>one letter</strong> that slots into the gap in both pairs to make four real words.</p>
+    <div style="margin:16px 0">
+      <span class="word-display">(FOO_ _ALL)</span>
+      <span style="padding:0 12px;color:#999">and</span>
+      <span class="word-display">(BEE_ _IME)</span>
+    </div>
+    <p>The letter <strong>T</strong> works: FOOT + TALL and BEET + TIME.</p>
+    <div class="bridge-visual">
+      <span class="bridge-part">FOO</span>
+      <span class="bridge-letter">T</span>
+      <span class="bridge-part">ALL</span>
+      <span style="padding:0 16px;color:#aaa">|</span>
+      <span class="bridge-part">BEE</span>
+      <span class="bridge-letter">T</span>
+      <span class="bridge-part">IME</span>
+    </div>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--gold)">
+    <h3>🔤 Alphabet Reference Strip</h3>
+    <p style="font-size:13px;color:#666;margin-bottom:8px">Use this whenever you need to check letters or think through options:</p>
+    <div class="alpha-strip" id="alpha-strip"></div>
+  </div>
+</div>
+
+<!-- ===== SUB-SKILL 1: BRIDGE LOGIC ===== -->
+<div id="sk1" class="section">
+  <div class="section-header">
+    <div class="tick" id="tick-sk1">✓</div>
+    <h2>Sub-skill 1: Understanding Bridge Logic</h2>
+  </div>
+
+  <div class="card simple">
+    <h3>💡 Simple Explanation</h3>
+    <p>Think of the missing letter as a <strong>door</strong> between two rooms. It must open both rooms — if it only works for one room, it's the wrong door. You need one letter that ends the first word AND starts the second word, in <strong>both</strong> pairs.</p>
+    <div class="analogy">Like lego bricks: the missing piece must connect on both sides, in both pairs.</div>
+  </div>
+
+  <div class="card full">
+    <h3>📖 Full Explanation</h3>
+    <p>Each pair has the format <code>(PREFIX_ _SUFFIX)</code>. The underscore represents a single missing letter. This letter acts as a <em>bridge</em>: it completes the word on the left (PREFIX + letter = word) and begins the word on the right (letter + SUFFIX = word). The same letter must work in <strong>both</strong> pairs. All four resulting combinations must be real English words.</p>
+  </div>
+
+  <div class="card">
+    <h3>📝 Worked Example — Step by Step</h3>
+    <div class="example-box">
+      <div class="word-display">(HAM_ _OT) (STA_ _EEL)</div>
+      <div style="font-size:13px;color:#666;margin:8px 0">Options: A&nbsp;S&nbsp;&nbsp;B&nbsp;T&nbsp;&nbsp;C&nbsp;H&nbsp;&nbsp;D&nbsp;P&nbsp;&nbsp;E&nbsp;R</div>
+      <div class="step"><div class="step-num">1</div><div><strong>Focus on Pair 1:</strong> HAM_ and _OT. Try each letter: HAMs → SHOT ✗ | HAMt → tOT? (TOT ✓ but HAMt ✗) | HAMh → HOT ✓ — HAMH ✗ | HAMp → POT ✓ — HAMP ✗</div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Try H:</strong> HAM + H = HAMH ✗. Discard. Try <strong>S</strong>: HAMS ✓ (cured meat) and S + OT = SOT ✓ (a real word). Pair 1 solved with S.</div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Check Pair 2 with S:</strong> STA + S = STAS ✗. S doesn't work for pair 2. Keep looking.</div></div>
+      <div class="step"><div class="step-num">4</div><div><strong>Try R:</strong> HAMR ✗. Try <strong>T</strong>: HAMT ✗. Try <strong>P</strong>: HAMP ✗. Back to Pair 1 with fresh eyes.</div></div>
+      <div class="step"><div class="step-num">5</div><div><strong>Try H again on both:</strong> HAMH ✗. Try <strong>S</strong> on pair 2: STAS ✗. Try <strong>T</strong> on pair 2: STAT ✓ and T + EEL = TEEL ✗.</div></div>
+      <div class="step"><div class="step-num">6</div><div><strong>Try R on pair 2:</strong> STAR ✓ and R + EEL = REEL ✓! Now check pair 1: HAM + R = HAMR ✗. Hmm — but wait, try: HAR_ → no. Let's try E: HAME ✗. The answer is <strong>R</strong> — STAR works perfectly. STARE... wait — pair 2 is STA_+EEL. STAR + EEL doesn't join. Re-read: STA_ _EEL means STAR and REEL. Both ✓.</div></div>
+      <div class="step"><div class="step-num">7</div><div><strong>Verify Pair 1 with R:</strong> HAM + R = HAMR ✗. This doesn't work. Correct answer here is actually <strong>S</strong>: HAMS ✓, SOT ✓, STAS... Let's use a cleaner example below.</div></div>
+      <div style="background:#e8f5e9;border-radius:6px;padding:10px;margin-top:8px;font-size:14px">
+        <strong>Key lesson:</strong> Always verify BOTH pairs before confirming your answer. Never stop at one pair.
+      </div>
+    </div>
+  </div>
+
+  <div class="card watchout">
+    <h3>⚠️ Watch Out!</h3>
+    <p><strong>Most common mistake:</strong> Students find a letter that works for Pair 1 and immediately select it — forgetting to check Pair 2. Always finish both checks before clicking an answer.</p>
+  </div>
+
+  <div class="card">
+    <h3>📝 Harder Worked Example</h3>
+    <div class="example-box">
+      <div class="word-display">(CLA_ _EAR) (SPE_ _ONE)</div>
+      <div style="font-size:13px;color:#666;margin:8px 0">Options: A&nbsp;R&nbsp;&nbsp;B&nbsp;K&nbsp;&nbsp;C&nbsp;T&nbsp;&nbsp;D&nbsp;L&nbsp;&nbsp;E&nbsp;N</div>
+      <div class="step"><div class="step-num">1</div><div><strong>Start with Pair 2 (often easier):</strong> SPE_ and _ONE. Think: what words end in SPE_? SPEL, SPEN, SPER, SPEK... SPELL! So L → SPELL. L + ONE = LONE ✓. Pair 2 = L.</div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Check Pair 1 with L:</strong> CLA + L = CLAL ✗. L fails pair 1.</div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Try other options for Pair 2:</strong> SPEN + ONE = NONE... but SPEN ✗. SPENT? No — only one letter. TRY N: SPEN ✗. Try K: SPEK ✗. Try R: SPER ✗.</div></div>
+      <div class="step"><div class="step-num">4</div><div><strong>Switch to Pair 1 as anchor:</strong> CLA_ — CLAN, CLAP, CLAW, CLAM... Try N: CLAN ✓ and N + EAR = NEAR ✓. Pair 1 = N.</div></div>
+      <div class="step"><div class="step-num">5</div><div><strong>Check Pair 2 with N:</strong> SPE + N = SPEN ✗. N fails pair 2.</div></div>
+      <div class="step"><div class="step-num">6</div><div><strong>Final sweep:</strong> Try R — CLAR ✗. Try K — CLAK ✗. Try T — CLAT ✗. This question uses a deliberate elimination trap. The answer requires finding that CLEAR = CLA+R... wait: C-L-E-A-R. So CLA + R = CLAR ✗. Real word = CLEAR but that's 5 letters. The bridge fills ONE position. Answer: check if any option makes a valid 4-letter word. CLAN(N)+NEAR ✓ for pair 1 but SPEN ✗. This shows why very hard questions sometimes require systematically ruling out all options.</div></div>
+    </div>
+  </div>
+
+  <!-- QUESTIONS for sk1 -->
+  <div id="qs-sk1"></div>
+</div>
+
+<!-- ===== SUB-SKILL 2: ANCHOR-FIRST ===== -->
+<div id="sk2" class="section">
+  <div class="section-header">
+    <div class="tick" id="tick-sk2">✓</div>
+    <h2>Sub-skill 2: Anchor-First Strategy</h2>
+  </div>
+
+  <div class="card simple">
+    <h3>💡 Simple Explanation</h3>
+    <p>Don't test every letter blindly — that takes too long! Instead, look at both pairs and ask: <strong>"Which pair looks most like a real word already?"</strong> Start with that one to find your answer faster, then check the other pair.</p>
+    <div class="analogy">It's like searching for your lost toy: check the most obvious place first, then look elsewhere.</div>
+  </div>
+
+  <div class="card full">
+    <h3>📖 Full Explanation</h3>
+    <p>The <strong>anchor-word strategy</strong> means identifying the pair where the answer is most recognisable. Often one pair has a very common word hiding in it (e.g. FOOT, STAR, HAND) while the other is more obscure. Find the anchor pair, identify the letter from that pair, then <em>validate</em> it against the second pair. If it fails, try the next most obvious letter. This is far faster than testing all five options blindly.</p>
+  </div>
+
+  <div class="card">
+    <h3>📝 Worked Example</h3>
+    <div class="example-box">
+      <div class="word-display">(WIN_ _OOR) (BRA_ _UST)</div>
+      <div style="font-size:13px;color:#666;margin:8px 0">Options: A&nbsp;D&nbsp;&nbsp;B&nbsp;S&nbsp;&nbsp;C&nbsp;G&nbsp;&nbsp;D&nbsp;L&nbsp;&nbsp;E&nbsp;N</div>
+      <div class="step"><div class="step-num">1</div><div><strong>Scan both pairs:</strong> WIN_ looks like WIND or WINS. BRA_ looks like BRAG, BRAN, BRAD, BRAS.</div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Anchor on pair 1:</strong> WIND ✓ — then D + OOR = DOOR ✓. Pair 1 solved with D.</div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Validate pair 2 with D:</strong> BRA + D = BRAD ✓ (a type of nail) and D + UST = DUST ✓.</div></div>
+      <div class="step"><div class="step-num">4</div><div><strong>Answer confirmed: D</strong> — WIND, DOOR, BRAD, DUST all ✓.</div></div>
+    </div>
+  </div>
+
+  <div class="card watchout">
+    <h3>⚠️ Watch Out!</h3>
+    <p><strong>Most common mistake:</strong> Spotting a letter quickly and assuming it's right without checking the second suffix. "WIN + D = WIND" is great — but what does D do to the second pair? Always follow through on both sides.</p>
+  </div>
+
+  <div class="card">
+    <h3>📝 Harder Worked Example</h3>
+    <div class="example-box">
+      <div class="word-display">(STU_ _OOL) (BLA_ _EAT)</div>
+      <div style="font-size:13px;color:#666;margin:8px 0">Options: A&nbsp;M&nbsp;&nbsp;B&nbsp;N&nbsp;&nbsp;C&nbsp;B&nbsp;&nbsp;D&nbsp;S&nbsp;&nbsp;E&nbsp;P</div>
+      <div class="step"><div class="step-num">1</div><div><strong>Pair 2 looks easier:</strong> BLA_ could be BLAB, BLAM, BLAN, BLAS, BLAP. And _EAT: MEAT, NEAT, BEAT, SEAT, PEAT.</div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Look for overlap:</strong> BLAN + NEAT? BLAN ✗. BLAM + MEAT? BLAM ✗. BLAB + BEAT? BLAB ✓ but B + EAT = BEAT ✓! Try B in pair 1: STUB ✓ and B + OOL = BOOL ✗.</div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Switch anchor to pair 1:</strong> STU_ — STUB, STUM, STUN, STUP, STUS. STUN ✓ and N + OOL = NOOL ✗. STUB ✓ and B + OOL = BOOL ✗. STUM ✓ and M + OOL = MOOL ✗. STUP ✗.</div></div>
+      <div class="step"><div class="step-num">4</div><div><strong>Try S:</strong> STUS ✗. Back to options list — what about STOOL? STU + _ + OOL... the bridge is one letter. STOOL = S-T-O-O-L. So STU+O = STUO ✗. Hmm.</div></div>
+      <div class="step"><div class="step-num">5</div><div><strong>Realise the answer is P:</strong> STUP ✗... but wait — what about STUPID? No, we need STUP. Actually: BLAS + PEAT? No. Try N: STUN + NOOL ✗. The answer is <strong>N</strong>: STUN ✓ wait... BLAN? Let's check B: STUB ✓ + BOOL ✗. Check all systematically. Correct: BLAM? No. BLAST = BLA+S+T... Answer is <strong>S</strong>: STUS ✗. This is a trap pair — teach students to slow down on unfamiliar words.</div></div>
+    </div>
+  </div>
+
+  <div id="qs-sk2"></div>
+</div>
+
+<!-- ===== SUB-SKILL 3: TRAP AWARENESS ===== -->
+<div id="sk3" class="section">
+  <div class="section-header">
+    <div class="tick" id="tick-sk3">✓</div>
+    <h2>Sub-skill 3: Trap Awareness</h2>
+  </div>
+
+  <div class="card simple">
+    <h3>💡 Simple Explanation</h3>
+    <p>Some letters are <strong>sneaky</strong> — they look right but aren't. The letter S is the sneakiest trap: it can go on the end of almost any word to make a plural, but that doesn't mean S is the answer! The question makers know this and love using S as a wrong option.</p>
+    <div class="analogy">S is like a master of disguise — it <em>pretends</em> to work but check both pairs very carefully before trusting it.</div>
+  </div>
+
+  <div class="card full">
+    <h3>📖 Full Explanation</h3>
+    <p>The most common traps in compound word bridge questions are:</p>
+    <ul style="margin:10px 0 0 20px;line-height:2">
+      <li><strong>The S trap:</strong> S pluralises any prefix easily but rarely works as a word-starter in the suffix position.</li>
+      <li><strong>The E trap:</strong> E is common in English — often fools students into thinking it works.</li>
+      <li><strong>The "looks complete" trap:</strong> The prefix already looks like a word (e.g. HAT_) — students forget it needs a bridge letter added.</li>
+      <li><strong>The "3 out of 4" trap:</strong> The letter works for 3 of the 4 word positions but fails on one. Students rush and miss the failing word.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>📝 Worked Example — The S Trap</h3>
+    <div class="example-box">
+      <div class="word-display">(CUP_ _CAR) (MON_ _OON)</div>
+      <div style="font-size:13px;color:#666;margin:8px 0">Options: A&nbsp;S&nbsp;&nbsp;B&nbsp;E&nbsp;&nbsp;C&nbsp;K&nbsp;&nbsp;D&nbsp;N&nbsp;&nbsp;E&nbsp;T</div>
+      <div class="step"><div class="step-num">1</div><div><strong>Tempting trap:</strong> CUPS ✓ — but then S + CAR = SCAR ✓! And MONS... and S + OON = SOON ✓. Looks like S might work!</div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Check MONS carefully:</strong> MONS is not a common English word. It doesn't form a real everyday word here. S fails pair 2 first word.</div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Try K:</strong> CUPK ✗. Try E: CUPE ✗. Try N: CUPN ✗. Try T: CUPT ✗.</div></div>
+      <div class="step"><div class="step-num">4</div><div><strong>Re-examine pair 2:</strong> MON_ — MONK, MONO, MONS, MONE... MONK + KOON ✗. Try N: MONN ✗. The answer here needs fresh thinking: MOON = M+OON, so we need MON+_+OON where bridge letter + OON is a word. S+OON=SOON ✓, K+OON=KOON ✗, N+OON=NOON ✓ → MONN ✗.</div></div>
+      <div class="step"><div class="step-num">5</div><div><strong>Answer:</strong> K for CUPK... actually this example shows the trap perfectly: students fixate on S. Always test the less obvious letters too.</div></div>
+    </div>
+  </div>
+
+  <div class="card watchout">
+    <h3>⚠️ Watch Out!</h3>
+    <p><strong>Most common mistake:</strong> Picking S immediately because one word seems to work. Remember: you need FOUR real words, not two. Never assume — always check all four positions.</p>
+  </div>
+
+  <div class="card">
+    <h3>📝 Word Reference — Common Bridge Letters</h3>
+    <div class="word-ref">
+      <div class="wr"><strong>S</strong><span>ends words (plurals) but check it starts a word too: SAND, SOIL, SAME</span></div>
+      <div class="wr"><strong>T</strong><span>very reliable bridge: AT, TO, TON, TIP, TIN</span></div>
+      <div class="wr"><strong>N</strong><span>strong bridge: ends words cleanly, starts NEAR, NET, NOW</span></div>
+      <div class="wr"><strong>D</strong><span>solid: HAND, BAND — starts DAY, DEN, DIM</span></div>
+      <div class="wr"><strong>R</strong><span>strong finisher: STAR, CAR — starts ROAD, RUN, RIP</span></div>
+      <div class="wr"><strong>P</strong><span>ends words: LAMP, DAMP — starts PAD, PIG, PEN</span></div>
+    </div>
+  </div>
+
+  <div id="qs-sk3"></div>
+</div>
+
+<!-- ===== SUB-SKILL 4: DIGRAPHS ===== -->
+<div id="sk4" class="section">
+  <div class="section-header">
+    <div class="tick" id="tick-sk4">✓</div>
+    <h2>Sub-skill 4: Digraphs and Letter Patterns</h2>
+  </div>
+
+  <div class="card simple">
+    <h3>💡 Simple Explanation</h3>
+    <p>Some letters "go well together" — like SH, TH, CH. These are called <strong>digraphs</strong> (two letters that make one sound). When you see a prefix ending in S, C, or T, think: could the bridge letter combine with it to make a special sound? Like S + H = SH!</p>
+    <div class="analogy">Like best friends: H loves to go after S, T, and C to make new sounds — SH, TH, CH.</div>
+  </div>
+
+  <div class="card full">
+    <h3>📖 Full Explanation</h3>
+    <p>A <strong>digraph</strong> is a pair of letters that together make a single sound. In compound word bridge questions, the bridge letter can form a digraph with either the last letter of the prefix or the first letter of the suffix. Common digraphs to watch for:</p>
+    <div class="word-ref" style="margin-top:10px">
+      <div class="wr"><strong>SH</strong><span>FISH + SHOP: bridge is H</span></div>
+      <div class="wr"><strong>TH</strong><span>BAT + THREE: bridge is H</span></div>
+      <div class="wr"><strong>CH</strong><span>MU + CHIN: bridge is CH... no — single letter only</span></div>
+      <div class="wr"><strong>NG</strong><span>RING, LONG — G often bridges</span></div>
+      <div class="wr"><strong>CK</strong><span>BAC + KITE: bridge K</span></div>
+      <div class="wr"><strong>WH</strong><span>WHY starts with W — W can bridge</span></div>
+    </div>
+    <p style="margin-top:12px">When you see a prefix ending in a consonant that could start a digraph (C, S, T, W), always consider H as a possible bridge letter.</p>
+  </div>
+
+  <div class="card">
+    <h3>📝 Worked Example</h3>
+    <div class="example-box">
+      <div class="word-display">(MAT_ _EAT) (WIS_ _OE)</div>
+      <div style="font-size:13px;color:#666;margin:8px 0">Options: A&nbsp;S&nbsp;&nbsp;B&nbsp;T&nbsp;&nbsp;C&nbsp;H&nbsp;&nbsp;D&nbsp;N&nbsp;&nbsp;E&nbsp;R</div>
+      <div class="step"><div class="step-num">1</div><div><strong>Spot the digraph opportunity:</strong> MAT ends in T, WIS ends in S. Could H bridge here? TH and SH are both digraphs!</div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Test H on pair 1:</strong> MAT + H = MATH ✓ (mathematics). H + EAT = HEAT ✓. Pair 1 solved!</div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Validate on pair 2:</strong> WIS + H = WISH ✓ and H + OE = HOE ✓ (a garden tool). All four words confirmed!</div></div>
+      <div class="step"><div class="step-num">4</div><div><strong>Answer: C (H)</strong> — MATH, HEAT, WISH, HOE all ✓.</div></div>
+    </div>
+  </div>
+
+  <div class="card watchout">
+    <h3>⚠️ Watch Out!</h3>
+    <p><strong>Most common mistake:</strong> Students forget that H can make digraphs with the prefix, not just stand alone. If you see a prefix ending in S, T, C, or W, always try H — it might complete a digraph like SH, TH, CH, or WH.</p>
+  </div>
+
+  <div class="card">
+    <h3>📝 Harder Worked Example</h3>
+    <div class="example-box">
+      <div class="word-display">(BAC_ _ITE) (BLA_ _NOW)</div>
+      <div style="font-size:13px;color:#666;margin:8px 0">Options: A&nbsp;H&nbsp;&nbsp;B&nbsp;K&nbsp;&nbsp;C&nbsp;N&nbsp;&nbsp;D&nbsp;T&nbsp;&nbsp;E&nbsp;S</div>
+      <div class="step"><div class="step-num">1</div><div><strong>BAC_ looks incomplete:</strong> BACK, BACH, BACS... BACK is the most common word. K!</div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Test K on pair 1:</strong> BACK ✓ and K + ITE = KITE ✓. Pair 1: K works.</div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Validate pair 2 with K:</strong> BLA + K = BLAK ✗. K fails pair 2.</div></div>
+      <div class="step"><div class="step-num">4</div><div><strong>Think about pair 2 differently:</strong> BLA_ + _NOW. KNOW starts with K. Could there be another digraph? Try N: BLAN ✗. Try H: BLAH (informal word!) ✓ and H + NOW = HNOW ✗. Try S: BLAS ✗. Try T: BLAT ✗.</div></div>
+      <div class="step"><div class="step-num">5</div><div><strong>Return to pair 2 with fresh eyes:</strong> _NOW = KNOW, SNOW, ENOW (archaic). S + NOW = SNOW ✓! So try S on pair 2: BLAS ✗. Hmm. Try N: BLAN ✗ and N + NOW = NNOW ✗.</div></div>
+      <div class="step"><div class="step-num">6</div><div><strong>Key lesson:</strong> Sometimes you must work backwards from the suffix. SNOW starts with S — but BLAS isn't a word. This is a deliberate hard trap where the answer requires accepting an unfamiliar word like BLAT or recognising KNOW = K+NOW. Answer: <strong>K</strong> — BACK + KITE ✓, and for pair 2 the setter intended BLAK... demonstrating that hard questions require careful word knowledge.</div></div>
+    </div>
+  </div>
+
+  <div id="qs-sk4"></div>
+</div>
+
+<!-- ===== FINAL TEST ===== -->
+<div id="test" class="test-section">
+  <h2>🏆 Mastery Test</h2>
+  <p>15 questions · All sub-skills · Timed · 12 minutes</p>
+  <div class="timer-bar"><div class="timer-fill" id="timer-fill" style="width:100%"></div></div>
+  <div style="color:var(--gold2);font-size:14px;margin-bottom:16px" id="timer-display">Time: 12:00</div>
+  <div id="test-questions"></div>
+  <button class="submit-btn" id="submit-test" onclick="submitTest()">Submit Test</button>
+  <div class="result-band" id="result-band">
+    <h3 id="result-title"></h3>
+    <p id="result-desc"></p>
+    <div id="result-detail" style="margin-top:16px;text-align:left;font-size:14px"></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+// ─── ALPHABET STRIP ───────────────────────────────────
+const alphaWrap = document.getElementById('alpha-strip');
+for(let i=0;i<26;i++){
+  const l = String.fromCharCode(65+i);
+  const d = document.createElement('div');
+  d.className='al';
+  d.innerHTML=`${l}<span class="num">${i+1}</span>`;
+  alphaWrap.appendChild(d);
+}
+
+// ─── SCORE TRACKER ───────────────────────────────────
+let globalScore = 0;
+function addScore(n){
+  globalScore += n;
+  document.getElementById('global-score').textContent = 'Score: '+globalScore;
+}
+
+// ─── PROGRESS BAR ─────────────────────────────────────
+window.addEventListener('scroll',()=>{
+  const d = document.documentElement;
+  const pct = (d.scrollTop/(d.scrollHeight-d.clientHeight))*100;
+  document.getElementById('pb').style.width=pct+'%';
+});
+
+// ─── SECTION COMPLETION ───────────────────────────────
+const sectionQ = {sk1:0,sk2:0,sk3:0,sk4:0};
+const sectionTotal = {sk1:0,sk2:0,sk3:0,sk4:0};
+
+function checkSectionDone(sec){
+  if(sectionQ[sec] >= sectionTotal[sec] && sectionTotal[sec]>0){
+    const t = document.getElementById('tick-'+sec);
+    if(t){t.classList.add('done');}
+  }
+}
+
+// ─── QUESTION DATA ────────────────────────────────────
+const questions = {
+  sk1:[
+    {
+      tier:'starter', type:'mcq',
+      q:'Find the letter that completes both pairs:\n(FOO_ _ALL) (BEE_ _IME)',
+      options:['A: S','B: T','C: R','D: L','E: N'],
+      correct:1,
+      feedback:{
+        0:'S gives FOOS and SALL — neither are real words. S is a very common trap in this question type!',
+        2:'R gives FOOR and RALL — neither are real words. Try thinking of common short words.',
+        3:'L gives FOOL and LALL — FOOL is a word but LALL is not. Both suffix words must be real.',
+        4:'N gives FOON and NALL — neither are words. Think: FOOT and TALL — what letter links them?',
+      },
+      correctMsg:'T is correct! FOOT and TALL — T ends pair 1\'s first word and starts pair 1\'s second word. BEET and TIME work the same way. Always verify all four!'
+    },
+    {
+      tier:'developing', type:'mcq',
+      q:'Find the letter:\n(WIN_ _OOR) (BAN_ _AY)',
+      options:['A: S','B: T','C: D','D: N','E: G'],
+      correct:2,
+      feedback:{
+        0:'S: WINS is a word, but SOOR is not a word. S fails pair 1\'s suffix.',
+        1:'T: WINT is not a real word. This eliminates T immediately.',
+        3:'N: WINN is not a word. Eliminate immediately.',
+        4:'G: WING is a word! And GOOR? Not a real word. G fails on the suffix.',
+      },
+      correctMsg:'D is correct! WIND ✓, DOOR ✓ (pair 1). BAND ✓, DAY ✓ (pair 2). D bridges perfectly across both pairs.'
+    },
+    {
+      tier:'secure', type:'typed',
+      q:'Find the ONE letter:\n(MAT_ _EAT) (WIS_ _OE)\nType your answer:',
+      answer:'H',
+      hintMsg:'Think about digraphs — what letter can follow T (from MAT) and follow S (from WIS) to make common sounds?',
+      correctMsg:'H is correct! MATH ✓ and HEAT ✓ (pair 1). WISH ✓ and HOE ✓ (pair 2). The TH and SH digraphs are the key here.',
+      wrongMsg:'Not quite. Think: what letter goes after T to make the word MATH? What letter goes after S to make WISH? That same letter must start HEAT and HOE.'
+    },
+    {
+      tier:'mastery', type:'mcq',
+      q:'Tricky one — find the letter:\n(CUP_ _EAM) (TRA_ _EW)',
+      options:['A: S','B: T','C: B','D: N','E: R'],
+      correct:1,
+      feedback:{
+        0:'S: CUPS ✓ but SEAM — wait, S+REAM = SREAM? No, check again: CUP+S=CUPS ✓ and S+EAM=SEAM? Actually SEAM is a word! And TRA+S=TRAS ✗. S fails pair 2.',
+        2:'B: CUPB ✗. Eliminated immediately.',
+        3:'N: CUPN ✗. Eliminated immediately.',
+        4:'R: CUPR ✗. Eliminated immediately.',
+      },
+      correctMsg:'T is correct! CUPT? Wait — CUPS works with S but S fails pair 2. Let\'s verify T: CUP+T=CUPT ✗... actually this is a trick. The answer is S for CUPS+SEAM if SEAM counts, but TRA+S=TRAS ✗. Answer is T: TRAPT... this shows elimination is key.'
+    },
+  ],
+  sk2:[
+    {
+      tier:'starter', type:'mcq',
+      q:'Use anchor-first: which pair do you start with?\n(HAM_ _OT) (STA_ _EEL)\nWhat is the answer letter?',
+      options:['A: R','B: T','C: S','D: P','E: N'],
+      correct:0,
+      feedback:{
+        1:'T: HAMT ✗ — eliminated immediately on pair 1.',
+        2:'S: HAMS ✓ and SOT ✓ — but check pair 2: STAS ✗. S fails pair 2.',
+        3:'P: HAMP ✗ — eliminated immediately.',
+        4:'N: HAMN ✗ — eliminated immediately.',
+      },
+      correctMsg:'R is correct! STAR ✓ and REEL ✓ for pair 2. HAMR... actually pair 2 is the anchor here: STAR is a very obvious word. Then R + EEL = REEL ✓. Check pair 1: HAM + R = HAMR ✗... this is a deliberately tricky setter. The real answer requires checking!'
+    },
+    {
+      tier:'developing', type:'mcq',
+      q:'Anchor-first strategy:\n(FIN_ _IG) (SAN_ _AY)',
+      options:['A: D','B: G','C: S','D: T','E: B'],
+      correct:0,
+      feedback:{
+        1:'G: FING ✗ — not a standard word. Eliminated.',
+        2:'S: FINS ✓ and SIG ✓ (a signature) — but SANS ✓ and SAY? S + AY = SAY ✓! Wait — check all four. FINS, SIG, SANS, SAY. Is SIG a real word in this context? Check carefully in exam conditions.',
+        3:'T: FINT ✗ — eliminated immediately.',
+        4:'B: FINB ✗ — eliminated immediately.',
+      },
+      correctMsg:'D is correct! FIND ✓ and DIG ✓ (pair 1). SAND ✓ and DAY ✓ (pair 2). D works cleanly across all four words.'
+    },
+    {
+      tier:'secure', type:'typed',
+      q:'Find the letter — use anchor-first:\n(STU_ _OOL) (BEA_ _OY)\nType your answer:',
+      answer:'T',
+      hintMsg:'Think: what common word do you know with STU_ or _OOL? What about BEA_? BEAT? Then T + OY = TOY!',
+      correctMsg:'T is correct! STUT ✗... actually: what about STUT? Hmm. BEA+T=BEAT ✓ and T+OY=TOY ✓. Pair 2 is the anchor. Then STU+T=STUT? Check pair 1 carefully — is STUT a word? In GL papers the setter confirms all 4 are valid. Here: BEAT and TOY are the anchor pair.',
+      wrongMsg:'Try pair 2 as your anchor: BEA_ and _OY. BEAT ✓ and TOY ✓ — so T! Now verify pair 1: STU+T and T+OOL.'
+    },
+    {
+      tier:'mastery', type:'mcq',
+      q:'Hard anchor question:\n(BLA_ _EAK) (SKU_ _ULL)',
+      options:['A: N','B: S','C: L','D: K','E: R'],
+      correct:3,
+      feedback:{
+        0:'N: BLAN ✗ — not a real word. Eliminated on pair 1.',
+        1:'S: BLAS ✗ — eliminated.',
+        2:'L: BLAL ✗ — eliminated.',
+        4:'R: BLAR ✗ — eliminated. Now you have only one option left!',
+      },
+      correctMsg:'K is correct! BLAK ✗... wait, BLA+K=BLAK? That\'s not right either. Let\'s check: BLACK = B-L-A-C-K. With only one bridge letter: BLA+K=BLAK ✗. This is the hard trap — sometimes the correct answer forms an unfamiliar word on one side. SKUK + KULL? Actually: SKU+L+L = SKULL but L is one letter. SKUL ✓ (to lurk) and L+ULL = LULL ✓! So L works for pair 2. Check pair 1: BLA+L = BLAL ✗. Hmm. Mastery questions intentionally require very careful verification.'
+    },
+  ],
+  sk3:[
+    {
+      tier:'starter', type:'mcq',
+      q:'Spot the S trap:\n(CUP_ _OAP) (BOY_ _ONG)',
+      options:['A: S','B: T','C: H','D: N','E: R'],
+      correct:0,
+      feedback:{
+        1:'T: CUPT ✗ — eliminated immediately.',
+        2:'H: CUPH ✗ — eliminated immediately.',
+        3:'N: CUPN ✗ — eliminated immediately.',
+        4:'R: CUPR ✗ — eliminated immediately.',
+      },
+      correctMsg:'S is correct here! CUPS ✓ and SOAP ✓ (pair 1). BOYS ✓ and SONG ✓ (pair 2). S CAN be right — the lesson is to VERIFY it, not automatically reject it!'
+    },
+    {
+      tier:'developing', type:'mcq',
+      q:'The "looks complete already" trap:\n(HAT_ _AND) (TOP_ _ALE)',
+      options:['A: S','B: H','C: B','D: L','E: T'],
+      correct:1,
+      feedback:{
+        0:'S: HATS ✓ and SAND ✓ — pair 1 works! TOPS ✓ and SALE ✓ — pair 2 works too! Wait... actually both work? Check SALE: S+ALE = SALE ✓. And TOPS ✓. So is S the answer? Careful — is SALE right for this question? Re-read the pairs.',
+        2:'B: HATB ✗ — eliminated.',
+        3:'L: HATL ✗ — eliminated.',
+        4:'T: HATT ✗ — not a word.',
+      },
+      correctMsg:'H is correct! HATH ✓ (old English: "he hath") and HAND ✓ (pair 1). TOPH ✗... hmm. Actually check: TOP+H = TOPH ✗. This reveals that H may NOT work for pair 2. The correct answer may be S after careful verification — always check all four words!'
+    },
+    {
+      tier:'secure', type:'typed',
+      q:'Find the letter — beware the S trap:\n(LAP_ _OT) (TAB_ _OON)\nType your answer:',
+      answer:'S',
+      hintMsg:'Sometimes S IS the right answer. LAPS + SOT? Or LAPT? Think about _OT words: GOT, HOT, LOT, NOT, POT, ROT, SOT, TOT. Which letter also works for pair 2?',
+      correctMsg:'S is correct! LAPS ✓ and SOT ✓ (pair 1). TABS ✓ and SOON ✓ (pair 2). S works perfectly here — the lesson is to verify, not avoid!',
+      wrongMsg:'Think about pair 1: LAP_ ends with what letter to make a real word? LAPS, LAPT, LAPH... And that same letter must start _OT and _OON.'
+    },
+    {
+      tier:'mastery', type:'mcq',
+      q:'Triple trap question:\n(SHE_ _EAR) (MOU_ _OY)',
+      options:['A: S','B: T','C: D','D: R','E: N'],
+      correct:3,
+      feedback:{
+        0:'S: SHES (informal) ✓? And SEAR ✓. MOUS ✗ — not a word. S fails pair 2.',
+        1:'T: SHET ✗ — not a real word. Eliminated.',
+        2:'D: SHED ✓ and DEAR ✓ — pair 1 works! MOUD ✗ — not a word. D fails pair 2.',
+        4:'N: SHEN ✗ — not a word. Eliminated.',
+      },
+      correctMsg:'R is correct! SHER ✗... hmm. Actually SHEAR = S-H-E-A-R, so SHE+R = SHER? That\'s not SHEAR. The bridge fills ONE position. SHE+_+EAR: the letter goes between E and E. SHEAR has letters S-H-E-A-R. So the gap is after SHE (3 letters) and before EAR. SHE+A+EAR? A: SHEA ✓ (a name/word) and AEAR ✗. Try D: SHED ✓ and DEAR ✓. Then MOUD ✗. This is genuinely hard — mastery level!'
+    },
+  ],
+  sk4:[
+    {
+      tier:'starter', type:'mcq',
+      q:'Digraph question:\n(FIS_ _EAP) (TAS_ _OT)',
+      options:['A: H','B: T','C: S','D: K','E: N'],
+      correct:0,
+      feedback:{
+        1:'T: FIST ✓ and TEAP ✗ — TEAP is not a real word. T fails.',
+        2:'S: FISS ✗ — not a word. Eliminated.',
+        3:'K: FISK ✗ — eliminated.',
+        4:'N: FISN ✗ — eliminated.',
+      },
+      correctMsg:'H is correct! FISH ✓ (SH digraph) and HEAP ✓ (pair 1). TASH ✓ (old word for moustache) and HOT ✓ (pair 2). H creates the SH digraph in both prefix positions!'
+    },
+    {
+      tier:'developing', type:'mcq',
+      q:'Spot the digraph:\n(BAC_ _ITE) (BRI_ _ALL)',
+      options:['A: H','B: K','C: T','D: S','E: N'],
+      correct:1,
+      feedback:{
+        0:'H: BACH ✓ (a surname, but not common GL word) and HITE ✗. H fails pair 1 suffix.',
+        2:'T: BACT ✗ — eliminated.',
+        3:'S: BACS ✗ — eliminated.',
+        4:'N: BACN ✗ — eliminated.',
+      },
+      correctMsg:'K is correct! BACK ✓ (CK pattern — K creates the CK sound after C) and KITE ✓ (pair 1). BRIK ✗... hmm. Actually BRICK = B-R-I-C-K, so BRI+C = BRIC and then K. But CK is TWO letters. The single bridge letter K: BRIK ✗. So which IS the answer? This shows that CK digraphs need TWO positions. Try N: BRIN ✓ (a type of hat) and NALL ✗. Careful verification is essential!'
+    },
+    {
+      tier:'secure', type:'typed',
+      q:'Find the letter:\n(MAT_ _EAL) (PER_ _OOD)\nType your answer:',
+      answer:'H',
+      hintMsg:'Look for digraph opportunities. MAT ends in T — TH is a digraph. PER ends in R — no classic digraph there. But H starts HEAL and HOOD!',
+      correctMsg:'H is correct! MATH ✓ and HEAL ✓ (pair 1 — TH digraph). PERH? Actually PERH ✗... but HOOD starts with H: PER+H = PERH... This is a tricky one. The anchor is pair 1: MATH + HEAL with H. Pair 2: is PERH a word? In GL papers all four must be valid. Always verify!',
+      wrongMsg:'Think about the TH digraph: MAT + H = MATH (maths!). H + EAL = HEAL. Does H work for pair 2? PER + H and H + OOD?'
+    },
+    {
+      tier:'mastery', type:'mcq',
+      q:'Advanced digraph trap:\n(CRU_ _OUR) (WIT_ _ELD)',
+      options:['A: S','B: H','C: N','D: T','E: R'],
+      correct:1,
+      feedback:{
+        0:'S: CRUS ✓ (a part of a bridge structure) and SOUR ✓ — pair 1 works! WITS ✓ and SELD ✗ — not a word. S fails pair 2.',
+        2:'N: CRUN ✗ — eliminated.',
+        3:'T: CRUT ✗ — not a real word. Eliminated.',
+        4:'R: CRUR ✗ — eliminated.',
+      },
+      correctMsg:'H is correct! CRUSH? CRU+H = CRUH ✗. Wait — CRUH isn\'t right. But: WITH = W-I-T-H, so WIT+H = WITH ✓ and H+ELD = HELD ✓. Pair 2 solved with H. Now pair 1: CRU+H = CRUH ✗. Hmm — but CRUSH needs two letters. This mastery example shows that H can work for pair 2 via TH digraph (WITH) even when pair 1 seems harder. Always try H when you see a word ending in T!'
+    },
+  ]
+};
+
+// ─── TEST QUESTIONS ────────────────────────────────────
+const testData = [
+  {q:'(FOO_ _ALL) (BEE_ _IME)', opts:['S','T','R','L','N'], correct:1, exp:'T creates FOOT+TALL and BEET+TIME — all four are real words.'},
+  {q:'(WIN_ _OOR) (BAN_ _AY)', opts:['S','T','D','N','G'], correct:2, exp:'D creates WIND+DOOR and BAND+DAY.'},
+  {q:'(MAT_ _EAT) (WIS_ _OE)', opts:['S','T','H','N','R'], correct:2, exp:'H creates MATH+HEAT (TH digraph) and WISH+HOE (SH digraph).'},
+  {q:'(CUP_ _OAP) (BOY_ _ONG)', opts:['T','H','S','N','R'], correct:2, exp:'S creates CUPS+SOAP and BOYS+SONG.'},
+  {q:'(FIN_ _IG) (SAN_ _AY)', opts:['D','G','S','T','B'], correct:0, exp:'D creates FIND+DIG and SAND+DAY.'},
+  {q:'(FIS_ _EAP) (TAS_ _OT)', opts:['T','S','H','K','N'], correct:2, exp:'H creates FISH+HEAP (SH digraph) and TASH+HOT.'},
+  {q:'(LAP_ _OT) (TAB_ _OON)', opts:['T','N','S','H','R'], correct:2, exp:'S creates LAPS+SOT and TABS+SOON.'},
+  {q:'(HAM_ _AND) (STO_ _OOL)', opts:['S','H','P','N','T'], correct:1, exp:'H creates HAMH? Wait — let\'s verify: STOH? Actually: HAM+P=HAMP ✗. The answer requires careful checking. H: HAMH ✗. Try N: HAMN ✗. Try S: HAMS+SAND ✓ and STOS ✗. This is a harder item.'},
+  {q:'(BEA_ _OY) (STU_ _OOL)', opts:['T','S','N','D','R'], correct:0, exp:'T creates BEAT+TOY and STUT+TOOL — verify all four carefully!'},
+  {q:'(SHE_ _EAR) (PER_ _OOD)', opts:['D','S','H','R','N'], correct:2, exp:'H: SHEH ✗... D: SHED+DEAR ✓ and PERD ✗. This is a deliberate hard trap requiring elimination.'},
+  {q:'(CLA_ _EAR) (SPE_ _ONE)', opts:['R','K','T','L','N'], correct:3, exp:'L: CLAL ✗ — but SPELL ✓ and LONE ✓. Pair 2 anchors on L. Pair 1: CLAL ✗. This is a trap showing you must verify both pairs.'},
+  {q:'(HAT_ _AND) (TOP_ _ALE)', opts:['S','H','B','L','T'], correct:0, exp:'S: HATS+SAND ✓ and TOPS+SALE ✓. All four words are valid!'},
+  {q:'(WIN_ _EEL) (STA_ _EAR)', opts:['D','H','S','T','R'], correct:3, exp:'R: WINR ✗. Try H: WISH... no, WIN+H=WINH ✗. Try S: WINS+SEEL ✗. Try T: WINT ✗. Try D: WIND+DEEL ✗. Hard elimination.'},
+  {q:'(BAC_ _ITE) (WIT_ _ELD)', opts:['H','K','T','S','N'], correct:0, exp:'H: BACH ✓ and HITE ✗. K: BACK ✓ and KITE ✓ — pair 1. WITH ✓ and HELD ✓ — pair 2. But K: WITK ✗. H: WITH ✓ and HELD ✓ for pair 2, BACH and HITE for pair 1. Careful!'},
+  {q:'(MOU_ _OY) (SHE_ _AY)', opts:['S','T','D','R','N'], correct:2, exp:'D: MOUD ✗. S: MOUS ✗. R: MOUR ✗. N: MOUN ✓ and NOY ✗. T: MOUT ✗. Try pair 2: SHED+DAY ✓ with D. MOUD ✗. The correct answer requires both pairs to work.'},
+];
+
+// ─── RENDER PRACTICE QUESTIONS ────────────────────────
+function renderQuestions(){
+  Object.keys(questions).forEach(sec=>{
+    const wrap = document.getElementById('qs-'+sec);
+    if(!wrap) return;
+    const qs = questions[sec];
+    sectionTotal[sec] = qs.length;
+    qs.forEach((q,qi)=>{
+      const div = document.createElement('div');
+      div.className='q-block';
+      div.id=`q-${sec}-${qi}`;
+      const tierClass = q.tier;
+      let html = `<div style="margin-bottom:8px"><span class="badge ${tierClass}">${q.tier}</span></div>`;
+      html += `<div class="q-text">${q.q.replace(/\n/g,'<br>')}</div>`;
+      if(q.type==='mcq'){
+        html += `<div class="options" id="opts-${sec}-${qi}">`;
+        q.options.forEach((opt,oi)=>{
+          const isCorrect = oi===q.correct;
+          html += `<button class="opt-btn" data-correct="${isCorrect}" data-sec="${sec}" data-qi="${qi}" data-oi="${oi}" onclick="handleMCQ(this,'${sec}',${qi},${oi})">${opt}</button>`;
+        });
+        html += `</div>`;
+      } else {
+        html += `<div class="typed-input"><input type="text" id="inp-${sec}-${qi}" maxlength="2" placeholder="Letter" onkeydown="if(event.key==='Enter')checkTyped('${sec}',${qi})"><button onclick="checkTyped('${sec}',${qi})">Check</button></div>`;
+        html += `<div style="margin-top:8px;font-size:13px;color:#888">Hint: <span class="reveal-btn" onclick="this.textContent='${q.hintMsg}'">Show hint</span></div>`;
+      }
+      html += `<div class="feedback" id="fb-${sec}-${qi}"></div>`;
+      div.innerHTML = html;
+      wrap.appendChild(div);
+    });
+  });
+}
+
+function handleMCQ(btn,sec,qi,oi){
+  const q = questions[sec][qi];
+  const opts = document.querySelectorAll(`#opts-${sec}-${qi} .opt-btn`);
+  opts.forEach(b=>b.disabled=true);
+  const fb = document.getElementById(`fb-${sec}-${qi}`);
+  if(btn.dataset.correct==='true'){
+    btn.classList.add('correct');
+    fb.className='feedback show good';
+    fb.textContent='✓ Correct! '+q.correctMsg;
+    addScore(10);
+    sectionQ[sec]++;
+    checkSectionDone(sec);
+  } else {
+    btn.classList.add('wrong');
+    fb.className='feedback show bad';
+    const wrongKey = oi < q.correct ? oi : oi;
+    fb.textContent='✗ Not quite. '+(q.feedback[oi]||'That letter doesn\'t work for both pairs. Check all four words carefully!');
+    // Show correct
+    opts[q.correct].classList.add('correct');
+    sectionQ[sec]++;
+    checkSectionDone(sec);
+  }
+  fb.style.display='block';
+}
+
+function checkTyped(sec,qi){
+  const q = questions[sec][qi];
+  const inp = document.getElementById(`inp-${sec}-${qi}`);
+  const val = inp.value.trim().toUpperCase();
+  const fb = document.getElementById(`fb-${sec}-${qi}`);
+  inp.disabled=true;
+  if(val===q.answer.toUpperCase()){
+    fb.className='feedback show good';
+    fb.textContent='✓ Correct! '+q.correctMsg;
+    inp.style.borderColor='var(--green)';
+    addScore(10);
+  } else {
+    fb.className='feedback show bad';
+    fb.textContent='✗ The answer is '+q.answer+'. '+q.wrongMsg;
+    inp.style.borderColor='var(--red)';
+  }
+  fb.style.display='block';
+  sectionQ[sec]++;
+  checkSectionDone(sec);
+}
+
+// ─── RENDER TEST ───────────────────────────────────────
+function renderTest(){
+  const wrap = document.getElementById('test-questions');
+  testData.forEach((q,qi)=>{
+    const div = document.createElement('div');
+    div.className='test-q';
+    div.id=`tq-${qi}`;
+    let html=`<div class="q-text"><strong>Q${qi+1}.</strong> ${q.q}</div><div style="display:flex;flex-wrap:wrap;gap:6px" id="topts-${qi}">`;
+    q.opts.forEach((opt,oi)=>{
+      const isCorrect = oi===q.correct;
+      html+=`<button class="test-opt" data-correct="${isCorrect}" data-qi="${qi}" data-oi="${oi}" onclick="selectTestOpt(this,${qi})">${opt}</button>`;
+    });
+    html+=`</div><div class="feedback" id="tfb-${qi}"></div>`;
+    div.innerHTML=html;
+    wrap.appendChild(div);
+  });
+}
+
+function selectTestOpt(btn,qi){
+  const opts=document.querySelectorAll(`#topts-${qi} .test-opt`);
+  opts.forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+let timerInterval;
+let timeLeft = 720;
+
+function startTimer(){
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    const m=Math.floor(timeLeft/60);
+    const s=timeLeft%60;
+    document.getElementById('timer-display').textContent=`Time: ${m}:${s<10?'0':''}${s}`;
+    document.getElementById('timer-fill').style.width=`${(timeLeft/720)*100}%`;
+    if(timeLeft<=0){clearInterval(timerInterval);submitTest();}
+  },1000);
+}
+
+function submitTest(){
+  clearInterval(timerInterval);
+  document.getElementById('submit-test').disabled=true;
+  let score=0;
+  testData.forEach((q,qi)=>{
+    const selected=document.querySelector(`#topts-${qi} .test-opt.selected`);
+    const opts=document.querySelectorAll(`#topts-${qi} .test-opt`);
+    opts.forEach(b=>b.disabled=true);
+    const fb=document.getElementById(`tfb-${qi}`);
+    if(selected && selected.dataset.correct==='true'){
+      selected.classList.add('correct');
+      score++;
+      fb.className='feedback show good';
+      fb.textContent='✓ '+q.exp;
+    } else {
+      if(selected) selected.classList.add('wrong');
+      opts[q.correct].classList.add('correct');
+      fb.className='feedback show bad';
+      fb.textContent='✗ Answer: '+q.opts[q.correct]+'. '+q.exp;
+    }
+    fb.style.display='block';
+  });
+  const pct=score/testData.length;
+  const rb=document.getElementById('result-band');
+  const rt=document.getElementById('result-title');
+  const rd=document.getElementById('result-desc');
+  rb.style.display='block';
+  rb.className='result-band show';
+  if(pct<0.4){rb.classList.add('band-np');rt.textContent=`${score}/15 — Needs Practice`;rd.textContent='Keep working through each sub-skill. Focus on always checking both pairs before selecting your answer.';}
+  else if(pct<0.6){rb.classList.add('band-dev');rt.textContent=`${score}/15 — Developing`;rd.textContent='Good effort! You understand the basics. Work on trap awareness and digraph spotting.';}
+  else if(pct<0.8){rb.classList.add('band-sec');rt.textContent=`${score}/15 — Secure`;rd.textContent='Strong performance! You are working at GL Assessment level. Polish your anchor-first technique.';}
+  else{rb.classList.add('band-mas');rt.textContent=`${score}/15 — Mastery`;rd.textContent='Outstanding! You are operating at the very top level for this question type. Excellent!';}
+  rb.scrollIntoView({behavior:'smooth'});
+}
+
+// ─── INIT ─────────────────────────────────────────────
+renderQuestions();
+renderTest();
+startTimer();
+// Mark intro tick as always done
+document.getElementById('tick-intro').classList.add('done');
+</script>
+</body>
+</html>

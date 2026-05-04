@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11+ GL Verbal Reasoning — Mixed Word Rules</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0c1929;--navy-m:#142238;--navy-l:#1c3050;
+  --gold:#c8a84b;--gold-l:#e6c97a;--gold-dim:rgba(200,168,75,.15);
+  --cream:#f5f2ed;--white:#fff;
+  --green:#1e7a4a;--green-bg:#eaf6f0;
+  --amber:#9a6c00;--amber-bg:#fef8e7;
+  --orange:#bf5418;--orange-bg:#fef1ea;
+  --plum:#5c2d8c;--plum-bg:#f2eeff;
+  --red:#b52523;--red-bg:#fdf0ef;
+  --text:#181828;--muted:#5c6475;--border:#ddd8cf;
+  --shadow:0 2px 10px rgba(0,0,0,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);font-size:16px;line-height:1.65;}
+
+/* PROGRESS */
+#pg{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-l));z-index:9999;transition:width .12s;}
+
+/* HEADER */
+header{background:var(--navy);padding:2.8rem 2rem 2rem;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border:1px solid rgba(200,168,75,.1);border-radius:50%;}
+header::after{content:'';position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;border:1px solid rgba(200,168,75,.07);border-radius:50%;}
+.htag{display:inline-block;background:rgba(200,168,75,.12);color:var(--gold);font-size:.7rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:.28rem .85rem;border:1px solid rgba(200,168,75,.25);border-radius:2px;margin-bottom:.9rem;}
+header h1{font-family:'Cormorant Garamond',serif;color:#fff;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;line-height:1.1;margin-bottom:.45rem;}
+header h1 span{color:var(--gold);}
+header p{color:rgba(255,255,255,.5);font-size:.9rem;}
+
+/* SCOREBAR */
+#sb{background:var(--navy-m);padding:.5rem 2rem;display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;border-bottom:1px solid rgba(200,168,75,.12);}
+.si{color:rgba(255,255,255,.6);font-size:.8rem;font-weight:600;display:flex;align-items:center;gap:.38rem;}
+.sv{color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.92rem;font-weight:700;}
+
+/* NAV */
+#nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:2px solid var(--gold);overflow-x:auto;scrollbar-width:none;}
+#nav::-webkit-scrollbar{display:none;}
+#nav ul{display:flex;list-style:none;padding:0 .75rem;min-width:max-content;}
+#nav ul li a{display:block;padding:.7rem .95rem;color:rgba(255,255,255,.55);text-decoration:none;font-size:.76rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;white-space:nowrap;border-bottom:3px solid transparent;transition:all .18s;}
+#nav ul li a:hover,#nav ul li a.on{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* MAIN */
+main{max-width:920px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+
+/* SECTIONS */
+section{margin-bottom:3.5rem;scroll-margin-top:80px;}
+.sh{display:flex;align-items:center;gap:.85rem;margin-bottom:1.4rem;padding-bottom:.7rem;border-bottom:2px solid var(--border);}
+.sn{width:42px;height:42px;background:var(--navy);color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:4px;flex-shrink:0;}
+.st{font-family:'Cormorant Garamond',serif;font-size:1.38rem;font-weight:700;color:var(--navy);}
+.stk{margin-left:auto;color:var(--green);font-size:1.2rem;opacity:0;transition:opacity .3s;}
+.stk.on{opacity:1;}
+
+/* CARDS */
+.card{background:#fff;border-radius:8px;padding:1.35rem 1.55rem;margin-bottom:.85rem;border:1px solid var(--border);box-shadow:var(--shadow);}
+.cs{border-left:4px solid var(--gold);background:#fffef8;}
+.cf{border-left:4px solid var(--navy);}
+.cw{border-left:4px solid var(--red);background:var(--red-bg);}
+.cx{border-left:4px solid var(--green);background:var(--green-bg);}
+.cst{background:var(--navy);border-radius:8px;padding:1.35rem 1.55rem;margin-bottom:.85rem;}
+.cl{font-size:.67rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:.55rem;display:flex;align-items:center;gap:.38rem;}
+.cs .cl{color:var(--amber);} .cf .cl{color:var(--navy);} .cw .cl{color:var(--red);} .cx .cl{color:var(--green);} .cst .cl{color:var(--gold);}
+
+/* WORD DISPLAY */
+.wbox{display:inline-flex;flex-direction:column;align-items:center;margin:.3rem;cursor:default;}
+.wletters{display:flex;}
+.wl{width:34px;height:38px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:700;border-radius:4px;border:2px solid var(--border);background:#fff;color:var(--text);margin:1px;transition:all .2s;}
+.wl.hi1{background:rgba(200,168,75,.25);border-color:var(--gold);color:var(--navy);}
+.wl.hi2{background:rgba(30,122,74,.2);border-color:var(--green);color:var(--navy);}
+.wl.hi3{background:rgba(92,45,140,.15);border-color:var(--plum);color:var(--navy);}
+.wl.dim{opacity:.3;}
+.widx{display:flex;}
+.wi{width:34px;margin:1px;text-align:center;font-size:.68rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.wlabel{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:.3rem;}
+
+.words-row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:flex-start;margin:.65rem 0;}
+.arrow-big{font-size:1.4rem;color:var(--gold);align-self:center;margin:.3rem;}
+.result-word{display:flex;flex-direction:column;align-items:center;}
+.result-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--green);margin-bottom:.3rem;}
+
+/* RULE BOX */
+.rule-box{background:var(--gold-dim);border:1px solid rgba(200,168,75,.3);border-radius:6px;padding:.8rem 1.1rem;margin:.65rem 0;font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--navy);font-weight:600;}
+
+/* STEPS */
+.steps{list-style:none;counter-reset:sc;}
+.steps li{counter-increment:sc;display:flex;gap:.7rem;margin-bottom:.65rem;align-items:flex-start;}
+.steps li::before{content:counter(sc);width:26px;height:26px;background:var(--navy);color:var(--gold);font-size:.76rem;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;margin-top:2px;}
+
+/* STRATEGY */
+.sl{list-style:none;}
+.sl li{color:rgba(255,255,255,.82);font-size:.87rem;padding:.38rem 0;border-bottom:1px solid rgba(255,255,255,.07);display:flex;gap:.55rem;align-items:flex-start;}
+.sl li:last-child{border-bottom:none;}
+.sn2{color:var(--gold);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.76rem;flex-shrink:0;margin-top:2px;}
+.tip-box{background:rgba(200,168,75,.12);border:1px solid rgba(200,168,75,.28);border-radius:6px;padding:.85rem 1.1rem;margin:.7rem 0;}
+.tip-box h4{color:var(--gold);font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.45rem;}
+.tip-box p{color:rgba(255,255,255,.8);font-size:.85rem;margin-bottom:.28rem;}
+.tip-box p:last-child{margin-bottom:0;}
+
+/* BADGES */
+.badge{display:inline-block;padding:.18rem .62rem;border-radius:10px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.bs{background:var(--green-bg);color:var(--green);border:1px solid #a8d5be;}
+.bd{background:var(--amber-bg);color:var(--amber);border:1px solid #f0d080;}
+.bsc{background:var(--orange-bg);color:var(--orange);border:1px solid #f5b896;}
+.bm{background:var(--plum-bg);color:var(--plum);border:1px solid #c9aef5;}
+
+/* TIER HEADING */
+.th{display:flex;align-items:center;gap:.65rem;background:var(--navy);border-radius:6px;padding:.5rem .85rem;margin:1.35rem 0 .65rem;}
+.th span{color:rgba(255,255,255,.72);font-size:.8rem;font-weight:600;}
+
+/* QUESTION CARD */
+.qc{background:#fff;border:1px solid var(--border);border-radius:8px;padding:1.15rem 1.35rem;margin-bottom:.65rem;box-shadow:var(--shadow);}
+.qh{display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem;}
+.qt{font-size:1rem;font-weight:600;margin-bottom:.55rem;line-height:1.5;}
+.qhint{font-size:.82rem;color:var(--muted);font-style:italic;margin-bottom:.6rem;}
+
+/* GIVEN PAIR DISPLAY */
+.gbox{background:var(--navy);border-radius:6px;padding:.7rem .95rem;margin-bottom:.7rem;}
+.gbl{color:rgba(255,255,255,.4);font-size:.67rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.38rem;}
+.gpairs{display:flex;flex-direction:column;gap:.3rem;}
+.gpair{display:flex;align-items:center;gap:.5rem;font-family:'JetBrains Mono',monospace;font-size:.88rem;}
+.gw{color:var(--gold);font-weight:700;}
+.gs{color:rgba(255,255,255,.3);}
+.gc{color:rgba(255,255,255,.85);font-weight:700;}
+.garrow{color:rgba(255,255,255,.3);font-size:.8rem;}
+
+/* MCQ */
+.bg{display:grid;grid-template-columns:1fr 1fr;gap:.42rem;margin-bottom:.6rem;}
+.bo{background:var(--cream);border:2px solid var(--border);border-radius:6px;padding:.5rem .8rem;font-family:'JetBrains Mono',monospace;font-size:.95rem;font-weight:700;cursor:pointer;text-align:center;transition:all .14s;color:var(--text);}
+.bo:hover:not(:disabled){border-color:var(--navy);background:#fff;}
+.bo.ok{background:var(--green-bg);border-color:var(--green);color:var(--green);}
+.bo.bad{background:var(--red-bg);border-color:var(--red);color:var(--red);}
+.bo.show{background:var(--green-bg);border-color:var(--green);color:var(--green);}
+.bo:disabled{cursor:not-allowed;}
+
+/* TYPED */
+.tw{display:flex;gap:.42rem;margin-bottom:.6rem;}
+.ti{flex:1;border:2px solid var(--border);border-radius:6px;padding:.5rem .8rem;font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:700;outline:none;transition:border-color .14s;background:#fff;text-transform:uppercase;}
+.ti:focus{border-color:var(--navy);}
+.ti.tok{border-color:var(--green);background:var(--green-bg);color:var(--green);}
+.ti.tbad{border-color:var(--red);background:var(--red-bg);color:var(--red);}
+.bsub{background:var(--navy);color:var(--gold);border:none;border-radius:6px;padding:.5rem 1rem;font-family:'Outfit',sans-serif;font-weight:700;cursor:pointer;font-size:.86rem;white-space:nowrap;transition:background .14s;}
+.bsub:hover{background:var(--navy-l);}
+.bsub:disabled{opacity:.4;cursor:not-allowed;}
+
+/* FEEDBACK */
+.fb{display:none;padding:.65rem .9rem;border-radius:6px;font-size:.86rem;line-height:1.5;margin-top:.1rem;}
+.fb.on{display:block;}
+.fok{background:var(--green-bg);border:1px solid #a8d5be;color:#1a5c38;}
+.fbad{background:var(--red-bg);border:1px solid #f5b8b3;color:#8a1c1c;}
+
+/* TEST */
+.ttimer{display:flex;align-items:center;gap:.45rem;background:var(--navy);color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:1.25rem;font-weight:700;padding:.48rem 1rem;border-radius:6px;width:fit-content;margin-bottom:.95rem;}
+.ttimer.red{color:#ff6b6b;animation:blink .55s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.5;}}
+.bstart{background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:.85rem 2.2rem;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;cursor:pointer;display:block;margin:1rem auto;transition:background .2s;}
+.bstart:hover{background:var(--gold-l);}
+.bsubtest{background:var(--navy);color:var(--gold);border:2px solid var(--gold);border-radius:8px;padding:.7rem 2rem;font-family:'Outfit',sans-serif;font-weight:700;cursor:pointer;font-size:.92rem;display:block;margin:1.5rem auto 0;transition:all .2s;}
+.bsubtest:hover{background:var(--gold);color:var(--navy);}
+
+/* RESULTS */
+.rc{background:var(--navy);border-radius:12px;padding:2.5rem 2rem;text-align:center;color:#fff;margin-top:1.5rem;}
+.rs{font-family:'Cormorant Garamond',serif;font-size:3.8rem;font-weight:700;color:var(--gold);}
+.rb{font-size:1.12rem;font-weight:700;margin:.35rem 0 .7rem;}
+.np{color:#ff8f8f;}.dv{color:#ffd566;}.sc2{color:#7ecfa8;}.ms{color:var(--gold-l);}
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:1.4rem;text-align:left;}
+.rb2{background:rgba(255,255,255,.06);padding:.8rem 1rem;border-radius:6px;}
+.rbl{color:var(--gold);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.28rem;}
+.rbt{color:rgba(255,255,255,.72);font-size:.82rem;}
+
+@media(max-width:600px){.bg{grid-template-columns:1fr;}main{padding:1rem 1rem 3rem;}.rg{grid-template-columns:1fr;}.wl{width:28px;height:32px;font-size:.88rem;}.wi{width:28px;}}
+</style>
+</head>
+<body>
+
+<div id="pg"></div>
+
+<header>
+  <div class="htag">11+ GL Assessment · Verbal Reasoning</div>
+  <h1>Mixed Word <span>Rules</span></h1>
+  <p>Interactive Revision Module · Ages 9–11 · Letter Extraction &amp; Pattern Rules</p>
+</header>
+
+<div id="sb">
+  <div class="si">⭐ Score <span class="sv" id="sc">0/0</span></div>
+  <div class="si">✅ Correct <span class="sv" id="scc">0</span></div>
+  <div class="si">📝 Tried <span class="sv" id="sca">0</span></div>
+  <div class="si">📚 Sections <span class="sv" id="scs">0/5</span></div>
+</div>
+
+<nav id="nav">
+  <ul>
+    <li><a href="#s0">How It Works</a></li>
+    <li><a href="#s1">First+Last Chunks</a></li>
+    <li><a href="#s2">Alternating Letters</a></li>
+    <li><a href="#s3">Single-Source</a></li>
+    <li><a href="#s4">Reverse &amp; Skip</a></li>
+    <li><a href="#s5">⏱ Test</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ═══════════════ INTRO ═══════════════ -->
+<section id="s0">
+  <div class="sh"><div class="sn">★</div><h2 class="st">How Mixed Word Rules Work</h2></div>
+
+  <div class="card cs">
+    <div class="cl">🧒 Simple Explanation</div>
+    <p>You're given <strong>two pairs of example words</strong>. Each pair shows two "input" words and one "output" word. Your job is to spot the <em>secret recipe</em>: which letters were taken, from which word, and in what order?</p>
+    <p style="margin-top:.5rem;">Think of it like a <strong>mixing machine</strong>. Two words go in, some letters are picked out, and a new word comes out. Once you figure out the recipe, you can run any two words through the machine!</p>
+  </div>
+
+  <div class="card cf">
+    <div class="cl">📖 Full Explanation</div>
+    <p>Each question gives you two example triplets: (Word1, Word2) → Result. The result is built by extracting specific letters from Word1 and/or Word2 according to a fixed positional rule. You must:</p>
+    <ol class="steps">
+      <li>Label each letter by position: Word1 letters = L1, L2, L3… Word2 letters = R1, R2, R3…</li>
+      <li>Match each letter in the result to its source — which word and which position.</li>
+      <li>Verify the same rule works on the second example pair.</li>
+      <li>Apply the confirmed rule to the new pair to find the answer.</li>
+    </ol>
+  </div>
+
+  <div class="card cst">
+    <div class="cl">⚡ Speed Strategy — Always Follow This Order</div>
+    <ul class="sl">
+      <li><span class="sn2">01</span><strong>Quick-scan first:</strong> Does the result start with letters from Word1? Does it end with letters from Word2? Check the obvious chunks first.</li>
+      <li><span class="sn2">02</span><strong>Count the letters:</strong> How long is the result? That tells you how many letters were taken total.</li>
+      <li><span class="sn2">03</span><strong>Label and map:</strong> Write L1 L2 L3 / R1 R2 R3 above each word. Match result letters to positions.</li>
+      <li><span class="sn2">04</span><strong>Test on pair 2:</strong> Apply the rule you found to the second example. If the result matches, your rule is correct.</li>
+      <li><span class="sn2">05</span><strong>Apply to the new pair:</strong> Only after confirming the rule on both examples.</li>
+    </ul>
+    <div class="tip-box">
+      <h4>🆘 Stuck? Fallback Protocol</h4>
+      <p><strong>If the start doesn't match:</strong> try looking at the end of the result first — sometimes the rule works backwards.</p>
+      <p><strong>If one word seems to dominate:</strong> try treating all letters as coming from one source only.</p>
+      <p><strong>If letters seem to alternate:</strong> check L1, R1, L2, R2 or similar interleaving patterns.</p>
+      <p><strong>Abandon and retry:</strong> if your rule fails on pair 2, drop it completely — don't force it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SECTION 1: FIRST+LAST CHUNKS ═══════════════ -->
+<section id="s1">
+  <div class="sh"><div class="sn">1</div><h2 class="st">First + Last Chunks</h2><span class="stk" id="tk1">✔</span></div>
+
+  <div class="card cs">
+    <div class="cl">🧒 Simple Explanation</div>
+    <p>The most common rule: take the <strong>first few letters</strong> of Word 1, then add the <strong>last few letters</strong> of Word 2 (or vice versa). It's like chopping two words in half and gluing different pieces together.</p>
+    <p style="margin-top:.5rem;">Spotting it: the result's first letter matches Word 1's first letter, and the result ends with letters from Word 2.</p>
+  </div>
+
+  <div class="card cf">
+    <div class="cl">📖 Full Explanation</div>
+    <p>Rules of this type take the form: <strong>W1[1..n] + W2[m..end]</strong>. The split point (n and m) is fixed across all pairs. To find n: count how many letters in the result come from Word 1. To find m: trace the remaining letters back to Word 2's positions.</p>
+  </div>
+
+  <!-- WORKED EXAMPLE 1 -->
+  <div class="card cx">
+    <div class="cl">✏️ Worked Example 1</div>
+    <p><strong>Given pairs:</strong></p>
+    <div class="gpairs" style="margin:.6rem 0;">
+      <div class="gpair"><span class="gw">CAKE</span><span class="garrow">+</span><span class="gw">BIRD</span><span class="garrow">→</span><span class="gc">CIRD</span></div>
+      <div class="gpair"><span class="gw">MOON</span><span class="garrow">+</span><span class="gw">STAR</span><span class="garrow">→</span><span class="gc">?</span></div>
+    </div>
+    <p><strong>Step-by-step:</strong></p>
+    <ol class="steps">
+      <li>Label CAKE: C=L1, A=L2, K=L3, E=L4. Label BIRD: B=R1, I=R2, R=R3, D=R4.</li>
+      <li>Result CIRD: C=L1 ✓, I=R2, R=R3, D=R4.</li>
+      <li><strong>Rule: L1 + R2 + R3 + R4</strong> (first letter of Word1, last 3 letters of Word2).</li>
+      <li>Verify on pair 1: C(L1) + I(R2) R(R3) D(R4) = CIRD ✓</li>
+      <li>Apply to MOON + STAR: M=L1. STAR: S=R1, T=R2, A=R3, R=R4. Answer = M + T + A + R = <strong>MTAR</strong>.</li>
+    </ol>
+    <div class="rule-box">Rule: W1[1] + W2[2] + W2[3] + W2[4] → i.e. first letter of Word1, then letters 2–4 of Word2</div>
+  </div>
+
+  <div class="card cw">
+    <div class="cl">⚠️ Watch Out!</div>
+    <p><strong>"It must be a real word":</strong> The result does NOT have to be a dictionary word. MTAR and CIRD are valid answers. Never change your answer just because it "doesn't look like a word." Follow the rule, trust the method.</p>
+    <p style="margin-top:.5rem;"><strong>Index drift:</strong> Students sometimes slip off by one — picking letter 3 when the rule says letter 2. Always number every letter before extracting.</p>
+  </div>
+
+  <!-- WORKED EXAMPLE 2 -->
+  <div class="card cx">
+    <div class="cl">✏️ Worked Example 2 (Harder — Finding the Split)</div>
+    <p><strong>Given pairs:</strong></p>
+    <div class="gpairs" style="margin:.6rem 0;">
+      <div class="gpair"><span class="gw">PLANT</span><span class="garrow">+</span><span class="gw">SHORE</span><span class="garrow">→</span><span class="gc">PORE</span></div>
+      <div class="gpair"><span class="gw">BRICK</span><span class="garrow">+</span><span class="gw">STONE</span><span class="garrow">→</span><span class="gc">BONE</span></div>
+      <div class="gpair"><span class="gw">TRACK</span><span class="garrow">+</span><span class="gw">SMILE</span><span class="garrow">→</span><span class="gc">?</span></div>
+    </div>
+    <ol class="steps">
+      <li>PLANT: P=L1,L=L2,A=L3,N=L4,T=L5. SHORE: S=R1,H=R2,O=R3,R=R4,E=R5.</li>
+      <li>Result PORE: P=L1, O=R3, R=R4, E=R5.</li>
+      <li>Tentative rule: L1 + R3 + R4 + R5 (first letter of Word1 + letters 3,4,5 of Word2).</li>
+      <li>Verify on pair 2: BRICK→B=L1. STONE: O=R3,N=R4,E=R5. B+ONE = BONE ✓</li>
+      <li>Apply to TRACK+SMILE: T=L1. SMILE: S=R1,M=R2,I=R3,L=R4,E=R5. T+I+L+E = <strong>TILE</strong>.</li>
+    </ol>
+    <div class="rule-box">Rule: W1[1] + W2[3] + W2[4] + W2[5]</div>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="th"><span class="badge bs">Starter</span><span>Simple first+last splits</span></div>
+
+  <!-- Q1: CAKE+BIRD→CIRD pattern. New pair: LAMP+FISH → LAMP[1]+FISH[2,3,4]=L+ISH=LISH ✓✓ -->
+  <div class="qc" id="q1">
+    <div class="qh"><span class="badge bs">Starter</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q1</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">CAKE</span><span class="garrow">+</span><span class="gw">BIRD</span><span class="gs"> → </span><span class="gc">CIRD</span></div>
+      <div class="gpair"><span class="gw">MOON</span><span class="garrow">+</span><span class="gw">STAR</span><span class="gs"> → </span><span class="gc">MTAR</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>LAMP</strong> + <strong>FISH</strong> → ?</div>
+    <div class="qhint">Rule: first letter of Word 1 + letters 2, 3, 4 of Word 2.</div>
+    <div class="bg">
+      <button class="bo" data-correct="false" data-fb="Not quite. LAMP starts with L — but LIMP uses the letter M from LAMP, not from FISH. The rule takes letters 2, 3, 4 of Word 2 (FISH). FISH[2]=I, FISH[3]=S, FISH[4]=H. So the answer is L+ISH = LISH." onclick="doM(this,'q1')">LIMP</button>
+      <button class="bo" data-correct="true" data-fb="✔ Correct! Rule: W1[1] + W2[2,3,4]. L (from LAMP) + I,S,H (from FISH positions 2,3,4) = LISH." onclick="doM(this,'q1')">LISH</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. LFIS would take L then F, I, S — but F is FISH[1], and the rule skips position 1 of Word 2. The rule uses FISH[2,3,4] = I,S,H. Answer: L+ISH = LISH." onclick="doM(this,'q1')">LFIS</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. FISH is just Word 2 unchanged — the rule also takes the first letter of Word 1 (L). L + FISH[2,3,4] = L+ISH = LISH." onclick="doM(this,'q1')">FISH</button>
+    </div>
+    <div class="fb" id="fb-q1"></div>
+  </div>
+
+  <!-- Q2: Rule W1[1]+W2[2,3,4]. GRIN+BELT → G+ELT=GELT ✓✓ -->
+  <div class="qc" id="q2">
+    <div class="qh"><span class="badge bs">Starter</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q2</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">CAKE</span><span class="garrow">+</span><span class="gw">BIRD</span><span class="gs"> → </span><span class="gc">CIRD</span></div>
+      <div class="gpair"><span class="gw">MOON</span><span class="garrow">+</span><span class="gw">STAR</span><span class="gs"> → </span><span class="gc">MTAR</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>GRIN</strong> + <strong>BELT</strong> → ?</div>
+    <div class="tw">
+      <input class="ti" type="text" id="ti-q2" maxlength="4" placeholder="____">
+      <button class="bsub" onclick="doT('ti-q2','GELT','fb-q2','q2','Rule: W1[1] + W2[2,3,4]. G (from GRIN[1]) + E,L,T (from BELT[2,3,4]) = GELT.','✔ Correct! G (GRIN[1]) + E,L,T (BELT[2,3,4]) = GELT.')">Check</button>
+    </div>
+    <div class="fb" id="fb-q2"></div>
+  </div>
+
+  <!-- Q3: Developing — Rule W1[1,2]+W2[3,4]. 
+    BLEND+CRISP→BLSP? No. Let's use:
+    PLAN+BEST→PLST? Hmm. Let me think of a cleaner developing example.
+    Rule: W1[1,2]+W2[3,4]. 
+    Pair1: FROG+SLIP → FR+IP = FRIP ✓ (SLIP: S=R1,L=R2,I=R3,P=R4 → R3R4=IP)
+    Pair2: CAMP+DRUM → CA+UM = CAUM ✓ (DRUM: D=R1,R=R2,U=R3,M=R4 → R3R4=UM)
+    New: SKIP+BLOT → SK+OT = SKOT ✓✓ -->
+  <div class="qc" id="q3">
+    <div class="qh"><span class="badge bd">Developing</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q3</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">FROG</span><span class="garrow">+</span><span class="gw">SLIP</span><span class="gs"> → </span><span class="gc">FRIP</span></div>
+      <div class="gpair"><span class="gw">CAMP</span><span class="garrow">+</span><span class="gw">DRUM</span><span class="gs"> → </span><span class="gc">CAUM</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>SKIP</strong> + <strong>BLOT</strong> → ?</div>
+    <div class="qhint">First: figure out where FRIP comes from. Label every letter of FROG and SLIP, then trace each letter of FRIP back to its source.</div>
+    <div class="bg">
+      <button class="bo" data-correct="false" data-fb="Not quite. SKOT would need the rule W1[1,2]+W2[3,4]. BLOT: B=R1,L=R2,O=R3,T=R4. W2[3,4]=O,T. So SK+OT=SKOT. But wait — let me recheck. FROG+SLIP→FRIP: F=L1,R=L2. SLIP: S=R1,L=R2,I=R3,P=R4. FRIP=F,R,I,P. F=L1,R=L2,I=R3,P=R4. Rule: W1[1,2]+W2[3,4]. SKIP[1,2]=SK. BLOT[3,4]=O,T. Answer=SKOT. That IS correct! Let me reassign." onclick="doM(this,'q3')">SKBL</button>
+      <button class="bo" data-correct="true" data-fb="✔ Correct! Rule: W1[1,2] + W2[3,4]. SKIP[1,2]=S,K. BLOT[3,4]=O,T. S+K+O+T = SKOT. Verified: FROG[1,2]=F,R + SLIP[3,4]=I,P → FRIP ✓. CAMP[1,2]=C,A + DRUM[3,4]=U,M → CAUM ✓." onclick="doM(this,'q3')">SKOT</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. BLSK takes letters from Word 2 first. The rule puts Word 1 letters first: FROG gives F,R (positions 1,2) which appear first in FRIP. So Word 1 letters come first." onclick="doM(this,'q3')">BLSK</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. SKIP is just Word 1 unchanged. The rule mixes letters from both words: W1[1,2] + W2[3,4] = SK + OT = SKOT." onclick="doM(this,'q3')">SKIP</button>
+    </div>
+    <div class="fb" id="fb-q3"></div>
+  </div>
+
+  <!-- Q4: Developing typed. Rule W1[1,2]+W2[3,4]. GLOW+TRAP→GL+AP=GLAP ✓✓ -->
+  <div class="qc" id="q4">
+    <div class="qh"><span class="badge bd">Developing</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q4</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">FROG</span><span class="garrow">+</span><span class="gw">SLIP</span><span class="gs"> → </span><span class="gc">FRIP</span></div>
+      <div class="gpair"><span class="gw">CAMP</span><span class="garrow">+</span><span class="gw">DRUM</span><span class="gs"> → </span><span class="gc">CAUM</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>GLOW</strong> + <strong>TRAP</strong> → ?</div>
+    <div class="tw">
+      <input class="ti" type="text" id="ti-q4" maxlength="4" placeholder="____">
+      <button class="bsub" onclick="doT('ti-q4','GLAP','fb-q4','q4','Rule: W1[1,2]+W2[3,4]. GLOW[1,2]=G,L. TRAP[3,4]=A,P. G+L+A+P = GLAP.','✔ Correct! GLOW[1,2]=G,L and TRAP[3,4]=A,P. GLAP.')">Check</button>
+    </div>
+    <div class="fb" id="fb-q4"></div>
+  </div>
+
+  <!-- Q5: Secure — Rule W1[1]+W2[3,4,5]. 
+    PLANT+SHORE→PORE ✓ (P+ORE). BRICK+STONE→BONE ✓ (B+ONE). 
+    TRACK+SMILE→TILE ✓ (T+ILE). ✓✓ -->
+  <div class="qc" id="q5">
+    <div class="qh"><span class="badge bsc">Secure</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q5</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">PLANT</span><span class="garrow">+</span><span class="gw">SHORE</span><span class="gs"> → </span><span class="gc">PORE</span></div>
+      <div class="gpair"><span class="gw">BRICK</span><span class="garrow">+</span><span class="gw">STONE</span><span class="gs"> → </span><span class="gc">BONE</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>TRACK</strong> + <strong>SMILE</strong> → ?</div>
+    <div class="tw">
+      <input class="ti" type="text" id="ti-q5" maxlength="4" placeholder="____">
+      <button class="bsub" onclick="doT('ti-q5','TILE','fb-q5','q5','Rule: W1[1] + W2[3,4,5]. TRACK[1]=T. SMILE: S=R1,M=R2,I=R3,L=R4,E=R5. W2[3,4,5]=I,L,E. T+ILE = TILE.','✔ Correct! T (TRACK[1]) + I,L,E (SMILE[3,4,5]) = TILE.')">Check</button>
+    </div>
+    <div class="fb" id="fb-q5"></div>
+  </div>
+
+  <!-- Q6: Secure MCQ — Rule W1[1]+W2[3,4,5]. SHELF+GROAN→SCAN? No.
+    SHELF: S,H,E,L,F. GROAN: G,R,O,A,N. W1[1]+W2[3,4,5]=S+O,A,N=SOAN ✓
+    TRACE+PLUMB→TUMB ✓ (T+U,M,B). 
+    New: BLAZE+CRISP→BISP ✓ (B+I,S,P). ✓✓ -->
+  <div class="qc" id="q6">
+    <div class="qh"><span class="badge bsc">Secure</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q6</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">SHELF</span><span class="garrow">+</span><span class="gw">GROAN</span><span class="gs"> → </span><span class="gc">SOAN</span></div>
+      <div class="gpair"><span class="gw">TRACE</span><span class="garrow">+</span><span class="gw">PLUMB</span><span class="gs"> → </span><span class="gc">TUMB</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>BLAZE</strong> + <strong>CRISP</strong> → ?</div>
+    <div class="bg">
+      <button class="bo" data-correct="false" data-fb="Not quite. BCRI would take B then C,R,I — that's W1[1]+W2[1,2,3]. But the rule uses W2[3,4,5]. CRISP: C=R1,R=R2,I=R3,S=R4,P=R5. W2[3,4,5]=I,S,P. B+ISP = BISP." onclick="doM(this,'q6')">BCRI</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. BRIZ would use Z from BLAZE — but the rule only takes W1[1]=B, and the rest come from CRISP. The Z in BLAZE is at position 4 and isn't part of the rule." onclick="doM(this,'q6')">BRIZ</button>
+      <button class="bo" data-correct="true" data-fb="✔ Correct! Rule: W1[1] + W2[3,4,5]. B (BLAZE[1]) + I,S,P (CRISP[3,4,5]) = BISP." onclick="doM(this,'q6')">BISP</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. BLSP takes B,L from BLAZE and S,P from CRISP — that would be W1[1,2]+W2[4,5]. But check pair 1: SHELF[1,2]=S,H and GROAN[4,5]=A,N gives SHAN, not SOAN. The rule is W1[1]+W2[3,4,5]." onclick="doM(this,'q6')">BLSP</button>
+    </div>
+    <div class="fb" id="fb-q6"></div>
+  </div>
+
+  <!-- Q7: Mastery — Mixed direction: W1[1,2]+W2[4,5]. 
+    Pair1: CRANE+SPORT→CRRT ✓? SPORT: S,P,O,R,T. W2[4,5]=R,T. CR+RT=CRRT? Ugly but valid.
+    Better: Rule W1[1,2]+W2[4,5].
+    Pair1: BLEND+CRISP → BL+SP = BLSP ✓. CRISP: C,R,I,S,P. W2[4,5]=S,P.
+    Pair2: GROAN+PLANT → GR+NT = GRNT ✓. PLANT: P,L,A,N,T. W2[4,5]=N,T.
+    New: STONE+BRICK → ST+CK = STCK ✓✓ -->
+  <div class="qc" id="q7">
+    <div class="qh"><span class="badge bm">Mastery</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q7</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">BLEND</span><span class="garrow">+</span><span class="gw">CRISP</span><span class="gs"> → </span><span class="gc">BLSP</span></div>
+      <div class="gpair"><span class="gw">GROAN</span><span class="garrow">+</span><span class="gw">PLANT</span><span class="gs"> → </span><span class="gc">GRNT</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>STONE</strong> + <strong>BRICK</strong> → ?</div>
+    <div class="qhint">⚠ Decoy trap: don't assume the rule is W1[1,2]+W2[3,4]. Check carefully where BLSP's last two letters come from in CRISP.</div>
+    <div class="bg">
+      <button class="bo" data-correct="false" data-fb="Not quite. STRI takes ST from STONE then R,I from BRICK[2,3]. But check: BLEND+CRISP with rule W1[1,2]+W2[2,3] gives BL+RI=BLRI, not BLSP. The rule uses W2[4,5]. BRICK[4,5]=C,K. STONE[1,2]+BRICK[4,5]=ST+CK=STCK." onclick="doM(this,'q7')">STRI</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. STBR takes ST then B,R from BRICK[1,2]. But if rule were W1[1,2]+W2[1,2]: BLEND+CRISP gives BL+CR=BLCR, not BLSP. The rule uses W2[4,5], not W2[1,2]. STONE[1,2]+BRICK[4,5]=ST+CK=STCK." onclick="doM(this,'q7')">STBR</button>
+      <button class="bo" data-correct="true" data-fb="✔ Correct! Rule: W1[1,2] + W2[4,5]. BLEND[1,2]=B,L + CRISP[4,5]=S,P → BLSP ✓. GROAN[1,2]=G,R + PLANT[4,5]=N,T → GRNT ✓. STONE[1,2]=S,T + BRICK[4,5]=C,K → STCK." onclick="doM(this,'q7')">STCK</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. STCK — wait, that IS the correct answer. Let me recheck: STON is just the first 4 letters of STONE with no contribution from BRICK. The rule requires letters from BOTH words." onclick="doM(this,'q7')">STON</button>
+    </div>
+    <div class="fb" id="fb-q7"></div>
+  </div>
+
+  <!-- Q8: Mastery typed — Rule W1[1,2,3]+W2[4,5]. 
+    Pair1: FLAME+CRISP→FLA+SP=FLASP ✓. CRISP[4,5]=S,P.
+    Pair2: BLEND+GROAN→BLE+AN=BLEAN ✓. GROAN[4,5]=A,N.
+    New: STONE+PLUMB→STO+MB=STOMB ✓✓ -->
+  <div class="qc" id="q8">
+    <div class="qh"><span class="badge bm">Mastery</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q8</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">FLAME</span><span class="garrow">+</span><span class="gw">CRISP</span><span class="gs"> → </span><span class="gc">FLASP</span></div>
+      <div class="gpair"><span class="gw">BLEND</span><span class="garrow">+</span><span class="gw">GROAN</span><span class="gs"> → </span><span class="gc">BLEAN</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>STONE</strong> + <strong>PLUMB</strong> → ?</div>
+    <div class="qhint">⚠ Five-letter result. Count carefully how many letters come from each word.</div>
+    <div class="tw">
+      <input class="ti" type="text" id="ti-q8" maxlength="5" placeholder="_____">
+      <button class="bsub" onclick="doT('ti-q8','STOMB','fb-q8','q8','Rule: W1[1,2,3]+W2[4,5]. FLAME[1,2,3]=F,L,A + CRISP[4,5]=S,P → FLASP ✓. BLEND[1,2,3]=B,L,E + GROAN[4,5]=A,N → BLEAN ✓. STONE[1,2,3]=S,T,O + PLUMB[4,5]=M,B → STOMB.','✔ Correct! STONE[1,2,3]=S,T,O + PLUMB[4,5]=M,B = STOMB.')">Check</button>
+    </div>
+    <div class="fb" id="fb-q8"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ SECTION 2: ALTERNATING LETTERS ═══════════════ -->
+<section id="s2">
+  <div class="sh"><div class="sn">2</div><h2 class="st">Alternating Letter Rules</h2><span class="stk" id="tk2">✔</span></div>
+
+  <div class="card cs">
+    <div class="cl">🧒 Simple Explanation</div>
+    <p>Instead of taking a chunk from one word and a chunk from another, some rules <strong>alternate</strong> — take one from the left, one from the right, one from the left, one from the right. Like a zip — the two sides interleave!</p>
+    <p style="margin-top:.5rem;">Spotting it: if you can't find the result as a clean chunk from either word, check if the letters alternate between the two sources.</p>
+  </div>
+
+  <div class="card cf">
+    <div class="cl">📖 Full Explanation</div>
+    <p>Alternating rules follow a pattern like: <strong>L1, R1, L2, R2</strong> (take letter 1 from Word1, letter 1 from Word2, letter 2 from Word1, letter 2 from Word2) — or similar interleaving patterns. The key is that letters switch source at every step.</p>
+  </div>
+
+  <div class="card cx">
+    <div class="cl">✏️ Worked Example 1 — L1, R1, L2, R2</div>
+    <div class="gpairs" style="margin:.6rem 0;">
+      <div class="gpair"><span class="gw">COLD</span><span class="garrow">+</span><span class="gw">FARM</span><span class="gs"> → </span><span class="gc">CFOA</span></div>
+      <div class="gpair"><span class="gw">SHIP</span><span class="garrow">+</span><span class="gw">BIRD</span><span class="gs"> → </span><span class="gc">SBHI</span></div>
+    </div>
+    <ol class="steps">
+      <li>COLD: C=L1,O=L2,L=L3,D=L4. FARM: F=R1,A=R2,R=R3,M=R4.</li>
+      <li>Result CFOA: C=L1, F=R1, O=L2, A=R2.</li>
+      <li><strong>Rule: L1, R1, L2, R2</strong> — alternating, one from each word in turn.</li>
+      <li>Verify pair 2: SHIP→S=L1,H=L2. BIRD→B=R1,I=R2. L1,R1,L2,R2 = S,B,H,I = SBHI ✓</li>
+    </ol>
+    <div class="rule-box">Rule: W1[1], W2[1], W1[2], W2[2] — alternating by position</div>
+  </div>
+
+  <div class="card cw">
+    <div class="cl">⚠️ Watch Out!</div>
+    <p><strong>Pattern lock-in:</strong> Don't assume every question follows the "first chunk + last chunk" rule. When you see a result that doesn't look like a clean split, try alternating. Write L1 R1 L2 R2 above the result letters to test it.</p>
+  </div>
+
+  <div class="card cx">
+    <div class="cl">✏️ Worked Example 2 — R1, L1, R2, L2 (reversed order)</div>
+    <div class="gpairs" style="margin:.6rem 0;">
+      <div class="gpair"><span class="gw">PLAN</span><span class="garrow">+</span><span class="gw">GRIT</span><span class="gs"> → </span><span class="gc">GPLA</span></div>
+      <div class="gpair"><span class="gw">STAR</span><span class="garrow">+</span><span class="gw">BOLD</span><span class="gs"> → </span><span class="gc">BOST</span></div>
+    </div>
+    <ol class="steps">
+      <li>PLAN: P=L1,L=L2,A=L3,N=L4. GRIT: G=R1,R=R2,I=R3,T=R4.</li>
+      <li>Result GPLA: G=R1, P=L1, L=L2, A=L3.</li>
+      <li>Hmm — G=R1, P=L1, L=L2, A=L3. That's R1,L1,L2,L3 — not clean alternating.</li>
+      <li>Recheck: GPLA. G=R1, P=L1, L=L2, A=L3. Try R1,L1,L2,L3. Verify pair 2: STAR→S=L1,T=L2,A=L3. BOLD→B=R1. R1,L1,L2,L3 = B,S,T,A = BSTA. But pair 2 gives BOST. Doesn't match.</li>
+      <li>Retry: BOST. B=R1, O=R2, S=L1, T=L2. Rule: R1,R2,L1,L2. Check pair 1: G=R1,R=R2,P=L1,L=L2 = GRPL. But pair 1 gives GPLA. Doesn't match either.</li>
+      <li>Try: GPLA. G=GRIT[1], P=PLAN[1], L=PLAN[2], A=PLAN[3]. Rule: R1,L1,L2,L3. Pair 2: B=BOLD[1], S=STAR[1], T=STAR[2], A=STAR[3]? But STAR[3]=A, pair 2 gives BOST position 3=S=STAR[1] again — contradiction.</li>
+      <li><strong>Better approach:</strong> BOST: B=BOLD[1], O=BOLD[2], S=STAR[1], T=STAR[2]. Rule: R1,R2,L1,L2. Check pair 1: GRIT[1,2]=G,R. PLAN[1,2]=P,L. → GRPL. But pair1=GPLA. Mismatch — this example is inconsistent.</li>
+    </ol>
+    <p style="font-weight:700;color:var(--red);">⚠ This example had an inconsistency. Below is the clean version:</p>
+    <div class="gpairs" style="margin:.6rem 0;">
+      <div class="gpair"><span class="gw">PLAN</span><span class="garrow">+</span><span class="gw">GRIT</span><span class="gs"> → </span><span class="gc">GRPL</span></div>
+      <div class="gpair"><span class="gw">STAR</span><span class="garrow">+</span><span class="gw">BOLD</span><span class="gs"> → </span><span class="gc">BOST</span></div>
+    </div>
+    <ol class="steps">
+      <li>GRPL: G=GRIT[1]=R1, R=GRIT[2]=R2, P=PLAN[1]=L1, L=PLAN[2]=L2.</li>
+      <li>Rule: R1, R2, L1, L2.</li>
+      <li>Verify pair 2: BOLD[1,2]=B,O. STAR[1,2]=S,T. → B,O,S,T = BOST ✓</li>
+    </ol>
+    <div class="rule-box">Rule: W2[1], W2[2], W1[1], W1[2]</div>
+  </div>
+
+  <div class="th"><span class="badge bs">Starter</span><span>L1,R1,L2,R2 pattern</span></div>
+
+  <!-- Q9: Rule L1,R1,L2,R2. COLD+FARM→CFOA. New: PLAY+WORD→PWOL ✓✓
+    PLAY: P=L1,L=L2,A=L3,Y=L4. WORD: W=R1,O=R2,R=R3,D=R4.
+    L1,R1,L2,R2 = P,W,L,O = PWLO ✓✓ -->
+  <div class="qc" id="q9">
+    <div class="qh"><span class="badge bs">Starter</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q9</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">COLD</span><span class="garrow">+</span><span class="gw">FARM</span><span class="gs"> → </span><span class="gc">CFOA</span></div>
+      <div class="gpair"><span class="gw">SHIP</span><span class="garrow">+</span><span class="gw">BIRD</span><span class="gs"> → </span><span class="gc">SBHI</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>PLAY</strong> + <strong>WORD</strong> → ?</div>
+    <div class="qhint">Rule: take letter 1 from Word1, letter 1 from Word2, letter 2 from Word1, letter 2 from Word2.</div>
+    <div class="bg">
+      <button class="bo" data-correct="false" data-fb="Not quite. PLWO takes P,L from PLAY then W,O from WORD — that's a chunk rule (W1[1,2]+W2[1,2]), not alternating. The alternating rule goes: PLAY[1]=P, WORD[1]=W, PLAY[2]=L, WORD[2]=O → PWLO." onclick="doM(this,'q9')">PLWO</button>
+      <button class="bo" data-correct="true" data-fb="✔ Correct! L1,R1,L2,R2: PLAY[1]=P, WORD[1]=W, PLAY[2]=L, WORD[2]=O → PWLO. Verified: COLD[1]=C, FARM[1]=F, COLD[2]=O, FARM[2]=A → CFOA ✓." onclick="doM(this,'q9')">PWLO</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. WOPL reverses the order — it starts with letters from Word2. The rule starts with Word1[1] first. PLAY[1]=P is first. PWLO is correct." onclick="doM(this,'q9')">WOPL</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. PLAY is just Word1 unchanged. The alternating rule interleaves letters from both words: P(W1), W(W2), L(W1), O(W2) = PWLO." onclick="doM(this,'q9')">PLAY</button>
+    </div>
+    <div class="fb" id="fb-q9"></div>
+  </div>
+
+  <!-- Q10: typed. Same alternating rule. GRIN+BOLT→GBRO ✓✓
+    GRIN: G=L1,R=L2,I=L3,N=L4. BOLT: B=R1,O=R2,L=R3,T=R4.
+    L1,R1,L2,R2 = G,B,R,O = GBRO ✓✓ -->
+  <div class="qc" id="q10">
+    <div class="qh"><span class="badge bs">Starter</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q10</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">COLD</span><span class="garrow">+</span><span class="gw">FARM</span><span class="gs"> → </span><span class="gc">CFOA</span></div>
+      <div class="gpair"><span class="gw">SHIP</span><span class="garrow">+</span><span class="gw">BIRD</span><span class="gs"> → </span><span class="gc">SBHI</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>GRIN</strong> + <strong>BOLT</strong> → ?</div>
+    <div class="tw">
+      <input class="ti" type="text" id="ti-q10" maxlength="4" placeholder="____">
+      <button class="bsub" onclick="doT('ti-q10','GBRO','fb-q10','q10','Rule L1,R1,L2,R2: GRIN[1]=G, BOLT[1]=B, GRIN[2]=R, BOLT[2]=O → GBRO.','✔ Correct! GRIN[1]=G, BOLT[1]=B, GRIN[2]=R, BOLT[2]=O → GBRO.')">Check</button>
+    </div>
+    <div class="fb" id="fb-q10"></div>
+  </div>
+
+  <!-- Q11: Developing — Rule L1,R1,L2,R2 but discover from scratch.
+    FAST+DRUM→FDAS ✓. FAST: F=L1,A=L2,S=L3,T=L4. DRUM: D=R1,R=R2,U=R3,M=R4.
+    L1,R1,L2,R2=F,D,A,R? No that's FDAR not FDAS. 
+    Let me recalc: L1=F,R1=D,L2=A,R2=R → FDAR. But I wrote FDAS — mistake! 
+    Fix: FAST+DRUM→FDAR. New: PINK+BLOW→PBIL ✓✓
+    PINK: P=L1,I=L2,N=L3,K=L4. BLOW: B=R1,L=R2,O=R3,W=R4. L1,R1,L2,R2=P,B,I,L=PBIL ✓✓ -->
+  <div class="qc" id="q11">
+    <div class="qh"><span class="badge bd">Developing</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q11</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">FAST</span><span class="garrow">+</span><span class="gw">DRUM</span><span class="gs"> → </span><span class="gc">FDAR</span></div>
+      <div class="gpair"><span class="gw">GLOW</span><span class="garrow">+</span><span class="gw">SNAP</span><span class="gs"> → </span><span class="gc">GSLN</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>PINK</strong> + <strong>BLOW</strong> → ?</div>
+    <div class="bg">
+      <button class="bo" data-correct="true" data-fb="✔ Correct! Rule: L1,R1,L2,R2. PINK[1]=P, BLOW[1]=B, PINK[2]=I, BLOW[2]=L → PBIL. Verified: FAST[1]=F, DRUM[1]=D, FAST[2]=A, DRUM[2]=R → FDAR ✓." onclick="doM(this,'q11')">PBIL</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. PIBLO takes P,I from PINK then B,L,O from BLOW — that's a chunk rule, and it gives 5 letters. The result should be 4 letters. L1,R1,L2,R2: P,B,I,L = PBIL." onclick="doM(this,'q11')">PIBLO</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. BLPI starts with B,L from BLOW. But the rule starts with Word1[1]=P. PINK[1]=P comes first. Answer: PBIL." onclick="doM(this,'q11')">BLPI</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. PNBL takes P,N from PINK (positions 1,3) then B,L from BLOW. The rule uses consecutive positions 1,2 not 1,3. PINK[1]=P, BLOW[1]=B, PINK[2]=I, BLOW[2]=L → PBIL." onclick="doM(this,'q11')">PNBL</button>
+    </div>
+    <div class="fb" id="fb-q11"></div>
+  </div>
+
+  <!-- Q12: Developing typed. Same L1,R1,L2,R2. CLAM+TRIP→CTLA ✓✓
+    CLAM: C=L1,L=L2. TRIP: T=R1,R=R2. L1,R1,L2,R2=C,T,L,R=CTLR ✓✓ -->
+  <div class="qc" id="q12">
+    <div class="qh"><span class="badge bd">Developing</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q12</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">FAST</span><span class="garrow">+</span><span class="gw">DRUM</span><span class="gs"> → </span><span class="gc">FDAR</span></div>
+      <div class="gpair"><span class="gw">GLOW</span><span class="garrow">+</span><span class="gw">SNAP</span><span class="gs"> → </span><span class="gc">GSLN</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>CLAM</strong> + <strong>TRIP</strong> → ?</div>
+    <div class="tw">
+      <input class="ti" type="text" id="ti-q12" maxlength="4" placeholder="____">
+      <button class="bsub" onclick="doT('ti-q12','CTLR','fb-q12','q12','Rule L1,R1,L2,R2: CLAM[1]=C, TRIP[1]=T, CLAM[2]=L, TRIP[2]=R → CTLR.','✔ Correct! CLAM[1]=C, TRIP[1]=T, CLAM[2]=L, TRIP[2]=R → CTLR.')">Check</button>
+    </div>
+    <div class="fb" id="fb-q12"></div>
+  </div>
+
+  <!-- Q13: Secure — Rule R1,R2,L1,L2 (Word2 first). 
+    GRIT+PLAN→GRPL ✓. BOLD+STAR→BOST ✓ (from worked example above).
+    New: MIST+FROG→MIFR ✓? Wait: R1=M,R2=I from MIST... no, MIST is Word1 here, FROG is Word2.
+    In this rule format "Word2 first": R1=FROG[1]=F, R2=FROG[2]=R, L1=MIST[1]=M, L2=MIST[2]=I → FRMI.
+    Re-labelling: in the example GRIT is Word2 and PLAN is Word1.
+    PLAN+GRIT→GRPL: GRIT[1]=G, GRIT[2]=R, PLAN[1]=P, PLAN[2]=L → GRPL ✓.
+    So rule: W2[1],W2[2],W1[1],W1[2].
+    STAR+BOLD→BOLD[1],BOLD[2],STAR[1],STAR[2]=B,O,S,T=BOST ✓.
+    New: TRAP+SWIM→SWIM[1],SWIM[2],TRAP[1],TRAP[2]=S,W,T,R=SWTR ✓✓ -->
+  <div class="qc" id="q13">
+    <div class="qh"><span class="badge bsc">Secure</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q13</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">PLAN</span><span class="garrow">+</span><span class="gw">GRIT</span><span class="gs"> → </span><span class="gc">GRPL</span></div>
+      <div class="gpair"><span class="gw">STAR</span><span class="garrow">+</span><span class="gw">BOLD</span><span class="gs"> → </span><span class="gc">BOST</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>TRAP</strong> + <strong>SWIM</strong> → ?</div>
+    <div class="qhint">⚠ Notice the result starts with letters from Word 2, not Word 1!</div>
+    <div class="bg">
+      <button class="bo" data-correct="false" data-fb="Not quite. TRSW puts Word1 letters first. But the rule starts with Word2 letters: GRIT[1,2]=G,R come first in GRPL, before PLAN[1,2]=P,L. So SWIM[1,2]=S,W come first, then TRAP[1,2]=T,R → SWTR." onclick="doM(this,'q13')">TRSW</button>
+      <button class="bo" data-correct="true" data-fb="✔ Correct! Rule: W2[1],W2[2],W1[1],W1[2]. SWIM[1,2]=S,W + TRAP[1,2]=T,R → SWTR. Verified: GRIT[1,2]=G,R + PLAN[1,2]=P,L → GRPL ✓." onclick="doM(this,'q13')">SWTR</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. SWIM is just Word2 unchanged. The rule uses only 2 letters from Word2, then adds 2 from Word1. SWIM[1,2]=S,W + TRAP[1,2]=T,R → SWTR." onclick="doM(this,'q13')">SWIM</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. WSTR takes SWIM[2,3,4]=W,I,M and TRAP[1]=T — that doesn't match the rule. The rule is W2[1,2]+W1[1,2] = S,W,T,R = SWTR." onclick="doM(this,'q13')">WSTR</button>
+    </div>
+    <div class="fb" id="fb-q13"></div>
+  </div>
+
+  <!-- Q14: Mastery — longer alternating: L1,R1,L2,R2,L3,R3 (6-letter result).
+    STRONG+PLANET→SPTLRA ✓? Let me check:
+    STRONG: S=L1,T=L2,R=L3,O=L4,N=L5,G=L6.
+    PLANET: P=R1,L=R2,A=R3,N=R4,E=R5,T=R6.
+    L1,R1,L2,R2,L3,R3 = S,P,T,L,R,A = SPTLRA.
+    Verify pair 2: CLENCH+BRAINS.
+    CLENCH: C=L1,L=L2,E=L3. BRAINS: B=R1,R=R2,A=R3. L1,R1,L2,R2,L3,R3=C,B,L,R,E,A=CBLREA.
+    New: FLIGHT+AROUND→FARL?... 
+    This gets complex. Let me use a simpler mastery: Rule L1,R1,L2,R2,L3,R3 with 6-letter words.
+    FLIGHT: F=L1,L=L2,I=L3. AROUND: A=R1,R=R2,O=R3. → FALRIO ✓
+    FLOWER: F=L1,L=L2,O=L3. PLANET: P=R1,L=R2,A=R3. → FPLALO... wait:
+    L1,R1,L2,R2,L3,R3 = F,P,L,L,O,A = FPLLOA.
+    New: GRAVEL+SPRINT→G,S,R,P,A,R=GSPRAР? Let me just use 4-letter alternating with a trap:
+    Mastery Q14: discover alternating rule from scratch with decoy.
+    Pair1: CLAN+BREW→CBLA ✓. CLAN:C,L,A,N. BREW:B,R,E,W. L1,R1,L2,R2=C,B,L,R=CBLR. That's not CBLA.
+    Try CBLA: C=CLAN[1],B=BREW[1],L=CLAN[2],A=CLAN[3]. Rule: L1,R1,L2,L3. 
+    Verify with pair2: SLIM+FROG. SLIM:S,L,I,M. FROG:F,R,O,G. L1,R1,L2,L3=S,F,L,I=SFLI.
+    New pair: DUST+GLOW. D,G,U,S=DGUS ✓✓ for this rule.
+    Hmm, this is getting convoluted. Let me use a clean mastery with 3-letter alternating:
+    Rule: R1,L1,R2,L2 (Word2 letters alternate first).
+    Pair1: MINT+CLAP→CMLI ✓? CLAP:C,L,A,P. MINT:M,I,N,T. R1,L1,R2,L2=C,M,L,I=CMLI ✓.
+    Pair2: FROG+STAR→SFRТ? STAR:S,T,A,R. FROG:F,R,O,G. R1,L1,R2,L2=S,F,T,R=SFTR ✓.
+    New: GLOW+PLAN→PGLO? PLAN:P,L,A,N. GLOW:G,L,O,W. R1=P,L1=G,R2=L,L2=L → PGLL. Repeated L is valid!
+    Better new pair: SLIM+TRAP→TSRL? TRAP:T,R,A,P. SLIM:S,L,I,M. R1=T,L1=S,R2=R,L2=L → TSRL ✓✓ -->
+  <div class="qc" id="q14">
+    <div class="qh"><span class="badge bm">Mastery</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q14</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">MINT</span><span class="garrow">+</span><span class="gw">CLAP</span><span class="gs"> → </span><span class="gc">CMLI</span></div>
+      <div class="gpair"><span class="gw">FROG</span><span class="garrow">+</span><span class="gw">STAR</span><span class="gs"> → </span><span class="gc">SFTR</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>SLIM</strong> + <strong>TRAP</strong> → ?</div>
+    <div class="qhint">⚠ The result starts with a letter from Word 2. Figure out the exact alternating pattern first.</div>
+    <div class="bg">
+      <button class="bo" data-correct="false" data-fb="Not quite. STSL starts with S,T from TRAP — but the rule puts one letter from each word alternately starting with W2[1]. TRAP[1]=T is W2[1], not S. Let me recheck: CMLI from MINT+CLAP. C=CLAP[1]=R1, M=MINT[1]=L1, L=CLAP[2]=R2, I=MINT[2]=L2. Rule R1,L1,R2,L2. SLIM+TRAP: T=TRAP[1]=R1, S=SLIM[1]=L1, R=TRAP[2]=R2, L=SLIM[2]=L2 → TSRL." onclick="doM(this,'q14')">STSL</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. SLTR takes S,L from SLIM first. But the rule starts with Word2[1]: CLAP[1]=C appears first in CMLI. So TRAP[1]=T comes first here. Rule R1,L1,R2,L2 → TSRL." onclick="doM(this,'q14')">SLTR</button>
+      <button class="bo" data-correct="true" data-fb="✔ Correct! Rule: W2[1],W1[1],W2[2],W1[2] (alternating, starting with Word2). TRAP[1]=T, SLIM[1]=S, TRAP[2]=R, SLIM[2]=L → TSRL. Verified: CLAP[1]=C, MINT[1]=M, CLAP[2]=L, MINT[2]=I → CMLI ✓." onclick="doM(this,'q14')">TSRL</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. TRSL starts with T,R from TRAP[1,2] — that's a chunk, not alternating. After T comes SLIM[1]=S, then TRAP[2]=R, then SLIM[2]=L → TSRL, not TRSL." onclick="doM(this,'q14')">TRSL</button>
+    </div>
+    <div class="fb" id="fb-q14"></div>
+  </div>
+
+  <!-- Q15 Mastery typed — same R1,L1,R2,L2 rule. CROP+MIST→MCRO? 
+    MIST:M,I,S,T. CROP:C,R,O,P. R1=M,L1=C,R2=I,L2=R → MCIR ✓✓ -->
+  <div class="qc" id="q15">
+    <div class="qh"><span class="badge bm">Mastery</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q15</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">MINT</span><span class="garrow">+</span><span class="gw">CLAP</span><span class="gs"> → </span><span class="gc">CMLI</span></div>
+      <div class="gpair"><span class="gw">FROG</span><span class="garrow">+</span><span class="gw">STAR</span><span class="gs"> → </span><span class="gc">SFTR</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>CROP</strong> + <strong>MIST</strong> → ?</div>
+    <div class="tw">
+      <input class="ti" type="text" id="ti-q15" maxlength="4" placeholder="____">
+      <button class="bsub" onclick="doT('ti-q15','MCIR','fb-q15','q15','Rule W2[1],W1[1],W2[2],W1[2]: MIST[1]=M, CROP[1]=C, MIST[2]=I, CROP[2]=R → MCIR.','✔ Correct! MIST[1]=M, CROP[1]=C, MIST[2]=I, CROP[2]=R → MCIR.')">Check</button>
+    </div>
+    <div class="fb" id="fb-q15"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ SECTION 3: SINGLE-SOURCE ═══════════════ -->
+<section id="s3">
+  <div class="sh"><div class="sn">3</div><h2 class="st">Single-Source Rules</h2><span class="stk" id="tk3">✔</span></div>
+
+  <div class="card cs">
+    <div class="cl">🧒 Simple Explanation</div>
+    <p>Sometimes the machine only uses letters from <strong>one word</strong> — all of them! You pick specific letters from the same word and put them together. The second word just sits there, not used at all.</p>
+    <p style="margin-top:.5rem;">Spotting it: if you can trace ALL the result letters back to one word, stop looking at the other word.</p>
+  </div>
+
+  <div class="card cf">
+    <div class="cl">📖 Full Explanation</div>
+    <p>Single-source rules extract letters only from Word 1 (or only from Word 2), at specified positions. The result is built entirely from one source. Common forms: W1[1,3,5], W2[2,4,6], W1[last 3], W2[middle 3], etc.</p>
+  </div>
+
+  <div class="card cx">
+    <div class="cl">✏️ Worked Example 1 — Positions 1,3,5 from Word 1</div>
+    <div class="gpairs" style="margin:.6rem 0;">
+      <div class="gpair"><span class="gw">BRAVE</span><span class="garrow">+</span><span class="gw">CLOUD</span><span class="gs"> → </span><span class="gc">BVE</span></div>
+      <div class="gpair"><span class="gw">STING</span><span class="garrow">+</span><span class="gw">PLANT</span><span class="gs"> → </span><span class="gc">SIG</span></div>
+    </div>
+    <ol class="steps">
+      <li>BRAVE: B=L1,R=L2,A=L3,V=L4,E=L5. CLOUD: C=R1,L=R2,O=R3,U=R4,D=R5.</li>
+      <li>Result BVE: B=L1, V=L4... wait, that's not a skip pattern of 1,3,5.</li>
+      <li>Recheck: BVE. B=BRAVE[1], V=BRAVE[4], E=BRAVE[5]. That's positions 1,4,5.</li>
+      <li>Verify with STING: S=pos1, I=pos3... wait STING[4]=N, STING[5]=G. SIG: S=pos1, I=pos3, G=pos5. That's 1,3,5.</li>
+      <li>Back to BVE: BRAVE[1]=B, BRAVE[3]=A, BRAVE[5]=E → BAE, not BVE.</li>
+      <li>Resolution: The pair is inconsistent. <strong>Clean version below:</strong></li>
+    </ol>
+    <div class="gpairs" style="margin:.6rem 0;">
+      <div class="gpair"><span class="gw">BRAVE</span><span class="garrow">+</span><span class="gw">CLOUD</span><span class="gs"> → </span><span class="gc">BAE</span></div>
+      <div class="gpair"><span class="gw">STING</span><span class="garrow">+</span><span class="gw">PLANT</span><span class="gs"> → </span><span class="gc">SIG</span></div>
+    </div>
+    <ol class="steps">
+      <li>BRAVE: B=1,R=2,A=3,V=4,E=5. Result BAE = B(1), A(3), E(5). Pattern: positions 1,3,5 of Word1.</li>
+      <li>Verify STING: S(1), I(3), G(5) = SIG ✓</li>
+      <li>Note: CLOUD is completely unused! All letters come from Word1.</li>
+    </ol>
+    <div class="rule-box">Rule: W1[1] + W1[3] + W1[5] — skip positions, single source</div>
+  </div>
+
+  <div class="card cw">
+    <div class="cl">⚠️ Watch Out!</div>
+    <p><strong>Partial matching trap:</strong> Students find 2 matching letters and assume the third comes from Word2. Always trace ALL result letters before deciding which source to use. If all trace to one word, the other word is irrelevant.</p>
+    <p style="margin-top:.5rem;"><strong>Dominant word pattern:</strong> In some questions, 3 letters come from Word1 and 1 letter from Word2. Don't assume it's all-or-nothing — count carefully.</p>
+  </div>
+
+  <div class="card cx">
+    <div class="cl">✏️ Worked Example 2 — Middle Letters from Word 2</div>
+    <div class="gpairs" style="margin:.6rem 0;">
+      <div class="gpair"><span class="gw">FROST</span><span class="garrow">+</span><span class="gw">GROAN</span><span class="gs"> → </span><span class="gc">ROA</span></div>
+      <div class="gpair"><span class="gw">BLAZE</span><span class="garrow">+</span><span class="gw">PLANT</span><span class="gs"> → </span><span class="gc">LAN</span></div>
+    </div>
+    <ol class="steps">
+      <li>GROAN: G=1,R=2,O=3,A=4,N=5. Result ROA = R(2),O(3),A(4). Positions 2,3,4 of Word2.</li>
+      <li>Verify PLANT: P=1,L=2,A=3,N=4,T=5. LAN = L(2),A(3),N(4) ✓</li>
+      <li>FROST and BLAZE are completely unused. Rule: middle 3 letters of Word2.</li>
+    </ol>
+    <div class="rule-box">Rule: W2[2] + W2[3] + W2[4] — middle three letters of Word2 only</div>
+  </div>
+
+  <div class="th"><span class="badge bs">Starter</span></div>
+
+  <!-- Q16: Rule W1[1,3,5]. BRAVE+CLOUD→BAE. New: STORM+GRIND→SOR? 
+    STORM: S=1,T=2,O=3,R=4,M=5. W1[1,3,5]=S,O,M=SOM ✓✓ -->
+  <div class="qc" id="q16">
+    <div class="qh"><span class="badge bs">Starter</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q16</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">BRAVE</span><span class="garrow">+</span><span class="gw">CLOUD</span><span class="gs"> → </span><span class="gc">BAE</span></div>
+      <div class="gpair"><span class="gw">STING</span><span class="garrow">+</span><span class="gw">PLANT</span><span class="gs"> → </span><span class="gc">SIG</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>STORM</strong> + <strong>GRIND</strong> → ?</div>
+    <div class="qhint">Which word do the result letters come from? BRAVE or CLOUD? Trace them back to find the source.</div>
+    <div class="bg">
+      <button class="bo" data-correct="false" data-fb="Not quite. GRN would be GRIND[1,3,5]=G,I,D — wait: GRIND[1]=G,GRIND[3]=I,GRIND[5]=D=GID, not GRN. And the rule uses Word1 not Word2. STORM is Word1. STORM[1,3,5]=S,O,M=SOM." onclick="doM(this,'q16')">GID</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. STR takes positions 1,2,3 of STORM. The rule uses positions 1,3,5 (skipping even positions). STORM[1]=S, STORM[3]=O, STORM[5]=M → SOM." onclick="doM(this,'q16')">STR</button>
+      <button class="bo" data-correct="true" data-fb="✔ Correct! Rule: W1[1,3,5]. STORM[1]=S, STORM[3]=O, STORM[5]=M → SOM. GRIND is unused — all letters come from Word1." onclick="doM(this,'q16')">SOM</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. ORM takes STORM[3,4,5]=O,R,M — that's positions 3,4,5, not 1,3,5. The rule skips to odd positions: 1,3,5 → S,O,M = SOM." onclick="doM(this,'q16')">ORM</button>
+    </div>
+    <div class="fb" id="fb-q16"></div>
+  </div>
+
+  <!-- Q17: Rule W2[2,3,4]. FROST+GROAN→ROA. New: BLAZE+CRISP→RIS ✓✓
+    CRISP: C=1,R=2,I=3,S=4,P=5. W2[2,3,4]=R,I,S=RIS ✓✓ -->
+  <div class="qc" id="q17">
+    <div class="qh"><span class="badge bs">Starter</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q17</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">FROST</span><span class="garrow">+</span><span class="gw">GROAN</span><span class="gs"> → </span><span class="gc">ROA</span></div>
+      <div class="gpair"><span class="gw">BLAZE</span><span class="garrow">+</span><span class="gw">PLANT</span><span class="gs"> → </span><span class="gc">LAN</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>TRACK</strong> + <strong>CRISP</strong> → ?</div>
+    <div class="tw">
+      <input class="ti" type="text" id="ti-q17" maxlength="3" placeholder="___">
+      <button class="bsub" onclick="doT('ti-q17','RIS','fb-q17','q17','Rule: W2[2,3,4]. CRISP[2,3,4]=R,I,S → RIS. TRACK is unused. This is a single-source rule using the middle three letters of Word2.','✔ Correct! CRISP[2,3,4]=R,I,S → RIS. TRACK is completely unused.')">Check</button>
+    </div>
+    <div class="fb" id="fb-q17"></div>
+  </div>
+
+  <!-- Q18: Developing — Dominant word: W1[1,2,3]+W2[1]. 
+    FLAME+CLOUD→FLAC ✓. FLAME:F,L,A,M,E. W1[1,2,3]=F,L,A. CLOUD:C=R1. F,L,A,C=FLAC ✓.
+    STONE+BRING→STOB ✓. STONE:S,T,O,N,E. W1[1,2,3]=S,T,O. BRING:B=R1. S,T,O,B=STOB ✓.
+    New: CRISP+FLAME→CRIF ✓. CRISP:C,R,I,S,P. W1[1,2,3]=C,R,I. FLAME:F=R1. C,R,I,F=CRIF ✓✓ -->
+  <div class="qc" id="q18">
+    <div class="qh"><span class="badge bd">Developing</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q18</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">FLAME</span><span class="garrow">+</span><span class="gw">CLOUD</span><span class="gs"> → </span><span class="gc">FLAC</span></div>
+      <div class="gpair"><span class="gw">STONE</span><span class="garrow">+</span><span class="gw">BRING</span><span class="gs"> → </span><span class="gc">STOB</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>CRISP</strong> + <strong>FLAME</strong> → ?</div>
+    <div class="qhint">Most letters come from one word — but not all of them!</div>
+    <div class="bg">
+      <button class="bo" data-correct="false" data-fb="Not quite. CRIS takes all 4 letters from CRISP (positions 1,2,3,4). But the rule adds one letter from Word2. CLOUD[1]=C in FLAC is from Word2. Similarly BRING[1]=B in STOB. FLAME[1]=F. CRISP[1,2,3]+FLAME[1]=C,R,I,F=CRIF." onclick="doM(this,'q18')">CRIS</button>
+      <button class="bo" data-correct="true" data-fb="✔ Correct! Rule: W1[1,2,3] + W2[1]. CRISP[1,2,3]=C,R,I. FLAME[1]=F. → CRIF. Verified: FLAME[1,2,3]=F,L,A + CLOUD[1]=C → FLAC ✓." onclick="doM(this,'q18')">CRIF</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. FCRI puts Word2's first letter first. But in FLAC, F=FLAME[1] comes first (Word1). The rule is W1[1,2,3]+W2[1]. CRISP[1,2,3]+FLAME[1]=CRIF, not FCRI." onclick="doM(this,'q18')">FCRI</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. CRIFL takes all 3 from CRISP then F,L from FLAME — that's 5 letters. The result is 4 letters: 3 from Word1 + 1 from Word2. CRISP[1,2,3]=C,R,I + FLAME[1]=F → CRIF." onclick="doM(this,'q18')">CRIFL</button>
+    </div>
+    <div class="fb" id="fb-q18"></div>
+  </div>
+
+  <!-- Q19: Developing typed. Same rule W1[1,2,3]+W2[1]. GROAN+STAMP→GROS ✓✓
+    GROAN:G,R,O,A,N. W1[1,2,3]=G,R,O. STAMP:S=R1. G,R,O,S=GROS ✓✓ -->
+  <div class="qc" id="q19">
+    <div class="qh"><span class="badge bd">Developing</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q19</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">FLAME</span><span class="garrow">+</span><span class="gw">CLOUD</span><span class="gs"> → </span><span class="gc">FLAC</span></div>
+      <div class="gpair"><span class="gw">STONE</span><span class="garrow">+</span><span class="gw">BRING</span><span class="gs"> → </span><span class="gc">STOB</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>GROAN</strong> + <strong>STAMP</strong> → ?</div>
+    <div class="tw">
+      <input class="ti" type="text" id="ti-q19" maxlength="4" placeholder="____">
+      <button class="bsub" onclick="doT('ti-q19','GROS','fb-q19','q19','Rule W1[1,2,3]+W2[1]: GROAN[1,2,3]=G,R,O. STAMP[1]=S. G+R+O+S = GROS.','✔ Correct! GROAN[1,2,3]=G,R,O + STAMP[1]=S → GROS.')">Check</button>
+    </div>
+    <div class="fb" id="fb-q19"></div>
+  </div>
+
+  <!-- Q20: Secure. Rule W2[3,4,5]. FROST+GROAN→OAN. Wait: GROAN[3,4,5]=O,A,N=OAN ✓.
+    But I used ROA in the worked example (W2[2,3,4]). Let me use a different rule here.
+    Rule: W2[3,4,5] (last 3 of Word2, 5-letter words).
+    Pair1: BLAND+CRISP→ISP ✓. CRISP[3,4,5]=I,S,P=ISP ✓.
+    Pair2: GROAN+STONE→ONE ✓. STONE[3,4,5]=O,N,E=ONE ✓.
+    New: FLAME+PLANT→ANT ✓. PLANT[3,4,5]=A,N,T=ANT ✓✓ -->
+  <div class="qc" id="q20">
+    <div class="qh"><span class="badge bsc">Secure</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q20</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">BLAND</span><span class="garrow">+</span><span class="gw">CRISP</span><span class="gs"> → </span><span class="gc">ISP</span></div>
+      <div class="gpair"><span class="gw">GROAN</span><span class="garrow">+</span><span class="gw">STONE</span><span class="gs"> → </span><span class="gc">ONE</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>FLAME</strong> + <strong>PLANT</strong> → ?</div>
+    <div class="tw">
+      <input class="ti" type="text" id="ti-q20" maxlength="3" placeholder="___">
+      <button class="bsub" onclick="doT('ti-q20','ANT','fb-q20','q20','Rule: W2[3,4,5]. PLANT[3,4,5]=A,N,T → ANT. FLAME is completely unused. All letters come from the last 3 positions of Word2.','✔ Correct! PLANT[3,4,5]=A,N,T → ANT. FLAME plays no part — single source rule.')">Check</button>
+    </div>
+    <div class="fb" id="fb-q20"></div>
+  </div>
+
+  <!-- Q21: Mastery. Discover rule from scratch — W1[2,4]+W2[1,3].
+    Pair1: CRIMP+STONE→RISO? CRIMP:C,R,I,M,P. W1[2,4]=R,M. STONE:S,T,O,N,E. W2[1,3]=S,O. R,M,S,O=RMSO? 
+    Or: R,S,M,O=RSMO? Let me set up the rule first then build pairs.
+    Rule W1[2,4]+W2[1,3]: 
+    CRIMP[2,4]=R,M. STONE[1,3]=S,O. → RMSO. Pair1: CRIMP+STONE→RMSO.
+    BLEND[2,4]=L,N. GROAN[1,3]=G,O. → LNGO. Pair2: BLEND+GROAN→LNGO.
+    New: STAMP[2,4]=T,M. BRICK[1,3]=B,I. → TMBI ✓✓ -->
+  <div class="qc" id="q21">
+    <div class="qh"><span class="badge bm">Mastery</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q21</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">CRIMP</span><span class="garrow">+</span><span class="gw">STONE</span><span class="gs"> → </span><span class="gc">RMSO</span></div>
+      <div class="gpair"><span class="gw">BLEND</span><span class="garrow">+</span><span class="gw">GROAN</span><span class="gs"> → </span><span class="gc">LNGO</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>STAMP</strong> + <strong>BRICK</strong> → ?</div>
+    <div class="qhint">⚠ Letters come from BOTH words — but from non-consecutive positions. Map every letter of both example results before guessing.</div>
+    <div class="bg">
+      <button class="bo" data-correct="false" data-fb="Not quite. STBR takes W1[1,2]+W2[1,2] — a simple chunk rule. But the rule here uses non-consecutive positions. CRIMP[2,4]=R,M. STONE[1,3]=S,O. → RMSO. Same pattern: STAMP[2,4]=T,M. BRICK[1,3]=B,I. → TMBI." onclick="doM(this,'q21')">STBR</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. MBTI reverses the order. The rule puts W1 letters first: R(W1[2]),M(W1[4]),S(W2[1]),O(W2[3]). So W1 letters precede W2 letters. STAMP[2,4]=T,M + BRICK[1,3]=B,I → TMBI." onclick="doM(this,'q21')">MBTI</button>
+      <button class="bo" data-correct="true" data-fb="✔ Correct! Rule: W1[2,4] + W2[1,3]. STAMP[2]=T, STAMP[4]=M, BRICK[1]=B, BRICK[3]=I → TMBI. Verified: CRIMP[2,4]=R,M + STONE[1,3]=S,O → RMSO ✓. BLEND[2,4]=L,N + GROAN[1,3]=G,O → LNGO ✓." onclick="doM(this,'q21')">TMBI</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. TMBR takes STAMP[2,4]=T,M then BRICK[1,2]=B,R — but the rule uses W2 positions 1 and 3, not 1 and 2. BRICK[3]=I, not R. STAMP[2,4]+BRICK[1,3]=T,M,B,I=TMBI." onclick="doM(this,'q21')">TMBR</button>
+    </div>
+    <div class="fb" id="fb-q21"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ SECTION 4: REVERSE & SKIP ═══════════════ -->
+<section id="s4">
+  <div class="sh"><div class="sn">4</div><h2 class="st">Reverse &amp; Skip Rules</h2><span class="stk" id="tk4">✔</span></div>
+
+  <div class="card cs">
+    <div class="cl">🧒 Simple Explanation</div>
+    <p>The trickiest questions take letters in <strong>reverse order</strong> from a word — so instead of taking letters 1,2,3, they take letters 3,2,1 (backwards). Or they <strong>skip</strong> positions, jumping over some letters to take specific ones.</p>
+    <p style="margin-top:.5rem;">Spotting reversal: if the result letters seem to be from one word but in the wrong order, try reading that word backwards!</p>
+  </div>
+
+  <div class="card cf">
+    <div class="cl">📖 Full Explanation</div>
+    <p>Reverse rules take letters from a word in reverse positional order: W2[last], W2[second-last], etc. Skip rules jump non-consecutively: W1[1,3] or W2[2,4,6]. These can also combine with standard chunk rules.</p>
+  </div>
+
+  <div class="card cx">
+    <div class="cl">✏️ Worked Example 1 — Reverse Last 3 of Word 2</div>
+    <div class="gpairs" style="margin:.6rem 0;">
+      <div class="gpair"><span class="gw">FOLD</span><span class="garrow">+</span><span class="gw">CRISP</span><span class="gs"> → </span><span class="gc">FPSI</span></div>
+      <div class="gpair"><span class="gw">GLOW</span><span class="garrow">+</span><span class="gw">BLUNT</span><span class="gs"> → </span><span class="gc">GTNU</span></div>
+    </div>
+    <ol class="steps">
+      <li>CRISP: C=R1,R=R2,I=R3,S=R4,P=R5. FOLD: F=L1,O=L2,L=L3,D=L4.</li>
+      <li>Result FPSI: F=L1. Then P,S,I. P=CRISP[5]=R5, S=CRISP[4]=R4, I=CRISP[3]=R3.</li>
+      <li>Pattern: F(L1) + P(R5) + S(R4) + I(R3) — taking Word2 letters in reverse from position 5 back to 3.</li>
+      <li>Rule: W1[1] + W2[5,4,3] (reverse of last 3 of Word2).</li>
+      <li>Verify pair 2: GLOW[1]=G. BLUNT: B=R1,L=R2,U=R3,N=R4,T=R5. W2[5,4,3]=T,N,U → GTNU ✓</li>
+    </ol>
+    <div class="rule-box">Rule: W1[1] + W2[5] + W2[4] + W2[3] — first of Word1, then last 3 of Word2 in reverse</div>
+  </div>
+
+  <div class="card cw">
+    <div class="cl">⚠️ Watch Out!</div>
+    <p><strong>Reversal blindness:</strong> If you can find all the letters but they seem scrambled, always try reading the source word backwards. Don't assume letters must appear in the same order they appear in the original word.</p>
+  </div>
+
+  <div class="card cx">
+    <div class="cl">✏️ Worked Example 2 — Skipping Rule</div>
+    <div class="gpairs" style="margin:.6rem 0;">
+      <div class="gpair"><span class="gw">BRIGHT</span><span class="garrow">+</span><span class="gw">CLAMPS</span><span class="gs"> → </span><span class="gc">BCLA</span></div>
+      <div class="gpair"><span class="gw">PLANET</span><span class="garrow">+</span><span class="gw">STRONG</span><span class="gs"> → </span><span class="gc">PSTR</span></div>
+    </div>
+    <ol class="steps">
+      <li>BRIGHT: B=L1. CLAMPS: C=R1,L=R2,A=R3,M=R4,P=R5,S=R6. BCLA: B=L1, C=R1, L=R2, A=R3.</li>
+      <li>Rule: W1[1] + W2[1,2,3] — first letter of Word1 then first 3 of Word2.</li>
+      <li>Verify: PLANET[1]=P. STRONG[1,2,3]=S,T,R. P+STR = PSTR ✓</li>
+    </ol>
+    <div class="rule-box">Rule: W1[1] + W2[1,2,3] — simple but uses 6-letter words as a decoy</div>
+  </div>
+
+  <div class="th"><span class="badge bs">Starter</span></div>
+
+  <!-- Q22: Rule W1[1]+W2[5,4,3]. FOLD+CRISP→FPSI. New: GLOW+STAMP→GPMA? 
+    STAMP: S=R1,T=R2,A=R3,M=R4,P=R5. W2[5,4,3]=P,M,A. GLOW[1]=G. G+P+M+A=GPMA ✓✓ -->
+  <div class="qc" id="q22">
+    <div class="qh"><span class="badge bs">Starter</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q22</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">FOLD</span><span class="garrow">+</span><span class="gw">CRISP</span><span class="gs"> → </span><span class="gc">FPSI</span></div>
+      <div class="gpair"><span class="gw">GLOW</span><span class="garrow">+</span><span class="gw">BLUNT</span><span class="gs"> → </span><span class="gc">GTNU</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>STAR</strong> + <strong>CLAMP</strong> → ?</div>
+    <div class="qhint">The last three letters of Word 2 appear in reverse order in the result!</div>
+    <div class="bg">
+      <button class="bo" data-correct="false" data-fb="Not quite. SCLA would take S then C,L,A from CLAMP[1,2,3] — that's forward order. The rule takes CLAMP's letters 5,4,3 in reverse. CLAMP: C,L,A,M,P. W2[5,4,3]=P,M,A. STAR[1]=S. Answer: SPMA." onclick="doM(this,'q22')">SCLA</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. SAMP takes S, then A,M,P from CLAMP — but in that order A,M,P is positions 3,4,5 forward. The rule reverses them: CLAMP[5,4,3]=P,M,A. STAR[1]=S. Answer: SPMA." onclick="doM(this,'q22')">SAMP</button>
+      <button class="bo" data-correct="true" data-fb="✔ Correct! Rule: W1[1] + W2[5,4,3]. STAR[1]=S. CLAMP[5]=P, CLAMP[4]=M, CLAMP[3]=A → SPMA." onclick="doM(this,'q22')">SPMA</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. STAR is just Word1 unchanged. The rule takes one letter from Word1 and three letters (reversed) from Word2. S + CLAMP[5,4,3] = S+P,M,A = SPMA." onclick="doM(this,'q22')">STAR</button>
+    </div>
+    <div class="fb" id="fb-q22"></div>
+  </div>
+
+  <!-- Q23: Typed. Same reverse rule. BEND+FROST→BTSO ✓✓
+    FROST: F,R,O,S,T. W2[5,4,3]=T,S,O. BEND[1]=B. B+T+S+O=BTSO ✓✓ -->
+  <div class="qc" id="q23">
+    <div class="qh"><span class="badge bs">Starter</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q23</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">FOLD</span><span class="garrow">+</span><span class="gw">CRISP</span><span class="gs"> → </span><span class="gc">FPSI</span></div>
+      <div class="gpair"><span class="gw">GLOW</span><span class="garrow">+</span><span class="gw">BLUNT</span><span class="gs"> → </span><span class="gc">GTNU</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>BEND</strong> + <strong>FROST</strong> → ?</div>
+    <div class="tw">
+      <input class="ti" type="text" id="ti-q23" maxlength="4" placeholder="____">
+      <button class="bsub" onclick="doT('ti-q23','BTSO','fb-q23','q23','Rule: W1[1]+W2[5,4,3]. BEND[1]=B. FROST[5]=T,FROST[4]=S,FROST[3]=O → B+T+S+O = BTSO.','✔ Correct! BEND[1]=B + FROST[5,4,3]=T,S,O → BTSO.')">Check</button>
+    </div>
+    <div class="fb" id="fb-q23"></div>
+  </div>
+
+  <!-- Q24: Developing — W1[1]+W2[1,2,3] with 6-letter words.
+    BRIGHT+CLAMPS→BCLA ✓. PLANET+STRONG→PSTR ✓.
+    New: GRAVEL+BLENDS→GBLE ✓. BLENDS[1,2,3]=B,L,E. GRAVEL[1]=G. G+B+L+E=GBLE ✓✓ -->
+  <div class="qc" id="q24">
+    <div class="qh"><span class="badge bd">Developing</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q24</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">BRIGHT</span><span class="garrow">+</span><span class="gw">CLAMPS</span><span class="gs"> → </span><span class="gc">BCLA</span></div>
+      <div class="gpair"><span class="gw">PLANET</span><span class="garrow">+</span><span class="gw">STRONG</span><span class="gs"> → </span><span class="gc">PSTR</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>GRAVEL</strong> + <strong>BLENDS</strong> → ?</div>
+    <div class="qhint">The long words are a decoy — you only need a small number of letters from each.</div>
+    <div class="bg">
+      <button class="bo" data-correct="false" data-fb="Not quite. GRBL takes G,R from GRAVEL[1,2] and B,L from BLENDS[1,2]. But the rule only takes 1 letter from Word1 (not 2). BRIGHT[1]=B and CLAMPS[1,2,3]=C,L,A → BCLA. So: GRAVEL[1]=G + BLENDS[1,2,3]=B,L,E → GBLE." onclick="doM(this,'q24')">GRBL</button>
+      <button class="bo" data-correct="true" data-fb="✔ Correct! Rule: W1[1] + W2[1,2,3]. GRAVEL[1]=G. BLENDS[1,2,3]=B,L,E → GBLE." onclick="doM(this,'q24')">GBLE</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. GBLEN takes G then B,L,E,N — 5 letters total. The rule always produces 4 letters: 1 from Word1 + 3 from Word2. GRAVEL[1]+BLENDS[1,2,3]=G+B,L,E=GBLE." onclick="doM(this,'q24')">GBLEN</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. BLNG takes letters from BLENDS but misses the first letter from Word1 (G). The rule always starts with W1[1]. G+BLENDS[1,2,3]=G+B,L,E=GBLE." onclick="doM(this,'q24')">BLNG</button>
+    </div>
+    <div class="fb" id="fb-q24"></div>
+  </div>
+
+  <!-- Q25: Secure — Skip rule: W1[1,3]+W2[2,4].
+    Pair1: CRIMP+STONE→CRTО? CRIMP[1,3]=C,I. STONE[2,4]=T,N. → CITN.
+    Pair2: BLEND+GROAN→BLAN? BLEND[1,3]=B,E. GROAN[2,4]=R,A. → BERA.
+    New: STAMP+CRISP→STAR? STAMP[1,3]=S,A. CRISP[2,4]=R,S. → SARS. Hmm.
+    Better: PLANT+GRIME→PLAR? PLANT[1,3]=P,A. GRIME[2,4]=R,M. → PARM? No wait: PARM: P(W1[1]),A(W1[3]),R(W2[2]),M(W2[4])=PARM. But result is 4 letters in order L1,L3,R2,R4.
+    Let me just use: 
+    Pair1: CRIMP+STONE→CITN. CRIMP[1,3]=C,I. STONE[2,4]=T,N. CITN ✓
+    Pair2: BLEND+GROAN→BERA. BLEND[1,3]=B,E. GROAN[2,4]=R,A. BERA ✓
+    New: PLANT+GRIME→PARM ✓. PLANT[1,3]=P,A. GRIME[2,4]=R,M. PARM ✓✓ -->
+  <div class="qc" id="q25">
+    <div class="qh"><span class="badge bsc">Secure</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q25</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">CRIMP</span><span class="garrow">+</span><span class="gw">STONE</span><span class="gs"> → </span><span class="gc">CITN</span></div>
+      <div class="gpair"><span class="gw">BLEND</span><span class="garrow">+</span><span class="gw">GROAN</span><span class="gs"> → </span><span class="gc">BERA</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>PLANT</strong> + <strong>GRIME</strong> → ?</div>
+    <div class="tw">
+      <input class="ti" type="text" id="ti-q25" maxlength="4" placeholder="____">
+      <button class="bsub" onclick="doT('ti-q25','PARM','fb-q25','q25','Rule: W1[1,3]+W2[2,4]. PLANT[1]=P, PLANT[3]=A. GRIME[2]=R, GRIME[4]=M. → PARM. Verify: CRIMP[1,3]=C,I + STONE[2,4]=T,N → CITN ✓.','✔ Correct! PLANT[1,3]=P,A + GRIME[2,4]=R,M → PARM.')">Check</button>
+    </div>
+    <div class="fb" id="fb-q25"></div>
+  </div>
+
+  <!-- Q26: Mastery — Reverse chunk from Word1. Rule: W1[3,2,1]+W2[4,5].
+    Pair1: STONE+CRIMP→OTS? Let me build properly.
+    STONE: S=1,T=2,O=3,N=4,E=5. W1[3,2,1]=O,T,S.
+    CRIMP: C=1,R=2,I=3,M=4,P=5. W2[4,5]=M,P.
+    Result: O,T,S,M,P = OTSMP.
+    Pair2: BLEND+GROAN. BLEND[3,2,1]=E,L,B. GROAN[4,5]=A,N. → ELBAN.
+    New: CRISP+FLAME. CRISP[3,2,1]=I,R,C. FLAME[4,5]=M,E. → IRCME ✓✓ -->
+  <div class="qc" id="q26">
+    <div class="qh"><span class="badge bm">Mastery</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted)">Q26</span></div>
+    <div class="gbox"><div class="gbl">Given</div><div class="gpairs">
+      <div class="gpair"><span class="gw">STONE</span><span class="garrow">+</span><span class="gw">CRIMP</span><span class="gs"> → </span><span class="gc">OTSMP</span></div>
+      <div class="gpair"><span class="gw">BLEND</span><span class="garrow">+</span><span class="gw">GROAN</span><span class="gs"> → </span><span class="gc">ELBAN</span></div>
+    </div></div>
+    <div class="qt">Using the same rule: <strong>CRISP</strong> + <strong>FLAME</strong> → ?</div>
+    <div class="qhint">⚠ The first part of the result reads like the word reversed. Try reading Word1 backwards to find the pattern!</div>
+    <div class="bg">
+      <button class="bo" data-correct="false" data-fb="Not quite. CRISME takes CRISP forward then adds ME. But OTSMP starts with O,T,S which is STONE[3,2,1] — reversed first 3 letters. CRISP[3,2,1]=I,R,C. FLAME[4,5]=M,E. → IRCME." onclick="doM(this,'q26')">CRISME</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. SPIRME reverses ALL of CRISP (S,P,I,R,C) which is too many letters. The rule only reverses positions 3,2,1 (first 3 letters reversed). CRISP[3,2,1]=I,R,C + FLAME[4,5]=M,E → IRCME." onclick="doM(this,'q26')">SPIRME</button>
+      <button class="bo" data-correct="true" data-fb="✔ Correct! Rule: W1[3,2,1] + W2[4,5]. STONE[3,2,1]=O,T,S + CRIMP[4,5]=M,P → OTSMP ✓. BLEND[3,2,1]=E,L,B + GROAN[4,5]=A,N → ELBAN ✓. CRISP[3,2,1]=I,R,C + FLAME[4,5]=M,E → IRCME." onclick="doM(this,'q26')">IRCME</button>
+      <button class="bo" data-correct="false" data-fb="Not quite. IRCLAME mixes too many letters. The result is always 5 letters: 3 from Word1 (reversed positions 3,2,1) + 2 from Word2 (positions 4,5). CRISP[3,2,1]=I,R,C + FLAME[4,5]=M,E → IRCME (5 letters)." onclick="doM(this,'q26')">IRCLAME</button>
+    </div>
+    <div class="fb" id="fb-q26"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ TIMED TEST ═══════════════ -->
+<section id="s5">
+  <div class="sh"><div class="sn">⏱</div><h2 class="st">Mastery Test — 15 Questions</h2></div>
+
+  <div class="card">
+    <p><strong>15 questions across all four rule types.</strong> You have <strong>12 minutes</strong>. Apply the strategy: scan → label → trace → verify → apply.</p>
+    <p style="margin-top:.45rem;color:var(--muted);font-size:.87rem;">Write your position labels on paper as you go. Don't rely on memory alone.</p>
+  </div>
+
+  <div id="t-ready"><button class="bstart" onclick="startTest()">▶ Start Test</button></div>
+  <div id="t-active" style="display:none;">
+    <div class="ttimer" id="ttimer">⏱ 12:00</div>
+    <div id="t-qs"></div>
+    <button class="bsubtest" onclick="submitTest()">Submit All Answers</button>
+  </div>
+  <div id="t-results" style="display:none;"></div>
+</section>
+
+</main>
+
+<script>
+// ── PROGRESS & NAV ──
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement,st=d.scrollTop||document.body.scrollTop,sh=d.scrollHeight-d.clientHeight;
+  document.getElementById('pg').style.width=(sh>0?st/sh*100:0)+'%';
+  document.querySelectorAll('section[id]').forEach(s=>{
+    const r=s.getBoundingClientRect();
+    if(r.top<=120&&r.bottom>120)document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+s.id));
+  });
+});
+
+// ── SCORE ──
+let tC=0,tA=0;
+function upScore(ok){tA++;if(ok)tC++;document.getElementById('sc').textContent=tC+'/'+tA;document.getElementById('scc').textContent=tC;document.getElementById('sca').textContent=tA;}
+
+// ── SECTION TICK ──
+function chkSec(card){
+  const sec=card.closest('section');if(!sec)return;
+  const tk=sec.querySelector('.stk');if(!tk)return;
+  const all=sec.querySelectorAll('.qc');
+  const done=Array.from(all).filter(q=>q.querySelector('.bo:disabled')||q.querySelector('.ti:disabled')).length;
+  if(done===all.length&&all.length>0){tk.classList.add('on');document.getElementById('scs').textContent=document.querySelectorAll('.stk.on').length+'/5';}
+}
+
+// ── MCQ ──
+function doM(btn,qId){
+  const card=document.getElementById(qId);
+  card.querySelectorAll('.bo').forEach(b=>{b.disabled=true;if(b.dataset.correct==='true')b.classList.add('show');});
+  btn.classList.remove('show');btn.classList.add(btn.dataset.correct==='true'?'ok':'bad');
+  const fb=document.getElementById('fb-'+qId);
+  if(fb){fb.textContent=btn.dataset.fb||'';fb.className='fb on '+(btn.dataset.correct==='true'?'fok':'fbad');}
+  upScore(btn.dataset.correct==='true');chkSec(card);
+}
+
+// ── TYPED ──
+function doT(inId,correct,fbId,qId,wrongMsg,rightMsg){
+  const inp=document.getElementById(inId),fb=document.getElementById(fbId),card=document.getElementById(qId);
+  if(!inp||!fb)return;
+  const v=inp.value.trim().toUpperCase(),ok=v===correct.toUpperCase();
+  inp.disabled=true;inp.nextElementSibling.disabled=true;
+  inp.classList.add(ok?'tok':'tbad');
+  fb.textContent=(ok?'':'')+  (ok?rightMsg:wrongMsg);
+  fb.className='fb on '+(ok?'fok':'fbad');
+  upScore(ok);chkSec(card);
+}
+
+// ── TEST DATA ──
+// All questions double-solved and verified below.
+const TD=[
+  // T1: W1[1]+W2[2,3,4]. CAKE+BIRD→CIRD rule. DRUM+PLAN→D+LAN=DLAN ✓✓
+  {id:'t1',type:'mcq',
+   pairs:[['CAKE','BIRD','CIRD'],['MOON','STAR','MTAR']],
+   q:'<strong>DRUM</strong> + <strong>PLAN</strong> → ?',
+   opts:['DLAN','DPLA','DRLA','DRUM'],cor:'DLAN',
+   fbs:['✔ Correct! Rule W1[1]+W2[2,3,4]. DRUM[1]=D. PLAN[2,3,4]=L,A,N → DLAN.',
+        'Not quite. DPLA takes D then P,L,A from PLAN[1,2,3]. But the rule skips W2[1] and takes W2[2,3,4]. PLAN[2,3,4]=L,A,N. D+LAN=DLAN.',
+        'Not quite. DRLA mixes letters from DRUM and PLAN in wrong positions. Rule: D (DRUM[1]) + L,A,N (PLAN[2,3,4]) = DLAN.',
+        'Not quite. DRUM is just Word1 unchanged. The rule combines D from DRUM with letters 2,3,4 of PLAN. DLAN.']},
+
+  // T2: W1[1,2]+W2[3,4]. FROG+SLIP→FRIP rule. MINT+CLAP→MI+AP=MIAP ✓✓
+  {id:'t2',type:'typed',
+   pairs:[['FROG','SLIP','FRIP'],['CAMP','DRUM','CAUM']],
+   q:'<strong>MINT</strong> + <strong>CLAP</strong> → ?',
+   ans:'MIAP',
+   w:'Rule: W1[1,2]+W2[3,4]. MINT[1,2]=M,I. CLAP[3,4]=A,P. → MIAP. Check: FROG[1,2]=F,R + SLIP[3,4]=I,P → FRIP ✓.',
+   r:'✔ Correct! MINT[1,2]=M,I + CLAP[3,4]=A,P → MIAP.'},
+
+  // T3: L1,R1,L2,R2 rule. COLD+FARM→CFOA rule. TREK+SLIM→TSRL? 
+  // TREK:T=L1,R=L2. SLIM:S=R1,L=R2. L1,R1,L2,R2=T,S,R,L=TSRL ✓✓
+  {id:'t3',type:'mcq',
+   pairs:[['COLD','FARM','CFOA'],['SHIP','BIRD','SBHI']],
+   q:'<strong>TREK</strong> + <strong>SLIM</strong> → ?',
+   opts:['TRSL','TSRL','STRL','SLTR'],cor:'TSRL',
+   fbs:['Not quite. TRSL takes T,R from TREK consecutively. The alternating rule goes T(W1[1]),S(W2[1]),R(W1[2]),L(W2[2])=TSRL, not TRSL.',
+        '✔ Correct! L1,R1,L2,R2: TREK[1]=T, SLIM[1]=S, TREK[2]=R, SLIM[2]=L → TSRL.',
+        'Not quite. STRL starts with S=SLIM[1]. The rule starts with Word1[1]=T. TREK[1]=T comes first → TSRL.',
+        'Not quite. SLTR starts with both letters of SLIM. The rule alternates: T(W1), S(W2), R(W1), L(W2) = TSRL.']},
+
+  // T4: W2[1,3,5] single source. BRAVE+CLOUD→BAE rule. TRAMP+STONE→T,A? Wait I need to check.
+  // Rule W1[1,3,5]. TRAMP: T=1,R=2,A=3,M=4,P=5. W1[1,3,5]=T,A,P=TAP ✓✓
+  {id:'t4',type:'typed',
+   pairs:[['BRAVE','CLOUD','BAE'],['STING','PLANT','SIG']],
+   q:'<strong>TRAMP</strong> + <strong>CLOUD</strong> → ?',
+   ans:'TAP',
+   w:'Rule W1[1,3,5]: TRAMP[1]=T, TRAMP[3]=A, TRAMP[5]=P → TAP. CLOUD is unused — all letters come from Word1 at odd positions.',
+   r:'✔ Correct! TRAMP[1,3,5]=T,A,P → TAP. CLOUD is not used.'},
+
+  // T5: W1[1]+W2[3,4,5]. PLANT+SHORE→PORE rule. CRISP+FLAME→CAME? Wait:
+  // FLAME: F,L,A,M,E. W2[3,4,5]=A,M,E. CRISP[1]=C. C+AME=CAME ✓✓
+  {id:'t5',type:'mcq',
+   pairs:[['PLANT','SHORE','PORE'],['BRICK','STONE','BONE']],
+   q:'<strong>CRISP</strong> + <strong>FLAME</strong> → ?',
+   opts:['CFLA','CAME','CLAM','CAME'],cor:'CAME',
+   fbs:['Not quite. CFLA takes C then F,L,A from FLAME[1,2,3]. But the rule uses W2[3,4,5] not W2[1,2,3]. FLAME[3,4,5]=A,M,E. C+AME=CAME.',
+        '✔ Correct! Rule: W1[1]+W2[3,4,5]. CRISP[1]=C. FLAME[3,4,5]=A,M,E → CAME.',
+        'Not quite. CLAM would require L and M from somewhere, but those letters are not in the right positions. CRISP[1]=C + FLAME[3,4,5]=A,M,E → CAME.',
+        '✔ Correct! Rule: W1[1]+W2[3,4,5]. CRISP[1]=C. FLAME[3,4,5]=A,M,E → CAME.']},
+
+  // T6: W2[2,3,4] single source. FROST+GROAN→ROA rule. BLAND+CRISP→RIS?
+  // Wait I already used BLAND+CRISP→ISP for W2[3,4,5] in Q20. 
+  // Here rule is W2[2,3,4]. FROST+GROAN: GROAN[2,3,4]=R,O,A=ROA ✓.
+  // New pair: STONE+PLANT: PLANT[2,3,4]=L,A,N=LAN ✓. 
+  // New: CRISP+GROAN: GROAN[2,3,4]=R,O,A=ROA again. 
+  // New question: BLEND+CRISP: CRISP[2,3,4]=R,I,S=RIS ✓✓
+  {id:'t6',type:'typed',
+   pairs:[['FROST','GROAN','ROA'],['BLAZE','PLANT','LAN']],
+   q:'<strong>BLEND</strong> + <strong>CRISP</strong> → ?',
+   ans:'RIS',
+   w:'Rule W2[2,3,4]: CRISP[2,3,4]=R,I,S → RIS. BLEND is unused. Middle 3 letters of Word2.',
+   r:'✔ Correct! CRISP[2,3,4]=R,I,S → RIS. BLEND plays no part.'},
+
+  // T7: W2[1,2]+W1[1,2] = R1,R2,L1,L2. PLAN+GRIT→GRPL. STAR+BOLD→BOST.
+  // New: FLOW+MINT→MIFL ✓. MINT[1,2]=M,I. FLOW[1,2]=F,L. → M,I,F,L=MIFL ✓✓
+  {id:'t7',type:'mcq',
+   pairs:[['PLAN','GRIT','GRPL'],['STAR','BOLD','BOST']],
+   q:'<strong>FLOW</strong> + <strong>MINT</strong> → ?',
+   opts:['FLMI','MIFL','MIFLO','FLMINT'],cor:'MIFL',
+   fbs:['Not quite. FLMI puts Word1 letters (F,L) first. But the rule starts with Word2 letters: GRIT[1,2]=G,R come before PLAN[1,2]=P,L in GRPL. So MINT[1,2]=M,I come first → MIFL.',
+        '✔ Correct! Rule: W2[1,2]+W1[1,2]. MINT[1,2]=M,I. FLOW[1,2]=F,L → MIFL.',
+        'Not quite. MIFLO has 5 letters. The result is always 4 letters: 2 from Word2 + 2 from Word1. MINT[1,2]+FLOW[1,2]=M,I,F,L=MIFL.',
+        'Not quite. Too many letters. The rule produces 4 letters only. MINT[1,2]=M,I + FLOW[1,2]=F,L → MIFL.']},
+
+  // T8: W1[1]+W2[5,4,3] reverse. FOLD+CRISP→FPSI. New: GLOW+PLANT→GTNA ✓✓
+  // PLANT: P=1,L=2,A=3,N=4,T=5. W2[5,4,3]=T,N,A. GLOW[1]=G. G+T+N+A=GTNA ✓✓
+  {id:'t8',type:'typed',
+   pairs:[['FOLD','CRISP','FPSI'],['GLOW','BLUNT','GTNU']],
+   q:'<strong>GROW</strong> + <strong>PLANT</strong> → ?',
+   ans:'GTNA',
+   w:'Rule: W1[1]+W2[5,4,3]. GROW[1]=G. PLANT[5]=T, PLANT[4]=N, PLANT[3]=A → G+T+N+A = GTNA.',
+   r:'✔ Correct! GROW[1]=G + PLANT[5,4,3]=T,N,A → GTNA. The last 3 letters of PLANT appear in reverse.'},
+
+  // T9: W1[1,2,3]+W2[4,5]. FLAME+CRISP→FLASP. BLEND+GROAN→BLEAN. New: CRISP+PLANT→CRIANT? No wait:
+  // CRISP[1,2,3]=C,R,I. PLANT[4,5]=N,T. → C,R,I,N,T = CRINT ✓✓
+  {id:'t9',type:'mcq',
+   pairs:[['FLAME','CRISP','FLASP'],['BLEND','GROAN','BLEAN']],
+   q:'<strong>CRISP</strong> + <strong>PLANT</strong> → ?',
+   opts:['CRPLA','CRIPL','CRINT','CRIP'],cor:'CRINT',
+   fbs:['Not quite. CRPLA mixes wrong positions. Rule: W1[1,2,3]+W2[4,5]. CRISP[1,2,3]=C,R,I. PLANT[4,5]=N,T → CRINT.',
+        'Not quite. CRIPL takes C,R,I from CRISP then P,L — but P,L are CRISP[4,5] and PLANT[2]. The rule uses W2[4,5] not W1[4,5]. PLANT[4,5]=N,T → CRINT.',
+        '✔ Correct! CRISP[1,2,3]=C,R,I + PLANT[4,5]=N,T → CRINT.',
+        'Not quite. CRIP is only 4 letters and comes only from CRISP. The rule produces 5 letters: 3 from W1 + 2 from W2. CRISP[1,2,3]+PLANT[4,5]=CRINT.']},
+
+  // T10: W1[2,4]+W2[1,3]. STAMP[2,4]=T,M. BRICK[1,3]=B,I. → TMBI ✓✓ (from Q21)
+  {id:'t10',type:'typed',
+   pairs:[['CRIMP','STONE','RMSO'],['BLEND','GROAN','LNGO']],
+   q:'<strong>STAMP</strong> + <strong>BRICK</strong> → ?',
+   ans:'TMBI',
+   w:'Rule: W1[2,4]+W2[1,3]. STAMP[2]=T, STAMP[4]=M. BRICK[1]=B, BRICK[3]=I → T,M,B,I = TMBI.',
+   r:'✔ Correct! STAMP[2,4]=T,M + BRICK[1,3]=B,I → TMBI.'},
+
+  // T11: Alternating W2[1],W1[1],W2[2],W1[2]. MINT+CLAP→CMLI. New: GLOW+STOP→SGLO? 
+  // STOP:S=R1,T=R2. GLOW:G=L1,L=L2. R1,L1,R2,L2=S,G,T,L=SGTL ✓✓
+  {id:'t11',type:'mcq',
+   pairs:[['MINT','CLAP','CMLI'],['FROG','STAR','SFTR']],
+   q:'<strong>GLOW</strong> + <strong>STOP</strong> → ?',
+   opts:['GSLT','SGLT','SGTL','GSTL'],cor:'SGTL',
+   fbs:['Not quite. GSLT starts with G=GLOW[1]. But the rule starts with Word2[1]=S. STOP[1]=S comes first → SGTL.',
+        'Not quite. SGLT has S,G,L,T — almost right but L and T are swapped at positions 3,4. Rule: W2[1],W1[1],W2[2],W1[2]=S,G,T,L=SGTL.',
+        '✔ Correct! Rule: W2[1],W1[1],W2[2],W1[2]. STOP[1]=S, GLOW[1]=G, STOP[2]=T, GLOW[2]=L → SGTL.',
+        'Not quite. GSTL starts with G=GLOW[1]. The rule starts with W2[1]=S. Correct order: S,G,T,L=SGTL.']},
+
+  // T12: W1[1,3]+W2[2,4]. CRIMP+STONE→CITN. New: BLEND+CRISP→BREN? 
+  // BLEND[1,3]=B,E. CRISP[2,4]=R,S. → B,E,R,S=BERS ✓✓
+  {id:'t12',type:'typed',
+   pairs:[['CRIMP','STONE','CITN'],['BLEND','GROAN','BERA']],
+   q:'<strong>BLEND</strong> + <strong>CRISP</strong> → ?',
+   ans:'BERS',
+   w:'Rule W1[1,3]+W2[2,4]: BLEND[1]=B, BLEND[3]=E. CRISP[2]=R, CRISP[4]=S → B,E,R,S = BERS.',
+   r:'✔ Correct! BLEND[1,3]=B,E + CRISP[2,4]=R,S → BERS.'},
+
+  // T13: Discover rule. Pair1: FROST+BRICK→FRBR? No. Let me create a fresh question type.
+  // Rule: W1[1,2]+W2[2,4]. Pair1: STONE+CRIMP→STRM? STONE[1,2]=S,T. CRIMP[2,4]=R,M → STRM ✓.
+  // Pair2: BLAND+GROAN→BLRA. BLAND[1,2]=B,L. GROAN[2,4]=R,A → BLRA ✓.
+  // New: CRISP+PLANT→CRLA. CRISP[1,2]=C,R. PLANT[2,4]=L,N → CRLN ✓✓
+  {id:'t13',type:'mcq',
+   pairs:[['STONE','CRIMP','STRM'],['BLAND','GROAN','BLRA']],
+   q:'<strong>CRISP</strong> + <strong>PLANT</strong> → ?',
+   opts:['CRPL','CRLA','CRLN','CRIP'],cor:'CRLN',
+   fbs:['Not quite. CRPL takes CRISP[1,2]=C,R then PLANT[1,2]=P,L. But the rule uses W2 positions 2 and 4, not 1 and 2. PLANT[2]=L, PLANT[4]=N → CRLN.',
+        'Not quite. CRLA takes C,R from CRISP then L,A. A=PLANT[3], but the rule uses W2[2,4]=L,N not W2[2,3]. PLANT[2]=L, PLANT[4]=N → CRLN.',
+        '✔ Correct! Rule: W1[1,2]+W2[2,4]. CRISP[1,2]=C,R + PLANT[2,4]=L,N → CRLN.',
+        'Not quite. CRIP uses only CRISP letters. The rule takes 2 letters from each word. CRISP[1,2]=C,R + PLANT[2,4]=L,N → CRLN.']},
+
+  // T14: W3[3,2,1]+W2[4,5] reverse. STONE+CRIMP→OTSMP. New: CRISP+FLAME→IRCME (from Q26) ✓✓
+  {id:'t14',type:'typed',
+   pairs:[['STONE','CRIMP','OTSMP'],['BLEND','GROAN','ELBAN']],
+   q:'<strong>CRISP</strong> + <strong>FLAME</strong> → ?',
+   ans:'IRCME',
+   w:'Rule: W1[3,2,1]+W2[4,5]. CRISP[3,2,1]=I,R,C (reversed first 3). FLAME[4,5]=M,E → I,R,C,M,E = IRCME.',
+   r:'✔ Correct! CRISP[3,2,1]=I,R,C + FLAME[4,5]=M,E → IRCME.'},
+
+  // T15: W1[1]+W2[1,2,3] with 6-letter words. BRIGHT+CLAMPS→BCLA. New: FLIGHT+GRAINS→FGRA.
+  // GRAINS[1,2,3]=G,R,A. FLIGHT[1]=F. → F+G+R+A=FGRA ✓✓
+  {id:'t15',type:'mcq',
+   pairs:[['BRIGHT','CLAMPS','BCLA'],['PLANET','STRONG','PSTR']],
+   q:'<strong>FLIGHT</strong> + <strong>GRAINS</strong> → ?',
+   opts:['FLGR','FGRA','FGRAI','FLIGHT'],cor:'FGRA',
+   fbs:['Not quite. FLGR takes F,L from FLIGHT[1,2] then G,R from GRAINS[1,2]. But the rule takes only 1 letter from Word1. FLIGHT[1]=F + GRAINS[1,2,3]=G,R,A → FGRA.',
+        '✔ Correct! Rule: W1[1]+W2[1,2,3]. FLIGHT[1]=F + GRAINS[1,2,3]=G,R,A → FGRA.',
+        'Not quite. FGRAI adds a 5th letter. The rule always produces 4 letters: 1 from W1 + 3 from W2. F+G,R,A=FGRA.',
+        'Not quite. FLIGHT is Word1 unchanged. The rule combines 1 letter from Word1 with 3 from Word2. F+GRAINS[1,2,3]=F+G,R,A=FGRA.']}
+];
+
+let tTimer=null,tSec=720,tAnswers={};
+
+function buildPairs(pairs){
+  return '<div class="gbox"><div class="gbl">Given</div><div class="gpairs">'+pairs.map(([w1,w2,res])=>`<div class="gpair"><span class="gw">${w1}</span><span class="garrow"> + </span><span class="gw">${w2}</span><span class="garrow"> → </span><span class="gc">${res}</span></div>`).join('')+'</div></div>';
+}
+
+function startTest(){
+  document.getElementById('t-ready').style.display='none';
+  document.getElementById('t-active').style.display='block';
+  const c=document.getElementById('t-qs');c.innerHTML='';
+  TD.forEach((q,i)=>{
+    const d=document.createElement('div');d.className='qc';d.id='tq-'+q.id;
+    let h=`<div class="qh"><span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--navy)">Q${i+1}/15</span></div>`;
+    h+=buildPairs(q.pairs);
+    h+=`<div class="qt">${q.q}</div>`;
+    if(q.type==='mcq'){
+      h+='<div class="bg" id="tg-'+q.id+'">';
+      q.opts.forEach((o,oi)=>{const isc=o===q.cor;h+=`<button class="bo" data-correct="${isc}" data-ans="${o}" data-fb="${q.fbs[oi].replace(/"/g,"'")}" onclick="tClick(this,'${q.id}')">${o}</button>`;});
+      h+='</div>';
+    }else{h+=`<div class="tw"><input class="ti" type="text" id="ti-${q.id}" placeholder="${'_'.repeat(q.ans.length)}" style="text-transform:uppercase;"></div>`;}
+    h+=`<div class="fb" id="tfb-${q.id}"></div>`;
+    d.innerHTML=h;c.appendChild(d);
+  });
+  tTimer=setInterval(tick,1000);
+}
+
+function tClick(btn,id){
+  const g=document.getElementById('tg-'+id);
+  if(g)g.querySelectorAll('.bo').forEach(b=>{b.style.outline=b===btn?'2px solid var(--gold)':'none';});
+  tAnswers[id]={type:'mcq',val:btn.dataset.ans,ok:btn.dataset.correct==='true',fb:btn.dataset.fb};
+}
+
+function tick(){
+  tSec--;const m=Math.floor(tSec/60),s=tSec%60;
+  const el=document.getElementById('ttimer');
+  el.textContent='⏱ '+m+':'+(s<10?'0':'')+s;
+  if(tSec<=60)el.classList.add('red');
+  if(tSec<=0){clearInterval(tTimer);submitTest();}
+}
+
+function submitTest(){
+  clearInterval(tTimer);
+  TD.forEach(q=>{
+    if(q.type==='typed'){const inp=document.getElementById('ti-'+q.id);if(inp){const v=inp.value.trim().toUpperCase();tAnswers[q.id]={type:'typed',val:v,ok:v===q.ans.toUpperCase(),w:q.w,r:q.r};}}
+    const fb=document.getElementById('tfb-'+q.id),ans=tAnswers[q.id];
+    if(!fb)return;
+    if(!ans||!ans.val){fb.textContent='Not answered. Correct: '+(q.cor||q.ans);fb.className='fb on fbad';return;}
+    if(ans.ok){fb.textContent=ans.type==='mcq'?ans.fb:ans.r;fb.className='fb on fok';}
+    else{
+      let msg='';
+      if(ans.type==='mcq'){const idx=q.opts.indexOf(ans.val);msg=idx>=0?q.fbs[idx]:'Incorrect. Correct: '+q.cor;}
+      else msg=ans.w;
+      fb.textContent=msg;fb.className='fb on fbad';
+    }
+    const inp=document.getElementById('ti-'+q.id);if(inp)inp.disabled=true;
+    const g=document.getElementById('tg-'+q.id);if(g)g.querySelectorAll('.bo').forEach(b=>{b.disabled=true;if(b.dataset.correct==='true')b.classList.add('show');});
+  });
+  const sc=Object.values(tAnswers).filter(a=>a.ok).length;
+  const pct=Math.round(sc/15*100);
+  let band,bc;
+  if(pct<40){band='Needs Practice';bc='np';}else if(pct<60){band='Developing';bc='dv';}else if(pct<80){band='Secure';bc='sc2';}else{band='Mastery';bc='ms';}
+  document.querySelector('.bsubtest').style.display='none';
+  const res=document.getElementById('t-results');res.style.display='block';
+  res.innerHTML=`<div class="rc">
+    <div style="font-size:.72rem;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:.45rem;">Your Result</div>
+    <div class="rs">${sc}/15</div>
+    <div class="rb ${bc}">${band}</div>
+    <div style="color:rgba(255,255,255,.45);font-size:.86rem;margin-bottom:.45rem;">${pct}% — ${sc} correct out of 15</div>
+    <div class="rg">
+      <div class="rb2"><div class="rbl">Focus On</div><div class="rbt">${pct<60?'Go back to Sections 1 and 2. Master the label-and-trace method before attempting harder types.':pct<80?'Good work! Practise the reverse and skip rules in Section 4 for full marks.':'Excellent — you have strong command of all four rule types. Try timed exam papers next.'}</div></div>
+      <div class="rb2"><div class="rbl">Key Habit</div><div class="rbt">Label every letter (L1,L2 / R1,R2) BEFORE looking at the result. Never trace letters by eye without numbering them first.</div></div>
+    </div>
+  </div>`;
+  res.scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>

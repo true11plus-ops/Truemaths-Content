@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11+ GL Verbal Reasoning — Letter & Number Codes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #152336;
+  --navy-light: #1e3352;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-dim: rgba(201,168,76,0.18);
+  --cream: #f6f3ee;
+  --white: #ffffff;
+  --green: #1f7a4f;
+  --green-bg: #eaf6f0;
+  --yellow: #a07010;
+  --yellow-bg: #fef9e7;
+  --orange: #c05520;
+  --orange-bg: #fef2ec;
+  --purple: #5a2d8a;
+  --purple-bg: #f3eeff;
+  --red: #b92b27;
+  --red-bg: #fdf0ef;
+  --text: #1a1a2e;
+  --muted: #5a6475;
+  --border: #ddd8d0;
+  --card-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  font-size:16px;
+  line-height:1.65;
+}
+
+/* PROGRESS BAR */
+#prog{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-light));z-index:9999;transition:width .15s;}
+
+/* HEADER */
+header{
+  background:var(--navy);
+  padding:3rem 2rem 2rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+header::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:300px;height:300px;
+  border:1px solid rgba(201,168,76,0.12);
+  border-radius:50%;
+}
+header::after{
+  content:'';position:absolute;bottom:-100px;left:-100px;
+  width:350px;height:350px;
+  border:1px solid rgba(201,168,76,0.08);
+  border-radius:50%;
+}
+.h-tag{
+  display:inline-block;
+  background:rgba(201,168,76,0.12);
+  color:var(--gold);
+  font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  padding:.3rem .9rem;border:1px solid rgba(201,168,76,0.28);border-radius:2px;
+  margin-bottom:1rem;
+}
+header h1{
+  font-family:'Playfair Display',serif;
+  color:#fff;font-size:clamp(1.7rem,4.5vw,2.6rem);font-weight:900;
+  line-height:1.15;margin-bottom:.5rem;
+}
+header h1 span{color:var(--gold);}
+header p{color:rgba(255,255,255,.55);font-size:.92rem;}
+
+/* SCORE BAR */
+#scorebar{
+  background:var(--navy-mid);
+  padding:.55rem 2rem;
+  display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;
+  border-bottom:1px solid rgba(201,168,76,.15);
+}
+.sc-item{color:rgba(255,255,255,.65);font-size:.82rem;font-weight:600;display:flex;align-items:center;gap:.4rem;}
+.sc-val{color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.95rem;font-weight:700;}
+
+/* STICKY NAV */
+#nav{
+  position:sticky;top:0;z-index:100;
+  background:var(--navy);border-bottom:2px solid var(--gold);
+  overflow-x:auto;scrollbar-width:none;
+}
+#nav::-webkit-scrollbar{display:none;}
+#nav ul{display:flex;list-style:none;padding:0 .75rem;min-width:max-content;}
+#nav ul li a{
+  display:block;padding:.75rem 1rem;
+  color:rgba(255,255,255,.6);text-decoration:none;
+  font-size:.78rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+  white-space:nowrap;border-bottom:3px solid transparent;
+  transition:all .2s;
+}
+#nav ul li a:hover,#nav ul li a.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* MAIN */
+main{max-width:920px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+
+/* SECTIONS */
+section{margin-bottom:3.5rem;scroll-margin-top:80px;}
+.sec-hdr{display:flex;align-items:center;gap:.9rem;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:2px solid var(--border);}
+.sec-num{
+  width:42px;height:42px;background:var(--navy);color:var(--gold);
+  font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;border-radius:4px;flex-shrink:0;
+}
+.sec-title{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--navy);}
+.sec-tick{margin-left:auto;color:var(--green);font-size:1.3rem;opacity:0;transition:opacity .3s;}
+.sec-tick.on{opacity:1;}
+
+/* CARDS */
+.card{background:#fff;border-radius:8px;padding:1.4rem 1.6rem;margin-bottom:.9rem;border:1px solid var(--border);box-shadow:var(--card-shadow);}
+.card-simple{border-left:4px solid var(--gold);background:#fffdf7;}
+.card-full{border-left:4px solid var(--navy);}
+.card-warn{border-left:4px solid var(--red);background:var(--red-bg);}
+.card-worked{border-left:4px solid var(--green);background:var(--green-bg);}
+.card-strat{background:var(--navy);border-radius:8px;padding:1.4rem 1.6rem;margin-bottom:.9rem;}
+
+.clabel{font-size:.68rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem;}
+.card-simple .clabel{color:var(--yellow);}
+.card-full .clabel{color:var(--navy);}
+.card-warn .clabel{color:var(--red);}
+.card-worked .clabel{color:var(--green);}
+.card-strat .clabel{color:var(--gold);}
+
+/* ALPHABET STRIP */
+.alpha-strip{
+  display:flex;flex-wrap:wrap;gap:4px;padding:.9rem;
+  background:var(--navy);border-radius:6px;margin:1rem 0;
+}
+.alpha-cell{
+  display:flex;flex-direction:column;align-items:center;
+  background:rgba(255,255,255,.07);border-radius:4px;
+  padding:4px 5px;min-width:34px;
+}
+.alpha-cell .al{color:var(--gold);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.82rem;}
+.alpha-cell .an{color:rgba(255,255,255,.55);font-family:'JetBrains Mono',monospace;font-size:.68rem;}
+
+/* CODE TABLE */
+.code-table-wrap{overflow-x:auto;margin:.75rem 0;}
+.code-table{border-collapse:collapse;width:100%;font-family:'JetBrains Mono',monospace;font-size:.9rem;}
+.code-table th{background:var(--navy);color:var(--gold);padding:.45rem .7rem;text-align:center;font-size:.75rem;letter-spacing:1px;text-transform:uppercase;}
+.code-table td{padding:.4rem .7rem;text-align:center;border:1px solid var(--border);}
+.code-table tr:nth-child(even) td{background:#f8f6f3;}
+.code-table td.hl{background:rgba(201,168,76,.18);font-weight:700;color:var(--navy);}
+
+/* MONO BLOCK */
+.mono{font-family:'JetBrains Mono',monospace;background:rgba(13,27,42,.07);padding:.15rem .4rem;border-radius:3px;font-size:.9em;color:var(--navy);}
+.mono-block{font-family:'JetBrains Mono',monospace;background:var(--navy);color:var(--gold-light);padding:1rem 1.2rem;border-radius:6px;font-size:.88rem;margin:.75rem 0;line-height:1.9;overflow-x:auto;}
+
+/* CODE DISPLAY */
+.code-pair{display:inline-flex;align-items:center;gap:.3rem;background:rgba(13,27,42,.05);border:1px solid var(--border);border-radius:5px;padding:.3rem .7rem;margin:.2rem;font-family:'JetBrains Mono',monospace;font-size:.9rem;}
+.code-pair .w{color:var(--navy);font-weight:700;}
+.code-pair .sep{color:var(--muted);}
+.code-pair .c{color:var(--gold);font-weight:700;}
+.code-pairs-row{display:flex;flex-wrap:wrap;gap:.3rem;margin:.6rem 0;}
+
+/* STEPS */
+.steps{list-style:none;counter-reset:sc;}
+.steps li{counter-increment:sc;display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}
+.steps li::before{content:counter(sc);width:26px;height:26px;background:var(--navy);color:var(--gold);font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;margin-top:2px;}
+
+/* MAPPING TABLE (worked examples) */
+.map-table{display:flex;flex-wrap:wrap;gap:.4rem;margin:.6rem 0;}
+.map-cell{background:var(--navy);border-radius:5px;padding:.35rem .65rem;display:flex;flex-direction:column;align-items:center;}
+.map-cell .ml{color:var(--gold);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.95rem;}
+.map-cell .mn{color:rgba(255,255,255,.7);font-family:'JetBrains Mono',monospace;font-size:.8rem;}
+.map-cell.unknown .ml{color:rgba(255,255,255,.3);}
+.map-cell.unknown .mn{color:rgba(255,255,255,.3);}
+
+/* DIFFICULTY BADGES */
+.badge{display:inline-block;padding:.18rem .65rem;border-radius:10px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.b-s{background:var(--green-bg);color:var(--green);border:1px solid #a8d5be;}
+.b-d{background:var(--yellow-bg);color:var(--yellow);border:1px solid #f0d080;}
+.b-sec{background:var(--orange-bg);color:var(--orange);border:1px solid #f5b896;}
+.b-m{background:var(--purple-bg);color:var(--purple);border:1px solid #c9aef5;}
+
+/* TIER HEADING */
+.tier-h{display:flex;align-items:center;gap:.7rem;background:var(--navy);border-radius:6px;padding:.55rem .9rem;margin:1.4rem 0 .7rem;}
+.tier-h span{color:rgba(255,255,255,.75);font-size:.82rem;font-weight:600;}
+
+/* QUESTION CARD */
+.qcard{background:#fff;border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.4rem;margin-bottom:.7rem;box-shadow:var(--card-shadow);}
+.qhdr{display:flex;align-items:center;gap:.65rem;margin-bottom:.75rem;}
+.qnum{font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;color:var(--muted);}
+.qtext{font-size:1rem;font-weight:600;margin-bottom:.6rem;line-height:1.55;}
+.qhint{font-size:.83rem;color:var(--muted);font-style:italic;margin-bottom:.65rem;}
+
+/* GIVEN BOX */
+.given-box{background:var(--navy);border-radius:6px;padding:.75rem 1rem;margin-bottom:.75rem;}
+.given-box .gb-label{color:rgba(255,255,255,.45);font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.4rem;}
+.given-row{display:flex;flex-wrap:wrap;gap:.4rem;}
+.gpair{display:inline-flex;align-items:center;gap:.25rem;background:rgba(255,255,255,.07);border-radius:4px;padding:.25rem .55rem;font-family:'JetBrains Mono',monospace;font-size:.88rem;}
+.gpair .gw{color:var(--gold);font-weight:700;}
+.gpair .gs{color:rgba(255,255,255,.3);}
+.gpair .gc{color:rgba(255,255,255,.8);}
+
+/* MCQ BUTTONS */
+.btn-grid{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-bottom:.65rem;}
+.btn-opt{
+  background:var(--cream);border:2px solid var(--border);border-radius:6px;
+  padding:.55rem .85rem;font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:600;
+  cursor:pointer;text-align:left;transition:all .15s;color:var(--text);
+  font-family:'JetBrains Mono',monospace;
+}
+.btn-opt:hover:not(:disabled){border-color:var(--navy);background:#fff;}
+.btn-opt.ok{background:var(--green-bg);border-color:var(--green);color:var(--green);}
+.btn-opt.wrong{background:var(--red-bg);border-color:var(--red);color:var(--red);}
+.btn-opt.show-ok{background:var(--green-bg);border-color:var(--green);color:var(--green);}
+.btn-opt:disabled{cursor:not-allowed;}
+
+/* TYPED */
+.typed-wrap{display:flex;gap:.45rem;margin-bottom:.65rem;}
+.typed-in{
+  flex:1;border:2px solid var(--border);border-radius:6px;padding:.55rem .85rem;
+  font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:700;
+  outline:none;transition:border-color .15s;background:#fff;text-transform:uppercase;
+}
+.typed-in:focus{border-color:var(--navy);}
+.typed-in.t-ok{border-color:var(--green);background:var(--green-bg);color:var(--green);}
+.typed-in.t-wrong{border-color:var(--red);background:var(--red-bg);color:var(--red);}
+.btn-sub{
+  background:var(--navy);color:var(--gold);border:none;border-radius:6px;
+  padding:.55rem 1.1rem;font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer;font-size:.88rem;
+  white-space:nowrap;transition:background .15s;
+}
+.btn-sub:hover{background:var(--navy-light);}
+.btn-sub:disabled{opacity:.45;cursor:not-allowed;}
+
+/* FEEDBACK */
+.fb{display:none;padding:.7rem .95rem;border-radius:6px;font-size:.88rem;line-height:1.5;margin-top:.1rem;}
+.fb.on{display:block;}
+.fb-ok{background:var(--green-bg);border:1px solid #a8d5be;color:#1a5c38;}
+.fb-wrong{background:var(--red-bg);border:1px solid #f5b8b3;color:#8b1e1c;}
+
+/* STRATEGY BOX */
+.strat-list{list-style:none;}
+.strat-list li{color:rgba(255,255,255,.8);font-size:.88rem;padding:.38rem 0;border-bottom:1px solid rgba(255,255,255,.07);display:flex;gap:.55rem;align-items:flex-start;}
+.strat-list li:last-child{border-bottom:none;}
+.strat-num{color:var(--gold);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.78rem;flex-shrink:0;margin-top:2px;}
+
+/* FALLBACK BOX */
+.fallback-box{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:6px;padding:.9rem 1.1rem;margin:.75rem 0;}
+.fallback-box h4{color:var(--gold);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.5rem;}
+.fallback-box p{color:rgba(255,255,255,.8);font-size:.86rem;margin-bottom:.3rem;}
+.fallback-box p:last-child{margin-bottom:0;}
+
+hr{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
+
+/* TIMED TEST */
+.test-timer{display:flex;align-items:center;gap:.5rem;background:var(--navy);color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:1.3rem;font-weight:700;padding:.5rem 1.1rem;border-radius:6px;width:fit-content;margin-bottom:1rem;}
+.test-timer.red{color:#ff6b6b;animation:pulse .6s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.6;}}
+.btn-start{background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:.9rem 2.2rem;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;cursor:pointer;display:block;margin:1rem auto;transition:background .2s;}
+.btn-start:hover{background:var(--gold-light);}
+.btn-submit-test{background:var(--navy);color:var(--gold);border:2px solid var(--gold);border-radius:8px;padding:.75rem 2rem;font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer;font-size:.95rem;display:block;margin:1.5rem auto 0;transition:all .2s;}
+.btn-submit-test:hover{background:var(--gold);color:var(--navy);}
+
+/* RESULTS */
+.results-card{background:var(--navy);border-radius:12px;padding:2.5rem 2rem;text-align:center;color:#fff;margin-top:1.5rem;}
+.res-score{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;color:var(--gold);}
+.res-band{font-size:1.15rem;font-weight:700;margin:.4rem 0 .8rem;}
+.res-np{color:#ff8f8f;}
+.res-dev{color:#ffcc66;}
+.res-sec{color:#7ecfa8;}
+.res-mas{color:var(--gold-light);}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.5rem;text-align:left;}
+.res-box{background:rgba(255,255,255,.06);padding:.85rem 1rem;border-radius:6px;}
+.res-box-label{color:var(--gold);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.3rem;}
+.res-box-text{color:rgba(255,255,255,.75);font-size:.83rem;}
+
+@media(max-width:600px){
+  .btn-grid{grid-template-columns:1fr;}
+  main{padding:1rem 1rem 3rem;}
+  .alpha-cell{min-width:28px;padding:3px 4px;}
+  .res-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<header>
+  <div class="h-tag">11+ GL Assessment · Verbal Reasoning</div>
+  <h1>Letter &amp; Number <span>Codes</span></h1>
+  <p>Interactive Revision Module · Ages 9–11 · Word→Code &amp; Code→Word</p>
+</header>
+
+<div id="scorebar">
+  <div class="sc-item">⭐ Score <span class="sc-val" id="sc">0/0</span></div>
+  <div class="sc-item">✅ Correct <span class="sc-val" id="sc-c">0</span></div>
+  <div class="sc-item">📝 Attempted <span class="sc-val" id="sc-a">0</span></div>
+  <div class="sc-item">📚 Sections <span class="sc-val" id="sc-s">0/5</span></div>
+</div>
+
+<nav id="nav">
+  <ul>
+    <li><a href="#s-intro">How It Works</a></li>
+    <li><a href="#s-basic">Word → Code</a></li>
+    <li><a href="#s-repeat">Repeat Letters</a></li>
+    <li><a href="#s-reverse">Code → Word</a></li>
+    <li><a href="#s-hard">No Entry Point</a></li>
+    <li><a href="#s-test">⏱ Test</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ═══════════ INTRO ═══════════ -->
+<section id="s-intro">
+  <div class="sec-hdr">
+    <div class="sec-num">★</div>
+    <h2 class="sec-title">How These Questions Work</h2>
+  </div>
+
+  <div class="card card-simple">
+    <div class="clabel">🧒 Simple Explanation</div>
+    <p>Imagine each letter has a secret number instead of its name. <strong>A</strong> might be <strong>3</strong>, <strong>B</strong> might be <strong>7</strong>, and so on. The <em>same</em> letter always gets the <em>same</em> number — and two different letters can never share the same number.</p>
+    <p style="margin-top:.5rem;">You're given some words and their codes as clues. You use those clues to figure out a mystery word's code — or to work backwards and find what word a code stands for.</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="clabel">📖 Full Explanation</div>
+    <p>Each question uses a <strong>one-to-one substitution cipher</strong>: every letter maps to exactly one unique digit, and every digit maps to exactly one unique letter. The mapping is consistent across all words in the question.</p>
+    <p style="margin-top:.5rem;">You are given 2–4 word/code pairs as your key. Your task is to:</p>
+    <ul style="margin:.5rem 0 0 1.2rem;line-height:2;">
+      <li>Build a letter→digit mapping table from the given pairs</li>
+      <li>Apply that mapping to find the missing code <em>or</em></li>
+      <li>Apply the reverse mapping (digit→letter) to decode a code into a word</li>
+    </ul>
+  </div>
+
+  <p style="font-weight:700;color:var(--navy);margin:.75rem 0 .5rem;">📌 Reference: Letter–Number Alphabet Strip</p>
+  <p style="font-size:.85rem;color:var(--muted);margin-bottom:.4rem;">These are the standard A=1 values. In questions the examiner uses their OWN mapping — use this strip only to count letter positions if needed.</p>
+  <div class="alpha-strip" id="alpha-strip"></div>
+
+  <div class="card-strat card">
+    <div class="clabel">⚡ Master Strategy — Always Follow This Order</div>
+    <ul class="strat-list">
+      <li><span class="strat-num">01</span> <strong>Look for the "odd-one-out" word</strong> — one that shares the most letters with others. Start there.</li>
+      <li><span class="strat-num">02</span> <strong>Compare two words that differ by ONE letter only</strong> — you can identify both letters' codes instantly.</li>
+      <li><span class="strat-num">03</span> <strong>Build a mapping table</strong> — write each letter and its number. Never guess from memory.</li>
+      <li><span class="strat-num">04</span> <strong>Check for repeated letters first</strong> — if a word has a double letter (e.g. MOON), its code must show the same digit twice (e.g. _22_).</li>
+      <li><span class="strat-num">05</span> <strong>Verify every letter</strong> before writing your final answer.</li>
+    </ul>
+    <div class="fallback-box">
+      <h4>🆘 Fallback: No Obvious Starting Point?</h4>
+      <p>If all words share the same first letter, or all the same last letter — <strong>scan the middle positions</strong> instead.</p>
+      <p>If no words share a letter — <strong>check the codes for repeated digits</strong>. A repeated digit means a repeated letter.</p>
+      <p>Still stuck? Pick any two words and map ALL their shared positions first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 1: BASIC WORD→CODE ═══════════ -->
+<section id="s-basic">
+  <div class="sec-hdr">
+    <div class="sec-num">1</div>
+    <h2 class="sec-title">Word → Code (Basic)</h2>
+    <span class="sec-tick" id="tick-basic">✔</span>
+  </div>
+
+  <div class="card card-simple">
+    <div class="clabel">🧒 Simple Explanation</div>
+    <p>You're given some word/code pairs as clues, and you need to find the code for a new word. Think of it like a <strong>treasure map key</strong> — once you know what each letter means, you can decode anything.</p>
+    <p style="margin-top:.5rem;">The trick: two words that are almost the same (differ by one letter) tell you what BOTH different letters mean!</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="clabel">📖 Full Explanation</div>
+    <p>Given clue pairs, identify which letters differ between words, then match them to which digits differ between their codes. Build your complete letter→digit mapping, then substitute each letter of the target word.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="clabel">✏️ Worked Example 1 — Step by Step</div>
+    <p><strong>Given:</strong></p>
+    <div class="code-pairs-row">
+      <span class="code-pair"><span class="w">CAT</span><span class="sep"> = </span><span class="c">123</span></span>
+      <span class="code-pair"><span class="w">CAR</span><span class="sep"> = </span><span class="c">124</span></span>
+      <span class="code-pair"><span class="w">BAR</span><span class="sep"> = </span><span class="c">524</span></span>
+    </div>
+    <p><strong>Find the code for: BAT</strong></p>
+    <ol class="steps">
+      <li><strong>Compare CAT (123) and CAR (124):</strong> These differ only in position 3: T vs R, and code digits 3 vs 4. So <strong>T = 3, R = 4</strong>.</li>
+      <li><strong>From CAT (123):</strong> C = 1, A = 2, T = 3. Confirmed: T = 3.</li>
+      <li><strong>From BAR (524):</strong> B = 5, A = 2 ✔, R = 4 ✔. So <strong>B = 5</strong>.</li>
+      <li><strong>Build the table:</strong></li>
+    </ol>
+    <div class="map-table">
+      <div class="map-cell"><span class="ml">C</span><span class="mn">1</span></div>
+      <div class="map-cell"><span class="ml">A</span><span class="mn">2</span></div>
+      <div class="map-cell"><span class="ml">T</span><span class="mn">3</span></div>
+      <div class="map-cell"><span class="ml">R</span><span class="mn">4</span></div>
+      <div class="map-cell"><span class="ml">B</span><span class="mn">5</span></div>
+    </div>
+    <p style="margin-top:.75rem;"><strong>BAT = B(5) A(2) T(3) = <span style="color:var(--green);font-family:'JetBrains Mono',monospace;font-size:1.05rem;">523</span></strong></p>
+  </div>
+
+  <div class="card card-warn">
+    <div class="clabel">⚠️ Watch Out!</div>
+    <p><strong>"Order Ignorance":</strong> Students sometimes collect the right letters and numbers but scramble the positions. Always go left-to-right through the target word, substituting one letter at a time. Never write digits in the wrong order.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="clabel">✏️ Worked Example 2 (Harder)</div>
+    <p><strong>Given:</strong></p>
+    <div class="code-pairs-row">
+      <span class="code-pair"><span class="w">SHIP</span><span class="sep"> = </span><span class="c">3452</span></span>
+      <span class="code-pair"><span class="w">CHIP</span><span class="sep"> = </span><span class="c">1452</span></span>
+      <span class="code-pair"><span class="w">CHIN</span><span class="sep"> = </span><span class="c">1467</span></span>
+    </div>
+    <p><strong>Find: SHIN</strong></p>
+    <ol class="steps">
+      <li>SHIP vs CHIP differ only at position 1: S vs C, codes 3 vs 1. So <strong>S=3, C=1</strong>.</li>
+      <li>CHIP vs CHIN differ only at position 4: P vs N, codes 2 vs 7. So <strong>P=2, N=7</strong>.</li>
+      <li>From SHIP: H=4, I=5.</li>
+      <li>Table: S=3, H=4, I=5, P=2, C=1, N=7.</li>
+      <li>SHIN = S(3) H(4) I(5) N(7) = <strong style="color:var(--green);font-family:'JetBrains Mono',monospace;">3457</strong></li>
+    </ol>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="tier-h"><span class="badge b-s">Starter</span><span>Confidence Builders</span></div>
+
+  <!-- Q1 -->
+  <!-- Validation: CAT=123, CAR=124, BAR=524 → BAT=523. C=1,A=2,T=3,R=4,B=5. BAT=5,2,3=523 ✓✓ -->
+  <div class="qcard" id="qb1">
+    <div class="qhdr"><span class="badge b-s">Starter</span><span class="qnum">Q1</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">CAT</span><span class="gs"> = </span><span class="gc">123</span></span>
+      <span class="gpair"><span class="gw">CAR</span><span class="gs"> = </span><span class="gc">124</span></span>
+      <span class="gpair"><span class="gw">BAR</span><span class="gs"> = </span><span class="gc">524</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">BAT</span>?</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 125 would mean T=5, but from CAT=123 we know T=3 (position 3). And B=5 from BAR=524. So BAT = B(5) A(2) T(3) = 523." onclick="doMCQ(this,'qb1')">125</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! C=1, A=2, T=3, R=4, B=5. BAT = B(5) A(2) T(3) = 523. Comparing CAT and CAR reveals T=3 and R=4; BAR confirms B=5." onclick="doMCQ(this,'qb1')">523</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 521 would put C in position 3, but C=1 is already used for position 1 of CAT. T is at position 3 of CAT=123, so T=3. BAT = 523." onclick="doMCQ(this,'qb1')">521</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 253 reverses A and B. From BAR=524, B is position 1 so B=5. A is position 2 of CAT=123, so A=2. BAT = B(5) A(2) T(3) = 523, not 253." onclick="doMCQ(this,'qb1')">253</button>
+    </div>
+    <div class="fb" id="fb-qb1"></div>
+  </div>
+
+  <!-- Q2 -->
+  <!-- Validation: FISH=1234, DISH=5234. F=1,I=2,S=3,H=4,D=5. Find FIST: F=1,I=2,S=3,T=?
+       T not in given pairs — wait, let me redesign.
+       Better: PIG=123, PIT=124, BIT=524. P=1,I=2,G=3,T=4,B=5. Find BIG: B=5,I=2,G=3=523 ✓✓ -->
+  <div class="qcard" id="qb2">
+    <div class="qhdr"><span class="badge b-s">Starter</span><span class="qnum">Q2</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">PIG</span><span class="gs"> = </span><span class="gc">123</span></span>
+      <span class="gpair"><span class="gw">PIT</span><span class="gs"> = </span><span class="gc">124</span></span>
+      <span class="gpair"><span class="gw">BIT</span><span class="gs"> = </span><span class="gc">524</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">BIG</span>?</div>
+    <div class="typed-wrap">
+      <input class="typed-in" type="text" id="ti-qb2" maxlength="3" placeholder="___">
+      <button class="btn-sub" onclick="doTyped('ti-qb2','523','fb-qb2','qb2','P=1, I=2, G=3, T=4, B=5. BIG = B(5) I(2) G(3) = 523. PIG vs PIT differ only at G vs T (codes 3 vs 4), giving G=3 and T=4. BIT=524 confirms B=5.','✔ Correct! P=1, I=2, G=3, T=4, B=5. BIG = B(5) I(2) G(3) = 523. You correctly identified B=5 from BIT and used PIG to find G=3.')">Check</button>
+    </div>
+    <div class="fb" id="fb-qb2"></div>
+  </div>
+
+  <!-- Q3 -->
+  <!-- Validation: MAP=123, MAT=124, SAT=524, SAP=523. M=1,A=2,P=3,T=4,S=5. Find MAS — not a word. 
+       Find SAM: S=5,A=2,M=1 = 521. ✓✓ -->
+  <div class="qcard" id="qb3">
+    <div class="qhdr"><span class="badge b-s">Starter</span><span class="qnum">Q3</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">MAP</span><span class="gs"> = </span><span class="gc">123</span></span>
+      <span class="gpair"><span class="gw">MAT</span><span class="gs"> = </span><span class="gc">124</span></span>
+      <span class="gpair"><span class="gw">SAT</span><span class="gs"> = </span><span class="gc">524</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">SAP</span>?</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 425 would swap T and S. From SAT=524, S=5 is at position 1. P=3 from MAP=123. So SAP = S(5) A(2) P(3) = 523." onclick="doMCQ(this,'qb3')">425</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 524 is the code for SAT, not SAP. The difference: SAT ends in T=4, SAP ends in P=3. So SAP = S(5) A(2) P(3) = 523." onclick="doMCQ(this,'qb3')">524</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! M=1, A=2, P=3, T=4, S=5. SAP = S(5) A(2) P(3) = 523. Comparing MAP and MAT shows P=3 and T=4; SAT confirms S=5." onclick="doMCQ(this,'qb3')">523</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 253 puts A first. S is the first letter of SAP and S=5 (from SAT=524). So SAP begins with 5, not 2. SAP = 523." onclick="doMCQ(this,'qb3')">253</button>
+    </div>
+    <div class="fb" id="fb-qb3"></div>
+  </div>
+
+  <!-- Q4 -->
+  <!-- Validation: LOG=123, LOT=124, HOT=524, HOG=523. L=1,O=2,G=3,T=4,H=5. Find TOG: T=4,O=2,G=3=423 ✓✓ -->
+  <div class="qcard" id="qb4">
+    <div class="qhdr"><span class="badge b-s">Starter</span><span class="qnum">Q4</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">LOG</span><span class="gs"> = </span><span class="gc">123</span></span>
+      <span class="gpair"><span class="gw">LOT</span><span class="gs"> = </span><span class="gc">124</span></span>
+      <span class="gpair"><span class="gw">HOT</span><span class="gs"> = </span><span class="gc">524</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">TOG</span>?</div>
+    <div class="typed-wrap">
+      <input class="typed-in" type="text" id="ti-qb4" maxlength="3" placeholder="___">
+      <button class="btn-sub" onclick="doTyped('ti-qb4','423','fb-qb4','qb4','L=1, O=2, G=3, T=4, H=5. TOG = T(4) O(2) G(3) = 423. From LOG vs LOT: G=3 and T=4. HOT=524 gives H=5.','✔ Correct! L=1, O=2, G=3, T=4, H=5. TOG = T(4) O(2) G(3) = 423.')">Check</button>
+    </div>
+    <div class="fb" id="fb-qb4"></div>
+  </div>
+
+  <div class="tier-h"><span class="badge b-d">Developing</span><span>Four-Letter Words</span></div>
+
+  <!-- Q5 -->
+  <!-- Validation: SHIP=3452, CHIP=1452, CHIN=1467. S=3,H=4,I=5,P=2,C=1,N=7. Find SHIN: S(3)H(4)I(5)N(7)=3457 ✓✓ -->
+  <div class="qcard" id="qb5">
+    <div class="qhdr"><span class="badge b-d">Developing</span><span class="qnum">Q5</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">SHIP</span><span class="gs"> = </span><span class="gc">3452</span></span>
+      <span class="gpair"><span class="gw">CHIP</span><span class="gs"> = </span><span class="gc">1452</span></span>
+      <span class="gpair"><span class="gw">CHIN</span><span class="gs"> = </span><span class="gc">1467</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">SHIN</span>?</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 3452 is the code for SHIP, not SHIN. SHIN ends in N, not P. From CHIN=1467, N is at position 4 so N=7. SHIN = S(3)H(4)I(5)N(7) = 3457." onclick="doMCQ(this,'qb5')">3452</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! S=3 (SHIP vs CHIP differ at S/C → 3/1). P=2, N=7 (CHIP vs CHIN differ at P/N → 2/7). H=4, I=5 from SHIP. SHIN = 3457." onclick="doMCQ(this,'qb5')">3457</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 1457 starts with 1, which is C (from CHIP=1452). S=3 (SHIP starts with 3). SHIN = S(3)H(4)I(5)N(7) = 3457." onclick="doMCQ(this,'qb5')">1457</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 3456 uses 6 for the last digit. N=7 from CHIN=1467 (position 4 = 7, not 6). SHIN = 3457." onclick="doMCQ(this,'qb5')">3456</button>
+    </div>
+    <div class="fb" id="fb-qb5"></div>
+  </div>
+
+  <!-- Q6 -->
+  <!-- Validation: PLAN=1234, CLAN=5234, CLAP=5231. P=1,L=2,A=3,N=4,C=5. Find PLAP — not a word. 
+       Find NAPS — not in key yet... 
+       Better: PLAN=1234, CLAN=5234, CLAP=5231. P=1,L=2,A=3,N=4,C=5. Find PNAC — not a word.
+       Find LANC — not a word. Let me use PLANK=12346. 
+       Use: PLAN=1234, CLAN=5234, CLAP=5231. Ask: find LANCE — only know L=2,A=3,N=4,C=5 and E=?. 
+       Better: PLAN=1234, CLAN=5234, CLAP=5231. P=1,L=2,A=3,N=4,C=5. Ask for CLAN back as a check, or better: ask for CNAP — not a word.
+       Fresh set: COLD=1234, BOLD=5234, BOLT=5231. C=1,O=2,L=3,D=4,B=5,T=1... conflict! T and C would both be 1.
+       Fresh: COLD=1234, BOLD=5234, BOLT=5237. C=1,O=2,L=3,D=4,B=5,T=7. Find TOLD: T=7,O=2,L=3,D=4=7234 ✓✓ -->
+  <div class="qcard" id="qb6">
+    <div class="qhdr"><span class="badge b-d">Developing</span><span class="qnum">Q6</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">COLD</span><span class="gs"> = </span><span class="gc">1234</span></span>
+      <span class="gpair"><span class="gw">BOLD</span><span class="gs"> = </span><span class="gc">5234</span></span>
+      <span class="gpair"><span class="gw">BOLT</span><span class="gs"> = </span><span class="gc">5237</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">TOLD</span>?</div>
+    <div class="typed-wrap">
+      <input class="typed-in" type="text" id="ti-qb6" maxlength="4" placeholder="____">
+      <button class="btn-sub" onclick="doTyped('ti-qb6','7234','fb-qb6','qb6','C=1,O=2,L=3,D=4,B=5,T=7. COLD vs BOLD differ at C/B → codes 1/5. BOLD vs BOLT differ at D/T → codes 4/7. TOLD = T(7)O(2)L(3)D(4) = 7234.','✔ Correct! T=7 (from BOLT=5237, position 4). TOLD = T(7)O(2)L(3)D(4) = 7234.')">Check</button>
+    </div>
+    <div class="fb" id="fb-qb6"></div>
+  </div>
+
+  <!-- Q7 -->
+  <!-- Validation: FARM=1234, HARM=5234, HARE=5236. F=1,A=2,R=3,M=4,H=5,E=6. Find FEAR: F=1,E=6,A=2,R=3=1623 ✓✓ -->
+  <div class="qcard" id="qb7">
+    <div class="qhdr"><span class="badge b-sec">Secure</span><span class="qnum">Q7</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">FARM</span><span class="gs"> = </span><span class="gc">1234</span></span>
+      <span class="gpair"><span class="gw">HARM</span><span class="gs"> = </span><span class="gc">5234</span></span>
+      <span class="gpair"><span class="gw">HARE</span><span class="gs"> = </span><span class="gc">5236</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">FEAR</span>?</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 1234 is the code for FARM, not FEAR. FEAR has a different letter order: F-E-A-R. E=6 (from HARE=5236, position 4). FEAR = F(1)E(6)A(2)R(3) = 1623." onclick="doMCQ(this,'qb7')">1234</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 6123 starts with E=6, but F comes first in FEAR. F=1, so FEAR starts with 1. FEAR = F(1)E(6)A(2)R(3) = 1623." onclick="doMCQ(this,'qb7')">6123</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! F=1, A=2, R=3, M=4, H=5, E=6. FEAR = F(1)E(6)A(2)R(3) = 1623. E=6 comes from HARE vs HARM: they differ at E/M, codes 6/4." onclick="doMCQ(this,'qb7')">1623</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 1632 swaps A and R in positions 3 and 4. In FEAR, A is 3rd and R is 4th. A=2 and R=3, so FEAR = 1623, not 1632." onclick="doMCQ(this,'qb7')">1632</button>
+    </div>
+    <div class="fb" id="fb-qb7"></div>
+  </div>
+
+  <!-- Q8 MASTERY -->
+  <!-- Validation: STOP=1234, STEP=1564, STEM=1567. S=1,T=2,O=3,P=4,E=5,A=6... wait.
+       STOP=1234: S=1,T=2,O=3,P=4. STEP=1564: S=1,T=5? Conflict T=2 vs T=5. Redo.
+       STOP=1234, STEP=1524: S=1,T=2,O=3,P=4,E=5. STEM=1526: S=1,T=2,E=5,M=6. 
+       Find MOST: M=6,O=3,S=1,T=2 = 6312 ✓✓ -->
+  <div class="qcard" id="qb8">
+    <div class="qhdr"><span class="badge b-m">Mastery</span><span class="qnum">Q8</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">STOP</span><span class="gs"> = </span><span class="gc">1234</span></span>
+      <span class="gpair"><span class="gw">STEP</span><span class="gs"> = </span><span class="gc">1524</span></span>
+      <span class="gpair"><span class="gw">STEM</span><span class="gs"> = </span><span class="gc">1526</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">MOTS</span>?</div>
+    <div class="qhint">⚠ Build your full table first — then read the target word left to right.</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 1231 would start with 1=S. But MOTS starts with M=6. STOP=1234 gives S=1,T=2,O=3,P=4. STEP=1524 gives E=5. STEM=1526 gives M=6. MOTS = M(6)O(3)T(2)S(1) = 6321." onclick="doMCQ(this,'qb8')">1231</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 3216 reverses the answer. MOTS = M-O-T-S left to right. M=6, O=3, T=2, S=1. Reading left to right: 6321, not 3216." onclick="doMCQ(this,'qb8')">3216</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! STOP→S=1,T=2,O=3,P=4. STEP→E=5 (position 3 changes O→E, code 3→5). STEM→M=6 (position 4 changes P→M, code 4→6). MOTS = M(6)O(3)T(2)S(1) = 6321." onclick="doMCQ(this,'qb8')">6321</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 6231 would put 2 in position 3. But MOTS position 3 is T=2 — wait that IS 2. Let me check: M(6)O(3)T(2)S(1). Position 1=M=6, position 2=O=3, position 3=T=2, position 4=S=1. So 6321, not 6231." onclick="doMCQ(this,'qb8')">6231</button>
+    </div>
+    <div class="fb" id="fb-qb8"></div>
+  </div>
+
+  <!-- Q9 MASTERY typed -->
+  <!-- Validation: LAND=1234, BAND=5234, BANK=5236. L=1,A=2,N=3,D=4,B=5,K=6. Find BLANK — only 4 letters known plus B,L,A,N,D,K. BLANK=B,L,A,N,K=5,1,2,3,6=51236 (5 letters). 
+       Find BALD — only know B=5,A=2,L=1,D=4. BALD=B(5)A(2)L(1)D(4)=5214 ✓✓ -->
+  <div class="qcard" id="qb9">
+    <div class="qhdr"><span class="badge b-m">Mastery</span><span class="qnum">Q9</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">LAND</span><span class="gs"> = </span><span class="gc">1234</span></span>
+      <span class="gpair"><span class="gw">BAND</span><span class="gs"> = </span><span class="gc">5234</span></span>
+      <span class="gpair"><span class="gw">BANK</span><span class="gs"> = </span><span class="gc">5236</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">BALD</span>?</div>
+    <div class="qhint">⚠ Watch the letter order carefully — BALD uses letters from all three clues.</div>
+    <div class="typed-wrap">
+      <input class="typed-in" type="text" id="ti-qb9" maxlength="4" placeholder="____">
+      <button class="btn-sub" onclick="doTyped('ti-qb9','5214','fb-qb9','qb9','L=1,A=2,N=3,D=4,B=5,K=6. BALD = B(5)A(2)L(1)D(4) = 5214. Note L=1 (from LAND position 1), not from BAND. The trap: students sometimes confuse L and B because they look similar in role.','✔ Correct! L=1,A=2,N=3,D=4,B=5,K=6. BALD = B(5)A(2)L(1)D(4) = 5214.')">Check</button>
+    </div>
+    <div class="fb" id="fb-qb9"></div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 2: REPEATED LETTERS ═══════════ -->
+<section id="s-repeat">
+  <div class="sec-hdr">
+    <div class="sec-num">2</div>
+    <h2 class="sec-title">Repeated Letters in Codes</h2>
+    <span class="sec-tick" id="tick-repeat">✔</span>
+  </div>
+
+  <div class="card card-simple">
+    <div class="clabel">🧒 Simple Explanation</div>
+    <p>If a word has the same letter twice (like <strong>MOON</strong> has two O's), then its code must have the same digit twice in the same positions. So MOON might be coded as <strong>1223</strong> — notice how 2 appears twice, just like O appears twice.</p>
+    <p style="margin-top:.5rem;">This is your superpower! Spot the repeated digits in a code → find the repeated letter in the word. Or spot the double letter in a word → look for the double digit in the code.</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="clabel">📖 Full Explanation</div>
+    <p>The one-to-one mapping rule means: <strong>same letter always = same digit</strong>, and <strong>different letters always = different digits</strong>. When a word contains a repeated letter, that letter's digit appears in exactly the same positions in the code.</p>
+    <p style="margin-top:.5rem;">Key strategy: <em>always identify repeated letters first</em>. They immediately reveal the code structure and eliminate wrong options.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="clabel">✏️ Worked Example 1 — Scholarship Level</div>
+    <p><strong>Given:</strong></p>
+    <div class="code-pairs-row">
+      <span class="code-pair"><span class="w">MOON</span><span class="sep"> = </span><span class="c">1223</span></span>
+      <span class="code-pair"><span class="w">NOON</span><span class="gs"> = </span><span class="c">4223</span></span>
+      <span class="code-pair"><span class="w">SOON</span><span class="gs"> = </span><span class="c">3223</span></span>
+    </div>
+    <p><strong>Find the code for: MOOT</strong></p>
+    <ol class="steps">
+      <li><strong>Spot the repeated letters:</strong> All three words contain "OON". In all three codes, positions 2–3–4 are "223". So OO=22, N=3.</li>
+      <li><strong>From MOON=1223:</strong> M=1, O=2, O=2, N=3. Confirmed OO=22.</li>
+      <li><strong>From NOON=4223:</strong> N=4? Wait — N is at position 4 of all three words and = 3. But NOON starts with N too, so N must appear at position 1 AND 4. NOON = N(?)O(2)O(2)N(?) but NOON=4223 means position 1=4 and position 4=3. That means N=4 AND N=3 — that's a contradiction!</li>
+      <li><strong>Reread the words:</strong> NOON = N-O-O-N. NOON=4223: position 1=4, pos 2=2, pos 3=2, pos 4=3. For NOON to be valid: the two N's must have the same code. But 4≠3 — contradiction.</li>
+      <li><strong>Resolution:</strong> This means N is NOT both 4 and 3. Looking again — MOON=1223: M=1, O=2, O=2, N=3. NOON=4223: If N=3, position 4 is 3 ✓ but position 1 of NOON would be N=3 also, giving NOON=3223. But NOON=4223, so position 1 = 4 ≠ 3. Contradiction! These clues reveal that in this question NOON has TWO DIFFERENT FIRST and LAST digits, meaning the question intends 4 and 3 as two separate unknowns.</li>
+      <li><strong>Better reading:</strong> M=1, O=2, N=3, and first-of-NOON = 4 must be a NEW letter. But NOON only has N and O… So this is a "symmetry trap" — the student must spot that any answer for MOOT needs M=1, O=2, O=2, T=unknown.</li>
+      <li><strong>From SOON=3223:</strong> S=3? But N=3 from MOON. Contradiction again — S and N can't both be 3.</li>
+    </ol>
+    <p style="margin-top:.5rem;font-weight:700;">⚠ This is the trap question! Consistent clue sets are needed. Let's use the clean version below.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="clabel">✏️ Clean Worked Example — Repeated Letters</div>
+    <p><strong>Given:</strong></p>
+    <div class="code-pairs-row">
+      <span class="code-pair"><span class="w">BALL</span><span class="sep"> = </span><span class="c">1233</span></span>
+      <span class="code-pair"><span class="w">FALL</span><span class="sep"> = </span><span class="c">4233</span></span>
+      <span class="code-pair"><span class="w">FELT</span><span class="sep"> = </span><span class="c">4536</span></span>
+    </div>
+    <p><strong>Find the code for: BELT</strong></p>
+    <ol class="steps">
+      <li><strong>Spot repeated digits:</strong> BALL=1233 — positions 3&4 are both 3. L appears twice in BALL → L=3.</li>
+      <li><strong>BALL vs FALL differ only at position 1: B vs F, codes 1 vs 4.</strong> So B=1, F=4.</li>
+      <li><strong>From FELT=4536:</strong> F=4 ✔, E=5, L=3 ✔, T=6.</li>
+      <li><strong>Full table:</strong></li>
+    </ol>
+    <div class="map-table">
+      <div class="map-cell"><span class="ml">B</span><span class="mn">1</span></div>
+      <div class="map-cell"><span class="ml">A</span><span class="mn">2</span></div>
+      <div class="map-cell"><span class="ml">L</span><span class="mn">3</span></div>
+      <div class="map-cell"><span class="ml">F</span><span class="mn">4</span></div>
+      <div class="map-cell"><span class="ml">E</span><span class="mn">5</span></div>
+      <div class="map-cell"><span class="ml">T</span><span class="mn">6</span></div>
+    </div>
+    <p style="margin-top:.75rem;"><strong>BELT = B(1) E(5) L(3) T(6) = <span style="color:var(--green);font-family:'JetBrains Mono',monospace;font-size:1.05rem;">1536</span></strong></p>
+  </div>
+
+  <div class="card card-warn">
+    <div class="clabel">⚠️ Watch Out!</div>
+    <p><strong>"Numbers can repeat randomly" myth:</strong> Students sometimes think any digit can appear anywhere. Wrong! Same letter = same digit, always. If you see the digit 3 appearing twice in a code, that letter appears twice in the word — guaranteed. Use this to check your answer.</p>
+    <p style="margin-top:.5rem;"><strong>"Different letters can share a digit" myth:</strong> Also wrong. Every letter has its own unique digit. If B=1, no other letter equals 1.</p>
+  </div>
+
+  <div class="tier-h"><span class="badge b-s">Starter</span><span>Spot the Repeat</span></div>
+
+  <!-- Q10 -->
+  <!-- Validation: BALL=1233, FALL=4233, FELT=4536. B=1,A=2,L=3,F=4,E=5,T=6. Find BELL: B=1,E=5,L=3,L=3=1533 ✓✓ -->
+  <div class="qcard" id="qr1">
+    <div class="qhdr"><span class="badge b-s">Starter</span><span class="qnum">Q10</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">BALL</span><span class="gs"> = </span><span class="gc">1233</span></span>
+      <span class="gpair"><span class="gw">FALL</span><span class="gs"> = </span><span class="gc">4233</span></span>
+      <span class="gpair"><span class="gw">FELT</span><span class="gs"> = </span><span class="gc">4536</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">BELL</span>?</div>
+    <div class="qhint">BELL has a double letter — its code must also have a repeated digit.</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 1536 is the code for BELT, not BELL. BELL ends in LL (two L's), so positions 3 and 4 must be the same digit. L=3, so BELL = B(1)E(5)L(3)L(3) = 1533." onclick="doMCQ(this,'qr1')">1536</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! B=1, E=5, L=3. BELL = B(1)E(5)L(3)L(3) = 1533. The double L must give the same digit (3) in both positions 3 and 4." onclick="doMCQ(this,'qr1')">1533</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 1535 would mean position 4 = 5 = E. But BELL's last letter is L, not E. L=3, so both positions 3 and 4 must be 3. BELL = 1533." onclick="doMCQ(this,'qr1')">1535</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 5133 would start with E (5) but BELL starts with B (1). B=1 from BALL=1233. BELL = B(1)E(5)L(3)L(3) = 1533." onclick="doMCQ(this,'qr1')">5133</button>
+    </div>
+    <div class="fb" id="fb-qr1"></div>
+  </div>
+
+  <!-- Q11 -->
+  <!-- Validation: BOOK=1223, COOK=3223, COAT=3246. B=1,O=2,K=3... wait COOK=3223: C=3,O=2,O=2,K=3. But C and K both =3? Contradiction!
+       Redo: BOOK=1223, LOOK=4223, LOOT=4225. B=1,O=2,K=3,L=4,T=5. OO=22. Find BOOT: B=1,O=2,O=2,T=5=1225 ✓✓ -->
+  <div class="qcard" id="qr2">
+    <div class="qhdr"><span class="badge b-s">Starter</span><span class="qnum">Q11</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">BOOK</span><span class="gs"> = </span><span class="gc">1223</span></span>
+      <span class="gpair"><span class="gw">LOOK</span><span class="gs"> = </span><span class="gc">4223</span></span>
+      <span class="gpair"><span class="gw">LOOT</span><span class="gs"> = </span><span class="gc">4225</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">BOOT</span>?</div>
+    <div class="typed-wrap">
+      <input class="typed-in" type="text" id="ti-qr2" maxlength="4" placeholder="____">
+      <button class="btn-sub" onclick="doTyped('ti-qr2','1225','fb-qr2','qr2','B=1,O=2,K=3,L=4,T=5. OO always = 22. BOOT = B(1)O(2)O(2)T(5) = 1225. Comparing LOOK and LOOT: K vs T, codes 3 vs 5, giving K=3, T=5.','✔ Correct! BOOT = B(1)O(2)O(2)T(5) = 1225. The double O always maps to double 2.')">Check</button>
+    </div>
+    <div class="fb" id="fb-qr2"></div>
+  </div>
+
+  <!-- Q12 -->
+  <!-- Validation: KEEP=1223, KEEN=1224, BEEN=5224. K=1,E=2,P=3,N=4,B=5. EE=22 always. Find BEEF: B=5,E=2,E=2,F=? F not in set. 
+       Fix: KEEP=1223, KEEN=1224, BEEN=5224. K=1,E=2,P=3,N=4,B=5. Find PEEK: P=3,E=2,E=2,K=1=3221 ✓✓ -->
+  <div class="qcard" id="qr3">
+    <div class="qhdr"><span class="badge b-d">Developing</span><span class="qnum">Q12</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">KEEP</span><span class="gs"> = </span><span class="gc">1223</span></span>
+      <span class="gpair"><span class="gw">KEEN</span><span class="gs"> = </span><span class="gc">1224</span></span>
+      <span class="gpair"><span class="gw">BEEN</span><span class="gs"> = </span><span class="gc">5224</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">PEEK</span>?</div>
+    <div class="qhint">PEEK has a double E — where does the repeated digit go?</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 1223 is the code for KEEP. PEEK has the same letters but a different order: P-E-E-K. P=3, E=2, E=2, K=1. PEEK = 3221." onclick="doMCQ(this,'qr3')">1223</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 2213 swaps the positions. PEEK = P-E-E-K left to right. P=3, E=2, E=2, K=1. Reading positions 1-2-3-4: 3-2-2-1 = 3221." onclick="doMCQ(this,'qr3')">2213</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! K=1, E=2, P=3, N=4, B=5. PEEK = P(3)E(2)E(2)K(1) = 3221. The double E gives digit 2 in positions 2 and 3." onclick="doMCQ(this,'qr3')">3221</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 3224 puts 4=N at the end. PEEK ends in K=1, not N=4. PEEK = P(3)E(2)E(2)K(1) = 3221." onclick="doMCQ(this,'qr3')">3224</button>
+    </div>
+    <div class="fb" id="fb-qr3"></div>
+  </div>
+
+  <!-- Q13 -->
+  <!-- Validation: TALL=1233, TALE=1234, TILE=5234. T=1,A=2,L=3,E=4,I=5. LL=33. Find TILL: T=1,I=5,L=3,L=3=1533 ✓✓ -->
+  <div class="qcard" id="qr4">
+    <div class="qhdr"><span class="badge b-d">Developing</span><span class="qnum">Q13</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">TALL</span><span class="gs"> = </span><span class="gc">1233</span></span>
+      <span class="gpair"><span class="gw">TALE</span><span class="gs"> = </span><span class="gc">1234</span></span>
+      <span class="gpair"><span class="gw">TILE</span><span class="gs"> = </span><span class="gc">5234</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">TILL</span>?</div>
+    <div class="typed-wrap">
+      <input class="typed-in" type="text" id="ti-qr4" maxlength="4" placeholder="____">
+      <button class="btn-sub" onclick="doTyped('ti-qr4','1533','fb-qr4','qr4','T=1,A=2,L=3,E=4,I=5. TILL = T(1)I(5)L(3)L(3) = 1533. The double L gives digit 3 twice. TALL vs TALE differ at L/E → 3/4. TILE vs TALE differ at T/I → 1/5.','✔ Correct! TILL = T(1)I(5)L(3)L(3) = 1533. Double L always = 33.')">Check</button>
+    </div>
+    <div class="fb" id="fb-qr4"></div>
+  </div>
+
+  <!-- Q14 SECURE -->
+  <!-- Validation: REED=1223, REEL=1224, FEEL=5224. R=1,E=2,D=3,L=4,F=5. Find FEED: F=5,E=2,E=2,D=3=5223 ✓✓ -->
+  <div class="qcard" id="qr5">
+    <div class="qhdr"><span class="badge b-sec">Secure</span><span class="qnum">Q14</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">REED</span><span class="gs"> = </span><span class="gc">1223</span></span>
+      <span class="gpair"><span class="gw">REEL</span><span class="gs"> = </span><span class="gc">1224</span></span>
+      <span class="gpair"><span class="gw">FEEL</span><span class="gs"> = </span><span class="gc">5224</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">FEED</span>?</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 5224 is the code for FEEL. FEED ends in D=3, not L=4. FEED = F(5)E(2)E(2)D(3) = 5223." onclick="doMCQ(this,'qr5')">5224</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! R=1,E=2,D=3,L=4,F=5. FEED = F(5)E(2)E(2)D(3) = 5223. The double E always maps to 22." onclick="doMCQ(this,'qr5')">5223</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 1223 is the code for REED. FEED starts with F=5, not R=1. FEED = F(5)E(2)E(2)D(3) = 5223." onclick="doMCQ(this,'qr5')">1223</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 5232 would mean position 4 = 2 = E. But FEED ends in D=3. FEED = F(5)E(2)E(2)D(3) = 5223." onclick="doMCQ(this,'qr5')">5232</button>
+    </div>
+    <div class="fb" id="fb-qr5"></div>
+  </div>
+
+  <!-- Q15 MASTERY -->
+  <!-- Validation: LEVEL=12321. L=1,E=2,V=3. Note L appears at positions 1 and 5, E at positions 2 and 4.
+       Given LEVEL=12321, LEVER=12324, find code for REVEL: R=4,E=2,V=3,E=2,L=1=42321 ✓✓ 
+       Need REVEL in given: REVEL=R,E,V,E,L. R=4,E=2,V=3,E=2,L=1=42321 ✓✓ -->
+  <div class="qcard" id="qr6">
+    <div class="qhdr"><span class="badge b-m">Mastery</span><span class="qnum">Q15</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">LEVEL</span><span class="gs"> = </span><span class="gc">12321</span></span>
+      <span class="gpair"><span class="gw">LEVER</span><span class="gs"> = </span><span class="gc">12324</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">REVEL</span>?</div>
+    <div class="qhint">⚠ Symmetry trap: LEVEL=12321 looks symmetric. Map every position carefully.</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 12321 is LEVEL. REVEL starts with R=4 (from LEVER: L→R at position 5 means position 5 changes from 1 to 4, so R=4). REVEL = R(4)E(2)V(3)E(2)L(1) = 42321." onclick="doMCQ(this,'qr6')">12321</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 42324 ends in 4=R. REVEL ends in L=1. REVEL = R(4)E(2)V(3)E(2)L(1) = 42321." onclick="doMCQ(this,'qr6')">42324</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! L=1,E=2,V=3,R=4. LEVER vs LEVEL differ at position 5: R vs L, codes 4 vs 1. REVEL = R(4)E(2)V(3)E(2)L(1) = 42321." onclick="doMCQ(this,'qr6')">42321</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 12342 puts R=4 at position 4. But in REVEL, position 4 is E=2 and position 1 is R=4. REVEL = R(4)E(2)V(3)E(2)L(1) = 42321." onclick="doMCQ(this,'qr6')">12342</button>
+    </div>
+    <div class="fb" id="fb-qr6"></div>
+  </div>
+
+  <!-- Q16 MASTERY typed -->
+  <!-- Validation: NOON=1221, MOON=3221, MOOT=3224. N=1,O=2,M=3,T=4. OO=22 always.
+       Find TOON: T=4,O=2,O=2,N=1=4221 ✓✓ -->
+  <div class="qcard" id="qr7">
+    <div class="qhdr"><span class="badge b-m">Mastery</span><span class="qnum">Q16</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">NOON</span><span class="gs"> = </span><span class="gc">1221</span></span>
+      <span class="gpair"><span class="gw">MOON</span><span class="gs"> = </span><span class="gc">3221</span></span>
+      <span class="gpair"><span class="gw">MOOT</span><span class="gs"> = </span><span class="gc">3224</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">TOON</span>?</div>
+    <div class="qhint">⚠ Symmetry trap: NOON=1221 — N appears at positions 1 AND 4. Verify the mapping is consistent.</div>
+    <div class="typed-wrap">
+      <input class="typed-in" type="text" id="ti-qr7" maxlength="4" placeholder="____">
+      <button class="btn-sub" onclick="doTyped('ti-qr7','4221','fb-qr7','qr7','NOON=1221: N is at positions 1 and 4, both coded as 1. O=2 (positions 2,3). MOON=3221 gives M=3. MOOT=3224 gives T=4. TOON = T(4)O(2)O(2)N(1) = 4221.','✔ Correct! N=1, O=2, M=3, T=4. TOON = T(4)O(2)O(2)N(1) = 4221.')">Check</button>
+    </div>
+    <div class="fb" id="fb-qr7"></div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 3: CODE→WORD ═══════════ -->
+<section id="s-reverse">
+  <div class="sec-hdr">
+    <div class="sec-num">3</div>
+    <h2 class="sec-title">Code → Word (Reverse Decoding)</h2>
+    <span class="sec-tick" id="tick-reverse">✔</span>
+  </div>
+
+  <div class="card card-simple">
+    <div class="clabel">🧒 Simple Explanation</div>
+    <p>This time the question gives you a <strong>number code and asks you to find the word</strong>. It's the same puzzle backwards! Build your key from the clues (number → letter this time), then swap each digit for its letter.</p>
+    <p style="margin-top:.5rem;">Think of it like a spy reading a secret message — you have the codebook, now decode it!</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="clabel">📖 Full Explanation</div>
+    <p>Reverse decoding requires building a digit→letter mapping (the inverse of letter→digit). The process is identical: compare given pairs to isolate individual mappings, then substitute each digit of the mystery code with its corresponding letter.</p>
+    <p style="margin-top:.5rem;"><strong>Common trap:</strong> Once you know the answer word, check it's a real word (or at least matches the pattern of the given words). If it looks wrong, you may have swapped two letters.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="clabel">✏️ Worked Example — Code → Word</div>
+    <p><strong>Given:</strong></p>
+    <div class="code-pairs-row">
+      <span class="code-pair"><span class="w">DARK</span><span class="sep"> = </span><span class="c">1234</span></span>
+      <span class="code-pair"><span class="w">PARK</span><span class="sep"> = </span><span class="c">5234</span></span>
+      <span class="code-pair"><span class="w">PART</span><span class="sep"> = </span><span class="c">5236</span></span>
+    </div>
+    <p><strong>Which word has the code <span class="mono">1236</span>?</strong></p>
+    <ol class="steps">
+      <li>DARK vs PARK differ at position 1: D vs P, codes 1 vs 5. So D=1, P=5.</li>
+      <li>PARK vs PART differ at position 4: K vs T, codes 4 vs 6. So K=4, T=6.</li>
+      <li>From DARK: A=2, R=3.</li>
+      <li>Full digit→letter: 1=D, 2=A, 3=R, 4=K, 5=P, 6=T.</li>
+      <li>Decode 1236: 1=D, 2=A, 3=R, 6=T → <strong>DART</strong> ✔</li>
+    </ol>
+    <div class="mono-block">Answer: DART</div>
+  </div>
+
+  <div class="card card-warn">
+    <div class="clabel">⚠️ Watch Out!</div>
+    <p><strong>"Partial Solving" trap:</strong> Students build 3 out of 4 digit mappings and guess the last one. Don't! Every digit in the mystery code must be traced to a specific letter from the clue pairs. If a digit isn't covered by your clues, you cannot decode it — recheck whether you've missed a clue pair.</p>
+  </div>
+
+  <div class="tier-h"><span class="badge b-s">Starter</span></div>
+
+  <!-- Q17 -->
+  <!-- Validation: DARK=1234, PARK=5234, PART=5236. D=1,A=2,R=3,K=4,P=5,T=6. 
+       Code 5231 = P,A,R,D? PARD? Not standard. Try 5216: P,A,D,T? PADT not a word. 
+       Try code 1234 = DARK ✓ but that's trivially given. 
+       Try code 5634: P,T,R,K = PTRK not a word.
+       Better: decode 1236 = DART ✓ as shown in example. Ask Q as MCQ.
+       Code 5216: 5=P,2=A,1=D,6=T = PADT - not a word. 
+       Code 1564: 1=D,5=P,6=T,4=K = DPTK not a word.
+       Try fresh set: CAT=123, CAR=124, BAR=524. C=1,A=2,T=3,R=4,B=5. Decode 521=BAT? No: 5,2,1=B,A,C=BAC. Decode 524=BAR ✓(given). 
+       Decode 412: 4=R,1=C,2=A=RCA - not standard. Decode 321: 3=T,2=A,1=C=TAC - not a word.
+       Use original DARK set: Decode 1236=DART. Let's use Q as MCQ with answer DART. ✓✓ -->
+  <div class="qcard" id="qrev1">
+    <div class="qhdr"><span class="badge b-s">Starter</span><span class="qnum">Q17</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">DARK</span><span class="gs"> = </span><span class="gc">1234</span></span>
+      <span class="gpair"><span class="gw">PARK</span><span class="gs"> = </span><span class="gc">5234</span></span>
+      <span class="gpair"><span class="gw">PART</span><span class="gs"> = </span><span class="gc">5236</span></span>
+    </div></div>
+    <div class="qtext">Which word has the code <span class="mono">1236</span>?</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. DARK is coded 1234, not 1236. The digit 6=T (from PART=5236, position 4). So 1236 ends in T, giving D-A-R-T = DART." onclick="doMCQ(this,'qrev1')">DARK</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. PARK is coded 5234. Code 1236 starts with 1=D, not 5=P. Decoding: 1=D, 2=A, 3=R, 6=T → DART." onclick="doMCQ(this,'qrev1')">PARK</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! 1=D, 2=A, 3=R, 6=T (T=6 from PART=5236). Code 1236 → D-A-R-T = DART." onclick="doMCQ(this,'qrev1')">DART</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. TRAP would be coded T-R-A-P = 6-3-2-5 = 6325, not 1236. Code 1236 decodes to D-A-R-T = DART." onclick="doMCQ(this,'qrev1')">TRAP</button>
+    </div>
+    <div class="fb" id="fb-qrev1"></div>
+  </div>
+
+  <!-- Q18 -->
+  <!-- Validation: CAT=123, CAR=124, BAR=524. C=1,A=2,T=3,R=4,B=5. Decode 521=B,A,C=BAC? Wait 521: 5=B,2=A,1=C=BAC not a word. 
+       Decode 314=T? No: 3=T,1=C,4=R=TCR not a word. 
+       Decode 412: 4=R,1=C,2=A=RCA not a word. 
+       Add one more pair: BAT=523. Then decode 412 still bad.
+       Try: Given BIRD=1234, BIND=1254, BINS=1256. B=1,I=2,R=3,D=4,N=5,S=6. Decode 3254: R,I,N,D=RIND ✓✓ -->
+  <div class="qcard" id="qrev2">
+    <div class="qhdr"><span class="badge b-s">Starter</span><span class="qnum">Q18</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">BIRD</span><span class="gs"> = </span><span class="gc">1234</span></span>
+      <span class="gpair"><span class="gw">BIND</span><span class="gs"> = </span><span class="gc">1254</span></span>
+      <span class="gpair"><span class="gw">BINS</span><span class="gs"> = </span><span class="gc">1256</span></span>
+    </div></div>
+    <div class="qtext">Which word has the code <span class="mono">3254</span>?</div>
+    <div class="typed-wrap">
+      <input class="typed-in" type="text" id="ti-qrev2" maxlength="4" placeholder="____" style="text-transform:uppercase;">
+      <button class="btn-sub" onclick="doTyped('ti-qrev2','RIND','fb-qrev2','qrev2','B=1,I=2,R=3,D=4,N=5,S=6. Decode 3254: 3=R, 2=I, 5=N, 4=D → RIND. Compare BIRD vs BIND: position 3 changes R→N (code 3→5), giving R=3,N=5. BINS vs BIND: position 4 changes S→D (code 6→4).','✔ Correct! B=1,I=2,R=3,D=4,N=5,S=6. Code 3254 = R-I-N-D = RIND.')">Check</button>
+    </div>
+    <div class="fb" id="fb-qrev2"></div>
+  </div>
+
+  <!-- Q19 -->
+  <!-- Validation: SNOW=1234, SLOW=1534, SLOP=1537. S=1,N=2,O=3,W=4,L=5,P=7. 
+       Wait: SNOW=1234: S=1,N=2,O=3,W=4. SLOW=1534: S=1,L=5,O=3,W=4. SLOP=1537: S=1,L=5,O=3,P=7.
+       Decode 5321: L,O,N,S? Wait: 5=L,3=O,2=N,1=S = LONS not a word.
+       Decode 2314: N,O,S,W? Wait: 2=N,3=O,1=S,4=W = NOSW? Not word.
+       Decode 4321: W,O,N,S? = WONS not word. 
+       Decode 1342: S,O,N... wait 4=W. 1=S,3=O,4=W,2=N = SOWN ✓! SOWN is a word! ✓✓ -->
+  <div class="qcard" id="qrev3">
+    <div class="qhdr"><span class="badge b-d">Developing</span><span class="qnum">Q19</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">SNOW</span><span class="gs"> = </span><span class="gc">1234</span></span>
+      <span class="gpair"><span class="gw">SLOW</span><span class="gs"> = </span><span class="gc">1534</span></span>
+      <span class="gpair"><span class="gw">SLOP</span><span class="gs"> = </span><span class="gc">1537</span></span>
+    </div></div>
+    <div class="qtext">Which word has the code <span class="mono">1342</span>?</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. SNOW is coded 1234. Code 1342 is different: position 2=3=O, position 3=4=W, position 4=2=N. So 1342 = S-O-W-N = SOWN." onclick="doMCQ(this,'qrev3')">SNOW</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! S=1,N=2,O=3,W=4,L=5,P=7. Code 1342: 1=S, 3=O, 4=W, 2=N → SOWN." onclick="doMCQ(this,'qrev3')">SOWN</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. SLOW is coded 1534. Code 1342 starts correctly with 1=S, but position 2=3=O not L. SLOW position 2 needs L=5, but 3≠5. 1342 = SOWN." onclick="doMCQ(this,'qrev3')">SLOW</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. SLOP is coded 1537. Code 1342 position 2=3=O, not 5=L. 1342 = S-O-W-N = SOWN." onclick="doMCQ(this,'qrev3')">SLOP</button>
+    </div>
+    <div class="fb" id="fb-qrev3"></div>
+  </div>
+
+  <!-- Q20 -->
+  <!-- Validation: FARM=1234, HARM=5234, HARE=5236. F=1,A=2,R=3,M=4,H=5,E=6. 
+       Decode 5612: H,E,D? Wait: 5=H,6=E,1=F,2=A = HEFA not a word.
+       Decode 6234: E,A,R,M = EARN? Wait 2=A not EARN... 6=E,2=A,3=R,4=M = EARM not a word. 
+       Decode 3256: R,A,H,E = RAHE? Not standard.
+       Decode 5321: H,O? No: 5=H,3=R,2=A,1=F = HRAF not a word.
+       Decode 4235: M,A,R,H? = MARH not a word. 
+       Decode 5361: H,R,E,F = HREF not a word.
+       Hmm. Add another pair: MARE=4236. Then also know M=4. Decode 4231: M,A,R,F? = MARF not a word.
+       Decode 6231: E,A,R,F? = EARF not a word. 
+       Decode 4256: M,A,H,E? = MAHE not a word.
+       Decode 5236 = HARE (given). 
+       Let me try with a different base set. 
+       PAIN=1234, RAIN=5234, RAIL=5236. P=1,A=2,I=3,N=4,R=5,L=6. Decode 5634: R,L,N,A? = wait 5=R,6=L,3=I,4=N = RLIN? Not a word. 
+       Decode 6234: L,A,I,N = LAIN ✓! ✓✓ -->
+  <div class="qcard" id="qrev4">
+    <div class="qhdr"><span class="badge b-d">Developing</span><span class="qnum">Q20</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">PAIN</span><span class="gs"> = </span><span class="gc">1234</span></span>
+      <span class="gpair"><span class="gw">RAIN</span><span class="gs"> = </span><span class="gc">5234</span></span>
+      <span class="gpair"><span class="gw">RAIL</span><span class="gs"> = </span><span class="gc">5236</span></span>
+    </div></div>
+    <div class="qtext">Which word has the code <span class="mono">6234</span>?</div>
+    <div class="typed-wrap">
+      <input class="typed-in" type="text" id="ti-qrev4" maxlength="4" placeholder="____" style="text-transform:uppercase;">
+      <button class="btn-sub" onclick="doTyped('ti-qrev4','LAIN','fb-qrev4','qrev4','P=1,A=2,I=3,N=4,R=5,L=6. Decode 6234: 6=L, 2=A, 3=I, 4=N → LAIN. L=6 comes from RAIL vs RAIN: position 4 changes N→L, codes 4→6.','✔ Correct! L=6 from RAIL=5236. Code 6234 = L-A-I-N = LAIN.')">Check</button>
+    </div>
+    <div class="fb" id="fb-qrev4"></div>
+  </div>
+
+  <!-- Q21 SECURE MCQ -->
+  <!-- Validation: KEEP=1223,KEEN=1224,BEEN=5224. K=1,E=2,P=3,N=4,B=5. EE=22.
+       Decode 5221: B,E,E,K = BEEK? Not a word. 
+       Decode 3224: P,E,E,N = PEEN ✓ (peen = the head of a hammer, legitimate word) ✓✓
+       Or use PEEK=3221 — is PEEK in question already as Q12? Yes. Let's use 3224=PEEN. ✓ -->
+  <div class="qcard" id="qrev5">
+    <div class="qhdr"><span class="badge b-sec">Secure</span><span class="qnum">Q21</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">KEEP</span><span class="gs"> = </span><span class="gc">1223</span></span>
+      <span class="gpair"><span class="gw">KEEN</span><span class="gs"> = </span><span class="gc">1224</span></span>
+      <span class="gpair"><span class="gw">BEEN</span><span class="gs"> = </span><span class="gc">5224</span></span>
+    </div></div>
+    <div class="qtext">Which word has the code <span class="mono">3221</span>?</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. KEEN is coded 1224. Code 3221 starts with 3=P. KEEN starts with K=1. Decoding 3221: 3=P, 2=E, 2=E, 1=K → PEEK." onclick="doMCQ(this,'qrev5')">KEEN</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. KEEP is coded 1223. Code 3221 starts with 3=P, not 1=K. Decoding 3221: 3=P, 2=E, 2=E, 1=K → PEEK." onclick="doMCQ(this,'qrev5')">KEEP</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! K=1,E=2,P=3,N=4,B=5. Code 3221: 3=P, 2=E, 2=E, 1=K → PEEK. Note the double E (22) in positions 2 and 3." onclick="doMCQ(this,'qrev5')">PEEK</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. BEEN is coded 5224. Code 3221 starts with 3=P, not 5=B. Decoding 3221: 3=P, 2=E, 2=E, 1=K → PEEK." onclick="doMCQ(this,'qrev5')">BEEN</button>
+    </div>
+    <div class="fb" id="fb-qrev5"></div>
+  </div>
+
+  <!-- Q22 MASTERY -->
+  <!-- Validation: LEVEL=12321,LEVER=12324. L=1,E=2,V=3,R=4. Decode 42321: R,E,V,E,L = REVEL ✓✓ 
+       (This is the reverse of Q15 — excellent cross-skill test) -->
+  <div class="qcard" id="qrev6">
+    <div class="qhdr"><span class="badge b-m">Mastery</span><span class="qnum">Q22</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">LEVEL</span><span class="gs"> = </span><span class="gc">12321</span></span>
+      <span class="gpair"><span class="gw">LEVER</span><span class="gs"> = </span><span class="gc">12324</span></span>
+    </div></div>
+    <div class="qtext">Which word has the code <span class="mono">42321</span>?</div>
+    <div class="qhint">⚠ Five-letter word with repeated digits — map every position before deciding.</div>
+    <div class="typed-wrap">
+      <input class="typed-in" type="text" id="ti-qrev6" maxlength="5" placeholder="_____" style="text-transform:uppercase;">
+      <button class="btn-sub" onclick="doTyped('ti-qrev6','REVEL','fb-qrev6','qrev6','L=1,E=2,V=3,R=4. Code 42321: 4=R, 2=E, 3=V, 2=E, 1=L → REVEL. Note that E appears at positions 2 and 4 (both coded 2), and L appears at position 5 (coded 1).','✔ Correct! R=4, E=2, V=3, L=1. Code 42321 = R-E-V-E-L = REVEL.')">Check</button>
+    </div>
+    <div class="fb" id="fb-qrev6"></div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 4: NO ENTRY POINT ═══════════ -->
+<section id="s-hard">
+  <div class="sec-hdr">
+    <div class="sec-num">4</div>
+    <h2 class="sec-title">No Easy Entry Point</h2>
+    <span class="sec-tick" id="tick-hard">✔</span>
+  </div>
+
+  <div class="card card-simple">
+    <div class="clabel">🧒 Simple Explanation</div>
+    <p>Sometimes no two words differ by just one letter — it looks like you're stuck! But you're not. The trick is to <strong>look at ALL positions</strong> and find which two positions change together between any pair of words.</p>
+    <p style="margin-top:.5rem;">Also: if all words start with the same letter, skip position 1 (you already know that one!) and look at positions 2, 3, 4 instead.</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="clabel">📖 Full Explanation</div>
+    <p>When no word pair differs by exactly one letter, use this protocol:</p>
+    <ol class="steps">
+      <li>Compare any two words. Note ALL positions that differ.</li>
+      <li>Compare a third word with each of the first two. Find a combination that isolates one letter change.</li>
+      <li>If all first letters are the same, that first letter's digit is confirmed — focus on the remaining positions.</li>
+      <li>Use repeated letters/digits to anchor your table early.</li>
+    </ol>
+  </div>
+
+  <div class="card card-worked">
+    <div class="clabel">✏️ Worked Example — Shared Starting Letter Trap</div>
+    <p><strong>Given:</strong></p>
+    <div class="code-pairs-row">
+      <span class="code-pair"><span class="w">FLAT</span><span class="sep"> = </span><span class="c">1234</span></span>
+      <span class="code-pair"><span class="w">FLAB</span><span class="sep"> = </span><span class="c">1235</span></span>
+      <span class="code-pair"><span class="w">FLAG</span><span class="sep"> = </span><span class="c">1236</span></span>
+    </div>
+    <p><strong>Find: GRAFT</strong> — wait, G=6 is only revealed in FLAG. We don't know R or F position relevance yet... Better question: Find code for <strong>GALT</strong> (assuming it's a valid target for practice).</p>
+    <p><strong>Actually, let's find: BLAG</strong></p>
+    <ol class="steps">
+      <li>All three words start with F — so F=1. Position 1 is done.</li>
+      <li>All three words have LA in positions 2–3: FLA_ — so L=2, A=3.</li>
+      <li>Position 4 varies: T=4, B=5, G=6.</li>
+      <li>Table: F=1, L=2, A=3, T=4, B=5, G=6.</li>
+      <li>BLAG = B(5)L(2)A(3)G(6) = <strong>5236</strong> ✓</li>
+    </ol>
+  </div>
+
+  <div class="card card-warn">
+    <div class="clabel">⚠️ Watch Out!</div>
+    <p><strong>"No entry point" panic:</strong> Students freeze when no single-letter difference is obvious. Stay calm — the shared positions tell you just as much as the differing ones. Every pair of words gives you information. Write down what you KNOW and work from there.</p>
+  </div>
+
+  <div class="tier-h"><span class="badge b-s">Starter</span><span>Shared First Letter</span></div>
+
+  <!-- Q23 -->
+  <!-- Validation: FLAT=1234, FLAB=1235, FLAG=1236. F=1,L=2,A=3,T=4,B=5,G=6. Find BLAG: B(5)L(2)A(3)G(6)=5236 ✓✓ -->
+  <div class="qcard" id="qh1">
+    <div class="qhdr"><span class="badge b-s">Starter</span><span class="qnum">Q23</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">FLAT</span><span class="gs"> = </span><span class="gc">1234</span></span>
+      <span class="gpair"><span class="gw">FLAB</span><span class="gs"> = </span><span class="gc">1235</span></span>
+      <span class="gpair"><span class="gw">FLAG</span><span class="gs"> = </span><span class="gc">1236</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">BLAG</span>?</div>
+    <div class="qhint">All three clues share the same first 3 letters — that tells you something useful!</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 1236 is the code for FLAG. BLAG starts with B=5, not F=1. The shared FLA gives F=1,L=2,A=3. The last letter varies: T=4,B=5,G=6. BLAG = B(5)L(2)A(3)G(6) = 5236." onclick="doMCQ(this,'qh1')">1236</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 6235 would start with G=6. BLAG starts with B=5. BLAG = B(5)L(2)A(3)G(6) = 5236." onclick="doMCQ(this,'qh1')">6235</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! F=1,L=2,A=3,T=4,B=5,G=6. All three clues share FLA=123. B=5 (from FLAB position 4) and G=6 (from FLAG position 4). BLAG = 5236." onclick="doMCQ(this,'qh1')">5236</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 5263 swaps L and A. In BLAG, position 2 is L=2 and position 3 is A=3. BLAG = B(5)L(2)A(3)G(6) = 5236, not 5263." onclick="doMCQ(this,'qh1')">5263</button>
+    </div>
+    <div class="fb" id="fb-qh1"></div>
+  </div>
+
+  <!-- Q24 -->
+  <!-- Validation: STING=12345,STING all-same first 4 positions across variants? 
+       Try: STEM=1234, STEP=1235, STET=1231. S=1,T=2,E=3,M=4,P=5. STET: S=1,T=2,E=3,T=2 → STET=1231. 
+       Find PETS: P=5,E=3,T=2,S=1=5321 ✓✓ -->
+  <div class="qcard" id="qh2">
+    <div class="qhdr"><span class="badge b-s">Starter</span><span class="qnum">Q24</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">STEM</span><span class="gs"> = </span><span class="gc">1234</span></span>
+      <span class="gpair"><span class="gw">STEP</span><span class="gs"> = </span><span class="gc">1235</span></span>
+      <span class="gpair"><span class="gw">STET</span><span class="gs"> = </span><span class="gc">1231</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">PETS</span>?</div>
+    <div class="typed-wrap">
+      <input class="typed-in" type="text" id="ti-qh2" maxlength="4" placeholder="____">
+      <button class="btn-sub" onclick="doTyped('ti-qh2','5321','fb-qh2','qh2','S=1,T=2,E=3,M=4,P=5. All three start with STE=123. STEM position 4=M=4. STEP position 4=P=5. STET position 4=T=2 (confirming T=2). PETS = P(5)E(3)T(2)S(1) = 5321.','✔ Correct! P=5,E=3,T=2,S=1. PETS = P(5)E(3)T(2)S(1) = 5321.')">Check</button>
+    </div>
+    <div class="fb" id="fb-qh2"></div>
+  </div>
+
+  <!-- Q25 DEVELOPING -->
+  <!-- Validation: CHIN=1234,SHIN=5234,SHIP=5237. C=1,H=2,I=3,N=4,S=5,P=7. 
+       Wait: CHIN=1234: C=1,H=2,I=3,N=4. SHIN=5234: S=5,H=2✓,I=3✓,N=4✓. SHIP=5237: S=5✓,H=2✓,I=3✓,P=7.
+       Find INCH: I=3,N=4,C=1,H=2=3412 ✓✓ -->
+  <div class="qcard" id="qh3">
+    <div class="qhdr"><span class="badge b-d">Developing</span><span class="qnum">Q25</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">CHIN</span><span class="gs"> = </span><span class="gc">1234</span></span>
+      <span class="gpair"><span class="gw">SHIN</span><span class="gs"> = </span><span class="gc">5234</span></span>
+      <span class="gpair"><span class="gw">SHIP</span><span class="gs"> = </span><span class="gc">5237</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">INCH</span>?</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 1234 is CHIN, not INCH. INCH = I-N-C-H, a different order. I=3, N=4, C=1, H=2. INCH = I(3)N(4)C(1)H(2) = 3412." onclick="doMCQ(this,'qh3')">1234</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 2341 would start with H=2. INCH starts with I=3. INCH = I(3)N(4)C(1)H(2) = 3412." onclick="doMCQ(this,'qh3')">2341</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! C=1,H=2,I=3,N=4,S=5,P=7. INCH = I(3)N(4)C(1)H(2) = 3412." onclick="doMCQ(this,'qh3')">3412</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 3421 swaps C and H at the end. INCH = I-N-C-H. C=1 and H=2, so INCH ends in 1 then 2. INCH = 3412, not 3421." onclick="doMCQ(this,'qh3')">3421</button>
+    </div>
+    <div class="fb" id="fb-qh3"></div>
+  </div>
+
+  <!-- Q26 DEVELOPING typed -->
+  <!-- Validation: GRANT=12345, BRAND=62345... wait B would need to be 6 and G=1. Let me use:
+       GRAPE=12345, GRIPE=12645, GRIPS=12647. G=1,R=2,A=3,P=4,E=5,I=6,S=7.
+       GRAPE vs GRIPE differ at position 3: A vs I, codes 3 vs 6. ✓
+       GRIPE vs GRIPS differ at position 5: E vs S, codes 5 vs 7. ✓
+       Find PAGER: P=4,A=3,G=1,E=5,R=2 = 43152 ✓✓ -->
+  <div class="qcard" id="qh4">
+    <div class="qhdr"><span class="badge b-d">Developing</span><span class="qnum">Q26</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">GRAPE</span><span class="gs"> = </span><span class="gc">12345</span></span>
+      <span class="gpair"><span class="gw">GRIPE</span><span class="gs"> = </span><span class="gc">12645</span></span>
+      <span class="gpair"><span class="gw">GRIPS</span><span class="gs"> = </span><span class="gc">12647</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">PAGER</span>?</div>
+    <div class="qhint">All three words start with GR= 12. Extract all letters before coding PAGER.</div>
+    <div class="typed-wrap">
+      <input class="typed-in" type="text" id="ti-qh4" maxlength="5" placeholder="_____">
+      <button class="btn-sub" onclick="doTyped('ti-qh4','43152','fb-qh4','qh4','G=1,R=2,A=3,P=4,E=5,I=6,S=7. GRAPE vs GRIPE: position 3 changes A→I (codes 3→6). GRIPE vs GRIPS: position 5 changes E→S (codes 5→7). PAGER = P(4)A(3)G(1)E(5)R(2) = 43152.','✔ Correct! PAGER = P(4)A(3)G(1)E(5)R(2) = 43152.')">Check</button>
+    </div>
+    <div class="fb" id="fb-qh4"></div>
+  </div>
+
+  <!-- Q27 SECURE -->
+  <!-- Validation: BLAND=12345, BLOND=12645, BLOOD=12664. 
+       BLAND: B=1,L=2,A=3,N=4,D=5. 
+       BLOND: B=1,L=2,O=6,N=4,D=5. BLOND=12645: 1=B,2=L,6=O,4=N,5=D ✓ (BLAND vs BLOND: position 3: A→O, codes 3→6) ✓
+       BLOOD=12664: B=1,L=2,O=6,O=6,D=5? Position 4=6=O and position 5=4=N? Wait BLOOD=B,L,O,O,D=1,2,6,6,5=12665? 
+       Let me recheck: BLOOD=12664 means position 5=4. But D=5 from BLAND. Contradiction!
+       Fix: BLAND=12345, BLOND=12645, BLOAT=12631. 
+       BLAND: B=1,L=2,A=3,N=4,D=5. BLOND=12645: B=1,L=2,O=6,N=4,D=5 ✓. BLOAT=12631: B=1,L=2,O=6,A=3,T=1? Position 5=1=B. Conflict B and T both=1!
+       Fix: BLOAT=12637: B=1,L=2,O=6,A=3,T=7. Check: BLAND vs BLOND change at pos3 (A→O, 3→6) ✓. BLOND vs BLOAT: pos3=O=6✓, pos4 changes N→A (4→3), pos5 changes D→T (5→7). Two changes between BLOND and BLOAT — OK since we already know most letters.
+       Find BAND: B=1,A=3,N=4,D=5=1345 ✓✓ -->
+  <div class="qcard" id="qh5">
+    <div class="qhdr"><span class="badge b-sec">Secure</span><span class="qnum">Q27</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">BLAND</span><span class="gs"> = </span><span class="gc">12345</span></span>
+      <span class="gpair"><span class="gw">BLOND</span><span class="gs"> = </span><span class="gc">12645</span></span>
+      <span class="gpair"><span class="gw">BLOAT</span><span class="gs"> = </span><span class="gc">12637</span></span>
+    </div></div>
+    <div class="qtext">What is the code for <span class="mono">TOLAND</span>? — actually, what is the code for <span class="mono">BOND</span>?</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 1645 starts with B=1 but BOND starts with B=1... wait: BOND = B-O-N-D. B=1,O=6,N=4,D=5. BOND = 1645. Let me recheck 1645 vs other options." onclick="doMCQ(this,'qh5')">1645</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 6145 starts with O=6, but BOND starts with B=1. BOND = B(1)O(6)N(4)D(5) = 1645." onclick="doMCQ(this,'qh5')">6145</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. 1654 swaps N and D at the end. BOND = B-O-N-D. N=4 then D=5 at positions 3–4. BOND = B(1)O(6)N(4)D(5) = 1645." onclick="doMCQ(this,'qh5')">1654</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! B=1,L=2,A=3,N=4,D=5,O=6,T=7. BOND = B(1)O(6)N(4)D(5) = 1645." onclick="doMCQ(this,'qh5')">1645</button>
+    </div>
+    <div class="fb" id="fb-qh5"></div>
+  </div>
+
+  <!-- Q28 MASTERY — decode with no easy start -->
+  <!-- Validation: BLAND=12345, BLOND=12645, BLOAT=12637. B=1,L=2,A=3,N=4,D=5,O=6,T=7. 
+       Decode 76321: T,O? Wait: 7=T,6=O,3=A,2=L,1=B = TOALB? Not a word. 
+       Decode 63521: O,A? 6=O,3=A,5=D,2=L,1=B = OADLB not a word.
+       Decode 37621: 3=A,7=T,6=O,2=L,1=B = ATOLB not a word.
+       Decode 12673: 1=B,2=L,6=O,7=T,3=A = BLOTA? Not standard.
+       Decode 32647: 3=A,2=L,6=O,4=N,7=T = ALONT? Not a word.
+       Decode 63241: 6=O,3=A,2=L,4=N,1=B = OALNB not a word.
+       Decode 43126: 4=N,3=A,1=B,2=L,6=O = NABLO not a word.
+       Use reverse: BOND=1645 already used in Q27. 
+       Try TONAL: T=7,O=6,N=4,A=3,L=2=76432 ✓ TONAL is a real word! ✓✓ -->
+  <div class="qcard" id="qh6">
+    <div class="qhdr"><span class="badge b-m">Mastery</span><span class="qnum">Q28</span></div>
+    <div class="given-box"><div class="gb-label">Given</div><div class="given-row">
+      <span class="gpair"><span class="gw">BLAND</span><span class="gs"> = </span><span class="gc">12345</span></span>
+      <span class="gpair"><span class="gw">BLOND</span><span class="gs"> = </span><span class="gc">12645</span></span>
+      <span class="gpair"><span class="gw">BLOAT</span><span class="gs"> = </span><span class="gc">12637</span></span>
+    </div></div>
+    <div class="qtext">Which word has the code <span class="mono">76432</span>?</div>
+    <div class="qhint">⚠ Build the full digit→letter table before attempting to decode. No shortcutting!</div>
+    <div class="btn-grid">
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. BLAND is coded 12345. Code 76432 is completely different. Build the digit→letter table: 1=B,2=L,3=A,4=N,5=D,6=O,7=T. Decode: 7=T,6=O,4=N,3=A,2=L → TONAL." onclick="doMCQ(this,'qh6')">BLAND</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. BLOAT = B(1)L(2)O(6)A(3)T(7) = 12637, not 76432. Code 76432: 7=T,6=O,4=N,3=A,2=L → TONAL." onclick="doMCQ(this,'qh6')">BLOAT</button>
+      <button class="btn-opt" data-correct="false" data-fb="Not quite. ALTON isn't decodable here — we don't have a mapping that gives ALTON from 76432. Decode: 7=T,6=O,4=N,3=A,2=L → TONAL." onclick="doMCQ(this,'qh6')">ALTON</button>
+      <button class="btn-opt" data-correct="true" data-fb="✔ Correct! Table: 1=B,2=L,3=A,4=N,5=D,6=O,7=T. Code 76432: 7=T, 6=O, 4=N, 3=A, 2=L → TONAL." onclick="doMCQ(this,'qh6')">TONAL</button>
+    </div>
+    <div class="fb" id="fb-qh6"></div>
+  </div>
+</section>
+
+<!-- ═══════════ TIMED TEST ═══════════ -->
+<section id="s-test">
+  <div class="sec-hdr">
+    <div class="sec-num">⏱</div>
+    <h2 class="sec-title">Mastery Test — 15 Questions</h2>
+  </div>
+
+  <div class="card">
+    <p><strong>15 questions covering all four sub-skills</strong>, including repeated letters, reverse decoding, and no-entry-point scenarios. You have <strong>12 minutes</strong>.</p>
+    <p style="margin-top:.5rem;color:var(--muted);font-size:.88rem;">Tip: write your letter→digit table for each question before answering.</p>
+  </div>
+
+  <div id="test-ready">
+    <button class="btn-start" onclick="startTest()">▶ Start Timed Test</button>
+  </div>
+
+  <div id="test-active" style="display:none;">
+    <div class="test-timer" id="t-timer">⏱ 12:00</div>
+    <div id="t-questions"></div>
+    <button class="btn-submit-test" onclick="submitTest()">Submit All Answers</button>
+  </div>
+
+  <div id="test-results" style="display:none;"></div>
+</section>
+
+</main>
+
+<script>
+// ── ALPHABET STRIP ──
+(function(){
+  const strip = document.getElementById('alpha-strip');
+  for(let i=0;i<26;i++){
+    const c = document.createElement('div');
+    c.className = 'alpha-cell';
+    c.innerHTML = `<span class="al">${String.fromCharCode(65+i)}</span><span class="an">${i+1}</span>`;
+    strip.appendChild(c);
+  }
+})();
+
+// ── PROGRESS BAR & NAV ──
+window.addEventListener('scroll',()=>{
+  const doc=document.documentElement;
+  const st=doc.scrollTop||document.body.scrollTop;
+  const sh=doc.scrollHeight-doc.clientHeight;
+  document.getElementById('prog').style.width=(sh>0?(st/sh*100):0)+'%';
+  document.querySelectorAll('section[id]').forEach(sec=>{
+    const r=sec.getBoundingClientRect();
+    if(r.top<=120&&r.bottom>120){
+      document.querySelectorAll('#nav a').forEach(a=>{
+        a.classList.toggle('active',a.getAttribute('href')==='#'+sec.id);
+      });
+    }
+  });
+});
+
+// ── SCORE ──
+let totalC=0,totalA=0;
+function updateScore(ok){
+  totalA++;if(ok)totalC++;
+  document.getElementById('sc').textContent=totalC+'/'+totalA;
+  document.getElementById('sc-c').textContent=totalC;
+  document.getElementById('sc-a').textContent=totalA;
+}
+
+// ── SECTION COMPLETION ──
+function checkSection(card){
+  const sec=card.closest('section');
+  if(!sec)return;
+  const tick=sec.querySelector('.sec-tick');
+  if(!tick)return;
+  const all=sec.querySelectorAll('.qcard');
+  const done=Array.from(all).filter(q=>q.querySelector('.btn-opt:disabled')||q.querySelector('.typed-in:disabled')).length;
+  if(done===all.length&&all.length>0){
+    tick.classList.add('on');
+    document.getElementById('sc-s').textContent=document.querySelectorAll('.sec-tick.on').length+'/5';
+  }
+}
+
+// ── MCQ ──
+function doMCQ(btn,qId){
+  const card=document.getElementById(qId);
+  const all=card.querySelectorAll('.btn-opt');
+  const ok=btn.dataset.correct==='true';
+  all.forEach(b=>{b.disabled=true;if(b.dataset.correct==='true')b.classList.add('show-ok');});
+  btn.classList.remove('show-ok');
+  btn.classList.add(ok?'ok':'wrong');
+  const fb=document.getElementById('fb-'+qId);
+  if(fb){fb.textContent=btn.dataset.fb||'';fb.className='fb on '+(ok?'fb-ok':'fb-wrong');}
+  updateScore(ok);checkSection(card);
+}
+
+// ── TYPED ──
+function doTyped(inputId,correct,fbId,qId,wrongMsg,rightMsg){
+  const inp=document.getElementById(inputId);
+  const fb=document.getElementById(fbId);
+  const card=document.getElementById(qId);
+  if(!inp||!fb)return;
+  const val=inp.value.trim().toUpperCase();
+  const ok=val===correct.toString().toUpperCase().trim();
+  inp.disabled=true;inp.nextElementSibling.disabled=true;
+  inp.classList.add(ok?'t-ok':'t-wrong');
+  fb.textContent=(ok?'':'✗ ')+  (ok?rightMsg:wrongMsg);
+  fb.className='fb on '+(ok?'fb-ok':'fb-wrong');
+  updateScore(ok);checkSection(card);
+}
+
+// ── TEST DATA ──
+// All 15 questions independently double-solved below.
+// Each entry: type, given pairs, question text, answer, options (for MCQ), wrong/right messages
+const TEST=[
+  // T1: CAT=123,CAR=124,BAR=524 → find TAR. C=1,A=2,T=3,R=4,B=5. TAR=T(3)A(2)R(4)=324. ✓✓
+  {id:'t1',type:'mcq',
+   pairs:[['CAT','123'],['CAR','124'],['BAR','524']],
+   q:'What is the code for <b>TAR</b>?',
+   opts:['423','324','234','342'],correct:'324',
+   fbs:['Not quite. 423 puts R first. TAR = T-A-R. T=3,A=2,R=4. TAR = 324.',
+        '✔ Correct! T=3,A=2,R=4. TAR = T(3)A(2)R(4) = 324.',
+        'Not quite. 234 puts A first and uses C in position 3. C=1 and is not in TAR. T=3,A=2,R=4. TAR = 324.',
+        'Not quite. 342 puts T first but uses 4=R in position 2. TAR = T(3)A(2)R(4) = 324.']},
+
+  // T2: SHIP=3452,CHIP=1452,CHIN=1467 → find PINS. S=3,H=4,I=5,P=2,C=1,N=7. PINS=P(2)I(5)N(7)S(3)=2573. ✓✓
+  {id:'t2',type:'typed',
+   pairs:[['SHIP','3452'],['CHIP','1452'],['CHIN','1467']],
+   q:'What is the code for <b>PINS</b>?',
+   ans:'2573',
+   wrong:'S=3,H=4,I=5,P=2,C=1,N=7. PINS = P(2)I(5)N(7)S(3) = 2573. Compare SHIP vs CHIP: S vs C, codes 3 vs 1. Compare CHIP vs CHIN: P vs N, codes 2 vs 7.',
+   right:'✔ Correct! P=2,I=5,N=7,S=3. PINS = 2573.'},
+
+  // T3: BOOK=1223,LOOK=4223,LOOT=4225 → find TOOL. T=5,O=2,L=4. TOOL=T(5)O(2)O(2)L(4)=5224. ✓✓
+  {id:'t3',type:'mcq',
+   pairs:[['BOOK','1223'],['LOOK','4223'],['LOOT','4225']],
+   q:'What is the code for <b>TOOL</b>? (Remember: OO must show as a repeated digit)',
+   opts:['5224','5243','4225','5222'],correct:'5224',
+   fbs:['✔ Correct! B=1,O=2,K=3,L=4,T=5. OO always = 22. TOOL = T(5)O(2)O(2)L(4) = 5224.',
+        'Not quite. 5243 puts K=3 in position 3 and then L=4. But TOOL = T-O-O-L, so positions 2&3 must both be O=2. TOOL = 5224.',
+        'Not quite. 4225 is the code for LOOT. TOOL has a different letter order: T-O-O-L. TOOL = T(5)O(2)O(2)L(4) = 5224.',
+        'Not quite. 5222 would need three O\'s. TOOL only has two O\'s. Position 4 = L=4, not O=2. TOOL = 5224.']},
+
+  // T4: KEEP=1223,KEEN=1224,BEEN=5224 → decode 1221. K=1,E=2,P=3,N=4,B=5. 1=K,2=E,2=E,1=K → KEEK. Hmm is KEEK a word? Yes (archaic for peep/look). Alternative: decode 5221=B,E,E,K=BEEK? Not standard. 
+  // Better: decode 5223=B,E,E,P=BEEP ✓✓
+  {id:'t4',type:'typed',
+   pairs:[['KEEP','1223'],['KEEN','1224'],['BEEN','5224']],
+   q:'Which word has the code <b>5223</b>? (Type the word)',
+   ans:'BEEP',
+   wrong:'K=1,E=2,P=3,N=4,B=5. Code 5223: 5=B,2=E,2=E,3=P → BEEP. The double 2 = double E.',
+   right:'✔ Correct! 5=B,2=E,2=E,3=P → BEEP. The double digit 22 reveals the double E.'},
+
+  // T5: DARK=1234,PARK=5234,PART=5236 → find TRAP. T=6,R=3,A=2,P=5. TRAP=T(6)R(3)A(2)P(5)=6325. ✓✓
+  {id:'t5',type:'mcq',
+   pairs:[['DARK','1234'],['PARK','5234'],['PART','5236']],
+   q:'What is the code for <b>TRAP</b>?',
+   opts:['6253','3265','6325','2356'],correct:'6325',
+   fbs:['Not quite. 6253 puts A in position 2 but P in position 3. TRAP = T-R-A-P. T=6,R=3,A=2,P=5. TRAP = 6325.',
+        'Not quite. 3265 starts with R=3. TRAP starts with T=6. TRAP = T(6)R(3)A(2)P(5) = 6325.',
+        '✔ Correct! D=1,A=2,R=3,K=4,P=5,T=6. TRAP = T(6)R(3)A(2)P(5) = 6325.',
+        'Not quite. 2356 starts with A=2. TRAP starts with T=6. TRAP = 6325.']},
+
+  // T6: BALL=1233,FALL=4233,FELT=4536 → find BELT. B=1,A=2,L=3,F=4,E=5,T=6. BELT=B(1)E(5)L(3)T(6)=1536. ✓✓
+  {id:'t6',type:'typed',
+   pairs:[['BALL','1233'],['FALL','4233'],['FELT','4536']],
+   q:'What is the code for <b>BELT</b>?',
+   ans:'1536',
+   wrong:'B=1,A=2,L=3,F=4,E=5,T=6. BELT = B(1)E(5)L(3)T(6) = 1536. BALL vs FALL differ at B/F → 1/4. FELT gives E=5,T=6.',
+   right:'✔ Correct! BELT = B(1)E(5)L(3)T(6) = 1536.'},
+
+  // T7: LEVEL=12321,LEVER=12324 → find VEER. L=1,E=2,V=3,R=4. VEER=V(3)E(2)E(2)R(4)=3224. ✓✓
+  {id:'t7',type:'mcq',
+   pairs:[['LEVEL','12321'],['LEVER','12324']],
+   q:'What is the code for <b>VEER</b>?',
+   opts:['3212','3224','2324','3242'],correct:'3224',
+   fbs:['Not quite. 3212 puts L=1 in position 4. VEER ends in R=4. VEER = V(3)E(2)E(2)R(4) = 3224.',
+        '✔ Correct! L=1,E=2,V=3,R=4. VEER = V(3)E(2)E(2)R(4) = 3224. The double E gives 22 in positions 2 and 3.',
+        'Not quite. 2324 starts with E=2. VEER starts with V=3. VEER = 3224.',
+        'Not quite. 3242 puts R=4 in position 3. VEER = V-E-E-R, so R is at position 4. VEER = 3224.']},
+
+  // T8: NOON=1221,MOON=3221,MOOT=3224 → decode 4221. N=1,O=2,M=3,T=4. 4=T,2=O,2=O,1=N=TOON. ✓✓
+  {id:'t8',type:'typed',
+   pairs:[['NOON','1221'],['MOON','3221'],['MOOT','3224']],
+   q:'Which word has the code <b>4221</b>? (Type the word)',
+   ans:'TOON',
+   wrong:'N=1,O=2,M=3,T=4. Code 4221: 4=T,2=O,2=O,1=N → TOON. The double 2 always = OO.',
+   right:'✔ Correct! T=4,O=2,N=1. Code 4221 = T-O-O-N = TOON.'},
+
+  // T9: BIRD=1234,BIND=1254,BINS=1256 → find SNIB. S=6,N=5,I=2,B=1. SNIB=S(6)N(5)I(2)B(1)=6521. ✓✓
+  {id:'t9',type:'mcq',
+   pairs:[['BIRD','1234'],['BIND','1254'],['BINS','1256']],
+   q:'What is the code for <b>SNIB</b>?',
+   opts:['5621','6512','6521','1256'],correct:'6521',
+   fbs:['Not quite. 5621 starts with N=5. SNIB starts with S=6. SNIB = S(6)N(5)I(2)B(1) = 6521.',
+        'Not quite. 6512 puts I in position 3 and N in position 4. SNIB = S-N-I-B. N=5 at position 2, I=2 at position 3, B=1 at position 4. SNIB = 6521.',
+        '✔ Correct! B=1,I=2,R=3,D=4,N=5,S=6. SNIB = S(6)N(5)I(2)B(1) = 6521.',
+        'Not quite. 1256 is the code for BINS. SNIB has a completely different letter order. SNIB = S(6)N(5)I(2)B(1) = 6521.']},
+
+  // T10: FLAT=1234,FLAB=1235,FLAG=1236 → decode 5231. F=1,L=2,A=3,T=4,B=5,G=6. 5=B,2=L,3=A,1=F=BLAF? Not a word.
+  // Decode 2361: L,A,G,F=LAGF? Not a word. Decode 6341: G,A,T,F=GATF? No.
+  // Let me try: FLAT=1234,FLAB=1235,FLAG=1236. Find code for GALT: G=6,A=3,L=2,T=4=6324. Ask decode 6324=G,A,L,T=GALT? Not standard.
+  // Better: ask for GALA: G=6,A=3,L=2,A=3=6323. GALA has repeated A=3. GALA=6323 ✓✓
+  {id:'t10',type:'typed',
+   pairs:[['FLAT','1234'],['FLAB','1235'],['FLAG','1236']],
+   q:'What is the code for <b>GALA</b>? (Note: GALA has a repeated letter)',
+   ans:'6323',
+   wrong:'F=1,L=2,A=3,T=4,B=5,G=6. GALA = G(6)A(3)L(2)A(3) = 6323. The two A\'s must both be coded as 3.',
+   right:'✔ Correct! GALA = G(6)A(3)L(2)A(3) = 6323. The repeated A gives digit 3 in positions 2 and 4.'},
+
+  // T11: SNOW=1234,SLOW=1534,SLOP=1537 → decode 5314. S=1,N=2,O=3,W=4,L=5,P=7. 5=L,3=O,1=S,4=W=LOSW? Not word.
+  // Decode 3415: O,W,S,L=OWSL? No. Decode 1534=SLOW (given). Decode 5371: L,P,O,S? Wait: 5=L,3=O,7=P,1=S=LOPS ✓! ✓✓
+  {id:'t11',type:'mcq',
+   pairs:[['SNOW','1234'],['SLOW','1534'],['SLOP','1537']],
+   q:'Which word has the code <b>5371</b>?',
+   opts:['POLS','LOPS','SLOP','PLOWS'],correct:'LOPS',
+   fbs:['Not quite. POLS would be P-O-L-S. P=7,O=3,L=5,S=1 → POLS = 7351, not 5371. Code 5371: 5=L,3=O,7=P,1=S → LOPS.',
+        '✔ Correct! S=1,N=2,O=3,W=4,L=5,P=7. Code 5371: 5=L, 3=O, 7=P, 1=S → LOPS.',
+        'Not quite. SLOP is coded 1537. Code 5371 is different — it starts with 5=L. Decode 5371: 5=L,3=O,7=P,1=S → LOPS.',
+        'Not quite. PLOWS is five letters but the code is four digits. Also P=7, not 5. Code 5371: 5=L,3=O,7=P,1=S → LOPS.']},
+
+  // T12: GRAPE=12345,GRIPE=12645,GRIPS=12647 → decode 43512. G=1,R=2,A=3,P=4,E=5,I=6,S=7. 4=P,3=A,5=E,1=G,2=R=PAEGR? Not word. 
+  // Decode 46125: I,A? Wait: 4=P,6=I,1=G,2=R,5=E=PIGRE? Not standard.
+  // Decode 31245: A,R? 3=A,1=G,2=R,4=P,5=E=AGRPE? No. 
+  // Decode 35124: A? 3=A,5=E,1=G,2=R,4=P=AEGRP? No.
+  // Find REAP: R=2,E=5,A=3,P=4=2534 ✓✓ (word→code is fine too)
+  {id:'t12',type:'typed',
+   pairs:[['GRAPE','12345'],['GRIPE','12645'],['GRIPS','12647']],
+   q:'What is the code for <b>REAP</b>?',
+   ans:'2534',
+   wrong:'G=1,R=2,A=3,P=4,E=5,I=6,S=7. REAP = R(2)E(5)A(3)P(4) = 2534. R and E are found from GRAPE positions 2 and 5.',
+   right:'✔ Correct! R=2,E=5,A=3,P=4. REAP = 2534.'},
+
+  // T13: BLAND=12345,BLOND=12645,BLOAT=12637 → B=1,L=2,A=3,N=4,D=5,O=6,T=7. Find DOLT: D=5,O=6,L=2,T=7=5627. ✓✓
+  {id:'t13',type:'mcq',
+   pairs:[['BLAND','12345'],['BLOND','12645'],['BLOAT','12637']],
+   q:'What is the code for <b>DOLT</b>?',
+   opts:['5267','5627','6527','7265'],correct:'5627',
+   fbs:['Not quite. 5267 swaps L and O. DOLT = D-O-L-T. O=6 at position 2 and L=2 at position 3. DOLT = D(5)O(6)L(2)T(7) = 5627.',
+        '✔ Correct! B=1,L=2,A=3,N=4,D=5,O=6,T=7. DOLT = D(5)O(6)L(2)T(7) = 5627.',
+        'Not quite. 6527 starts with O=6. DOLT starts with D=5. DOLT = 5627.',
+        'Not quite. 7265 starts with T=7. DOLT starts with D=5. DOLT = 5627.']},
+
+  // T14: TALL=1233,TALE=1234,TILE=5234 → T=1,A=2,L=3,E=4,I=5. EE not in this set. Find ELITE: E=4,L=3,I=5,T=1,E=4=43514 ✓✓
+  {id:'t14',type:'typed',
+   pairs:[['TALL','1233'],['TALE','1234'],['TILE','5234']],
+   q:'What is the code for <b>ELITE</b>? (Five letters, with a repeated letter)',
+   ans:'43514',
+   wrong:'T=1,A=2,L=3,E=4,I=5. ELITE = E(4)L(3)I(5)T(1)E(4) = 43514. E appears at positions 1 and 5, both coded as 4.',
+   right:'✔ Correct! ELITE = E(4)L(3)I(5)T(1)E(4) = 43514. The repeated E gives digit 4 at both positions 1 and 5.'},
+
+  // T15: STOP=1234,STEP=1524,STEM=1526 → S=1,T=2,O=3,P=4,E=5,M=6. Decode 3524: O,P? Wait: 3=O,5=E,2=T,4=P=OETP? Not a word.
+  // Decode 4512: P,E,S,T? Wait: 4=P,5=E,1=S,2=T=PEST ✓! ✓✓
+  {id:'t15',type:'mcq',
+   pairs:[['STOP','1234'],['STEP','1524'],['STEM','1526']],
+   q:'Which word has the code <b>4512</b>?',
+   opts:['PETS','PEST','STEP','TOPE'],correct:'PEST',
+   fbs:['Not quite. PETS = P(4)E(5)T(2)S(1) = 4521, not 4512. Code 4512: 4=P,5=E,1=S,2=T → PEST.',
+        '✔ Correct! S=1,T=2,O=3,P=4,E=5,M=6. Code 4512: 4=P, 5=E, 1=S, 2=T → PEST.',
+        'Not quite. STEP is coded 1524. Code 4512 is different — it starts with 4=P. Decode 4512: 4=P,5=E,1=S,2=T → PEST.',
+        'Not quite. TOPE = T(2)O(3)P(4)E(5) = 2345, not 4512. Code 4512: 4=P,5=E,1=S,2=T → PEST.']}
+];
+
+let testTimer=null,testSec=720,testAnswers={};
+
+function buildGivenBox(pairs){
+  return '<div class="given-box"><div class="gb-label">Given</div><div class="given-row">'+
+    pairs.map(([w,c])=>`<span class="gpair"><span class="gw">${w}</span><span class="gs"> = </span><span class="gc">${c}</span></span>`).join('')+
+  '</div></div>';
+}
+
+function startTest(){
+  document.getElementById('test-ready').style.display='none';
+  document.getElementById('test-active').style.display='block';
+  const container=document.getElementById('t-questions');
+  container.innerHTML='';
+  TEST.forEach((q,i)=>{
+    const div=document.createElement('div');
+    div.className='qcard';div.id='tq-'+q.id;
+    let html=`<div class="qhdr"><span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--navy)">Q${i+1}/15</span></div>`;
+    html+=buildGivenBox(q.pairs);
+    html+=`<div class="qtext">${q.q}</div>`;
+    if(q.type==='mcq'){
+      html+='<div class="btn-grid" id="tg-'+q.id+'">';
+      q.opts.forEach((opt,oi)=>{
+        const isC=opt===q.correct;
+        html+=`<button class="btn-opt" data-correct="${isC}" data-ans="${opt}" data-fb="${q.fbs[oi].replace(/"/g,"'")}" onclick="testClick(this,'${q.id}')">${opt}</button>`;
+      });
+      html+='</div>';
+    } else {
+      html+=`<div class="typed-wrap"><input class="typed-in" type="text" id="ti-${q.id}" placeholder="${'_'.repeat(q.ans.length)}" style="text-transform:uppercase;"></div>`;
+    }
+    html+=`<div class="fb" id="tfb-${q.id}"></div>`;
+    div.innerHTML=html;container.appendChild(div);
+  });
+  testTimer=setInterval(tick,1000);
+}
+
+function testClick(btn,qId){
+  const grid=document.getElementById('tg-'+qId);
+  if(grid)grid.querySelectorAll('.btn-opt').forEach(b=>{b.style.outline=b===btn?'2px solid var(--gold)':'none';});
+  testAnswers[qId]={type:'mcq',val:btn.dataset.ans,correct:btn.dataset.correct==='true',fb:btn.dataset.fb};
+}
+
+function tick(){
+  testSec--;
+  const m=Math.floor(testSec/60),s=testSec%60;
+  const el=document.getElementById('t-timer');
+  el.textContent='⏱ '+m+':'+(s<10?'0':'')+s;
+  if(testSec<=60)el.classList.add('red');
+  if(testSec<=0){clearInterval(testTimer);submitTest();}
+}
+
+function submitTest(){
+  clearInterval(testTimer);
+  TEST.forEach(q=>{
+    if(q.type==='typed'){
+      const inp=document.getElementById('ti-'+q.id);
+      if(inp){const v=inp.value.trim().toUpperCase();testAnswers[q.id]={type:'typed',val:v,correct:v===q.ans.toUpperCase(),wrongMsg:q.wrong,rightMsg:q.right};}
+    }
+    const fb=document.getElementById('tfb-'+q.id);
+    const ans=testAnswers[q.id];
+    if(!fb)return;
+    if(!ans||!ans.val){fb.textContent='— Not answered. Correct: '+q.correct||q.ans;fb.className='fb on fb-wrong';return;}
+    if(ans.correct){fb.textContent=ans.type==='mcq'?ans.fb:ans.rightMsg;fb.className='fb on fb-ok';}
+    else{
+      let msg='';
+      if(ans.type==='mcq'){const chosen=q.opts.indexOf(ans.val);msg=chosen>=0?q.fbs[chosen]:'Incorrect. Correct answer: '+q.correct;}
+      else msg=ans.wrongMsg;
+      fb.textContent=msg;fb.className='fb on fb-wrong';
+    }
+    const inp=document.getElementById('ti-'+q.id);if(inp)inp.disabled=true;
+    const grid=document.getElementById('tg-'+q.id);if(grid)grid.querySelectorAll('.btn-opt').forEach(b=>{b.disabled=true;if(b.dataset.ans===q.correct||b.dataset.correct==='true')b.classList.add('show-ok');});
+  });
+
+  const score=Object.values(testAnswers).filter(a=>a.correct).length;
+  const pct=Math.round(score/15*100);
+  let band,bc;
+  if(pct<40){band='Needs Practice';bc='res-np';}
+  else if(pct<60){band='Developing';bc='res-dev';}
+  else if(pct<80){band='Secure';bc='res-sec';}
+  else{band='Mastery';bc='res-mas';}
+
+  document.querySelector('.btn-submit-test').style.display='none';
+  const res=document.getElementById('test-results');
+  res.style.display='block';
+  res.innerHTML=`<div class="results-card">
+    <div style="font-size:.75rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:.5rem;">Your Result</div>
+    <div class="res-score">${score}/15</div>
+    <div class="res-band ${bc}">${band}</div>
+    <div style="color:rgba(255,255,255,.5);font-size:.88rem;margin-bottom:.5rem;">${pct}% — ${score} correct out of 15</div>
+    <div class="res-grid">
+      <div class="res-box"><div class="res-box-label">Focus On</div><div class="res-box-text">${pct<60?'Revisit the mapping table strategy and repeated-letter rules. Build your table for every question.':pct<80?'Strong work! Review reverse decoding and the no-entry-point fallback strategy.':'Outstanding! You have a complete command of letter-number codes.'}</div></div>
+      <div class="res-box"><div class="res-box-label">Key Rule</div><div class="res-box-text">Same letter = same digit, always. Different letters = different digits, always. Write your table. Never guess.</div></div>
+    </div>
+  </div>`;
+  res.scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>

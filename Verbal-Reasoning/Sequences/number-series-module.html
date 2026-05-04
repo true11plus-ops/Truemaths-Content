@@ -1,0 +1,2986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Number Series — GL Assessment Revision | TrueMaths</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #152336;
+  --navy-light: #1e3250;
+  --gold: #c9a84c;
+  --gold-light: #e2c06a;
+  --gold-pale: #f5e9c8;
+  --cream: #faf7f0;
+  --cream-mid: #f0ebe0;
+  --white: #ffffff;
+  --green: #2d7a4f;
+  --green-pale: #e6f4ec;
+  --yellow: #b87d00;
+  --yellow-pale: #fff8e1;
+  --orange: #c45e1a;
+  --orange-pale: #fff0e6;
+  --purple: #6b3fa0;
+  --purple-pale: #f3eeff;
+  --red: #b83232;
+  --red-pale: #fff0f0;
+  --text: #1a1a2e;
+  --text-mid: #3d3d5c;
+  --text-light: #6b6b8a;
+  --border: #ddd8cc;
+  --shadow: 0 2px 12px rgba(13,27,42,0.10);
+  --shadow-lg: 0 8px 32px rgba(13,27,42,0.15);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+/* PROGRESS BAR */
+#progress-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: 4px; background: rgba(201,168,76,0.2);
+}
+#progress-fill {
+  height: 100%; background: var(--gold);
+  width: 0%; transition: width 0.2s ease;
+}
+
+/* SCORE COUNTER */
+#score-badge {
+  position: fixed; top: 8px; right: 16px; z-index: 999;
+  background: var(--navy); color: var(--gold);
+  border: 1.5px solid var(--gold);
+  border-radius: 20px; padding: 4px 14px;
+  font-size: 13px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
+}
+
+/* STICKY NAV */
+#sticky-nav {
+  position: sticky; top: 0; z-index: 900;
+  background: var(--navy);
+  border-bottom: 2px solid var(--gold);
+  overflow-x: auto; white-space: nowrap;
+  padding: 0 20px;
+}
+#sticky-nav::-webkit-scrollbar { height: 3px; background: var(--navy-mid); }
+#sticky-nav::-webkit-scrollbar-thumb { background: var(--gold); }
+.nav-links {
+  display: inline-flex; gap: 0; list-style: none;
+  align-items: stretch;
+}
+.nav-links a {
+  display: block; padding: 12px 16px;
+  color: rgba(255,255,255,0.7); text-decoration: none;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0.3px;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: var(--gold); border-bottom-color: var(--gold);
+}
+.nav-links .tick { color: var(--green); margin-left: 4px; font-size: 11px; }
+
+/* HEADER */
+.page-header {
+  background: var(--navy);
+  padding: 56px 24px 48px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.15) 0%, transparent 70%);
+}
+.header-eyebrow {
+  font-size: 12px; font-weight: 700; letter-spacing: 2.5px;
+  color: var(--gold); text-transform: uppercase; margin-bottom: 12px;
+  position: relative;
+}
+.header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 52px); font-weight: 900;
+  color: var(--white); line-height: 1.15;
+  position: relative;
+}
+.header-title span { color: var(--gold); }
+.header-subtitle {
+  color: rgba(255,255,255,0.6); font-size: 15px; margin-top: 14px;
+  position: relative;
+}
+.header-meta {
+  display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+  margin-top: 28px; position: relative;
+}
+.header-chip {
+  background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.35);
+  color: var(--gold-light); padding: 6px 16px; border-radius: 30px;
+  font-size: 13px; font-weight: 600;
+}
+
+/* MAIN LAYOUT */
+.main-content { max-width: 900px; margin: 0 auto; padding: 40px 20px 80px; }
+
+/* SECTION HEADERS */
+.section-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 28px 0 16px;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 24px;
+}
+.section-number {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--navy); color: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-weight: 700; font-size: 16px;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700;
+  color: var(--navy);
+}
+.section-complete { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.complete-badge {
+  display: none; background: var(--green); color: white;
+  border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 700;
+  align-items: center; gap: 4px;
+}
+.complete-badge.visible { display: flex; }
+
+/* CARDS */
+.card {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.card-header {
+  padding: 16px 24px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.card-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.card-header h3 { font-size: 15px; font-weight: 700; color: var(--navy); }
+.card-body { padding: 20px 24px; }
+
+/* SIMPLE EXPLANATION BOX */
+.simple-box .card-icon { background: #e8f4fd; }
+.simple-box .card-header { background: #f0f8ff; }
+.simple-box .card-header h3 { color: #1565c0; }
+.analogy-text { font-size: 16px; color: var(--text-mid); font-style: italic; margin-top: 8px; }
+.analogy-text strong { color: var(--navy); font-style: normal; }
+
+/* FULL EXPLANATION BOX */
+.full-box .card-icon { background: var(--gold-pale); }
+.full-box .card-header { background: #fdf9f0; }
+.full-box .card-header h3 { color: var(--yellow); }
+
+/* WATCHOUT BOX */
+.watchout-box { background: var(--red-pale); border-left: 4px solid var(--red); border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+.watchout-box .watchout-title { font-weight: 700; color: var(--red); margin-bottom: 6px; font-size: 14px; }
+.watchout-box ul { padding-left: 20px; color: var(--text-mid); font-size: 15px; }
+
+/* WORKED EXAMPLE */
+.example-box { background: var(--navy); border-radius: 10px; overflow: hidden; margin: 16px 0; }
+.example-header { padding: 12px 20px; background: rgba(201,168,76,0.15); border-bottom: 1px solid rgba(201,168,76,0.2); }
+.example-header span { color: var(--gold); font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
+.example-body { padding: 20px; }
+.example-q { color: rgba(255,255,255,0.85); font-size: 15px; margin-bottom: 16px; }
+.step-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.step-item {
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.step-num {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--gold); color: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+.step-text { color: rgba(255,255,255,0.8); font-size: 14.5px; line-height: 1.5; }
+.step-math { font-family: 'JetBrains Mono', monospace; color: var(--gold-light); }
+.example-answer {
+  margin-top: 16px; padding: 12px 16px;
+  background: rgba(201,168,76,0.12); border-radius: 8px; border: 1px solid rgba(201,168,76,0.25);
+  color: var(--gold-light); font-weight: 700; font-size: 15px;
+}
+
+/* SEQUENCE VISUALISER */
+.seq-visual { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 12px 0; overflow-x: auto; }
+.seq-num {
+  background: rgba(255,255,255,0.08); border: 1.5px solid rgba(201,168,76,0.3);
+  color: var(--white); border-radius: 8px;
+  padding: 8px 14px; font-family: 'JetBrains Mono', monospace;
+  font-size: 16px; font-weight: 600; position: relative;
+  min-width: 44px; text-align: center;
+}
+.seq-num.answer-num { background: rgba(201,168,76,0.2); border-color: var(--gold); color: var(--gold); }
+.seq-bridge {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 0 4px;
+}
+.bridge-label {
+  font-size: 11px; font-family: 'JetBrains Mono', monospace;
+  color: var(--gold); font-weight: 600; white-space: nowrap;
+}
+.bridge-line { width: 30px; height: 1px; background: rgba(201,168,76,0.4); margin: 2px 0; }
+
+/* DIFFICULTY BADGES */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+}
+.badge-starter { background: var(--green-pale); color: var(--green); }
+.badge-developing { background: var(--yellow-pale); color: var(--yellow); }
+.badge-secure { background: var(--orange-pale); color: var(--orange); }
+.badge-mastery { background: var(--purple-pale); color: var(--purple); }
+
+/* QUESTION CARDS */
+.q-card {
+  background: var(--white); border-radius: 10px;
+  box-shadow: var(--shadow); margin-bottom: 14px;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+.q-card.answered-correct { border-color: var(--green); }
+.q-card.answered-wrong { border-color: var(--red); }
+.q-header { padding: 14px 20px 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.q-text { padding: 0 20px 12px; font-size: 16px; color: var(--text); font-weight: 500; }
+.q-series { 
+  font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 600;
+  color: var(--navy); background: var(--cream); border-radius: 8px;
+  padding: 10px 16px; margin: 8px 20px 14px; display: block; letter-spacing: 1px;
+}
+.options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px,1fr)); gap: 8px; padding: 0 20px 16px; }
+.opt-btn {
+  padding: 10px 14px; border-radius: 8px; border: 2px solid var(--border);
+  background: var(--white); font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: all 0.18s; color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--navy); background: var(--cream); }
+.opt-btn.correct-btn { background: var(--green-pale); border-color: var(--green); color: var(--green); }
+.opt-btn.wrong-btn { background: var(--red-pale); border-color: var(--red); color: var(--red); }
+.opt-btn:disabled { cursor: default; opacity: 0.85; }
+
+/* TYPED ANSWER */
+.typed-row { display: flex; gap: 10px; padding: 0 20px 16px; align-items: center; }
+.typed-input {
+  border: 2px solid var(--border); border-radius: 8px;
+  padding: 10px 14px; font-size: 16px; font-family: 'JetBrains Mono', monospace;
+  width: 130px; color: var(--navy); outline: none; transition: border 0.2s;
+}
+.typed-input:focus { border-color: var(--navy); }
+.typed-input.correct-input { border-color: var(--green); background: var(--green-pale); color: var(--green); }
+.typed-input.wrong-input { border-color: var(--red); background: var(--red-pale); color: var(--red); }
+.submit-btn {
+  padding: 10px 20px; border-radius: 8px; border: none;
+  background: var(--navy); color: var(--gold);
+  font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.18s;
+  letter-spacing: 0.4px;
+}
+.submit-btn:hover:not(:disabled) { background: var(--navy-light); }
+.submit-btn:disabled { opacity: 0.5; cursor: default; }
+
+/* FEEDBACK */
+.feedback { margin: 0 20px 14px; padding: 12px 16px; border-radius: 8px; font-size: 14.5px; display: none; line-height: 1.5; }
+.feedback.correct { background: var(--green-pale); border-left: 4px solid var(--green); color: #1a5e35; display: block; }
+.feedback.wrong { background: var(--red-pale); border-left: 4px solid var(--red); color: #7a1c1c; display: block; }
+.feedback strong { display: block; margin-bottom: 4px; }
+
+/* SECTION DIVIDERS */
+.skill-divider {
+  background: var(--navy);
+  color: var(--gold);
+  padding: 20px 24px;
+  border-radius: 10px;
+  margin: 32px 0 20px;
+  display: flex; align-items: center; gap: 14px;
+}
+.skill-divider h2 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
+.skill-divider .skill-icon { font-size: 22px; }
+.skill-divider .qs-count { margin-left: auto; font-size: 13px; color: rgba(201,168,76,0.7); font-weight: 600; }
+
+/* TIER HEADING */
+.tier-heading { display: flex; align-items: center; gap: 10px; margin: 22px 0 12px; padding: 12px 16px; border-radius: 8px; }
+.tier-heading.starter { background: var(--green-pale); }
+.tier-heading.developing { background: var(--yellow-pale); }
+.tier-heading.secure { background: var(--orange-pale); }
+.tier-heading.mastery { background: var(--purple-pale); }
+.tier-heading h4 { font-size: 15px; font-weight: 700; }
+.tier-heading .tier-desc { font-size: 13px; margin-left: auto; opacity: 0.75; font-weight: 500; }
+
+/* FINAL TEST */
+.test-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #1a2744 100%);
+  border-radius: 12px; padding: 28px; margin-bottom: 24px; text-align: center;
+  border: 2px solid var(--gold);
+}
+.test-header h2 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 26px; margin-bottom: 8px; }
+.test-header p { color: rgba(255,255,255,0.7); font-size: 15px; }
+.timer-display {
+  font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 700;
+  color: var(--gold); margin: 16px 0 8px;
+}
+.timer-display.urgent { color: #ff6b6b; animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+.start-test-btn {
+  background: var(--gold); color: var(--navy);
+  border: none; border-radius: 10px; padding: 14px 36px;
+  font-size: 17px; font-weight: 800; cursor: pointer;
+  letter-spacing: 0.5px; transition: all 0.2s;
+  margin-top: 8px;
+}
+.start-test-btn:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,168,76,0.4); }
+
+/* RESULTS */
+.results-card {
+  background: var(--white); border-radius: 12px; padding: 36px;
+  text-align: center; box-shadow: var(--shadow-lg); margin-top: 24px;
+}
+.score-ring {
+  width: 120px; height: 120px; border-radius: 50%;
+  border: 6px solid var(--border); margin: 0 auto 20px;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; position: relative;
+}
+.score-ring.needs { border-color: var(--red); }
+.score-ring.developing { border-color: var(--yellow); }
+.score-ring.secure { border-color: var(--orange); }
+.score-ring.mastery { border-color: var(--green); }
+.score-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; color: var(--navy); }
+.score-denom { font-size: 14px; color: var(--text-light); }
+.result-band { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+.result-msg { color: var(--text-mid); font-size: 15px; max-width: 500px; margin: 0 auto; }
+
+/* TEST REVIEW */
+.test-review-item { background: var(--white); border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; border-left: 4px solid var(--border); }
+.test-review-item.correct { border-left-color: var(--green); }
+.test-review-item.wrong { border-left-color: var(--red); }
+.review-q { font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+.review-series { font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--text-mid); margin-bottom: 6px; }
+.review-answers { font-size: 14px; }
+.review-answers span { display: inline-block; margin-right: 14px; }
+.review-explain { font-size: 14px; color: var(--text-mid); margin-top: 8px; background: var(--cream); padding: 10px 14px; border-radius: 6px; }
+
+/* INTRO PANEL */
+.intro-panel {
+  background: var(--white); border-radius: 12px; padding: 28px;
+  box-shadow: var(--shadow); margin-bottom: 32px;
+  border-left: 5px solid var(--gold);
+}
+.intro-panel h3 { color: var(--navy); font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+.intro-panel p { color: var(--text-mid); font-size: 15px; }
+.format-chips { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+.format-chip { background: var(--cream-mid); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--navy); }
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .options-grid { grid-template-columns: repeat(2, 1fr); }
+  .header-meta { gap: 10px; }
+  .section-title { font-size: 20px; }
+  .q-series { font-size: 15px; }
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"><div id="progress-fill"></div></div>
+
+<!-- SCORE BADGE -->
+<div id="score-badge">⭐ Score: <span id="total-score">0</span></div>
+
+<!-- STICKY NAV -->
+<nav id="sticky-nav">
+  <ul class="nav-links">
+    <li><a href="#section-intro">📋 Intro</a></li>
+    <li><a href="#skill-1">1. Constant+</a></li>
+    <li><a href="#skill-2">2. Progressive</a></li>
+    <li><a href="#skill-3">3. Alternating</a></li>
+    <li><a href="#skill-4">4. Multiplicative</a></li>
+    <li><a href="#skill-5">5. Position-Based</a></li>
+    <li><a href="#skill-6">6. Compound Rules</a></li>
+    <li><a href="#skill-7">7. Fibonacci</a></li>
+    <li><a href="#skill-8">8. Mixed & Traps</a></li>
+    <li><a href="#final-test">🏆 Final Test</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="header-eyebrow">TrueMaths · GL Assessment · Verbal Reasoning</div>
+  <h1 class="header-title">Number <span>Series</span></h1>
+  <p class="header-subtitle">Find the hidden pattern. Predict the next number. Beat the exam.</p>
+  <div class="header-meta">
+    <span class="header-chip">📚 8 Sub-Skills</span>
+    <span class="header-chip">⏱️ ~30 sec per question</span>
+    <span class="header-chip">🎯 GL Assessment Format</span>
+    <span class="header-chip">🏅 4 Difficulty Tiers</span>
+  </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+<!-- INTRO -->
+<section id="section-intro">
+  <div class="intro-panel">
+    <h3>What is Number Series?</h3>
+    <p>You are given a row of numbers that follow a secret pattern. Your job is to work out the rule and find the next number. The GL Assessment gives you 5 choices — but knowing the right strategy will get you there in under 15 seconds.</p>
+    <div class="format-chips">
+      <span class="format-chip">5 Answer Options (A–E)</span>
+      <span class="format-chip">Multiple-choice format</span>
+      <span class="format-chip">~30 seconds per question</span>
+      <span class="format-chip">Check your rule every time!</span>
+    </div>
+  </div>
+
+  <!-- DECISION TREE -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#f0f8ff">🌳</div>
+      <h3>The 5-Step Decision Tree (Use This Every Time)</h3>
+    </div>
+    <div class="card-body">
+      <ol style="padding-left:22px; display:flex; flex-direction:column; gap:10px;">
+        <li><strong>Step 1 — Simple difference:</strong> Is the gap between numbers always the same? (e.g. +3, +3, +3)</li>
+        <li><strong>Step 2 — Changing difference:</strong> Does the gap grow or shrink? (e.g. +2, +4, +6, +8)</li>
+        <li><strong>Step 3 — Alternating:</strong> Do numbers jump up-and-down? Try splitting into two rows.</li>
+        <li><strong>Step 4 — Multiplication or division:</strong> Is each number ×2 or ÷3 of the last?</li>
+        <li><strong>Step 5 — Squares / Fibonacci:</strong> Do you recognise 1,4,9,16 or 1,1,2,3,5?</li>
+      </ol>
+      <div class="watchout-box" style="margin-top:16px">
+        <div class="watchout-title">⏰ Time Pressure Rule</div>
+        <ul><li>If you haven't spotted the pattern in <strong>10–15 seconds</strong> → skip and come back. Never waste a full minute on one question.</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILL 1: CONSTANT ARITHMETIC ===== -->
+<section id="skill-1">
+  <div class="skill-divider">
+    <span class="skill-icon">➕</span>
+    <h2>Sub-Skill 1: Constant Arithmetic Sequences</h2>
+    <span class="qs-count" id="s1-count">0/16 answered</span>
+    <div class="section-complete"><div class="complete-badge" id="s1-complete">✓ Done</div></div>
+  </div>
+
+  <!-- Simple explanation -->
+  <div class="card simple-box">
+    <div class="card-header"><div class="card-icon">😊</div><h3>Simple Explanation (Age 9)</h3></div>
+    <div class="card-body">
+      <p>Imagine you are climbing stairs. Every step goes up by exactly the same amount. In a <strong>constant sequence</strong>, the gap between every number is always the same — like climbing 3 steps at a time, every single time.</p>
+      <p class="analogy-text">Think of it like: 🚶‍♂️ Walk 4 paces, walk 4 more, walk 4 more… the pattern never changes!</p>
+    </div>
+  </div>
+
+  <!-- Full explanation -->
+  <div class="card full-box">
+    <div class="card-header"><div class="card-icon">📖</div><h3>Full Explanation</h3></div>
+    <div class="card-body">
+      <p>A <strong>constant arithmetic sequence</strong> increases or decreases by the same fixed value (the "common difference") at every step. To find the next term: calculate the difference between consecutive terms, confirm it is the same throughout, then add or subtract it from the last term.</p>
+    </div>
+  </div>
+
+  <!-- Worked Example 1 -->
+  <div class="example-box">
+    <div class="example-header"><span>Worked Example — Easy</span></div>
+    <div class="example-body">
+      <div class="example-q">Find the next number: <span class="step-math">4, 7, 10, 13, (?)</span></div>
+      <div class="seq-visual">
+        <div class="seq-num">4</div>
+        <div class="seq-bridge"><div class="bridge-label">+3</div><div class="bridge-line"></div></div>
+        <div class="seq-num">7</div>
+        <div class="seq-bridge"><div class="bridge-label">+3</div><div class="bridge-line"></div></div>
+        <div class="seq-num">10</div>
+        <div class="seq-bridge"><div class="bridge-label">+3</div><div class="bridge-line"></div></div>
+        <div class="seq-num">13</div>
+        <div class="seq-bridge"><div class="bridge-label">+3</div><div class="bridge-line"></div></div>
+        <div class="seq-num answer-num">16</div>
+      </div>
+      <ol class="step-list">
+        <li class="step-item"><div class="step-num">1</div><div class="step-text">Gap: <span class="step-math">7−4 = 3</span></div></li>
+        <li class="step-item"><div class="step-num">2</div><div class="step-text">Check: <span class="step-math">10−7 = 3 ✓ and 13−10 = 3 ✓</span> — same every time</div></li>
+        <li class="step-item"><div class="step-num">3</div><div class="step-text">Next: <span class="step-math">13 + 3 = 16</span></div></li>
+      </ol>
+      <div class="example-answer">✅ Answer: 16</div>
+    </div>
+  </div>
+
+  <div class="watchout-box">
+    <div class="watchout-title">⚠️ Watch Out!</div>
+    <ul>
+      <li>With large starting numbers (e.g. 142, 149…) students make arithmetic slips. Always write down the gap — don't do it in your head.</li>
+      <li>In <strong>descending</strong> sequences (e.g. 30, 24, 18…) students sometimes add instead of subtract. Check direction!</li>
+    </ul>
+  </div>
+
+  <!-- Worked Example 2 (Hard) -->
+  <div class="example-box">
+    <div class="example-header"><span>Worked Example — Harder (Descending + Large Numbers)</span></div>
+    <div class="example-body">
+      <div class="example-q">Find the next number: <span class="step-math">247, 231, 215, 199, (?)</span></div>
+      <div class="seq-visual">
+        <div class="seq-num">247</div>
+        <div class="seq-bridge"><div class="bridge-label">−16</div><div class="bridge-line"></div></div>
+        <div class="seq-num">231</div>
+        <div class="seq-bridge"><div class="bridge-label">−16</div><div class="bridge-line"></div></div>
+        <div class="seq-num">215</div>
+        <div class="seq-bridge"><div class="bridge-label">−16</div><div class="bridge-line"></div></div>
+        <div class="seq-num">199</div>
+        <div class="seq-bridge"><div class="bridge-label">−16</div><div class="bridge-line"></div></div>
+        <div class="seq-num answer-num">183</div>
+      </div>
+      <ol class="step-list">
+        <li class="step-item"><div class="step-num">1</div><div class="step-text">Gap: <span class="step-math">247−231 = 16</span> (going DOWN)</div></li>
+        <li class="step-item"><div class="step-num">2</div><div class="step-text">Confirm: <span class="step-math">231−215 = 16 ✓</span></div></li>
+        <li class="step-item"><div class="step-num">3</div><div class="step-text">Next: <span class="step-math">199 − 16 = 183</span></div></li>
+      </ol>
+      <div class="example-answer">✅ Answer: 183</div>
+    </div>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="tier-heading starter"><span class="badge badge-starter">🟢 Starter</span><h4 style="color:var(--green)">Very basic — one step</h4><span class="tier-desc">Build your confidence first</span></div>
+
+  <div class="q-card" data-section="1" data-qid="s1q1">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">2, 5, 8, 11, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q1')">12</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q1')">13</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s1q1')">14</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q1')">15</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q1')">16</button>
+    </div>
+    <div class="feedback" id="fb-s1q1"></div>
+  </div>
+
+  <div class="q-card" data-section="1" data-qid="s1q2">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">20, 16, 12, 8, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q2')">6</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s1q2')">4</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q2')">2</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q2')">5</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q2')">3</button>
+    </div>
+    <div class="feedback" id="fb-s1q2"></div>
+  </div>
+
+  <div class="q-card" data-section="1" data-qid="s1q3">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">Type the next number:</div>
+    <span class="q-series">10, 17, 24, 31, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s1q3" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s1q3',38)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s1q3"></div>
+  </div>
+
+  <div class="q-card" data-section="1" data-qid="s1q4">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">100, 93, 86, 79, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q4')">75</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q4')">73</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s1q4')">72</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q4')">70</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q4')">69</button>
+    </div>
+    <div class="feedback" id="fb-s1q4"></div>
+  </div>
+
+  <div class="tier-heading developing"><span class="badge badge-developing">🟡 Developing</span><h4 style="color:var(--yellow)">Moderate — two steps</h4><span class="tier-desc">Slightly bigger numbers</span></div>
+
+  <div class="q-card" data-section="1" data-qid="s1q5">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">142, 155, 168, 181, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q5')">190</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q5')">192</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s1q5')">194</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q5')">196</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q5')">198</button>
+    </div>
+    <div class="feedback" id="fb-s1q5"></div>
+  </div>
+
+  <div class="q-card" data-section="1" data-qid="s1q6">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">Type the next number:</div>
+    <span class="q-series">63, 56, 49, 42, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s1q6" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s1q6',35)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s1q6"></div>
+  </div>
+
+  <div class="q-card" data-section="1" data-qid="s1q7">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">3.5, 5, 6.5, 8, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q7')">9</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s1q7')">9.5</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q7')">10</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q7')">10.5</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q7')">11</button>
+    </div>
+    <div class="feedback" id="fb-s1q7"></div>
+  </div>
+
+  <div class="q-card" data-section="1" data-qid="s1q8">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">247, 231, 215, 199, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q8')">187</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q8')">185</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s1q8')">183</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q8')">181</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q8')">179</button>
+    </div>
+    <div class="feedback" id="fb-s1q8"></div>
+  </div>
+
+  <div class="tier-heading secure"><span class="badge badge-secure">🟠 Secure</span><h4 style="color:var(--orange)">GL difficulty</h4><span class="tier-desc">Standard exam level</span></div>
+
+  <div class="q-card" data-section="1" data-qid="s1q9">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">Find the missing number (it's not the last term):</div>
+    <span class="q-series">11, 22, (?), 44, 55</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q9')">29</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q9')">30</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s1q9')">33</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q9')">34</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q9')">36</button>
+    </div>
+    <div class="feedback" id="fb-s1q9"></div>
+  </div>
+
+  <div class="q-card" data-section="1" data-qid="s1q10">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">Type the next number:</div>
+    <span class="q-series">−5, −1, 3, 7, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s1q10" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s1q10',11)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s1q10"></div>
+  </div>
+
+  <div class="q-card" data-section="1" data-qid="s1q11">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">1000, 985, 970, 955, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q11')">945</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s1q11')">940</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q11')">935</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q11')">930</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q11')">925</button>
+    </div>
+    <div class="feedback" id="fb-s1q11"></div>
+  </div>
+
+  <div class="q-card" data-section="1" data-qid="s1q12">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">What comes next? (The rule is a fraction!)</div>
+    <span class="q-series">0, 0.5, 1, 1.5, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q12')">1.8</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q12')">2.0</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s1q12')">2</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q12')">2.5</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q12')">3</button>
+    </div>
+    <div class="feedback" id="fb-s1q12"></div>
+  </div>
+
+  <div class="tier-heading mastery"><span class="badge badge-mastery">🟣 Mastery</span><h4 style="color:var(--purple)">Hardest variant</h4><span class="tier-desc">Trap included!</span></div>
+
+  <div class="q-card" data-section="1" data-qid="s1q13">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ Trap Question — what looks like the rule isn't! What comes next?</div>
+    <span class="q-series">2, 4, 6, 8, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s1q13')">10</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q13')">16</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q13')">12</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q13')">14</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q13')">18</button>
+    </div>
+    <div class="feedback" id="fb-s1q13"></div>
+  </div>
+
+  <div class="q-card" data-section="1" data-qid="s1q14">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ A student says the answer is 165. Why are they wrong? What is the correct answer?</div>
+    <span class="q-series">130, 143, 156, 169, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q14')">165</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q14')">178</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s1q14')">182</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q14')">176</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q14')">179</button>
+    </div>
+    <div class="feedback" id="fb-s1q14"></div>
+  </div>
+
+  <div class="q-card" data-section="1" data-qid="s1q15">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">Type the missing term (not the last):</div>
+    <span class="q-series">5, (?), 19, 26, 33</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s1q15" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s1q15',12)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s1q15"></div>
+  </div>
+
+  <div class="q-card" data-section="1" data-qid="s1q16">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ Wrong direction trap:</div>
+    <span class="q-series">−12, −8, −4, 0, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q16')">−4</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s1q16')">4</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q16')">2</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q16')">0</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s1q16')">8</button>
+    </div>
+    <div class="feedback" id="fb-s1q16"></div>
+  </div>
+</section>
+
+<!-- ===== SKILL 2: PROGRESSIVE ===== -->
+<section id="skill-2">
+  <div class="skill-divider">
+    <span class="skill-icon">📈</span>
+    <h2>Sub-Skill 2: Progressive Arithmetic</h2>
+    <span class="qs-count" id="s2-count">0/16 answered</span>
+    <div class="section-complete"><div class="complete-badge" id="s2-complete">✓ Done</div></div>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-header"><div class="card-icon">😊</div><h3>Simple Explanation</h3></div>
+    <div class="card-body">
+      <p>Instead of climbing the same number of steps each time, imagine the steps get <strong>bigger and bigger</strong>. First you climb 2 steps, then 3, then 4, then 5… The gap keeps growing by the same amount each time!</p>
+      <p class="analogy-text">🪜 It's like a staircase where each step is one step taller than the last.</p>
+    </div>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-header"><div class="card-icon">📖</div><h3>Full Explanation</h3></div>
+    <div class="card-body">
+      <p>In a <strong>progressive arithmetic sequence</strong>, the differences between consecutive terms are not constant — they themselves form an arithmetic sequence (e.g., +2, +4, +6, +8 — the differences increase by 2 each time). You must calculate the differences of the differences ("second differences") to find the pattern.</p>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span>Worked Example — Easy</span></div>
+    <div class="example-body">
+      <div class="example-q">Find the next: <span class="step-math">2, 5, 9, 14, 20, (?)</span></div>
+      <div class="seq-visual">
+        <div class="seq-num">2</div>
+        <div class="seq-bridge"><div class="bridge-label">+3</div><div class="bridge-line"></div></div>
+        <div class="seq-num">5</div>
+        <div class="seq-bridge"><div class="bridge-label">+4</div><div class="bridge-line"></div></div>
+        <div class="seq-num">9</div>
+        <div class="seq-bridge"><div class="bridge-label">+5</div><div class="bridge-line"></div></div>
+        <div class="seq-num">14</div>
+        <div class="seq-bridge"><div class="bridge-label">+6</div><div class="bridge-line"></div></div>
+        <div class="seq-num">20</div>
+        <div class="seq-bridge"><div class="bridge-label">+7</div><div class="bridge-line"></div></div>
+        <div class="seq-num answer-num">27</div>
+      </div>
+      <ol class="step-list">
+        <li class="step-item"><div class="step-num">1</div><div class="step-text">Differences: <span class="step-math">+3, +4, +5, +6</span></div></li>
+        <li class="step-item"><div class="step-num">2</div><div class="step-text">2nd differences: <span class="step-math">+1, +1, +1</span> — going up by 1 each time</div></li>
+        <li class="step-item"><div class="step-num">3</div><div class="step-text">Next difference: <span class="step-math">+7</span></div></li>
+        <li class="step-item"><div class="step-num">4</div><div class="step-text">Answer: <span class="step-math">20 + 7 = 27</span></div></li>
+      </ol>
+      <div class="example-answer">✅ Answer: 27</div>
+    </div>
+  </div>
+
+  <div class="watchout-box">
+    <div class="watchout-title">⚠️ Watch Out!</div>
+    <ul>
+      <li>Students often <strong>repeat the last gap</strong> instead of increasing it. If the differences were +3, +4, +5 — the next is +6, NOT +5 again!</li>
+      <li>GL sometimes uses prime-number increases (+2, +3, +5, +7…). Always check the differences carefully.</li>
+    </ul>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span>Worked Example — Harder (Prime differences)</span></div>
+    <div class="example-body">
+      <div class="example-q">Find the next: <span class="step-math">1, 3, 6, 11, 18, (?)</span></div>
+      <div class="seq-visual">
+        <div class="seq-num">1</div>
+        <div class="seq-bridge"><div class="bridge-label">+2</div><div class="bridge-line"></div></div>
+        <div class="seq-num">3</div>
+        <div class="seq-bridge"><div class="bridge-label">+3</div><div class="bridge-line"></div></div>
+        <div class="seq-num">6</div>
+        <div class="seq-bridge"><div class="bridge-label">+5</div><div class="bridge-line"></div></div>
+        <div class="seq-num">11</div>
+        <div class="seq-bridge"><div class="bridge-label">+7</div><div class="bridge-line"></div></div>
+        <div class="seq-num">18</div>
+        <div class="seq-bridge"><div class="bridge-label">+11</div><div class="bridge-line"></div></div>
+        <div class="seq-num answer-num">29</div>
+      </div>
+      <ol class="step-list">
+        <li class="step-item"><div class="step-num">1</div><div class="step-text">Differences: <span class="step-math">+2, +3, +5, +7</span> — these are primes!</div></li>
+        <li class="step-item"><div class="step-num">2</div><div class="step-text">Next prime after 7: <span class="step-math">+11</span></div></li>
+        <li class="step-item"><div class="step-num">3</div><div class="step-text">Answer: <span class="step-math">18 + 11 = 29</span></div></li>
+      </ol>
+      <div class="example-answer">✅ Answer: 29</div>
+    </div>
+  </div>
+
+  <div class="tier-heading starter"><span class="badge badge-starter">🟢 Starter</span><h4 style="color:var(--green)">Differences go up by 1 each time</h4></div>
+
+  <div class="q-card" data-section="2" data-qid="s2q1">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">What comes next? (Differences: +2, +3, +4…)</div>
+    <span class="q-series">0, 2, 5, 9, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q1')">12</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q1')">13</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s2q1')">14</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q1')">15</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q1')">16</button>
+    </div>
+    <div class="feedback" id="fb-s2q1"></div>
+  </div>
+
+  <div class="q-card" data-section="2" data-qid="s2q2">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">1, 3, 7, 13, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q2')">19</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q2')">20</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s2q2')">21</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q2')">22</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q2')">25</button>
+    </div>
+    <div class="feedback" id="fb-s2q2"></div>
+  </div>
+
+  <div class="q-card" data-section="2" data-qid="s2q3">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">Type the next number:</div>
+    <span class="q-series">10, 12, 16, 22, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s2q3" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s2q3',30)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s2q3"></div>
+  </div>
+
+  <div class="q-card" data-section="2" data-qid="s2q4">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">What comes next? (Differences decrease by 1)</div>
+    <span class="q-series">30, 38, 44, 48, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q4')">51</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s2q4')">50</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q4')">52</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q4')">49</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q4')">53</button>
+    </div>
+    <div class="feedback" id="fb-s2q4"></div>
+  </div>
+
+  <div class="tier-heading developing"><span class="badge badge-developing">🟡 Developing</span><h4 style="color:var(--yellow)">Differences increase by 2 or more</h4></div>
+
+  <div class="q-card" data-section="2" data-qid="s2q5">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">What comes next? (Differences: +2, +4, +6…)</div>
+    <span class="q-series">3, 5, 9, 15, 23, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q5')">29</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q5')">31</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s2q5')">33</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q5')">35</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q5')">37</button>
+    </div>
+    <div class="feedback" id="fb-s2q5"></div>
+  </div>
+
+  <div class="q-card" data-section="2" data-qid="s2q6">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">Type the next number:</div>
+    <span class="q-series">2, 5, 9, 14, 20, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s2q6" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s2q6',27)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s2q6"></div>
+  </div>
+
+  <div class="q-card" data-section="2" data-qid="s2q7">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">100, 98, 93, 85, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q7')">78</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q7')">75</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s2q7')">74</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q7')">72</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q7')">70</button>
+    </div>
+    <div class="feedback" id="fb-s2q7"></div>
+  </div>
+
+  <div class="q-card" data-section="2" data-qid="s2q8">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">0, 1, 3, 6, 10, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q8')">13</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q8')">14</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s2q8')">15</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q8')">16</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q8')">21</button>
+    </div>
+    <div class="feedback" id="fb-s2q8"></div>
+  </div>
+
+  <div class="tier-heading secure"><span class="badge badge-secure">🟠 Secure</span><h4 style="color:var(--orange)">GL standard — prime or varied differences</h4></div>
+
+  <div class="q-card" data-section="2" data-qid="s2q9">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">Differences are prime numbers. What comes next?</div>
+    <span class="q-series">1, 3, 6, 11, 18, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q9')">25</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q9')">27</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s2q9')">29</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q9')">31</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q9')">33</button>
+    </div>
+    <div class="feedback" id="fb-s2q9"></div>
+  </div>
+
+  <div class="q-card" data-section="2" data-qid="s2q10">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">Type the next number:</div>
+    <span class="q-series">5, 7, 11, 17, 25, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s2q10" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s2q10',35)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s2q10"></div>
+  </div>
+
+  <div class="q-card" data-section="2" data-qid="s2q11">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">⚠️ Trap — these differences look like +5 each time but aren't. What's next?</div>
+    <span class="q-series">2, 4, 8, 14, 22, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q11')">30</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q11')">28</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s2q11')">32</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q11')">34</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q11')">36</button>
+    </div>
+    <div class="feedback" id="fb-s2q11"></div>
+  </div>
+
+  <div class="q-card" data-section="2" data-qid="s2q12">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">50, 48, 43, 35, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q12')">27</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q12')">26</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s2q12')">24</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q12')">22</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q12')">20</button>
+    </div>
+    <div class="feedback" id="fb-s2q12"></div>
+  </div>
+
+  <div class="tier-heading mastery"><span class="badge badge-mastery">🟣 Mastery</span><h4 style="color:var(--purple)">Delayed pattern — pattern starts late</h4></div>
+
+  <div class="q-card" data-section="2" data-qid="s2q13">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ The pattern starts at the 2nd gap. What comes next?</div>
+    <span class="q-series">5, 7, 10, 14, 19, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q13')">23</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q13')">24</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s2q13')">25</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q13')">26</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q13')">27</button>
+    </div>
+    <div class="feedback" id="fb-s2q13"></div>
+  </div>
+
+  <div class="q-card" data-section="2" data-qid="s2q14">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ Decoy differences — looks like ×2 but isn't! What comes next?</div>
+    <span class="q-series">1, 2, 4, 7, 11, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q14')">22</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q14')">15</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s2q14')">16</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q14')">17</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q14')">18</button>
+    </div>
+    <div class="feedback" id="fb-s2q14"></div>
+  </div>
+
+  <div class="q-card" data-section="2" data-qid="s2q15">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">Type the next number: (differences increase by 3)</div>
+    <span class="q-series">0, 1, 4, 10, 20, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s2q15" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s2q15',35)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s2q15"></div>
+  </div>
+
+  <div class="q-card" data-section="2" data-qid="s2q16">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ Three-layer logic: alternating + progressive. What comes next?</div>
+    <span class="q-series">1, 10, 3, 9, 6, 8, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q16')">7</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q16')">8</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s2q16')">10</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q16')">12</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s2q16')">14</button>
+    </div>
+    <div class="feedback" id="fb-s2q16"></div>
+  </div>
+</section>
+
+<!-- ===== SKILL 3: ALTERNATING ===== -->
+<section id="skill-3">
+  <div class="skill-divider">
+    <span class="skill-icon">🔀</span>
+    <h2>Sub-Skill 3: Alternating (Interlocking) Sequences</h2>
+    <span class="qs-count" id="s3-count">0/16 answered</span>
+    <div class="section-complete"><div class="complete-badge" id="s3-complete">✓ Done</div></div>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-header"><div class="card-icon">😊</div><h3>Simple Explanation</h3></div>
+    <div class="card-body">
+      <p>Imagine two friends taking turns to speak. Friend A says something, then Friend B, then A, then B… If you cover up Friend B's turns, Friend A has their own separate pattern. <strong>Alternating sequences are really TWO hidden sequences pretending to be one.</strong></p>
+      <p class="analogy-text">🎭 Visual trick: If numbers jump up-and-down oddly → try splitting into every OTHER number.</p>
+    </div>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-header"><div class="card-icon">📖</div><h3>Full Explanation</h3></div>
+    <div class="card-body">
+      <p>An <strong>alternating (interlocking) sequence</strong> consists of two independent arithmetic sequences woven together. The odd-position terms (1st, 3rd, 5th…) follow one rule; the even-position terms (2nd, 4th, 6th…) follow a different rule. To identify: if the differences alternate between positive and negative (or vary irregularly), separate the sequence into two strands.</p>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span>Worked Example — Easy</span></div>
+    <div class="example-body">
+      <div class="example-q">Find the next: <span class="step-math">3, 15, 6, 12, 9, 9, (?)</span></div>
+      <ol class="step-list">
+        <li class="step-item"><div class="step-num">1</div><div class="step-text">Numbers jump: <span class="step-math">3→15 (+12), 15→6 (−9)…</span> — up then down. Try splitting!</div></li>
+        <li class="step-item"><div class="step-num">2</div><div class="step-text">Strand A (positions 1,3,5): <span class="step-math">3, 6, 9</span> → rule is <span class="step-math">+3</span></div></li>
+        <li class="step-item"><div class="step-num">3</div><div class="step-text">Strand B (positions 2,4,6): <span class="step-math">15, 12, 9</span> → rule is <span class="step-math">−3</span></div></li>
+        <li class="step-item"><div class="step-num">4</div><div class="step-text">Next is position 7 (odd) → Strand A → <span class="step-math">9 + 3 = 12</span></div></li>
+      </ol>
+      <div class="seq-visual">
+        <div class="seq-num" style="border-color:rgba(100,180,255,0.5)">3</div>
+        <div class="seq-bridge"><div class="bridge-label" style="color:rgba(255,200,100,0.8)">+12</div><div class="bridge-line"></div></div>
+        <div class="seq-num" style="border-color:rgba(255,200,100,0.5)">15</div>
+        <div class="seq-bridge"><div class="bridge-label" style="color:rgba(100,180,255,0.8)">→+3</div><div class="bridge-line"></div></div>
+        <div class="seq-num" style="border-color:rgba(100,180,255,0.5)">6</div>
+        <div class="seq-bridge"><div class="bridge-label" style="color:rgba(255,200,100,0.8)">→−3</div><div class="bridge-line"></div></div>
+        <div class="seq-num" style="border-color:rgba(255,200,100,0.5)">12</div>
+        <div class="seq-bridge"><div class="bridge-label" style="color:rgba(100,180,255,0.8)">→+3</div><div class="bridge-line"></div></div>
+        <div class="seq-num" style="border-color:rgba(100,180,255,0.5)">9</div>
+        <div class="seq-bridge"><div class="bridge-label" style="color:rgba(255,200,100,0.8)">→−3</div><div class="bridge-line"></div></div>
+        <div class="seq-num" style="border-color:rgba(255,200,100,0.5)">9</div>
+        <div class="seq-bridge"><div class="bridge-label" style="color:rgba(100,180,255,0.8)">→+3</div><div class="bridge-line"></div></div>
+        <div class="seq-num answer-num">12</div>
+      </div>
+      <div class="example-answer">✅ Answer: 12</div>
+    </div>
+  </div>
+
+  <div class="watchout-box">
+    <div class="watchout-title">⚠️ Watch Out!</div>
+    <ul>
+      <li>Students apply the rule they just used to the NEXT term too. Remember: Strand A's rule only applies to Strand A!</li>
+      <li>Long sequences (7+ numbers) hide the skip. Always write down which position the answer is in (odd or even).</li>
+      <li>Visual trigger: if numbers jump up-and-down → always try splitting first.</li>
+    </ul>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span>Worked Example — Harder (Compound alternating: ×2, +3)</span></div>
+    <div class="example-body">
+      <div class="example-q">Find the next: <span class="step-math">2, 6, 7, 21, 22, 66, (?)</span></div>
+      <ol class="step-list">
+        <li class="step-item"><div class="step-num">1</div><div class="step-text">Differences look chaotic. Split it!</div></li>
+        <li class="step-item"><div class="step-num">2</div><div class="step-text">Strand A (pos 1,3,5): <span class="step-math">2, 7, 22</span> → ×3+1 (2×3+1=7, 7×3+1=22)</div></li>
+        <li class="step-item"><div class="step-num">3</div><div class="step-text">Strand B (pos 2,4,6): <span class="step-math">6, 21, 66</span> → ×3+3 (6×3+3=21, 21×3+3=66)</div></li>
+        <li class="step-item"><div class="step-num">4</div><div class="step-text">Next is position 7 (odd) → Strand A → <span class="step-math">22 × 3 + 1 = 67</span></div></li>
+      </ol>
+      <div class="example-answer">✅ Answer: 67</div>
+    </div>
+  </div>
+
+  <div class="tier-heading starter"><span class="badge badge-starter">🟢 Starter</span><h4 style="color:var(--green)">Simple alternating — same rule in each strand</h4></div>
+
+  <div class="q-card" data-section="3" data-qid="s3q1">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">Split into two strands. What comes next?</div>
+    <span class="q-series">1, 10, 3, 8, 5, 6, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q1')">5</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q1')">6</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s3q1')">7</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q1')">8</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q1')">9</button>
+    </div>
+    <div class="feedback" id="fb-s3q1"></div>
+  </div>
+
+  <div class="q-card" data-section="3" data-qid="s3q2">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">2, 20, 4, 18, 6, 16, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q2')">6</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q2')">12</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s3q2')">8</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q2')">14</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q2')">10</button>
+    </div>
+    <div class="feedback" id="fb-s3q2"></div>
+  </div>
+
+  <div class="q-card" data-section="3" data-qid="s3q3">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">Type the next number:</div>
+    <span class="q-series">5, 1, 10, 2, 15, 3, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s3q3" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s3q3',20)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s3q3"></div>
+  </div>
+
+  <div class="q-card" data-section="3" data-qid="s3q4">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">3, 15, 6, 12, 9, 9, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q4')">6</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q4')">9</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q4')">11</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s3q4')">12</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q4')">15</button>
+    </div>
+    <div class="feedback" id="fb-s3q4"></div>
+  </div>
+
+  <div class="tier-heading developing"><span class="badge badge-developing">🟡 Developing</span><h4 style="color:var(--yellow)">Alternating compound rules (×, +)</h4></div>
+
+  <div class="q-card" data-section="3" data-qid="s3q5">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">Alternating: ×2, +3. What comes next?</div>
+    <span class="q-series">1, 3, 2, 6, 4, 12, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q5')">6</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q5')">7</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s3q5')">8</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q5')">24</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q5')">15</button>
+    </div>
+    <div class="feedback" id="fb-s3q5"></div>
+  </div>
+
+  <div class="q-card" data-section="3" data-qid="s3q6">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">Type the next number:</div>
+    <span class="q-series">10, 100, 20, 90, 30, 80, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s3q6" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s3q6',40)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s3q6"></div>
+  </div>
+
+  <div class="q-card" data-section="3" data-qid="s3q7">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">4, 50, 8, 45, 12, 40, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q7')">14</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s3q7')">16</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q7')">35</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q7')">18</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q7')">20</button>
+    </div>
+    <div class="feedback" id="fb-s3q7"></div>
+  </div>
+
+  <div class="q-card" data-section="3" data-qid="s3q8">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">5, 2, 10, 6, 20, 18, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q8')">36</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s3q8')">40</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q8')">38</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q8')">54</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q8')">42</button>
+    </div>
+    <div class="feedback" id="fb-s3q8"></div>
+  </div>
+
+  <div class="tier-heading secure"><span class="badge badge-secure">🟠 Secure</span><h4 style="color:var(--orange)">Long sequences — easy to lose track</h4></div>
+
+  <div class="q-card" data-section="3" data-qid="s3q9">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">7-term sequence. What comes next?</div>
+    <span class="q-series">1, 100, 4, 90, 9, 80, 16, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q9')">25</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q9')">20</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s3q9')">70</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q9')">60</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q9')">17</button>
+    </div>
+    <div class="feedback" id="fb-s3q9"></div>
+  </div>
+
+  <div class="q-card" data-section="3" data-qid="s3q10">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">Type the next number:</div>
+    <span class="q-series">3, 1, 9, 3, 27, 9, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s3q10" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s3q10',81)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s3q10"></div>
+  </div>
+
+  <div class="q-card" data-section="3" data-qid="s3q11">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">2, 64, 8, 32, 32, 16, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q11')">64</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q11')">48</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s3q11')">128</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q11')">8</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q11')">16</button>
+    </div>
+    <div class="feedback" id="fb-s3q11"></div>
+  </div>
+
+  <div class="q-card" data-section="3" data-qid="s3q12">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">7, 3, 12, 6, 17, 12, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q12')">19</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q12')">20</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s3q12')">22</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q12')">24</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q12')">18</button>
+    </div>
+    <div class="feedback" id="fb-s3q12"></div>
+  </div>
+
+  <div class="tier-heading mastery"><span class="badge badge-mastery">🟣 Mastery</span><h4 style="color:var(--purple)">Compound alternating rules</h4></div>
+
+  <div class="q-card" data-section="3" data-qid="s3q13">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ Two different compound rules. What comes next?</div>
+    <span class="q-series">2, 6, 7, 21, 22, 66, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q13')">63</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q13')">65</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s3q13')">67</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q13')">69</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q13')">71</button>
+    </div>
+    <div class="feedback" id="fb-s3q13"></div>
+  </div>
+
+  <div class="q-card" data-section="3" data-qid="s3q14">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">Type the next number: (One strand ×2, other ÷2)</div>
+    <span class="q-series">1, 64, 2, 32, 4, 16, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s3q14" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s3q14',8)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s3q14"></div>
+  </div>
+
+  <div class="q-card" data-section="3" data-qid="s3q15">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ False doubling trap. First instinct is wrong. What comes next?</div>
+    <span class="q-series">3, 10, 6, 8, 12, 6, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q15')">6</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q15')">18</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s3q15')">24</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q15')">12</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q15')">4</button>
+    </div>
+    <div class="feedback" id="fb-s3q15"></div>
+  </div>
+
+  <div class="q-card" data-section="3" data-qid="s3q16">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ 3-layer: alternating + each strand is progressive. What comes next?</div>
+    <span class="q-series">1, 20, 3, 17, 7, 13, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q16')">8</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q16')">11</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s3q16')">13</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q16')">15</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s3q16')">17</button>
+    </div>
+    <div class="feedback" id="fb-s3q16"></div>
+  </div>
+</section>
+
+<!-- ===== SKILL 4: MULTIPLICATIVE ===== -->
+<section id="skill-4">
+  <div class="skill-divider">
+    <span class="skill-icon">✖️</span>
+    <h2>Sub-Skill 4: Multiplicative & Geometric Sequences</h2>
+    <span class="qs-count" id="s4-count">0/16 answered</span>
+    <div class="section-complete"><div class="complete-badge" id="s4-complete">✓ Done</div></div>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-header"><div class="card-icon">😊</div><h3>Simple Explanation</h3></div>
+    <div class="card-body">
+      <p>Instead of adding the same number each time, you <strong>multiply</strong>. Like a magic doubling machine: put 3 in, get 6 out. Put 6 in, get 12 out. The numbers grow fast!</p>
+      <p class="analogy-text">💸 Think of it like money doubling in a bank every year: 1, 2, 4, 8, 16, 32…</p>
+    </div>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-header"><div class="card-icon">📖</div><h3>Full Explanation</h3></div>
+    <div class="card-body">
+      <p>A <strong>geometric (multiplicative) sequence</strong> uses a constant ratio — each term is multiplied (or divided) by the same value. Also includes square sequences (1, 4, 9, 16, 25…), cube sequences (1, 8, 27, 64…), and prime number sequences (2, 3, 5, 7, 11…).</p>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span>Worked Example — Squares</span></div>
+    <div class="example-body">
+      <div class="example-q">Find the next: <span class="step-math">1, 4, 9, 16, (?)</span></div>
+      <ol class="step-list">
+        <li class="step-item"><div class="step-num">1</div><div class="step-text">Differences: <span class="step-math">+3, +5, +7</span> — odd numbers! Or simply: these are <span class="step-math">1², 2², 3², 4²</span></div></li>
+        <li class="step-item"><div class="step-num">2</div><div class="step-text">Next: <span class="step-math">5² = 25</span></div></li>
+      </ol>
+      <div class="example-answer">✅ Answer: 25</div>
+    </div>
+  </div>
+
+  <div class="watchout-box">
+    <div class="watchout-title">⚠️ Watch Out!</div>
+    <ul>
+      <li><strong>Square Blindness:</strong> Seeing 4, 9, 16 and calculating differences (+5, +7) instead of recognising them as 2², 3², 4². Learn your squares to 15²!</li>
+      <li>The sequence may start mid-way: e.g., 25, 36, 49… is still squares (5², 6², 7²)</li>
+    </ul>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span>Worked Example — Harder (Offset squares)</span></div>
+    <div class="example-body">
+      <div class="example-q">Find the next: <span class="step-math">5, 10, 17, 26, (?)</span></div>
+      <ol class="step-list">
+        <li class="step-item"><div class="step-num">1</div><div class="step-text">Differences: <span class="step-math">+5, +7, +9</span> — odd differences</div></li>
+        <li class="step-item"><div class="step-num">2</div><div class="step-text">Check squares: <span class="step-math">4+1=5, 9+1=10, 16+1=17, 25+1=26</span> → rule is n²+1</div></li>
+        <li class="step-item"><div class="step-num">3</div><div class="step-text">Next: <span class="step-math">6² + 1 = 37</span></div></li>
+      </ol>
+      <div class="example-answer">✅ Answer: 37</div>
+    </div>
+  </div>
+
+  <div class="tier-heading starter"><span class="badge badge-starter">🟢 Starter</span><h4 style="color:var(--green)">Pure ×2, ×3, or square sequences</h4></div>
+
+  <div class="q-card" data-section="4" data-qid="s4q1">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">What comes next? (×2 each time)</div>
+    <span class="q-series">1, 2, 4, 8, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q1')">12</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q1')">14</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s4q1')">16</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q1')">18</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q1')">20</button>
+    </div>
+    <div class="feedback" id="fb-s4q1"></div>
+  </div>
+
+  <div class="q-card" data-section="4" data-qid="s4q2">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">What comes next? (Square numbers)</div>
+    <span class="q-series">1, 4, 9, 16, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q2')">20</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q2')">22</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s4q2')">25</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q2')">24</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q2')">26</button>
+    </div>
+    <div class="feedback" id="fb-s4q2"></div>
+  </div>
+
+  <div class="q-card" data-section="4" data-qid="s4q3">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">Type the next number: (prime numbers)</div>
+    <span class="q-series">2, 3, 5, 7, 11, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s4q3" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s4q3',13)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s4q3"></div>
+  </div>
+
+  <div class="q-card" data-section="4" data-qid="s4q4">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">What comes next? (÷2 each time)</div>
+    <span class="q-series">64, 32, 16, 8, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q4')">6</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q4')">3</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s4q4')">4</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q4')">2</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q4')">1</button>
+    </div>
+    <div class="feedback" id="fb-s4q4"></div>
+  </div>
+
+  <div class="tier-heading developing"><span class="badge badge-developing">🟡 Developing</span><h4 style="color:var(--yellow)">Squares + offset, ×3, cubes</h4></div>
+
+  <div class="q-card" data-section="4" data-qid="s4q5">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">What comes next? (n² + 1)</div>
+    <span class="q-series">2, 5, 10, 17, 26, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q5')">34</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q5')">35</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s4q5')">37</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q5')">36</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q5')">38</button>
+    </div>
+    <div class="feedback" id="fb-s4q5"></div>
+  </div>
+
+  <div class="q-card" data-section="4" data-qid="s4q6">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">Type: cube numbers</div>
+    <span class="q-series">1, 8, 27, 64, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s4q6" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s4q6',125)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s4q6"></div>
+  </div>
+
+  <div class="q-card" data-section="4" data-qid="s4q7">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">What comes next? (n² − 1)</div>
+    <span class="q-series">3, 8, 15, 24, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q7')">33</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q7')">34</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s4q7')">35</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q7')">36</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q7')">37</button>
+    </div>
+    <div class="feedback" id="fb-s4q7"></div>
+  </div>
+
+  <div class="q-card" data-section="4" data-qid="s4q8">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">What comes next? (primes starting from a high square)</div>
+    <span class="q-series">25, 36, 49, 64, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q8')">74</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q8')">79</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s4q8')">81</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q8')">80</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q8')">83</button>
+    </div>
+    <div class="feedback" id="fb-s4q8"></div>
+  </div>
+
+  <div class="tier-heading secure"><span class="badge badge-secure">🟠 Secure</span><h4 style="color:var(--orange)">Non-obvious geometric — ×2+1 style</h4></div>
+
+  <div class="q-card" data-section="4" data-qid="s4q9">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">⚠️ Looks like doubling — but not quite. What comes next?</div>
+    <span class="q-series">3, 7, 15, 31, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q9')">47</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q9')">55</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s4q9')">63</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q9')">61</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q9')">62</button>
+    </div>
+    <div class="feedback" id="fb-s4q9"></div>
+  </div>
+
+  <div class="q-card" data-section="4" data-qid="s4q10">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">Type the next: n(n+1) — triangle numbers</div>
+    <span class="q-series">2, 6, 12, 20, 30, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s4q10" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s4q10',42)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s4q10"></div>
+  </div>
+
+  <div class="q-card" data-section="4" data-qid="s4q11">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">5, 10, 17, 26, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q11')">33</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q11')">35</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s4q11')">37</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q11')">39</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q11')">41</button>
+    </div>
+    <div class="feedback" id="fb-s4q11"></div>
+  </div>
+
+  <div class="q-card" data-section="4" data-qid="s4q12">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">2, 8, 18, 32, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q12')">48</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q12')">46</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s4q12')">50</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q12')">52</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q12')">54</button>
+    </div>
+    <div class="feedback" id="fb-s4q12"></div>
+  </div>
+
+  <div class="tier-heading mastery"><span class="badge badge-mastery">🟣 Mastery</span><h4 style="color:var(--purple)">False pattern trap — first instinct wrong</h4></div>
+
+  <div class="q-card" data-section="4" data-qid="s4q13">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ Looks like ×2 but isn't — check carefully! What comes next?</div>
+    <span class="q-series">2, 4, 8, 14, 22, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q13')">42</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q13')">44</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s4q13')">32</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q13')">28</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q13')">30</button>
+    </div>
+    <div class="feedback" id="fb-s4q13"></div>
+  </div>
+
+  <div class="q-card" data-section="4" data-qid="s4q14">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">Type: primes then squares — what comes next in this mixed sequence?</div>
+    <span class="q-series">2, 1, 3, 4, 5, 9, 7, 16, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s4q14" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s4q14',11)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s4q14"></div>
+  </div>
+
+  <div class="q-card" data-section="4" data-qid="s4q15">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ GL loves this: offset from perfect squares. What comes next?</div>
+    <span class="q-series">0, 3, 8, 15, 24, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q15')">33</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q15')">34</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s4q15')">35</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q15')">36</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q15')">37</button>
+    </div>
+    <div class="feedback" id="fb-s4q15"></div>
+  </div>
+
+  <div class="q-card" data-section="4" data-qid="s4q16">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ Three-layer: ×2 with progressive offset. What comes next?</div>
+    <span class="q-series">1, 3, 7, 15, 31, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q16')">45</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q16')">55</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s4q16')">63</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q16')">61</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s4q16')">62</button>
+    </div>
+    <div class="feedback" id="fb-s4q16"></div>
+  </div>
+</section>
+
+<!-- ===== SKILL 5: POSITION-BASED ===== -->
+<section id="skill-5">
+  <div class="skill-divider">
+    <span class="skill-icon">📍</span>
+    <h2>Sub-Skill 5: Position-Based Sequences (n², n(n+1))</h2>
+    <span class="qs-count" id="s5-count">0/8 answered</span>
+    <div class="section-complete"><div class="complete-badge" id="s5-complete">✓ Done</div></div>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-header"><div class="card-icon">😊</div><h3>Simple Explanation</h3></div>
+    <div class="card-body">
+      <p>Sometimes the secret is about the <strong>position</strong> of the number. The 1st number depends on 1, the 2nd on 2, the 3rd on 3… You need to spot what is special about each position number.</p>
+      <p class="analogy-text">🪑 Imagine numbered seats in a cinema. Your seat number tells you how many popcorn boxes you get. Seat 1 → 2 boxes. Seat 2 → 6 boxes. Seat 3 → 12 boxes. The seat NUMBER decides the answer!</p>
+    </div>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-header"><div class="card-icon">📖</div><h3>Full Explanation</h3></div>
+    <div class="card-body">
+      <p>In <strong>position-based sequences</strong>, the nth term is defined by a formula involving n. Common patterns: n² (squares), n(n+1) (triangular pairs), 2n, n²+k, n²−k. To identify: check if differences form consecutive odd numbers (squares) or consecutive even numbers (n(n+1)).</p>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span>Worked Example</span></div>
+    <div class="example-body">
+      <div class="example-q">Find the next: <span class="step-math">2, 6, 12, 20, 30, (?)</span></div>
+      <ol class="step-list">
+        <li class="step-item"><div class="step-num">1</div><div class="step-text">Differences: <span class="step-math">+4, +6, +8, +10</span> — even numbers, going up by 2</div></li>
+        <li class="step-item"><div class="step-num">2</div><div class="step-text">Try n(n+1): 1×2=2, 2×3=6, 3×4=12, 4×5=20, 5×6=30 ✓</div></li>
+        <li class="step-item"><div class="step-num">3</div><div class="step-text">Next: n=6 → <span class="step-math">6×7 = 42</span></div></li>
+      </ol>
+      <div class="example-answer">✅ Answer: 42</div>
+    </div>
+  </div>
+
+  <div class="watchout-box">
+    <div class="watchout-title">⚠️ Watch Out!</div>
+    <ul><li>Students try to use differences only and miss the position pattern. Always ask: "Could this be n² or n(n+1)?"</li></ul>
+  </div>
+
+  <div class="tier-heading starter"><span class="badge badge-starter">🟢 Starter</span><h4 style="color:var(--green)">Simple n² and n(n+1)</h4></div>
+
+  <div class="q-card" data-section="5" data-qid="s5q1">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">n(n+1) sequence. What comes next?</div>
+    <span class="q-series">2, 6, 12, 20, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q1')">28</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q1')">26</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s5q1')">30</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q1')">32</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q1')">24</button>
+    </div>
+    <div class="feedback" id="fb-s5q1"></div>
+  </div>
+
+  <div class="q-card" data-section="5" data-qid="s5q2">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">Type: What is the 6th term in the n(n+1) sequence?</div>
+    <span class="q-series">2, 6, 12, 20, 30, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s5q2" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s5q2',42)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s5q2"></div>
+  </div>
+
+  <div class="tier-heading developing"><span class="badge badge-developing">🟡 Developing</span><h4 style="color:var(--yellow)">Offset square sequences (n²±k)</h4></div>
+
+  <div class="q-card" data-section="5" data-qid="s5q3">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">What comes next? (n² + 1)</div>
+    <span class="q-series">5, 10, 17, 26, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q3')">33</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q3')">35</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s5q3')">37</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q3')">39</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q3')">41</button>
+    </div>
+    <div class="feedback" id="fb-s5q3"></div>
+  </div>
+
+  <div class="q-card" data-section="5" data-qid="s5q4">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">Type: (n² − 1)</div>
+    <span class="q-series">0, 3, 8, 15, 24, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s5q4" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s5q4',35)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s5q4"></div>
+  </div>
+
+  <div class="tier-heading secure"><span class="badge badge-secure">🟠 Secure</span><h4 style="color:var(--orange)">GL standard position-based</h4></div>
+
+  <div class="q-card" data-section="5" data-qid="s5q5">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">What comes next? (2n²)</div>
+    <span class="q-series">2, 8, 18, 32, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q5')">46</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q5')">48</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s5q5')">50</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q5')">52</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q5')">54</button>
+    </div>
+    <div class="feedback" id="fb-s5q5"></div>
+  </div>
+
+  <div class="q-card" data-section="5" data-qid="s5q6">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">Type the next: (n² + n)</div>
+    <span class="q-series">2, 6, 12, 20, 30, 42, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s5q6" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s5q6',56)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s5q6"></div>
+  </div>
+
+  <div class="tier-heading mastery"><span class="badge badge-mastery">🟣 Mastery</span><h4 style="color:var(--purple)">Disguised position sequences</h4></div>
+
+  <div class="q-card" data-section="5" data-qid="s5q7">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ Looks like +4 pattern but isn't. What comes next?</div>
+    <span class="q-series">1, 4, 9, 16, 25, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q7')">30</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q7')">32</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s5q7')">36</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q7')">34</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q7')">38</button>
+    </div>
+    <div class="feedback" id="fb-s5q7"></div>
+  </div>
+
+  <div class="q-card" data-section="5" data-qid="s5q8">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ GL trap: n²+2n. What comes next?</div>
+    <span class="q-series">3, 8, 15, 24, 35, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q8')">46</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q8')">46</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s5q8')">48</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q8')">50</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s5q8')">52</button>
+    </div>
+    <div class="feedback" id="fb-s5q8"></div>
+  </div>
+</section>
+
+<!-- ===== SKILL 6: COMPOUND RULES ===== -->
+<section id="skill-6">
+  <div class="skill-divider">
+    <span class="skill-icon">⚙️</span>
+    <h2>Sub-Skill 6: Compound (Two-Step) Rules</h2>
+    <span class="qs-count" id="s6-count">0/8 answered</span>
+    <div class="section-complete"><div class="complete-badge" id="s6-complete">✓ Done</div></div>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-header"><div class="card-icon">😊</div><h3>Simple Explanation</h3></div>
+    <div class="card-body">
+      <p>A two-step rule is like a machine with two buttons. First you press Button 1 (e.g. "×2"), then Button 2 (e.g. "+1"). <strong>Both buttons must be pressed in order</strong> to get the next number.</p>
+      <p class="analogy-text">🏭 A factory machine: put in 5, it ×2 = 10, then +1 = 11. Put in 11, it ×2 = 22, then +1 = 23!</p>
+    </div>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-header"><div class="card-icon">📖</div><h3>Full Explanation</h3></div>
+    <div class="card-body">
+      <p><strong>Compound (two-step) rules</strong> apply two operations to each term to generate the next — e.g., ×2 then +1, or +5 then ÷2. The differences between consecutive terms will form a geometric sequence (if ×k is involved). To spot: calculate differences — if they double or triple each time, try a two-step rule.</p>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span>Worked Example — ×2+1</span></div>
+    <div class="example-body">
+      <div class="example-q">Find the next: <span class="step-math">2, 5, 11, 23, 47, (?)</span></div>
+      <div class="seq-visual">
+        <div class="seq-num">2</div>
+        <div class="seq-bridge"><div class="bridge-label">×2+1</div><div class="bridge-line"></div></div>
+        <div class="seq-num">5</div>
+        <div class="seq-bridge"><div class="bridge-label">×2+1</div><div class="bridge-line"></div></div>
+        <div class="seq-num">11</div>
+        <div class="seq-bridge"><div class="bridge-label">×2+1</div><div class="bridge-line"></div></div>
+        <div class="seq-num">23</div>
+        <div class="seq-bridge"><div class="bridge-label">×2+1</div><div class="bridge-line"></div></div>
+        <div class="seq-num">47</div>
+        <div class="seq-bridge"><div class="bridge-label">×2+1</div><div class="bridge-line"></div></div>
+        <div class="seq-num answer-num">95</div>
+      </div>
+      <ol class="step-list">
+        <li class="step-item"><div class="step-num">1</div><div class="step-text">Differences: <span class="step-math">+3, +6, +12, +24</span> — doubling! Suggests ×2</div></li>
+        <li class="step-item"><div class="step-num">2</div><div class="step-text">Test ×2+1: <span class="step-math">2×2+1=5 ✓, 5×2+1=11 ✓, 11×2+1=23 ✓</span></div></li>
+        <li class="step-item"><div class="step-num">3</div><div class="step-text">Next: <span class="step-math">47×2+1 = 95</span></div></li>
+      </ol>
+      <div class="example-answer">✅ Answer: 95</div>
+    </div>
+  </div>
+
+  <div class="watchout-box">
+    <div class="watchout-title">⚠️ Watch Out!</div>
+    <ul>
+      <li>Students often only do HALF the rule — they multiply but forget to add!</li>
+      <li>Order matters: ×2+1 gives different results from +1×2. Always test both.</li>
+    </ul>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span>Worked Example — Harder (÷2+5)</span></div>
+    <div class="example-body">
+      <div class="example-q">Find the next: <span class="step-math">44, 27, 18, 14, (?)</span></div>
+      <ol class="step-list">
+        <li class="step-item"><div class="step-num">1</div><div class="step-text">Differences: <span class="step-math">−17, −9, −4</span> — halving-ish. Try ÷2 with rounding.</div></li>
+        <li class="step-item"><div class="step-num">2</div><div class="step-text">Test: <span class="step-math">44÷2+5=27 ✓, 27÷2+4.5=18 ✓</span> — Hmm, try: each term = half previous + 5: <span class="step-math">14÷2+5=12</span></div></li>
+        <li class="step-item"><div class="step-num">3</div><div class="step-text">Answer: <span class="step-math">14 ÷ 2 + 5 = 12</span></div></li>
+      </ol>
+      <div class="example-answer">✅ Answer: 12</div>
+    </div>
+  </div>
+
+  <div class="tier-heading starter"><span class="badge badge-starter">🟢 Starter</span><h4 style="color:var(--green)">×2+1 or ×3−1 style</h4></div>
+
+  <div class="q-card" data-section="6" data-qid="s6q1">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">Rule is ×2+1. What comes next?</div>
+    <span class="q-series">1, 3, 7, 15, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q1')">27</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q1')">28</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s6q1')">31</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q1')">30</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q1')">29</button>
+    </div>
+    <div class="feedback" id="fb-s6q1"></div>
+  </div>
+
+  <div class="q-card" data-section="6" data-qid="s6q2">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">Type the next: (×2+1)</div>
+    <span class="q-series">2, 5, 11, 23, 47, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s6q2" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s6q2',95)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s6q2"></div>
+  </div>
+
+  <div class="tier-heading developing"><span class="badge badge-developing">🟡 Developing</span><h4 style="color:var(--yellow)">Two-step with subtraction or division</h4></div>
+
+  <div class="q-card" data-section="6" data-qid="s6q3">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">Rule is ×2−3. What comes next?</div>
+    <span class="q-series">3, 3, 3, 3, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q3')">0</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s6q3')">3</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q3')">6</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q3')">9</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q3')">1</button>
+    </div>
+    <div class="feedback" id="fb-s6q3"></div>
+  </div>
+
+  <div class="q-card" data-section="6" data-qid="s6q4">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">Type the next number: (rule involves ×3−2)</div>
+    <span class="q-series">1, 1, 1, 1, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s6q4" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s6q4',1)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s6q4"></div>
+  </div>
+
+  <div class="tier-heading secure"><span class="badge badge-secure">🟠 Secure</span><h4 style="color:var(--orange)">Standard GL compound rule</h4></div>
+
+  <div class="q-card" data-section="6" data-qid="s6q5">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">What comes next? (Differences double)</div>
+    <span class="q-series">4, 9, 19, 39, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q5')">69</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q5')">75</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s6q5')">79</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q5')">78</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q5')">80</button>
+    </div>
+    <div class="feedback" id="fb-s6q5"></div>
+  </div>
+
+  <div class="q-card" data-section="6" data-qid="s6q6">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">Type the next number: (×2+1)</div>
+    <span class="q-series">5, 11, 23, 47, 95, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s6q6" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s6q6',191)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s6q6"></div>
+  </div>
+
+  <div class="tier-heading mastery"><span class="badge badge-mastery">🟣 Mastery</span><h4 style="color:var(--purple)">Wrong-order trap</h4></div>
+
+  <div class="q-card" data-section="6" data-qid="s6q7">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ A student says the answer is 97. Why are they wrong? What is correct? (Rule: ×3−2)</div>
+    <span class="q-series">2, 4, 10, 28, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q7')">97</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q7')">80</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s6q7')">82</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q7')">84</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s6q7')">86</button>
+    </div>
+    <div class="feedback" id="fb-s6q7"></div>
+  </div>
+
+  <div class="q-card" data-section="6" data-qid="s6q8">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">Type the next: discover the two-step rule yourself</div>
+    <span class="q-series">3, 7, 15, 31, 63, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s6q8" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s6q8',127)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s6q8"></div>
+  </div>
+</section>
+
+<!-- ===== SKILL 7: FIBONACCI ===== -->
+<section id="skill-7">
+  <div class="skill-divider">
+    <span class="skill-icon">🌀</span>
+    <h2>Sub-Skill 7: Fibonacci-Style Sequences</h2>
+    <span class="qs-count" id="s7-count">0/8 answered</span>
+    <div class="section-complete"><div class="complete-badge" id="s7-complete">✓ Done</div></div>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-header"><div class="card-icon">😊</div><h3>Simple Explanation</h3></div>
+    <div class="card-body">
+      <p>To get the next number, you <strong>add the two numbers before it</strong>. Simple! Start with 1 and 1: add them to get 2. Then 1+2=3. Then 2+3=5. It keeps going!</p>
+      <p class="analogy-text">🐇 This is the famous rabbit pattern from nature. Each number is the sum of the two before it.</p>
+    </div>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-header"><div class="card-icon">📖</div><h3>Full Explanation</h3></div>
+    <div class="card-body">
+      <p>A <strong>Fibonacci-style sequence</strong> is defined by the recurrence T(n) = T(n−1) + T(n−2). The sequence may start with any two values, not necessarily 1, 1. Check: does each term equal the sum of the previous two?</p>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span>Worked Example</span></div>
+    <div class="example-body">
+      <div class="example-q">Find the next: <span class="step-math">1, 1, 2, 3, 5, 8, (?)</span></div>
+      <ol class="step-list">
+        <li class="step-item"><div class="step-num">1</div><div class="step-text">Check: <span class="step-math">1+1=2 ✓, 1+2=3 ✓, 2+3=5 ✓, 3+5=8 ✓</span></div></li>
+        <li class="step-item"><div class="step-num">2</div><div class="step-text">Next: <span class="step-math">5+8=13</span></div></li>
+      </ol>
+      <div class="example-answer">✅ Answer: 13</div>
+    </div>
+  </div>
+
+  <div class="watchout-box">
+    <div class="watchout-title">⚠️ Watch Out!</div>
+    <ul><li>Students add only 1 previous term, not 2. Always: <strong>add the TWO terms before</strong> the blank.</li></ul>
+  </div>
+
+  <div class="tier-heading starter"><span class="badge badge-starter">🟢 Starter</span><h4 style="color:var(--green)">Classic Fibonacci</h4></div>
+  <div class="q-card" data-section="7" data-qid="s7q1">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">1, 1, 2, 3, 5, 8, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q1')">11</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s7q1')">13</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q1')">12</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q1')">16</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q1')">10</button>
+    </div>
+    <div class="feedback" id="fb-s7q1"></div>
+  </div>
+
+  <div class="q-card" data-section="7" data-qid="s7q2">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">Type the next:</div>
+    <span class="q-series">2, 3, 5, 8, 13, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s7q2" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s7q2',21)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s7q2"></div>
+  </div>
+
+  <div class="tier-heading developing"><span class="badge badge-developing">🟡 Developing</span><h4 style="color:var(--yellow)">Non-1,1 start Fibonacci</h4></div>
+  <div class="q-card" data-section="7" data-qid="s7q3">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">What comes next?</div>
+    <span class="q-series">3, 4, 7, 11, 18, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q3')">25</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q3')">27</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s7q3')">29</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q3')">31</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q3')">33</button>
+    </div>
+    <div class="feedback" id="fb-s7q3"></div>
+  </div>
+
+  <div class="q-card" data-section="7" data-qid="s7q4">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">Type the next:</div>
+    <span class="q-series">0, 1, 1, 2, 3, 5, 8, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s7q4" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s7q4',13)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s7q4"></div>
+  </div>
+
+  <div class="tier-heading secure"><span class="badge badge-secure">🟠 Secure</span><h4 style="color:var(--orange)">Missing middle term</h4></div>
+  <div class="q-card" data-section="7" data-qid="s7q5">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">Find the missing number in the middle:</div>
+    <span class="q-series">1, 2, 3, (?), 8, 13</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q5')">4</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q5')">6</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s7q5')">5</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q5')">7</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q5')">9</button>
+    </div>
+    <div class="feedback" id="fb-s7q5"></div>
+  </div>
+
+  <div class="q-card" data-section="7" data-qid="s7q6">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">Type the next:</div>
+    <span class="q-series">5, 8, 13, 21, 34, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s7q6" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s7q6',55)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s7q6"></div>
+  </div>
+
+  <div class="tier-heading mastery"><span class="badge badge-mastery">🟣 Mastery</span><h4 style="color:var(--purple)">Fibonacci trap — looks like doubling</h4></div>
+  <div class="q-card" data-section="7" data-qid="s7q7">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ Looks like doubling at first. Confirm which rule it is.</div>
+    <span class="q-series">1, 2, 3, 5, 8, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q7')">10</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q7')">12</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s7q7')">13</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q7')">16</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q7')">14</button>
+    </div>
+    <div class="feedback" id="fb-s7q7"></div>
+  </div>
+
+  <div class="q-card" data-section="7" data-qid="s7q8">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ What if two previous terms are added AND multiplied? Fibonacci-style: each term = sum of previous two × 2. What comes next?</div>
+    <span class="q-series">1, 1, 4, 10, 28, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q8')">56</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q8')">66</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s7q8')">76</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q8')">80</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s7q8')">84</button>
+    </div>
+    <div class="feedback" id="fb-s7q8"></div>
+  </div>
+</section>
+
+<!-- ===== SKILL 8: MIXED & TRAPS ===== -->
+<section id="skill-8">
+  <div class="skill-divider">
+    <span class="skill-icon">🎭</span>
+    <h2>Sub-Skill 8: Mixed Operations & GL Traps</h2>
+    <span class="qs-count" id="s8-count">0/8 answered</span>
+    <div class="section-complete"><div class="complete-badge" id="s8-complete">✓ Done</div></div>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-header"><div class="card-icon">😊</div><h3>Simple Explanation</h3></div>
+    <div class="card-body">
+      <p>GL examiners sometimes try to <strong>trick you</strong>. The first few numbers might look like one pattern, then suddenly change. Or the rule mixes adding AND multiplying AND dividing. <strong>Never assume after just 2 numbers — always check all of them!</strong></p>
+      <p class="analogy-text">🕵️ Be a detective: check your rule against EVERY number before trusting it.</p>
+    </div>
+  </div>
+
+  <div class="watchout-box">
+    <div class="watchout-title">⚠️ Classic GL Traps</div>
+    <ul>
+      <li><strong>False pattern trap:</strong> 2, 4, 8, 14, 22 — looks like ×2 but is actually +2, +4, +6, +8</li>
+      <li><strong>Overfitting:</strong> Finding a rule that works for the first 2 gaps but fails at the 3rd</li>
+      <li><strong>"Nice numbers" trap:</strong> Picking a round answer that looks right but isn't</li>
+      <li><strong>Stopping too early:</strong> Only checking 2 steps, not verifying the whole chain</li>
+    </ul>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span>Worked Example — The Wrong-First-Instinct Example</span></div>
+    <div class="example-body">
+      <div class="example-q">Find the next: <span class="step-math">2, 4, 8, 14, 22, (?)</span></div>
+      <ol class="step-list">
+        <li class="step-item"><div class="step-num">1</div><div class="step-text">First instinct: 2, 4, 8 → looks like ×2! So next would be 16? Let's check…</div></li>
+        <li class="step-item"><div class="step-num">2</div><div class="step-text"><span class="step-math">8 × 2 = 16 ≠ 14</span> ❌ — the rule breaks! First instinct is WRONG.</div></li>
+        <li class="step-item"><div class="step-num">3</div><div class="step-text">Differences: <span class="step-math">+2, +4, +6, +8</span> → progressive! Next difference: +10</div></li>
+        <li class="step-item"><div class="step-num">4</div><div class="step-text">Answer: <span class="step-math">22 + 10 = 32</span></div></li>
+      </ol>
+      <div class="example-answer">✅ Answer: 32</div>
+    </div>
+  </div>
+
+  <div class="tier-heading starter"><span class="badge badge-starter">🟢 Starter</span><h4 style="color:var(--green)">Mixed operations — simpler</h4></div>
+  <div class="q-card" data-section="8" data-qid="s8q1">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">What comes next? (alternating +5 and ÷2 rounded)</div>
+    <span class="q-series">2, 7, 3.5, 8.5, 4.25, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q1')">8</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s8q1')">9.25</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q1')">9.5</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q1')">10</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q1')">4.5</button>
+    </div>
+    <div class="feedback" id="fb-s8q1"></div>
+  </div>
+
+  <div class="q-card" data-section="8" data-qid="s8q2">
+    <div class="q-header"><span class="badge badge-starter">🟢 Starter</span></div>
+    <div class="q-text">⚠️ False doubling trap. What comes next?</div>
+    <span class="q-series">2, 4, 8, 14, 22, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q2')">44</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q2')">28</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s8q2')">32</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q2')">30</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q2')">26</button>
+    </div>
+    <div class="feedback" id="fb-s8q2"></div>
+  </div>
+
+  <div class="tier-heading developing"><span class="badge badge-developing">🟡 Developing</span><h4 style="color:var(--yellow)">Rule involves +, ×, ÷ together</h4></div>
+  <div class="q-card" data-section="8" data-qid="s8q3">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">Type the next: (alternating compound: ×2 then +3)</div>
+    <span class="q-series">1, 2, 5, 10, 13, 26, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s8q3" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s8q3',29)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s8q3"></div>
+  </div>
+
+  <div class="q-card" data-section="8" data-qid="s8q4">
+    <div class="q-header"><span class="badge badge-developing">🟡 Developing</span></div>
+    <div class="q-text">⚠️ Overfitting trap — rule works for 2 gaps but not 3. What comes next?</div>
+    <span class="q-series">3, 6, 10, 15, 21, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q4')">25</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q4')">26</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s8q4')">28</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q4')">27</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q4')">29</button>
+    </div>
+    <div class="feedback" id="fb-s8q4"></div>
+  </div>
+
+  <div class="tier-heading secure"><span class="badge badge-secure">🟠 Secure</span><h4 style="color:var(--orange)">Complex mixed rules</h4></div>
+  <div class="q-card" data-section="8" data-qid="s8q5">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">What comes next? (mixed: −5 then ÷2 alternating)</div>
+    <span class="q-series">40, 20, 15, 7.5, 2.5, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q5')">1</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q5')">0</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s8q5')">1.25</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q5')">2</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q5')">−2.5</button>
+    </div>
+    <div class="feedback" id="fb-s8q5"></div>
+  </div>
+
+  <div class="q-card" data-section="8" data-qid="s8q6">
+    <div class="q-header"><span class="badge badge-secure">🟠 Secure</span></div>
+    <div class="q-text">Type the next:</div>
+    <span class="q-series">100, 50, 55, 27.5, 32.5, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s8q6" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s8q6',16.25)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s8q6"></div>
+  </div>
+
+  <div class="tier-heading mastery"><span class="badge badge-mastery">🟣 Mastery</span><h4 style="color:var(--purple)">Deadly GL-level traps</h4></div>
+  <div class="q-card" data-section="8" data-qid="s8q7">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ Show the wrong walkthrough: a student says "differences are +4 so next is 24". What IS the actual next number?</div>
+    <span class="q-series">4, 8, 12, 18, 26, (?)</span>
+    <div class="options-grid">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q7')">30</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q7')">32</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this,'s8q7')">36</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q7')">34</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'s8q7')">38</button>
+    </div>
+    <div class="feedback" id="fb-s8q7"></div>
+  </div>
+
+  <div class="q-card" data-section="8" data-qid="s8q8">
+    <div class="q-header"><span class="badge badge-mastery">🟣 Mastery</span></div>
+    <div class="q-text">⚠️ ULTRA HARD — two compound alternating strands. What comes next?</div>
+    <span class="q-series">2, 6, 7, 21, 22, 66, (?)</span>
+    <div class="typed-row">
+      <input class="typed-input" id="ti-s8q8" placeholder="?" type="number">
+      <button class="submit-btn" onclick="handleTyped('s8q8',67)">Check</button>
+    </div>
+    <div class="feedback" id="fb-s8q8"></div>
+  </div>
+</section>
+
+<!-- ===== FINAL TEST ===== -->
+<section id="final-test">
+  <div class="test-header">
+    <h2>🏆 Final Mastery Test</h2>
+    <p>15 questions · All sub-skills · Timed · GL Assessment format</p>
+    <div class="timer-display" id="timer-display">15:00</div>
+    <p style="color:rgba(255,255,255,0.5); font-size:13px;">Timer starts when you click Begin Test</p>
+    <button class="start-test-btn" id="start-test-btn" onclick="startTest()">Begin Test</button>
+  </div>
+
+  <div id="test-questions" style="display:none;">
+    <!-- Test Q1 -->
+    <div class="q-card" data-qid="tq1">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q1 of 15</span></div>
+      <div class="q-text">What comes next?</div>
+      <span class="q-series">7, 14, 21, 28, (?)</span>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq1')">30</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq1')">32</button>
+        <button class="opt-btn" data-correct="true" onclick="handleTestMCQ(this,'tq1')">35</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq1')">34</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq1')">36</button>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="tq2">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q2 of 15</span></div>
+      <div class="q-text">What comes next? (Progressive)</div>
+      <span class="q-series">1, 2, 4, 7, 11, (?)</span>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq2')">14</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq2')">15</button>
+        <button class="opt-btn" data-correct="true" onclick="handleTestMCQ(this,'tq2')">16</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq2')">17</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq2')">18</button>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="tq3">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q3 of 15</span></div>
+      <div class="q-text">Alternating sequence. What comes next?</div>
+      <span class="q-series">2, 20, 4, 18, 6, 16, (?)</span>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq3')">6</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq3')">12</button>
+        <button class="opt-btn" data-correct="true" onclick="handleTestMCQ(this,'tq3')">8</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq3')">14</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq3')">10</button>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="tq4">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q4 of 15</span></div>
+      <div class="q-text">Square numbers. What comes next?</div>
+      <span class="q-series">4, 9, 16, 25, (?)</span>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq4')">32</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq4')">33</button>
+        <button class="opt-btn" data-correct="true" onclick="handleTestMCQ(this,'tq4')">36</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq4')">34</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq4')">35</button>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="tq5">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q5 of 15</span></div>
+      <div class="q-text">Fibonacci-style. What comes next?</div>
+      <span class="q-series">2, 3, 5, 8, 13, (?)</span>
+      <div class="typed-row">
+        <input class="typed-input" id="ti-tq5" placeholder="?">
+        <button class="submit-btn" id="sb-tq5" onclick="handleTestTyped('tq5',21)">Check</button>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="tq6">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q6 of 15</span></div>
+      <div class="q-text">Compound rule ×2+1. What comes next?</div>
+      <span class="q-series">1, 3, 7, 15, (?)</span>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq6')">28</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq6')">29</button>
+        <button class="opt-btn" data-correct="true" onclick="handleTestMCQ(this,'tq6')">31</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq6')">30</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq6')">33</button>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="tq7">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q7 of 15</span></div>
+      <div class="q-text">⚠️ False doubling trap! What comes next?</div>
+      <span class="q-series">2, 4, 8, 14, 22, (?)</span>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq7')">44</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq7')">28</button>
+        <button class="opt-btn" data-correct="true" onclick="handleTestMCQ(this,'tq7')">32</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq7')">30</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq7')">26</button>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="tq8">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q8 of 15</span></div>
+      <div class="q-text">n(n+1) position sequence. Type the answer:</div>
+      <span class="q-series">2, 6, 12, 20, 30, (?)</span>
+      <div class="typed-row">
+        <input class="typed-input" id="ti-tq8" placeholder="?">
+        <button class="submit-btn" id="sb-tq8" onclick="handleTestTyped('tq8',42)">Check</button>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="tq9">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q9 of 15</span></div>
+      <div class="q-text">Alternating compound strands. What comes next?</div>
+      <span class="q-series">2, 6, 7, 21, 22, 66, (?)</span>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq9')">63</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq9')">65</button>
+        <button class="opt-btn" data-correct="true" onclick="handleTestMCQ(this,'tq9')">67</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq9')">69</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq9')">71</button>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="tq10">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q10 of 15</span></div>
+      <div class="q-text">Prime number differences. What comes next?</div>
+      <span class="q-series">1, 3, 6, 11, 18, (?)</span>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq10')">25</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq10')">27</button>
+        <button class="opt-btn" data-correct="true" onclick="handleTestMCQ(this,'tq10')">29</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq10')">31</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq10')">33</button>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="tq11">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q11 of 15</span></div>
+      <div class="q-text">Descending series. Type the answer:</div>
+      <span class="q-series">50, 43, 36, 29, (?)</span>
+      <div class="typed-row">
+        <input class="typed-input" id="ti-tq11" placeholder="?">
+        <button class="submit-btn" id="sb-tq11" onclick="handleTestTyped('tq11',22)">Check</button>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="tq12">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q12 of 15</span></div>
+      <div class="q-text">n²+1. What comes next?</div>
+      <span class="q-series">2, 5, 10, 17, 26, (?)</span>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq12')">33</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq12')">35</button>
+        <button class="opt-btn" data-correct="true" onclick="handleTestMCQ(this,'tq12')">37</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq12')">36</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq12')">39</button>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="tq13">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q13 of 15</span></div>
+      <div class="q-text">What comes next? (×2−1)</div>
+      <span class="q-series">3, 5, 9, 17, (?)</span>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq13')">27</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq13')">30</button>
+        <button class="opt-btn" data-correct="true" onclick="handleTestMCQ(this,'tq13')">33</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq13')">34</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq13')">35</button>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="tq14">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q14 of 15</span></div>
+      <div class="q-text">Fibonacci: different starting numbers. Type the answer:</div>
+      <span class="q-series">4, 7, 11, 18, 29, (?)</span>
+      <div class="typed-row">
+        <input class="typed-input" id="ti-tq14" placeholder="?">
+        <button class="submit-btn" id="sb-tq14" onclick="handleTestTyped('tq14',47)">Check</button>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="tq15">
+      <div class="q-header"><span style="font-weight:700;color:var(--navy)">Q15 of 15 ⭐ CHALLENGE</span></div>
+      <div class="q-text">⚠️ Hardest of all. What comes next?</div>
+      <span class="q-series">5, 7, 10, 14, 19, (?)</span>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq15')">23</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq15')">24</button>
+        <button class="opt-btn" data-correct="true" onclick="handleTestMCQ(this,'tq15')">25</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq15')">26</button>
+        <button class="opt-btn" data-correct="false" onclick="handleTestMCQ(this,'tq15')">27</button>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:24px;">
+      <button class="start-test-btn" id="submit-test-btn" onclick="submitTest()" style="background:var(--green); color:white;">
+        Submit All Answers
+      </button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="test-results" style="display:none;">
+    <div class="results-card">
+      <div class="score-ring" id="result-ring">
+        <span class="score-num" id="result-score">0</span>
+        <span class="score-denom">out of 15</span>
+      </div>
+      <div class="result-band" id="result-band"></div>
+      <p class="result-msg" id="result-msg"></p>
+      <button class="start-test-btn" onclick="showReview()" style="margin-top:20px; background:var(--navy);">See Full Review</button>
+    </div>
+    <div id="review-list" style="display:none; margin-top:20px;"></div>
+  </div>
+</section>
+
+</div><!-- end main-content -->
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+let totalScore = 0;
+const sectionQuestions = {
+  1: {total:16, answered:0}, 2: {total:16, answered:0},
+  3: {total:16, answered:0}, 4: {total:16, answered:0},
+  5: {total:8,  answered:0}, 6: {total:8,  answered:0},
+  7: {total:8,  answered:0}, 8: {total:8,  answered:0}
+};
+const answeredQs = new Set();
+
+// Test state
+let testTimer = null;
+let testSecondsLeft = 900;
+let testAnswers = {};
+const testCorrect = {
+  tq1:35, tq2:16, tq3:8, tq4:36, tq5:21,
+  tq6:31, tq7:32, tq8:42, tq9:67, tq10:29,
+  tq11:22, tq12:37, tq13:33, tq14:47, tq15:25
+};
+const testExplains = {
+  tq1: "Constant +7 each time. 28+7=35.",
+  tq2: "Differences: +1,+2,+3,+4,+5 → 11+5=16.",
+  tq3: "Split: odds +2 each; evens −2 each. Next odd term: 6+2=8.",
+  tq4: "Square numbers: 2²,3²,4²,5²,6²=36.",
+  tq5: "Each term = sum of two before: 8+13=21.",
+  tq6: "×2+1: 15×2+1=31.",
+  tq7: "Looks like ×2 but differences are +2,+4,+6,+8,+10 → 22+10=32.",
+  tq8: "n(n+1): 6×7=42.",
+  tq9: "Strand A (odd pos): ×3+1 → 22×3+1=67.",
+  tq10: "Differences are primes: 2,3,5,7,11 → 18+11=29.",
+  tq11: "Constant −7: 29−7=22.",
+  tq12: "n²+1: 6²+1=37.",
+  tq13: "×2−1: 17×2−1=33.",
+  tq14: "Fibonacci: 29+18=47.",
+  tq15: "Progressive: +2,+3,+4,+5,+6 → 19+6=25."
+};
+
+// ============================================================
+// FEEDBACK MESSAGES
+// ============================================================
+const correctMessages = {
+  // Section 1
+  's1q1': "✅ Correct! Gap = +3, constant each time. 11+3=14.",
+  's1q2': "✅ Correct! Gap = −4 (descending). 8−4=4.",
+  's1q3': "✅ Correct! Gap = +7. 31+7=38.",
+  's1q4': "✅ Correct! Gap = −7. 79−7=72.",
+  's1q5': "✅ Correct! Gap = +13. 181+13=194.",
+  's1q6': "✅ Correct! Gap = −7 (descending). 42−7=35.",
+  's1q7': "✅ Correct! Gap = +1.5. 8+1.5=9.5.",
+  's1q8': "✅ Correct! Gap = −16 (descending). 199−16=183.",
+  's1q9': "✅ Correct! Constant gap +11. 22+11=33.",
+  's1q10': "✅ Correct! Crossing zero! Gap +4. 7+4=11.",
+  's1q11': "✅ Correct! Gap = −15. 955−15=940.",
+  's1q12': "✅ Correct! Gap = +0.5. 1.5+0.5=2.",
+  's1q13': "✅ Correct! The gap is +2 each time (not ×2). 8+2=10.",
+  's1q14': "✅ Correct! Gap = +13. The student made an arithmetic error. 169+13=182.",
+  's1q15': "✅ Correct! Gap = +7. 5+7=12.",
+  's1q16': "✅ Correct! Sequence crosses from negative to positive! −0+4=+4.",
+  // Section 2
+  's2q1': "✅ Correct! Differences: +2,+3,+4 → next is +5. 9+5=14.",
+  's2q2': "✅ Correct! Differences: +2,+4,+6 → next is +8. 13+8=21.",
+  's2q3': "✅ Correct! Differences: +2,+4,+6 → next is +8. 22+8=30.",
+  's2q4': "✅ Correct! Decreasing differences: +8,+6,+4 → next is +2. 48+2=50.",
+  's2q5': "✅ Correct! Differences: +2,+4,+6,+8 → next is +10. 23+10=33.",
+  's2q6': "✅ Correct! Differences: +3,+4,+5,+6 → next is +7. 20+7=27.",
+  's2q7': "✅ Correct! Differences: −2,−5,−8 → next is −11. 85−11=74.",
+  's2q8': "✅ Correct! Triangle numbers! n(n+1)/2: 0,1,3,6,10,15.",
+  's2q9': "✅ Correct! Differences are primes: 2,3,5,7 → next prime is 11. 18+11=29.",
+  's2q10': "✅ Correct! Differences: +2,+4,+6,+8 → +10. 25+10=35.",
+  's2q11': "✅ Correct! The differences are +2,+4,+6,+8 — not ×2! 22+10=32.",
+  's2q12': "✅ Correct! Differences: −2,−5,−8 → next is −11. 35−11=24.",
+  's2q13': "✅ Correct! Differences: +2,+3,+4,+5 → next is +6. 19+6=25.",
+  's2q14': "✅ Correct! Differences: +1,+2,+3,+4 → next is +5. 11+5=16.",
+  's2q15': "✅ Correct! Differences: +1,+3,+6,+10 (triangle numbers) → next is +15. 20+15=35.",
+  's2q16': "✅ Correct! Strand A (odd pos): 1,3,6 → differences +2,+3 → next is 6+4=10.",
+  // Section 3
+  's3q1': "✅ Correct! Strand A: 1,3,5 (+2). Next position is odd → 5+2=7.",
+  's3q2': "✅ Correct! Strand A (odds): 2,4,6 (+2). Next is odd pos → 6+2=8.",
+  's3q3': "✅ Correct! Strand A (odds): 5,10,15 (+5). Next is odd → 15+5=20.",
+  's3q4': "✅ Correct! Strand A (odds): +3 each time. 9+3=12.",
+  's3q5': "✅ Correct! Strand A (odds): 1,2,4 (×2). Next is odd → 4×2=8.",
+  's3q6': "✅ Correct! Strand A (odds): 10,20,30 (+10). Next is odd → 30+10=40.",
+  's3q7': "✅ Correct! Strand A (odds): 4,8,12 (+4). Next is odd → 12+4=16.",
+  's3q8': "✅ Correct! Strand A (odds): 5,10,20 (×2). Next is odd → 20×2=40.",
+  's3q9': "✅ Correct! Strand B (evens): 100,90,80,70 (−10). Next is even pos → 80−10=70.",
+  's3q10': "✅ Correct! Strand A (odds): 3,9,27 (×3). Next is odd → 27×3=81.",
+  's3q11': "✅ Correct! Strand A (odds): 2,8,32 (×4). Next is odd → 32×4=128.",
+  's3q12': "✅ Correct! Strand A (odds): 7,12,17 (+5). Next is odd → 17+5=22.",
+  's3q13': "✅ Correct! Strand A (odd pos): ×3+1. 22×3+1=67.",
+  's3q14': "✅ Correct! Strand A (odds): 1,2,4,8 (×2). Next odd → 4×2=8.",
+  's3q15': "✅ Correct! Strand A (odds): 3,6,12 (×2). Next odd → 12×2=24.",
+  's3q16': "✅ Correct! Strand A (odds): 1,3,7 (+2,+4). Next: 7+6=13.",
+  // Section 4
+  's4q1': "✅ Correct! ×2 each time. 8×2=16.",
+  's4q2': "✅ Correct! Square numbers: 1²,2²,3²,4²,5²=25.",
+  's4q3': "✅ Correct! Prime numbers. After 11 comes 13.",
+  's4q4': "✅ Correct! ÷2 each time. 8÷2=4.",
+  's4q5': "✅ Correct! n²+1: 6²+1=37.",
+  's4q6': "✅ Correct! Cube numbers: 5³=125.",
+  's4q7': "✅ Correct! n²−1: 6²−1=35.",
+  's4q8': "✅ Correct! 9²=81.",
+  's4q9': "✅ Correct! Rule ×2+1: 31×2+1=63.",
+  's4q10': "✅ Correct! n(n+1): 6×7=42.",
+  's4q11': "✅ Correct! n²+1: 6²+1=37.",
+  's4q12': "✅ Correct! 2n²: 2×25=50.",
+  's4q13': "✅ Correct! Differences are +2,+4,+6,+8 (not ×2!). 22+10=32.",
+  's4q14': "✅ Correct! Alternating primes and squares. Next is prime after 7 = 11.",
+  's4q15': "✅ Correct! n²−1: 6²−1=35.",
+  's4q16': "✅ Correct! ×2+1: 31×2+1=63.",
+  // Section 5
+  's5q1': "✅ Correct! n(n+1): 5×6=30.",
+  's5q2': "✅ Correct! 6×7=42.",
+  's5q3': "✅ Correct! n²+1: 6²+1=37.",
+  's5q4': "✅ Correct! n²−1: 6²−1=35.",
+  's5q5': "✅ Correct! 2n²: 2×25=50.",
+  's5q6': "✅ Correct! 7×8=56.",
+  's5q7': "✅ Correct! Square numbers: 6²=36.",
+  's5q8': "✅ Correct! n²+2n: 6²+12=48.",
+  // Section 6
+  's6q1': "✅ Correct! ×2+1: 15×2+1=31.",
+  's6q2': "✅ Correct! ×2+1: 47×2+1=95.",
+  's6q3': "✅ Correct! ×2−3: 3×2−3=3. The sequence is stuck at 3!",
+  's6q4': "✅ Correct! ×3−2: 1×3−2=1. Also stuck at 1!",
+  's6q5': "✅ Correct! ×2+1: 39×2+1=79.",
+  's6q6': "✅ Correct! ×2+1: 95×2+1=191.",
+  's6q7': "✅ Correct! ×3−2: 28×3−2=82. The wrong student used ×3+1 instead.",
+  's6q8': "✅ Correct! ×2+1: 63×2+1=127.",
+  // Section 7
+  's7q1': "✅ Correct! 5+8=13.",
+  's7q2': "✅ Correct! 8+13=21.",
+  's7q3': "✅ Correct! 11+18=29.",
+  's7q4': "✅ Correct! 5+8=13.",
+  's7q5': "✅ Correct! 2+3=5, and 5+3=8 ✓.",
+  's7q6': "✅ Correct! 21+34=55.",
+  's7q7': "✅ Correct! Each term = sum of two before. 5+8=13, NOT 8×2=16.",
+  's7q8': "✅ Correct! Each term = (sum of previous two)×2. (10+28)×2=76.",
+  // Section 8
+  's8q1': "✅ Correct! Alternating: even positions get +5. 4.25+5=9.25.",
+  's8q2': "✅ Correct! Differences: +2,+4,+6,+8,+10 → 22+10=32.",
+  's8q3': "✅ Correct! Alternating ×2 then +3: 26+3=29.",
+  's8q4': "✅ Correct! Differences: +3,+4,+5,+6 → +7. 21+7=28.",
+  's8q5': "✅ Correct! ÷2 each time: 2.5÷2=1.25.",
+  's8q6': "✅ Correct! ÷2 each time: 32.5÷2=16.25.",
+  's8q7': "✅ Correct! Differences: +4,+4,+6,+8 → next is +10. 26+10=36.",
+  's8q8': "✅ Correct! Strand A ×3+1: 22×3+1=67.",
+};
+
+const wrongMessages = {
+  's1q1': "❌ Not quite. The gap between each number is +3 (constant). 5−2=3, 8−5=3, 11−8=3. So 11+3=14.",
+  's1q2': "❌ Not quite. This is a descending sequence. Each number goes DOWN by 4. 20−4=16, 16−4=12, 12−4=8, so 8−4=4.",
+  's1q3': "❌ Calculate the gap: 17−10=7. Check: 24−17=7. So 31+7=38.",
+  's1q4': "❌ The sequence goes DOWN by 7 each time. 100−93=7. So 79−7=72.",
+  's1q5': "❌ The gap is +13. Check: 155−142=13. So 181+13=194.",
+  's1q6': "❌ The sequence descends by 7 each time. 63−56=7. So 42−7=35.",
+  's1q7': "❌ The gap is +1.5 each time (a decimal gap!). 3.5+1.5=5, 5+1.5=6.5, so 8+1.5=9.5.",
+  's1q8': "❌ Descending by 16 each time. 247−231=16. So 199−16=183.",
+  's1q9': "❌ The gap is +11 (check: 22−11=11). So the missing middle term is 22+11=33.",
+  's1q10': "❌ This sequence crosses zero! The gap is +4. −1+4=3, so 7+4=11.",
+  's1q11': "❌ Gap = −15. 1000−985=15, and the sequence descends. 955−15=940.",
+  's1q12': "❌ The gap is +0.5 each time. 1+0.5=1.5, so 1.5+0.5=2.",
+  's1q13': "❌ The trap here is 2, 4, 8 looking like ×2. But 8×2=16≠10. The actual gap is a constant +2. So 8+2=10.",
+  's1q14': "❌ The student added 13+something wrong. Gap=13 (169−156=13). 169+13=182.",
+  's1q15': "❌ Find the gap from the terms you know: 19−12=7 and 26−19=7. So the gap is +7. 5+7=12.",
+  's1q16': "❌ Don't be fooled by negatives! The gap is +4, and the sequence crosses into positives. 0+4=+4.",
+  's2q1': "❌ The differences are +2,+3,+4. Each one is 1 bigger than the last. After +4 comes +5. 9+5=14.",
+  's2q2': "❌ Differences: +2,+4,+6 — each going up by 2. Next is +8. 13+8=21.",
+  's2q3': "❌ Differences: +2,+4,+6 → next is +8. 22+8=30.",
+  's2q4': "❌ The differences are getting SMALLER: +8,+6,+4 — going down by 2. Next difference is +2. 48+2=50.",
+  's2q5': "❌ Differences: +2,+4,+6,+8 → next is +10. 23+10=33.",
+  's2q6': "❌ Differences: +3,+4,+5,+6 → next is +7. 20+7=27.",
+  's2q7': "❌ Descending progressive: differences are −2,−5,−8 (going down by 3 more each time). Next: −11. 85−11=74.",
+  's2q8': "❌ These are triangle numbers (0,1,3,6,10...). Each difference grows by +1. After +4 comes +5. 10+5=15.",
+  's2q9': "❌ The differences are prime numbers: 2,3,5,7. The next prime is 11. 18+11=29.",
+  's2q10': "❌ Differences: +2,+4,+6,+8 → next is +10. 25+10=35.",
+  's2q11': "❌ Classic trap! Looks like ×2 (2,4,8) but 8×2=16≠14. Differences are +2,+4,+6,+8 → +10. 22+10=32.",
+  's2q12': "❌ Differences: −2,−5,−8 (going down by 3). Next: −11. 35−11=24.",
+  's2q13': "❌ Differences: +2,+3,+4,+5 → next is +6. 19+6=25.",
+  's2q14': "❌ Differences: +1,+2,+3,+4 → next is +5. Not ×2! 11+5=16.",
+  's2q15': "❌ Differences: +1,+3,+6,+10 — these are triangle numbers! Next triangle number is 15. 20+15=35.",
+  's2q16': "❌ Split it! Strand A (positions 1,3,5): 1,3,6 → differences +2,+3 → next: 6+4=10.",
+  's3q1': "❌ Split the sequence! Strand A (1st,3rd,5th): 1,3,5 → +2 each time. The 7th number continues Strand A: 5+2=7.",
+  's3q2': "❌ Strand A (odd positions): 2,4,6 — add 2 each time. Next is the 7th term (odd) → 6+2=8.",
+  's3q3': "❌ Strand A (odd positions): 5,10,15 — add 5 each time. Next odd term: 15+5=20.",
+  's3q4': "❌ Strand A (odd positions: 3,6,9) → +3 each time. Next is 7th position (odd): 9+3=12.",
+  's3q5': "❌ Strand A (odd positions): 1,2,4 — multiplied by 2. Next is 7th (odd): 4×2=8.",
+  's3q6': "❌ Strand A (odd positions): 10,20,30 — add 10 each time. Next odd term: 30+10=40.",
+  's3q7': "❌ Strand A (odd positions): 4,8,12 — add 4. Next is 7th (odd): 12+4=16.",
+  's3q8': "❌ Strand A (odd positions): 5,10,20 — multiply by 2. Next is 7th (odd): 20×2=40.",
+  's3q9': "❌ The 8th term is an even position. Strand B (even): 100,90,80 → subtract 10. Next even: 80−10=70.",
+  's3q10': "❌ Strand A (odd pos): 3,9,27 → ×3 each time. 7th position is odd: 27×3=81.",
+  's3q11': "❌ Strand A (odd pos): 2,8,32 → ×4. 7th is odd: 32×4=128.",
+  's3q12': "❌ Strand A (odd pos): 7,12,17 → +5. 7th is odd: 17+5=22.",
+  's3q13': "❌ Split it! Strand A (odd positions): 2,7,22 → ×3+1. So 22×3+1=67.",
+  's3q14': "❌ Strand A (odd): 1,2,4,8 → ×2. 7th is odd: 4×2=8.",
+  's3q15': "❌ Strand A (odd): 3,6,12 → ×2. Next odd position: 12×2=24.",
+  's3q16': "❌ Strand A (odd): 1,3,7 → differences +2,+4 → next +6: 7+6=13.",
+  's4q1': "❌ ×2 each time. 8×2=16.",
+  's4q2': "❌ Square numbers! 1²=1, 2²=4, 3²=9, 4²=16, 5²=25.",
+  's4q3': "❌ The prime number after 11 is 13 (not 12, which is 3×4).",
+  's4q4': "❌ ÷2 each time. 8÷2=4.",
+  's4q5': "❌ n²+1: position 6 → 6²+1=37.",
+  's4q6': "❌ Cube numbers: 1³,2³,3³,4³ → 5³=125.",
+  's4q7': "❌ n²−1: n=6 → 36−1=35.",
+  's4q8': "❌ Square numbers: 5²=25, 6²=36, 7²=49, 8²=64, 9²=81.",
+  's4q9': "❌ Rule is ×2+1 (not just ×2). 7×2+1=15 ✓, 15×2+1=31 ✓, 31×2+1=63.",
+  's4q10': "❌ n(n+1): n=6 → 6×7=42.",
+  's4q11': "❌ n²+1: 6²+1=37.",
+  's4q12': "❌ 2n²: 2×5²=2×25=50.",
+  's4q13': "❌ Classic trap! 2,4,8 looks like ×2 but 8×2=16≠14. Differences are +2,+4,+6,+8 → +10. 22+10=32.",
+  's4q14': "❌ Alternating: odd positions are primes (2,3,5,7) → next prime is 11.",
+  's4q15': "❌ n²−1: n=6 → 6²−1=35.",
+  's4q16': "❌ ×2+1: 31×2+1=63.",
+  's5q1': "❌ n(n+1): n=5 → 5×6=30.",
+  's5q2': "❌ 6×7=42.",
+  's5q3': "❌ n²+1: 6²+1=37.",
+  's5q4': "❌ n²−1: 6²−1=35.",
+  's5q5': "❌ 2n²: 2×25=50.",
+  's5q6': "❌ 7×8=56.",
+  's5q7': "❌ Square numbers! 6²=36. Don't add 11 to get 36 — calculate 6×6.",
+  's5q8': "❌ n²+2n: 6²+12=48.",
+  's6q1': "❌ ×2+1: 15×2=30, then +1=31.",
+  's6q2': "❌ ×2+1: 47×2=94, then +1=95.",
+  's6q3': "❌ ×2−3: 3×2=6, then −3=3. The sequence is constant at 3!",
+  's6q4': "❌ ×3−2: 1×3=3, then −2=1. The sequence stays at 1.",
+  's6q5': "❌ ×2+1: 39×2=78, then +1=79.",
+  's6q6': "❌ ×2+1: 95×2=190, then +1=191.",
+  's6q7': "❌ The student used the wrong rule. ×3−2: 28×3=84, then −2=82.",
+  's6q8': "❌ Differences: +4,+8,+16,+32,+64 → all doubling. Rule ×2+1: 63×2+1=127.",
+  's7q1': "❌ Add the two before: 5+8=13 (not 8 added to something else).",
+  's7q2': "❌ Add the two before: 8+13=21.",
+  's7q3': "❌ Add the two before: 11+18=29.",
+  's7q4': "❌ Add the two before: 5+8=13.",
+  's7q5': "❌ Missing middle: 3+2=5, and 5+3=8 ✓. The missing term is 5.",
+  's7q6': "❌ 21+34=55.",
+  's7q7': "❌ Don't be fooled by the early doubling! Check: 1+2=3 ✓, 2+3=5 ✓, 3+5=8 ✓. So 5+8=13.",
+  's7q8': "❌ (Sum of previous two)×2: (10+28)×2=38×2=76.",
+  's8q1': "❌ Even positions get +5 added. 4.25+5=9.25.",
+  's8q2': "❌ Trap! 2,4,8 looks like ×2 but gaps are +2,+4,+6,+8,+10 → 22+10=32.",
+  's8q3': "❌ Alternating ×2 then +3: 26+3=29.",
+  's8q4': "❌ Differences: +3,+4,+5,+6 → +7. 21+7=28.",
+  's8q5': "❌ ÷2 each time: 2.5÷2=1.25.",
+  's8q6': "❌ ÷2 each time: 32.5÷2=16.25.",
+  's8q7': "❌ The first gap (+4) was a fluke. Differences: +4,+4,+6,+8 → +10. 26+10=36.",
+  's8q8': "❌ Strand A (odd positions: 2,7,22) → ×3+1. 22×3+1=67.",
+};
+
+// ============================================================
+// CORE FUNCTIONS
+// ============================================================
+function handleMCQ(btn, qid) {
+  if (answeredQs.has(qid)) return;
+  answeredQs.add(qid);
+
+  const card = btn.closest('.q-card');
+  const section = parseInt(card.dataset.section);
+  const btns = card.querySelectorAll('.opt-btn');
+  btns.forEach(b => {
+    b.disabled = true;
+    if (b.dataset.correct === 'true') b.classList.add('correct-btn');
+    else if (b === btn && b.dataset.correct !== 'true') b.classList.add('wrong-btn');
+  });
+
+  const isCorrect = btn.dataset.correct === 'true';
+  const fb = document.getElementById('fb-' + qid);
+  if (fb) {
+    fb.className = 'feedback ' + (isCorrect ? 'correct' : 'wrong');
+    fb.innerHTML = isCorrect
+      ? `<strong>✅ Correct!</strong>${correctMessages[qid] ? ' ' + correctMessages[qid].replace('✅ Correct! ','') : ''}`
+      : `<strong>❌ Not quite.</strong> ${wrongMessages[qid] || 'Check the rule again.'}`;
+  }
+
+  if (isCorrect) {
+    totalScore++;
+    document.getElementById('total-score').textContent = totalScore;
+    card.classList.add('answered-correct');
+  } else {
+    card.classList.add('answered-wrong');
+  }
+
+  if (section) updateSectionCount(section);
+}
+
+function handleTyped(qid, answer) {
+  if (answeredQs.has(qid)) return;
+  answeredQs.add(qid);
+
+  const input = document.getElementById('ti-' + qid);
+  const btn = input ? input.nextElementSibling : null;
+  const card = document.querySelector(`[data-qid="${qid}"]`);
+  const section = card ? parseInt(card.dataset.section) : null;
+
+  const val = parseFloat(input.value.trim());
+  const isCorrect = Math.abs(val - answer) < 0.01;
+
+  if (input) {
+    input.disabled = true;
+    input.classList.add(isCorrect ? 'correct-input' : 'wrong-input');
+  }
+  if (btn) btn.disabled = true;
+
+  const fb = document.getElementById('fb-' + qid);
+  if (fb) {
+    fb.className = 'feedback ' + (isCorrect ? 'correct' : 'wrong');
+    fb.innerHTML = isCorrect
+      ? `<strong>✅ Correct!</strong>${correctMessages[qid] ? ' ' + correctMessages[qid].replace('✅ Correct! ','') : ''}`
+      : `<strong>❌ Not quite.</strong> The answer is <strong>${answer}</strong>. ${wrongMessages[qid] || ''}`;
+  }
+
+  if (isCorrect) {
+    totalScore++;
+    document.getElementById('total-score').textContent = totalScore;
+    if (card) card.classList.add('answered-correct');
+  } else {
+    if (card) card.classList.add('answered-wrong');
+  }
+
+  if (section) updateSectionCount(section);
+}
+
+function updateSectionCount(section) {
+  const sel = `[data-section="${section}"].q-card`;
+  const cards = document.querySelectorAll(sel);
+  let answered = 0;
+  cards.forEach(c => {
+    const qid = c.dataset.qid;
+    if (answeredQs.has(qid)) answered++;
+  });
+  const total = cards.length;
+  const counter = document.getElementById(`s${section}-count`);
+  if (counter) counter.textContent = `${answered}/${total} answered`;
+  if (answered >= total) {
+    const badge = document.getElementById(`s${section}-complete`);
+    if (badge) badge.classList.add('visible');
+  }
+}
+
+// ============================================================
+// PROGRESS BAR
+// ============================================================
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = (scrollTop / docHeight) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+});
+
+// ============================================================
+// TEST FUNCTIONS
+// ============================================================
+function startTest() {
+  document.getElementById('start-test-btn').style.display = 'none';
+  document.getElementById('test-questions').style.display = 'block';
+  testSecondsLeft = 900;
+  updateTimerDisplay();
+  testTimer = setInterval(() => {
+    testSecondsLeft--;
+    updateTimerDisplay();
+    if (testSecondsLeft <= 0) {
+      clearInterval(testTimer);
+      submitTest();
+    }
+    if (testSecondsLeft <= 60) {
+      document.getElementById('timer-display').classList.add('urgent');
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(testSecondsLeft / 60);
+  const s = testSecondsLeft % 60;
+  document.getElementById('timer-display').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+}
+
+function handleTestMCQ(btn, qid) {
+  if (testAnswers[qid] !== undefined) return;
+  const card = btn.closest('.q-card');
+  const btns = card.querySelectorAll('.opt-btn');
+  btns.forEach(b => b.disabled = true);
+  testAnswers[qid] = btn.dataset.correct === 'true';
+  btn.style.background = btn.dataset.correct === 'true' ? 'var(--green-pale)' : 'var(--red-pale)';
+  btn.style.borderColor = btn.dataset.correct === 'true' ? 'var(--green)' : 'var(--red)';
+}
+
+function handleTestTyped(qid, answer) {
+  if (testAnswers[qid] !== undefined) return;
+  const input = document.getElementById('ti-' + qid);
+  const val = parseFloat(input.value.trim());
+  const isCorrect = !isNaN(val) && Math.abs(val - answer) < 0.01;
+  testAnswers[qid] = isCorrect;
+  if (input) { input.disabled = true; input.classList.add(isCorrect ? 'correct-input' : 'wrong-input'); }
+  const btn = document.getElementById('sb-' + qid);
+  if (btn) btn.disabled = true;
+}
+
+function submitTest() {
+  clearInterval(testTimer);
+  document.getElementById('test-questions').style.display = 'none';
+  document.getElementById('test-results').style.display = 'block';
+
+  let score = 0;
+  const qids = ['tq1','tq2','tq3','tq4','tq5','tq6','tq7','tq8','tq9','tq10','tq11','tq12','tq13','tq14','tq15'];
+  qids.forEach(qid => { if (testAnswers[qid] === true) score++; });
+
+  document.getElementById('result-score').textContent = score;
+  const ring = document.getElementById('result-ring');
+  const band = document.getElementById('result-band');
+  const msg = document.getElementById('result-msg');
+
+  if (score <= 6) {
+    ring.className = 'score-ring needs';
+    band.textContent = '📖 Needs Practice';
+    band.style.color = 'var(--red)';
+    msg.textContent = "You're building foundations! Go back through Sub-Skills 1–3 and work through the Starter questions again. Every expert started where you are now.";
+  } else if (score <= 9) {
+    ring.className = 'score-ring developing';
+    band.textContent = '📈 Developing';
+    band.style.color = 'var(--yellow)';
+    msg.textContent = "Good progress! Focus on the questions you got wrong. Pay special attention to alternating sequences and compound rules — those are the most commonly failed.";
+  } else if (score <= 12) {
+    ring.className = 'score-ring secure';
+    band.textContent = '🎯 Secure';
+    band.style.color = 'var(--orange)';
+    msg.textContent = "Strong performance! You're handling most GL-level questions well. Push further into the Mastery level questions and focus on trap-spotting skills.";
+  } else {
+    ring.className = 'score-ring mastery';
+    band.textContent = '🏆 Mastery';
+    band.style.color = 'var(--green)';
+    msg.textContent = "Outstanding! You've demonstrated Mastery-level ability across all pattern types. You are well-prepared for the GL Assessment. Keep your instincts sharp!";
+  }
+}
+
+function showReview() {
+  const reviewEl = document.getElementById('review-list');
+  reviewEl.style.display = 'block';
+  const qids = ['tq1','tq2','tq3','tq4','tq5','tq6','tq7','tq8','tq9','tq10','tq11','tq12','tq13','tq14','tq15'];
+  const series = {
+    tq1:'7, 14, 21, 28, (?)', tq2:'1, 2, 4, 7, 11, (?)', tq3:'2, 20, 4, 18, 6, 16, (?)',
+    tq4:'4, 9, 16, 25, (?)', tq5:'2, 3, 5, 8, 13, (?)', tq6:'1, 3, 7, 15, (?)',
+    tq7:'2, 4, 8, 14, 22, (?)', tq8:'2, 6, 12, 20, 30, (?)', tq9:'2, 6, 7, 21, 22, 66, (?)',
+    tq10:'1, 3, 6, 11, 18, (?)', tq11:'50, 43, 36, 29, (?)', tq12:'2, 5, 10, 17, 26, (?)',
+    tq13:'3, 5, 9, 17, (?)', tq14:'4, 7, 11, 18, 29, (?)', tq15:'5, 7, 10, 14, 19, (?)'
+  };
+  let html = '';
+  qids.forEach((qid, i) => {
+    const correct = testAnswers[qid] === true;
+    const ans = testCorrect[qid];
+    html += `<div class="test-review-item ${correct ? 'correct' : 'wrong'}">
+      <div class="review-q">Q${i+1} — ${correct ? '✅ Correct' : '❌ Wrong'}</div>
+      <div class="review-series">${series[qid]}</div>
+      <div class="review-answers">
+        <span>Answer: <strong>${ans}</strong></span>
+      </div>
+      ${!correct ? `<div class="review-explain">💡 ${testExplains[qid]}</div>` : ''}
+    </div>`;
+  });
+  reviewEl.innerHTML = html;
+}
+
+// ============================================================
+// ENTER KEY for typed inputs
+// ============================================================
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && e.target.classList.contains('typed-input')) {
+    const btn = e.target.nextElementSibling;
+    if (btn && !btn.disabled) btn.click();
+  }
+});
+</script>
+</body>
+</html>

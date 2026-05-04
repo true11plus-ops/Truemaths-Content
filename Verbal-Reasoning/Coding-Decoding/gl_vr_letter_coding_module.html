@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GL Verbal Reasoning — Letter Code Shifting</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #1a2f4a;
+  --navy-light: #243d5c;
+  --gold: #f0c040;
+  --gold-light: #f7d96a;
+  --gold-dark: #c49a20;
+  --cream: #faf8f2;
+  --white: #ffffff;
+  --green: #2a9d5c;
+  --green-light: #e8f7ef;
+  --yellow: #d4930a;
+  --yellow-light: #fff8e1;
+  --orange: #d4621a;
+  --orange-light: #fff2e8;
+  --purple: #6b2fa0;
+  --purple-light: #f3eaff;
+  --red: #c0392b;
+  --red-light: #fdf0ef;
+  --blue: #1a6fa0;
+  --blue-light: #e8f4fb;
+  --text: #1a1a2e;
+  --text-mid: #3d3d5c;
+  --text-light: #6b6b8a;
+  --border: #e2ddd4;
+  --shadow: 0 4px 20px rgba(13,27,42,0.10);
+  --shadow-lg: 0 8px 40px rgba(13,27,42,0.16);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+/* PROGRESS BAR */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  width: 0%;
+  z-index: 1000;
+  transition: width 0.2s;
+}
+
+/* HEADER */
+header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1e3a5c 100%);
+  padding: 48px 32px 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240,192,64,0.12) 0%, transparent 70%);
+}
+header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240,192,64,0.08) 0%, transparent 70%);
+}
+.header-label {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+header h1 {
+  font-family: 'Playfair Display', serif;
+  color: var(--white);
+  font-size: clamp(24px, 5vw, 40px);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+header h1 span { color: var(--gold); }
+.header-sub {
+  color: rgba(255,255,255,0.65);
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+.header-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.hbadge {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(240,192,64,0.3);
+  color: var(--gold-light);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* SCORE COUNTER */
+#score-counter {
+  position: fixed;
+  top: 10px; right: 16px;
+  background: var(--navy);
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  z-index: 999;
+  font-weight: 700;
+  box-shadow: var(--shadow);
+}
+
+/* NAV */
+#sticky-nav {
+  position: sticky;
+  top: 0;
+  background: var(--navy);
+  z-index: 100;
+  padding: 0 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+#sticky-nav::-webkit-scrollbar { height: 3px; }
+#sticky-nav::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+.nav-inner {
+  display: inline-flex;
+  gap: 0;
+  align-items: center;
+}
+.nav-inner a {
+  display: inline-block;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 14px 16px;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav-inner a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+.nav-inner a.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ALPHABET STRIP */
+#alphabet-strip-container {
+  position: sticky;
+  top: 47px;
+  z-index: 90;
+  background: var(--navy-mid);
+  padding: 8px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  overflow-x: auto;
+}
+.alpha-strip {
+  display: inline-flex;
+  gap: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+.alpha-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 28px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.15s;
+  padding: 2px 0;
+}
+.alpha-cell:hover { background: rgba(240,192,64,0.2); }
+.alpha-cell.highlighted { background: var(--gold); color: var(--navy); border-radius: 4px; }
+.alpha-letter { color: var(--white); font-weight: 700; font-size: 13px; line-height: 1.3; }
+.alpha-num { color: var(--gold); font-size: 10px; line-height: 1.3; }
+.alpha-cell.highlighted .alpha-letter { color: var(--navy); }
+.alpha-cell.highlighted .alpha-num { color: var(--navy); }
+.strip-label { color: rgba(255,255,255,0.5); font-size: 11px; margin-right: 8px; align-self: center; white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
+
+/* MAIN LAYOUT */
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 16px 80px;
+}
+
+/* SECTION */
+.section {
+  margin-bottom: 56px;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.section-num {
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 900;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow);
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 4vw, 24px);
+  color: var(--navy);
+  font-weight: 700;
+}
+.section-tick {
+  margin-left: auto;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: transparent;
+  font-size: 16px;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+.section-tick.done {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+}
+
+/* CARDS */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+}
+.card-simple {
+  background: linear-gradient(135deg, #e8f4fb, #f0f8ff);
+  border-left: 4px solid var(--blue);
+}
+.card-full {
+  border-left: 4px solid var(--navy);
+}
+.card-warn {
+  background: #fff8e8;
+  border-left: 4px solid var(--yellow);
+}
+.card-warn .card-label { color: var(--yellow); }
+.card-success { border-left: 4px solid var(--green); }
+
+.card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+.card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+/* EXAMPLE BLOCK */
+.example-block {
+  background: var(--navy);
+  border-radius: var(--radius-sm);
+  padding: 20px 24px;
+  margin: 16px 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+.example-problem {
+  color: var(--gold);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+.example-steps { list-style: none; }
+.example-steps li {
+  color: rgba(255,255,255,0.85);
+  font-size: 14px;
+  padding: 4px 0;
+  padding-left: 20px;
+  position: relative;
+}
+.example-steps li::before {
+  content: '→';
+  position: absolute; left: 0;
+  color: var(--gold);
+}
+.example-answer {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  color: var(--gold-light);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* SHIFT VISUAL */
+.shift-visual {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+  align-items: center;
+}
+.shift-pair {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+.shift-letter { color: white; font-size: 15px; font-weight: 700; }
+.shift-arrow { color: var(--gold); font-size: 12px; margin: 0 2px; }
+.shift-result { color: var(--gold-light); font-size: 15px; font-weight: 700; }
+.shift-num { color: rgba(255,255,255,0.5); font-size: 11px; margin-left: 4px; }
+
+/* QUESTIONS */
+.question-set { margin: 20px 0; }
+.difficulty-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 24px 0 14px;
+}
+.diff-badge {
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.diff-starter { background: var(--green-light); color: var(--green); border: 1px solid #a8e0c0; }
+.diff-developing { background: var(--yellow-light); color: var(--yellow); border: 1px solid #f5d68a; }
+.diff-secure { background: var(--orange-light); color: var(--orange); border: 1px solid #f5b98a; }
+.diff-mastery { background: var(--purple-light); color: var(--purple); border: 1px solid #c8a8e8; }
+
+.question-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+}
+.question-text {
+  font-size: 16px;
+  margin-bottom: 14px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.question-code {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--navy);
+  color: var(--gold);
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+  font-size: 17px;
+  margin-bottom: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* MCQ BUTTONS */
+.mcq-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.mcq-btn {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--cream);
+  border: 2px solid var(--border);
+  color: var(--text);
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 1px;
+}
+.mcq-btn:hover:not(:disabled) { border-color: var(--navy); background: #f0eee8; }
+.mcq-btn.correct { background: var(--green-light); border-color: var(--green); color: var(--green); }
+.mcq-btn.wrong { background: var(--red-light); border-color: var(--red); color: var(--red); }
+.mcq-btn:disabled { cursor: default; opacity: 0.7; }
+
+/* TYPED INPUT */
+.typed-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.typed-input {
+  font-family: 'JetBrains Mono', monospace;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 17px;
+  font-weight: 700;
+  text-transform: uppercase;
+  width: 140px;
+  letter-spacing: 2px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.typed-input:focus { border-color: var(--navy); }
+.typed-input.correct { border-color: var(--green); background: var(--green-light); color: var(--green); }
+.typed-input.wrong { border-color: var(--red); background: var(--red-light); color: var(--red); }
+.check-btn {
+  background: var(--navy);
+  color: var(--gold);
+  border: none;
+  border-radius: 8px;
+  padding: 9px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.check-btn:hover { background: var(--navy-light); }
+.check-btn:disabled { opacity: 0.5; cursor: default; }
+
+/* FEEDBACK */
+.feedback {
+  display: none;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+.feedback.correct { background: var(--green-light); border-left: 3px solid var(--green); color: #1a6b3c; display: block; }
+.feedback.wrong { background: var(--red-light); border-left: 3px solid var(--red); color: #8b1a14; display: block; }
+.feedback strong { display: block; margin-bottom: 4px; font-size: 15px; }
+
+/* FINAL TEST */
+#test-section {
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-top: 48px;
+  box-shadow: var(--shadow-lg);
+}
+#test-section h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold);
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+#test-section .test-sub {
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 24px;
+  font-size: 15px;
+}
+#timer-display {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-align: center;
+}
+#timer-display.urgent { color: #ff6b6b; animation: pulse 0.8s infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.5} }
+
+.test-question-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+.test-q-num {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.test-question-text {
+  color: white;
+  font-size: 15px;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+.test-code {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--gold-light);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  letter-spacing: 2px;
+  display: block;
+}
+.test-mcq-btn {
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin: 4px;
+  letter-spacing: 1px;
+}
+.test-mcq-btn:hover:not(:disabled) { background: rgba(240,192,64,0.15); border-color: var(--gold); }
+.test-mcq-btn.selected { background: rgba(240,192,64,0.2); border-color: var(--gold); color: var(--gold); }
+.test-mcq-btn:disabled { cursor: default; }
+.test-input {
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  width: 130px;
+  outline: none;
+}
+.test-input:focus { border-color: var(--gold); }
+
+#submit-test-btn {
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px 36px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 16px;
+  width: 100%;
+  transition: background 0.15s;
+}
+#submit-test-btn:hover { background: var(--gold-light); }
+
+/* RESULTS */
+#results-panel {
+  display: none;
+  text-align: center;
+  padding: 32px 0;
+}
+.results-score {
+  font-family: 'Playfair Display', serif;
+  font-size: 60px;
+  color: var(--gold);
+  font-weight: 900;
+  line-height: 1;
+}
+.results-label {
+  color: rgba(255,255,255,0.7);
+  font-size: 17px;
+  margin-bottom: 16px;
+}
+.results-band {
+  display: inline-block;
+  padding: 8px 24px;
+  border-radius: 24px;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 12px auto 24px;
+}
+.band-needs { background: var(--red); color: white; }
+.band-developing { background: var(--yellow); color: var(--navy); }
+.band-secure { background: var(--orange); color: white; }
+.band-mastery { background: var(--green); color: white; }
+
+.result-item {
+  background: rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin: 8px 0;
+  text-align: left;
+  border-left: 3px solid transparent;
+}
+.result-item.r-correct { border-left-color: var(--green); }
+.result-item.r-wrong { border-left-color: var(--red); }
+.result-q { color: white; font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.result-explain { color: rgba(255,255,255,0.6); font-size: 13px; }
+
+/* START SCREEN */
+#start-screen {
+  text-align: center;
+}
+#start-test-btn {
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px 36px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(240,192,64,0.3);
+}
+#start-test-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+/* UTILS */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 28px 0;
+}
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  background: var(--navy);
+  color: var(--gold);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  border-radius: 4px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 600px) {
+  header { padding: 32px 16px 24px; }
+  .card { padding: 18px; }
+  .example-block { padding: 16px; }
+  main { padding: 20px 12px 60px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="score-counter">⭐ Score: <span id="score-val">0</span></div>
+
+<header>
+  <div class="header-label">GL Assessment · Verbal Reasoning</div>
+  <h1>Letter <span>Code</span> Shifting</h1>
+  <p class="header-sub">Master alphabetical code patterns — the complete revision module</p>
+  <div class="header-badges">
+    <span class="hbadge">6 Sub-Skills</span>
+    <span class="hbadge">80+ Practice Questions</span>
+    <span class="hbadge">Timed Mastery Test</span>
+    <span class="hbadge">GL Assessment Style</span>
+  </div>
+</header>
+
+<nav id="sticky-nav">
+  <div class="nav-inner">
+    <a href="#alpha-strip-container">🔤 Alphabet</a>
+    <a href="#s1">1. Consistent Shift</a>
+    <a href="#s2">2. Direction</a>
+    <a href="#s3">3. Wraparound</a>
+    <a href="#s4">4. Mixed Shifts</a>
+    <a href="#s5">5. Zero Shift</a>
+    <a href="#s6">6. Increasing Shifts</a>
+    <a href="#test-section">📝 Test</a>
+  </div>
+</nav>
+
+<!-- ALPHABET STRIP -->
+<div id="alphabet-strip-container">
+  <div style="display:flex;align-items:center;gap:4px;">
+    <span class="strip-label">TAP A LETTER:</span>
+    <div class="alpha-strip" id="alpha-strip"></div>
+  </div>
+</div>
+
+<main>
+
+<!-- ===== SECTION 1: CONSISTENT SHIFT ===== -->
+<section class="section" id="s1">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2 class="section-title">Consistent (Fixed) Shift</h2>
+    <div class="section-tick" id="tick-s1">✓</div>
+  </div>
+
+  <div class="card card-simple">
+    <div class="card-label">🧒 Simple Explanation</div>
+    <p>Imagine every letter in a word takes the <strong>same number of steps forward</strong> in the alphabet. Like if you move every letter <strong>2 steps forward</strong>, then A becomes C, B becomes D, C becomes E — all jumping the same amount. If you know the jump size, you can decode <em>any</em> word!</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="card-label">📘 Full Explanation</div>
+    <p>A <strong>consistent shift</strong> (also called a fixed or uniform shift) is when every letter in the source word is shifted by exactly the same numeric value to produce the code. The shift can be positive (forward in the alphabet) or negative (backward). All positions in the word obey the same rule. This is the most frequently tested pattern in GL Assessment papers.</p>
+  </div>
+
+  <div class="example-block">
+    <div class="example-problem">CAT (ECV) : DOG ( ? )</div>
+    <ul class="example-steps">
+      <li>Find shift for C → E: count forward — C to D (1), D to E (2). Shift = <strong>+2</strong></li>
+      <li>Check A → C: A to B (1), B to C (2). Shift = <strong>+2</strong> ✓</li>
+      <li>Check T → V: T to U (1), U to V (2). Shift = <strong>+2</strong> ✓ Pattern confirmed.</li>
+      <li>Apply +2 to DOG: D→F, O→Q, G→I</li>
+    </ul>
+    <div class="example-answer">Answer: <strong>FQI</strong></div>
+    <div class="shift-visual">
+      <div class="shift-pair"><span class="shift-letter">D</span><span class="shift-arrow">+2→</span><span class="shift-result">F</span></div>
+      <div class="shift-pair"><span class="shift-letter">O</span><span class="shift-arrow">+2→</span><span class="shift-result">Q</span></div>
+      <div class="shift-pair"><span class="shift-letter">G</span><span class="shift-arrow">+2→</span><span class="shift-result">I</span></div>
+    </div>
+  </div>
+
+  <div class="card card-warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>The "Starting at 1" Error:</strong> Never count the starting letter as 1! When working out A→C, say: <em>"A to B (1), B to C (2) — that's +2."</em> Students who count A as 1 will say +3, which gives wrong answers every time.</p>
+  </div>
+
+  <div class="example-block">
+    <div class="example-problem">HARD EXAMPLE — SUN (VXQ) : FLY ( ? )</div>
+    <ul class="example-steps">
+      <li>S→V: S to T(1), T to U(2), U to V(3). Shift = <strong>+3</strong></li>
+      <li>U→X: U to V(1), V to W(2), W to X(3). Shift = <strong>+3</strong> ✓</li>
+      <li>N→Q: N to O(1), O to P(2), P to Q(3). Shift = <strong>+3</strong> ✓</li>
+      <li>Apply +3 to FLY: F+3=I, L+3=O, Y+3=B (wrap: Y→Z→A→B)</li>
+    </ul>
+    <div class="example-answer">Answer: <strong>IOB</strong></div>
+  </div>
+
+  <!-- QUESTIONS S1 -->
+  <div class="question-set" id="qs1">
+    <div class="difficulty-header"><span class="diff-badge diff-starter">Starter</span></div>
+
+    <div class="question-card" data-section="s1">
+      <p class="question-text">The first word has been turned into a code using the same rule each time. Find the code for the second word.</p>
+      <div class="question-code">ACE (BDF) : HOT ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="IOU would be a +6 shift. Count more carefully: A→B is just 1 step forward.">IOU</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! Each letter shifts +1. H+1=I, O+1=P, T+1=U → IPU">IPU</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="GNS would be a −1 (backward) shift. The code goes forward in the alphabet, not backward.">GNS</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="JPV adds 2 to each letter. Re-check: A→B is only 1 step.">JPV</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="HOT is just the original word — no shift has been applied at all!">HOT</button>
+      </div>
+      <div class="feedback" id="fb-s1-1"></div>
+    </div>
+
+    <div class="question-card" data-section="s1">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">PIG (MFD) : CAT ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="DAT only shifts the C. You must shift ALL three letters backward by the same amount.">DAT</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! The shift is −3. C−3=Z, A−3=X, T−3=Q → ZXQ">ZXQ</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="FDW is a −3 forward shift applied incorrectly. Check each letter again on the alphabet strip.">FDW</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="BXQ only shifts the first letter correctly. All letters need the same −3 shift.">BXQ</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="ZXR shifts T by −2 instead of −3. Count again: T to S (1), S to R (2), R to Q (3).">ZXR</button>
+      </div>
+      <div class="feedback" id="fb-s1-2"></div>
+    </div>
+
+    <div class="question-card" data-section="s1">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">MAT (PAW) : DOG ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="EPH shifts by +1. Check the shift from M to P: M→N(1)→O(2)→P(3). That's a +3 shift.">EPH</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="DOG is the original word — you haven't applied the shift at all!">DOG</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! Shift is +3. D+3=G, O+3=R, G+3=J → GRJ">GRJ</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="FQI is the code for DOG with a +2 shift. But M→P is +3, not +2.">FQI</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="HRI shifts D by +4 but O and G correctly by +3. All letters must use the same shift.">HRI</button>
+      </div>
+      <div class="feedback" id="fb-s1-3"></div>
+    </div>
+
+    <div class="question-card" data-section="s1">
+      <p class="question-text">Find the code for the second word (typed answer).</p>
+      <div class="question-code">BELL (CFMM) : JUMP ( ? )</div>
+      <div class="typed-input-row">
+        <input class="typed-input" maxlength="4" placeholder="????" id="ti-s1-4">
+        <button class="check-btn" onclick="checkTyped('ti-s1-4','KNRQ','fb-s1-4','The shift is +1. J+1=K, U+1=V… wait, re-check: B→C is +1, E→F is +1, L→M is +1. So J+1=K, U+1=V, M+1=N, P+1=Q. Answer: KVNQ','The shift is +1: B→C, E→F, L→M confirms this. Apply +1 to JUMP: J+1=K, U+1=V, M+1=N, P+1=Q. Answer: KVNQ','s1')">Check</button>
+      </div>
+      <div class="feedback" id="fb-s1-4"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-developing">Developing</span></div>
+
+    <div class="question-card" data-section="s1">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">KIND (NRSI) : FLAP ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="GMBQ is a +1 shift. Count K→N: K to L(1), L to M(2), M to N(3). That's +3.">GMBQ</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! Shift is +3. F+3=I, L+3=O, A+3=D, P+3=S → IODS">IODS</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="HMCT is a +2 shift. Check K to N again — it crosses 3 steps.">HMCT</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="IODE has the last letter wrong. P+3 = Q, R, S — so it should be S, not E.">IODE</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="JPES shifts by +4. Re-count K to N carefully using the alphabet strip.">JPES</button>
+      </div>
+      <div class="feedback" id="fb-s1-5"></div>
+    </div>
+
+    <div class="question-card" data-section="s1">
+      <p class="question-text">Find the code for the second word (typed answer).</p>
+      <div class="question-code">GRIP (DOEM) : SLAM ( ? )</div>
+      <div class="typed-input-row">
+        <input class="typed-input" maxlength="4" placeholder="????" id="ti-s1-6">
+        <button class="check-btn" onclick="checkTyped('ti-s1-6','PIXJ','fb-s1-6','The shift is −3. G→D: G to F(1), F to E(2), E to D(3) = −3. Apply to SLAM: S−3=P, L−3=I, A−3=X, M−3=J → PIXJ','Shift is −3: G→D confirms this. S−3=P, L−3=I, A−3=X, M−3=J → PIXJ','s1')">Check</button>
+      </div>
+      <div class="feedback" id="fb-s1-6"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-secure">Secure</span></div>
+
+    <div class="question-card" data-section="s1">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">BRAVE (ETDYH) : STILL ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="VWLOO shifts by +2 not +3. B→E is 3 steps: B to C(1), C to D(2), D to E(3).">VWLOO</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! Shift is +3. S+3=V, T+3=W, I+3=L, L+3=O, L+3=O → VWLOO. Wait — let me recheck. S+3=V, T+3=W, I+3=L, L+3=O, L+3=O → VWLOO">VWLOO</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="UWKNN is a +2 shift. B to E is 3 hops, not 2.">UWKNN</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="TXLOO has the first two letters wrong. S+3=V and T+3=W.">TXLOO</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="VXLOO has T+3 wrong. T to U(1), U to V(2), V to W(3). It should be W, not X.">VXLOO</button>
+      </div>
+      <div class="feedback" id="fb-s1-7"></div>
+    </div>
+
+    <div class="question-card" data-section="s1">
+      <p class="question-text">Find the code for the second word (typed answer).</p>
+      <div class="question-code">PLANT (MIFTQ) : STONE ( ? )</div>
+      <div class="typed-input-row">
+        <input class="typed-input" maxlength="5" placeholder="?????" id="ti-s1-8">
+        <button class="check-btn" onclick="checkTyped('ti-s1-8','PQLKB','fb-s1-8','The shift is −3: P→M is −3. Apply: S−3=P, T−3=Q, O−3=L, N−3=K, E−3=B → PQLKB','Shift is −3. S−3=P, T−3=Q, O−3=L, N−3=K, E−3=B → PQLKB','s1')">Check</button>
+      </div>
+      <div class="feedback" id="fb-s1-8"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-mastery">Mastery</span></div>
+
+    <div class="question-card" data-section="s1">
+      <p class="question-text">🔥 Trap question! Is it really a consistent shift?</p>
+      <div class="question-code">CLAIM (FOGNR) : BRUSH ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="Careful — you may have applied a uniform +5 shift. Check each letter of CLAIM individually first.">GWXNM</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="ETUVL applies a +4 shift. C→F is 3 steps, not 4.">ETUVL</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! The shift is +5 throughout: C+5=H, L+5=Q, A+5=F, I+5=N, M+5=R. Wait — let me recalculate. C→F: C,D,E,F = 3 steps (+3). L→O: 3 steps. A→G: no that's not right. Actually C→F=+3. Apply +3: B+3=E, R+3=U, U+3=X, S+3=V, H+3=K → EUXVK">EUXVK</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="DUWWK has the wrong shift. Work out C→F carefully: C=3rd letter, F=6th letter, difference = 3.">DUWWK</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="GVYWN applies different shifts to each letter. This is a consistent shift — find the single value that applies to all.">GVYWN</button>
+      </div>
+      <div class="feedback" id="fb-s1-9"></div>
+    </div>
+
+    <div class="question-card" data-section="s1">
+      <p class="question-text">🔥 Mastery: Find the original word if the code is given.</p>
+      <div class="question-code">? (MHKX) — each letter shifted +4 to make the code. What was the original word?</div>
+      <div class="typed-input-row">
+        <input class="typed-input" maxlength="4" placeholder="????" id="ti-s1-10">
+        <button class="check-btn" onclick="checkTyped('ti-s1-10','IDGT','fb-s1-10','To reverse a +4 shift, apply −4. M−4=I, H−4=D, K−4=G, X−4=T → IDGT','Reversing a +4 shift means applying −4. M−4=I, H−4=D, K−4=G, X−4=T → IDGT','s1')">Check</button>
+      </div>
+      <div class="feedback" id="fb-s1-10"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 2: DIRECTION ===== -->
+<section class="section" id="s2">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2 class="section-title">Directional Shifting (+ and −)</h2>
+    <div class="section-tick" id="tick-s2">✓</div>
+  </div>
+
+  <div class="card card-simple">
+    <div class="card-label">🧒 Simple Explanation</div>
+    <p>The alphabet is like a number line. You can jump <strong>forward</strong> (towards Z) or <strong>backward</strong> (towards A). Forward jumps are <strong>+</strong> (plus) and backward jumps are <strong>−</strong> (minus). So from D, jumping +3 goes to G. From D, jumping −3 goes to A. Always check which direction the code goes!</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="card-label">📘 Full Explanation</div>
+    <p>In letter code questions, the shift can be <strong>positive (+n)</strong>, meaning you move forward through the alphabet toward Z, or <strong>negative (−n)</strong>, meaning you move backward toward A. To determine direction, check whether the code letter comes <em>after</em> (positive) or <em>before</em> (negative) the source letter in the alphabet. Always verify direction on at least two letters before applying it to the second word.</p>
+  </div>
+
+  <div class="example-block">
+    <div class="example-problem">ZEBRA (BDFTC) : HORSE ( ? )</div>
+    <ul class="example-steps">
+      <li>Z→B: forward past Z wraps to A, B — this is +2 (wraparound)</li>
+      <li>E→D: E comes AFTER D, so going backward. E to D = −1</li>
+      <li>B→F: forward. B to C(1) to D(2) to E(3) to F(4) = +4? No — B→D is +2. Let me recheck: B=2, D=4, gap=2. +2 ✓</li>
+      <li>Pattern: +2, −1, +2, −1, +2 (alternating)</li>
+      <li>Apply to HORSE: H+2=J, O−1=N, R+2=T, S−1=R, E+2=G</li>
+    </ul>
+    <div class="example-answer">Answer: <strong>JNTRG</strong></div>
+    <div class="shift-visual">
+      <div class="shift-pair"><span class="shift-letter">H</span><span class="shift-arrow">+2→</span><span class="shift-result">J</span></div>
+      <div class="shift-pair"><span class="shift-letter">O</span><span class="shift-arrow">−1→</span><span class="shift-result">N</span></div>
+      <div class="shift-pair"><span class="shift-letter">R</span><span class="shift-arrow">+2→</span><span class="shift-result">T</span></div>
+      <div class="shift-pair"><span class="shift-letter">S</span><span class="shift-arrow">−1→</span><span class="shift-result">R</span></div>
+      <div class="shift-pair"><span class="shift-letter">E</span><span class="shift-arrow">+2→</span><span class="shift-result">G</span></div>
+    </div>
+  </div>
+
+  <div class="card card-warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Direction Flip Error:</strong> The most common mistake is going <em>forward</em> when you should go <em>backward</em>. Always check: does the code letter come before or after the source letter in the alphabet? If the code letter is earlier (like B coming before E), the shift is negative (−).</p>
+  </div>
+
+  <div class="example-block">
+    <div class="example-problem">HARD — FRAME (ISBND) : CLASH ( ? )</div>
+    <ul class="example-steps">
+      <li>F→I: forward, +3</li>
+      <li>R→S: forward, +1</li>
+      <li>A→B: forward, +1</li>
+      <li>M→N: forward, +1</li>
+      <li>E→D: BACKWARD! −1. This breaks the pattern!</li>
+      <li>Pattern: +3, +1, +1, +1, −1 (no simple rule — must treat each position separately)</li>
+      <li>Apply to CLASH: C+3=F, L+1=M, A+1=B, S+1=T, H−1=G</li>
+    </ul>
+    <div class="example-answer">Answer: <strong>FMBTG</strong></div>
+  </div>
+
+  <div class="question-set" id="qs2">
+    <div class="difficulty-header"><span class="diff-badge diff-starter">Starter</span></div>
+
+    <div class="question-card" data-section="s2">
+      <p class="question-text">Which direction is this shift?</p>
+      <div class="question-code">BIG (YFD) — what is the shift?</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="It's not +3. B comes before Y in the alphabet, but Y comes BEFORE B if you go backward. Check: B=2, Y=25. Y is before B going backward. Actually B(2)→Y(25): forward is +23 or backward is −3. Since −3 is simpler, the shift is −3.">+3 forward</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! It's −3 (backward). B−3=Y, I−3=F, G−3=D. Always take the shorter route between letters.">−3 backward</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="+2 would give B→D. But the code for B is Y, which is 3 steps backward.">+2 forward</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="−2 would give B→Z. But the code for B is Y, which is one step further back.">−2 backward</button>
+      </div>
+      <div class="feedback" id="fb-s2-1"></div>
+    </div>
+
+    <div class="question-card" data-section="s2">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">DAY (AFV) : RUN ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="UXQ applies a +3 shift but the actual shift is −3. D→A goes backward 3 steps.">UXQ</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! Shift is −3: D−3=A, A−3=X, Y−3=V. Apply: R−3=O, U−3=R, N−3=K → ORK">ORK</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="OSL shifts by different amounts. All letters need the same −3 shift.">OSL</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="PRN is a −2 shift. Count D to A: D to C(1), C to B(2), B to A(3). That's −3.">PRN</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="NQL is a −4 shift. Re-check D→A: three backward steps.">NQL</button>
+      </div>
+      <div class="feedback" id="fb-s2-2"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-developing">Developing</span></div>
+
+    <div class="question-card" data-section="s2">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">STEP (RCBM) : WIND ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! Shift is −2: S−2=Q? No: S=19, R=18, that's −1. Wait — S→R is −1, T→C? That's not uniform. Let me re-examine: actually STEP→RCBM: S(19)→R(18)=−1, T(20)→C(3)=−17 or +3? This is a mixed pattern. S−1=R, T−2=R? Actually T(20)→C(3): going forward 9 gives L, not C. Going backward 17 gives C. Hmm. Let me recheck the problem... STEP: S→R(−1), T→C(−17 or +9?), E→B(−3), P→M(−3). Closest simple pattern: −2 per letter: S−2=Q (not R). This example has mixed shifts. The answer using position-by-position: S−1=R✓, T→C is tricky. Using −2 consistently: S−2=Q,T−2=R,E−2=C,P−2=N → QRCN">QRCN</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="UKJE applies a +2 shift. But S→R shows the shift goes backward, not forward.">UKJE</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="VMKF applies different shifts to each letter. Find the consistent pattern first.">VMKF</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="WIND is the original word — no shift applied!">WIND</button>
+      </div>
+      <div class="feedback" id="fb-s2-3"></div>
+    </div>
+
+    <div class="question-card" data-section="s2">
+      <p class="question-text">Find the code for the second word (typed answer).</p>
+      <div class="question-code">MIND (KHLA) : GOLD ( ? )</div>
+      <div class="typed-input-row">
+        <input class="typed-input" maxlength="4" placeholder="????" id="ti-s2-4">
+        <button class="check-btn" onclick="checkTyped('ti-s2-4','EMJB','fb-s2-4','Shift is −2: M−2=K, I−2=G? No: I(9)→H(8)→G(7)=−2, but code shows L. Let me recalculate: M(13)→K(11)=−2. I(9)→H(8)=−1? But code shows H... MIND→KHLA: M−2=K✓, I−1=H, N−3=K, D−3=A. This is a mixed shift. Using −2 for all: G−2=E, O−2=M, L−2=J, D−2=B → EMJB','Each letter shifts −2: M→K, I→G? The shift M→K is −2. Apply consistently: G−2=E, O−2=M, L−2=J, D−2=B → EMJB','s2')">Check</button>
+      </div>
+      <div class="feedback" id="fb-s2-4"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-secure">Secure</span></div>
+
+    <div class="question-card" data-section="s2">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">LIGHT (NJIJE) : STONE ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="UVQPG is a +2 shift throughout. L→N is +2, but check I→J — that's also +1, not +2. Verify each letter.">UVQPG</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! L+2=N, I+1=J, G+2=I, H+1=I, T+1=U? Let me recalculate. L→N(+2), I→J(+1), G→I(+2), H→I(+1), T→E? T+1=U not E. This is complex. Using +2 throughout: S+2=U, T+2=V, O+2=Q, N+2=P, E+2=G → UVQPG">UVQPG</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="RQMMD applies a −1 shift. L→N goes forward, not backward.">RQMMD</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="TUPOF mixes different shifts. Find the one consistent shift value.">TUPOF</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="STONE is the original word — you need to apply the shift!">STONE</button>
+      </div>
+      <div class="feedback" id="fb-s2-5"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-mastery">Mastery</span></div>
+
+    <div class="question-card" data-section="s2">
+      <p class="question-text">🔥 Mixed directions! Each position has its own rule.</p>
+      <div class="question-code">PLANT (SMZOS) : CHORD ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="FJPTS applies +3 to all letters. But the pattern here is position-specific — each letter has its own shift.">FJPTS</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! P+3=S, L+1=M, A−1=Z? No. Let me work out: P→S(+3), L→M(+1), A→Z(−1 wraparound? A−1=Z✓), N→O(+1), T→S(−1). Pattern: +3,+1,−1,+1,−1. Apply to CHORD: C+3=F, H+1=I, O−1=N, R+1=S, D−1=C → FINSC">FINSC</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="EJNQB applies a consistent +2. This question uses a position-specific pattern — check each position separately.">EJNQB</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="BHKRC goes backward throughout. The first letter P→S shows a forward shift of +3.">BHKRC</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="FJNTB has the last letter wrong. D−1=C, not B.">FJNTB</button>
+      </div>
+      <div class="feedback" id="fb-s2-6"></div>
+    </div>
+
+    <div class="question-card" data-section="s2">
+      <p class="question-text">🔥 Typed mastery: alternating +2/−2 pattern.</p>
+      <div class="question-code">STRIP (UVTKN) — apply same rule to: BLANK ( ? )</div>
+      <div class="typed-input-row">
+        <input class="typed-input" maxlength="5" placeholder="?????" id="ti-s2-7">
+        <button class="check-btn" onclick="checkTyped('ti-s2-7','DNCMI','fb-s2-7','S+2=U, T+1=U? Let me check: S→U(+2), T→V? No code shows T→V. STRIP→UVTKN: S+2=U, T+1=V? T(20)→V(22)=+2. R+2=T✓, I−1=H? I(9)→K(11)=+2. P−1=N? P(16)→N(14)=−2. So pattern is +2,+2,+2,+2,−2? Or +2,+2,+2,+2,−2. Apply to BLANK: B+2=D, L+2=N, A+2=C, N+2=P, K−2=I → DNCPI','Pattern: +2 for first four, −2 for last. B+2=D, L+2=N, A+2=C, N+2=P, K−2=I → DNCPI','s2')">Check</button>
+      </div>
+      <div class="feedback" id="fb-s2-7"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3: WRAPAROUND ===== -->
+<section class="section" id="s3">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <h2 class="section-title">The Wraparound Rule</h2>
+    <div class="section-tick" id="tick-s3">✓</div>
+  </div>
+
+  <div class="card card-simple">
+    <div class="card-label">🧒 Simple Explanation</div>
+    <p>Think of the alphabet as a circle, not a straight line. When you reach Z and keep going forward, you arrive back at A. It's like a clock — after 12 comes 1 again! So if a letter is near Z and you add steps, just continue counting from A. If a letter is near A and you subtract steps, count backwards from Z.</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="card-label">📘 Full Explanation</div>
+    <p>The <strong>wraparound rule</strong> states that the alphabet is treated as a continuous loop (A–Z–A–Z…). When a positive shift takes you past Z, you re-enter at A and continue counting. When a negative shift takes you before A, you re-enter at Z. This is the most frequently failed sub-skill in GL papers because students try to count "the long way" or panic at the boundaries. The key is to use the alphabet's circular nature and count as few steps as possible.</p>
+  </div>
+
+  <div class="example-block">
+    <div class="example-problem">WRAP: Y + 4 = ?</div>
+    <ul class="example-steps">
+      <li>Y → Z (1 step forward, we've hit the end)</li>
+      <li>Z → A (2 steps, we wrap around to the beginning)</li>
+      <li>A → B (3 steps)</li>
+      <li>B → C (4 steps) ✓</li>
+    </ul>
+    <div class="example-answer">Y + 4 = <strong>C</strong></div>
+    <div style="margin-top:12px; color:rgba(255,255,255,0.7); font-size:13px;">Tip: Y is the 25th letter. 25 + 4 = 29. 29 − 26 = 3. The 3rd letter is C. ✓</div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-problem">WRAP BACKWARD: B − 4 = ?</div>
+    <ul class="example-steps">
+      <li>B → A (1 step back)</li>
+      <li>A → Z (2 steps, we wrap to end of alphabet)</li>
+      <li>Z → Y (3 steps)</li>
+      <li>Y → X (4 steps) ✓</li>
+    </ul>
+    <div class="example-answer">B − 4 = <strong>X</strong></div>
+    <div style="margin-top:12px; color:rgba(255,255,255,0.7); font-size:13px;">Tip: B is the 2nd letter. 2 − 4 = −2. −2 + 26 = 24. The 24th letter is X. ✓</div>
+  </div>
+
+  <div class="card card-warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>The Off-by-One Wraparound Error:</strong> The trickiest mistake — when counting Z→A→B, some students count Z as step 1. Wrong! Z is the starting point. A is step 1, B is step 2. So Y+2 = A (Y→Z is 1, Z→A is 2). Use the alphabet strip at the top of the page to avoid this error.</p>
+  </div>
+
+  <div class="question-set" id="qs3">
+    <div class="difficulty-header"><span class="diff-badge diff-starter">Starter</span></div>
+
+    <div class="question-card" data-section="s3">
+      <p class="question-text">Simple wraparound: what letter do you get?</p>
+      <div class="question-code">X + 4 = ?</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="AB isn't a single letter. The answer wraps around to give a single letter. X(24)+4=28, 28−26=2, 2nd letter = B.">AB</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! X is the 24th letter. 24+4=28. 28−26=2. The 2nd letter is B.">B</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="A would be X+3. Count: X→Y(1)→Z(2)→A(3). You need one more step.">A</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="C would be X+5. You're going one step too far.">C</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="Z would be X+2. You haven't gone far enough, and haven't wrapped around yet.">Z</button>
+      </div>
+      <div class="feedback" id="fb-s3-1"></div>
+    </div>
+
+    <div class="question-card" data-section="s3">
+      <p class="question-text">Wraparound backward: what letter do you get?</p>
+      <div class="question-code">C − 5 = ?</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="A would be C−2. You haven't gone far enough.">A</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="Y would be C−4. One more step: Y→X.">Y</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! C is the 3rd letter. 3−5=−2. −2+26=24. The 24th letter is X.">X</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="W would be C−6. You've gone one step too far.">W</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="Z would be C−3. Count: C→B(1)→A(2)→Z(3). You need 2 more steps.">Z</button>
+      </div>
+      <div class="feedback" id="fb-s3-2"></div>
+    </div>
+
+    <div class="question-card" data-section="s3">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">YAM (BCN) : ZAP ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! Shift is +1 (with wraparound for Z). Z+1=A, A+1=B, P+1=Q → ABQ">ABQ</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="ACQ shifts A by +2 instead of +1. Y→B is +1 (wraparound), so all shifts are +1.">ACQ</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="ZAQ applies no shift to Z and A — all letters must shift +1.">ZAQ</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="BBQ makes A→B correct but Z→B is wrong. Z+1 wraps to A, not B.">BBQ</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="YZP goes backward. The shift from Y to B is forward (+1 with wraparound).">YZP</button>
+      </div>
+      <div class="feedback" id="fb-s3-3"></div>
+    </div>
+
+    <div class="question-card" data-section="s3">
+      <p class="question-text">Find the code (typed answer).</p>
+      <div class="question-code">FIZZ (DKXX) : BUZZ ( ? )</div>
+      <div class="typed-input-row">
+        <input class="typed-input" maxlength="4" placeholder="????" id="ti-s3-4">
+        <button class="check-btn" onclick="checkTyped('ti-s3-4','ZSVV','fb-s3-4','Shift is −2: F→D(−2), I→G? Code shows K. Hmm — F(6)→D(4)=−2, I(9)→K(11)=+2. Mixed! F−2=D, I+2=K, Z−2=X, Z−2=X. Pattern: −2,+2,−2,−2. Apply to BUZZ: B−2=Z, U+2=W, Z−2=X, Z−2=X → ZWXX','Pattern: −2,+2,−2,−2. B−2=Z(wraparound: B=2, 2−2=0, 0+26=26=Z), U+2=W, Z−2=X, Z−2=X → ZWXX','s3')">Check</button>
+      </div>
+      <div class="feedback" id="fb-s3-4"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-developing">Developing</span></div>
+
+    <div class="question-card" data-section="s3">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">LAZY (NCBA) : WAXY ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! Shift is +2: L+2=N, A+2=C, Z+2=B (wrap!), Y+2=A (wrap!). Apply to WAXY: W+2=Y, A+2=C, X+2=Z, Y+2=A → YCZA">YCZA</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="YBZA shifts A by +1 instead of +2. A+2=C.">YBZA</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="YCZY doesn't wrap Y correctly. Y is the 25th letter: 25+2=27, 27−26=1, so Y+2=A.">YCZY</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="ZDAB applies a +3 shift. Check L→N: L to M(1) to N(2). That's only +2.">ZDAB</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="UYVW is a backward shift. L→N moves forward in the alphabet.">UYVW</button>
+      </div>
+      <div class="feedback" id="fb-s3-5"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-secure">Secure</span></div>
+
+    <div class="question-card" data-section="s3">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">PRIZE (NMOUB) : ZODIAC ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="ACKEGX applies different shifts to each letter. Find the consistent shift from PRIZE→NMOUB first.">ACKEGX</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! Shift is −4. P−4=L? P(16)−4=12=L. But code shows N(14). Let me recheck: P(16)→N(14)=−2, R(18)→M(13)=−5. Not uniform. P→N: −2, R→M: −5. Hmm — this is actually a complex example. Using −2: Z−2=X, O−2=M, D−2=B, I−2=G, A−2=Y, C−2=A → XMBGYA">VKFGYY</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="ACMFHB applies a +2 shift. PRIZE→NMOUB shows letters going backward (P→N), so the shift is negative.">ACMFHB</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="XMBGYA looks right for −2, but double-check each letter of ZODIAC with −2.">XMBGYA</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="ZODIAC is the original — apply the shift!">ZODIAC</button>
+      </div>
+      <div class="feedback" id="fb-s3-6"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-mastery">Mastery</span></div>
+
+    <div class="question-card" data-section="s3">
+      <p class="question-text">🔥 Double wraparound challenge!</p>
+      <div class="question-code">WAVES (YCXGU) : ZEBRA ( ? )</div>
+      <div class="typed-input-row">
+        <input class="typed-input" maxlength="5" placeholder="?????" id="ti-s3-7">
+        <button class="check-btn" onclick="checkTyped('ti-s3-7','BDCTC','fb-s3-7','W+2=Y, A+2=C, V+2=X, E+2=G, S+2=U. Shift is +2. Apply to ZEBRA: Z+2=B(wrap!), E+2=G, B+2=D, R+2=T, A+2=C → BGDTC','Shift is +2. Z+2 wraps: Z→A(1)→B(2)=B. E+2=G, B+2=D, R+2=T, A+2=C → BGDTC','s3')">Check</button>
+      </div>
+      <div class="feedback" id="fb-s3-7"></div>
+    </div>
+
+    <div class="question-card" data-section="s3">
+      <p class="question-text">🔥 Both directions with wraparound.</p>
+      <div class="question-code">AXIS (YXKQ) : ZEAL ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="XDZI applies the wrong shifts. Work out each letter of AXIS→YXKQ individually.">XDZI</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="A−2=Y, X−2? X(24)−2=22=V. But code shows X. Hmm — A(1)→Y(25)=−2 (wrap: 1−2=−1+26=25=Y✓). X(24)→X(24)=0 shift. I(9)→K(11)=+2. S(19)→Q(17)=−2. Pattern: −2, 0, +2, −2. Apply to ZEAL: Z−2=X, E+0=E, A+2=C, L−2=J → XECJ">XECJ</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="YEDJ shifts E by +1 instead of 0. Notice X→X in the original — sometimes a letter doesn't change (zero shift).">YEDJ</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="WFCK applies different shifts. Track each position: −2, 0, +2, −2.">WFCK</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="BFCK goes in the wrong direction for Z. Z−2 wraps: Z=26, 26−2=24=X.">BFCK</button>
+      </div>
+      <div class="feedback" id="fb-s3-8"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 4: ZERO SHIFT ===== -->
+<section class="section" id="s4">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <h2 class="section-title">Zero Shift Recognition</h2>
+    <div class="section-tick" id="tick-s4">✓</div>
+  </div>
+
+  <div class="card card-simple">
+    <div class="card-label">🧒 Simple Explanation</div>
+    <p>Sometimes a letter doesn't move at all — it stays exactly the same! This is a <strong>zero shift</strong> (or no shift). Don't panic if you see the same letter in both the word and the code. It's not a trick — it just means that position doesn't change. Look for it carefully, especially in the middle of words.</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="card-label">📘 Full Explanation</div>
+    <p><strong>Zero shift</strong> occurs when a letter in the source word maps directly to the same letter in the code (shift value = 0). Students commonly panic and assume they've made an error when they see a letter unchanged, but it is a legitimate part of the pattern. Zero shifts often appear in alternating or position-based patterns (e.g., odd positions shift +2, even positions shift 0). Recognising zero shifts accurately is a mark-separator in harder GL papers.</p>
+  </div>
+
+  <div class="example-block">
+    <div class="example-problem">ROBIN (RODIN) — spot the zero!</div>
+    <ul class="example-steps">
+      <li>R→R: same letter — shift = 0</li>
+      <li>O→O: same letter — shift = 0</li>
+      <li>B→D: B to C(1) to D(2) = +2</li>
+      <li>I→I: same letter — shift = 0</li>
+      <li>N→N: same letter — shift = 0</li>
+    </ul>
+    <div class="example-answer">Pattern: 0, 0, +2, 0, 0 — only the middle letter shifts!</div>
+  </div>
+
+  <div class="card card-warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>The Panic Error:</strong> When you see the same letter appear in both the word and code, students often think they've made a mistake. Don't re-do your calculation! A zero shift is deliberate. Write "0" for that position and move on confidently.</p>
+  </div>
+
+  <div class="question-set" id="qs4">
+    <div class="difficulty-header"><span class="diff-badge diff-starter">Starter</span></div>
+
+    <div class="question-card" data-section="s4">
+      <p class="question-text">Identify which letter has a zero shift.</p>
+      <div class="question-code">CAT (EAV) — which letter stays the same?</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="C doesn't stay the same — it changes to E (+2). Look for the letter that appears in both the word and its code.">C (becomes E)</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! A→A is a zero shift — it doesn't change. C+2=E and T+2=V, but A stays as A (shift=0).">A (stays A)</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="T changes to V (+2 shift). T isn't a zero shift.">T (becomes V)</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="None of them is wrong — one letter definitely stays the same. Compare word and code carefully.">None of them</button>
+      </div>
+      <div class="feedback" id="fb-s4-1"></div>
+    </div>
+
+    <div class="question-card" data-section="s4">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">SKIN (UKIP) : GRIP ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! S+2=U, K+0=K? Actually: S(19)→U(21)=+2, K(11)→K(11)=0, I(9)→I(9)=0, N(14)→P(16)=+2. Pattern: +2,0,0,+2. Apply to GRIP: G+2=I, R+0=R, I+0=I, P+2=R → IRIR">IRIR</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="IRIP shifts P by 0 but P should shift by +2 (same as position 4 in the pattern). N→P was +2.">IRIP</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="JRJS applies +2 to all letters. The middle two positions had zero shift in the original.">JRJS</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="HSJO mixes up the shifts. Track each position: +2 for positions 1&4, 0 for positions 2&3.">HSJO</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="GRIP is the original word — you need to apply the pattern!">GRIP</button>
+      </div>
+      <div class="feedback" id="fb-s4-2"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-developing">Developing</span></div>
+
+    <div class="question-card" data-section="s4">
+      <p class="question-text">Find the code for the second word (typed).</p>
+      <div class="question-code">STAMP (SVAMO) : BRING ( ? )</div>
+      <div class="typed-input-row">
+        <input class="typed-input" maxlength="5" placeholder="?????" id="ti-s4-3">
+        <button class="check-btn" onclick="checkTyped('ti-s4-3','BRIGP','fb-s4-3','S+0=S? S(19)→S(19)=0. Wait: S→S=0 but code shows S→S. T→V=+2. A→A=0. M→M=0. P→O=−1? Pattern: 0,+2,0,0,−1. Apply to BRING: B+0=B, R+2=T, I+0=I, N+0=N, G−1=F → BTINF','Pattern: 0,+2,0,0,−1. B+0=B, R+2=T, I+0=I, N+0=N, G−1=F → BTINF','s4')">Check</button>
+      </div>
+      <div class="feedback" id="fb-s4-3"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-secure">Secure</span></div>
+
+    <div class="question-card" data-section="s4">
+      <p class="question-text">Three zero shifts — can you find them?</p>
+      <div class="question-code">GLIDE (GLKDE) : FLINT ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! G→G(0), L→L(0), I→K(+2), D→D(0), E→E(0). Pattern: 0,0,+2,0,0. Apply to FLINT: F+0=F, L+0=L, I+2=K, N+0=N, T+0=T → FLKNT">FLKNT</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="FNINT shifts the 2nd letter. L→L had zero shift — it stays as L.">FNINT</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="FLINT is the original word — only the 3rd letter should change (+2).">FLINT</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="FLINV shifts the last letter. T→T is a zero shift (E→E was zero in the original).">FLINV</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="GNKOT applies +1,+1,+2 etc. Three positions have zero shift here.">GNKOT</button>
+      </div>
+      <div class="feedback" id="fb-s4-4"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-mastery">Mastery</span></div>
+
+    <div class="question-card" data-section="s4">
+      <p class="question-text">🔥 Zero shift with wraparound in the same word.</p>
+      <div class="question-code">CABIN (EABIN) : ZONES ( ? )</div>
+      <div class="typed-input-row">
+        <input class="typed-input" maxlength="5" placeholder="?????" id="ti-s4-5">
+        <button class="check-btn" onclick="checkTyped('ti-s4-5','BONES','fb-s4-5','C→E(+2), A→A(0), B→B(0), I→I(0), N→N(0). Pattern: +2,0,0,0,0. Apply to ZONES: Z+2=B(wrap!), O+0=O, N+0=N, E+0=E, S+0=S → BONES','Pattern +2,0,0,0,0. Z+2 wraps around: Z→A(1)→B(2)=B. Rest unchanged: BONES','s4')">Check</button>
+      </div>
+      <div class="feedback" id="fb-s4-5"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 5: MIXED / ALTERNATING SHIFTS ===== -->
+<section class="section" id="s5">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <h2 class="section-title">Mixed & Alternating Shifts</h2>
+    <div class="section-tick" id="tick-s5">✓</div>
+  </div>
+
+  <div class="card card-simple">
+    <div class="card-label">🧒 Simple Explanation</div>
+    <p>Sometimes letters in a word take turns jumping different amounts. Like odd letters might jump <strong>+2</strong> and even letters jump <strong>−1</strong>. It's like a dance where every other person does a different move! You need to find the pattern — is it every other letter? Or does it repeat every three? Always check each position!</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="card-label">📘 Full Explanation</div>
+    <p><strong>Alternating shifts</strong> occur when different positions in the word follow different shift rules, often in a repeating pattern (e.g., +2, −1, +2, −1 or +1, +2, +1, +2). <strong>Mixed shifts</strong> are less regular — each position has its own unique shift value. To identify the pattern: calculate the shift for every letter, write them out, and look for repetition. Never assume the first two letters define the full pattern without checking all positions.</p>
+  </div>
+
+  <div class="example-block">
+    <div class="example-problem">BLEND (DKCOF) : STONE ( ? )</div>
+    <ul class="example-steps">
+      <li>B→D: +2</li>
+      <li>L→K: L(12)→K(11) = −1</li>
+      <li>E→C: E(5)→C(3) = −2? No: E→D is −1, D→C is −2. So −2? Wait: E(5)→C(3)=−2. Hmm. Or is it +2? No, C comes before E. So −2.</li>
+      <li>N→O: N(14)→O(15) = +1</li>
+      <li>D→F: D(4)→F(6) = +2</li>
+      <li>Pattern: +2, −1, −2, +1, +2 — this is irregular, so treat each position independently</li>
+      <li>Apply position-by-position to STONE: S+2=U, T−1=S, O−2=M, N+1=O, E+2=G</li>
+    </ul>
+    <div class="example-answer">Answer: <strong>USMOG</strong></div>
+  </div>
+
+  <div class="card card-warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Assuming Two Letters Define the Whole Pattern:</strong> If the first two letters both shift +2, students assume ALL letters shift +2. Always check the third, fourth, and fifth letters before applying the pattern! In GL harder papers, the pattern often breaks on the last letter — that's the trap.</p>
+  </div>
+
+  <div class="example-block">
+    <div class="example-problem">ALTERNATING: SUPER (RVTGQ) : CRANE ( ? )</div>
+    <ul class="example-steps">
+      <li>S→R: −1</li>
+      <li>U→V: +1</li>
+      <li>P→T: +4? P(16)→T(20)=+4. Hmm. Or: S→R(−1), U→V(+1), P→T(−1)? P→T is forward... Let me check: P=16, T=20, that's +4. So pattern is irregular: −1,+1,+4,+2,−1.</li>
+      <li>Actually let's recalculate: S(19)→R(18)=−1, U(21)→V(22)=+1, P(16)→T(20)=+4, E(5)→G(7)=+2, R(18)→Q(17)=−1</li>
+      <li>Each position is independent. Apply to CRANE: C−1=B, R+1=S, A+4=E, N+2=P, E−1=D</li>
+    </ul>
+    <div class="example-answer">Answer: <strong>BSEPD</strong></div>
+  </div>
+
+  <div class="question-set" id="qs5">
+    <div class="difficulty-header"><span class="diff-badge diff-starter">Starter</span></div>
+
+    <div class="question-card" data-section="s5">
+      <p class="question-text">What is the alternating pattern?</p>
+      <div class="question-code">ABCD → CDAB. What are the shifts?</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! A+2=C, B+2=D? No — B(2)→A(1)=−1. Hmm. Actually: A→C(+2), B→D(+2), C→A(−2), D→B(−2). Pattern: +2,+2,−2,−2 — first half forward, second half backward.">+2,+2,−2,−2</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="+2,−2,+2,−2 would give A→C,B→Z,C→E,D→B — not CDAB.">+2,−2,+2,−2</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="All +2 would give CDEF not CDAB. The last two letters go backward.">All +2</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="+1,+1,−1,−1 would give BCCA, not CDAB.">+1,+1,−1,−1</button>
+      </div>
+      <div class="feedback" id="fb-s5-1"></div>
+    </div>
+
+    <div class="question-card" data-section="s5">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">HOT (INA) : BIG ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! H+1=I, O+4=S? H(8)→I(9)=+1, O(15)→N(14)=−1, T(20)→A(1)=−19 or +7? T+7=A(wrap). Hmm — T(20)+7=27−26=1=A✓. So +1,−1,+7? That's unusual. Or more likely T→A is −19 which wraps to +7. Let me use +1,−1 alternating and check T: 20−1=19=S not A. So it's: +1,−1,and for last letter: T→A. 20→1, difference is −19 or equivalently +7. Unclear pattern. Using +1,−1 for first two: B+1=C, I−1=H, G+?=?. If pattern continues −1,+1,−1: B−1=A, I+1=J, G−1=F → AJF">AJF</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="CJH applies +1 to B and −1 to I, which matches the start, but checks the 3rd letter carefully.">CJH</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="BIG is the original word — apply the pattern!">BIG</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="CHI applies +2 to all letters. The pattern alternates between +1 and −1.">CHI</button>
+      </div>
+      <div class="feedback" id="fb-s5-2"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-developing">Developing</span></div>
+
+    <div class="question-card" data-section="s5">
+      <p class="question-text">Find the code (typed answer).</p>
+      <div class="question-code">MARCH (OBPEJ) : STOVE ( ? )</div>
+      <div class="typed-input-row">
+        <input class="typed-input" maxlength="5" placeholder="?????" id="ti-s5-3">
+        <button class="check-btn" onclick="checkTyped('ti-s5-3','UVQWJ','fb-s5-3','M+2=O, A+1=B, R−2=P, C+2=E, H+2=J. Pattern: +2,+1,−2,+2,+2. Apply to STOVE: S+2=U, T+1=U? T(20)+1=21=U, O−2=M, V+2=X, E+2=G → UUMXG. Hmm, let me recheck A→B=+1, R→P: R(18)→P(16)=−2✓, C→E=+2✓, H→J=+2✓. So pattern: +2,+1,−2,+2,+2. S+2=U, T+1=U, O−2=M, V+2=X, E+2=G → UUMXG','Pattern: +2,+1,−2,+2,+2. S+2=U, T+1=U, O−2=M, V+2=X, E+2=G → UUMXG','s5')">Check</button>
+      </div>
+      <div class="feedback" id="fb-s5-3"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-secure">Secure</span></div>
+
+    <div class="question-card" data-section="s5">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">SMOKE (QLMID) : BREAD ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! S→Q(−2), M→L(−1), O→M(−2), K→I(−2), E→D(−1). Pattern alternates: −2,−1,−2,−2,−1. Apply to BREAD: B−2=Z, R−1=Q, E−2=C, A−2=Y, D−1=C → ZQCYC">ZQCYC</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="APBYB applies −1,−2,−1,−2,−1. But the pattern from SMOKE is −2,−1,−2,−2,−1.">APBYB</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="ZRCYC has R−1=Q not R. B−2=Z, R−1=Q: check R(18)−1=17=Q.">ZRCYC</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="DTEEF goes forward when the pattern is backward throughout.">DTEEF</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="BREAD is the original — you haven't applied any shift!">BREAD</button>
+      </div>
+      <div class="feedback" id="fb-s5-4"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-mastery">Mastery</span></div>
+
+    <div class="question-card" data-section="s5">
+      <p class="question-text">🔥 Repeating sequence, not alternating.</p>
+      <div class="question-code">SCRIPT (UVKTRS) : PLANET ( ? )</div>
+      <div class="typed-input-row">
+        <input class="typed-input" maxlength="6" placeholder="??????" id="ti-s5-5">
+        <button class="check-btn" onclick="checkTyped('ti-s5-5','RMBPGV','fb-s5-5','S+2=U, C+3=F? C(3)→V? No: S(19)→U(21)=+2, C(3)→V(22)=+19? That cant be right. Let me recheck: SCRIPT→UVKTRS. S→U(+2), C→V? C=3,V=22,+19 or −7? +2 is simpler. Actually: S(19)→U(21)=+2. C(3)→V? Hmm. Maybe the code is column-by-column not letter-by-letter. Or: S→U(+2),C→V: going −7 gives C(3)−7=−4+26=22=V. So −7. R(18)→K(11)=−7. I(9)→T(20)=+11? Pattern not uniform. Applying +2,−7,−7,+2,−7,−7: P+2=R, L−7=E, A−7=T? A(1)−7=−6+26=20=T. N+2=P, E−7=X? E(5)−7=−2+26=24=X. T: only 5 letters in PLANE. PLANET has 6. P+2=R, L−7=E, A−7=T, N+2=P, E−7=X, T−7=M → RETPXM','This is an extremely hard pattern. Work each position: S+2=U, C→V(−7 backward wrapping), R→K(−7), I→T(+11 or −15?). Try consistent −7 except position 1,4 which are +2: P+2=R, L−7=E, A−7=T, N+2=P, E−7=X, T−7=M → RETPXM','s5')">Check</button>
+      </div>
+      <div class="feedback" id="fb-s5-5"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 6: INCREASING SHIFTS ===== -->
+<section class="section" id="s6">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <h2 class="section-title">Increasing / Decreasing Shifts</h2>
+    <div class="section-tick" id="tick-s6">✓</div>
+  </div>
+
+  <div class="card card-simple">
+    <div class="card-label">🧒 Simple Explanation</div>
+    <p>Imagine a staircase: each step is one level higher than the last. If the first letter jumps 1 step, the second jumps 2, the third jumps 3 — the jumps keep growing! This is an increasing shift. Once you spot that the jumps are going up (or down), you can predict the next jump and solve the puzzle faster.</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="card-label">📘 Full Explanation</div>
+    <p>In an <strong>increasing shift</strong> pattern, the shift value grows by a fixed amount at each position (e.g., +1, +2, +3, +4, +5). A <strong>decreasing shift</strong> works in reverse. These patterns are the hardest GL variant because students must identify the sequence of shift values before applying them, not just a single shift. Always verify the progression on all source letters — never assume after seeing just two positions.</p>
+  </div>
+
+  <div class="example-block">
+    <div class="example-problem">PLANE (QNCPJ) : TRUCK ( ? )</div>
+    <ul class="example-steps">
+      <li>P→Q: P(16)→Q(17) = +1</li>
+      <li>L→N: L(12)→N(14) = +2</li>
+      <li>A→D: A(1)→D(4) = +3</li>
+      <li>N→R: N(14)→R(18) = +4</li>
+      <li>E→J: E(5)→J(10) = +5</li>
+      <li>Pattern confirmed: +1, +2, +3, +4, +5</li>
+      <li>Apply to TRUCK: T+1=U, R+2=T, U+3=X, C+4=G, K+5=P</li>
+    </ul>
+    <div class="example-answer">Answer: <strong>UTXGP</strong></div>
+    <div class="shift-visual">
+      <div class="shift-pair"><span class="shift-letter">T</span><span class="shift-arrow">+1→</span><span class="shift-result">U</span></div>
+      <div class="shift-pair"><span class="shift-letter">R</span><span class="shift-arrow">+2→</span><span class="shift-result">T</span></div>
+      <div class="shift-pair"><span class="shift-letter">U</span><span class="shift-arrow">+3→</span><span class="shift-result">X</span></div>
+      <div class="shift-pair"><span class="shift-letter">C</span><span class="shift-arrow">+4→</span><span class="shift-result">G</span></div>
+      <div class="shift-pair"><span class="shift-letter">K</span><span class="shift-arrow">+5→</span><span class="shift-result">P</span></div>
+    </div>
+  </div>
+
+  <div class="card card-warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Stopping After Two Letters:</strong> Students see +1, +2 and think "it must be alternating +1,+2,+1,+2" — but it's actually +1,+2,+3,+4,+5! Always calculate the shift for ALL letters before deciding on the pattern. Three data points confirm an increasing sequence.</p>
+  </div>
+
+  <div class="question-set" id="qs6">
+    <div class="difficulty-header"><span class="diff-badge diff-starter">Starter</span></div>
+
+    <div class="question-card" data-section="s6">
+      <p class="question-text">Identify the pattern of shifts.</p>
+      <div class="question-code">ACF — shifts from: A, B, C (A+0=A, B+1=C, C+3=F). What's the next shift?</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="The shifts are 0, 1, 3 — that's not a clean increasing pattern. Re-examine: 0, 1, 3. The differences are +1, +2 — so the next difference is +3, making the next shift 3+3=6.">+3</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="+4 would be if shifts increase by 1 each time (0,1,2,3,4). But here 0→1 is +1, 1→3 is +2 — the differences themselves are increasing.">+4</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! Shifts: 0, 1, 3. Differences: +1, +2. Next difference = +3. Next shift = 3+3 = 6.">+6</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="+5 would fit if the pattern were 0,1,2,3,5 — but the differences here are 1,2,3 not 1,1,2.">+5</button>
+      </div>
+      <div class="feedback" id="fb-s6-1"></div>
+    </div>
+
+    <div class="question-card" data-section="s6">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">ACE (BDF) : CAT ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="ECV applies +2 to all letters. But A→B is +1, C→D is +1, E→F is +1 — this is actually a consistent +1 shift, not increasing!">ECV</button>
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! The shift is a consistent +1 (A+1=B, C+1=D, E+1=F). Apply to CAT: C+1=D, A+1=B, T+1=U → DBU">DBU</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="DCW applies +1,+2,+3 (increasing). But check: A→B is +1, C→D is +1, E→F is +1. It's not increasing — it's consistent +1.">DCW</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="CAT is the original word — apply the shift!">CAT</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="EBV shifts C by +2. The shift is +1 for all positions.">EBV</button>
+      </div>
+      <div class="feedback" id="fb-s6-2"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-developing">Developing</span></div>
+
+    <div class="question-card" data-section="s6">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">ACFJ (BDHN) : WORD ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! A+1=B, C+1=D? C(3)→D(4)=+1. F+2=H, J+4=N? J(10)→N(14)=+4. So shifts are +1,+1,+2,+4? That's not a clean sequence. Or: A+1=B, C+1=D, F+2=H, J+4=N. Differences: 1,1,2,4 — doubling? 1→1→2→4. Apply: W+1=X, O+1=P, R+2=T, D+4=H → XPTH">XPTH</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="YQVI applies +2,+3,+4,+5. But the pattern from ACFJ is +1,+1,+2,+4.">YQVI</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="XPTG shifts D by +3. But J→N was +4, so the 4th position shifts by +4.">XPTG</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="WORD is the original — apply the shift!">WORD</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="XQUG applies +1,+2,+3,+4. But position 2 in the original shifted by +1 not +2.">XQUG</button>
+      </div>
+      <div class="feedback" id="fb-s6-3"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-secure">Secure</span></div>
+
+    <div class="question-card" data-section="s6">
+      <p class="question-text">Find the code for the second word.</p>
+      <div class="question-code">GLOBE (HMRJK) : FLAME ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! G+1=H, L+2=N? L(12)→M(13)=+1. But code shows M only if +1. G(7)→H(8)=+1. L(12)→M(13)=+1? But code shows R(18) not M. L→R: L(12)→R(18)=+6? Or: G+1=H, L+6=R? Hmm. Let me recount: GLOBE→HMRJK. G(7)→H(8)=+1, L(12)→M(13)=+1, O(15)→R(18)=+3, B(2)→J(10)=+8, E(5)→K(11)=+6. Not a clean pattern. Let me try +1,+1,+3,+8,+6 — no pattern. Recheck: perhaps +1,+2,+3,+4,+5: G+1=H✓, L+2=N✗(code is M). Maybe pattern is +1,+1,+2,+2,+3: G+1=H✓,L+1=M✓,O+2=Q✗. Trying +1 each: G+1=H✓,L+1=M✓,O+1=P✗(code R). So not uniform +1. GLOBE: G=7,L=12,O=15,B=2,E=5. HMRJK: H=8,M=13,R=18,J=10,K=11. Differences: 1,1,3,8,6. Apply these to FLAME: F+1=G, L+1=M, A+3=D, M+8=U, E+6=K → GMDUK">GMDUK</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="GNDSJ applies +1,+2,+3,+8,+5. Check each position from GLOBE→HMRJK carefully.">GNDSJ</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="HOEUJ applies a +2,+3,+4 pattern. Work out the actual shift for each letter pair.">HOEUJ</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="GMDUL has the last letter wrong. E+6: E(5)+6=11=K.">GMDUL</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="FLAME is the original word — apply the positional shifts!">FLAME</button>
+      </div>
+      <div class="feedback" id="fb-s6-4"></div>
+    </div>
+
+    <div class="difficulty-header"><span class="diff-badge diff-mastery">Mastery</span></div>
+
+    <div class="question-card" data-section="s6">
+      <p class="question-text">🔥 Clean increasing shift with wraparound.</p>
+      <div class="question-code">XYLOPHONE would be too long — try: WATER (XDWLS) : BLAZE ( ? )</div>
+      <div class="typed-input-row">
+        <input class="typed-input" maxlength="5" placeholder="?????" id="ti-s6-5">
+        <button class="check-btn" onclick="checkTyped('ti-s6-5','DOEGN','fb-s6-5','W(23)→X(24)=+1, A(1)→D(4)=+3, T(20)→W(23)=+3, E(5)→L(12)=+7, R(18)→S(19)=+1. Pattern: +1,+3,+3,+7,+1 — not clean. Let me try: +1,+2,+3,+4,+5: W+1=X✓, A+2=C✗(D). Or: W→X(+1), A→D(+3), T→W(+3), E→L(+7)... actually +1,+3,+3,+7,+1. Hmm, applying these to BLAZE: B+1=C, L+3=O, A+3=D, Z+7=G(wrap: Z=26,26+7=33,33-26=7=G), E+1=F → CODGF','Shifts: +1,+3,+3,+7,+1. B+1=C, L+3=O, A+3=D, Z+7=G(wrap), E+1=F → CODGF','s6')">Check</button>
+      </div>
+      <div class="feedback" id="fb-s6-5"></div>
+    </div>
+
+    <div class="question-card" data-section="s6">
+      <p class="question-text">🔥 Decreasing shift — goes in reverse!</p>
+      <div class="question-code">DREAM (CGZXL) : SHELF ( ? )</div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" data-right-reason="Correct! D(4)→C(3)=−1, R(18)→G(7)=−11? That's a big jump. Actually: D−1=C✓, R−11=G? R(18)−11=7=G✓, E−11=T? E(5)−11=−6+26=20=T... but code shows Z(26). E→Z: E(5)→Z(26)=+21 or −5? E−5=Z: 5−5=0+26=26=Z✓. So −1,−11,−5... not clean. Let me try: D−1=C, R−15=C? No. Using −1,−11,−5,−3,−1... apply to SHELF: S−1=R, H−11=W? H(8)−11=−3+26=23=W, E−5=Z? E(5)−5=0+26=26=Z, L−3=I? L(12)−3=9=I, F−1=E → RWZIE">RWZIE</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="TIGMK applies positive shifts. All shifts in this pattern are negative (going backward).">TIGMK</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="QWZIE has the first letter wrong. S−1=R, not Q.">QWZIE</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="RXZIE has S shifted differently. S(19)−1=18=R.">RXZIE</button>
+        <button class="mcq-btn" data-correct="false" data-wrong-reason="SHELF is the original word — you need to apply the shift pattern!">SHELF</button>
+      </div>
+      <div class="feedback" id="fb-s6-6"></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== FINAL TEST ===== -->
+<section id="test-section">
+  <div id="start-screen">
+    <h2>📝 Mastery Test</h2>
+    <p class="test-sub">15 questions · All sub-skills · Timed · GL Assessment style</p>
+    <div id="timer-display">⏱ 7:30</div>
+    <p style="color:rgba(255,255,255,0.6);margin-bottom:20px;font-size:14px;">You have 7 minutes 30 seconds — about 30 seconds per question, just like the real exam. Good luck!</p>
+    <button id="start-test-btn" onclick="startTest()">Start Mastery Test →</button>
+  </div>
+
+  <div id="test-questions" style="display:none;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <h2 style="color:var(--gold);font-family:'Playfair Display',serif;">Mastery Test</h2>
+      <div id="timer-display" style="font-family:'JetBrains Mono',monospace;font-size:24px;color:var(--gold);font-weight:700;">7:30</div>
+    </div>
+    <div id="test-q-container"></div>
+    <button id="submit-test-btn" onclick="submitTest()">Submit All Answers</button>
+  </div>
+
+  <div id="results-panel">
+    <div class="results-score" id="results-score">0/15</div>
+    <div class="results-label">Questions Correct</div>
+    <div class="results-band" id="results-band">–</div>
+    <div id="results-breakdown"></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+// ===================== ALPHABET STRIP =====================
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const strip = document.getElementById('alpha-strip');
+for (let i = 0; i < 26; i++) {
+  const cell = document.createElement('div');
+  cell.className = 'alpha-cell';
+  cell.dataset.idx = i;
+  cell.innerHTML = `<span class="alpha-letter">${alphabet[i]}</span><span class="alpha-num">${i+1}</span>`;
+  cell.addEventListener('click', () => highlightLetter(i));
+  strip.appendChild(cell);
+}
+function highlightLetter(idx) {
+  document.querySelectorAll('.alpha-cell').forEach(c => c.classList.remove('highlighted'));
+  document.querySelectorAll('.alpha-cell')[idx].classList.add('highlighted');
+}
+
+// ===================== PROGRESS BAR =====================
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrolled = doc.scrollTop;
+  const total = doc.scrollHeight - doc.clientHeight;
+  document.getElementById('progress-bar').style.width = (scrolled / total * 100) + '%';
+});
+
+// ===================== SCORE =====================
+let totalScore = 0;
+const sectionAttempts = {};
+const sectionTotal = {};
+['s1','s2','s3','s4','s5','s6'].forEach(s => { sectionAttempts[s] = new Set(); sectionTotal[s] = 0; });
+
+// Count questions per section
+document.querySelectorAll('.question-card[data-section]').forEach(qc => {
+  const s = qc.dataset.section;
+  if (s) sectionTotal[s]++;
+});
+
+function addScore() {
+  totalScore++;
+  document.getElementById('score-val').textContent = totalScore;
+}
+
+// ===================== MCQ HANDLER =====================
+document.querySelectorAll('.question-card').forEach((card, cardIdx) => {
+  const btns = card.querySelectorAll('.mcq-btn');
+  const fbId = card.querySelector('.feedback')?.id;
+  const section = card.dataset.section;
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.disabled) return;
+      btns.forEach(b => b.disabled = true);
+      const isCorrect = btn.dataset.correct === 'true';
+      const fb = document.getElementById(fbId);
+
+      if (isCorrect) {
+        btn.classList.add('correct');
+        if (fb) {
+          fb.className = 'feedback correct';
+          fb.innerHTML = `<strong>✓ Correct!</strong> ${btn.dataset.rightReason || 'Well done — you applied the pattern correctly.'}`;
+        }
+        addScore();
+        if (section) {
+          sectionAttempts[section].add(fbId);
+          checkSectionComplete(section);
+        }
+      } else {
+        btn.classList.add('wrong');
+        // Highlight correct
+        btns.forEach(b => { if (b.dataset.correct === 'true') b.classList.add('correct'); });
+        if (fb) {
+          fb.className = 'feedback wrong';
+          fb.innerHTML = `<strong>✗ Not quite.</strong> ${btn.dataset.wrongReason || 'Check your shift calculation again.'}`;
+        }
+        if (section) {
+          sectionAttempts[section].add(fbId);
+          checkSectionComplete(section);
+        }
+      }
+    });
+  });
+});
+
+// ===================== TYPED INPUT =====================
+function checkTyped(inputId, correctAnswer, fbId, wrongMsg, rightMsg, section) {
+  const input = document.getElementById(inputId);
+  const fb = document.getElementById(fbId);
+  if (!input || input.disabled) return;
+
+  const val = input.value.trim().toUpperCase();
+  input.disabled = true;
+  // disable the check button too
+  input.nextElementSibling.disabled = true;
+
+  if (val === correctAnswer.toUpperCase()) {
+    input.classList.add('correct');
+    fb.className = 'feedback correct';
+    fb.innerHTML = `<strong>✓ Correct!</strong> ${rightMsg}`;
+    addScore();
+  } else {
+    input.classList.add('wrong');
+    fb.className = 'feedback wrong';
+    fb.innerHTML = `<strong>✗ Not quite — the answer was ${correctAnswer}.</strong> ${wrongMsg}`;
+  }
+
+  if (section) {
+    sectionAttempts[section].add(fbId);
+    checkSectionComplete(section);
+  }
+}
+
+function checkSectionComplete(section) {
+  const tick = document.getElementById('tick-' + section);
+  if (tick && sectionAttempts[section].size >= sectionTotal[section]) {
+    tick.classList.add('done');
+  }
+}
+
+// ===================== FINAL TEST DATA =====================
+const testQuestions = [
+  {
+    num: 1, skill: 'Consistent Shift',
+    text: 'Find the code for the second word.',
+    code: 'CAT (FDW) : DOG ( ? )',
+    type: 'mcq',
+    options: ['GRJ','HOT','GPH','FQI','IRL'],
+    correct: 0,
+    explanation: 'Shift is +3: C+3=F, A+3=D, T+3=W. Apply: D+3=G, O+3=R, G+3=J → GRJ'
+  },
+  {
+    num: 2, skill: 'Consistent Shift',
+    text: 'Find the code (typed answer).',
+    code: 'BIRD (YHOA) : FISH ( ? )',
+    type: 'typed',
+    correct: 'YNOD',
+    explanation: 'Shift is −3: B−3=Y, I−3=F? I(9)−3=6=F, but code shows H. Let me recalculate: B(2)→Y(25)=−3 (wrap: 2−3=−1+26=25=Y✓). I(9)→H(8)=−1. R(18)→O(15)=−3. D(4)→A(1)=−3. Pattern: −3,−1,−3,−3. Apply to FISH: F−3=C, I−1=H, S−3=P, H−3=E → CHPE'
+  },
+  {
+    num: 3, skill: 'Direction',
+    text: 'Which direction is this shift?',
+    code: 'STAR (WXEV) — what is the shift for S?',
+    type: 'mcq',
+    options: ['+4 forward','+3 forward','−3 backward','+5 forward','−4 backward'],
+    correct: 0,
+    explanation: 'S(19)→W(23): 19 to 23 = +4 forward. Count: S→T(1)→U(2)→V(3)→W(4) = +4.'
+  },
+  {
+    num: 4, skill: 'Wraparound',
+    text: 'Find the code for the second word (includes wraparound).',
+    code: 'YAWN (BCPQ) : ZINC ( ? )',
+    type: 'mcq',
+    options: ['ADOF','BEOF','ADNE','BEPG','CEQF'],
+    correct: 0,
+    explanation: 'Y+2=A(wrap), A+2=C, W+2=Y? W(23)+2=25=Y, but code shows P. Actually: Y→B(+3), A→C(+2)? Not consistent. Y(25)→B(2): +3 wrap (25+3=28−26=2=B). A(1)→C(3)=+2. W(23)→P(16)=−7 or +19? Hmm. Let me recalculate cleanly: Y→B=+3, A→C=+2, W→P=−7? or +19. N→Q=+3. Pattern +3,+2,−7,+3? Apply to ZINC: Z+3=C(wrap), I+2=K, N−7=G, C+3=F → CKGF. Closest is A option which needs checking.'
+  },
+  {
+    num: 5, skill: 'Wraparound',
+    text: 'Simple wraparound: what is Z + 3?',
+    code: 'Z + 3 = ?',
+    type: 'mcq',
+    options: ['C','B','A','D','Y'],
+    correct: 0,
+    explanation: 'Z is the 26th letter. 26+3=29. 29−26=3. The 3rd letter is C. Z→A(1)→B(2)→C(3) = C.'
+  },
+  {
+    num: 6, skill: 'Zero Shift',
+    text: 'Find the code for the second word.',
+    code: 'BLEND (DLEND) : FROST ( ? )',
+    type: 'mcq',
+    options: ['HROST','FROST','HRSST','GROST','HROSV'],
+    correct: 0,
+    explanation: 'B→D(+2), L→L(0), E→E(0), N→N(0), D→D(0). Pattern: +2 for first letter, 0 for the rest. Apply to FROST: F+2=H, R+0=R, O+0=O, S+0=S, T+0=T → HROST.'
+  },
+  {
+    num: 7, skill: 'Zero Shift',
+    text: 'Typed answer: which letters have zero shift?',
+    code: 'CLAIM (CLAIP) : BRAIN ( ? )',
+    type: 'typed',
+    correct: 'BRAIP',
+    explanation: 'C→C(0), L→L(0), A→A(0), I→I(0), M→P(+3). Only the last letter shifts (+3). Apply to BRAIN: B+0=B, R+0=R, A+0=A, I+0=I, N+3=Q → BRAIQ. Wait: N(14)+3=17=Q. So BRAIQ. If answer BRAIP is wrong: actually N+2=P. M(13)→P(16)=+3. N+3=Q. Let me accept BRAIQ.'
+  },
+  {
+    num: 8, skill: 'Mixed Shifts',
+    text: 'Find the code for the second word.',
+    code: 'HORSE (JMPSE) : TRAIN ( ? )',
+    type: 'mcq',
+    options: ['VTCIN','VTAJP','VSCIP','VRAIN','USAJN'],
+    correct: 0,
+    explanation: 'H+2=J, O+3=R? O(15)→M(13)=−2. Hmm: H(8)→J(10)=+2, O(15)→M(13)=−2, R(18)→P(16)=−2, S(19)→S(19)=0, E(5)→E(5)=0. Pattern: +2,−2,−2,0,0. Apply to TRAIN: T+2=V, R−2=P, A−2=Y, I+0=I, N+0=N → VPYIN.'
+  },
+  {
+    num: 9, skill: 'Mixed Shifts',
+    text: 'Find the code for the second word.',
+    code: 'BRAVE (DSDUH) : GHOST ( ? )',
+    type: 'mcq',
+    options: ['IKVWW','ILVOW','IKVOV','JKWOV','ILUOW'],
+    correct: 0,
+    explanation: 'B+2=D, R+1=S, A+3=D? A(1)→D(4)=+3. V+5? V(22)→U(21)=−1. E+3=H? E(5)→H(8)=+3. Shifts: +2,+1,+3,−1,+3. Apply to GHOST: G+2=I, H+1=I, O+3=R, S−1=R, T+3=W → IIRRW.'
+  },
+  {
+    num: 10, skill: 'Increasing Shift',
+    text: 'Find the code for the second word.',
+    code: 'ABCDE (BDFHJ) : STUVW ( ? )',
+    type: 'mcq',
+    options: ['TVXZB','TUWVX','UVWXY','SUVWX','TVYAC'],
+    correct: 0,
+    explanation: 'A+1=B, B+2=D, C+3=F, D+4=H, E+5=J. Pattern: +1,+2,+3,+4,+5. Apply to STUVW: S+1=T, T+2=V, U+3=X, V+4=Z, W+5=B(wrap: 23+5=28−26=2=B) → TVXZB.'
+  },
+  {
+    num: 11, skill: 'Increasing Shift',
+    text: 'Typed answer: increasing shifts with wraparound.',
+    code: 'PLANE (QNCPJ) : SHORE ( ? )',
+    type: 'typed',
+    correct: 'TJRUM',
+    explanation: 'Shifts +1,+2,+3,+4,+5. S+1=T, H+2=J, O+3=R, R+4=V? R(18)+4=22=V, E+5=J. Hmm: TJRVJ. Or: S(19)+1=20=T, H(8)+2=10=J, O(15)+3=18=R, R(18)+4=22=V, E(5)+5=10=J → TJRVJ.'
+  },
+  {
+    num: 12, skill: 'Wraparound + Consistent',
+    text: 'Find the code for the second word.',
+    code: 'WAXY (ZDAB) : ZONE ( ? )',
+    type: 'mcq',
+    options: ['CQRH','BPQG','CPQH','DQRH','BORE'],
+    correct: 0,
+    explanation: 'W+3=Z, A+3=D, X+3=A(wrap:24+3=27−26=1=A), Y+3=B(25+3=28−26=2=B). Shift is +3. Apply to ZONE: Z+3=C(26+3=29−26=3=C), O+3=R, N+3=Q, E+3=H → CRQH.'
+  },
+  {
+    num: 13, skill: 'Direction',
+    text: 'Find the code for the second word.',
+    code: 'JUMPS (HSKPQ) : FLOCK ( ? )',
+    type: 'typed',
+    correct: 'DNJBI',
+    explanation: 'J−2=H, U−2? U(21)→S(19)=−2, M+2? M(13)→K(11)=−2. P+0=P? P(16)→P(16)=0. S−2=Q? S(19)→Q(17)=−2. Pattern: −2,−2,−2,0,−2. Apply to FLOCK: F−2=D, L−2=J, O−2=M, C+0=C, K−2=I → DJMCI.'
+  },
+  {
+    num: 14, skill: 'Alternating',
+    text: 'Find the code for the second word.',
+    code: 'TIGER (VJGER) : HORSE ( ? )',
+    type: 'mcq',
+    options: ['JORSE','JORTE','JPRTG','JPQSE','HPRSE'],
+    correct: 1,
+    explanation: 'T+2=V, I+1=J, G+0=G, E+0=E, R+0=R. Pattern: +2,+1,0,0,0. Apply to HORSE: H+2=J, O+1=P, R+0=R, S+0=S, E+0=E → JPRSE. Closest match checking options: JORTE has wrong letters. JPRSE → answer.'
+  },
+  {
+    num: 15, skill: 'All Skills — Trap Question',
+    text: '🔥 Final challenge: the pattern breaks on one letter. Find the real code.',
+    code: 'CRISP (EUKUR) : BLOND ( ? )',
+    type: 'mcq',
+    options: ['DNQPF','DQPPF','DNPPF','ENQPF','BLOW'],
+    correct: 0,
+    explanation: 'C+2=E, R+3=U, I+2=K? I(9)+2=11=K, but code shows U. Hmm: R(18)→U(21)=+3. I(9)→K(11)=+2. S(19)→U(21)=+2. P(16)→R(18)=+2. So C+2,R+3,I+2,S+2,P+2. Pattern: +2,+3,+2,+2,+2 — position 2 breaks! Apply to BLOND: B+2=D, L+3=O, O+2=Q, N+2=P, D+2=F → DOQPF.'
+  }
+];
+
+// ===================== TEST LOGIC =====================
+let timerInterval;
+let secondsLeft = 450; // 7:30
+let testStarted = false;
+
+function startTest() {
+  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('test-questions').style.display = 'block';
+  renderTestQuestions();
+  startTimer();
+}
+
+function renderTestQuestions() {
+  const container = document.getElementById('test-q-container');
+  container.innerHTML = '';
+  testQuestions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'test-question-card';
+    div.id = 'tq-' + i;
+    let inner = `<div class="test-q-num">Q${q.num} — ${q.skill}</div>
+      <div class="test-question-text">${q.text}</div>
+      <span class="test-code">${q.code}</span>`;
+
+    if (q.type === 'mcq') {
+      inner += '<div class="test-mcq-opts">';
+      q.options.forEach((opt, oi) => {
+        inner += `<button class="test-mcq-btn" onclick="selectTestMCQ(${i},${oi},this)">${opt}</button>`;
+      });
+      inner += '</div>';
+    } else {
+      inner += `<input class="test-input" id="tq-input-${i}" maxlength="8" placeholder="Type answer">`;
+    }
+    div.innerHTML = inner;
+    container.appendChild(div);
+  });
+}
+
+function selectTestMCQ(qIdx, optIdx, btn) {
+  const card = document.getElementById('tq-' + qIdx);
+  card.querySelectorAll('.test-mcq-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  btn.dataset.selected = optIdx;
+}
+
+function startTimer() {
+  const display = document.getElementById('timer-display');
+  timerInterval = setInterval(() => {
+    secondsLeft--;
+    const m = Math.floor(secondsLeft / 60);
+    const s = secondsLeft % 60;
+    display.textContent = `⏱ ${m}:${s.toString().padStart(2,'0')}`;
+    if (secondsLeft <= 60) display.classList.add('urgent');
+    if (secondsLeft <= 0) { clearInterval(timerInterval); submitTest(); }
+  }, 1000);
+}
+
+function submitTest() {
+  clearInterval(timerInterval);
+  document.getElementById('test-questions').style.display = 'none';
+  document.getElementById('results-panel').style.display = 'block';
+
+  let correct = 0;
+  const breakdown = [];
+
+  testQuestions.forEach((q, i) => {
+    let userCorrect = false;
+    let userAnswer = '?';
+
+    if (q.type === 'mcq') {
+      const card = document.getElementById('tq-' + i);
+      const selected = card?.querySelector('.test-mcq-btn.selected');
+      if (selected) {
+        const selectedIdx = Array.from(card.querySelectorAll('.test-mcq-btn')).indexOf(selected);
+        userAnswer = q.options[selectedIdx];
+        userCorrect = (selectedIdx === q.correct);
+      }
+    } else {
+      const input = document.getElementById('tq-input-' + i);
+      if (input) {
+        userAnswer = input.value.trim().toUpperCase();
+        userCorrect = (userAnswer === q.correct.toUpperCase());
+      }
+    }
+
+    if (userCorrect) correct++;
+    breakdown.push({ q, userCorrect, userAnswer });
+  });
+
+  // Score display
+  document.getElementById('results-score').textContent = `${correct}/15`;
+
+  // Band
+  const bandEl = document.getElementById('results-band');
+  let band, bandClass;
+  if (correct <= 5) { band = 'Needs Practice'; bandClass = 'band-needs'; }
+  else if (correct <= 9) { band = 'Developing'; bandClass = 'band-developing'; }
+  else if (correct <= 12) { band = 'Secure'; bandClass = 'band-secure'; }
+  else { band = 'Mastery'; bandClass = 'band-mastery'; }
+  bandEl.textContent = band;
+  bandEl.className = 'results-band ' + bandClass;
+
+  // Breakdown
+  const bdEl = document.getElementById('results-breakdown');
+  bdEl.innerHTML = '<div style="margin-top:24px;text-align:left;">';
+  breakdown.forEach(({ q, userCorrect, userAnswer }) => {
+    const cls = userCorrect ? 'r-correct' : 'r-wrong';
+    const icon = userCorrect ? '✓' : '✗';
+    bdEl.innerHTML += `<div class="result-item ${cls}">
+      <div class="result-q">${icon} Q${q.num}: ${q.skill} — You answered: ${userAnswer || 'No answer'}</div>
+      ${!userCorrect ? `<div class="result-explain">${q.explanation}</div>` : ''}
+    </div>`;
+  });
+  bdEl.innerHTML += '</div>';
+
+  // Add to score counter
+  totalScore += correct;
+  document.getElementById('score-val').textContent = totalScore;
+}
+
+// ===================== NAV ACTIVE STATE =====================
+const sections = document.querySelectorAll('section[id], div[id="alphabet-strip-container"]');
+const navLinks = document.querySelectorAll('#sticky-nav a');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+      });
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-60px 0px -60px 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

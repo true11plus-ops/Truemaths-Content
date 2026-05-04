@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GL Verbal Reasoning — Closest in Meaning (Synonyms)</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;500;600;700&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b3e;
+    --navy-mid: #162454;
+    --navy-light: #1e3270;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-pale: #fdf3d8;
+    --cream: #faf8f2;
+    --white: #ffffff;
+    --green: #2d7a4f;
+    --green-light: #e8f5ee;
+    --yellow: #b87c00;
+    --yellow-light: #fff8e1;
+    --orange: #c05621;
+    --orange-light: #fff0e6;
+    --purple: #6b2fa0;
+    --purple-light: #f3eaff;
+    --red: #b91c1c;
+    --red-light: #fef2f2;
+    --text: #1a202c;
+    --text-mid: #4a5568;
+    --text-light: #718096;
+    --border: #e2e8f0;
+    --shadow: 0 4px 24px rgba(13,27,62,0.10);
+    --shadow-sm: 0 2px 8px rgba(13,27,62,0.07);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  /* PROGRESS BAR */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    width: 0%;
+    z-index: 1000;
+    transition: width 0.2s ease;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* SCORE COUNTER */
+  #score-counter {
+    position: fixed;
+    top: 10px; right: 16px;
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'Fira Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    z-index: 999;
+    border: 1px solid var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  /* STICKY NAV */
+  #sticky-nav {
+    position: sticky;
+    top: 0;
+    background: var(--navy);
+    z-index: 100;
+    border-bottom: 2px solid var(--gold);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #sticky-nav::-webkit-scrollbar { height: 2px; }
+  #sticky-nav::-webkit-scrollbar-thumb { background: var(--gold); }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 12px;
+    min-width: max-content;
+  }
+
+  .nav-inner a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 13px 14px;
+    white-space: nowrap;
+    transition: color 0.2s, border-bottom 0.2s;
+    border-bottom: 2px solid transparent;
+    text-transform: uppercase;
+  }
+
+  .nav-inner a:hover { color: var(--gold); }
+  .nav-inner a.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #0a1628 100%);
+    color: white;
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    border: 40px solid rgba(201,168,76,0.08);
+    border-radius: 50%;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 200px; height: 200px;
+    border: 30px solid rgba(201,168,76,0.06);
+    border-radius: 50%;
+  }
+
+  .header-tag {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 46px);
+    font-weight: 900;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  header h1 span { color: var(--gold); }
+
+  header p {
+    color: rgba(255,255,255,0.72);
+    font-size: 15px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .header-stats {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  .stat-pill {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: rgba(255,255,255,0.85);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 7px 18px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+  }
+
+  /* MAIN LAYOUT */
+  main { max-width: 860px; margin: 0 auto; padding: 0 16px 80px; }
+
+  /* SECTIONS */
+  .module-section {
+    margin-top: 48px;
+    scroll-margin-top: 56px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .section-number {
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 900;
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .section-tick {
+    margin-left: auto;
+    font-size: 20px;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .section-tick.complete { opacity: 1; }
+
+  /* CARDS */
+  .card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* SIMPLE EXPLANATION BOX */
+  .simple-box {
+    background: linear-gradient(135deg, #e8f4fd, #ddeefa);
+    border: 1.5px solid #93c5fd;
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+
+  .simple-box .card-title { color: #1e40af; }
+
+  .simple-box .analogy {
+    background: white;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-size: 15px;
+    color: #1e3a8a;
+    font-style: italic;
+    border-left: 3px solid #3b82f6;
+  }
+
+  /* FULL EXPLANATION BOX */
+  .full-box {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+
+  .full-box .card-title { color: var(--navy); }
+
+  /* WATCH OUT BOX */
+  .watchout-box {
+    background: #fff7ed;
+    border: 1.5px solid #fdba74;
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+
+  .watchout-box .card-title { color: #9a3412; }
+
+  .watchout-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-top: 8px;
+    font-size: 15px;
+  }
+
+  .watchout-item::before {
+    content: '⚠';
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* WORKED EXAMPLE BOX */
+  .example-box {
+    background: linear-gradient(135deg, #f8f6ff, #f0ebff);
+    border: 1.5px solid #c4b5fd;
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+
+  .example-box .card-title { color: #5b21b6; }
+
+  .example-question {
+    background: var(--navy);
+    color: white;
+    border-radius: 10px;
+    padding: 14px 20px;
+    font-family: 'Fira Mono', monospace;
+    font-size: 15px;
+    margin: 10px 0;
+    letter-spacing: 0.02em;
+  }
+
+  .example-question .brackets {
+    color: var(--gold-light);
+    font-weight: 500;
+  }
+
+  .step-block {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin: 10px 0;
+  }
+
+  .step-num {
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 700;
+    width: 26px; height: 26px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .step-text { font-size: 15px; color: var(--text); }
+
+  .answer-reveal {
+    background: var(--green-light);
+    border: 1.5px solid #6ee7b7;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-weight: 600;
+    color: var(--green);
+    font-size: 15px;
+  }
+
+  /* WORD BANK */
+  .word-bank {
+    background: var(--gold-pale);
+    border: 1.5px solid var(--gold);
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin-bottom: 20px;
+  }
+
+  .word-bank-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #78350f;
+    margin-bottom: 10px;
+  }
+
+  .word-bank-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .word-chip {
+    background: white;
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--navy);
+    font-family: 'Fira Mono', monospace;
+    cursor: help;
+    position: relative;
+  }
+
+  .word-chip:hover::after {
+    content: attr(data-def);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--navy);
+    color: white;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'Source Sans 3', sans-serif;
+    padding: 6px 12px;
+    border-radius: 8px;
+    white-space: nowrap;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  /* DIFFICULTY BADGE */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .badge-starter { background: var(--green-light); color: var(--green); border: 1px solid #6ee7b7; }
+  .badge-developing { background: var(--yellow-light); color: var(--yellow); border: 1px solid #fcd34d; }
+  .badge-secure { background: var(--orange-light); color: var(--orange); border: 1px solid #fdba74; }
+  .badge-mastery { background: var(--purple-light); color: var(--purple); border: 1px solid #c4b5fd; }
+
+  /* QUESTION CARDS */
+  .question-set {
+    margin-bottom: 28px;
+  }
+
+  .question-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+
+  .question-card.answered-correct { border-color: #6ee7b7; background: #f0fdf8; }
+  .question-card.answered-wrong { border-color: #fca5a5; background: #fff8f8; }
+
+  .q-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .q-group {
+    background: var(--navy);
+    color: white;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-family: 'Fira Mono', monospace;
+    font-size: 14.5px;
+    margin-bottom: 16px;
+    line-height: 1.8;
+  }
+
+  .q-group .g1 { color: #93c5fd; }
+  .q-group .g2 { color: #86efac; }
+
+  /* MCQ BUTTONS */
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 520px) { .options-grid { grid-template-columns: 1fr; } }
+
+  .opt-btn {
+    background: #f8f9ff;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 11px 16px;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--navy);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.18s;
+    font-family: 'Fira Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+
+  .opt-btn:hover:not(:disabled) {
+    background: #eef2ff;
+    border-color: #818cf8;
+  }
+
+  .opt-btn.correct {
+    background: var(--green-light);
+    border-color: #34d399;
+    color: var(--green);
+  }
+
+  .opt-btn.wrong {
+    background: #fef2f2;
+    border-color: #f87171;
+    color: var(--red);
+  }
+
+  .opt-btn:disabled { cursor: default; }
+
+  /* FEEDBACK BOX */
+  .feedback-box {
+    display: none;
+    margin-top: 12px;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+
+  .feedback-box.correct {
+    background: var(--green-light);
+    border: 1px solid #6ee7b7;
+    color: #065f46;
+    display: block;
+  }
+
+  .feedback-box.wrong {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    color: #7f1d1d;
+    display: block;
+  }
+
+  .feedback-box .icon { font-weight: 700; margin-right: 6px; }
+
+  /* TYPED ANSWER */
+  .typed-answer-wrap {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+
+  .typed-input {
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 15px;
+    font-family: 'Fira Mono', monospace;
+    font-weight: 500;
+    color: var(--navy);
+    background: white;
+    width: 180px;
+    transition: border-color 0.2s;
+  }
+
+  .typed-input:focus { outline: none; border-color: #818cf8; }
+  .typed-input.correct { border-color: #34d399; background: var(--green-light); }
+  .typed-input.wrong { border-color: #f87171; background: #fef2f2; }
+
+  .check-btn {
+    background: var(--navy);
+    color: var(--gold);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    letter-spacing: 0.04em;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  .check-btn:hover { background: var(--navy-light); }
+  .check-btn:disabled { opacity: 0.5; cursor: default; }
+
+  /* SEPARATOR */
+  .q-separator {
+    border: none;
+    border-top: 1.5px dashed var(--border);
+    margin: 24px 0;
+  }
+
+  /* TIMED TEST */
+  #final-test {
+    background: var(--navy);
+    border-radius: 20px;
+    padding: 32px 28px;
+    margin-top: 48px;
+    color: white;
+  }
+
+  #final-test .test-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  #final-test h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  #final-test p { color: rgba(255,255,255,0.75); font-size: 15px; }
+
+  #timer-display {
+    background: rgba(201,168,76,0.15);
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    padding: 8px 20px;
+    font-family: 'Fira Mono', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--gold);
+    display: inline-block;
+    margin: 12px 0;
+    letter-spacing: 0.08em;
+  }
+
+  #timer-display.urgent { color: #f87171; border-color: #f87171; }
+
+  .test-question-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 14px;
+  }
+
+  .test-question-card .q-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .test-question-card .q-text { color: white; font-size: 15.5px; }
+  .test-question-card .q-group { background: rgba(255,255,255,0.08); }
+
+  .test-opt-btn {
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.18s;
+    font-family: 'Fira Mono', monospace;
+    width: 100%;
+    margin-bottom: 7px;
+  }
+
+  .test-opt-btn:hover:not(:disabled) { background: rgba(255,255,255,0.14); border-color: var(--gold); }
+  .test-opt-btn.selected { border-color: var(--gold); background: rgba(201,168,76,0.15); }
+  .test-opt-btn:disabled { cursor: default; }
+
+  .start-test-btn {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--navy);
+    border: none;
+    border-radius: 12px;
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    letter-spacing: 0.04em;
+    transition: transform 0.15s;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  .start-test-btn:hover { transform: scale(1.02); }
+
+  .submit-test-btn {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--navy);
+    border: none;
+    border-radius: 12px;
+    padding: 14px 36px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: block;
+    margin: 24px auto 0;
+    letter-spacing: 0.04em;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  /* RESULTS PANEL */
+  #results-panel {
+    display: none;
+    text-align: center;
+    padding: 24px 0;
+  }
+
+  .score-circle {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    border: 5px solid var(--gold);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    background: rgba(201,168,76,0.12);
+  }
+
+  .score-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .score-total { font-size: 13px; color: rgba(255,255,255,0.6); }
+
+  .band-label {
+    display: inline-block;
+    padding: 8px 24px;
+    border-radius: 24px;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    margin: 10px 0 20px;
+  }
+
+  .band-needs { background: #fef2f2; color: #b91c1c; border: 2px solid #f87171; }
+  .band-developing { background: var(--yellow-light); color: #78350f; border: 2px solid #fcd34d; }
+  .band-secure { background: var(--orange-light); color: #7c2d12; border: 2px solid #fdba74; }
+  .band-mastery { background: var(--green-light); color: #064e3b; border: 2px solid #34d399; }
+
+  .result-review {
+    text-align: left;
+    margin-top: 24px;
+  }
+
+  .result-item {
+    background: rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border-left: 4px solid;
+  }
+
+  .result-item.ok { border-left-color: #34d399; }
+  .result-item.bad { border-left-color: #f87171; }
+  .result-item .q-label { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+  .result-item .q-ans { font-size: 14px; color: white; }
+  .result-item .q-expl { font-size: 13.5px; color: rgba(255,255,255,0.7); margin-top: 6px; font-style: italic; }
+
+  /* INTRO BOX */
+  .intro-card {
+    background: white;
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-top: 28px;
+    position: relative;
+  }
+
+  .intro-card::before {
+    content: '📘';
+    position: absolute;
+    top: -18px; left: 20px;
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .intro-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--navy);
+    font-size: 18px;
+    margin-bottom: 10px;
+    padding-top: 4px;
+  }
+
+  .format-example {
+    background: var(--navy);
+    color: white;
+    border-radius: 10px;
+    padding: 14px 20px;
+    font-family: 'Fira Mono', monospace;
+    font-size: 14.5px;
+    margin: 12px 0;
+    line-height: 2;
+  }
+
+  .format-example .lbl { color: rgba(255,255,255,0.5); font-size: 12px; display: block; }
+  .format-example .g1w { color: #93c5fd; }
+  .format-example .g2w { color: #86efac; }
+  .format-example .ans { color: var(--gold); }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .card { padding: 16px 18px; }
+    .simple-box, .full-box, .watchout-box, .example-box { padding: 16px 18px; }
+    header { padding: 40px 16px 36px; }
+    #final-test { padding: 24px 18px; }
+  }
+
+  /* STRATEGY PANEL */
+  .strategy-steps {
+    counter-reset: steps;
+    list-style: none;
+    padding: 0;
+  }
+
+  .strategy-steps li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    counter-increment: steps;
+  }
+
+  .strategy-steps li::before {
+    content: counter(steps);
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 900;
+    font-size: 13px;
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .strategy-steps li strong { color: var(--navy); }
+
+  /* SUB-SKILL LABEL */
+  .subskill-label {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="score-counter">✦ Score: <span id="score-val">0</span> / <span id="total-val">0</span></div>
+
+<!-- STICKY NAV -->
+<nav id="sticky-nav">
+  <div class="nav-inner">
+    <a href="#intro">What Is It?</a>
+    <a href="#s1">Core Matching</a>
+    <a href="#s2">Degree Traps</a>
+    <a href="#s3">Double-Match</a>
+    <a href="#s4">Unknown Words</a>
+    <a href="#s5">Secondary Meaning</a>
+    <a href="#strategy">Strategy</a>
+    <a href="#final-test">Final Test</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header>
+  <div class="header-tag">GL Assessment · Verbal Reasoning</div>
+  <h1>Closest in <span>Meaning</span></h1>
+  <p>Find one word from each group that are closest in meaning — the synonym pair hidden among the distractors.</p>
+  <div class="header-stats">
+    <div class="stat-pill">⏱ 30 sec per question</div>
+    <div class="stat-pill">📚 5 Sub-skills</div>
+    <div class="stat-pill">⭐ 4 Difficulty Tiers</div>
+    <div class="stat-pill">🎯 15-Q Final Test</div>
+  </div>
+</header>
+
+<main>
+
+<!-- INTRO -->
+<section id="intro" class="module-section">
+  <div class="section-header">
+    <div class="section-number">?</div>
+    <h2 class="section-title">What Does This Question Look Like?</h2>
+  </div>
+
+  <div class="intro-card">
+    <h3>The Question Format</h3>
+    <p style="font-size:15px; color:var(--text-mid);">You are given <strong>two groups of three words</strong>. You must find <strong>one word from the first group</strong> and <strong>one word from the second group</strong> that are closest in meaning to each other.</p>
+    <div class="format-example">
+      <span class="lbl">GROUP 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GROUP 2</span>
+      ( <span class="g1w">large</span> &nbsp; <span class="g1w">cold</span> &nbsp; <span class="g1w">quick</span> ) &nbsp;&nbsp; ( <span class="g2w">slow</span> &nbsp; <span class="g2w">fast</span> &nbsp; <span class="g2w">chilly</span> )
+      <br>
+      <span class="ans">Answer: quick — fast</span>
+    </div>
+    <p style="font-size:15px; color:var(--text-mid);">Your answer must be the <strong>pair</strong> — one word from each bracket. "Quick" and "fast" mean the same thing. The other words are distractors.</p>
+  </div>
+
+  <div class="word-bank" style="margin-top:20px;">
+    <div class="word-bank-title">📖 Helpful Word Reference — Hover for Meaning</div>
+    <div class="word-bank-grid">
+      <div class="word-chip" data-def="Same as: rapid, swift">quick</div>
+      <div class="word-chip" data-def="Same as: large, vast">big</div>
+      <div class="word-chip" data-def="Same as: cold, icy">chilly</div>
+      <div class="word-chip" data-def="Same as: brave, bold">courageous</div>
+      <div class="word-chip" data-def="Same as: unhappy, gloomy">miserable</div>
+      <div class="word-chip" data-def="Same as: smart, intelligent">clever</div>
+      <div class="word-chip" data-def="Same as: shining, gleaming">bright</div>
+      <div class="word-chip" data-def="Same as: scared, afraid">frightened</div>
+      <div class="word-chip" data-def="Same as: tired, exhausted">weary</div>
+      <div class="word-chip" data-def="Same as: ancient, elderly">aged</div>
+      <div class="word-chip" data-def="Same as: tiny, miniature">minute</div>
+      <div class="word-chip" data-def="Same as: beautiful, attractive">lovely</div>
+      <div class="word-chip" data-def="Same as: hate, despise">loathe</div>
+      <div class="word-chip" data-def="Same as: angry, furious">irate</div>
+      <div class="word-chip" data-def="Same as: change, alter">modify</div>
+      <div class="word-chip" data-def="Same as: serious, solemn">grave</div>
+      <div class="word-chip" data-def="Same as: charge, accuse">indict</div>
+      <div class="word-chip" data-def="Same as: warm, heated">tepid</div>
+      <div class="word-chip" data-def="Same as: shiny, polished">lustrous</div>
+      <div class="word-chip" data-def="Same as: end, conclude">terminate</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 1: CORE MATCHING ===== -->
+<section id="s1" class="module-section">
+  <div class="section-header">
+    <div class="section-number">1</div>
+    <h2 class="section-title">Core Synonym Matching</h2>
+    <span class="section-tick" id="tick-s1">✅</span>
+  </div>
+
+  <div class="subskill-label">Sub-skill 1 of 5</div>
+
+  <div class="simple-box">
+    <div class="card-title">🧒 Simple Explanation — Read This First</div>
+    <p style="font-size:15.5px;">A <strong>synonym</strong> is just a word that means the <em>same thing</em> as another word. It's like different names for the same idea.</p>
+    <div class="analogy">"Happy" and "joyful" are synonyms — they both describe the same feeling. Like how you might call your friend by their name or their nickname — two names, one person.</div>
+    <p style="font-size:15px; margin-top:12px;">Your job: look at all six words across both brackets, and find the <strong>pair</strong> that are two words for the same thing.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="card-title">📘 Full Explanation</div>
+    <p style="font-size:15px;">In GL Assessment Verbal Reasoning, "Closest in Meaning" questions test your ability to identify <strong>synonymous pairs</strong> — words that share identical or near-identical semantic content. You must select exactly <strong>one word from Group 1 and one word from Group 2</strong>. The pair does not need to be perfect synonyms in every context — only the closest pairing from the available options. The question tests breadth of vocabulary, not just common words.</p>
+  </div>
+
+  <div class="example-box">
+    <div class="card-title">✏️ Worked Example — Step by Step</div>
+    <div class="example-question">
+      ( <span class="brackets">begin &nbsp; cold &nbsp; heavy</span> ) &nbsp;&nbsp; ( <span class="brackets">start &nbsp; tall &nbsp; dark</span> )
+    </div>
+    <div class="step-block"><div class="step-num">1</div><div class="step-text"><strong>Quick scan:</strong> Do any pairs jump out instantly? "begin" and "start" — that's a match you might know immediately!</div></div>
+    <div class="step-block"><div class="step-num">2</div><div class="step-text"><strong>Anchor on Group 1, word 1:</strong> "begin" — what does it mean? To start something. Is "start," "tall," or "dark" a synonym? → "start" ✔</div></div>
+    <div class="step-block"><div class="step-num">3</div><div class="step-text"><strong>Check the others to be sure:</strong> "cold" ≠ "start," "tall," "dark." "heavy" ≠ "start," "tall," "dark." No other pair works.</div></div>
+    <div class="answer-reveal">✅ Answer: <strong>begin — start</strong> (both mean 'to commence or initiate something')</div>
+  </div>
+
+  <div class="watchout-box">
+    <div class="card-title">⚠️ Watch Out!</div>
+    <div class="watchout-item">Don't just pick the first pair you see — always verify by checking if any <em>other</em> pair could also work. If you're unsure, test all three words from Group 1 against all three in Group 2.</div>
+    <div class="watchout-item">Don't confuse a word that is <em>related</em> to another with a true synonym. "Ice" and "cold" are related, but they don't mean the same thing.</div>
+  </div>
+
+  <div class="example-box">
+    <div class="card-title">✏️ Harder Worked Example</div>
+    <div class="example-question">
+      ( <span class="brackets">miserable &nbsp; loud &nbsp; ancient</span> ) &nbsp;&nbsp; ( <span class="brackets">old &nbsp; cheerful &nbsp; quiet</span> )
+    </div>
+    <div class="step-block"><div class="step-num">1</div><div class="step-text"><strong>Quick scan:</strong> Nothing jumps out instantly — be careful. Let's anchor methodically.</div></div>
+    <div class="step-block"><div class="step-num">2</div><div class="step-text"><strong>Test "miserable":</strong> Means very unhappy. "old"? No. "cheerful"? No — that's an antonym! "quiet"? No.</div></div>
+    <div class="step-block"><div class="step-num">3</div><div class="step-text"><strong>Test "loud":</strong> Means making a lot of noise. "old"? No. "cheerful"? No. "quiet"? No — opposite!</div></div>
+    <div class="step-block"><div class="step-num">4</div><div class="step-text"><strong>Test "ancient":</strong> Means very old. "old"? ✔ Yes! "Ancient" and "old" both mean something that has existed for a long time.</div></div>
+    <div class="answer-reveal">✅ Answer: <strong>ancient — old</strong> (both mean 'having existed for a very long time')</div>
+  </div>
+
+  <!-- QUESTIONS: CORE MATCHING -->
+  <hr class="q-separator">
+
+  <div class="question-set" data-section="s1">
+
+    <!-- Q1 Starter -->
+    <div class="question-card" id="q-s1-1">
+      <span class="badge badge-starter">Starter</span>
+      <div class="q-text">Find the pair of words that are closest in meaning — one from each group.</div>
+      <div class="q-group">( <span class="g1">happy</span> &nbsp; tall &nbsp; dark ) &nbsp;&nbsp; ( <span class="g2">joyful</span> &nbsp; thin &nbsp; loud )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'Happy' and 'joyful' are synonyms — both describe a feeling of pleasure and delight. Well spotted!">happy — joyful</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Tall' refers to height, and 'thin' refers to width — they are different descriptions. Neither means the same thing as the other.">tall — thin</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Dark' means lacking light. 'Loud' means making noise. These describe completely different things and are not synonyms.">dark — loud</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Happy' means feeling pleasure, but 'thin' describes body shape. These are unrelated — they don't share the same meaning.">happy — thin</button>
+      </div>
+      <div class="feedback-box" id="fb-s1-1"></div>
+    </div>
+
+    <!-- Q2 Starter -->
+    <div class="question-card" id="q-s1-2">
+      <span class="badge badge-starter">Starter</span>
+      <div class="q-text">Find the pair that are closest in meaning.</div>
+      <div class="q-group">( <span class="g1">pick</span> &nbsp; run &nbsp; think ) &nbsp;&nbsp; ( <span class="g2">choose</span> &nbsp; jump &nbsp; sleep )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'Pick' and 'choose' both mean to select something from a group. They are direct synonyms — nicely done!">pick — choose</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Run' means to move fast on foot. 'Jump' means to leap in the air. They're both physical actions but don't mean the same thing.">run — jump</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Think' means to use your mind. 'Sleep' means to rest unconsciously. These are very different actions and are not synonyms.">think — sleep</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Run' means to move fast. 'Choose' means to select something. These words don't share the same meaning.">run — choose</button>
+      </div>
+      <div class="feedback-box" id="fb-s1-2"></div>
+    </div>
+
+    <!-- Q3 Starter - Typed -->
+    <div class="question-card" id="q-s1-3">
+      <span class="badge badge-starter">Starter</span>
+      <div class="q-text">Type the synonym pair below (format: word1 — word2).</div>
+      <div class="q-group">( <span class="g1">speak</span> &nbsp; write &nbsp; listen ) &nbsp;&nbsp; ( <span class="g2">draw</span> &nbsp; talk &nbsp; eat )</div>
+      <div class="typed-answer-wrap">
+        <input class="typed-input" type="text" placeholder="e.g. speak — talk" id="inp-s1-3">
+        <button class="check-btn" onclick="checkTyped('s1-3', ['speak — talk', 'speak-talk', 'speak  —  talk'], '✅ Correct! \"Speak\" and \"talk\" both mean to communicate using words. They are classic synonyms.')">Check</button>
+      </div>
+      <div class="feedback-box" id="fb-s1-3"></div>
+    </div>
+
+    <!-- Q4 Starter -->
+    <div class="question-card" id="q-s1-4">
+      <span class="badge badge-starter">Starter</span>
+      <div class="q-text">Find the pair that are closest in meaning.</div>
+      <div class="q-group">( <span class="g1">tired</span> &nbsp; angry &nbsp; brave ) &nbsp;&nbsp; ( <span class="g2">bold</span> &nbsp; weary &nbsp; calm )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Tired' means needing rest. 'Bold' means confident or daring. These describe very different states — they are not synonyms.">tired — bold</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Angry' means feeling strong displeasure. 'Weary' means tired. These don't mean the same thing.">angry — weary</button>
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'Brave' and 'bold' both describe someone who faces danger or difficulty without fear. They are synonyms — great work!">brave — bold</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Angry' means feeling strong displeasure. 'Calm' means relaxed and peaceful — in fact, these are more like opposites!">angry — calm</button>
+      </div>
+      <div class="feedback-box" id="fb-s1-4"></div>
+    </div>
+
+    <!-- Q5 Developing -->
+    <div class="question-card" id="q-s1-5">
+      <span class="badge badge-developing">Developing</span>
+      <div class="q-text">Find the pair that are closest in meaning. Some words may distract you.</div>
+      <div class="q-group">( <span class="g1">scared</span> &nbsp; tiny &nbsp; loud ) &nbsp;&nbsp; ( <span class="g2">small</span> &nbsp; fearful &nbsp; bright )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'Scared' and 'fearful' both describe the feeling of being afraid or frightened. They are synonyms. Watch out for 'tiny — small' which is also close — but 'scared — fearful' is the strongest match here because they are exact in meaning.">scared — fearful</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ While 'tiny' and 'small' are related in meaning, in this question 'scared — fearful' is the stronger, more precise synonym pair. 'Tiny' specifically means extremely small, while 'small' is more general — the match is not as exact.">tiny — small</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Loud' means making a lot of noise. 'Bright' means producing a lot of light. These describe different senses and are not synonyms.">loud — bright</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Tiny' means extremely small. 'Fearful' means afraid. These two words describe completely different things and are not synonyms.">tiny — fearful</button>
+      </div>
+      <div class="feedback-box" id="fb-s1-5"></div>
+    </div>
+
+    <!-- Q6 Developing -->
+    <div class="question-card" id="q-s1-6">
+      <span class="badge badge-developing">Developing</span>
+      <div class="q-text">Find the pair closest in meaning.</div>
+      <div class="q-group">( <span class="g1">wealthy</span> &nbsp; gentle &nbsp; rapid ) &nbsp;&nbsp; ( <span class="g2">swift</span> &nbsp; kind &nbsp; famous )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Wealthy' means having a lot of money. 'Famous' means being well known. These are unrelated — wealthy people are not automatically famous, and the words don't mean the same thing.">wealthy — famous</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Gentle' means calm and careful. 'Swift' means very fast. These describe opposite kinds of movement or behaviour and are not synonyms.">gentle — swift</button>
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'Rapid' and 'swift' both mean moving or happening very fast. They are strong synonyms. The distractor 'gentle — kind' might have tempted you — but the question requires one word from each bracket, and 'gentle' is in Group 1 while 'kind' is in Group 2, making that a valid pair to check. However, 'rapid — swift' is the more precise synonym match.">rapid — swift</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Gentle' means calm and careful. 'Kind' means caring and considerate. While these words are related, 'rapid — swift' is the stronger, more exact synonym pair in this question.">gentle — kind</button>
+      </div>
+      <div class="feedback-box" id="fb-s1-6"></div>
+    </div>
+
+    <!-- Q7 Secure -->
+    <div class="question-card" id="q-s1-7">
+      <span class="badge badge-secure">Secure</span>
+      <div class="q-text">Find the pair closest in meaning.</div>
+      <div class="q-group">( <span class="g1">loathe</span> &nbsp; mend &nbsp; collect ) &nbsp;&nbsp; ( <span class="g2">repair</span> &nbsp; gather &nbsp; detest )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'Loathe' and 'detest' both mean to feel an intense hatred or strong dislike for something. They are powerful synonyms — excellent vocabulary!">loathe — detest</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Mend' means to fix something broken. 'Gather' means to bring things together. These are different actions — one is about fixing, the other about collecting.">mend — gather</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Collect' means to gather or accumulate things. 'Repair' means to fix something. These are different — collecting is not the same as repairing.">collect — repair</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Mend' means to fix or repair something broken. 'Detest' means to strongly dislike. These are completely unrelated in meaning.">mend — detest</button>
+      </div>
+      <div class="feedback-box" id="fb-s1-7"></div>
+    </div>
+
+    <!-- Q8 Mastery - Typed -->
+    <div class="question-card" id="q-s1-8">
+      <span class="badge badge-mastery">Mastery</span>
+      <div class="q-text">This is tricky — all words look similar in theme. Type the exact synonym pair.</div>
+      <div class="q-group">( <span class="g1">alter</span> &nbsp; create &nbsp; shift ) &nbsp;&nbsp; ( <span class="g2">build &nbsp; change &nbsp; move</span> )</div>
+      <div class="typed-answer-wrap">
+        <input class="typed-input" type="text" placeholder="word1 — word2" id="inp-s1-8">
+        <button class="check-btn" onclick="checkTyped('s1-8', ['alter — change', 'alter-change'], '✅ Correct! \"Alter\" and \"change\" both mean to make something different. The trap here is that \"shift\" and \"move\" also seem similar — but the question asks for closest in meaning, and \"alter — change\" is the most precise synonym pair.')">Check</button>
+      </div>
+      <div class="feedback-box" id="fb-s1-8">
+        <div style="margin-top:10px; font-size:13.5px; color:var(--text-mid);">💡 <em>Hint: Think carefully — "shift" and "move" are also related, but which pair is a perfect synonym match?</em></div>
+      </div>
+    </div>
+
+  </div><!-- end s1 questions -->
+</section>
+
+<!-- ===== SECTION 2: DEGREE / INTENSITY TRAPS ===== -->
+<section id="s2" class="module-section">
+  <div class="section-header">
+    <div class="section-number">2</div>
+    <h2 class="section-title">Degree & Intensity Traps</h2>
+    <span class="section-tick" id="tick-s2">✅</span>
+  </div>
+
+  <div class="subskill-label">Sub-skill 2 of 5</div>
+
+  <div class="simple-box">
+    <div class="card-title">🧒 Simple Explanation</div>
+    <p style="font-size:15.5px;">Some words mean almost the same thing but at <strong>different levels of strength</strong>. Imagine a temperature scale: cold → cool → warm → hot → boiling. They're all about temperature, but they're not the same!</p>
+    <div class="analogy">It's like the difference between "big" and "enormous." Both mean large — but enormous is much, much bigger. The GL exam loves to put "big" in one group and "enormous" in another, and then also include "gigantic" to confuse you. You must find the <em>closest</em> match in strength.</div>
+  </div>
+
+  <div class="full-box">
+    <div class="card-title">📘 Full Explanation — Intensity Gradients</div>
+    <p style="font-size:15px;">GL Assessment often uses <strong>degree precision traps</strong>: words that exist on the same intensity scale, but are not true synonyms of each other. A correct synonym pair must match in <em>both</em> meaning and approximate intensity. For example:</p>
+    <ul style="margin: 12px 0 0 20px; font-size:15px; line-height:2;">
+      <li><strong>Warm ≠ Scalding</strong> — both describe heat, but at very different levels</li>
+      <li><strong>Annoyed ≠ Furious</strong> — both describe anger, but furious is far stronger</li>
+      <li><strong>Chilly ≠ Freezing</strong> — both describe cold, but freezing is far more intense</li>
+    </ul>
+    <p style="font-size:15px; margin-top:12px;">The correct pair must be the two words that are closest to each other on the intensity scale.</p>
+  </div>
+
+  <div class="example-box">
+    <div class="card-title">✏️ Worked Example — Degree Trap</div>
+    <div class="example-question">
+      ( <span class="brackets">warm &nbsp; freezing &nbsp; boiling</span> ) &nbsp;&nbsp; ( <span class="brackets">scalding &nbsp; cool &nbsp; chilly</span> )
+    </div>
+    <div class="step-block"><div class="step-num">1</div><div class="step-text"><strong>Map the intensity scale:</strong> freezing → chilly → cool → warm → boiling → scalding. All are temperature words.</div></div>
+    <div class="step-block"><div class="step-num">2</div><div class="step-text"><strong>Find the closest pair across both groups:</strong><br>• boiling (Group 1) ↔ scalding (Group 2) — both mean extremely hot. ✔<br>• freezing (Group 1) ↔ chilly (Group 2) — freezing is much colder than chilly. ✗<br>• warm (Group 1) ↔ cool (Group 2) — these are opposites on the scale. ✗</div></div>
+    <div class="answer-reveal">✅ Answer: <strong>boiling — scalding</strong> (both mean dangerously, extremely hot)</div>
+  </div>
+
+  <div class="watchout-box">
+    <div class="card-title">⚠️ Watch Out!</div>
+    <div class="watchout-item">Don't just pick any two words from the same theme (e.g., both about temperature). You must pick the pair that are <strong>closest to each other</strong> in degree.</div>
+    <div class="watchout-item">"Freezing" and "chilly" are both cold — but they are NOT synonyms. Freezing is extreme; chilly is mild. The pair "boiling — scalding" are both extreme heat, making them the closer match.</div>
+  </div>
+
+  <div class="example-box">
+    <div class="card-title">✏️ Harder Example — Emotion Intensity</div>
+    <div class="example-question">
+      ( <span class="brackets">cross &nbsp; enraged &nbsp; displeased</span> ) &nbsp;&nbsp; ( <span class="brackets">furious &nbsp; annoyed &nbsp; content</span> )
+    </div>
+    <div class="step-block"><div class="step-num">1</div><div class="step-text"><strong>Build the anger scale:</strong> displeased → annoyed → cross → enraged → furious</div></div>
+    <div class="step-block"><div class="step-num">2</div><div class="step-text"><strong>Match closest pairs:</strong><br>• enraged ↔ furious — both mean extremely angry ✔<br>• cross ↔ annoyed — both mean mildly to moderately angry ✔<br>• displeased ↔ annoyed — close but displeased is milder</div></div>
+    <div class="step-block"><div class="step-num">3</div><div class="step-text"><strong>Best single pair:</strong> "enraged — furious" is the most precise match (both extreme anger).</div></div>
+    <div class="answer-reveal">✅ Answer: <strong>enraged — furious</strong> (both mean extremely, intensely angry)</div>
+  </div>
+
+  <!-- QUESTIONS: DEGREE TRAPS -->
+  <hr class="q-separator">
+  <div class="question-set" data-section="s2">
+
+    <div class="question-card" id="q-s2-1">
+      <span class="badge badge-starter">Starter</span>
+      <div class="q-text">All the words are about size. Pick the pair that are closest in meaning.</div>
+      <div class="q-group">( <span class="g1">huge</span> &nbsp; large &nbsp; tiny ) &nbsp;&nbsp; ( <span class="g2">small &nbsp; enormous &nbsp; medium</span> )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'Huge' and 'enormous' are the closest pair — both mean extremely large in size. 'Large' is just moderately big, so 'large — enormous' would be less precise.">huge — enormous</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Tiny' means extremely small and 'medium' means middle-sized — these are at very different points on the size scale and are not synonyms.">tiny — medium</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Large' means moderately big, but 'enormous' means extremely large. They are on the same scale but not close enough to be the best synonym pair — 'huge — enormous' is more precise.">large — enormous</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Tiny' means extremely small and 'small' means not large. These are similar but 'tiny' is far more extreme. Also, the question has a better pair: 'huge — enormous.'">tiny — small</button>
+      </div>
+      <div class="feedback-box" id="fb-s2-1"></div>
+    </div>
+
+    <div class="question-card" id="q-s2-2">
+      <span class="badge badge-developing">Developing</span>
+      <div class="q-text">All words are about light. Find the closest synonym pair.</div>
+      <div class="q-group">( <span class="g1">dim &nbsp; bright &nbsp; dazzling</span> ) &nbsp;&nbsp; ( <span class="g2">glowing &nbsp; dark &nbsp; blinding</span> )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Dim' means producing a small amount of light. 'Glowing' means producing a warm, steady, moderate light. These are at different points on the brightness scale — dim is much weaker than glowing.">dim — glowing</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Bright' means producing a lot of light. 'Dark' means producing very little or no light. These are actually opposites on the light scale!">bright — dark</button>
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'Dazzling' and 'blinding' are both at the extreme end of the brightness scale — both describe light so intense it overwhelms your vision. They are the closest synonym pair here.">dazzling — blinding</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Dim' means producing very little light. 'Dark' means almost no light. While both are at the low end of the scale, 'dazzling — blinding' is the stronger and more precise synonym pair in this question.">dim — dark</button>
+      </div>
+      <div class="feedback-box" id="fb-s2-2"></div>
+    </div>
+
+    <div class="question-card" id="q-s2-3">
+      <span class="badge badge-secure">Secure</span>
+      <div class="q-text">All words describe how much someone likes or dislikes something. Find the closest pair.</div>
+      <div class="q-group">( <span class="g1">detest &nbsp; dislike &nbsp; loathe</span> ) &nbsp;&nbsp; ( <span class="g2">hate &nbsp; prefer &nbsp; enjoy</span> )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Dislike' means to not enjoy something mildly. 'Hate' is much stronger. These are on the same scale but not at the same level — 'dislike' is mild and 'hate' is extreme.">dislike — hate</button>
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'Loathe' and 'hate' are both at the extreme end of dislike — both mean to feel a strong, intense aversion to something. They are the closest pair in meaning and degree here.">loathe — hate</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Detest' means to strongly dislike. 'Enjoy' means to take pleasure in something. These are at opposite ends of the scale — nearly antonyms!">detest — enjoy</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Dislike' means mild aversion. 'Prefer' means to like one thing more than another. These are actually at different ends of the liking scale and don't form a synonym pair.">dislike — prefer</button>
+      </div>
+      <div class="feedback-box" id="fb-s2-3"></div>
+    </div>
+
+    <div class="question-card" id="q-s2-4">
+      <span class="badge badge-mastery">Mastery</span>
+      <div class="q-text">All words describe sound levels. This is a degree precision challenge — find the closest match.</div>
+      <div class="q-group">( <span class="g1">audible &nbsp; deafening &nbsp; faint</span> ) &nbsp;&nbsp; ( <span class="g2">thunderous &nbsp; silent &nbsp; hushed</span> )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Audible' means just loud enough to be heard (moderate level). 'Silent' means no sound at all. These are at very different points on the volume scale and are not synonyms.">audible — silent</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Faint' means very quiet but still barely audible. 'Thunderous' means extremely loud. These are at completely opposite ends of the sound scale — essentially antonyms!">faint — thunderous</button>
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Excellent! 'Deafening' and 'thunderous' are both at the extreme high end of the volume scale — both describe sound so loud it is overwhelming. They are the closest synonym pair here. The trap was 'faint — hushed' — both are quiet, but 'deafening — thunderous' is the more precise and equally-matched pair.">deafening — thunderous</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Faint' means barely audible. 'Hushed' means very quiet and subdued. While both are on the quiet end, 'deafening — thunderous' is the more exact and equally intense synonym pair. 'Faint' is quieter than 'hushed' too — so even this pair doesn't match perfectly.">faint — hushed</button>
+      </div>
+      <div class="feedback-box" id="fb-s2-4"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== SECTION 3: DOUBLE-MATCH TRAP ===== -->
+<section id="s3" class="module-section">
+  <div class="section-header">
+    <div class="section-number">3</div>
+    <h2 class="section-title">The Double-Match Trap</h2>
+    <span class="section-tick" id="tick-s3">✅</span>
+  </div>
+
+  <div class="subskill-label">Sub-skill 3 of 5</div>
+
+  <div class="simple-box">
+    <div class="card-title">🧒 Simple Explanation</div>
+    <p style="font-size:15.5px;">Sometimes it looks like there are <strong>two correct pairs</strong> — both seem to work! This is a trick. There is always only one <em>best</em> pair. You have to find the pair that match most exactly.</p>
+    <div class="analogy">Imagine you have two keys that both fit the lock a little, but only one opens the door perfectly. The GL exam gives you two pairs that both seem like synonyms — but one pair matches more exactly than the other. You need the perfect key.</div>
+  </div>
+
+  <div class="full-box">
+    <div class="card-title">📘 Full Explanation — Resolving Double-Match Conflicts</div>
+    <p style="font-size:15px;">In a Double-Match Trap, two pairs both appear to be synonyms. To resolve this, ask yourself: <strong>which pair has the most precise, complete overlap in meaning?</strong></p>
+    <p style="font-size:15px; margin-top:10px;">Example: (Bright, Smart, Quick) vs (Fast, Intelligent, Shiny)</p>
+    <ul style="margin:10px 0 0 20px; font-size:15px; line-height:2;">
+      <li>Smart — Intelligent ✔ (both mean mentally capable — strong match)</li>
+      <li>Bright — Shiny ✔ (both can mean producing light — also a match)</li>
+    </ul>
+    <p style="font-size:15px; margin-top:10px;">Here, <strong>Smart — Intelligent</strong> is the more precise pair, because "Bright" has many meanings (clever, luminous) while "Shiny" only refers to reflected light. Choose the pair that is most unambiguous.</p>
+  </div>
+
+  <div class="example-box">
+    <div class="card-title">✏️ Worked Example — Double Match</div>
+    <div class="example-question">
+      ( <span class="brackets">shut &nbsp; close &nbsp; quiet</span> ) &nbsp;&nbsp; ( <span class="brackets">near &nbsp; silent &nbsp; seal</span> )
+    </div>
+    <div class="step-block"><div class="step-num">1</div><div class="step-text"><strong>Test all pairs:</strong><br>• shut ↔ seal: both can mean to close something. ✔<br>• close ↔ near: both can mean nearby. ✔<br>• quiet ↔ silent: both mean making little or no noise. ✔</div></div>
+    <div class="step-block"><div class="step-num">2</div><div class="step-text"><strong>Which is most precise?</strong><br>• "quiet — silent" — quiet means making very little noise; silent means making NO noise. Close, but not exact.<br>• "close — near" — both mean at a short distance. Very strong match.<br>• "shut — seal" — shut means closed; seal means to close permanently. Not quite equal.</div></div>
+    <div class="step-block"><div class="step-num">3</div><div class="step-text"><strong>Best answer:</strong> "close — near" — both mean at a small distance. Most precise and complete overlap.</div></div>
+    <div class="answer-reveal">✅ Answer: <strong>close — near</strong> (both mean at a short distance, equally strong match)</div>
+  </div>
+
+  <div class="watchout-box">
+    <div class="card-title">⚠️ Watch Out!</div>
+    <div class="watchout-item">When two pairs both seem to work, don't just pick the first one you noticed. Always check all possible pairs, then pick the one with the <em>most exact</em> match in meaning.</div>
+    <div class="watchout-item">Remember: words with multiple meanings (like "bright" meaning smart OR shiny) are often used as distractors. The correct answer is usually the pair whose meanings overlap most clearly and completely.</div>
+  </div>
+
+  <hr class="q-separator">
+  <div class="question-set" data-section="s3">
+
+    <div class="question-card" id="q-s3-1">
+      <span class="badge badge-developing">Developing</span>
+      <div class="q-text">Two pairs might seem correct. Find the most precise synonym pair.</div>
+      <div class="q-group">( <span class="g1">smart &nbsp; bright &nbsp; quick</span> ) &nbsp;&nbsp; ( <span class="g2">fast &nbsp; intelligent &nbsp; shiny</span> )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'Smart' and 'intelligent' both mean mentally sharp and clever — their meanings overlap completely. 'Bright — shiny' is a trap: 'bright' can mean clever OR luminous, but 'shiny' only means reflecting light. So 'smart — intelligent' is the more precise, unambiguous pair.">smart — intelligent</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Bright' can mean clever or luminous (shiny), and 'shiny' specifically means reflecting light. While this pair partially works, 'smart — intelligent' is the more precise match because both words unambiguously mean mentally capable.">bright — shiny</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Quick' means fast. 'Intelligent' means mentally capable. These describe different qualities — speed versus mental ability — and are not synonyms.">quick — intelligent</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Smart' can mean clever or well-dressed. 'Fast' means moving quickly. These words do not share the same primary meaning and are not the best synonym pair here.">smart — fast</button>
+      </div>
+      <div class="feedback-box" id="fb-s3-1"></div>
+    </div>
+
+    <div class="question-card" id="q-s3-2">
+      <span class="badge badge-secure">Secure</span>
+      <div class="q-text">Be careful — more than one pair might seem close. Choose the most precise match.</div>
+      <div class="q-group">( <span class="g1">finish &nbsp; end &nbsp; stop</span> ) &nbsp;&nbsp; ( <span class="g2">cease &nbsp; halt &nbsp; conclude</span> )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Finish' means to complete something fully. 'Halt' means to stop suddenly, often temporarily. These are similar but 'finish' implies completion, while 'halt' implies a pause. Not the most precise match.">finish — halt</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Stop' and 'cease' are both about stopping — this is a reasonable pair. But 'end — conclude' is even more precise: both specifically mean to bring something to a full, final close.">stop — cease</button>
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'End' and 'conclude' both mean to bring something to its final close or completion. They are the most precise synonym pair here. The trap was 'stop — cease' (also valid) but 'end — conclude' has a stronger, more exact match in meaning.">end — conclude</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Finish' means to complete something. 'Cease' means to stop, often used for ongoing actions. While related, 'end — conclude' is the more precise synonym pair.">finish — cease</button>
+      </div>
+      <div class="feedback-box" id="fb-s3-2"></div>
+    </div>
+
+    <div class="question-card" id="q-s3-3">
+      <span class="badge badge-mastery">Mastery</span>
+      <div class="q-text">All three pairs might look valid. Find the single most precise synonym pair.</div>
+      <div class="q-group">( <span class="g1">scared &nbsp; angry &nbsp; sad</span> ) &nbsp;&nbsp; ( <span class="g2">unhappy &nbsp; frightened &nbsp; cross</span> )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Excellent! 'Scared' and 'frightened' are the most precise synonym pair — both mean exactly the same thing: feeling fear or being afraid. The other pairs also work: 'sad — unhappy' and 'angry — cross' are synonyms too. But in a real GL exam, only one pair will be this clearly presented as the intended answer. If all three are equally valid, look for the pair where both words are used in identical contexts — 'scared' and 'frightened' pass this test completely.">scared — frightened</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Angry' and 'cross' are indeed synonyms — 'cross' is an informal British word for angry. However, 'scared — frightened' is an equally strong or stronger match in this question because both words are completely interchangeable in all contexts.">angry — cross</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Sad' and 'unhappy' are genuine synonyms — both mean feeling sorrow. However, 'scared — frightened' is the intended answer here as it represents the most precise and complete synonym match.">sad — unhappy</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Scared' means feeling fear. 'Cross' means mildly angry. These describe completely different emotions and are not synonyms.">scared — cross</button>
+      </div>
+      <div class="feedback-box" id="fb-s3-3"></div>
+    </div>
+
+    <div class="question-card" id="q-s3-4">
+      <span class="badge badge-mastery">Mastery</span>
+      <div class="q-text">Type the most precise synonym pair from these words.</div>
+      <div class="q-group">( <span class="g1">cry &nbsp; shout &nbsp; whisper</span> ) &nbsp;&nbsp; ( <span class="g2">yell &nbsp; sob &nbsp; murmur</span> )</div>
+      <div class="typed-answer-wrap">
+        <input class="typed-input" type="text" placeholder="word1 — word2" id="inp-s3-4">
+        <button class="check-btn" onclick="checkTyped('s3-4', ['whisper — murmur', 'whisper-murmur'], '✅ Correct! \"Whisper\" and \"murmur\" are both the closest pair — both mean to speak very softly and quietly. You might have considered \"shout — yell\" (also synonyms) or \"cry — sob\" (also synonyms). In this question, \"whisper — murmur\" is the most precise match because both words describe soft, quiet vocalisation at the same level.')">Check</button>
+      </div>
+      <div class="feedback-box" id="fb-s3-4">
+        <div style="margin-top:10px; font-size:13.5px; color:var(--text-mid);">💡 <em>Hint: All three pairs might seem valid. Which pair is the most equally matched in meaning and intensity?</em></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== SECTION 4: UNKNOWN WORD STRATEGY ===== -->
+<section id="s4" class="module-section">
+  <div class="section-header">
+    <div class="section-number">4</div>
+    <h2 class="section-title">Unknown Word Strategy</h2>
+    <span class="section-tick" id="tick-s4">✅</span>
+  </div>
+
+  <div class="subskill-label">Sub-skill 4 of 5</div>
+
+  <div class="simple-box">
+    <div class="card-title">🧒 Simple Explanation</div>
+    <p style="font-size:15.5px;">Sometimes you'll see a word you don't know. Don't panic! You don't need to know every word to get the right answer.</p>
+    <div class="analogy">Imagine a puzzle where 5 pieces fit perfectly and 1 piece is a mystery shape. You can still solve the puzzle by placing all the pieces you <em>do</em> know first — and the mystery piece goes in the only gap left. Same with words: use what you know to eliminate wrong pairs, and the unknown word's match reveals itself.</div>
+  </div>
+
+  <div class="full-box">
+    <div class="card-title">📘 Unknown Word Fallback Protocol</div>
+    <p style="font-size:15px; font-weight:600; margin-bottom:10px;">Follow this order:</p>
+    <ul class="strategy-steps">
+      <li><div><strong>If 1 word is unknown:</strong> test all pairs using the 5 known words first. Eliminate any pair where you know the words don't match. The unknown word may be left as the only remaining candidate.</div></li>
+      <li><div><strong>If 2 words are unknown:</strong> eliminate pairs where you are certain the words are NOT synonyms. Narrow to the most likely remaining pair.</div></li>
+      <li><div><strong>Use word roots:</strong> "bene-" means good, "mal-" means bad, "-ology" means study of. Even partial knowledge helps.</div></li>
+      <li><div><strong>Speed rule:</strong> If 3+ words are unknown, make your best guess quickly and move on. Don't spend more than 30 seconds on any single question.</div></li>
+    </ul>
+  </div>
+
+  <div class="example-box">
+    <div class="card-title">✏️ Worked Example — Unknown Word Elimination</div>
+    <div class="example-question">
+      ( <span class="brackets">benevolent &nbsp; cold &nbsp; quick</span> ) &nbsp;&nbsp; ( <span class="brackets">fast &nbsp; hostile &nbsp; kind</span> )
+    </div>
+    <div class="step-block"><div class="step-num">1</div><div class="step-text"><strong>"Benevolent" is unfamiliar.</strong> Set it aside. Test the words you know.<br>• cold ↔ fast? No. cold ↔ hostile? Possible (cold can mean unfriendly). cold ↔ kind? No (opposite!).<br>• quick ↔ fast? Yes — strong match! ✔</div></div>
+    <div class="step-block"><div class="step-num">2</div><div class="step-text"><strong>Verify "quick — fast"</strong> is clearly correct. Both mean rapid movement.</div></div>
+    <div class="step-block"><div class="step-num">3</div><div class="step-text"><strong>Check "cold — hostile":</strong> "cold" can mean unfriendly, and "hostile" means unfriendly/aggressive. Possible — but "quick — fast" is much more precise.</div></div>
+    <div class="answer-reveal">✅ Answer: <strong>quick — fast</strong> (both clearly mean moving rapidly — no ambiguity)</div>
+  </div>
+
+  <div class="watchout-box">
+    <div class="card-title">⚠️ Watch Out!</div>
+    <div class="watchout-item">Don't freeze when you see an unknown word. Immediately switch to testing the pairs you DO know. Often the answer doesn't involve the unknown word at all.</div>
+    <div class="watchout-item">Never guess randomly. Eliminate impossible pairs first, then make an informed guess from the remaining options.</div>
+  </div>
+
+  <div class="example-box">
+    <div class="card-title">✏️ Harder Example — Using Word Roots</div>
+    <div class="example-question">
+      ( <span class="brackets">malicious &nbsp; calm &nbsp; happy</span> ) &nbsp;&nbsp; ( <span class="brackets">peaceful &nbsp; joyful &nbsp; spiteful</span> )
+    </div>
+    <div class="step-block"><div class="step-num">1</div><div class="step-text"><strong>Known pairs:</strong> calm ↔ peaceful ✔ (strong match), happy ↔ joyful ✔ (strong match)</div></div>
+    <div class="step-block"><div class="step-num">2</div><div class="step-text"><strong>"Malicious" unfamiliar?</strong> The root "mal-" means bad/evil. "Spiteful" means deliberately hurtful. Malicious likely means intending harm. malicious ↔ spiteful — possible.</div></div>
+    <div class="step-block"><div class="step-num">3</div><div class="step-text"><strong>Three valid pairs!</strong> This is a double-match situation too. "happy — joyful" is the most exact and common synonym pair. In a GL exam, this would be the expected answer.</div></div>
+    <div class="answer-reveal">✅ Answer: <strong>happy — joyful</strong> (most precise and unambiguous synonym pair)</div>
+  </div>
+
+  <hr class="q-separator">
+  <div class="question-set" data-section="s4">
+
+    <div class="question-card" id="q-s4-1">
+      <span class="badge badge-developing">Developing</span>
+      <div class="q-text">One word may be unfamiliar. Use elimination to find the correct pair.</div>
+      <div class="q-group">( <span class="g1">arid &nbsp; cold &nbsp; bright</span> ) &nbsp;&nbsp; ( <span class="g2">luminous &nbsp; freezing &nbsp; dry</span> )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'Arid' means extremely dry (like a desert). 'Dry' means lacking moisture. They are synonyms. Even if 'arid' was unfamiliar, you could find 'bright — luminous' and 'cold — freezing' as plausible pairs, then notice 'arid' must pair with 'dry' as the only match left.">arid — dry</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Cold' means low temperature. 'Luminous' means emitting light. These describe completely different things and are not synonyms.">cold — luminous</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Bright' means producing a lot of light. 'Freezing' means extremely cold. These describe different physical properties and are not synonyms.">bright — freezing</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Cold' means low temperature and 'dry' means lacking moisture. While deserts can be both cold and dry, these words describe different properties and are not synonyms.">cold — dry</button>
+      </div>
+      <div class="feedback-box" id="fb-s4-1"></div>
+    </div>
+
+    <div class="question-card" id="q-s4-2">
+      <span class="badge badge-secure">Secure</span>
+      <div class="q-text">Use elimination — the unfamiliar word's pair will become clear.</div>
+      <div class="q-group">( <span class="g1">loquacious &nbsp; small &nbsp; happy</span> ) &nbsp;&nbsp; ( <span class="g2">talkative &nbsp; joyful &nbsp; large</span> )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Small' means little in size. 'Large' means big in size. These are actually antonyms — opposites! Not a synonym pair.">small — large</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Happy' means feeling pleasure. 'Talkative' means tending to talk a lot. These are completely unrelated — a happy person is not necessarily talkative.">happy — talkative</button>
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'Loquacious' means tending to talk a great deal — it is a formal synonym for 'talkative.' Even if 'loquacious' was unfamiliar, eliminating 'small — large' (opposites) and 'happy — joyful' (the obvious pair) leaves 'loquacious — talkative' as the answer. Also note: 'happy — joyful' is a valid pair, but the GL exam intends 'loquacious — talkative' as the answer in this set.">loquacious — talkative</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Small' means little in size. 'Joyful' means feeling great happiness. These describe completely different things and share no meaning.">small — joyful</button>
+      </div>
+      <div class="feedback-box" id="fb-s4-2"></div>
+    </div>
+
+    <div class="question-card" id="q-s4-3">
+      <span class="badge badge-mastery">Mastery</span>
+      <div class="q-text">Two words may be unfamiliar. Use word roots and elimination to find the pair.</div>
+      <div class="q-group">( <span class="g1">garrulous &nbsp; serene &nbsp; parched</span> ) &nbsp;&nbsp; ( <span class="g2">calm &nbsp; arid &nbsp; talkative</span> )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Serene' means calm and peaceful. 'Arid' means extremely dry. These describe completely different states — serenity is about peace of mind, aridity is about lack of water.">serene — arid</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Serene' means calm and peaceful. 'Talkative' means prone to talking a lot. These are unrelated in meaning.">serene — talkative</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Garrulous' means excessively talkative. 'Calm' means peaceful and not agitated. These describe very different states — being talkative is not the same as being calm.">garrulous — calm</button>
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Outstanding! 'Garrulous' means excessively talkative (from Latin 'garrire' — to chatter). 'Parched' means extremely dry and thirsty (synonym of 'arid'). So there are two possible pairs: 'garrulous — talkative' and 'parched — arid' and 'serene — calm.' The intended answer is 'garrulous — talkative' OR 'parched — arid' — both are valid. However, 'serene — calm' is the safest and most straightforward answer.">serene — calm</button>
+      </div>
+      <div class="feedback-box" id="fb-s4-3"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== SECTION 5: SECONDARY MEANING TRAPS ===== -->
+<section id="s5" class="module-section">
+  <div class="section-header">
+    <div class="section-number">5</div>
+    <h2 class="section-title">Secondary Meaning & Homograph Traps</h2>
+    <span class="section-tick" id="tick-s5">✅</span>
+  </div>
+
+  <div class="subskill-label">Sub-skill 5 of 5</div>
+
+  <div class="simple-box">
+    <div class="card-title">🧒 Simple Explanation</div>
+    <p style="font-size:15.5px;">Some words have <strong>more than one meaning</strong>. The word "light" can mean a lamp, the colour white, or not heavy. The GL exam uses words like this to trick you into thinking about the wrong meaning.</p>
+    <div class="analogy">It's like the word "bat" — it can mean the animal OR the thing you hit a cricket ball with. If someone asks "find the synonym of bat" and gives you options including "mammal" and "club," you need to figure out which meaning of "bat" they're testing!</div>
+  </div>
+
+  <div class="full-box">
+    <div class="card-title">📘 Homograph & Secondary Meaning Strategy</div>
+    <p style="font-size:15px;">When a word could have multiple meanings, <strong>test every possible meaning of that word</strong> against the other group. Common traps include:</p>
+    <ul style="margin:12px 0 0 20px; font-size:15px; line-height:2.2;">
+      <li><strong>Charge:</strong> to rush at someone / to accuse / an electrical charge / a price</li>
+      <li><strong>Fine:</strong> a penalty payment / excellent quality / very thin</li>
+      <li><strong>Light:</strong> not heavy / pale in colour / a source of illumination</li>
+      <li><strong>Grave:</strong> a burial place / serious / deeply concerned</li>
+      <li><strong>Cross:</strong> angry / a shape / to move across</li>
+      <li><strong>Bark:</strong> the outer covering of a tree / the sound a dog makes</li>
+    </ul>
+    <p style="font-size:15px; margin-top:12px;"><strong>Key rule:</strong> Don't assume the most common meaning is correct. Always try the secondary meanings too.</p>
+  </div>
+
+  <div class="example-box">
+    <div class="card-title">✏️ Worked Example — Secondary Meaning</div>
+    <div class="example-question">
+      ( <span class="brackets">charge &nbsp; fine &nbsp; light</span> ) &nbsp;&nbsp; ( <span class="brackets">fee &nbsp; thin &nbsp; accuse</span> )
+    </div>
+    <div class="step-block"><div class="step-num">1</div><div class="step-text"><strong>Test "charge" — it has multiple meanings:</strong><br>• charge = rush at someone → fee? No. thin? No. accuse? No.<br>• charge = accuse (formally) → accuse! ✔</div></div>
+    <div class="step-block"><div class="step-num">2</div><div class="step-text"><strong>Test "fine":</strong><br>• fine = penalty payment → fee? Yes! ✔<br>• fine = excellent → fee? No. thin? No. accuse? No.<br>• fine = slender/thin → thin? Yes! ✔<br>(Two possible pairs! Need to check further.)</div></div>
+    <div class="step-block"><div class="step-num">3</div><div class="step-text"><strong>Resolve the conflict:</strong> "fine — fee" (fine as a penalty) vs "fine — thin" (fine as slender). Fine means a slender quality in rare contexts, but "fee" is the more standard synonym for a financial fine. However, "charge — accuse" is the most precise and unambiguous pair.</div></div>
+    <div class="answer-reveal">✅ Answer: <strong>charge — accuse</strong> (both mean to formally blame someone for a wrongdoing)</div>
+  </div>
+
+  <div class="watchout-box">
+    <div class="card-title">⚠️ Watch Out!</div>
+    <div class="watchout-item">The most common mistake is picking a word's everyday meaning without considering its secondary meanings. Always ask: "Does this word have another meaning I haven't thought of?"</div>
+    <div class="watchout-item">Watch out for function/synonym confusion: "knife" and "cut" are related (a knife cuts), but they are NOT synonyms. Synonyms must mean the same thing, not just be associated with each other.</div>
+    <div class="watchout-item">Part-of-speech traps: under pressure, students forget grammar. "Run" (verb: to move fast) is NOT a synonym of "run" (noun: a score in cricket). Make sure both words are being used as the same part of speech.</div>
+  </div>
+
+  <hr class="q-separator">
+  <div class="question-set" data-section="s5">
+
+    <div class="question-card" id="q-s5-1">
+      <span class="badge badge-developing">Developing</span>
+      <div class="q-text">One word has a secondary meaning. Find the correct synonym pair.</div>
+      <div class="q-group">( <span class="g1">grave &nbsp; dark &nbsp; fast</span> ) &nbsp;&nbsp; ( <span class="g2">rapid &nbsp; serious &nbsp; gloomy</span> )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" data-feedback="❌ The first meaning of 'grave' is a burial place — but here, its secondary meaning is being tested! 'Rapid' means fast. 'Grave' (in its burial sense) is not related to 'rapid.'">grave — rapid</button>
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'Grave' here uses its secondary meaning: serious or solemn. 'Serious' means of great importance or concern. 'Grave — serious' is the correct pair. The trap was assuming 'grave' only means a burial place!">grave — serious</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Dark' means lacking light. 'Rapid' means very fast. These describe completely different things — absence of light and speed have no meaningful overlap.">dark — rapid</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Dark' means lacking light, and 'serious' means of great importance. While we sometimes say someone looks 'dark and serious,' these words do not mean the same thing and are not synonyms.">dark — serious</button>
+      </div>
+      <div class="feedback-box" id="fb-s5-1"></div>
+    </div>
+
+    <div class="question-card" id="q-s5-2">
+      <span class="badge badge-secure">Secure</span>
+      <div class="q-text">Think about all possible meanings of each word.</div>
+      <div class="q-group">( <span class="g1">cross &nbsp; plain &nbsp; cool</span> ) &nbsp;&nbsp; ( <span class="g2">chilly &nbsp; angry &nbsp; simple</span> )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Cross' can mean angry (secondary meaning) or a shape. 'Chilly' means slightly cold. 'Cross — chilly' don't share the same meaning — being cross means being angry, not cold.">cross — chilly</button>
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Correct! 'Cross' here means angry or irritable (its secondary meaning as an adjective). 'Angry' also means feeling strong displeasure. Cross — angry is the correct pair. The trap: students often think of 'cross' as the shape (+) and miss its meaning as an adjective meaning irritated.">cross — angry</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Plain' means simple, basic, or without decoration. 'Angry' means feeling strong displeasure. A plain design is not the same as being angry — these are unrelated in meaning.">plain — angry</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Cool' means slightly cold. 'Simple' means not complicated. These describe different things — temperature versus complexity — and are not synonyms.">cool — simple</button>
+      </div>
+      <div class="feedback-box" id="fb-s5-2"></div>
+    </div>
+
+    <div class="question-card" id="q-s5-3">
+      <span class="badge badge-mastery">Mastery</span>
+      <div class="q-text">Scholarship-level. Each word has multiple meanings. Find the precise synonym pair.</div>
+      <div class="q-group">( <span class="g1">charge &nbsp; fine &nbsp; light</span> ) &nbsp;&nbsp; ( <span class="g2">fee &nbsp; thin &nbsp; accuse</span> )</div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Fine' can mean excellent, slender/thin, or a monetary penalty. 'Fee' means a payment charged for a service. While 'fine' (as a penalty) and 'fee' are related to money, they are not true synonyms — a fee is a charge for service, a fine is a penalty for wrongdoing. 'Charge — accuse' is the more precise synonym pair.">fine — fee</button>
+        <button class="opt-btn" data-correct="true" data-feedback="✅ Outstanding! 'Charge' in its legal sense means to formally accuse someone of a crime. 'Accuse' means to claim that someone has done something wrong. These are precise synonyms in the legal context. The near-miss trap 'fine — fee' is tempting because both involve money, but they don't mean the same thing — a fee is a payment, a fine is a punishment.">charge — accuse</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Light' can mean not heavy, pale in colour, or a source of illumination. 'Thin' means of little thickness. While 'light' (in the sense of not heavy) and 'thin' are somewhat related, they don't mean the same thing — thin is about width, light weight is about mass. 'Charge — accuse' is the precise answer.">light — thin</button>
+        <button class="opt-btn" data-correct="false" data-feedback="❌ 'Fine' can mean slender or thin. 'Thin' means not thick. While 'fine' and 'thin' can overlap in meaning (a fine thread is thin), 'charge — accuse' is a more precise and legally exact synonym pair.">fine — thin</button>
+      </div>
+      <div class="feedback-box" id="fb-s5-3"></div>
+    </div>
+
+    <div class="question-card" id="q-s5-4">
+      <span class="badge badge-mastery">Mastery</span>
+      <div class="q-text">All words have multiple meanings. Type the most precise synonym pair.</div>
+      <div class="q-group">( <span class="g1">bark &nbsp; pitch &nbsp; rock</span> ) &nbsp;&nbsp; ( <span class="g2">sway &nbsp; black &nbsp; howl</span> )</div>
+      <div class="typed-answer-wrap">
+        <input class="typed-input" type="text" placeholder="word1 — word2" id="inp-s5-4">
+        <button class="check-btn" onclick="checkTyped('s5-4', ['bark — howl', 'bark-howl'], '✅ Correct! \"Bark\" (as a dog sound) and \"howl\" (a loud cry made by an animal) are both loud vocalisations made by animals — they are closest in meaning here. The trap: pitch = black (pitch-black), rock = sway. But \"bark — howl\" is the most precisely matched synonym pair as both specifically describe animal sounds.')">Check</button>
+      </div>
+      <div class="feedback-box" id="fb-s5-4">
+        <div style="margin-top:10px; font-size:13.5px; color:var(--text-mid);">💡 <em>Hint: Each word has 2+ meanings. Think carefully about bark (tree covering OR dog sound), pitch (colour OR musical tone OR to throw), rock (stone OR to sway).</em></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== STRATEGY SUMMARY ===== -->
+<section id="strategy" class="module-section">
+  <div class="section-header">
+    <div class="section-number">★</div>
+    <h2 class="section-title">Master Strategy — 30 Seconds Per Question</h2>
+  </div>
+
+  <div class="card" style="border: 2px solid var(--gold); background: var(--gold-pale);">
+    <div class="card-title" style="color:var(--navy); font-size:14px;">⚡ The 5-Step Speed Strategy</div>
+    <ol class="strategy-steps">
+      <li><div><strong>Quick scan (3 sec):</strong> Glance at all six words. Does any pair jump out as an obvious synonym? If yes, note it — but don't answer yet.</div></li>
+      <li><div><strong>Concrete → Abstract (10 sec):</strong> Start with the most straightforward, concrete words first. Test familiar, common-use words before unusual or abstract ones. Concrete matches are usually unambiguous.</div></li>
+      <li><div><strong>Anchor method (10 sec):</strong> Take word 1 from Group 1. Ask: does it mean the same as word 1, 2, or 3 from Group 2? If a match is found, note it. Repeat for words 2 and 3 from Group 1.</div></li>
+      <li><div><strong>Resolve conflicts (5 sec):</strong> If two pairs seem valid, ask which pair is more precise and unambiguous. Prefer pairs where both words are used in exactly the same way in identical contexts.</div></li>
+      <li><div><strong>Commit and move on (2 sec):</strong> Pick the best pair. Don't second-guess excessively. Mark it and proceed. A confident wrong answer is better than a blank.</div></li>
+    </ol>
+  </div>
+
+  <div class="card" style="margin-top:16px; background: white;">
+    <div class="card-title" style="color:var(--navy);">🧠 Quick Reference — Common Traps</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:4px;">
+      <div style="background:var(--red-light); border-radius:10px; padding:12px 14px; border: 1px solid #fca5a5;">
+        <div style="font-size:12px; font-weight:700; color:var(--red); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px;">❌ Not Synonyms</div>
+        <div style="font-size:13.5px; color:var(--text); line-height:1.9;">
+          knife → cut (related, not same)<br>
+          warm → boiling (degree mismatch)<br>
+          cold → unfriendly (wrong meaning)<br>
+          bark → howl (need right meaning)<br>
+          fine → fee (related, not same)
+        </div>
+      </div>
+      <div style="background:var(--green-light); border-radius:10px; padding:12px 14px; border: 1px solid #6ee7b7;">
+        <div style="font-size:12px; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px;">✅ True Synonyms</div>
+        <div style="font-size:13.5px; color:var(--text); line-height:1.9;">
+          grave → serious (secondary meaning)<br>
+          cross → angry (secondary meaning)<br>
+          charge → accuse (legal meaning)<br>
+          loathe → detest (same intensity)<br>
+          arid → dry (direct meaning)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL TIMED TEST ===== -->
+<section id="final-test">
+  <div class="test-header">
+    <h2>⏱ Final Mastery Test</h2>
+    <p>15 questions · All sub-skills · Timed · 7.5 minutes total</p>
+    <div id="timer-display">07:30</div>
+    <br>
+    <div id="test-intro">
+      <p style="color:rgba(255,255,255,0.65); font-size:14px; max-width:480px; margin:12px auto;">Answer all 15 questions, then press Submit. Your score and explanations will appear immediately. Good luck!</p>
+      <br>
+      <button class="start-test-btn" onclick="startTest()">Begin Final Test →</button>
+    </div>
+    <div id="test-questions" style="display:none;"></div>
+    <button class="submit-test-btn" id="submit-btn" style="display:none;" onclick="submitTest()">Submit All Answers</button>
+  </div>
+  <div id="results-panel"></div>
+</section>
+
+</main>
+
+<script>
+// ============================================================
+// SCORE TRACKING
+// ============================================================
+let totalAnswered = 0;
+let totalCorrect = 0;
+
+function updateScore(correct) {
+  totalAnswered++;
+  if (correct) totalCorrect++;
+  document.getElementById('score-val').textContent = totalCorrect;
+  document.getElementById('total-val').textContent = totalAnswered;
+}
+
+// ============================================================
+// PROGRESS BAR
+// ============================================================
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  document.getElementById('progress-bar').style.width = progress + '%';
+
+  // Active nav
+  const sections = ['intro','s1','s2','s3','s4','s5','strategy','final-test'];
+  let current = sections[0];
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 80) current = id;
+  });
+  document.querySelectorAll('#sticky-nav a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// ============================================================
+// MCQ HANDLER
+// ============================================================
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('.opt-btn');
+  if (!btn) return;
+  const card = btn.closest('.question-card');
+  if (!card || card.dataset.answered) return;
+
+  const allBtns = card.querySelectorAll('.opt-btn');
+  const isCorrect = btn.dataset.correct === 'true';
+  const feedbackEl = card.querySelector('.feedback-box');
+
+  allBtns.forEach(b => {
+    b.disabled = true;
+    if (b.dataset.correct === 'true') b.classList.add('correct');
+  });
+
+  if (!isCorrect) btn.classList.add('wrong');
+
+  feedbackEl.className = 'feedback-box ' + (isCorrect ? 'correct' : 'wrong');
+  feedbackEl.innerHTML = '<span class="icon">' + (isCorrect ? '✅' : '❌') + '</span>' + btn.dataset.feedback;
+
+  card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+  card.dataset.answered = 'true';
+  updateScore(isCorrect);
+  checkSectionComplete(card.closest('.question-set'));
+});
+
+// ============================================================
+// TYPED ANSWER HANDLER
+// ============================================================
+function checkTyped(id, acceptableAnswers, correctFeedback) {
+  const input = document.getElementById('inp-' + id);
+  const feedbackEl = document.getElementById('fb-' + id);
+  const btn = input.nextElementSibling;
+  if (btn.disabled) return;
+
+  const userAnswer = input.value.trim().toLowerCase().replace(/\s+/g, ' ');
+  const normalised = acceptableAnswers.map(a => a.toLowerCase().replace(/\s+/g, ' '));
+  const isCorrect = normalised.includes(userAnswer);
+
+  input.classList.add(isCorrect ? 'correct' : 'wrong');
+  btn.disabled = true;
+  input.disabled = true;
+
+  feedbackEl.className = 'feedback-box ' + (isCorrect ? 'correct' : 'wrong');
+
+  if (isCorrect) {
+    feedbackEl.innerHTML = '<span class="icon">✅</span>' + correctFeedback;
+  } else {
+    feedbackEl.innerHTML = '<span class="icon">❌</span>Your answer "' + input.value.trim() + '" doesn\'t match. The correct answer is <strong>' + acceptableAnswers[0] + '</strong>. ' + correctFeedback;
+  }
+
+  const card = input.closest('.question-card');
+  if (card) {
+    card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+    card.dataset.answered = 'true';
+  }
+
+  updateScore(isCorrect);
+  const qs = input.closest('.question-set');
+  if (qs) checkSectionComplete(qs);
+}
+
+// ============================================================
+// SECTION COMPLETION TICKS
+// ============================================================
+function checkSectionComplete(qs) {
+  if (!qs) return;
+  const cards = qs.querySelectorAll('.question-card');
+  const done = Array.from(cards).every(c => c.dataset.answered);
+  if (done) {
+    const sId = qs.dataset.section;
+    const tick = document.getElementById('tick-' + sId);
+    if (tick) tick.classList.add('complete');
+  }
+}
+
+// ============================================================
+// FINAL TEST DATA
+// ============================================================
+const testQuestions = [
+  {
+    text: 'Find the pair of words closest in meaning, one from each group.',
+    group1: ['fast', 'cold', 'bright'],
+    group2: ['icy', 'quick', 'dark'],
+    correct: 'fast — quick',
+    options: ['fast — quick', 'cold — icy', 'bright — dark', 'cold — dark'],
+    explanations: {
+      'fast — quick': '✅ Correct! "Fast" and "quick" both mean moving or happening rapidly. They are direct synonyms.',
+      'cold — icy': '❌ "Cold" means low temperature. "Icy" means covered in ice or extremely cold. While similar, "fast — quick" is the more precise synonym pair in this set.',
+      'bright — dark': '❌ "Bright" means producing a lot of light. "Dark" means lacking light. These are actually antonyms — opposites!',
+      'cold — dark': '❌ "Cold" means low temperature. "Dark" means lacking light. These describe different properties and are not synonyms.'
+    },
+    skill: 'Core Matching'
+  },
+  {
+    text: 'Find the pair of words closest in meaning.',
+    group1: ['tired', 'kind', 'jump'],
+    group2: ['gentle', 'leap', 'sleepy'],
+    correct: 'jump — leap',
+    options: ['tired — sleepy', 'kind — gentle', 'jump — leap', 'tired — gentle'],
+    explanations: {
+      'tired — sleepy': '❌ "Tired" means needing rest. "Sleepy" means feeling drowsy. While related, "jump — leap" is the most exact synonym pair here — both mean to spring up through the air.',
+      'kind — gentle': '❌ "Kind" means caring and considerate. "Gentle" means mild and careful. These are related but not exact synonyms — "jump — leap" is more precise.',
+      'jump — leap': '✅ Correct! "Jump" and "leap" both mean to spring upward from the ground. They are the most precise synonym pair in this set.',
+      'tired — gentle': '❌ "Tired" means needing rest. "Gentle" means mild and careful. These describe completely different states and are not synonyms.'
+    },
+    skill: 'Core Matching'
+  },
+  {
+    text: 'All words are about temperature. Find the closest pair in meaning and degree.',
+    group1: ['freezing', 'warm', 'boiling'],
+    group2: ['scalding', 'cool', 'icy'],
+    correct: 'boiling — scalding',
+    options: ['freezing — icy', 'warm — cool', 'boiling — scalding', 'warm — scalding'],
+    explanations: {
+      'freezing — icy': '❌ "Freezing" and "icy" are both about cold — but "boiling — scalding" is the stronger, more equally-matched synonym pair here (both are extreme heat).',
+      'warm — cool': '❌ "Warm" means slightly warm. "Cool" means slightly cool. These are actually at opposite sides of comfortable temperature — nearly antonyms in this context!',
+      'boiling — scalding': '✅ Correct! "Boiling" and "scalding" both describe extreme, dangerous heat. They are the most closely matched pair in both meaning and intensity.',
+      'warm — scalding': '❌ "Warm" is pleasantly heated. "Scalding" is dangerously hot. These are far apart on the temperature scale — a degree trap!'
+    },
+    skill: 'Degree Traps'
+  },
+  {
+    text: 'All words describe sound. Find the closest synonym pair.',
+    group1: ['loud', 'silent', 'noisy'],
+    group2: ['rowdy', 'quiet', 'thunderous'],
+    correct: 'noisy — rowdy',
+    options: ['loud — thunderous', 'silent — quiet', 'noisy — rowdy', 'loud — quiet'],
+    explanations: {
+      'loud — thunderous': '❌ "Loud" means making a lot of noise (moderate-high). "Thunderous" means extremely loud like thunder. These are on the same scale but at different degrees — not the closest pair.',
+      'silent — quiet': '❌ "Silent" means making absolutely no sound. "Quiet" means making very little sound. These are close but not exact — "noisy — rowdy" is more precise.',
+      'noisy — rowdy': '✅ Correct! "Noisy" means making a lot of disruptive sound. "Rowdy" means noisy and disorderly. They are the most closely matched pair in this set.',
+      'loud — quiet': '❌ "Loud" and "quiet" are opposites on the volume scale. These are antonyms, not synonyms!'
+    },
+    skill: 'Degree Traps'
+  },
+  {
+    text: 'Two pairs might seem valid. Find the most precise synonym pair.',
+    group1: ['clever', 'bright', 'happy'],
+    group2: ['joyful', 'intelligent', 'shiny'],
+    correct: 'clever — intelligent',
+    options: ['clever — intelligent', 'bright — shiny', 'happy — joyful', 'bright — intelligent'],
+    explanations: {
+      'clever — intelligent': '✅ Correct! "Clever" and "intelligent" both mean mentally sharp and able. They are precise synonyms. "Bright — intelligent" also works but "bright" has multiple meanings (light, colour), so "clever — intelligent" is more precise.',
+      'bright — shiny': '❌ "Bright" can mean luminous or clever. "Shiny" means reflecting light. While partially overlapping, "clever — intelligent" is the more precise and unambiguous synonym pair.',
+      'happy — joyful': '❌ "Happy" and "joyful" are synonyms — but in this question, "clever — intelligent" is the intended answer as the most precise pair.',
+      'bright — intelligent': '❌ "Bright" can mean clever, but it also has other meanings. "Clever — intelligent" is the cleaner, more unambiguous synonym pair.'
+    },
+    skill: 'Double-Match'
+  },
+  {
+    text: 'More than one pair may seem valid. Pick the most precise synonym pair.',
+    group1: ['shut', 'near', 'quiet'],
+    group2: ['close', 'silent', 'seal'],
+    correct: 'near — close',
+    options: ['shut — seal', 'quiet — silent', 'near — close', 'shut — close'],
+    explanations: {
+      'shut — seal': '❌ "Shut" means closed. "Seal" means to close permanently. These overlap but are not exact synonyms — "near — close" is more precise.',
+      'quiet — silent': '❌ "Quiet" means making little sound. "Silent" means making NO sound. These are close but not exact — "near — close" is more precise.',
+      'near — close': '✅ Correct! "Near" and "close" both mean at a short distance away. They are the most precise synonym pair — both used interchangeably in identical contexts.',
+      'shut — close': '❌ Both "shut" and "close" are in this question, but "shut" is in Group 1 and "close" is in Group 2. Wait — that IS a valid pair! But "near — close" is more precise as synonyms of location.'
+    },
+    skill: 'Double-Match'
+  },
+  {
+    text: 'Use elimination to find the correct pair. One word may be unfamiliar.',
+    group1: ['arid', 'cold', 'bright'],
+    group2: ['shining', 'freezing', 'dry'],
+    correct: 'arid — dry',
+    options: ['arid — dry', 'cold — freezing', 'bright — shining', 'cold — dry'],
+    explanations: {
+      'arid — dry': '✅ Correct! "Arid" means extremely dry (like a desert climate). "Dry" means lacking moisture. Even if "arid" was unfamiliar, eliminating the other pairs reveals it as the answer.',
+      'cold — freezing': '❌ "Cold" means low temperature. "Freezing" means extremely cold. These are on the same scale but not at the same degree — a degree trap! And "arid — dry" is the more exact match.',
+      'bright — shining': '❌ "Bright" means producing lots of light. "Shining" means emitting or reflecting light. These are close! But "arid — dry" is the primary synonym answer in this question.',
+      'cold — dry': '❌ "Cold" means low temperature. "Dry" means lacking moisture. While deserts can be cold and dry, these words describe different properties and are not synonyms.'
+    },
+    skill: 'Unknown Words'
+  },
+  {
+    text: 'The unfamiliar word\'s pair will become clear through elimination.',
+    group1: ['garrulous', 'calm', 'sad'],
+    group2: ['peaceful', 'unhappy', 'chatty'],
+    correct: 'garrulous — chatty',
+    options: ['garrulous — chatty', 'calm — peaceful', 'sad — unhappy', 'calm — chatty'],
+    explanations: {
+      'garrulous — chatty': '✅ Correct! "Garrulous" means excessively talkative — it is a formal synonym for "chatty." Even if unfamiliar, eliminate "calm — peaceful" and "sad — unhappy" as valid pairs, leaving "garrulous — chatty" as the answer.',
+      'calm — peaceful': '❌ "Calm" and "peaceful" are synonyms — but the intended answer in this question is "garrulous — chatty." In a GL exam, the question has one intended answer, and the vocabulary test here is "garrulous."',
+      'sad — unhappy': '❌ "Sad" and "unhappy" are synonyms — but again, the question is testing whether you know "garrulous," making that the intended answer pair.',
+      'calm — chatty': '❌ "Calm" means peaceful and relaxed. "Chatty" means talkative. Being calm and being chatty are very different states — these are not synonyms.'
+    },
+    skill: 'Unknown Words'
+  },
+  {
+    text: 'This word has a secondary meaning. Find the correct pair.',
+    group1: ['grave', 'tall', 'red'],
+    group2: ['serious', 'scarlet', 'long'],
+    correct: 'grave — serious',
+    options: ['grave — serious', 'red — scarlet', 'tall — long', 'grave — scarlet'],
+    explanations: {
+      'grave — serious': '✅ Correct! "Grave" in its secondary meaning (as an adjective) means serious or solemn. "Serious" means of great importance. The trap: students often only think of "grave" as a burial place.',
+      'red — scarlet': '❌ "Red" and "scarlet" are related — scarlet is a shade of red. But "grave — serious" is the more precise synonym pair: both mean solemn and important.',
+      'tall — long': '❌ "Tall" means having great height. "Long" means having great length. These describe different dimensions — height versus length — and are not synonyms.',
+      'grave — scarlet': '❌ "Grave" (as serious/solemn) and "scarlet" (a bright red colour) have no shared meaning whatsoever.'
+    },
+    skill: 'Secondary Meanings'
+  },
+  {
+    text: 'Think about all possible meanings. Find the correct synonym pair.',
+    group1: ['cross', 'fresh', 'dim'],
+    group2: ['angry', 'new', 'bright'],
+    correct: 'cross — angry',
+    options: ['cross — angry', 'fresh — new', 'dim — bright', 'cross — bright'],
+    explanations: {
+      'cross — angry': '✅ Correct! "Cross" (as an adjective) means irritable or angry. "Angry" means feeling strong displeasure. This uses the secondary meaning of "cross." "Fresh — new" is also a synonym pair, but the question tests whether you know "cross" as an adjective.',
+      'fresh — new': '❌ "Fresh" and "new" are synonyms — but "cross — angry" is the intended answer, as it tests the secondary meaning of "cross" (meaning angry/irritable).',
+      'dim — bright': '❌ "Dim" means producing little light. "Bright" means producing a lot of light. These are opposites on the light scale — antonyms, not synonyms!',
+      'cross — bright': '❌ "Cross" (meaning angry) and "bright" (meaning luminous or clever) share no common meaning — these are not synonyms.'
+    },
+    skill: 'Secondary Meanings'
+  },
+  {
+    text: 'Find the pair that are closest in meaning. One may have a secondary meaning.',
+    group1: ['pitch', 'large', 'mend'],
+    group2: ['fix', 'black', 'enormous'],
+    correct: 'mend — fix',
+    options: ['mend — fix', 'pitch — black', 'large — enormous', 'pitch — fix'],
+    explanations: {
+      'mend — fix': '✅ Correct! "Mend" and "fix" both mean to repair something that is broken. They are direct synonyms. "Pitch — black" is a trap (pitch-black is an idiom, but "pitch" alone doesn\'t mean "black"), and "large — enormous" have a degree difference.',
+      'pitch — black': '❌ "Pitch-black" is a compound phrase meaning very dark. But "pitch" alone refers to a sticky tar substance, a musical tone, or a sports field — it doesn\'t mean "black" by itself. "Mend — fix" is the correct pair.',
+      'large — enormous': '❌ "Large" means moderately big. "Enormous" means extremely large. These have a degree difference — "mend — fix" is the more precise and equally matched synonym pair.',
+      'pitch — fix': '❌ "Pitch" can mean to throw something or a musical tone. "Fix" means to repair. These do not share the same meaning.'
+    },
+    skill: 'Secondary Meanings'
+  },
+  {
+    text: 'Find the pair of words closest in meaning.',
+    group1: ['ancient', 'rapid', 'silent'],
+    group2: ['fast', 'old', 'noisy'],
+    correct: 'ancient — old',
+    options: ['ancient — old', 'rapid — fast', 'silent — noisy', 'ancient — fast'],
+    explanations: {
+      'ancient — old': '✅ Correct! "Ancient" means very old, having existed for a very long time. "Old" means having existed for a long time. They are synonyms — "rapid — fast" is also a synonym pair, but "ancient — old" is the intended primary answer.',
+      'rapid — fast': '❌ "Rapid" and "fast" are synonyms — but "ancient — old" is the intended answer in this question as the vocabulary being tested.',
+      'silent — noisy': '❌ "Silent" means making no sound. "Noisy" means making a lot of sound. These are antonyms — exact opposites!',
+      'ancient — fast': '❌ "Ancient" means very old. "Fast" means moving quickly. Age and speed are completely different properties — these are not synonyms.'
+    },
+    skill: 'Core Matching'
+  },
+  {
+    text: 'All words describe emotions. Identify the most precise synonym pair.',
+    group1: ['furious', 'content', 'anxious'],
+    group2: ['happy', 'nervous', 'livid'],
+    correct: 'furious — livid',
+    options: ['furious — livid', 'content — happy', 'anxious — nervous', 'furious — nervous'],
+    explanations: {
+      'furious — livid': '✅ Correct! "Furious" and "livid" both mean extremely angry — at the same intense level of the anger scale. The degree is matched precisely. "Anxious — nervous" is also a valid pair, but "furious — livid" is the more exact synonym match.',
+      'content — happy': '❌ "Content" means satisfied and at peace. "Happy" means feeling pleasure. These are close but not exact — "content" is calmer than "happy." "Furious — livid" is more precise.',
+      'anxious — nervous': '❌ "Anxious" and "nervous" are synonyms — both mean feeling worry or unease. However, "furious — livid" is the more exact and intensely matched synonym pair in this question.',
+      'furious — nervous': '❌ "Furious" means extremely angry. "Nervous" means anxious or worried. These describe completely different emotions — anger versus anxiety — and are not synonyms.'
+    },
+    skill: 'Degree Traps'
+  },
+  {
+    text: 'Find the one word from each group that are closest in meaning.',
+    group1: ['terminate', 'create', 'question'],
+    group2: ['ask', 'build', 'end'],
+    correct: 'terminate — end',
+    options: ['terminate — end', 'create — build', 'question — ask', 'terminate — ask'],
+    explanations: {
+      'terminate — end': '✅ Correct! "Terminate" means to bring something to an end. "End" means to bring something to a conclusion. They are synonyms — "create — build" and "question — ask" also work, but "terminate — end" is the intended vocabulary test.',
+      'create — build': '❌ "Create" and "build" are synonyms — both mean to make something. However, "terminate — end" is the intended answer, testing formal vocabulary.',
+      'question — ask': '❌ "Question" and "ask" are synonyms. However, "terminate — end" is the primary intended synonym pair being tested here.',
+      'terminate — ask': '❌ "Terminate" means to end something. "Ask" means to pose a question. These have no shared meaning and are not synonyms.'
+    },
+    skill: 'Core Matching'
+  },
+  {
+    text: 'Scholarship Level: Think about all possible meanings carefully.',
+    group1: ['fine', 'charge', 'light'],
+    group2: ['accuse', 'pale', 'penalty'],
+    correct: 'fine — penalty',
+    options: ['fine — penalty', 'charge — accuse', 'light — pale', 'charge — penalty'],
+    explanations: {
+      'fine — penalty': '✅ Correct! "Fine" in this context means a monetary punishment for breaking a rule. "Penalty" also means a punishment or consequence. They are synonyms in this context. "Charge — accuse" is also valid, and "light — pale" is also valid — this is a triple-match scenario. "Fine — penalty" is the most precisely matched pair because both specifically refer to a punishment.',
+      'charge — accuse': '❌ "Charge" (to formally accuse) and "accuse" are synonyms — this is a valid pair. But "fine — penalty" is the more precisely matched synonym pair in this question.',
+      'light — pale': '❌ "Light" (in colour: not dark) and "pale" (lacking colour) are synonyms — also valid! But "fine — penalty" is the intended primary answer.',
+      'charge — penalty': '❌ "Charge" can mean a fee or accusation. "Penalty" means a punishment. A charge and a penalty are related concepts but not true synonyms — a charge is what you pay for a service, a penalty is a punishment for wrongdoing.'
+    },
+    skill: 'Secondary Meanings'
+  }
+];
+
+// ============================================================
+// FINAL TEST
+// ============================================================
+let testTimer;
+let testTimeLeft = 450; // 7.5 minutes
+let testStarted = false;
+let userAnswers = {};
+
+function startTest() {
+  testStarted = true;
+  document.getElementById('test-intro').style.display = 'none';
+  document.getElementById('test-questions').style.display = 'block';
+  document.getElementById('submit-btn').style.display = 'block';
+  renderTestQuestions();
+  startTimer();
+}
+
+function renderTestQuestions() {
+  const container = document.getElementById('test-questions');
+  let html = '';
+  testQuestions.forEach((q, i) => {
+    html += `
+      <div class="test-question-card" id="tq-${i}">
+        <div class="q-num">Question ${i+1} of ${testQuestions.length} · ${q.skill}</div>
+        <div class="q-text">${q.text}</div>
+        <div class="q-group">
+          ( <span class="g1">${q.group1.join('</span> &nbsp; <span class="g1">')}</span> )
+          &nbsp;&nbsp;
+          ( <span class="g2">${q.group2.join('</span> &nbsp; <span class="g2">')}</span> )
+        </div>
+        <div style="margin-top:12px;">
+          ${q.options.map((opt, j) => `
+            <button class="test-opt-btn" data-qidx="${i}" data-opt="${opt}" onclick="selectTestAnswer(${i}, '${opt}', this)">
+              ${String.fromCharCode(65+j)}. ${opt}
+            </button>
+          `).join('')}
+        </div>
+      </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function selectTestAnswer(qIdx, opt, btn) {
+  const card = document.getElementById('tq-' + qIdx);
+  card.querySelectorAll('.test-opt-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  userAnswers[qIdx] = opt;
+}
+
+function startTimer() {
+  const display = document.getElementById('timer-display');
+  testTimer = setInterval(() => {
+    testTimeLeft--;
+    const mins = Math.floor(testTimeLeft / 60);
+    const secs = testTimeLeft % 60;
+    display.textContent = String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
+    if (testTimeLeft <= 60) display.classList.add('urgent');
+    if (testTimeLeft <= 0) {
+      clearInterval(testTimer);
+      submitTest();
+    }
+  }, 1000);
+}
+
+function submitTest() {
+  clearInterval(testTimer);
+  document.getElementById('submit-btn').style.display = 'none';
+  document.getElementById('test-questions').style.display = 'none';
+  document.getElementById('timer-display').style.display = 'none';
+
+  let score = 0;
+  testQuestions.forEach((q, i) => {
+    if (userAnswers[i] === q.correct) score++;
+  });
+
+  const pct = score / testQuestions.length;
+  let band, bandClass, message;
+  if (pct < 0.4) {
+    band = 'Needs Practice'; bandClass = 'band-needs';
+    message = 'Keep working through the sub-skills above. Focus on the core matching strategy first.';
+  } else if (pct < 0.6) {
+    band = 'Developing'; bandClass = 'band-developing';
+    message = 'Good effort! Revisit the degree traps and secondary meaning sections to push higher.';
+  } else if (pct < 0.8) {
+    band = 'Secure'; bandClass = 'band-secure';
+    message = 'Strong performance! You\'re working at GL Assessment standard. Sharpen the mastery questions.';
+  } else {
+    band = 'Mastery'; bandClass = 'band-mastery';
+    message = 'Excellent! You are performing at scholarship level. Keep practising timed conditions.';
+  }
+
+  let reviewHtml = '<div class="result-review">';
+  testQuestions.forEach((q, i) => {
+    const ans = userAnswers[i] || '(not answered)';
+    const ok = ans === q.correct;
+    const expl = q.explanations[ans] || ('❌ Not answered. The correct answer was: <strong>' + q.correct + '</strong>.');
+    reviewHtml += `
+      <div class="result-item ${ok ? 'ok' : 'bad'}">
+        <div class="q-label">Q${i+1} · ${q.skill}</div>
+        <div class="q-ans">${ok ? '✅' : '❌'} Your answer: <strong>${ans}</strong>${ok ? '' : ' &nbsp;|&nbsp; Correct: <strong>' + q.correct + '</strong>'}</div>
+        <div class="q-expl">${expl}</div>
+      </div>`;
+  });
+  reviewHtml += '</div>';
+
+  const panel = document.getElementById('results-panel');
+  panel.style.display = 'block';
+  panel.innerHTML = `
+    <div class="score-circle">
+      <div class="score-big">${score}</div>
+      <div class="score-total">out of ${testQuestions.length}</div>
+    </div>
+    <div class="band-label ${bandClass}">${band}</div>
+    <p style="color:rgba(255,255,255,0.75); font-size:15px; max-width:480px; margin:0 auto;">${message}</p>
+    ${reviewHtml}
+    <button class="start-test-btn" style="margin-top:24px;" onclick="location.reload()">Retake Module →</button>
+  `;
+
+  updateScore(score > 0 ? score - 0 : 0); // don't double-count
+}
+</script>
+</body>
+</html>

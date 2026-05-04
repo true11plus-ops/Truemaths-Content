@@ -1,0 +1,2461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11+ GL Verbal Reasoning — Compound Words</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1b2a;
+  --navy2: #1a2e42;
+  --gold: #c9a84c;
+  --gold-light: #e8c87a;
+  --cream: #faf8f3;
+  --white: #ffffff;
+  --green: #2d6a4f;
+  --green-light: #d8f3dc;
+  --yellow: #b5830a;
+  --yellow-light: #fff3cd;
+  --orange: #c0440a;
+  --orange-light: #ffe0cc;
+  --purple: #5a2d82;
+  --purple-light: #ede0f5;
+  --red: #c0392b;
+  --red-light: #fdecea;
+  --blue-light: #e8f0fe;
+  --text: #1a1a2e;
+  --muted: #6b7280;
+  --border: #e5e0d5;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+/* PROGRESS BAR */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  width: 0%;
+  z-index: 1000;
+  transition: width 0.1s;
+}
+
+/* STICKY NAV */
+#sticky-nav {
+  position: sticky;
+  top: 0;
+  background: var(--navy);
+  z-index: 900;
+  padding: 0 1rem;
+  border-bottom: 2px solid var(--gold);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+#sticky-nav ul {
+  display: inline-flex;
+  list-style: none;
+  gap: 0;
+}
+#sticky-nav ul li a {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #aac;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition: color 0.2s, border-bottom 0.2s;
+  border-bottom: 3px solid transparent;
+}
+#sticky-nav ul li a:hover, #sticky-nav ul li a.active {
+  color: var(--gold-light);
+  border-bottom: 3px solid var(--gold);
+}
+
+/* SCORE COUNTER */
+#score-counter {
+  position: fixed;
+  top: 52px; right: 1rem;
+  background: var(--navy2);
+  color: var(--gold-light);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--gold);
+  z-index: 850;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* HEADER */
+header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+  padding: 3.5rem 2rem 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: rgba(201,168,76,0.07);
+}
+header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: rgba(201,168,76,0.05);
+}
+.header-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  color: var(--white);
+  font-weight: 900;
+  line-height: 1.15;
+}
+header h1 span { color: var(--gold-light); }
+.header-sub {
+  margin-top: 0.75rem;
+  color: #8899bb;
+  font-size: 0.95rem;
+  font-weight: 300;
+}
+
+/* MAIN LAYOUT */
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+/* SECTION */
+section {
+  margin-bottom: 3.5rem;
+  scroll-margin-top: 60px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--navy);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.section-title .tick {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  background: var(--green);
+  border-radius: 50%;
+  color: white;
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: opacity 0.4s;
+  flex-shrink: 0;
+}
+.section-title .tick.visible { opacity: 1; }
+
+/* CARDS */
+.card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.card-simple {
+  border-left: 5px solid var(--gold);
+  background: #fffdf5;
+}
+.card-simple .card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.card-full {
+  border-left: 5px solid var(--navy2);
+}
+.card-full .card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--navy2);
+  margin-bottom: 0.5rem;
+}
+
+.card-warn {
+  border-left: 5px solid var(--red);
+  background: var(--red-light);
+}
+.card-warn .card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 0.5rem;
+}
+
+.card-worked {
+  background: var(--blue-light);
+  border-left: 5px solid #3b5bdb;
+}
+.card-worked .card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #3b5bdb;
+  margin-bottom: 0.5rem;
+}
+
+/* WORD BANK */
+.word-bank {
+  background: var(--navy);
+  color: var(--cream);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.word-bank h3 {
+  color: var(--gold-light);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.word-bank-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.word-chip {
+  background: rgba(201,168,76,0.18);
+  color: var(--gold-light);
+  border: 1px solid rgba(201,168,76,0.35);
+  border-radius: 6px;
+  padding: 0.2rem 0.6rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+/* STEP BOX */
+.steps { margin: 0.75rem 0; }
+.step {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+  align-items: flex-start;
+}
+.step-num {
+  min-width: 28px; height: 28px;
+  background: var(--navy);
+  color: var(--gold-light);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-text { font-size: 0.95rem; }
+
+/* BRACKETS DISPLAY */
+.brackets {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0.75rem 0;
+}
+.bracket-group {
+  background: var(--navy2);
+  color: white;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+.bracket-arrow {
+  font-size: 1.5rem;
+  color: var(--gold);
+}
+.bracket-result {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+/* DIFFICULTY BADGES */
+.badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+.badge-starter { background: var(--green-light); color: var(--green); }
+.badge-developing { background: var(--yellow-light); color: var(--yellow); }
+.badge-secure { background: var(--orange-light); color: var(--orange); }
+.badge-mastery { background: var(--purple-light); color: var(--purple); }
+
+/* QUESTION CARDS */
+.q-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.q-text {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+.bracket-display {
+  font-family: 'DM Mono', monospace;
+  font-size: 1.05rem;
+  background: #f0f4ff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 1rem;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+}
+
+/* MCQ BUTTONS */
+.mcq-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.mcq-btn {
+  background: #f5f5f5;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  color: var(--text);
+  transition: all 0.15s;
+}
+.mcq-btn:hover:not(:disabled) {
+  border-color: var(--navy2);
+  background: #eef2ff;
+}
+.mcq-btn.correct {
+  background: var(--green-light);
+  border-color: var(--green);
+  color: var(--green);
+}
+.mcq-btn.incorrect {
+  background: var(--red-light);
+  border-color: var(--red);
+  color: var(--red);
+}
+.mcq-btn:disabled { cursor: default; }
+
+/* TYPED INPUT */
+.typed-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.typed-input {
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  font-size: 1rem;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  color: var(--text);
+  width: 180px;
+  transition: border-color 0.15s;
+}
+.typed-input:focus { outline: none; border-color: var(--navy2); }
+.typed-input.correct { border-color: var(--green); background: var(--green-light); }
+.typed-input.incorrect { border-color: var(--red); background: var(--red-light); }
+.check-btn {
+  background: var(--navy);
+  color: var(--gold-light);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.check-btn:hover:not(:disabled) { background: var(--navy2); }
+.check-btn:disabled { opacity: 0.5; cursor: default; }
+
+/* FEEDBACK BOX */
+.feedback {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  display: none;
+}
+.feedback.show { display: block; }
+.feedback.good { background: var(--green-light); color: var(--green); border-left: 4px solid var(--green); }
+.feedback.bad { background: var(--red-light); color: #8b1a10; border-left: 4px solid var(--red); }
+
+/* SECTION DIVIDER */
+.tier-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 1.5rem 0 0.75rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.tier-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* TIMED TEST */
+#test-timer {
+  font-family: 'DM Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--navy);
+  margin: 0.5rem 0;
+  transition: color 0.3s;
+}
+#test-timer.urgent { color: var(--red); }
+
+.test-q-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+}
+.test-q-num {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+/* SCORE BAND */
+.score-band {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-top: 1.5rem;
+}
+.score-band h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.score-band p { font-size: 1rem; }
+.band-practice { background: var(--red-light); color: var(--red); }
+.band-developing { background: var(--yellow-light); color: var(--yellow); }
+.band-secure { background: var(--orange-light); color: var(--orange); }
+.band-mastery { background: var(--purple-light); color: var(--purple); }
+
+/* TIMER BAR */
+.timer-bar-wrap {
+  background: #e0e0e0;
+  border-radius: 999px;
+  height: 8px;
+  margin: 0.5rem 0 1.5rem;
+  overflow: hidden;
+}
+.timer-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green), var(--gold));
+  border-radius: 999px;
+  transition: width 1s linear, background 0.5s;
+  width: 100%;
+}
+.timer-bar.urgent { background: linear-gradient(90deg, var(--red), #ff6b6b); }
+
+/* START/SUBMIT BUTTONS */
+.big-btn {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 1rem auto;
+  padding: 0.9rem 2rem;
+  background: var(--navy);
+  color: var(--gold-light);
+  border: 2px solid var(--gold);
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+  letter-spacing: 0.03em;
+}
+.big-btn:hover { background: var(--navy2); transform: translateY(-1px); }
+
+/* ABOUT / INTRO */
+.intro-box {
+  background: var(--navy);
+  color: var(--cream);
+  border-radius: 12px;
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(201,168,76,0.3);
+}
+.intro-box h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold-light);
+  font-size: 1.15rem;
+  margin-bottom: 0.75rem;
+}
+.intro-box p { font-size: 0.93rem; color: #ccd; line-height: 1.7; }
+
+/* REVEAL TABLE */
+.elim-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 0.75rem; }
+.elim-table th { background: var(--navy2); color: var(--gold-light); padding: 0.45rem 0.75rem; text-align: left; }
+.elim-table td { padding: 0.4rem 0.75rem; border-bottom: 1px solid var(--border); }
+.elim-table tr:nth-child(even) td { background: #f8f8f8; }
+.tick-green { color: var(--green); font-weight: 700; }
+.cross-red { color: var(--red); }
+
+/* REVEAL BUTTON */
+.reveal-btn {
+  background: transparent;
+  border: 2px solid var(--navy2);
+  color: var(--navy2);
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.75rem;
+  transition: all 0.15s;
+}
+.reveal-btn:hover { background: var(--navy2); color: white; }
+.hidden { display: none; }
+
+/* PATTERN REVEAL */
+.pattern-steps { display: flex; flex-direction: column; gap: 0.5rem; margin: 0.75rem 0; }
+.pattern-step {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.p-word {
+  font-family: 'DM Mono', monospace;
+  font-size: 1rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  font-weight: 600;
+}
+.p-left { background: #ddeeff; color: #1a3a6b; }
+.p-right { background: #ffeedd; color: #7a3010; }
+.p-plus { font-size: 1.2rem; color: var(--muted); }
+.p-result { background: #d8f3dc; color: var(--green); font-weight: 700; }
+.p-cross { background: var(--red-light); color: var(--red); font-weight: 700; font-size: 0.85rem; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  header { padding: 2.5rem 1rem 2rem; }
+  main { padding: 1rem 0.75rem 3rem; }
+  .mcq-options { flex-direction: column; }
+  .mcq-btn { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="score-counter">⭐ Score: <span id="score-val">0</span></div>
+
+<header>
+  <div class="header-label">11+ GL Assessment · Verbal Reasoning</div>
+  <h1>Compound <span>Words</span></h1>
+  <div class="header-sub">Make one word from two — the cornerstone of GL Verbal Reasoning</div>
+</header>
+
+<nav id="sticky-nav">
+  <ul>
+    <li><a href="#intro">Intro</a></li>
+    <li><a href="#skill1">Closed Compounds</a></li>
+    <li><a href="#skill2">Combinatorial Logic</a></li>
+    <li><a href="#skill3">Morpheme Anchors</a></li>
+    <li><a href="#skill4">Semantic Shift</a></li>
+    <li><a href="#skill5">Spelling Integrity</a></li>
+    <li><a href="#skill6">Traps</a></li>
+    <li><a href="#test">Final Test</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="intro-box">
+    <h2>What is this question type?</h2>
+    <p>You are given two sets of brackets, each with three words. Your job is to pick <strong>one word from the left bracket</strong> and <strong>one word from the right bracket</strong> to build a single, real English word — with no space or hyphen in the middle. The left word always comes first. For example: <strong>(sun, bath, play) (room, ground, shine)</strong> → the answer is <strong>bathroom</strong> (bath + room).</p>
+  </div>
+
+  <!-- Word Bank -->
+  <div class="word-bank">
+    <h3>📖 Word Bank — Common Compound Starters &amp; Endings</h3>
+    <p style="color:#aab;font-size:0.82rem;margin-bottom:0.75rem;">Keep this open as you practise. These are the most common "anchor" parts:</p>
+    <div style="display:flex;flex-wrap:wrap;gap:1.5rem;">
+      <div>
+        <div style="color:var(--gold);font-size:0.75rem;font-weight:700;text-transform:uppercase;margin-bottom:0.4rem;">Common Starters</div>
+        <div class="word-bank-grid">
+          <span class="word-chip">over</span><span class="word-chip">under</span><span class="word-chip">back</span>
+          <span class="word-chip">hand</span><span class="word-chip">out</span><span class="word-chip">up</span>
+          <span class="word-chip">fire</span><span class="word-chip">sun</span><span class="word-chip">rain</span>
+          <span class="word-chip">foot</span><span class="word-chip">sea</span><span class="word-chip">door</span>
+          <span class="word-chip">head</span><span class="word-chip">book</span><span class="word-chip">sand</span>
+          <span class="word-chip">counter</span><span class="word-chip">after</span><span class="word-chip">black</span>
+        </div>
+      </div>
+      <div>
+        <div style="color:var(--gold);font-size:0.75rem;font-weight:700;text-transform:uppercase;margin-bottom:0.4rem;">Common Endings</div>
+        <div class="word-bank-grid">
+          <span class="word-chip">work</span><span class="word-chip">land</span><span class="word-chip">side</span>
+          <span class="word-chip">time</span><span class="word-chip">board</span><span class="word-chip">room</span>
+          <span class="word-chip">light</span><span class="word-chip">house</span><span class="word-chip">stone</span>
+          <span class="word-chip">ward</span><span class="word-chip">stand</span><span class="word-chip">ground</span>
+          <span class="word-chip">man</span><span class="word-chip">way</span><span class="word-chip">yard</span>
+          <span class="word-chip">noon</span><span class="word-chip">flow</span><span class="word-chip">hold</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILL 1: CLOSED COMPOUND IDENTIFICATION -->
+<section id="skill1">
+  <h2 class="section-title">
+    <span class="tick" id="tick-skill1">✓</span>
+    1 · Closed Compound Identification
+  </h2>
+
+  <div class="card card-simple">
+    <div class="card-label">🌟 Simple Explanation</div>
+    <p>Imagine sticking two Lego bricks together so tightly that they look like one brick. A <strong>compound word</strong> is like that — two regular words joined with no gap and no dash. <em>Football</em> = foot + ball. <em>Bedroom</em> = bed + room. If you need a space or a dash, it doesn't count for this question type!</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="card-label">📚 Full Explanation</div>
+    <p>A <strong>closed compound word</strong> is a single lexical unit formed by two free morphemes written together without a space or hyphen. The GL Assessment exclusively tests this form. Open compounds (<em>ice cream</em>) and hyphenated compounds (<em>mother-in-law</em>) are never the correct answer. The resulting word must appear in a standard British English dictionary as a single entry.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="card-label">🔍 Worked Example 1 — Step by Step</div>
+    <p><strong>Question:</strong></p>
+    <div class="brackets">
+      <div class="bracket-group">(bed, fire, cup)</div>
+      <div class="bracket-arrow">+</div>
+      <div class="bracket-group">(room, side, board)</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text">Take "bed" → try bed + room = <strong>bedroom</strong> ✓ (a real, single word)</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Check: is it written without a space? Yes. Is it in the dictionary? Yes. ✓</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Quick check others: cup + board = cupboard ✓ — but bed + room came first and is valid, so we keep that.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">In a real test, only ONE pair will make a proper closed compound. The answer here is <strong>bed, room</strong>.</div></div>
+    </div>
+  </div>
+
+  <div class="card card-warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p>The most common mistake: choosing words that make a <strong>phrase</strong> instead of a <strong>single word</strong>. "Back yard" is two words — but <strong>backyard</strong> is one. Always ask: "Would I write this as one word in a sentence?" If not, skip it.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="card-label">🔍 Worked Example 2 — Harder Level</div>
+    <p><strong>Question:</strong></p>
+    <div class="brackets">
+      <div class="bracket-group">(salt, over, note)</div>
+      <div class="bracket-group">(board, water, pass)</div>
+    </div>
+    <div class="pattern-steps">
+      <div class="pattern-step"><span class="p-word p-left">salt</span><span class="p-plus">+</span><span class="p-word p-right">board</span><span class="p-plus">→</span><span class="p-word p-cross">✗ saltboard?</span></div>
+      <div class="pattern-step"><span class="p-word p-left">salt</span><span class="p-plus">+</span><span class="p-word p-right">water</span><span class="p-plus">→</span><span class="p-word p-result">saltwater ✓</span></div>
+      <div class="pattern-step"><span class="p-word p-left">over</span><span class="p-plus">+</span><span class="p-word p-right">pass</span><span class="p-plus">→</span><span class="p-word p-result">overpass ✓ (also valid!)</span></div>
+    </div>
+    <p style="margin-top:0.5rem;font-size:0.9rem;color:var(--muted);">⚡ When two seem valid, pick the more common, widely-used word. In a real GL test, the question is designed so only ONE answer works — re-read carefully.</p>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="tier-label"><span class="badge badge-starter">Starter</span></div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">Which pair makes a closed compound word?</div>
+    <div class="bracket-display">(sun, big, bus) (shine, stop, car)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill1')">sun + shine</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">big + stop</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">bus + car</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">bus + stop</button>
+    </div>
+    <div class="feedback" id="fb-s1-1"></div>
+  </div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">Which pair makes a closed compound word?</div>
+    <div class="bracket-display">(foot, ice, hot)</div><div class="bracket-display">(cream, ball, dog)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">ice + cream</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill1')">foot + ball</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">hot + dog</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">ice + ball</button>
+    </div>
+    <div class="feedback" id="fb-s1-2"></div>
+  </div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">Type the closed compound word made from these brackets:</div>
+    <div class="bracket-display">(book, read, paper) (shelf, ing, back)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="bookshelf" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill1')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">Which of these is a CLOSED compound (no space, no hyphen)?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">ice cream</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">mother-in-law</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill1')">raincoat</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">post box</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-developing">Developing</span></div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">Find the closed compound word:</div>
+    <div class="bracket-display">(sea, life, cup)</div><div class="bracket-display">(board, guard, time)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">sea + time</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill1')">life + guard</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">cup + board</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">sea + guard</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">Type the compound word:</div>
+    <div class="bracket-display">(door, wall, hand) (step, paper, bag)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="doorstep" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill1')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">Which pair makes a valid closed compound?</div>
+    <div class="bracket-display">(head, master, water) (band, piece, fall)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">master + piece</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill1')">water + fall</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">head + band</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">head + fall</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">Type the compound word:</div>
+    <div class="bracket-display">(sand, black, over) (stone, board, coat)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="blackboard" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill1')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-secure">Secure</span></div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">Find the correct closed compound. Remember — left word first!</div>
+    <div class="bracket-display">(under, out, over) (take, side, cast)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">out + side</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill1')">over + cast</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">under + take</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">out + cast</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">Type the compound word (only ONE correct answer exists):</div>
+    <div class="bracket-display">(note, cup, pan) (board, cake, bell)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="cupboard" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill1')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">Which ONE pair forms the best-established closed compound?</div>
+    <div class="bracket-display">(after, black, over) (noon, side, throw)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill1')">after + noon</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">over + throw</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">black + side</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">after + throw</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">Type the answer. Careful — one pair might look right but isn't a real word:</div>
+    <div class="bracket-display">(counter, salt, over) (weight, take, acting)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="counterweight" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill1')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-mastery">Mastery</span></div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">TRAP QUESTION: One option sounds like a word but requires a spelling change — that one is WRONG. Pick the true closed compound:</div>
+    <div class="bracket-display">(rain, weigh, sun) (day, side, bow)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">weigh + side → wayside</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill1')">rain + bow → rainbow</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">sun + day → sunday</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">rain + side</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">MASTERY: Type the closed compound. One pair seems perfect but is actually a phrase used mostly in two words:</div>
+    <div class="bracket-display">(fire, work, table) (light, top, place)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="fireplace" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill1')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">MASTERY: Identify the single valid closed compound — the others are either phrases or require spelling changes:</div>
+    <div class="bracket-display">(happy, under, note)</div><div class="bracket-display">(ness, hand, book)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">happy + ness</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">under + hand</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill1')">note + book</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill1')">happy + book</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill1">
+    <div class="q-text">MASTERY — Type the answer. One compound here is archaic/uncommon; the other is solid:</div>
+    <div class="bracket-display">(over, black, under) (bid, smith, flow)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="blacksmith" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill1')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+</section>
+
+<!-- SKILL 2: COMBINATORIAL LOGIC -->
+<section id="skill2">
+  <h2 class="section-title">
+    <span class="tick" id="tick-skill2">✓</span>
+    2 · Combinatorial Logic (The 1-to-3 Scan)
+  </h2>
+
+  <div class="card card-simple">
+    <div class="card-label">🌟 Simple Explanation</div>
+    <p>Think of it like trying all combinations of toppings on a pizza. You have 3 bases and 3 toppings — you try base 1 with topping 1, then topping 2, then topping 3. Then move to base 2. You <strong>don't skip any combination</strong>. That way, you never miss the answer hiding in the middle!</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="card-label">📚 Full Explanation</div>
+    <p>With 3 words in each bracket, there are <strong>9 possible pairs</strong> to test. A systematic approach — pairing each left word with all three right words before moving on — ensures no combination is missed. Elite students internalize this as a mental grid and run through it in under 10 seconds.</p>
+    <table class="elim-table" style="margin-top:0.75rem;">
+      <tr><th></th><th>side</th><th>stand</th><th>man</th></tr>
+      <tr><td><strong>under</strong></td><td class="cross-red">underside ✗</td><td class="tick-green">understand ✓</td><td class="cross-red">underman ✗</td></tr>
+      <tr><td><strong>out</strong></td><td class="cross-red">outside ✗</td><td class="cross-red">outstand ✗</td><td class="cross-red">outman ✗</td></tr>
+      <tr><td><strong>fire</strong></td><td class="cross-red">fireside ✗</td><td class="cross-red">firestand ✗</td><td class="cross-red">fireman ✗</td></tr>
+    </table>
+    <p style="font-size:0.88rem;color:var(--muted);margin-top:0.5rem;">↑ Working through the grid systematically: only <strong>understand</strong> is a real closed compound.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="card-label">🔍 Worked Example — Grid Method</div>
+    <p><strong>Question: (hand, back, sun) (side, flower, work)</strong></p>
+    <button class="reveal-btn" onclick="revealGrid()">▶ Show step-by-step grid</button>
+    <div id="grid-reveal" class="hidden" style="margin-top:0.75rem;">
+      <div class="pattern-steps">
+        <div class="pattern-step"><span class="p-word p-left">hand</span><span class="p-plus">+</span><span class="p-word p-right">side</span><span class="p-plus">→</span><span class="p-word p-cross">✗ not a word</span></div>
+        <div class="pattern-step"><span class="p-word p-left">hand</span><span class="p-plus">+</span><span class="p-word p-right">flower</span><span class="p-plus">→</span><span class="p-word p-cross">✗ not a word</span></div>
+        <div class="pattern-step"><span class="p-word p-left">hand</span><span class="p-plus">+</span><span class="p-word p-right">work</span><span class="p-plus">→</span><span class="p-word p-result">handwork ✓</span></div>
+        <div class="pattern-step"><span class="p-word p-left">back</span><span class="p-plus">+</span><span class="p-word p-right">side</span><span class="p-plus">→</span><span class="p-word p-cross">✗</span></div>
+        <div class="pattern-step"><span class="p-word p-left">sun</span><span class="p-plus">+</span><span class="p-word p-right">flower</span><span class="p-plus">→</span><span class="p-word p-result">sunflower ✓</span></div>
+      </div>
+      <p style="font-size:0.9rem;margin-top:0.5rem;">Both seem valid — but <strong>sunflower</strong> is more established as a single closed compound. In GL, the question design ensures uniqueness. Answer: <strong>sun, flower</strong>.</p>
+    </div>
+  </div>
+
+  <div class="card card-warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p>Students often stop scanning as soon as they find <em>something</em> that "sounds okay." Always verify uniqueness — quickly run through all 9 pairs before committing. The obvious-looking pair is sometimes a trap!</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="card-label">🔍 Worked Example 2 — Harder</div>
+    <div class="brackets">
+      <div class="bracket-group">(note, pan, cup)</div>
+      <div class="bracket-group">(board, cake, bell)</div>
+    </div>
+    <p style="margin:0.5rem 0;">Students often jump at <strong>pancake</strong> (familiar word). But wait — "pan" is in the <em>left</em> bracket and "cake" is in the right. That would be pan+cake = <strong>pancake</strong> ✓. But also note+book? "book" isn't in the right bracket. cup+board = <strong>cupboard</strong> ✓. Now we have TWO valid answers — which means the question would be designed differently. The GL answer here would be: <strong>cup, board</strong> (cupboard), as it's the most unambiguous closed compound from this specific set.</p>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-starter">Starter</span></div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">Use the 1-to-3 grid method. Find the compound word:</div>
+    <div class="bracket-display">(bed, sun, rain) (time, coat, light)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">bed + time</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill2')">rain + coat</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">sun + light</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">sun + coat</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">How many possible word pairs are there when each bracket has 3 words?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">3</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">6</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill2')">9</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">12</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">Find the compound word:</div>
+    <div class="bracket-display">(sea, land, door) (way, side, bell)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="doorbell" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill2')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">Using the grid method, which pair is correct?</div>
+    <div class="bracket-display">(head, book, arm) (chair, band, case)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">head + band</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">arm + chair</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill2')">book + case</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">head + case</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-developing">Developing</span></div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">Scan all 9 pairs systematically. Find the only valid compound:</div>
+    <div class="bracket-display">(hand, over, out) (run, bag, flow)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">hand + run</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill2')">hand + bag</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">over + flow</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">out + run</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">Type the compound word after scanning all pairs:</div>
+    <div class="bracket-display">(fire, up, down) (stairs, side, place)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="fireplace" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill2')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">Which pair creates the valid compound?</div>
+    <div class="bracket-display">(black, white, grey) (board, wash, matter)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill2')">black + board</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">white + wash</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">grey + matter</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">black + wash</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">Type the compound. One option seems right at first glance but check all 9!</div>
+    <div class="bracket-display">(over, under, back) (ground, pass, board)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="underground" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill2')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-secure">Secure</span></div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">Multiple pairs might seem to work. Find the BEST closed compound:</div>
+    <div class="bracket-display">(over, work, under) (time, cover, load)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">over + time</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill2')">under + cover</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">over + load</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">work + load</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">Type the one valid closed compound:</div>
+    <div class="bracket-display">(out, in, up) (keep, ward, door)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="upkeep" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill2')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">Which compound is correct?</div>
+    <div class="bracket-display">(back, out, side) (hand, walk, board)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill2')">side + board</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">back + hand</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">out + walk</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">back + walk</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">Scan all pairs and type the answer:</div>
+    <div class="bracket-display">(head, ear, eye) (ache, ring, lid)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="headache" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill2')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-mastery">Mastery</span></div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">MASTERY — TRAP: The obvious pairing ("pancake") seems right, but the question design means only ONE is a solid closed compound from this set. Use the full grid:</div>
+    <div class="bracket-display">(note, pan, cup) (board, cake, bell)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">pan + cake → pancake</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill2')">cup + board → cupboard</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">note + book → notebook</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">pan + bell → panbell</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">MASTERY — All 9 combinations tested. Which is the ONLY true closed compound?</div>
+    <div class="bracket-display">(with, not, for) (stand, draw, ward)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="withstand" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill2')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">MASTERY: Two pairs seem plausible, but only one is truly established in British English as a closed compound:</div>
+    <div class="bracket-display">(over, down, up) (stairs, ward, hill)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">up + hill → uphill</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill2')">down + stairs → downstairs</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">over + ward → overward</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill2')">up + ward → upward</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill2">
+    <div class="q-text">MASTERY — Type the one valid word. No compound contains a spelling change:</div>
+    <div class="bracket-display">(key, door, hand) (stone, shake, board)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="keystone" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill2')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+</section>
+
+<!-- SKILL 3: MORPHEME ANCHORS -->
+<section id="skill3">
+  <h2 class="section-title">
+    <span class="tick" id="tick-skill3">✓</span>
+    3 · Morpheme Anchors
+  </h2>
+
+  <div class="card card-simple">
+    <div class="card-label">🌟 Simple Explanation</div>
+    <p>Some word-parts are like magnets — they stick to lots of other words. <strong>-work</strong> is a magnet: it grabs onto <em>hand, foot, frame, net, over</em>. When you see a "magnet" word in a bracket, test it with ALL the words from the other bracket first. It's often the quickest shortcut!</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="card-label">📚 Full Explanation</div>
+    <p>Certain morphemes — the smallest meaningful units of language — function as highly productive "anchor" words in compound formation. When these appear in a bracket, they dramatically narrow your search. Common anchor endings: <em>-work, -land, -side, -ward, -board, -house, -light, -time, -stone, -stand</em>. Common anchor starters: <em>over-, under-, back-, out-, hand-, head-</em>. Identifying an anchor in seconds is a key differentiator for elite performance.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="card-label">🔍 Worked Example 1</div>
+    <p><strong>Question: (over, sun, sea) (time, board, stone)</strong></p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text">Spot the anchors in the right bracket: <strong>time, board, stone</strong> — all common endings.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Test "over" with each: overtime ✓ / overboard ✓ / overstone ✗</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">"overtime" and "overboard" both work — but in a real GL question, only one will appear. Here "overtime" is the more common and established answer.</div></div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--muted);margin-top:0.5rem;"><strong>Answer: over + time</strong></p>
+  </div>
+
+  <div class="card card-warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p>Don't always anchor-search in the right bracket. Sometimes the anchor is on the LEFT (like "over" or "under"). If you scan right-bracket anchors first and find nothing, flip your strategy: look for anchor starters in the left bracket.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="card-label">🔍 Worked Example 2 — Left-bracket Anchor</div>
+    <div class="brackets">
+      <div class="bracket-group">(under, nice, red)</div>
+      <div class="bracket-group">(line, house, work)</div>
+    </div>
+    <p>Anchor starter is <strong>"under"</strong> → underline ✓ → underhouse ✗ → underwork ✗</p>
+    <p style="font-weight:700;margin-top:0.4rem;">Answer: under + line</p>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-starter">Starter</span></div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">Spot the anchor word and use it first. Find the compound:</div>
+    <div class="bracket-display">(sea, foot, fire) (work, stone, side)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">sea + side</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill3')">foot + work</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">fire + side</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">foot + stone</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">Type the compound. Start with the anchor ending "-land":</div>
+    <div class="bracket-display">(farm, fire, over) (land, side, light)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="farmland" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill3')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">Which anchor starter in the left bracket makes the compound?</div>
+    <div class="bracket-display">(happy, back, small) (yard, ness, land)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">happy + ness</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill3')">back + yard</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">small + land</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">back + land</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">Type the compound — use the "-ward" anchor:</div>
+    <div class="bracket-display">(in, out, sea) (ward, side, man)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="inward" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill3')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-developing">Developing</span></div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">Two anchor words exist in the right bracket. Find the compound:</div>
+    <div class="bracket-display">(sun, over, hand) (work, light, time)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">sun + light</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill3')">over + time</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">hand + work</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">over + work</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">Type the compound. The anchor "under" is in the left bracket:</div>
+    <div class="bracket-display">(light, under, head) (cover, side, line)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="undercover" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill3')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">Which compound uses the "-house" anchor correctly?</div>
+    <div class="bracket-display">(fire, store, farm) (house, yard, land)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill3')">fire + house</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">store + house</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">farm + land</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">farm + yard</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">Type the compound using the "out-" anchor:</div>
+    <div class="bracket-display">(out, back, in) (side, ward, door)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="outdoor" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill3')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-secure">Secure</span></div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">The anchor is hidden. Find the compound:</div>
+    <div class="bracket-display">(with, not, under) (standing, draw, hold)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill3')">with + standing → withstanding</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">under + hold → underhold</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">not + draw → notdraw</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">with + draw → withdraw</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">Type the compound. Use the "-stone" anchor:</div>
+    <div class="bracket-display">(corner, lime, cobble) (stone, yard, side)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="cornerstone" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill3')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">Which is the valid compound using a morpheme anchor?</div>
+    <div class="bracket-display">(over, bed, slow) (time, board, down)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">bed + board</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">slow + down</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill3')">over + board</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">over + time</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">Type: use the "head-" anchor starter:</div>
+    <div class="bracket-display">(head, back, door) (band, step, light)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="headband" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill3')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-mastery">Mastery</span></div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">MASTERY: No obvious anchor. Use the full 1-to-3 scan. Abstract compound ahead:</div>
+    <div class="bracket-display">(up, with, for) (keep, draw, hold)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill3')">up + keep → upkeep</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">with + hold → withhold</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">for + draw → fordraw</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">up + hold → uphold</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">MASTERY: Type the word. The anchor is uncommon — don't be put off:</div>
+    <div class="bracket-display">(over, salt, counter) (weight, petre, board)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="counterweight" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill3')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">MASTERY — the anchor "-standing" appears. Which compound uses it correctly?</div>
+    <div class="bracket-display">(not, out, under) (standing, side, take)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">under + take → undertake</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">out + side → outside</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill3')">out + standing → outstanding</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill3')">not + standing → notstanding</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill3">
+    <div class="q-text">MASTERY: Type the rare but valid closed compound:</div>
+    <div class="bracket-display">(over, under, out) (bid, sight, run)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="oversight" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill3')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+</section>
+
+<!-- SKILL 4: SEMANTIC SHIFT -->
+<section id="skill4">
+  <h2 class="section-title">
+    <span class="tick" id="tick-skill4">✓</span>
+    4 · Semantic Shift
+  </h2>
+
+  <div class="card card-simple">
+    <div class="card-label">🌟 Simple Explanation</div>
+    <p>Sometimes two words join together and create a completely <em>different</em> meaning — like a magic trick! <strong>Under + stand = understand</strong> has nothing to do with physically standing under anything. <strong>Over + look = overlook</strong> doesn't mean "look over a wall." When you combine words, the new word might mean something totally unexpected. Don't be tricked — trust whether it's a <em>real word</em>, not whether the meaning makes sense from the parts.</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="card-label">📚 Full Explanation</div>
+    <p>Semantic shift occurs when a compound word acquires a meaning that is not directly predictable from its component parts. This is called <strong>lexicalization</strong>. Examples: <em>understand</em> (not "stand under"), <em>overlook</em> (not "look over something"), <em>withdraw</em> (not "draw with"). Students must accept the compound as a single vocabulary unit, ignoring the literal meaning of the parts.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="card-label">🔍 Worked Example 1</div>
+    <p><strong>Question: (under, out, fire) (stand, man, side)</strong></p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text">"understand" — does it mean "standing under"? No. But it IS a real word. ✓</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">"outman" — is it a real word? Not commonly. ✗</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">"fireside" — real word, and the meaning DOES match the parts. ✓ But "understand" is the stronger, more classic GL answer here.</div></div>
+    </div>
+    <p style="font-weight:700;margin-top:0.5rem;">Answer: under + stand</p>
+  </div>
+
+  <div class="card card-warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p>Students reject correct answers because "they don't make sense." If you know it's a real English word, choose it — even if the meaning seems unrelated to the two parts. <em>Understand</em>, <em>overlook</em>, <em>withdraw</em> are classic examples. Don't overthink the meaning!</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="card-label">🔍 Worked Example 2 — Tricky Semantic Shift</div>
+    <div class="brackets">
+      <div class="bracket-group">(over, back, hand)</div>
+      <div class="bracket-group">(look, yard, shake)</div>
+    </div>
+    <p><strong>overlook</strong> = to miss/ignore something (not "look over"). This is a shifted meaning. <strong>backyard</strong> = garden at the back. <strong>handshake</strong> = greeting with hands. All three work! In a GL test question, only one pair would appear per question — the designer ensures uniqueness.</p>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-starter">Starter</span></div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">Even though the meaning has shifted, which is a real compound word?</div>
+    <div class="bracket-display">(under, out, head) (stand, door, line)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill4')">under + stand</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">out + door</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">head + line</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">out + stand</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">"Overlook" means to ignore — not to "look over" something. Which other compound has a shifted meaning?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">raincoat (a coat for rain — no shift)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill4')">withdraw (has nothing to do with drawing)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">bedroom (a room for a bed — no shift)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">football (a ball for feet — no shift)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">Type the compound — it has a shifted meaning (nothing to do with drawing):</div>
+    <div class="bracket-display">(with, out, back) (draw, side, hand)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="withdraw" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill4')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">Which pair creates a compound with a shifted/unexpected meaning?</div>
+    <div class="bracket-display">(over, fire, sea) (look, side, shore)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill4')">over + look → overlook</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">fire + side → fireside</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">sea + shore → seashore</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">fire + shore → fireshore</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-developing">Developing</span></div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">Find the compound whose meaning has completely shifted from its parts:</div>
+    <div class="bracket-display">(foot, under, hand) (note, mine, bag)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">hand + bag</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill4')">under + mine</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">foot + note</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">under + note</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">Type the compound — "not standing under" something, but a special term:</div>
+    <div class="bracket-display">(not, out, with) (standing, draw, side)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="outstanding" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill4')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">Which compound has meaning that is NOT literal?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">sunflower (a flower that follows the sun)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">bookcase (a case for books)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill4')">overlook (to fail to notice — not about looking over)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">raincoat (a coat for rain)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">Type: Find the compound that has "shifted" meaning (nothing to do with growing or trees):</div>
+    <div class="bracket-display">(out, back, over) (grow, ward, run)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="outgrow" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill4')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-secure">Secure</span></div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">Find the compound where the meaning has shifted most from its root parts:</div>
+    <div class="bracket-display">(over, down, up) (stairs, fall, keep)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">down + stairs (literal meaning)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">down + fall (fairly literal — to fall down)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill4')">up + keep (to "upkeep" = maintain — not about keeping things up)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">over + fall</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">Type the compound that means "to tolerate" — NOT related to its literal parts:</div>
+    <div class="bracket-display">(with, out, under) (stand, side, lay)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="withstand" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill4')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">Which compound has a meaning that "overlooks" its literal parts?</div>
+    <div class="bracket-display">(over, hand, sun) (sight, shake, burn)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill4')">over + sight → oversight (to make an error, not to "see over")</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">hand + shake → handshake (fairly literal)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">sun + burn → sunburn (literally burnt by sun)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">over + burn</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">SECURE: Type the compound. It describes a plan that has been cancelled — not about "calling" a phone:</div>
+    <div class="bracket-display">(over, back, call) (off, side, hand)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="calloff" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill4')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-mastery">Mastery</span></div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">MASTERY: "Notwithstanding" — which parts make this abstract compound? Choose the correct split:</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">not + with + standing (3 parts)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill4')">notwith + standing is wrong — it's not + withstanding, a true compound</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">notwiths + tanding</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">n + otwithstanding</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">MASTERY: Type the compound that means "to manage/cope with" and has fully shifted meaning:</div>
+    <div class="bracket-display">(over, with, under) (come, stand, mine)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="overcome" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill4')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">MASTERY TRAP: "undermine" has a shifted meaning (to weaken secretly). But "undermind" does NOT exist. Which is the trap answer?</div>
+    <div class="bracket-display">(under, back, over) (mine, mind, side)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">back + side → backside</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">under + mine → undermine</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill4')">under + mind → undermind (TRAP — not a real word!)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill4')">over + side → overside</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill4">
+    <div class="q-text">MASTERY: Type the compound that means "to succeed in getting past a difficulty":</div>
+    <div class="bracket-display">(over, out, with) (come, stand, draw)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="overcome" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill4')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+</section>
+
+<!-- SKILL 5: SPELLING INTEGRITY -->
+<section id="skill5">
+  <h2 class="section-title">
+    <span class="tick" id="tick-skill5">✓</span>
+    5 · Spelling Integrity
+  </h2>
+
+  <div class="card card-simple">
+    <div class="card-label">🌟 Simple Explanation</div>
+    <p>In this question type, <strong>neither word ever changes its spelling</strong> when you join them. It's like snapping two Lego bricks together — the bricks don't change shape. So "happy" + "ness" would not work here, because the 'y' would need to change to 'i' to make "happiness." If joining two words requires ANY spelling change — reject it immediately!</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="card-label">📚 Full Explanation</div>
+    <p>GL Assessment compound word questions exclusively use words whose spellings remain identical when joined. This rules out: <br>• Words requiring <em>-y → -i</em> changes (happy → happily) <br>• Words requiring doubled consonants (run → running) <br>• Words requiring dropped letters (argue → argument) <br>The spelling integrity rule acts as a fast elimination filter: if any spelling modification is needed, the pair is categorically wrong.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="card-label">🔍 Worked Example 1</div>
+    <p><strong>Question: (happy, over, back) (ness, board, yard)</strong></p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text">"happy + ness" → to make "happiness," you must change y to i. ✗ REJECTED.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">"over + board" → overboard. No spelling change. ✓</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">"back + yard" → backyard. No spelling change. ✓</div></div>
+    </div>
+    <p>If this were a real GL question with only one valid answer, the design would ensure only one works. The spelling rule instantly eliminated "happy+ness."</p>
+  </div>
+
+  <div class="card card-warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p>The most common mistake: choosing a pair that makes a word you <em>know</em> ("happiness") but forgetting that the spelling changed. GL never includes pairs that require spelling modification. Use this as a <strong>fast elimination rule</strong> — it saves precious seconds.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="card-label">🔍 Worked Example 2</div>
+    <div class="brackets">
+      <div class="bracket-group">(rain, weigh, sun)</div>
+      <div class="bracket-group">(day, bow, side)</div>
+    </div>
+    <p><strong>weigh + side</strong> → "wayside" — but this requires changing "weigh" to "way"! Spelling changes = REJECTED. ✗</p>
+    <p><strong>rain + bow</strong> → "rainbow" — no spelling change! ✓</p>
+    <p style="font-weight:700;margin-top:0.5rem;">Answer: rain + bow</p>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-starter">Starter</span></div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">Which pair can join WITHOUT any spelling change?</div>
+    <div class="bracket-display">(easy, hand, happy) (ness, made, work)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">easy + ness → easiness (y changes to i)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill5')">hand + made → handmade (no change)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">happy + ness → happiness (y changes to i)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">easy + work → easywork (not a word)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">Which pair joins with NO spelling change?</div>
+    <div class="bracket-display">(run, sun, big) (ner, shine, gest)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">run + ner → runner (double n added)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill5')">sun + shine → sunshine (no change)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">big + gest → biggest (double g added)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">run + shine → runshine (not a word)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">Type the compound that requires ZERO spelling changes:</div>
+    <div class="bracket-display">(lazy, back, happy) (ness, bone, ier)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="backbone" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill5')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">Which is the ONLY valid pair (no spelling changes allowed)?</div>
+    <div class="bracket-display">(argue, book, heavy) (ment, shelf, ier)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">argue + ment → argument (e dropped)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill5')">book + shelf → bookshelf (no change)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">heavy + ier → heavier (y changes to i)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">book + ment → bookment (not a word)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-developing">Developing</span></div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">Eliminate any pair requiring a spelling change. Which is valid?</div>
+    <div class="bracket-display">(come, fire, make) (back, ing, place)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">come + back → comeback (no change ✓ — but check others)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">make + ing → making (e dropped)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill5')">fire + place → fireplace (no change)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">come + place → comeplace (not a word)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">Type the compound — "weigh" cannot be used because it would need a spelling change to "way":</div>
+    <div class="bracket-display">(rain, weigh, sun) (bow, side, day)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="rainbow" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill5')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">Which pair is valid? Remember — no phonetic tricks allowed!</div>
+    <div class="bracket-display">(weigh, sea, door) (side, ward, man)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">weigh + side → wayside (spelling change: weigh→way)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill5')">sea + ward → seaward (no change)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">weigh + man → weighman (not a standard word)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">door + man → doorman (no change, but weaker than seaward here)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">Type the valid compound (no phonetic tricks, no spelling changes):</div>
+    <div class="bracket-display">(know, back, door) (ledge, step, side)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="doorstep" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill5')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-secure">Secure</span></div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">SECURE: One pair looks right phonetically but the spelling DOES change. Find the valid pair:</div>
+    <div class="bracket-display">(kneel, over, sea) (board, down, ledge)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">kneel + board → kneelboard (not a standard word)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill5')">over + board → overboard (no spelling change)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">sea + ledge → sealedge (not a word)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">kneel + down → kneeldown (not a word)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">Type: Find the one compound with zero spelling changes (phonetic distractors included):</div>
+    <div class="bracket-display">(would, over, hand) (work, nt, board)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="overboard" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill5')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">Which pair is valid? Eliminate any phonetic/spelling traps first:</div>
+    <div class="bracket-display">(no, back, fire) (body, stone, ward)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">no + body → nobody (sounds like "know" — but "no" is correct spelling here!)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">fire + stone → firestone (brand name, not standard)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">back + ward → backward (✓ valid — no change)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill5')">fire + ward → fireward (✗) — actually back + ward → backward is correct</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">SECURE — Type the compound. Reject any option requiring a phonetic spelling change:</div>
+    <div class="bracket-display">(write, head, door) (band, step, er)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="headband" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill5')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-mastery">Mastery</span></div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">MASTERY: "wayside" sounds correct but requires changing "weigh" → "way." Which is the truly valid pair?</div>
+    <div class="bracket-display">(weigh, fire, over) (side, place, time)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">weigh + side (spelling change: TRAP)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill5')">fire + place → fireplace</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">over + time → overtime (also valid but fire+place is primary)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">weigh + time (not a word)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">MASTERY: Type the answer — eliminate all phonetically tempting but spelling-altered pairs:</div>
+    <div class="bracket-display">(night, over, sea) (time, side, guard)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="nighttime" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill5')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">MASTERY TRAP: "know" + "ledge" = "knowledge" — but does "know" change spelling? Yes! It drops the "w". Which is the safe compound?</div>
+    <div class="bracket-display">(know, over, back) (ledge, pass, stage)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">know + ledge (spelling changes: TRAP)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill5')">over + pass → overpass</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">back + stage → backstage (also valid — check uniqueness)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill5')">know + stage (not a word)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill5">
+    <div class="q-text">MASTERY: Type — one pair changes spelling, one does not. Choose the correct one:</div>
+    <div class="bracket-display">(over, argue, back) (board, ment, hand)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="overboard" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill5')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+</section>
+
+<!-- SKILL 6: TRAPS -->
+<section id="skill6">
+  <h2 class="section-title">
+    <span class="tick" id="tick-skill6">✓</span>
+    6 · Common Traps
+  </h2>
+
+  <div class="card card-simple">
+    <div class="card-label">🌟 Simple Explanation</div>
+    <p>The question-setters know exactly where students go wrong and put those "tempting wrong answers" right in front of you. It's like a banana peel on the floor — they WANT you to slip. The three main banana peels are: <strong>(1)</strong> a pair that makes a phrase but not one word, <strong>(2)</strong> a pair where you mix up which bracket it came from, <strong>(3)</strong> a pair that sounds like a real word but needs different spelling.</p>
+  </div>
+
+  <div class="card card-full">
+    <div class="card-label">📚 Full Explanation</div>
+    <p>GL Assessment compound questions contain precisely engineered distractors. The three primary trap types are: <strong>Phrasal Verb Trap</strong> (e.g., "pick up" is a phrase, not a compound — but "uphold" is); <strong>Reverse Order Trap</strong> (seeing "butterfly" but "butter" is in the left bracket where "fly" is not available); <strong>Phonetic Spelling Trap</strong> ("weigh + side" looks like "wayside" but the spelling would need to change). A fourth emerging trap: the <strong>Almost Compound</strong> — a pairing that sounds logical but isn't lexicalized.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="card-label">🔍 Worked Example — The Reverse Trap</div>
+    <div class="brackets">
+      <div class="bracket-group">(fly, butter, house)</div>
+      <div class="bracket-group">(fire, milk, boat)</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text">You see "butter" and "fly" — and think "butterfly!" But wait: "butter" is in Bracket 1 and "fly" is ALSO in Bracket 1 — not Bracket 2.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">You cannot combine two words from the same bracket. The order is: LEFT word first, RIGHT word second.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Test properly: fly + fire ✗, fly + milk ✗, fly + boat = flyboat (rare), butter + fire ✗, butter + milk = buttermilk ✓</div></div>
+    </div>
+    <p style="font-weight:700;margin-top:0.5rem;">Answer: butter + milk</p>
+  </div>
+
+  <div class="card card-warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p>Always check WHICH bracket each word comes from before getting excited about a pair. "Butterfly" is a real word, but if both "butter" and "fly" are in the same bracket, the question is trying to trick you. Left bracket → right bracket. Never left → left or right → right.</p>
+  </div>
+
+  <div class="card card-worked">
+    <div class="card-label">🔍 Worked Example 2 — The Phrasal Verb Trap</div>
+    <div class="brackets">
+      <div class="bracket-group">(pick, set, up)</div>
+      <div class="bracket-group">(stairs, lift, hold)</div>
+    </div>
+    <p>Students often pick "pick + up" = "pickup" (plausible in casual use). But GL avoids slang compounds. "up + hold" = <strong>uphold</strong> — a proper closed compound where the left word is "up" and the right is "hold." That's the answer: <strong>up + hold</strong>.</p>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-starter">Starter</span></div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">PHRASAL VERB TRAP: Which pair makes a true closed compound (not just a phrase)?</div>
+    <div class="bracket-display">(pick, set, up) (stairs, lift, hold)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">pick + up (phrase, not one word)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">set + lift (not a word)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill6')">up + hold → uphold</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">pick + stairs (not a word)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">REVERSE TRAP: "butterfly" is a real word — but can you make it from these brackets? Find what you CAN make:</div>
+    <div class="bracket-display">(fly, butter, house) (fire, milk, boat)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">fly + butter (both in left bracket — TRAP!)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill6')">butter + milk → buttermilk</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">house + boat (house is in left, boat in right — but houseboat? Check!)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">fly + fire → flyfire (not a word)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">PHONETIC TRAP: Which pair makes a compound WITHOUT changing any spelling?</div>
+    <div class="bracket-display">(weigh, fire, over) (side, place, time)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="fireplace" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill6')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">Which is a PHRASE rather than a closed compound word?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">football</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">bedroom</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill6')">bus stop</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">raincoat</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-developing">Developing</span></div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">DOUBLE TRAP: "outside" and "backhand" are both real words — but only one can be made from the brackets below. Find it:</div>
+    <div class="bracket-display">(out, back, hand) (side, shake, bag)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">back + hand (hand is in left bracket — REVERSE TRAP)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">out + shake (not a word)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill6')">hand + bag → handbag</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">out + side → outside (also valid, but handbag is more solid here)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">Type the compound. Avoid the phrasal verb trap ("give up" is NOT a compound word):</div>
+    <div class="bracket-display">(give, up, over) (hold, keep, side)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="upkeep" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill6')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">ALMOST COMPOUND TRAP: Which pair makes a word that SOUNDS logical but is NOT in the dictionary?</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">waterfall (real word)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">bookcase (real word)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill6')">chairback (sounds logical, not standard)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">sunlight (real word)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">REVERSE TRAP: "sunshine" is a real word — but check the brackets carefully. What can you actually make?</div>
+    <div class="bracket-display">(shine, over, back) (sun, board, yard)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="overboard" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill6')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-secure">Secure</span></div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">THREE traps in one question. Find the only valid closed compound:</div>
+    <div class="bracket-display">(water, black, turn) (board, table, up)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">turn + up (phrasal verb trap)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">water + table (open compound — two words)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill6')">black + board → blackboard</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">water + board → waterboard (inappropriate meaning for this level)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">Type the compound. Avoid the phonetic trap ("night" + "mare" changes to "nightmare" — no spelling change there, so it IS valid! Check carefully):</div>
+    <div class="bracket-display">(night, over, back) (mare, board, stage)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="nightmare" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill6')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">SECURE TRAP: "tabletop" is often written as two words. "firelight" is a solid closed compound. Find the valid answer:</div>
+    <div class="bracket-display">(table, fire, over) (top, light, time)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">table + top → tabletop (often two words — trap!)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill6')">fire + light → firelight</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">over + time → overtime</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">fire + top → firetop (not a word)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">SECURE — Type the answer. "pickup" is informal slang. Find the proper compound:</div>
+    <div class="bracket-display">(pick, up, out) (side, right, ward)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="outward" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill6')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="tier-label"><span class="badge badge-mastery">Mastery</span></div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">MASTERY: All four options are real compound words. Only ONE can be formed from these brackets with the left word first:</div>
+    <div class="bracket-display">(after, black, over) (noon, board, sight)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill6')">after + noon → afternoon</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">over + board → overboard</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">black + board → blackboard</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">over + sight → oversight</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">MASTERY: Double-bluff. One option looks perfect but is slightly off standard usage. The obscure one is correct. Type it:</div>
+    <div class="bracket-display">(counter, salt, over) (pane, acting, weight)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="counterweight" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill6')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">MASTERY REVERSE TRAP: You see "sunflower" — but where is each word? Find the real compound:</div>
+    <div class="bracket-display">(flower, sun, over) (back, board, garden)</div>
+    <div class="mcq-options">
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">sun + flower (sun in LEFT, flower also in LEFT — REVERSE TRAP)</button>
+      <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'skill6')">over + board → overboard</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">flower + garden (two words — phrase trap)</button>
+      <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'skill6')">over + garden (not a word)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card" data-section="skill6">
+    <div class="q-text">MASTERY: Type the answer. Two traps are active: a phonetic trap AND a reverse trap. Stay methodical:</div>
+    <div class="bracket-display">(weigh, side, back) (day, yard, way)</div>
+    <div class="typed-group">
+      <input class="typed-input" placeholder="Type your answer" data-answer="backyard" oninput="this.value=this.value.toLowerCase()">
+      <button class="check-btn" onclick="handleTyped(this,'skill6')">Check</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+</section>
+
+<!-- FINAL TEST -->
+<section id="test">
+  <h2 class="section-title">⏱ Final Mastery Test — 15 Questions</h2>
+
+  <div class="card" style="background:var(--navy);color:var(--cream);border:1px solid var(--gold);">
+    <p style="font-size:0.95rem;margin-bottom:0.75rem;">This is a <strong style="color:var(--gold-light);">timed test</strong> — 6 minutes for 15 questions (24 seconds each, like a real GL exam). Cover all six sub-skills. Every wrong answer will be explained fully after submission.</p>
+    <p style="font-size:0.88rem;color:#aab;">Complete all 15 questions, then press Submit to see your score and band.</p>
+    <div id="test-timer" style="color:var(--gold-light);margin:0.75rem 0;">6:00</div>
+    <div class="timer-bar-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <button class="big-btn" id="start-test-btn" onclick="startTest()">▶ Start Test</button>
+  </div>
+
+  <div id="test-questions" style="display:none;margin-top:1.5rem;"></div>
+  <div id="test-results" style="display:none;margin-top:1.5rem;"></div>
+</section>
+
+</main>
+
+<script>
+// ==============================
+// SCORE AND TRACKING
+// ==============================
+let totalScore = 0;
+let sectionAnswered = {};
+let sectionTotal = {};
+
+function updateScore(delta) {
+  totalScore += delta;
+  document.getElementById('score-val').textContent = totalScore;
+}
+
+function countQuestion(section) {
+  if (!sectionAnswered[section]) sectionAnswered[section] = 0;
+  if (!sectionTotal[section]) sectionTotal[section] = 0;
+  sectionTotal[section]++;
+}
+
+function recordAttempt(section) {
+  if (!sectionAnswered[section]) sectionAnswered[section] = 0;
+  sectionAnswered[section]++;
+  checkSectionComplete(section);
+}
+
+function checkSectionComplete(section) {
+  if (sectionAnswered[section] >= sectionTotal[section]) {
+    const tick = document.getElementById('tick-' + section);
+    if (tick) tick.classList.add('visible');
+  }
+}
+
+// Count all questions per section on load
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.q-card[data-section]').forEach(card => {
+    const s = card.dataset.section;
+    if (!sectionTotal[s]) sectionTotal[s] = 0;
+    sectionTotal[s]++;
+  });
+});
+
+// ==============================
+// MCQ HANDLER
+// ==============================
+function handleMCQ(btn, section) {
+  const card = btn.closest('.q-card');
+  if (card.dataset.answered) return;
+  card.dataset.answered = 'true';
+
+  const allBtns = card.querySelectorAll('.mcq-btn');
+  allBtns.forEach(b => b.disabled = true);
+
+  const isCorrect = btn.dataset.correct === 'true';
+  const feedback = card.querySelector('.feedback');
+
+  if (isCorrect) {
+    btn.classList.add('correct');
+    updateScore(1);
+    feedback.className = 'feedback show good';
+    feedback.innerHTML = getFeedbackGood(card);
+  } else {
+    btn.classList.add('incorrect');
+    allBtns.forEach(b => { if (b.dataset.correct === 'true') b.classList.add('correct'); });
+    feedback.className = 'feedback show bad';
+    feedback.innerHTML = getFeedbackBad(btn, card);
+  }
+
+  recordAttempt(section);
+}
+
+// ==============================
+// TYPED ANSWER HANDLER
+// ==============================
+function handleTyped(checkBtn, section) {
+  const card = checkBtn.closest('.q-card') || checkBtn.closest('.test-q-card');
+  if (card && card.dataset.answered) return;
+
+  const input = checkBtn.previousElementSibling;
+  const correct = input.dataset.answer;
+  const val = input.value.trim().toLowerCase();
+  const feedback = checkBtn.closest('.typed-group').nextElementSibling;
+
+  if (!val) return;
+
+  checkBtn.disabled = true;
+  input.disabled = true;
+
+  if (card) card.dataset.answered = 'true';
+
+  if (val === correct) {
+    input.classList.add('correct');
+    updateScore(1);
+    feedback.className = 'feedback show good';
+    feedback.innerHTML = `✅ Correct! <strong>${correct}</strong> — the two root words join with no spelling change and create a valid closed compound.`;
+  } else {
+    input.classList.add('incorrect');
+    feedback.className = 'feedback show bad';
+    feedback.innerHTML = `❌ Not quite. You wrote "<strong>${val}</strong>" — the correct answer is <strong>${correct}</strong>. Check that you haven't changed any spelling and that you're putting the left-bracket word first.`;
+  }
+
+  if (section) recordAttempt(section);
+}
+
+// ==============================
+// FEEDBACK CONTENT
+// ==============================
+function getFeedbackGood(card) {
+  const q = card.querySelector('.q-text')?.textContent || '';
+  return `✅ Correct! The two words join without any spelling change, with no space or hyphen, to form a proper closed compound. Well spotted — you identified the right pairing from this set.`;
+}
+
+function getFeedbackBad(btn, card) {
+  const chosen = btn.textContent.trim().split('→')[0].trim();
+  const correct = card.querySelector('[data-correct="true"]')?.textContent.trim().split('→')[0].trim() || '—';
+  const feedbacks = {
+    'both in left bracket': `That pairing uses two words from the SAME bracket — a classic reverse trap. You can only combine one word from the left bracket with one word from the right bracket.`,
+    'phrase': `"${chosen}" makes a phrase, not a single closed compound word. In GL Assessment, the answer must be written as ONE word with no space or hyphen.`,
+    'spelling': `"${chosen}" sounds like a real word but would require a spelling change to work — and GL Assessment never uses pairs that need spelling changes.`,
+  };
+  return `❌ "${chosen}" isn't the answer here. The correct pair is <strong>${correct}</strong>. In GL Assessment, the word must be closed (no space/hyphen), use no spelling changes, and the left-bracket word must come first. Re-read the brackets and test each combination systematically.`;
+}
+
+// ==============================
+// REVEAL GRID
+// ==============================
+function revealGrid() {
+  document.getElementById('grid-reveal').classList.toggle('hidden');
+}
+
+// ==============================
+// PROGRESS BAR
+// ==============================
+window.addEventListener('scroll', () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  document.getElementById('progress-bar').style.width = scrolled + '%';
+});
+
+// ==============================
+// STICKY NAV ACTIVE
+// ==============================
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('section[id]');
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  document.querySelectorAll('#sticky-nav a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// ==============================
+// TIMED TEST
+// ==============================
+const testData = [
+  { type: 'mcq', skill: 'Closed Compounds', q: 'Find the closed compound word:', brackets: '(sun, play, bath) (room, ground, day)', options: [
+    {text:'sun + room', correct:false},
+    {text:'play + ground', correct:false},
+    {text:'bath + room', correct:true},
+    {text:'sun + day', correct:false}
+  ], explain:'bath + room = bathroom — a single word with no space or spelling change.' },
+
+  { type: 'mcq', skill: 'Combinatorial Logic', q: 'Scan all 9 pairs. Find the compound:', brackets: '(under, out, fire) (stand, side, man)', options: [
+    {text:'under + stand', correct:true},
+    {text:'out + side', correct:false},
+    {text:'fire + man', correct:false},
+    {text:'out + man', correct:false}
+  ], explain:'understand = under + stand. No spelling change. Classic GL compound.' },
+
+  { type: 'typed', skill: 'Morpheme Anchors', q: 'Use the "-stone" anchor. Type the compound:', brackets: '(corner, lime, cobble) (stone, yard, side)', answer: 'cornerstone', explain: 'cornerstone = corner + stone. No spelling change. A key morpheme anchor.' },
+
+  { type: 'mcq', skill: 'Semantic Shift', q: '"Overlook" does not mean "look over". Which other compound has a shifted meaning?', brackets: '', options: [
+    {text:'bedroom (a room for a bed — literal)', correct:false},
+    {text:'raincoat (a coat for rain — literal)', correct:false},
+    {text:'withdraw (nothing to do with drawing)', correct:true},
+    {text:'football (a ball for feet — literal)', correct:false}
+  ], explain:'withdraw has undergone full semantic shift — it means to take back/remove, with no connection to "drawing" anything.' },
+
+  { type: 'typed', skill: 'Spelling Integrity', q: 'Type the compound that requires zero spelling changes:', brackets: '(lazy, back, happy) (ness, bone, ier)', answer: 'backbone', explain: 'backbone = back + bone. No spelling change. The others (lazy+ness, happy+ier) require changing -y to -i.' },
+
+  { type: 'mcq', skill: 'Phrasal Verb Trap', q: 'TRAP: Which is a TRUE closed compound — not just a phrasal verb?', brackets: '(pick, set, up) (stairs, lift, hold)', options: [
+    {text:'pick + up (phrasal verb — two words)', correct:false},
+    {text:'up + hold → uphold', correct:true},
+    {text:'set + lift (not a word)', correct:false},
+    {text:'pick + stairs (not a word)', correct:false}
+  ], explain:'uphold = up + hold. A true closed compound meaning to support/defend, NOT a phrasal verb.' },
+
+  { type: 'mcq', skill: 'Reverse Trap', q: 'TRAP: "butterfly" is real — but check the brackets. What can you actually make?', brackets: '(fly, butter, house) (fire, milk, boat)', options: [
+    {text:'fly + butter (both in left bracket!)', correct:false},
+    {text:'butter + milk → buttermilk', correct:true},
+    {text:'house + fire → housefire', correct:false},
+    {text:'fly + boat → flyboat', correct:false}
+  ], explain:'butter (left) + milk (right) = buttermilk. "fly" and "butter" are both in the left bracket — you cannot combine them.' },
+
+  { type: 'typed', skill: 'Phonetic Trap', q: 'TRAP: "weigh + side" sounds like "wayside" but the spelling changes. Type the valid compound:', brackets: '(rain, weigh, sun) (bow, side, day)', answer: 'rainbow', explain: 'rainbow = rain + bow. No spelling change. "weigh + side" would need weigh → way, which is illegal in GL.' },
+
+  { type: 'mcq', skill: 'Combinatorial Logic', q: 'TRAP: "pancake" looks obvious — but use the full grid. Find the primary answer:', brackets: '(note, pan, cup) (board, cake, bell)', options: [
+    {text:'pan + cake → pancake', correct:false},
+    {text:'cup + board → cupboard', correct:true},
+    {text:'note + bell → notebell', correct:false},
+    {text:'note + board → noteboard', correct:false}
+  ], explain:'cupboard = cup + board. This is the "frequency bias override" trap — pancake looks obvious, but cupboard is the designed answer.' },
+
+  { type: 'typed', skill: 'Morpheme Anchors', q: 'Use the "out-" anchor. Type the compound:', brackets: '(out, back, in) (side, ward, door)', answer: 'outdoor', explain: 'outdoor = out + door. The "out-" anchor attaches cleanly to "door" with no spelling change.' },
+
+  { type: 'mcq', skill: 'Semantic Shift', q: 'Find the compound where the meaning has shifted most from its parts:', brackets: '(up, over, back) (keep, board, yard)', options: [
+    {text:'back + yard → backyard (fairly literal)', correct:false},
+    {text:'over + board → overboard (partially literal)', correct:false},
+    {text:'up + keep → upkeep (maintenance — nothing about "keeping up")', correct:true},
+    {text:'back + board → backboard (literal)', correct:false}
+  ], explain:'upkeep means maintenance — the meaning is fully shifted from its parts (not about keeping things physically up).' },
+
+  { type: 'mcq', skill: 'Closed Compounds', q: 'MASTERY: All are real words. Only ONE can be formed from these brackets (left first):', brackets: '(after, black, over) (noon, side, throw)', options: [
+    {text:'over + throw → overthrow', correct:false},
+    {text:'black + side → blackside (not a word)', correct:false},
+    {text:'after + noon → afternoon', correct:true},
+    {text:'after + throw → afterthrow (not a word)', correct:false}
+  ], explain:'afternoon = after + noon. Only this pair produces a valid, standard closed compound from these brackets.' },
+
+  { type: 'typed', skill: 'Spelling Integrity', q: 'Type the compound. "happy + ness" requires a spelling change — reject it. Find the valid compound:', brackets: '(happy, over, back) (ness, board, yard)', answer: 'overboard', explain: 'overboard = over + board. No spelling change. happy+ness would need y→i, which is not allowed.' },
+
+  { type: 'mcq', skill: 'Traps', q: 'DOUBLE BLUFF: One looks perfect, the other is obscure but correct. Choose wisely:', brackets: '(counter, salt, over) (weight, take, acting)', options: [
+    {text:'over + acting → overacting (hyphenated/informal)', correct:false},
+    {text:'counter + weight → counterweight', correct:true},
+    {text:'salt + take → salttake (not a word)', correct:false},
+    {text:'over + take → overtake (valid, but counter+weight is primary)', correct:false}
+  ], explain:'counterweight = counter + weight. A solid, unambiguous closed compound. overacting is often hyphenated/informal in older usage.' },
+
+  { type: 'mcq', skill: 'Traps', q: 'MASTERY REVERSE TRAP: "sunflower" is a real word — but check the brackets. What can you actually make?', brackets: '(flower, sun, over) (back, board, garden)', options: [
+    {text:'sun + flower (sun in LEFT, flower ALSO in LEFT — reverse trap!)', correct:false},
+    {text:'over + board → overboard', correct:true},
+    {text:'flower + garden (two words — phrase trap)', correct:false},
+    {text:'over + garden (not a word)', correct:false}
+  ], explain:'overboard = over + board. "sun" and "flower" are BOTH in the left bracket — a classic reverse trap.' },
+];
+
+let testTimer, testTimeLeft = 360, testStarted = false;
+
+function startTest() {
+  if (testStarted) return;
+  testStarted = true;
+  document.getElementById('start-test-btn').style.display = 'none';
+
+  const container = document.getElementById('test-questions');
+  container.style.display = 'block';
+  container.innerHTML = buildTestHTML();
+
+  testTimer = setInterval(tickTimer, 1000);
+}
+
+function buildTestHTML() {
+  let html = '';
+  testData.forEach((q, i) => {
+    html += `<div class="test-q-card" id="tq-${i}">
+      <div class="test-q-num">Question ${i+1} of 15 · ${q.skill}</div>
+      <div class="q-text">${q.q}</div>`;
+    if (q.brackets) html += `<div class="bracket-display">${q.brackets}</div>`;
+    if (q.type === 'mcq') {
+      html += `<div class="mcq-options">`;
+      q.options.forEach((opt, j) => {
+        html += `<button class="mcq-btn" data-correct="${opt.correct}" data-qi="${i}" onclick="testMCQ(this)">${opt.text}</button>`;
+      });
+      html += `</div>`;
+    } else {
+      html += `<div class="typed-group">
+        <input class="typed-input" placeholder="Type your answer" data-answer="${q.answer}" data-qi="${i}" oninput="this.value=this.value.toLowerCase()">
+        <button class="check-btn" onclick="testTyped(this)">Check</button>
+      </div>`;
+    }
+    html += `<div class="feedback" id="tfb-${i}"></div></div>`;
+  });
+  html += `<button class="big-btn" onclick="submitTest()" style="margin-top:1rem;">Submit Test</button>`;
+  return html;
+}
+
+function testMCQ(btn) {
+  const i = btn.dataset.qi;
+  const card = btn.closest('.test-q-card');
+  if (card.dataset.answered) return;
+  card.dataset.answered = btn.dataset.correct;
+  card.querySelectorAll('.mcq-btn').forEach(b => b.disabled = true);
+  if (btn.dataset.correct === 'true') btn.classList.add('correct');
+  else { btn.classList.add('incorrect'); card.querySelector('[data-correct="true"]').classList.add('correct'); }
+}
+
+function testTyped(checkBtn) {
+  const card = checkBtn.closest('.test-q-card');
+  const i = card.querySelector('.typed-input').dataset.qi;
+  if (card.dataset.answered) return;
+  const input = checkBtn.previousElementSibling;
+  const correct = input.dataset.answer;
+  const val = input.value.trim().toLowerCase();
+  if (!val) return;
+  card.dataset.answered = (val === correct) ? 'true' : 'false';
+  input.disabled = true; checkBtn.disabled = true;
+  if (val === correct) input.classList.add('correct');
+  else input.classList.add('incorrect');
+}
+
+function submitTest() {
+  clearInterval(testTimer);
+  let score = 0;
+  testData.forEach((q, i) => {
+    const card = document.getElementById('tq-' + i);
+    const answered = card?.dataset.answered;
+    const fb = document.getElementById('tfb-' + i);
+    if (answered === 'true') {
+      score++;
+      if (fb) { fb.className = 'feedback show good'; fb.innerHTML = `✅ Correct! ${q.explain}`; }
+    } else {
+      if (fb) { fb.className = 'feedback show bad'; fb.innerHTML = `❌ The correct answer: <strong>${q.answer || q.options?.find(o=>o.correct)?.text}</strong>. ${q.explain}`; }
+    }
+  });
+
+  updateScore(score);
+
+  const resultsDiv = document.getElementById('test-results');
+  resultsDiv.style.display = 'block';
+  let band, cls;
+  if (score <= 5) { band = 'Needs Practice'; cls = 'band-practice'; }
+  else if (score <= 9) { band = 'Developing'; cls = 'band-developing'; }
+  else if (score <= 12) { band = 'Secure'; cls = 'band-secure'; }
+  else { band = 'Mastery 🏆'; cls = 'band-mastery'; }
+
+  resultsDiv.innerHTML = `<div class="score-band ${cls}">
+    <h2>${score}/15</h2>
+    <p style="font-size:1.4rem;font-weight:700;margin:0.3rem 0;">${band}</p>
+    <p style="margin-top:0.75rem;">${scoreMessage(score)}</p>
+  </div>`;
+  resultsDiv.scrollIntoView({behavior:'smooth'});
+}
+
+function scoreMessage(s) {
+  if (s <= 5) return 'Keep practising the sub-skills — focus on Closed Compound Identification and the Trap questions first.';
+  if (s <= 9) return 'Good effort! Review the sections where you made mistakes. Traps and Semantic Shift are the trickiest — revisit those.';
+  if (s <= 12) return 'Strong performance! A few questions caught you out — perfect your trap-avoidance strategy to push into Mastery.';
+  return 'Outstanding! You have mastered compound word identification at GL Assessment level. Elite performance.';
+}
+
+function tickTimer() {
+  testTimeLeft--;
+  const m = Math.floor(testTimeLeft / 60);
+  const s = testTimeLeft % 60;
+  document.getElementById('test-timer').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+  document.getElementById('timer-bar').style.width = (testTimeLeft / 360 * 100) + '%';
+  if (testTimeLeft <= 60) {
+    document.getElementById('test-timer').classList.add('urgent');
+    document.getElementById('timer-bar').classList.add('urgent');
+  }
+  if (testTimeLeft <= 0) {
+    clearInterval(testTimer);
+    submitTest();
+  }
+}
+</script>
+</body>
+</html>

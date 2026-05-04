@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Related Words — GL 11+ Verbal Reasoning</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0d1b2a; --navy-mid:#1a2d42; --navy-light:#243b55;
+  --gold:#c9a84c; --gold-light:#e8c97e; --gold-pale:#f5e9c8;
+  --cream:#faf8f2; --cream-dark:#f0ece0; --white:#ffffff;
+  --green:#2d7a4f; --green-light:#e8f5ee;
+  --yellow:#b07d0a; --yellow-light:#fef9e7;
+  --orange:#c05a1a; --orange-light:#fdf0e8;
+  --purple:#6b3fa0; --purple-light:#f0eaf8;
+  --red:#c0392b; --red-light:#fdeaea;
+  --text:#1a1a2e; --text-light:#6b6b8a;
+  --radius:12px; --shadow:0 4px 24px rgba(13,27,42,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:16px;line-height:1.65;}
+#progress-bar{position:fixed;top:0;left:0;width:0%;height:4px;background:var(--gold);z-index:1000;transition:width .2s;box-shadow:0 0 8px rgba(201,168,76,.6);}
+#sticky-nav{position:sticky;top:0;z-index:900;background:var(--navy);border-bottom:2px solid var(--gold);padding:10px 0;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}
+#sticky-nav::-webkit-scrollbar{display:none;}
+#sticky-nav a{color:var(--gold-light);text-decoration:none;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;transition:background .2s,color .2s;display:inline-block;letter-spacing:.02em;}
+#sticky-nav a:hover{background:var(--gold);color:var(--navy);}
+.nav-inner{padding:0 20px;display:flex;gap:4px;align-items:center;min-width:max-content;}
+#score-counter{position:fixed;top:4px;right:16px;z-index:1001;background:var(--gold);color:var(--navy);font-weight:700;font-size:13px;padding:4px 12px;border-radius:0 0 10px 10px;letter-spacing:.03em;box-shadow:0 2px 8px rgba(201,168,76,.4);font-family:'DM Mono',monospace;}
+header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);color:var(--white);padding:60px 24px 50px;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(201,168,76,.04) 30px,rgba(201,168,76,.04) 31px);}
+.header-tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;letter-spacing:.15em;padding:4px 14px;border-radius:20px;margin-bottom:16px;text-transform:uppercase;}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,52px);color:var(--gold-light);line-height:1.2;margin-bottom:12px;}
+header p{color:rgba(255,255,255,.75);font-size:16px;max-width:560px;margin:0 auto;}
+main{max-width:860px;margin:0 auto;padding:32px 16px 80px;}
+.section{margin-bottom:60px;scroll-margin-top:60px;}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:12px;border-bottom:2px solid var(--gold-pale);}
+.section-icon{width:44px;height:44px;background:var(--navy);color:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.section-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--navy);}
+.section-tick{margin-left:auto;font-size:22px;opacity:0;transition:opacity .4s;}
+.section-tick.done{opacity:1;}
+.card{background:var(--white);border-radius:var(--radius);padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow);}
+.card-simple{border-left:4px solid var(--green);background:var(--green-light);}
+.card-full{border-left:4px solid var(--navy);}
+.card-warn{border-left:4px solid var(--red);background:var(--red-light);}
+.card-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;}
+.card-simple .card-label{color:var(--green);}
+.card-full .card-label{color:var(--navy);}
+.card-warn .card-label{color:var(--red);}
+.worked-example{background:var(--navy);border-radius:var(--radius);padding:22px 24px;margin-bottom:16px;color:var(--white);}
+.worked-example h4{color:var(--gold-light);font-family:'Playfair Display',serif;font-size:17px;margin-bottom:14px;}
+.q-display{background:rgba(255,255,255,.08);border-radius:8px;padding:14px 16px;font-family:'DM Mono',monospace;font-size:14px;margin-bottom:14px;line-height:1.8;color:var(--gold-pale);}
+.step-list{list-style:none;}
+.step-list li{display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;}
+.step-num{width:26px;height:26px;background:var(--gold);color:var(--navy);border-radius:50%;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.step-text{font-size:15px;color:rgba(255,255,255,.88);}
+.answer-reveal{background:var(--gold);color:var(--navy);border-radius:8px;padding:10px 16px;font-weight:700;margin-top:12px;font-size:15px;}
+.question-block{background:var(--white);border-radius:var(--radius);padding:22px 24px;margin-bottom:14px;box-shadow:var(--shadow);}
+.diff-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:10px;}
+.badge-starter{background:var(--green-light);color:var(--green);}
+.badge-developing{background:var(--yellow-light);color:var(--yellow);}
+.badge-secure{background:var(--orange-light);color:var(--orange);}
+.badge-mastery{background:var(--purple-light);color:var(--purple);}
+.q-text{font-size:15px;color:var(--text);margin-bottom:14px;font-weight:500;}
+.q-groups{font-family:'DM Mono',monospace;font-size:13.5px;background:var(--cream-dark);padding:12px 14px;border-radius:8px;margin-bottom:14px;line-height:2;color:var(--navy);}
+.options-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.opt-btn{padding:8px 18px;border-radius:8px;border:2px solid var(--cream-dark);background:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .18s;color:var(--text);}
+.opt-btn:hover:not(:disabled){border-color:var(--navy);background:var(--cream);}
+.opt-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green);}
+.opt-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red);}
+.opt-btn:disabled{cursor:not-allowed;}
+.feedback-box{padding:12px 16px;border-radius:8px;font-size:14px;display:none;margin-top:8px;line-height:1.6;}
+.feedback-box.correct-fb{background:var(--green-light);color:var(--green);border-left:4px solid var(--green);}
+.feedback-box.wrong-fb{background:var(--red-light);color:var(--red);border-left:4px solid var(--red);}
+.feedback-box.show{display:block;}
+.word-bank{background:var(--navy-mid);border-radius:10px;padding:16px 20px;margin-bottom:20px;color:var(--gold-light);font-size:14px;}
+.word-bank h4{color:var(--gold);margin-bottom:10px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;}
+.word-bank-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.word-chip{background:rgba(255,255,255,.08);padding:4px 12px;border-radius:20px;font-family:'DM Mono',monospace;font-size:13px;color:var(--gold-pale);}
+.tier-header{display:flex;align-items:center;gap:12px;margin:28px 0 14px;}
+.tier-line{flex:1;height:1px;background:var(--cream-dark);}
+.tier-label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-light);}
+#test-section{background:var(--navy);border-radius:16px;padding:32px 28px;margin-bottom:40px;}
+#test-section h2{font-family:'Playfair Display',serif;color:var(--gold-light);font-size:26px;margin-bottom:8px;}
+#test-section>p{color:rgba(255,255,255,.7);margin-bottom:24px;font-size:15px;}
+#timer-display{font-family:'DM Mono',monospace;font-size:32px;color:var(--gold);text-align:center;margin-bottom:20px;letter-spacing:.05em;}
+#timer-display.warning{color:#ff6b6b;}
+#test-start-btn{display:block;background:var(--gold);color:var(--navy);border:none;padding:14px 36px;border-radius:10px;font-weight:700;font-size:16px;cursor:pointer;margin:0 auto;transition:background .2s,transform .1s;font-family:'DM Sans',sans-serif;letter-spacing:.02em;}
+#test-start-btn:hover{background:var(--gold-light);transform:translateY(-1px);}
+.test-q{background:rgba(255,255,255,.06);border-radius:10px;padding:20px 22px;margin-bottom:16px;display:none;}
+.test-q.active{display:block;}
+.test-q .q-groups{background:rgba(255,255,255,.08);color:var(--gold-pale);}
+.test-q .q-text{color:rgba(255,255,255,.9);}
+.test-q .opt-btn{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:var(--white);}
+.test-q .opt-btn:hover:not(:disabled){background:rgba(255,255,255,.15);border-color:var(--gold);}
+.test-q .opt-btn.correct{background:rgba(45,122,79,.4);border-color:var(--green);color:#7dfbb2;}
+.test-q .opt-btn.wrong{background:rgba(192,57,43,.4);border-color:#ff6b6b;color:#ffaaaa;}
+#test-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;}
+#test-nav button{background:var(--gold);color:var(--navy);border:none;padding:10px 24px;border-radius:8px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;transition:opacity .2s;}
+#test-nav button:disabled{opacity:.3;cursor:not-allowed;}
+#test-q-counter{color:var(--gold-light);font-size:14px;font-weight:600;}
+#result-panel{display:none;text-align:center;padding:20px 0;}
+#result-panel h3{font-family:'Playfair Display',serif;color:var(--gold-light);font-size:28px;margin-bottom:10px;}
+#result-score{font-size:54px;font-weight:900;color:var(--gold);font-family:'DM Mono',monospace;}
+#result-band{display:inline-block;margin:12px auto;padding:8px 24px;border-radius:30px;font-weight:700;font-size:16px;}
+#result-breakdown{margin-top:24px;text-align:left;}
+.breakdown-item{background:rgba(255,255,255,.08);border-radius:8px;padding:14px 18px;margin-bottom:10px;font-size:14px;color:rgba(255,255,255,.85);}
+.breakdown-item .q-num{color:var(--gold);font-weight:700;margin-right:8px;}
+.breakdown-item .result-icon{float:right;font-size:18px;}
+.breakdown-item .explanation{margin-top:8px;font-size:13px;color:#ffaaaa;display:none;}
+.breakdown-item.wrong-ans .explanation{display:block;}
+@media(max-width:600px){header{padding:40px 16px 36px;}main{padding:20px 12px 60px;}.options-grid{flex-direction:column;}.opt-btn{width:100%;text-align:left;}}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<div id="score-counter">Score: <span id="score-val">0</span> / <span id="score-total">0</span></div>
+<nav id="sticky-nav">
+  <div class="nav-inner">
+    <a href="#s-intro">🏠 Start</a>
+    <a href="#s-semantic">🍎 Categories</a>
+    <a href="#s-grammar">📝 Grammar</a>
+    <a href="#s-intensity">🌡️ Intensity</a>
+    <a href="#s-functional">⚙️ Function</a>
+    <a href="#s-secondary">🔀 Hidden Meanings</a>
+    <a href="#s-dual">🔑 Two Rules</a>
+    <a href="#s-abstract">💭 Abstract</a>
+    <a href="#test-section">⏱️ Final Test</a>
+  </div>
+</nav>
+<header>
+  <div class="header-tag">GL 11+ Verbal Reasoning</div>
+  <h1>Related Words</h1>
+  <p>Master the hidden connection between word groups — and never fall for a trap answer again.</p>
+</header>
+<main>
+<!-- INTRO -->
+<section class="section" id="s-intro">
+  <div class="section-header"><div class="section-icon">📋</div><h2 class="section-title">How This Question Works</h2></div>
+  <div class="card card-simple"><div class="card-label">Simple Explanation</div><p>You see <strong>three groups of words</strong>. The first two groups give you a clue — they connect in the same way. Your job: find the word that finishes the third group following the <em>exact same rule</em>. Think of it like cracking a secret code!</p></div>
+  <div class="card card-full"><div class="card-label">The GL Format</div><p><strong>Layout:</strong></p><div style="font-family:'DM Mono',monospace;background:var(--cream-dark);padding:14px 16px;border-radius:8px;margin:10px 0;font-size:14px;line-height:2;">(apple, pear, orange) &nbsp; (carrot, potato, onion) &nbsp; (beef, pork, <span style="color:var(--gold);font-weight:700;">______</span>)</div><p>You get <strong>5 options (A–E)</strong> and roughly <strong>30–40 seconds</strong>. Speed matters — but accuracy matters more.</p></div>
+  <div class="word-bank"><h4>📚 Reference: Parts of Speech</h4><div class="word-bank-grid"><span class="word-chip">🏃 Doing words = Verbs</span><span class="word-chip">🏷️ Naming words = Nouns</span><span class="word-chip">🎨 Describing words = Adjectives</span><span class="word-chip">➡️ How words = Adverbs</span></div></div>
+</section>
+
+<!-- SKILL 1: SEMANTIC CATEGORIES -->
+<section class="section" id="s-semantic">
+  <div class="section-header"><div class="section-icon">🍎</div><h2 class="section-title">1. Same Kind of Thing</h2><div class="section-tick" id="tick-semantic">✅</div></div>
+  <div class="card card-simple"><div class="card-label">Simple Explanation</div><p>Words in each group all belong to the <strong>same category</strong>. But be careful — the category might be very <em>specific</em>. It's not just "animals" — it might be "pets you keep at home." Always check your rule is specific enough by testing it on BOTH groups before moving to the third.</p></div>
+  <div class="card card-full"><div class="card-label">Full Explanation</div><p><strong>Semantic categorization</strong> means grouping words by shared meaning or real-world class. The key trap is <em>near-miss answers</em> — words belonging to a related but broader or narrower category. Your rule must fit ALL words in groups 1 AND 2 before you apply it.</p></div>
+  <div class="worked-example"><h4>🔍 Worked Example (Standard)</h4><div class="q-display">(oak, pine, elm) &nbsp; (rose, tulip, daisy) &nbsp; (salmon, trout, ___)</div><ul class="step-list"><li><span class="step-num">1</span><span class="step-text">Group 1: oak/pine/elm → all <strong>trees</strong></span></li><li><span class="step-num">2</span><span class="step-text">Group 2: rose/tulip/daisy → all <strong>flowers</strong>. Rule: each group = one specific type of plant.</span></li><li><span class="step-num">3</span><span class="step-text">Group 3: salmon/trout → both <strong>fish</strong>. Need a specific type of fish.</span></li><li><span class="step-num">4</span><span class="step-text">Answer must be a fish — not any water creature.</span></li></ul><div class="answer-reveal">✓ Answer: cod — a type of fish, matching the exact sub-category</div></div>
+  <div class="card card-warn"><div class="card-label">⚠️ Watch Out!</div><p>The trap always <em>feels</em> right. If the category is "citrus fruits," the trap is "strawberry" (a fruit — but not citrus!). Always ask: is my rule <strong>specific enough</strong>?</p></div>
+  <div class="worked-example"><h4>🔍 Harder Example — Parts of a Whole</h4><div class="q-display">(leaf, branch, root) &nbsp; (engine, wheel, door) &nbsp; (chapter, page, ___)</div><ul class="step-list"><li><span class="step-num">1</span><span class="step-text">Group 1: leaf/branch/root → <strong>parts of a tree</strong></span></li><li><span class="step-num">2</span><span class="step-text">Group 2: engine/wheel/door → <strong>parts of a car</strong>. Rule: each group = physical parts of a complete whole object.</span></li><li><span class="step-num">3</span><span class="step-text">Group 3: chapter/page → parts of a <strong>book</strong>. Need another physical part of a book.</span></li><li><span class="step-num">4</span><span class="step-text">Trap: "Book" = the whole object, not a part. "Story" = abstract content. "Cover" ✓ = physical structural part.</span></li></ul><div class="answer-reveal">✓ Answer: cover — a physical structural part of a book, like a leaf is part of a tree</div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟢 Starter</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="semantic"><span class="diff-badge badge-starter">Starter</span><div class="q-text">Which word completes the third group?</div><div class="q-groups">(red, blue, green) &nbsp; (circle, square, triangle) &nbsp; (five, ten, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Plus' is a maths symbol, not a number. The group contains numbers — five and ten. You need another number.">A) Plus</button><button class="opt-btn" data-correct="true" data-fb="Correct! Red/blue/green = colours. Circle/square/triangle = shapes. Five/ten/fifteen = numbers. 'Fifteen' is a number — it perfectly completes the number group.">B) Fifteen</button><button class="opt-btn" data-correct="false" data-fb="'Count' is a verb (doing word), not a number. The group needs a number you can put on a number line.">C) Count</button><button class="opt-btn" data-correct="false" data-fb="'Add' is a verb. Five and ten are numbers — you need another specific number, not an action.">D) Add</button><button class="opt-btn" data-correct="false" data-fb="'Many' is a describing word, not a specific number like five or ten.">E) Many</button></div><div class="feedback-box"></div></div>
+
+  <div class="question-block" data-section="semantic"><span class="diff-badge badge-starter">Starter</span><div class="q-text">Which word fits into the third group?</div><div class="q-groups">(doctor, nurse, surgeon) &nbsp; (teacher, tutor, lecturer) &nbsp; (judge, barrister, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Court' is a place, not a legal job title. The group needs a person who works in law.">A) Court</button><button class="opt-btn" data-correct="false" data-fb="'Police' are law enforcers, not legal court professionals like judges and barristers. The group is specifically about people who work in court proceedings.">B) Police</button><button class="opt-btn" data-correct="true" data-fb="Correct! Doctor/nurse/surgeon = medical professionals. Teacher/tutor/lecturer = education professionals. Judge/barrister/solicitor = legal professionals. A solicitor is a legal professional — perfect match!">C) Solicitor</button><button class="opt-btn" data-correct="false" data-fb="'Criminal' describes someone who breaks the law — not a legal job title. The group needs someone who works in law, not someone subject to it.">D) Criminal</button><button class="opt-btn" data-correct="false" data-fb="'Verdict' is the decision in a trial — a thing, not a person. The group needs a job title (a person in the legal profession).">E) Verdict</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟡 Developing</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="semantic"><span class="diff-badge badge-developing">Developing</span><div class="q-text">Find the word using the same specific rule as the first two groups.</div><div class="q-groups">(knife, scissors, axe) &nbsp; (pen, pencil, brush) &nbsp; (fork, spoon, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Plate' is something you eat off — not a piece of cutlery. The group needs a utensil used to eat with, not a container.">A) Plate</button><button class="opt-btn" data-correct="false" data-fb="'Food' is what you eat, not a utensil. The group (fork, spoon) needs another eating utensil — a tool used to move food to your mouth.">B) Food</button><button class="opt-btn" data-correct="false" data-fb="'Knife' is already in group 1! The answer must be a new eating utensil not already shown.">C) Knife</button><button class="opt-btn" data-correct="true" data-fb="Correct! Cutting tools, writing/drawing tools, eating utensils. A chopstick is an eating utensil — it fits the pattern of 'tools of a specific type'.">D) Chopstick</button><button class="opt-btn" data-correct="false" data-fb="'Bowl' is a container that holds food, not an eating utensil (a tool you use to move food to your mouth). Fork and spoon are utensils — bowl is crockery.">E) Bowl</button></div><div class="feedback-box"></div></div>
+
+  <div class="question-block" data-section="semantic"><span class="diff-badge badge-developing">Developing</span><div class="q-text">Which option completes the third group?</div><div class="q-groups">(python, cobra, mamba) &nbsp; (eagle, hawk, falcon) &nbsp; (great white, hammerhead, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Dolphin' is a mammal, not a shark. Great white and hammerhead are both types of shark — you need another shark.">A) Dolphin</button><button class="opt-btn" data-correct="false" data-fb="'Whale' is a mammal, not a shark. Even though whales live in the sea, the group needs a specific type of shark.">B) Whale</button><button class="opt-btn" data-correct="false" data-fb="'Piranha' is a freshwater fish, not a type of shark. Great white and hammerhead are sharks — the answer must be another shark.">C) Piranha</button><button class="opt-btn" data-correct="true" data-fb="Correct! Venomous snakes, birds of prey, types of shark. Great white / hammerhead / bull shark — the bull shark is indeed a type of shark. Perfect match!">D) Bull</button><button class="opt-btn" data-correct="false" data-fb="'Octopus' is a mollusc, not a shark. The group needs a specific type of shark — a completely different group of creature.">E) Octopus</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟠 Secure</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="semantic"><span class="diff-badge badge-secure">Secure</span><div class="q-text">Apply the exact rule from the first two groups to complete the third.</div><div class="q-groups">(leaf, branch, root) &nbsp; (engine, wheel, door) &nbsp; (chapter, page, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Book' is the WHOLE object — chapters and pages are parts of it. The pattern is 'physical parts of a whole object'. The answer must be a part, not the whole.">A) Book</button><button class="opt-btn" data-correct="false" data-fb="'Story' is the abstract content inside a book — not a physical structural part. The pattern needs a physical component.">B) Story</button><button class="opt-btn" data-correct="true" data-fb="Correct! Leaf/branch/root = parts of a tree. Engine/wheel/door = parts of a car. Chapter/page/cover = physical structural parts of a book. A cover is a physical part of a book — matching the pattern exactly!">C) Cover</button><button class="opt-btn" data-correct="false" data-fb="'Author' is the person who writes the book — not a physical part of the book itself.">D) Author</button><button class="opt-btn" data-correct="false" data-fb="'Words' are the content inside a book, not a structural component. The pattern needs a physical part like cover, spine, or binding.">E) Words</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟣 Mastery</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="semantic"><span class="diff-badge badge-mastery">Mastery</span><div class="q-text">This has a hidden twist. Find the precise rule before choosing.</div><div class="q-groups">(marathon, sprint, relay) &nbsp; (freestyle, backstroke, butterfly) &nbsp; (singles, doubles, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Sport' is far too general. The pattern is much more specific — each group is a set of specific formats or disciplines within one sport.">A) Sport</button><button class="opt-btn" data-correct="false" data-fb="'Match' is an event, not a competition format. Marathon/sprint/relay are specific types of running race — you need another type of competition format within tennis.">B) Match</button><button class="opt-btn" data-correct="false" data-fb="'Racket' is equipment, not a competition format. Singles and doubles are match formats in tennis — the answer needs to be another format.">C) Racket</button><button class="opt-btn" data-correct="true" data-fb="Correct! The precise rule: types/formats of competition within one sport. Running races, swimming strokes, tennis match formats. 'Mixed' (mixed doubles) is a specific competition format in tennis — perfect!">D) Mixed</button><button class="opt-btn" data-correct="false" data-fb="'Tennis' is the name of the sport itself, not a type of competition within tennis. Singles and doubles are formats of tennis — you need another format, not the sport's name.">E) Tennis</button></div><div class="feedback-box"></div></div>
+</section>
+<!-- SKILL 2: GRAMMATICAL CONSISTENCY -->
+<section class="section" id="s-grammar">
+  <div class="section-header"><div class="section-icon">📝</div><h2 class="section-title">2. Same Type of Word</h2><div class="section-tick" id="tick-grammar">✅</div></div>
+  <div class="card card-simple"><div class="card-label">Simple Explanation</div><p>Sometimes the link is about <strong>what kind of word</strong> it is — not just what it means. All words might be <em>doing words</em> (verbs) or <em>describing words</em> (adjectives). Even the right meaning in the wrong form is wrong! Check: is it the same type AND the same form (ending)?</p></div>
+  <div class="card card-full"><div class="card-label">Full Explanation</div><p><strong>Grammatical consistency</strong> means all words share the same part of speech AND the same form (e.g., all past tense, all -ing form, all plurals). A classic GL trap provides the correct meaning but the wrong form — e.g., giving <em>run</em> when all words are in the <em>-ing</em> form.</p></div>
+  <div class="worked-example"><h4>🔍 Worked Example</h4><div class="q-display">(shout, yell, scream) &nbsp; (whisper, mumble, mutter) &nbsp; (talk, speak, ___)</div><ul class="step-list"><li><span class="step-num">1</span><span class="step-text">Group 1: shout/yell/scream → verbs for loud vocal sounds</span></li><li><span class="step-num">2</span><span class="step-text">Group 2: whisper/mumble/mutter → verbs for quiet/unclear speaking. All base-form verbs of vocal communication.</span></li><li><span class="step-num">3</span><span class="step-text">Check options: "Voice" = noun ✗, "Loudly" = adverb ✗, "Chat" = verb, base form ✓</span></li></ul><div class="answer-reveal">✓ Answer: chat — a base-form verb of vocal communication</div></div>
+  <div class="card card-warn"><div class="card-label">⚠️ Watch Out!</div><p>Always check the FORM, not just the meaning. "Ran" and "run" mean the same — but if the group uses base forms, "ran" is wrong. Past tense and base form are different!</p></div>
+  <div class="worked-example"><h4>🔍 Harder Example — Past Participles as Adjectives</h4><div class="q-display">(heated, frozen, grilled) &nbsp; (tattered, polished, broken) &nbsp; (written, spoken, ___)</div><ul class="step-list"><li><span class="step-num">1</span><span class="step-text">Group 1: heated/frozen/grilled → past participles used as food descriptors</span></li><li><span class="step-num">2</span><span class="step-text">Group 2: tattered/polished/broken → past participles describing condition/state</span></li><li><span class="step-num">3</span><span class="step-text">Group 3: written/spoken → past participles describing communication type. Need another in the -en/-ed form.</span></li><li><span class="step-num">4</span><span class="step-text">"Printed" ✓ = past participle. "Print" ✗ = base form. "Printing" ✗ = -ing form.</span></li></ul><div class="answer-reveal">✓ Answer: printed — a past participle used as an adjective, matching the grammatical form</div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟢 Starter</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="grammar"><span class="diff-badge badge-starter">Starter</span><div class="q-text">Find the word that is the correct TYPE of word to complete the third group.</div><div class="q-groups">(happy, sad, angry) &nbsp; (tall, short, thin) &nbsp; (quick, slow, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Speed' is a noun (naming word). The group needs a describing word (adjective) like quick and slow — not a noun naming the concept.">A) Speed</button><button class="opt-btn" data-correct="false" data-fb="'Quickly' is an adverb (how word). Quick and slow are adjectives. You need an adjective, not an adverb — notice they don't end in -ly.">B) Quickly</button><button class="opt-btn" data-correct="true" data-fb="Correct! Happy/sad/angry = emotion adjectives. Tall/short/thin = size/shape adjectives. Quick/slow/fast = speed adjectives. 'Fast' is an adjective — perfect fit!">C) Fast</button><button class="opt-btn" data-correct="false" data-fb="'Run' is a verb (doing word). The group needs a describing word. Quick and slow describe how fast something IS — they're not actions.">D) Run</button><button class="opt-btn" data-correct="false" data-fb="'Racing' is typically used as a verb or noun, not a simple adjective like quick or slow.">E) Racing</button></div><div class="feedback-box"></div></div>
+
+  <div class="question-block" data-section="grammar"><span class="diff-badge badge-starter">Starter</span><div class="q-text">Which word completes the group using the right part of speech?</div><div class="q-groups">(bravery, honesty, kindness) &nbsp; (freedom, wisdom, patience) &nbsp; (courage, loyalty, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Generous' is an adjective. All other words are abstract nouns — naming words for inner qualities (bravery, kindness, patience). You need a noun, not a describing word.">A) Generous</button><button class="opt-btn" data-correct="true" data-fb="Correct! All words are abstract nouns naming inner virtues: bravery/honesty/kindness, freedom/wisdom/patience, courage/loyalty/humility. 'Humility' is an abstract noun — perfect match in both meaning and grammatical form!">B) Humility</button><button class="opt-btn" data-correct="false" data-fb="'Truthfully' is an adverb. The group needs abstract nouns — naming words for qualities, not 'how' words.">C) Truthfully</button><button class="opt-btn" data-correct="false" data-fb="'Trust' names an action or relationship more than an inner virtue. The group uses words specifically naming personal character virtues (bravery, kindness, courage).">D) Trust</button><button class="opt-btn" data-correct="false" data-fb="'Brave' is an adjective. 'Bravery' is already in the group — notice the -y/-ness/-ity endings that turn adjectives into abstract nouns. The answer needs this noun form.">E) Brave</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟡 Developing</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="grammar"><span class="diff-badge badge-developing">Developing</span><div class="q-text">Check the form of the word carefully — meaning alone is not enough.</div><div class="q-groups">(running, swimming, cycling) &nbsp; (painting, sculpting, drawing) &nbsp; (cooking, baking, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Grilled' is a past-tense form. All words in the groups end in -ing. You need an -ing form naming a food preparation activity.">A) Grilled</button><button class="opt-btn" data-correct="false" data-fb="'Chef' is a noun — a person who cooks. The group needs -ing form verbs (gerunds) naming activities, not the person doing them.">B) Chef</button><button class="opt-btn" data-correct="false" data-fb="'Food' is a noun — what you cook. The group needs an -ing form activity word.">C) Food</button><button class="opt-btn" data-correct="true" data-fb="Correct! Sports (-ing form), arts (-ing form), food preparation (-ing form). Cooking/baking/frying = food preparation activities in -ing form. 'Frying' matches form AND meaning perfectly!">D) Frying</button><button class="opt-btn" data-correct="false" data-fb="'Tasty' is an adjective (describing word). The group needs -ing form verbs. Tasty describes the result of cooking, not the activity itself.">E) Tasty</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟠 Secure</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="grammar"><span class="diff-badge badge-secure">Secure</span><div class="q-text">This tests both category AND grammatical form together.</div><div class="q-groups">(swiftly, quietly, gently) &nbsp; (carefully, boldly, softly) &nbsp; (angrily, proudly, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Sadness' is an abstract noun. All words in the groups are adverbs ending in -ly (words that describe HOW something is done). You need a -ly word.">A) Sadness</button><button class="opt-btn" data-correct="false" data-fb="'Joyful' is an adjective. The groups use -ly adverbs. 'Joyfully' would be correct — not 'joyful'.">B) Joyful</button><button class="opt-btn" data-correct="false" data-fb="'Happy' is an adjective. You would need 'happily' (y changes to i before -ly) to match the pattern.">C) Happy</button><button class="opt-btn" data-correct="true" data-fb="Correct! All words are -ly adverbs describing how actions are performed with feeling. Swiftly/quietly/gently, carefully/boldly/softly, angrily/proudly/cheerfully — 'cheerfully' is a -ly adverb, perfect match!">D) Cheerfully</button><button class="opt-btn" data-correct="false" data-fb="'Loud' is an adjective. The group requires -ly adverbs. 'Loudly' would work — 'loud' does not match the grammatical pattern.">E) Loud</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟣 Mastery</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="grammar"><span class="diff-badge badge-mastery">Mastery</span><div class="q-text">The trap: a word with the right meaning but wrong grammatical form.</div><div class="q-groups">(heated, frozen, grilled) &nbsp; (tattered, polished, broken) &nbsp; (written, spoken, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Write' is the base form. The group uses past participles: written, spoken, frozen, polished — the -en/-ed form. Base forms don't match.">A) Write</button><button class="opt-btn" data-correct="false" data-fb="'Writing' is the -ing form. The group uses past participles (-en/-ed form), not -ing forms. Wrong ending.">B) Writing</button><button class="opt-btn" data-correct="true" data-fb="Correct! All words are past participles used as adjectives: food states (heated/frozen/grilled), condition states (tattered/polished/broken), communication types (written/spoken/printed). 'Printed' is a past participle — correct form AND meaning!">C) Printed</button><button class="opt-btn" data-correct="false" data-fb="'Print' is the base form. The group needs a past participle (-ed form). 'Printed' is correct, not 'print'.">D) Print</button><button class="opt-btn" data-correct="false" data-fb="'Printing' is the -ing form (gerund/present participle). The pattern uses -ed past participles. Wrong ending.">E) Printing</button></div><div class="feedback-box"></div></div>
+</section>
+
+<!-- SKILL 3: INTENSITY & DEGREE -->
+<section class="section" id="s-intensity">
+  <div class="section-header"><div class="section-icon">🌡️</div><h2 class="section-title">3. More or Less — Scales &amp; Degrees</h2><div class="section-tick" id="tick-intensity">✅</div></div>
+  <div class="card card-simple"><div class="card-label">Simple Explanation</div><p>Some groups go from <strong>less to more</strong> — like a temperature dial. <em>Cool → cold → freezing</em> is a scale getting colder. Find which direction the scale goes, then pick the word that fits at the right position — usually the most extreme end!</p></div>
+  <div class="card card-full"><div class="card-label">Full Explanation</div><p><strong>Intensity and degree</strong> questions test whether you recognise ordinal scales of meaning. Words share a dimension (temperature, size, emotion, speed) but differ in degree. The position within the group matters — a word must fit on the same scale AND at the same position (usually the extreme end).</p></div>
+  <div class="worked-example"><h4>🔍 Worked Example</h4><div class="q-display">(cool, cold, freezing) &nbsp; (warm, hot, boiling) &nbsp; (damp, wet, ___)</div><ul class="step-list"><li><span class="step-num">1</span><span class="step-text">Group 1: cool/cold/freezing → increasing scale of cold</span></li><li><span class="step-num">2</span><span class="step-text">Group 2: warm/hot/boiling → increasing scale of heat. Pattern: mild → moderate → extreme.</span></li><li><span class="step-num">3</span><span class="step-text">Group 3: damp/wet/___ → increasing scale of wetness. Damp = a little wet. Wet = moderately wet. Need: extreme wetness.</span></li><li><span class="step-num">4</span><span class="step-text">"Drenched" or "soaked" = completely saturated — the extreme end of the wetness scale. ✓</span></li></ul><div class="answer-reveal">✓ Answer: drenched — the extreme on the wetness scale, matching "freezing" and "boiling"</div></div>
+  <div class="card card-warn"><div class="card-label">⚠️ Watch Out!</div><p>A word might be on the right scale but the wrong position. If the group goes mild → extreme, don't choose a middle word — find the extreme! Also check you're going in the right direction (stronger, not weaker).</p></div>
+  <div class="worked-example"><h4>🔍 Harder Example — Emotion Scales</h4><div class="q-display">(dislike, hate, detest) &nbsp; (like, enjoy, love) &nbsp; (surprised, astonished, ___)</div><ul class="step-list"><li><span class="step-num">1</span><span class="step-text">Group 1: dislike→hate→detest: increasing negative feeling</span></li><li><span class="step-num">2</span><span class="step-text">Group 2: like→enjoy→love: increasing positive feeling. Both go mild → intense.</span></li><li><span class="step-num">3</span><span class="step-text">Group 3: surprised→astonished→___. "Astonished" is stronger than "surprised." Need even more extreme shock.</span></li><li><span class="step-num">4</span><span class="step-text">"Flabbergasted" = completely overwhelmed by surprise — the most extreme end. ✓</span></li></ul><div class="answer-reveal">✓ Answer: flabbergasted — the most extreme degree of surprise on the scale</div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟢 Starter</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="intensity"><span class="diff-badge badge-starter">Starter</span><div class="q-text">The words go from weak to strong. Find the missing word at the same position on its scale.</div><div class="q-groups">(small, medium, large) &nbsp; (quiet, loud, deafening) &nbsp; (trot, canter, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Walk' is SLOWER than a trot — it goes in the wrong direction. The scale goes trot→canter→(faster), so you need something FASTER than a canter, not slower.">A) Walk</button><button class="opt-btn" data-correct="false" data-fb="'Horse' is the animal, not a speed. The group needs a word describing a type of movement/gait, not the animal performing it.">B) Horse</button><button class="opt-btn" data-correct="true" data-fb="Correct! Small/medium/large = size scale. Quiet/loud/deafening = sound scale. Trot/canter/gallop = horse gait speed scale. A gallop is the fastest horse gait — the extreme, matching 'large' and 'deafening'.">C) Gallop</button><button class="opt-btn" data-correct="false" data-fb="'Slow' is a general descriptor, not the name of a specific horse gait. The group uses precise terms: trot, canter. The answer should be the specific name of the fastest horse gait.">D) Slow</button><button class="opt-btn" data-correct="false" data-fb="'Run' is general. The group uses specific equestrian terms. 'Gallop' is the precise word for a horse's fastest gait.">E) Run</button></div><div class="feedback-box"></div></div>
+
+  <div class="question-block" data-section="intensity"><span class="diff-badge badge-starter">Starter</span><div class="q-text">Spot the emotion scale and choose the correct extreme.</div><div class="q-groups">(annoyed, angry, furious) &nbsp; (pleased, glad, delighted) &nbsp; (nervous, anxious, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Fear' is a noun (naming word). The group uses adjectives like nervous and anxious — describing words. You need an adjective at the extreme end of the anxiety scale.">A) Fear</button><button class="opt-btn" data-correct="false" data-fb="'Calm' is the OPPOSITE of nervous — it goes in completely the wrong direction on the scale! The scale goes mild anxiety → extreme anxiety.">B) Calm</button><button class="opt-btn" data-correct="false" data-fb="'Worried' is between nervous and anxious — it's not at the extreme end. The group goes mild→moderate→extreme. You need something more intense than anxious.">C) Worried</button><button class="opt-btn" data-correct="true" data-fb="Correct! Annoyed/angry/furious = anger (mild to extreme). Pleased/glad/delighted = happiness (mild to extreme). Nervous/anxious/terrified = fear/anxiety (mild to extreme). 'Terrified' is the extreme — matching 'furious' and 'delighted'.">D) Terrified</button><button class="opt-btn" data-correct="false" data-fb="'Scared' is close to nervous and anxious in intensity — it's not more extreme than anxious. The group needs something clearly more intense, like terrified.">E) Scared</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟡 Developing</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="intensity"><span class="diff-badge badge-developing">Developing</span><div class="q-text">This scale has a specific ORDER. Does the answer go at the start, middle, or end?</div><div class="q-groups">(sunrise, morning, noon) &nbsp; (spring, summer, autumn) &nbsp; (beginning, middle, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Start' means the same as 'beginning' — it would be at the WRONG end. The sequence goes beginning→middle→so the answer must come AFTER middle.">A) Start</button><button class="opt-btn" data-correct="false" data-fb="'Season' is the category name for spring/summer/autumn — not a position in a sequence. The group needs a word that comes after 'middle'.">B) Season</button><button class="opt-btn" data-correct="true" data-fb="Correct! Sunrise/morning/noon = time sequence during the day. Spring/summer/autumn = seasonal sequence. Beginning/middle/end = sequence of stages or positions. 'End' logically follows 'middle' — completing the three-part sequence.">C) End</button><button class="opt-btn" data-correct="false" data-fb="'Winter' is a season that comes after autumn — but the third group isn't a seasonal sequence, it's a sequence of positions/stages. 'End' follows 'middle'.">D) Winter</button><button class="opt-btn" data-correct="false" data-fb="'Later' is an adverb (a 'when' word). The group uses nouns naming positions: beginning, middle. You need a noun naming the final position.">E) Later</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟣 Mastery</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="intensity"><span class="diff-badge badge-mastery">Mastery</span><div class="q-text">Two weather scales are presented. Find the correct extreme on the third scale.</div><div class="q-groups">(drizzle, shower, downpour) &nbsp; (breeze, wind, gale) &nbsp; (flurry, blizzard, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Storm' is a general bad-weather word, not a specific snow intensity term. The group uses precise meteorological terms (flurry, blizzard). The answer must be the most extreme specific snow condition.">A) Storm</button><button class="opt-btn" data-correct="false" data-fb="'Snow' is the substance, not an intensity level. Flurry and blizzard are specific intensity levels of snowfall. The answer needs to be an even more extreme snow event than a blizzard.">B) Snow</button><button class="opt-btn" data-correct="false" data-fb="'Hail' is frozen rain — a different type of precipitation altogether. The scale (flurry, blizzard) is specifically about snow intensity. Hail is on a different weather scale.">C) Hail</button><button class="opt-btn" data-correct="true" data-fb="Correct! Drizzle/shower/downpour = rain intensity. Breeze/wind/gale = wind intensity. Flurry/blizzard/whiteout = snow intensity. A 'whiteout' is the most extreme snow condition (zero visibility) — the perfect extreme to match 'downpour' and 'gale'.">D) Whiteout</button><button class="opt-btn" data-correct="false" data-fb="'Frost' is a cold-surface condition (ice crystals) — not a snow intensity level. The scale needs the most extreme form of heavy snowfall — a 'whiteout', not a frost.">E) Frost</button></div><div class="feedback-box"></div></div>
+</section>
+
+<!-- SKILL 4: FUNCTIONAL RELATIONSHIPS -->
+<section class="section" id="s-functional">
+  <div class="section-header"><div class="section-icon">⚙️</div><h2 class="section-title">4. What Things Do — Functional Links</h2><div class="section-tick" id="tick-functional">✅</div></div>
+  <div class="card card-simple"><div class="card-label">Simple Explanation</div><p>Sometimes the link isn't <em>what type of thing</em> it is — it's <em>what it does</em>. A knife, scissors, and axe are all different objects, but they all cut things! Look for the shared job or purpose, not the shared appearance or category.</p></div>
+  <div class="card card-full"><div class="card-label">Full Explanation</div><p><strong>Functional relationships</strong> group words by their shared action, purpose, or role — not by what they look like or what category they belong to. A pen and a keyboard both write. A telescope and glasses both help you see. The key question is: <em>"What job does this word do?"</em> Watch out for cross-domain pairs: doctor→heal, pen→write, needle→sew — the function links words from different worlds.</p></div>
+  <div class="worked-example"><h4>🔍 Worked Example</h4><div class="q-display">(knife, scissors, axe) &nbsp; (file, sandpaper, grinder) &nbsp; (drill, chisel, ___)</div><ul class="step-list"><li><span class="step-num">1</span><span class="step-text">Group 1: knife/scissors/axe → tools that CUT</span></li><li><span class="step-num">2</span><span class="step-text">Group 2: file/sandpaper/grinder → tools that SMOOTH or ABRADE. Different function — refine your rule: "tools defined by their specific action on material."</span></li><li><span class="step-num">3</span><span class="step-text">Group 3: drill/chisel → tools that PIERCE or CHIP. What else does the same job? "Hammer" chips/strikes. ✓</span></li><li><span class="step-num">4</span><span class="step-text">Eliminate "wood" (material, not a tool) and "carpenter" (person, not a tool).</span></li></ul><div class="answer-reveal">✓ Answer: hammer — a tool used to strike/chip, matching the "action tool" function pattern</div></div>
+  <div class="card card-warn"><div class="card-label">⚠️ Watch Out!</div><p>Don't choose by category! "Fork" and "knife" are both cutlery — but "fork" doesn't cut. Focus on the exact function, not just the general world the word lives in. Also beware of cross-domain traps: the answer may come from a completely different field.</p></div>
+  <div class="worked-example"><h4>🔍 Harder Example — Cross-Domain Analogy</h4><div class="q-display">(doctor, nurse, surgeon) &nbsp; (teacher, tutor, lecturer) &nbsp; (pilot, captain, ___)</div><ul class="step-list"><li><span class="step-num">1</span><span class="step-text">Group 1: doctor/nurse/surgeon → professionals who HEAL/TREAT people</span></li><li><span class="step-num">2</span><span class="step-text">Group 2: teacher/tutor/lecturer → professionals who EDUCATE/INSTRUCT</span></li><li><span class="step-num">3</span><span class="step-text">Group 3: pilot/captain → professionals who NAVIGATE/COMMAND a vehicle. Need another navigation professional.</span></li><li><span class="step-num">4</span><span class="step-text">"Driver" = steers a vehicle ✓ but is it at the same professional level? "Navigator" = directs course ✓. "Skipper" = commands a boat ✓.</span></li></ul><div class="answer-reveal">✓ Answer: navigator — a professional who directs/steers a vehicle or vessel, matching the command/navigation function</div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟢 Starter</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="functional"><span class="diff-badge badge-starter">Starter</span><div class="q-text">What do all the words in each group DO? Find the word with the same job.</div><div class="q-groups">(torch, lamp, candle) &nbsp; (oven, hob, microwave) &nbsp; (kettle, toaster, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Kitchen' is a place — not an appliance that performs a specific job. The group needs an appliance that heats/cooks something specific.">A) Kitchen</button><button class="opt-btn" data-correct="false" data-fb="'Knife' is a cutting tool. Torch/lamp/candle give light, oven/hob/microwave heat food, kettle/toaster — what do they do specifically? They use heat to prepare drinks or bread. A knife doesn't fit this function.">B) Knife</button><button class="opt-btn" data-correct="true" data-fb="Correct! Torch/lamp/candle = things that produce light. Oven/hob/microwave = appliances that cook food (using high heat). Kettle/toaster/grill = appliances that use heat for a specific food/drink task. A 'grill' heats/browns food — matching the small appliance + specific heat function!">C) Grill</button><button class="opt-btn" data-correct="false" data-fb="'Cup' is a container — it doesn't perform a heating/cooking function. The group needs an active appliance.">D) Cup</button><button class="opt-btn" data-correct="false" data-fb="'Food' is the object being acted upon, not a device that performs an action. The group needs an appliance.">E) Food</button></div><div class="feedback-box"></div></div>
+
+  <div class="question-block" data-section="functional"><span class="diff-badge badge-starter">Starter</span><div class="q-text">Find the word that performs the same job as the others in its group.</div><div class="q-groups">(pen, pencil, chalk) &nbsp; (ruler, protractor, compass) &nbsp; (eraser, correction fluid, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Pen' is in Group 1 already — it's a writing tool, not a correcting/removing tool. The third group is about fixing mistakes.">A) Pen</button><button class="opt-btn" data-correct="false" data-fb="'Ruler' is in Group 2 — a measuring tool. The third group is about removing or correcting errors, not measuring.">B) Ruler</button><button class="opt-btn" data-correct="false" data-fb="'Paper' is the material you write ON — it doesn't correct mistakes. The function in Group 3 is removing/fixing errors.">C) Paper</button><button class="opt-btn" data-correct="true" data-fb="Correct! Pen/pencil/chalk = tools that write or mark. Ruler/protractor/compass = tools that measure or draw precise shapes. Eraser/correction fluid/Tipp-Ex = tools that remove or correct mistakes. 'Tipp-Ex' (correction tape) removes errors — matching the function exactly!">D) Tipp-Ex</button><button class="opt-btn" data-correct="false" data-fb="'Scissors' cut — they don't correct or remove writing errors. The function needed is specifically removing/fixing written mistakes.">E) Scissors</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟡 Developing</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="functional"><span class="diff-badge badge-developing">Developing</span><div class="q-text">These groups share a precise function. Don't be fooled by the category — look at the job.</div><div class="q-groups">(lock, bolt, latch) &nbsp; (key, code, fingerprint) &nbsp; (barrier, fence, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Door' is a general barrier — but the groups have a more precise function. Group 1 = things that FASTEN/SECURE. Group 2 = things that UNLOCK/GRANT ACCESS. Group 3 = things that BLOCK or SEPARATE. A wall blocks and separates space — does 'door' block? Actually it can open, so it's not purely a barrier like a fence or wall.">A) Door</button><button class="opt-btn" data-correct="false" data-fb="'Garden' is a space — not something that performs a blocking or separating function. The answer needs to be an object that acts as a barrier.">B) Garden</button><button class="opt-btn" data-correct="true" data-fb="Correct! Lock/bolt/latch = things that fasten or secure something shut. Key/code/fingerprint = things that verify identity or grant access. Barrier/fence/wall = physical structures that block passage or separate areas. A 'wall' is a solid barrier — matching the blocking/separating function!">C) Wall</button><button class="opt-btn" data-correct="false" data-fb="'Alarm' warns or alerts — it doesn't physically block passage. Barrier and fence prevent movement; an alarm just notifies.">D) Alarm</button><button class="opt-btn" data-correct="false" data-fb="'Gate' can open to allow passage — so it's more similar to a door. A barrier and fence specifically prevent movement without opening. A 'wall' is a more precise match for a permanent blocking structure.">E) Gate</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟠 Secure</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="functional"><span class="diff-badge badge-secure">Secure</span><div class="q-text">The link is what these do — not what type of object they are.</div><div class="q-groups">(dam, reservoir, dike) &nbsp; (sponge, mop, towel) &nbsp; (drain, gutter, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Water' is the substance — not something that controls or moves water. The group needs an object that directs, removes, or channels water.">A) Water</button><button class="opt-btn" data-correct="false" data-fb="'Flood' is an event — not a device or structure. The groups all contain objects (things) that perform a water-management function.">B) Flood</button><button class="opt-btn" data-correct="false" data-fb="'Bucket' holds water temporarily — but dam/reservoir/dike STORE or HOLD BACK water at scale, sponge/mop/towel ABSORB water, drain/gutter CHANNEL or REMOVE water. A bucket holds water but doesn't channel it away like a drain or gutter does.">C) Bucket</button><button class="opt-btn" data-correct="true" data-fb="Correct! Dam/reservoir/dike = structures that hold back or store water. Sponge/mop/towel = things that absorb water. Drain/gutter/pipe = structures that channel or carry water away. A 'pipe' directs and channels water flow — matching the 'water channelling' function!">D) Pipe</button><button class="opt-btn" data-correct="false" data-fb="'Puddle' is a small pool of water — an object, not a functional device. The group needs something that actively channels or removes water, like a drain or gutter does.">E) Puddle</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟣 Mastery</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="functional"><span class="diff-badge badge-mastery">Mastery</span><div class="q-text">This has a cross-domain twist. The function links words from completely different worlds.</div><div class="q-groups">(GPS, compass, map) &nbsp; (index, contents, glossary) &nbsp; (signpost, milestone, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Road' is what you travel on — not something that guides or directs you. The function is NAVIGATION/ORIENTATION — giving information about where to go or where you are.">A) Road</button><button class="opt-btn" data-correct="false" data-fb="'Chapter' is a section of a book — it's the content, not a navigation aid. An index and contents page help you FIND things in a book (navigation function), but a chapter is what you navigate TO.">B) Chapter</button><button class="opt-btn" data-correct="false" data-fb="'Distance' is a measurement — not an object that helps you navigate. The group needs a physical object or tool with a navigation function.">C) Distance</button><button class="opt-btn" data-correct="true" data-fb="Correct! GPS/compass/map = tools that help you navigate physical space. Index/contents/glossary = tools that help you navigate a book. Signpost/milestone/waypoint = markers that show position or direction during a journey. A 'waypoint' is a navigation marker — all three groups share the function of ORIENTATION/NAVIGATION!">D) Waypoint</button><button class="opt-btn" data-correct="false" data-fb="'Dictionary' is a reference book — not a navigation tool within a journey or document. The function needed is specifically marking position or direction during travel/navigation.">E) Dictionary</button></div><div class="feedback-box"></div></div>
+</section>
+
+<!-- SKILL 5: SECONDARY MEANINGS -->
+<section class="section" id="s-secondary">
+  <div class="section-header"><div class="section-icon">🔀</div><h2 class="section-title">5. Hidden Meanings — Homographs</h2><div class="section-tick" id="tick-secondary">✅</div></div>
+  <div class="card card-simple"><div class="card-label">Simple Explanation</div><p>Some words have <strong>two completely different meanings</strong>! The word <em>BARK</em> can be the rough skin of a tree — OR the sound a dog makes. When a group uses a tricky word like this, your first meaning might be WRONG. Always ask: "Could this word mean something else?"</p></div>
+  <div class="card card-full"><div class="card-label">Full Explanation</div><p><strong>Homographs</strong> are words spelled the same but carrying different meanings. GL Assessment deliberately uses these to misdirect you. The groups are built around a word's SECONDARY or less obvious meaning. For example: <em>(Scale, Note, Key)</em> — your brain says "weight/music/key ring," but the link is actually "things in music." Always test your first interpretation against Group 2 before committing.</p></div>
+  <div class="worked-example"><h4>🔍 Worked Example</h4><div class="q-display">(pound, ounce, gram) &nbsp; (inch, mile, yard) &nbsp; (second, hour, ___)</div><ul class="step-list"><li><span class="step-num">1</span><span class="step-text">Group 1: pound/ounce/gram → units of WEIGHT</span></li><li><span class="step-num">2</span><span class="step-text">Group 2: inch/mile/yard → units of DISTANCE/LENGTH. Pattern refined: "standard units of measurement."</span></li><li><span class="step-num">3</span><span class="step-text">Group 3: second/hour → units of TIME measurement. Need another unit of time.</span></li><li><span class="step-num">4</span><span class="step-text">"Minute" = unit of time ✓. "Clock" = device not unit ✗. "Time" = the concept not a unit ✗.</span></li></ul><div class="answer-reveal">✓ Answer: minute — a unit of time (its primary meaning here, though it also means "tiny"!)</div></div>
+  <div class="card card-warn"><div class="card-label">⚠️ Watch Out!</div><p>Your first instinct is usually the TRAP. When you see "bark," you think dog. When you see "scale," you think weight. But the question is built to use the OTHER meaning. Always check your rule against BOTH groups before you're sure.</p></div>
+  <div class="worked-example"><h4>🔍 Harder Example — Music Pivot</h4><div class="q-display">(scale, note, rest) &nbsp; (beat, bar, tempo) &nbsp; (pitch, key, ___)</div><ul class="step-list"><li><span class="step-num">1</span><span class="step-text">Group 1: scale/note/rest — your brain says "weight/paper/relaxing," but check Group 2.</span></li><li><span class="step-num">2</span><span class="step-text">Group 2: beat/bar/tempo → clearly MUSIC terms. So Group 1 is also music: scale (series of notes), note (musical sound), rest (silence in music).</span></li><li><span class="step-num">3</span><span class="step-text">Group 3: pitch/key → both music terms. "Pitch" = frequency of sound. "Key" = musical key. Need another music term.</span></li><li><span class="step-num">4</span><span class="step-text">"Chord" = multiple notes together ✓. "Sharp" = half-step up in music ✓.</span></li></ul><div class="answer-reveal">✓ Answer: chord — a music term, using the non-obvious meaning to match the hidden pattern</div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟢 Starter</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="secondary"><span class="diff-badge badge-starter">Starter</span><div class="q-text">One of these words has two meanings. Find which meaning the group uses.</div><div class="q-groups">(spring, summer, autumn) &nbsp; (morning, afternoon, evening) &nbsp; (dawn, dusk, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Night' is a period of darkness, but Group 3 uses dawn and dusk — these are specific TRANSITION moments (dawn = the moment day begins, dusk = the moment night begins). 'Night' is a period, not a transition moment. The pattern needs a moment of transition.">A) Night</button><button class="opt-btn" data-correct="false" data-fb="'Season' is the category name for Group 1 — it's not a time of day or a specific moment. The third group needs a specific moment in the daily time cycle.">B) Season</button><button class="opt-btn" data-correct="true" data-fb="Correct! Spring/summer/autumn = seasonal periods. Morning/afternoon/evening = daily time periods. Dawn/dusk/twilight = specific low-light transition moments in the day-night cycle. 'Twilight' is the period of dim light just after sunset — matching the precise pattern of dawn and dusk!">C) Twilight</button><button class="opt-btn" data-correct="false" data-fb="'Light' is what dawn and dusk produce, not a time period. Dawn and dusk are specific named moments — you need another named moment in the daily cycle.">D) Light</button><button class="opt-btn" data-correct="false" data-fb="'Winter' is a season (Group 1's category). The third group is about moments in the daily light cycle, not seasons.">E) Winter</button></div><div class="feedback-box"></div></div>
+
+  <div class="question-block" data-section="secondary"><span class="diff-badge badge-starter">Starter</span><div class="q-text">The tricky word is using its less obvious meaning. Spot it!</div><div class="q-groups">(bat, club, racket) &nbsp; (pitch, court, ring) &nbsp; (pool, track, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Tennis' is a sport — not a PLACE where a sport is played. Pitch = football ground, court = tennis/basketball surface, ring = boxing area. The pattern is specific VENUES or SURFACES for sport.">A) Tennis</button><button class="opt-btn" data-correct="false" data-fb="'Ball' is sporting equipment — not a sporting venue. The second group (pitch/court/ring) are all places where sports happen, not equipment.">B) Ball</button><button class="opt-btn" data-correct="false" data-fb="'Swim' is an action (verb). Pool and track are PLACES (nouns) where you do sports. The pattern needs a sporting venue noun.">C) Swim</button><button class="opt-btn" data-correct="true" data-fb="Correct! Bat/club/racket = sports equipment (things you hit with). Pitch/court/ring = sports venues/surfaces. Pool/track/rink = sports venues: a swimming pool, running track, ice rink. 'Rink' is an ice sports venue — matching the 'sporting venue' pattern!">D) Rink</button><button class="opt-btn" data-correct="false" data-fb="'Water' is the substance in a pool — not a sporting venue. Pool and track are both named places where a sport occurs. The answer must be another named sporting venue.">E) Water</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟡 Developing</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="secondary"><span class="diff-badge badge-developing">Developing</span><div class="q-text">Your first instinct is the trap! Check Group 2 before deciding the rule.</div><div class="q-groups">(lead, iron, gold) &nbsp; (club, diamond, heart) &nbsp; (spade, trowel, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Metal' might feel right (lead/iron/gold are metals) — but check Group 2! Club/diamond/heart are suits in a deck of cards, not metals. So Group 1 must also be card suits: lead... no, that's not a suit. Wait — check again: the suits are clubs, diamonds, hearts, and SPADES. Group 3: spade (card suit!), trowel (garden tool). The rule is mixing card suits with garden tools? No — each GROUP shares ONE link. Group 1: lead/iron/gold could be golf clubs (iron, gold putter...). Hmm — this is intentionally tricky!">A) Metal</button><button class="opt-btn" data-correct="true" data-fb="Correct! Lead/iron/gold = types of golf clubs (golf irons, gold putter, lead-weighted). Club/diamond/heart = three of the four suits in a deck of cards (the fourth being SPADE). Spade/trowel/fork = garden digging tools. 'Fork' is a garden digging tool — matching the gardening tool function of spade and trowel!">B) Fork</button><button class="opt-btn" data-correct="false" data-fb="'Dig' is a verb (action). Spade and trowel are nouns (objects). The group needs a noun — a digging tool, not the act of digging.">C) Dig</button><button class="opt-btn" data-correct="false" data-fb="'Shovel' is very similar to a spade — but 'fork' is a better match because garden forks, spades, and trowels are the three standard hand-digging tools. Also check: is shovel precisely the right tool type?">D) Shovel</button><button class="opt-btn" data-correct="false" data-fb="'Ace' is a playing card value, not a suit. Club/diamond/heart are SUITS. The pattern in Group 2 is suits, not card values.">E) Ace</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟠 Secure</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="secondary"><span class="diff-badge badge-secure">Secure</span><div class="q-text">Every word here has a second meaning. Find the hidden link.</div><div class="q-groups">(crane, swallow, martin) &nbsp; (robin, wren, swift) &nbsp; (jay, rook, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Eagle' is a bird — but is it in the same sub-category? Crane/swallow/martin, robin/wren/swift are all small-to-medium British birds. Eagle is a large bird of prey — it's a different sub-type. Check: is 'jay' and 'rook' also in a specific sub-group?">A) Eagle</button><button class="opt-btn" data-correct="false" data-fb="'Fly' is what birds do — not a type of bird. The group needs a bird name (noun). Jay and rook are both birds.">B) Fly</button><button class="opt-btn" data-correct="true" data-fb="Correct! Crane/swallow/martin, robin/wren/swift, jay/rook/starling are all British garden and woodland birds. 'Starling' is a common British bird — matching the pattern. Note the tricky secondary meanings: crane = lifting machine, swallow = to eat, rook = chess piece, swift = fast!">C) Starling</button><button class="opt-btn" data-correct="false" data-fb="'Hawk' is a bird of prey — a different type from the small garden birds in these groups (robin, wren, swift, martin). The groups use common garden/woodland birds, not birds of prey.">D) Hawk</button><button class="opt-btn" data-correct="false" data-fb="'Dove' is a bird, but it's typically associated with peace symbolism rather than being grouped with garden birds like robin, wren, and swift. Starling is a better match for this specific grouping of British garden birds.">E) Dove</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟣 Mastery</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="secondary"><span class="diff-badge badge-mastery">Mastery</span><div class="q-text">Every single word in both groups has a well-known secondary meaning. Don't be fooled.</div><div class="q-groups">(scale, note, rest) &nbsp; (beat, bar, tempo) &nbsp; (pitch, key, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Song' is a piece of music — not a specific music element or technical term. Scale/note/rest and beat/bar/tempo are all technical musical elements. 'Song' is too general.">A) Song</button><button class="opt-btn" data-correct="false" data-fb="'Sharp' is a music term (half-step up) — but in the context of this group, pitch and key are structural/tonal elements. 'Sharp' is a modifier/accidental in music theory, not a structural element like pitch or key.">B) Sharp</button><button class="opt-btn" data-correct="true" data-fb="Correct! Scale/note/rest = music terms (not weight/paper/relaxing). Beat/bar/tempo = music terms. Pitch/key/chord = music terms: pitch = frequency, key = tonal centre, chord = multiple notes together. 'Chord' is a core music theory term — and your brain's first instinct ('string' or 'agreement') is the trap!">C) Chord</button><button class="opt-btn" data-correct="false" data-fb="'Tune' is informal for a melody or song — not a specific music theory element. The groups use precise music theory vocabulary (scale, beat, bar, tempo, pitch, key). 'Tune' is too casual and imprecise.">D) Tune</button><button class="opt-btn" data-correct="false" data-fb="'Rhythm' is a music concept (the pattern of beats) — but it's a broader concept rather than a specific technical element like scale, note, or bar. 'Chord' is a more precise technical match for this group.">E) Rhythm</button></div><div class="feedback-box"></div></div>
+</section>
+
+<!-- SKILL 6: DUAL-RULE CLASSIFICATION -->
+<section class="section" id="s-dual">
+  <div class="section-header"><div class="section-icon">🔑</div><h2 class="section-title">6. Two Rules at Once — Dual Classification</h2><div class="section-tick" id="tick-dual">✅</div></div>
+  <div class="card card-simple"><div class="card-label">Simple Explanation</div><p>Some questions have <strong>TWO rules you must follow at the same time</strong>! Like finding a word that is BOTH a fruit AND red. An orange is a fruit — but it's not red. A strawberry is red AND a fruit — that's the answer! You must tick BOTH boxes, not just one.</p></div>
+  <div class="card card-full"><div class="card-label">Full Explanation</div><p><strong>Dual-rule classification</strong> requires satisfying two simultaneous conditions. The groups establish TWO independent rules — category AND a qualifier (colour, size, function, grammar). An answer that satisfies only one rule is a deliberate trap. You must test EVERY option against BOTH conditions before selecting.</p></div>
+  <div class="worked-example"><h4>🔍 Worked Example</h4><div class="q-display">(crimson, scarlet, ruby) &nbsp; (cherry, strawberry, tomato) &nbsp; (rose, poppy, ___)</div><ul class="step-list"><li><span class="step-num">1</span><span class="step-text">Group 1: crimson/scarlet/ruby → shades of RED</span></li><li><span class="step-num">2</span><span class="step-text">Group 2: cherry/strawberry/tomato → RED-coloured foods/fruits. Both groups are about red things. But Group 2 uses real red objects.</span></li><li><span class="step-num">3</span><span class="step-text">Group 3: rose/poppy → both RED flowers! Two rules: must be a FLOWER AND must be RED.</span></li><li><span class="step-num">4</span><span class="step-text">Test options: "tulip" — flower ✓, can be red ✓. "Daisy" — flower ✓, but white/yellow ✗. "Geranium" — flower ✓, can be red ✓.</span></li></ul><div class="answer-reveal">✓ Answer: geranium — a flower that is characteristically red, satisfying BOTH the "flower" AND "red" conditions</div></div>
+  <div class="card card-warn"><div class="card-label">⚠️ Watch Out!</div><p>The trap is always an option that satisfies ONE rule only. "Tulip" is a flower but comes in many colours. "Apple" is red but not a flower. Always check BOTH conditions before choosing — if you only check one, you'll fall into the trap.</p></div>
+  <div class="worked-example"><h4>🔍 Harder Example — Category + Grammar</h4><div class="q-display">(jogged, sprinted, dashed) &nbsp; (crawled, slithered, crept) &nbsp; (glided, floated, ___)</div><ul class="step-list"><li><span class="step-num">1</span><span class="step-text">Rule 1 (grammar): all words are past tense verbs (-ed form)</span></li><li><span class="step-num">2</span><span class="step-text">Rule 2 (category): jogged/sprinted/dashed = fast land movement; crawled/slithered/crept = slow low movement; glided/floated = smooth effortless movement.</span></li><li><span class="step-num">3</span><span class="step-text">Must be: past tense AND a verb of smooth/effortless movement.</span></li><li><span class="step-num">4</span><span class="step-text">"Drift" ✗ = base form. "Drifted" ✓ = past tense + smooth movement. "Soared" ✓ = past tense + effortless movement.</span></li></ul><div class="answer-reveal">✓ Answer: drifted — past tense verb (Rule 1) AND a smooth, effortless movement (Rule 2)</div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟢 Starter</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="dual"><span class="diff-badge badge-starter">Starter</span><div class="q-text">This answer must satisfy TWO rules. Check both before choosing.</div><div class="q-groups">(oak, pine, willow) &nbsp; (banana, mango, pineapple) &nbsp; (apple, pear, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Orange' is a fruit ✓ — but it's a CITRUS fruit. Oak/pine/willow are British trees. Banana/mango/pineapple are tropical fruits. Apple/pear are common British/temperate fruits. Rule 1: temperate/common fruit. Rule 2: grows in Britain/Europe. Orange grows in warm climates, not Britain.">A) Orange</button><button class="opt-btn" data-correct="false" data-fb="'Strawberry' is a British fruit ✓ — but it's a berry, not a tree fruit. Apple and pear both grow on trees. The group needs a tree-grown British fruit.">B) Strawberry</button><button class="opt-btn" data-correct="true" data-fb="Correct! Oak/pine/willow = British trees. Banana/mango/pineapple = tropical fruits. Apple/pear/plum = common British tree fruits (temperate climate, tree-grown). 'Plum' satisfies BOTH: it's a tree fruit AND it grows in Britain — matching the dual pattern!">C) Plum</button><button class="opt-btn" data-correct="false" data-fb="'Tree' is the category name — not a member of the category. The group needs a specific British tree fruit, not the word 'tree'.">D) Tree</button><button class="opt-btn" data-correct="false" data-fb="'Coconut' is a tropical fruit — like banana/mango/pineapple (Group 2). Apple and pear are temperate British fruits. Coconut doesn't satisfy the 'British temperate' condition.">E) Coconut</button></div><div class="feedback-box"></div></div>
+
+  <div class="question-block" data-section="dual"><span class="diff-badge badge-starter">Starter</span><div class="q-text">Find the word that is the right TYPE and the right FORM.</div><div class="q-groups">(walked, talked, jumped) &nbsp; (smiled, frowned, blinked) &nbsp; (clapped, waved, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Nod' is a gesture verb ✓ — but it's in base form, not past tense. All words end in -ed. Rule 1: past tense. Rule 2: physical gesture/body movement. 'Nod' fails Rule 1.">A) Nod</button><button class="opt-btn" data-correct="false" data-fb="'Laughing' is an -ing form, not -ed past tense. All words in the groups end in -ed (past tense). 'Laughing' fails Rule 1.">B) Laughing</button><button class="opt-btn" data-correct="false" data-fb="'Gesture' is a noun — not a past tense verb. The groups use past tense verbs (doing words in past form). 'Gesture' fails both rules.">C) Gesture</button><button class="opt-btn" data-correct="true" data-fb="Correct! Rule 1: past tense (-ed form). Rule 2: physical body gesture or movement. Clapped/waved/nodded — all past tense verbs of physical gesture. 'Nodded' satisfies BOTH: it's a past tense body movement verb!">D) Nodded</button><button class="opt-btn" data-correct="false" data-fb="'Shout' is a base form verb of vocal communication — not a physical gesture, and not past tense. It fails both Rule 1 (needs -ed) and Rule 2 (needs a gesture/movement).">E) Shout</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟡 Developing</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="dual"><span class="diff-badge badge-developing">Developing</span><div class="q-text">Both conditions must be satisfied. Test every option against BOTH rules.</div><div class="q-groups">(robin, kingfisher, parrot) &nbsp; (tulip, poppy, rose) &nbsp; (sapphire, turquoise, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Yellow' is a colour — but the groups use NOUNS (specific objects), not colour adjectives. Robin/kingfisher/parrot are colourful birds. Tulip/poppy/rose are colourful flowers. Sapphire/turquoise are blue/green gemstones. The answer must be a gemstone AND have a specific colour in its name or association.">A) Yellow</button><button class="opt-btn" data-correct="false" data-fb="'Ruby' is a red gemstone ✓ (gemstone rule satisfied) — but check the colour link. Robin = red breast. Poppy = red. The groups are: colourful birds, colourful flowers, colourful gemstones. Sapphire = blue. Turquoise = blue-green. The colour for Group 3 appears to be blue/green. Ruby is red — wrong colour group.">B) Ruby</button><button class="opt-btn" data-correct="true" data-fb="Correct! Robin/kingfisher/parrot = birds with distinctive bright colours. Tulip/poppy/rose = flowers with rich colours. Sapphire/turquoise/jade = blue or green gemstones. 'Jade' is a green gemstone — satisfying BOTH: it's a gemstone AND it's in the blue-green colour family matching sapphire and turquoise!">C) Jade</button><button class="opt-btn" data-correct="false" data-fb="'Emerald' is a green gemstone ✓ — but emerald is typically associated with rich deep green, while sapphire (blue) and turquoise (blue-green) suggest a blue-green spectrum. 'Jade' is a closer match for the blue-green family used in this group.">D) Emerald</button><button class="opt-btn" data-correct="false" data-fb="'Diamond' is a gemstone ✓ — but diamonds are typically colourless/clear, not associated with a specific colour in the blue-green spectrum that sapphire and turquoise represent.">E) Diamond</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟠 Secure</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="dual"><span class="diff-badge badge-secure">Secure</span><div class="q-text">Category + grammar: the answer must pass both tests simultaneously.</div><div class="q-groups">(jogged, sprinted, dashed) &nbsp; (crawled, slithered, crept) &nbsp; (glided, floated, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Soar' is base form (present tense). All words are past tense (-ed form). Rule 1 fails immediately. The past tense of soar is 'soared'.">A) Soar</button><button class="opt-btn" data-correct="false" data-fb="'Flowing' is the -ing form. The group uses -ed past tense forms. Also, 'flowing' describes how liquid moves rather than how a person or creature moves gracefully through air or water.">B) Flowing</button><button class="opt-btn" data-correct="true" data-fb="Correct! Rule 1: past tense (-ed form). Rule 2: smooth, effortless movement. Jogged/sprinted/dashed = energetic land movement (past tense). Crawled/slithered/crept = slow, low movement (past tense). Glided/floated/drifted = smooth, effortless movement (past tense). 'Drifted' satisfies BOTH rules!">C) Drifted</button><button class="opt-btn" data-correct="false" data-fb="'Rushed' is past tense ✓ — but rushing is fast and energetic, not smooth or effortless. It belongs to the same movement family as jogged/sprinted/dashed (Group 1). It fails Rule 2.">D) Rushed</button><button class="opt-btn" data-correct="false" data-fb="'Float' is base form (present tense). The answer needs the -ed past tense form. 'Floated' is already in Group 3 — you need a different smooth-movement word. The correct answer is 'drifted'.">E) Float</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟣 Mastery</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="dual"><span class="diff-badge badge-mastery">Mastery</span><div class="q-text">Three simultaneous conditions. Test each option ruthlessly.</div><div class="q-groups">(whispered, muttered, murmured) &nbsp; (strutted, staggered, shuffled) &nbsp; (glistened, shimmered, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Gleam' is base form. Rule 1 broken immediately — all words are past tense (-ed form). Also check: glistened/shimmered describe light effects. 'Gleam' means shine but in base form fails Rule 1.">A) Gleam</button><button class="opt-btn" data-correct="false" data-fb="'Shined' is past tense ✓ — but 'shined' is used for polishing (shoes). The pattern (glistened, shimmered) uses words for delicate, dancing light effects — not general shining. 'Shone' (past of shine) would be more standard but still too broad. 'Sparkled' is more precise.">B) Shined</button><button class="opt-btn" data-correct="true" data-fb="Correct! Rule 1: past tense (-ed form). Rule 2: vivid, specific manner of action (not generic). Rule 3: Group 3 specifically = delicate light-play effects. Whispered/muttered/murmured = subtle speech. Strutted/staggered/shuffled = distinctive walks. Glistened/shimmered/sparkled = delicate light effects. 'Sparkled' satisfies all three rules!">C) Sparkled</button><button class="opt-btn" data-correct="false" data-fb="'Glowing' is the -ing form, not past tense (-ed). Rule 1 fails. Also, glowing suggests steady warm light — while glistened and shimmered describe moving, dancing light.">D) Glowing</button><button class="opt-btn" data-correct="false" data-fb="'Bright' is an adjective (describing word). The group needs a past tense verb describing a light effect — a doing word in past form, not a describing word.">E) Bright</button></div><div class="feedback-box"></div></div>
+</section>
+
+<!-- SKILL 7: ABSTRACT CATEGORIES -->
+<section class="section" id="s-abstract">
+  <div class="section-header"><div class="section-icon">💭</div><h2 class="section-title">7. Ideas & Feelings — Abstract Categories</h2><div class="section-tick" id="tick-abstract">✅</div></div>
+  <div class="card card-simple"><div class="card-label">Simple Explanation</div><p>Not all categories are things you can touch! <em>Joy</em>, <em>fear</em>, and <em>sadness</em> are all feelings — you can't hold them, but they belong in the same group. <em>Honesty</em>, <em>courage</em>, and <em>kindness</em> are all personal qualities. When you can't see or touch the words, ask: "Are these all <strong>feelings</strong>? Qualities? States of matter?"</p></div>
+  <div class="card card-full"><div class="card-label">Full Explanation</div><p><strong>Abstract categories</strong> group words by shared invisible concepts: emotions (anger, joy, fear), personal virtues (honesty, bravery, loyalty), mental states (confusion, focus, clarity), or physical states (solid, liquid, gas). These are harder because students try to find a concrete category and fail. The correct approach: ask "What do these words describe that you cannot see or touch?"</p></div>
+  <div class="worked-example"><h4>🔍 Worked Example</h4><div class="q-display">(anger, joy, fear) &nbsp; (honesty, bravery, kindness) &nbsp; (confusion, focus, ___)</div><ul class="step-list"><li><span class="step-num">1</span><span class="step-text">Group 1: anger/joy/fear → emotions (feelings)</span></li><li><span class="step-num">2</span><span class="step-text">Group 2: honesty/bravery/kindness → virtues (positive character traits). Different abstract category.</span></li><li><span class="step-num">3</span><span class="step-text">Group 3: confusion/focus → mental states (states of mind). Need another mental state.</span></li><li><span class="step-num">4</span><span class="step-text">"Clarity" = a state of clear thinking ✓. "Think" = an action, not a state ✗. "Brain" = concrete object ✗.</span></li></ul><div class="answer-reveal">✓ Answer: clarity — an abstract mental state, matching confusion and focus exactly</div></div>
+  <div class="card card-warn"><div class="card-label">⚠️ Watch Out!</div><p>The trap is always a concrete word from the same "world." If the group is about emotions, the trap might be "heart" (related to feelings but a concrete body part) or "cry" (what you do when sad, but an action not a feeling). The answer must be the same TYPE of abstract word — not just related to the theme.</p></div>
+  <div class="worked-example"><h4>🔍 Harder Example — States of Matter & Beyond</h4><div class="q-display">(solid, liquid, gas) &nbsp; (peace, chaos, order) &nbsp; (growth, decay, ___)</div><ul class="step-list"><li><span class="step-num">1</span><span class="step-text">Group 1: solid/liquid/gas → states of matter (physical states)</span></li><li><span class="step-num">2</span><span class="step-text">Group 2: peace/chaos/order → states of society/organisation (abstract social states)</span></li><li><span class="step-num">3</span><span class="step-text">Group 3: growth/decay → states of change or progress. Need another abstract state of change.</span></li><li><span class="step-num">4</span><span class="step-text">"Stagnation" = a state of not changing (opposite of growth/decay) ✓. "Grow" = verb not noun ✗. "Plant" = concrete ✗.</span></li></ul><div class="answer-reveal">✓ Answer: stagnation — an abstract state of change (or no change), matching growth and decay</div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟢 Starter</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="abstract"><span class="diff-badge badge-starter">Starter</span><div class="q-text">These words describe things you CANNOT touch. Find the one that belongs to the same invisible group.</div><div class="q-groups">(hot, cold, warm) &nbsp; (happy, sad, angry) &nbsp; (tired, awake, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Sleep' is an action (verb) — something you do. Tired and awake are STATES — how you feel right now. You need an adjective describing a state of alertness or energy level.">A) Sleep</button><button class="opt-btn" data-correct="false" data-fb="'Bed' is a concrete object. Tired and awake are abstract states describing energy or alertness level — not physical objects.">B) Bed</button><button class="opt-btn" data-correct="true" data-fb="Correct! Hot/cold/warm = temperature states. Happy/sad/angry = emotional states. Tired/awake/alert = alertness/energy states. 'Alert' is an adjective describing a state of high awareness and energy — matching the pattern of abstract states perfectly!">C) Alert</button><button class="opt-btn" data-correct="false" data-fb="'Dream' is a noun or verb — not an adjective describing a state. Tired and awake are adjectives (describing words) for states of consciousness. You need an adjective, not a noun/verb.">D) Dream</button><button class="opt-btn" data-correct="false" data-fb="'Night' is a time of day — a concrete noun. Tired and awake are abstract states describing how you feel, not when things happen.">E) Night</button></div><div class="feedback-box"></div></div>
+
+  <div class="question-block" data-section="abstract"><span class="diff-badge badge-starter">Starter</span><div class="q-text">Which word names a feeling — not an action, object, or person?</div><div class="q-groups">(love, hate, envy) &nbsp; (courage, patience, wisdom) &nbsp; (grief, relief, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Cry' is a verb (what you do when sad) — not a noun naming the feeling itself. Grief and relief are abstract nouns naming emotional states. You need a noun, not an action.">A) Cry</button><button class="opt-btn" data-correct="false" data-fb="'Sad' is an adjective (describing word). Grief, relief, love, hate are abstract NOUNS — naming words for feelings. You need a noun, not an adjective.">B) Sad</button><button class="opt-btn" data-correct="false" data-fb="'Heart' is a body part — a concrete noun. While we associate hearts with feelings, 'heart' itself is a physical object. The group needs an abstract noun naming a feeling you cannot touch.">C) Heart</button><button class="opt-btn" data-correct="true" data-fb="Correct! Love/hate/envy = emotion nouns. Courage/patience/wisdom = virtue nouns. Grief/relief/shame = emotion/feeling nouns. 'Shame' is an abstract noun naming a powerful emotion — matching the pattern of named feelings in this group!">D) Shame</button><button class="opt-btn" data-correct="false" data-fb="'Hug' is an action (something you give to comfort someone). The group needs an abstract noun naming an emotion — not the physical action associated with that emotion.">E) Hug</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟡 Developing</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="abstract"><span class="diff-badge badge-developing">Developing</span><div class="q-text">The trap is a concrete word from the same theme. Find the true abstract match.</div><div class="q-groups">(peace, war, conflict) &nbsp; (success, failure, defeat) &nbsp; (progress, decline, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Grow' is a verb (an action). Progress and decline are abstract nouns naming states of change. You need a noun — not the action of changing.">A) Grow</button><button class="opt-btn" data-correct="false" data-fb="'Graph' is a concrete visual object used to show progress — but it's not an abstract state. Progress and decline are abstract states of change, not the tools used to measure them.">B) Graph</button><button class="opt-btn" data-correct="true" data-fb="Correct! Peace/war/conflict = abstract social states. Success/failure/defeat = abstract outcome states. Progress/decline/stagnation = abstract states of change or development. 'Stagnation' means no movement or change — a perfect abstract match for progress and decline!">C) Stagnation</button><button class="opt-btn" data-correct="false" data-fb="'Stuck' is an adjective (describing word). Progress and decline are abstract nouns — naming words for states. While 'stuck' captures the right idea, you need the noun form of that state.">D) Stuck</button><button class="opt-btn" data-correct="false" data-fb="'Economy' is a concrete system — something that exists and has structure. Progress and decline are abstract states of change. Economy can experience progress or decline, but it's not itself a state of change.">E) Economy</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟠 Secure</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="abstract"><span class="diff-badge badge-secure">Secure</span><div class="q-text">These abstract categories are subtle. Identify the precise type of abstraction used.</div><div class="q-groups">(solid, liquid, gas) &nbsp; (dawn, noon, dusk) &nbsp; (childhood, adulthood, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Age' is a general concept — not a specific named stage. Childhood and adulthood are specific named STAGES of life. The group needs a specific named life stage that follows adulthood.">A) Age</button><button class="opt-btn" data-correct="false" data-fb="'Young' is an adjective. Childhood and adulthood are abstract nouns naming life stages. You need a noun.">B) Young</button><button class="opt-btn" data-correct="false" data-fb="'Baby' is a concrete noun — a person at an early stage. Childhood and adulthood are abstract stage names — they name the stage itself, not the person in that stage.">C) Baby</button><button class="opt-btn" data-correct="true" data-fb="Correct! Solid/liquid/gas = named physical states of matter. Dawn/noon/dusk = named moments in the daily time cycle. Childhood/adulthood/old age = named stages in the human life cycle. 'Old age' is the named stage that follows adulthood — completing the three-part sequence!">D) Old age</button><button class="opt-btn" data-correct="false" data-fb="'Retirement' is a life event (when you stop working) — not a named life stage like childhood or adulthood. Old age is the named stage that follows adulthood.">E) Retirement</button></div><div class="feedback-box"></div></div>
+
+  <div class="tier-header"><div class="tier-line"></div><div class="tier-label">🟣 Mastery</div><div class="tier-line"></div></div>
+  <div class="question-block" data-section="abstract"><span class="diff-badge badge-mastery">Mastery</span><div class="q-text">The hardest abstract questions. Every option is tempting but only one is precisely right.</div><div class="q-groups">(ignorance, knowledge, wisdom) &nbsp; (innocence, experience, cynicism) &nbsp; (naivety, awareness, ___)</div><div class="options-grid"><button class="opt-btn" data-correct="false" data-fb="'Smart' is an adjective. Every other word in these groups is an abstract noun — a naming word for a mental or experiential state. You need a noun, not a describing word.">A) Smart</button><button class="opt-btn" data-correct="false" data-fb="'Understanding' could work grammatically (abstract noun) — but check the pattern more precisely. Ignorance→knowledge→wisdom is a progression from no-knowing to deep-knowing. Innocence→experience→cynicism is a progression from fresh to over-exposed. Naivety→awareness→? needs the final stage of that progression — after awareness, what comes?">B) Understanding</button><button class="opt-btn" data-correct="false" data-fb="'Think' is a verb. The group needs an abstract noun naming a mental/experiential state at the END of a developmental progression.">C) Think</button><button class="opt-btn" data-correct="true" data-fb="Correct! Each group is a three-stage progression of a mental/experiential state: no-knowing→knowing→deep-knowing; fresh→exposed→over-exposed; naive→aware→? After naivety and awareness comes a deeper, harder-won state — 'enlightenment' (deep, complete understanding/acceptance). A sophisticated abstract noun completing the progression!">D) Enlightenment</button><button class="opt-btn" data-correct="false" data-fb="'Confusion' is an abstract noun ✓ — but it doesn't follow naivety→awareness in a progression. Confusion could come before or alongside naivety. The group needs a STATE that comes AFTER awareness — the final, deepest stage.">E) Confusion</button></div><div class="feedback-box"></div></div>
+</section>
+
+
+<!-- FINAL TIMED TEST -->
+<section class="section" id="s-test">
+  <div class="section-header"><div class="section-icon">⏱️</div><h2 class="section-title">Final Mastery Test</h2></div>
+  <div class="card" style="background:var(--navy);color:white;text-align:center;padding:2rem;">
+    <p style="font-size:1.1rem;margin-bottom:1rem;">15 questions · 7 minutes · All sub-skills covered</p>
+    <div id="test-timer" style="font-size:3rem;font-family:'DM Mono',monospace;color:var(--gold);font-weight:700;">7:00</div>
+    <button id="start-test-btn" class="btn-primary" style="margin-top:1.5rem;font-size:1.1rem;padding:0.8rem 2rem;">▶ Start Test</button>
+    <div id="test-score-display" style="display:none;margin-top:1rem;font-size:1.2rem;color:var(--gold);">Score: <span id="live-test-score">0</span> / <span id="live-test-total">0</span></div>
+  </div>
+
+  <div id="test-questions" style="display:none;">
+
+    <!-- Q1 -->
+    <div class="question-block test-q" data-qnum="1">
+      <span class="diff-badge badge-starter">Starter — Semantic</span>
+      <div class="q-text">Which word completes the third group?</div>
+      <div class="q-groups">(carrot, potato, onion) &nbsp; (apple, pear, plum) &nbsp; (beef, pork, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Farm' is a place where food is produced — not a type of meat. Beef and pork are specific types of meat from different animals. The answer must be another type of meat.">A) Farm</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Chicken' is a common meat, but notice the groups: carrots/potato/onion are root vegetables, apple/pear/plum are tree fruits. Beef and pork are specifically RED meats from large farm animals. Chicken is a poultry/white meat. The most precise match for beef and pork is another red meat.">B) Chicken</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! Carrot/potato/onion = root vegetables. Apple/pear/plum = tree fruits. Beef/pork/lamb = red meats from large farm animals. 'Lamb' (from sheep) is a red meat — matching the precise category!">C) Lamb</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Bacon' is a processed pork product — pork is already in the group. The answer should be a different type of meat altogether.">D) Bacon</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Meat' is the category name — not a member of the category. Beef and pork are specific types of meat, not the word 'meat' itself.">E) Meat</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-block test-q" data-qnum="2">
+      <span class="diff-badge badge-starter">Starter — Grammar</span>
+      <div class="q-text">Find the word with the same grammatical form.</div>
+      <div class="q-groups">(quickly, slowly, quietly) &nbsp; (happily, sadly, boldly) &nbsp; (swiftly, gently, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Soft' is an adjective (describing word). All words in the groups end in -ly (adverbs). 'Softly' would be correct — not 'soft'.">A) Soft</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Kindness' is an abstract noun. The groups use -ly adverbs. 'Kindly' would be correct — not 'kindness'.">B) Kindness</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! All words are -ly adverbs describing how actions are performed. Quickly/slowly/quietly, happily/sadly/boldly, swiftly/gently/firmly — 'firmly' is a -ly adverb of manner, matching the pattern perfectly!">C) Firmly</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Fierce' is an adjective. The group needs a -ly adverb. 'Fiercely' would be correct — not 'fierce'.">D) Fierce</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Running' is a verb or gerund. The groups use -ly adverbs of manner — describing words that tell us HOW something is done.">E) Running</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-block test-q" data-qnum="3">
+      <span class="diff-badge badge-developing">Developing — Intensity</span>
+      <div class="q-text">Find the correct word for the end of this scale.</div>
+      <div class="q-groups">(peckish, hungry, starving) &nbsp; (damp, wet, soaked) &nbsp; (warm, hot, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Heat' is a noun (the concept) — not an adjective on a scale. Warm and hot are adjectives. The answer must be an adjective more extreme than hot.">A) Heat</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Warm' is already in the group — and it's the MILDEST on the scale, not the most extreme. The pattern is mild→moderate→extreme. You need something more intense than hot.">B) Warm</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Cooked' is a past participle — not a temperature adjective on a scale. The group needs an adjective more extreme than 'hot'.">C) Cooked</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! Peckish/hungry/starving = hunger intensity scale. Damp/wet/soaked = wetness scale. Warm/hot/scorching = heat intensity scale. 'Scorching' is the extreme — far hotter than just 'hot'!">D) Scorching</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Hotter' is a comparative adjective — not a standalone intensity word. The groups use simple adjectives (warm, hot, not hotter/hottest). You need a distinct word for extreme heat like 'scorching' or 'boiling'.">E) Hotter</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-block test-q" data-qnum="4">
+      <span class="diff-badge badge-developing">Developing — Functional</span>
+      <div class="q-text">What do all the words DO? Find the matching function.</div>
+      <div class="q-groups">(telescope, microscope, binoculars) &nbsp; (hearing aid, earbud, headphone) &nbsp; (cane, crutch, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Doctor' is a person — not a device or tool. The groups all contain objects (tools/devices) that assist a specific sense or physical function.">A) Doctor</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Leg' is a body part — not an assistive device. Cane and crutch are assistive mobility devices used to help people walk or balance. The answer needs to be another assistive mobility device.">B) Leg</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Wheelchair' is an assistive mobility device ✓ — but it replaces walking entirely (you sit in it). A cane and crutch are SUPPORT devices used while walking, not replacements for walking. 'Walker' or 'prosthetic' are more precise matches for walking support.">C) Wheelchair</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! Telescope/microscope/binoculars = devices that enhance SIGHT. Hearing aid/earbud/headphone = devices that enhance or assist HEARING. Cane/crutch/walker = devices that assist with MOVEMENT/WALKING. A 'walker' is an assistive mobility frame — matching the support-for-walking function!">D) Walker</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Bandage' is used to cover wounds — not to assist with walking or movement. Cane and crutch specifically help support movement.">E) Bandage</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-block test-q" data-qnum="5">
+      <span class="diff-badge badge-developing">Developing — Secondary Meaning</span>
+      <div class="q-text">Your first instinct is the trap. Check Group 2 carefully.</div>
+      <div class="q-groups">(pupil, iris, retina) &nbsp; (violet, indigo, lilac) &nbsp; (lavender, mauve, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Eye' is a body part — related to Group 1 (pupil/iris/retina are eye parts) but check Group 2. Violet/indigo/lilac are shades of purple. Lavender/mauve are also shades of purple. The link for Groups 2 and 3 is colours. So Group 1 must also be colours: iris (a purple flower, associated with purple), violet (the colour!), pupil... hmm. Actually the link may be: Group 1 = eye parts, Group 2 and 3 = purple shades. The answer for Group 3 is a purple shade.">A) Eye</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Flower' is the category for flowers like lavender and violet — but it's the category name, not a shade of purple. Lavender and mauve are specific colour names.">B) Flower</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! Pupil/iris/retina = parts of the eye. Violet/indigo/lilac = shades of purple/blue-purple. Lavender/mauve/plum = shades of purple. 'Plum' is a rich purple shade — and note the trick: 'violet' and 'iris' are also flowers, 'plum' is also a fruit! The hidden meaning is the colour.">C) Plum</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Purple' is the general colour — not a specific shade name. Lavender and mauve are specific named shades. 'Plum' is also a specific named purple shade.">D) Purple</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Blue' is a separate primary colour — not a shade of purple. Violet/indigo/lilac/lavender/mauve are all in the purple-violet spectrum.">E) Blue</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question-block test-q" data-qnum="6">
+      <span class="diff-badge badge-secure">Secure — Dual Rule</span>
+      <div class="q-text">TWO rules must be satisfied. Test each option against both.</div>
+      <div class="q-groups">(sprinted, leaped, dived) &nbsp; (whispered, shuffled, trembled) &nbsp; (soared, glided, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Float' is base form (present tense). All words use -ed past tense forms. 'Floated' would be correct — 'float' fails Rule 1.">A) Float</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Rushed' is past tense ✓ — but rushing is fast and energetic, matching Group 1 (sprinted/leaped/dived). Soared and glided are smooth, effortless movements. 'Rushed' fails Rule 2 (smooth/effortless movement).">B) Rushed</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Flying' is the -ing form — not past tense (-ed form). The pattern requires past tense. Also: flying is too general compared to the precise words soared and glided.">C) Flying</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! Rule 1: past tense (-ed form). Rule 2: smooth, effortless aerial or gentle movement. Sprinted/leaped/dived = energetic bursts. Whispered/shuffled/trembled = small, subtle actions. Soared/glided/drifted = smooth, effortless movement. 'Drifted' passes BOTH rules!">D) Drifted</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Peaceful' is an adjective — not a past tense verb. The groups all use past tense verbs (action words in past form).">E) Peaceful</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question-block test-q" data-qnum="7">
+      <span class="diff-badge badge-secure">Secure — Abstract</span>
+      <div class="q-text">Find the abstract word that fits the precise category.</div>
+      <div class="q-groups">(envy, greed, pride) &nbsp; (faith, hope, charity) &nbsp; (fury, despair, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Angry' is an adjective. Fury, despair, envy, greed are all abstract nouns. You need a noun — a naming word for an intense emotional state.">A) Angry</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Emotion' is the category name — not a member of the category. Fury and despair are specific named emotions, not the word 'emotion'.">B) Emotion</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Heart' is a body part — a concrete noun. The group needs an abstract noun naming an intense emotional state like fury or despair.">C) Heart</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! Envy/greed/pride = the seven deadly sins (intense negative traits). Faith/hope/charity = the three theological virtues. Fury/despair/anguish = intense negative emotional states/suffering. 'Anguish' is an abstract noun naming extreme emotional pain — matching fury and despair!">D) Anguish</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Suffer' is a verb (an action). The group needs an abstract noun naming an emotional state. Fury and despair are noun states — not actions.">E) Suffer</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="question-block test-q" data-qnum="8">
+      <span class="diff-badge badge-secure">Secure — Semantic Precision</span>
+      <div class="q-text">The rule is very specific. A near-miss won't do.</div>
+      <div class="q-groups">(metre, kilometre, centimetre) &nbsp; (gram, kilogram, milligram) &nbsp; (litre, millilitre, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Gallon' is an imperial unit — not a metric unit. Metre/gram/litre are all metric units (SI system). Gallon belongs to a different measurement system.">A) Gallon</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Liquid' describes what litres measure — it's not a unit of measurement. The group needs a specific named unit in the metric system.">B) Liquid</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! Metre/kilometre/centimetre = metric units of LENGTH (with prefixes kilo-, centi-). Gram/kilogram/milligram = metric units of WEIGHT (with prefixes kilo-, milli-). Litre/millilitre/centilitre = metric units of VOLUME (with prefix milli-, centi-). 'Centilitre' uses the centi- prefix — completing the metric volume set!">C) Centilitre</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Volume' is the concept being measured — not a unit of measurement. Litre and millilitre are specific units, not the concept.">D) Volume</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Pint' is an imperial unit of volume — not a metric unit. The entire pattern uses the metric (SI) measurement system with standard prefixes (kilo-, centi-, milli-).">E) Pint</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="question-block test-q" data-qnum="9">
+      <span class="diff-badge badge-secure">Secure — Hidden Meaning</span>
+      <div class="q-text">Use Group 2 to unlock the real meaning of Group 1.</div>
+      <div class="q-groups">(strike, frame, pin) &nbsp; (serve, volley, ace) &nbsp; (birdie, bogey, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Ball' is a sporting object — not a specific scoring term. Birdie and bogey are specific golf scoring terms. Your first instinct for 'pin' (a small object) was wrong — it's a bowling pin! The three groups are: bowling terms, tennis terms, golf terms. The answer needs to be a golf scoring term.">A) Ball</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Hole' is the target in golf — but it's the physical target, not a scoring term like birdie or bogey. Birdie (one under par), bogey (one over par) are specific score names.">B) Hole</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! Strike/frame/pin = bowling terms. Serve/volley/ace = tennis terms. Birdie/bogey/eagle = golf scoring terms. An 'eagle' (two under par) is a golf score — completing the golf terminology group!">C) Eagle</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Green' is a part of a golf course — not a scoring term. Birdie and bogey are specific names for scores relative to par. 'Eagle' is another golf score name.">D) Green</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Club' is golf equipment — not a scoring term. The pattern in Group 3 uses specific named golf scores (birdie, bogey, eagle), not equipment names.">E) Club</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="question-block test-q" data-qnum="10">
+      <span class="diff-badge badge-mastery">Mastery — Parts of a Whole</span>
+      <div class="q-text">Apply the precise rule to find the missing part.</div>
+      <div class="q-groups">(leaf, branch, root) &nbsp; (engine, wheel, door) &nbsp; (verse, chorus, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Music' is the art form — not a structural part of a song. Verse and chorus are specific structural sections of a song. The answer must be another named structural section.">A) Music</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Lyrics' are the words of a song — but lyrics is the content, not a structural division. Verse and chorus are named structural sections. The answer needs to be another section name.">B) Lyrics</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! Leaf/branch/root = structural parts of a tree. Engine/wheel/door = structural parts of a car. Verse/chorus/bridge = structural sections of a song. A 'bridge' is a contrasting section that links parts of a song — a specific structural component!">C) Bridge</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Singer' is the person who performs the song — not a structural part of the song itself. Verse and chorus are sections within the song's structure.">D) Singer</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Melody' is the tune of a song — but it runs through the whole song rather than being a distinct named section. Verse, chorus, and bridge are specific named structural divisions.">E) Melody</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="question-block test-q" data-qnum="11">
+      <span class="diff-badge badge-mastery">Mastery — Dual Rule</span>
+      <div class="q-text">The trap satisfies ONE rule only. Find what satisfies BOTH.</div>
+      <div class="q-groups">(blazing, scorching, sweltering) &nbsp; (freezing, bitter, biting) &nbsp; (torrential, relentless, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Heavy' is a common adjective — the groups use dramatic, evocative adjectives (blazing, scorching, sweltering; freezing, bitter, biting). Heavy is too mild and generic for this pattern of intense weather vocabulary.">A) Heavy</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Raining' is a verb form (-ing). All words in the groups are adjectives (describing words). 'Raining' fails the grammatical rule.">B) Raining</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! Rule 1: dramatic, evocative single-word adjectives. Rule 2: intense weather descriptions. Blazing/scorching/sweltering = extreme heat descriptors. Freezing/bitter/biting = extreme cold descriptors. Torrential/relentless/pounding = extreme rain descriptors. 'Pounding' describes ferociously heavy rain — both rules satisfied!">C) Pounding</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Wet' is a basic adjective — not an evocative, intense weather descriptor like torrential or relentless. The groups use vivid, dramatic vocabulary. 'Wet' is too simple and mild for this pattern.">D) Wet</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Storm' is a noun — not an adjective. All words in the groups are adjectives describing the quality/intensity of weather. A storm is an event, not a describing word.">E) Storm</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+    <!-- Q12 -->
+    <div class="question-block test-q" data-qnum="12">
+      <span class="diff-badge badge-mastery">Mastery — Abstract Precision</span>
+      <div class="q-text">The abstract categories are highly specific. Only one option fits precisely.</div>
+      <div class="q-groups">(democracy, monarchy, republic) &nbsp; (capitalism, socialism, communism) &nbsp; (renaissance, reformation, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'History' is too general — it's the subject, not a specific named historical movement or era. Renaissance and Reformation are specific named historical movements with capital letters.">A) History</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Revolution' could work — but check: democracy/monarchy/republic are systems of GOVERNMENT. Capitalism/socialism/communism are economic SYSTEMS. Renaissance/Reformation are named historical MOVEMENTS/ERAS. The answer should be another major named historical movement. 'Enlightenment' is a better specific match.">B) Revolution</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! Democracy/monarchy/republic = named systems of government. Capitalism/socialism/communism = named economic ideologies. Renaissance/Reformation/Enlightenment = major named historical intellectual movements that transformed European thought. The 'Enlightenment' is the third great movement after the Renaissance and Reformation!">C) Enlightenment</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'War' is an event — not a named intellectual or cultural movement. The Renaissance and Reformation were intellectual/religious revolutions in thought, not military conflicts.">D) War</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Medieval' is an adjective describing a historical period — not a named movement. Renaissance and Reformation are noun names of movements, not adjectives describing periods.">E) Medieval</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+    <!-- Q13 -->
+    <div class="question-block test-q" data-qnum="13">
+      <span class="diff-badge badge-mastery">Mastery — Functional Cross-Domain</span>
+      <div class="q-text">The function links words from very different worlds.</div>
+      <div class="q-groups">(anchor, brake, seatbelt) &nbsp; (dam, levee, floodgate) &nbsp; (firewall, quarantine, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Computer' is a device — not a protective barrier or control system. Firewall and quarantine are systems that STOP the spread of something harmful. The answer needs to perform the same protective/blocking function.">A) Computer</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Block' is a verb (action). The groups use nouns — specific named systems or devices. Firewall (stops data attacks), quarantine (stops disease spread) — the answer needs to be a noun naming a protective system.">B) Block</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Fence' physically blocks space — similar to a dam. But anchor/brake/seatbelt = things that STOP movement/arrest momentum. Dam/levee/floodgate = things that CONTAIN fluids. Firewall/quarantine = things that CONTAIN/STOP the spread of harmful things (data attacks, disease). 'Embargo' is more precise for this third group.">C) Fence</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! Anchor/brake/seatbelt = devices that arrest momentum or movement. Dam/levee/floodgate = structures that contain or control the flow of water. Firewall/quarantine/embargo = systems that contain or block the spread of something harmful (cyber threats, disease, trade). An 'embargo' blocks the flow of goods — all three use CONTAINMENT as their function!">D) Embargo</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Vaccine' prevents disease before it spreads — but it doesn't contain or block something actively. Quarantine physically isolates and contains; a vaccine prevents. The function of containment/blocking is better matched by 'embargo'.">E) Vaccine</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+    <!-- Q14 -->
+    <div class="question-block test-q" data-qnum="14">
+      <span class="diff-badge badge-mastery">Mastery — Order & Sequence</span>
+      <div class="q-text">The ORDER within each group matters. Find the word at the correct position.</div>
+      <div class="q-groups">(caterpillar, cocoon, butterfly) &nbsp; (tadpole, froglet, frog) &nbsp; (egg, chick, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Bird' is too general — many animals lay eggs. The groups show specific LIFE CYCLE SEQUENCES. Caterpillar→cocoon→butterfly (moth/butterfly cycle). Tadpole→froglet→frog (frog cycle). Egg→chick→? What specific bird does a chick become? Chickens are farm birds, but the answer should be the adult form of a baby chick.">A) Bird</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Nest' is where eggs are laid — not a stage of the lifecycle. The groups show developmental STAGES of a creature, not the environments they live in.">B) Nest</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Egg' is already at the START of Group 3. The sequence goes egg→chick→(adult form). You need the FINAL adult stage, not the first stage.">C) Egg</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! Each group shows a life cycle sequence from juvenile to adult: caterpillar→cocoon→butterfly, tadpole→froglet→frog, egg→chick→hen. A 'hen' is the adult female chicken — the final stage of the chick's development, matching the pattern!">D) Hen</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Wings' are a body part — not a lifecycle stage. The groups use names for the creature at each stage of its development, not descriptions of physical features it develops.">E) Wings</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+    <!-- Q15 -->
+    <div class="question-block test-q" data-qnum="15">
+      <span class="diff-badge badge-mastery">Mastery — Maximum Deception</span>
+      <div class="q-text">The hardest kind. Every instinct is a trap. Think carefully.</div>
+      <div class="q-groups">(Mercury, Venus, Mars) &nbsp; (do, re, mi) &nbsp; (Monday, Tuesday, ___)</div>
+      <div class="options-grid">
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Planet' is the category for Group 1 — but check: do/re/mi are musical notes (solfège), Monday/Tuesday are days of the week. The link across all three groups is: words that are THIRD in a named sequence. Mercury = 1st planet, Venus = 2nd, Mars = 3rd. Do = 1st, Re = 2nd, Mi = 3rd. Monday = 1st day, Tuesday = 2nd day. So the answer = the 3rd day of the week.">A) Planet</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Thursday' is the 4th day of the week — not the 3rd. The pattern uses the THIRD member of each sequence (Mars = 3rd planet, Mi = 3rd solfège note, ? = 3rd day of the week).">B) Thursday</button>
+        <button class="opt-btn test-opt" data-correct="true" data-test-fb="Correct! The hidden pattern: THIRD in a named sequence. Mercury (1st), Venus (2nd), Mars (3rd planet). Do (1st), Re (2nd), Mi (3rd solfège note). Monday (1st), Tuesday (2nd), Wednesday (3rd day of the week). 'Wednesday' is the answer — and the deception is that the groups seem completely unrelated!">C) Wednesday</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Weekend' is not a specific day — it refers to Saturday and Sunday collectively. The pattern needs the specific 3rd day of the week: Wednesday.">D) Weekend</button>
+        <button class="opt-btn test-opt" data-correct="false" data-test-fb="'Day' is the category name — not a specific day. Monday and Tuesday are specific named days. The answer must be another specific named day (the 3rd one: Wednesday).">E) Day</button>
+      </div>
+      <div class="feedback-box test-feedback"></div>
+    </div>
+
+  </div><!-- end test-questions -->
+
+  <div id="test-result" style="display:none;" class="card" style="text-align:center;">
+    <h3 id="result-title" style="font-size:1.8rem;margin-bottom:0.5rem;"></h3>
+    <div id="result-band" style="font-size:1.1rem;margin-bottom:1rem;"></div>
+    <div id="result-score" style="font-size:2.5rem;font-weight:700;color:var(--navy);margin-bottom:1rem;"></div>
+    <p id="result-message" style="color:#555;margin-bottom:1.5rem;"></p>
+    <button onclick="restartTest()" class="btn-primary">🔄 Try Again</button>
+  </div>
+
+</section>
+</main>
+
+<script>
+// ===================== PROGRESS BAR =====================
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+// ===================== SCORE COUNTER =====================
+let practiceScore = 0;
+let practiceAttempted = 0;
+
+function updateScoreDisplay() {
+  document.getElementById('score-val').textContent = practiceScore;
+  document.getElementById('score-total').textContent = practiceAttempted;
+}
+
+// ===================== MCQ HANDLER (PRACTICE) =====================
+document.querySelectorAll('.question-block:not(.test-q)').forEach(block => {
+  const buttons = block.querySelectorAll('.opt-btn:not(.test-opt)');
+  const feedbackBox = block.querySelector('.feedback-box');
+  let answered = false;
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (answered) return;
+      answered = true;
+      practiceAttempted++;
+
+      const isCorrect = btn.dataset.correct === 'true';
+      const fb = btn.dataset.fb || '';
+
+      if (isCorrect) {
+        practiceScore++;
+        btn.classList.add('correct');
+        feedbackBox.className = 'feedback-box feedback-correct';
+        feedbackBox.innerHTML = '<strong>✓ Correct!</strong> ' + fb;
+      } else {
+        btn.classList.add('incorrect');
+        feedbackBox.className = 'feedback-box feedback-incorrect';
+        feedbackBox.innerHTML = '<strong>✗</strong> ' + fb;
+        // Highlight correct answer
+        buttons.forEach(b => {
+          if (b.dataset.correct === 'true') b.classList.add('correct');
+        });
+      }
+
+      updateScoreDisplay();
+      checkSectionCompletion(block);
+    });
+  });
+});
+
+// ===================== SECTION COMPLETION TICKS =====================
+function checkSectionCompletion(block) {
+  const section = block.closest('section');
+  if (!section) return;
+  const allBlocks = section.querySelectorAll('.question-block:not(.test-q)');
+  const answered = section.querySelectorAll('.feedback-box.feedback-correct, .feedback-box.feedback-incorrect');
+  if (answered.length >= allBlocks.length && allBlocks.length > 0) {
+    const sectionId = section.id;
+    const tickId = 'tick-' + sectionId.replace('s-', '');
+    const tick = document.getElementById(tickId);
+    if (tick) tick.style.opacity = '1';
+  }
+}
+
+// Init ticks hidden
+document.querySelectorAll('.section-tick').forEach(t => t.style.opacity = '0');
+
+// ===================== SMOOTH SCROLL NAV =====================
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ===================== TIMED TEST =====================
+let testStarted = false;
+let testScore = 0;
+let testAnswered = 0;
+let timerInterval = null;
+let timeLeft = 420; // 7 minutes
+
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
+document.getElementById('start-test-btn').addEventListener('click', () => {
+  if (testStarted) return;
+  testStarted = true;
+  document.getElementById('start-test-btn').style.display = 'none';
+  document.getElementById('test-questions').style.display = 'block';
+  document.getElementById('test-score-display').style.display = 'block';
+  document.getElementById('live-test-total').textContent = '15';
+
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    document.getElementById('test-timer').textContent = formatTime(timeLeft);
+    if (timeLeft <= 60) document.getElementById('test-timer').style.color = '#ff4444';
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      endTest();
+    }
+  }, 1000);
+
+  setupTestQuestions();
+});
+
+function setupTestQuestions() {
+  document.querySelectorAll('.test-q').forEach(block => {
+    const buttons = block.querySelectorAll('.test-opt');
+    const feedbackBox = block.querySelector('.test-feedback');
+    let answered = false;
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (answered) return;
+        answered = true;
+        testAnswered++;
+
+        const isCorrect = btn.dataset.correct === 'true';
+        const fb = btn.dataset.testFb || '';
+
+        if (isCorrect) {
+          testScore++;
+          btn.classList.add('correct');
+          feedbackBox.className = 'feedback-box feedback-correct test-feedback';
+          feedbackBox.innerHTML = '<strong>✓</strong> ' + fb;
+        } else {
+          btn.classList.add('incorrect');
+          feedbackBox.className = 'feedback-box feedback-incorrect test-feedback';
+          feedbackBox.innerHTML = '<strong>✗</strong> ' + fb;
+          buttons.forEach(b => {
+            if (b.dataset.correct === 'true') b.classList.add('correct');
+          });
+        }
+
+        document.getElementById('live-test-score').textContent = testScore;
+
+        if (testAnswered >= 15) {
+          setTimeout(() => {
+            clearInterval(timerInterval);
+            endTest();
+          }, 800);
+        }
+      });
+    });
+  });
+}
+
+function endTest() {
+  document.getElementById('test-questions').style.display = 'none';
+  const result = document.getElementById('test-result');
+  result.style.display = 'block';
+  result.style.textAlign = 'center';
+  result.style.padding = '2rem';
+
+  const pct = testScore / 15;
+  let band, title, message, colour;
+
+  if (pct >= 0.87) {
+    band = '🌟 Mastery'; title = 'Outstanding!'; colour = '#7c3aed';
+    message = 'You\'ve mastered Related Words at GL Assessment level. Your ability to spot hidden meanings, dual rules, and abstract categories is excellent.';
+  } else if (pct >= 0.67) {
+    band = '✅ Secure'; title = 'Well Done!'; colour = '#ea580c';
+    message = 'You\'re working at GL Assessment level. Review any questions you got wrong — particularly secondary meanings and dual-rule questions.';
+  } else if (pct >= 0.47) {
+    band = '🔶 Developing'; title = 'Good Progress'; colour = '#ca8a04';
+    message = 'You\'re on the right track. Go back and practise the sections where you lost marks — especially intensity scales and abstract categories.';
+  } else {
+    band = '🔴 Needs Practice'; title = 'Keep Going'; colour = '#dc2626';
+    message = 'Work through each section carefully, particularly the worked examples. Focus on checking BOTH groups before deciding the rule.';
+  }
+
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-title').style.color = colour;
+  document.getElementById('result-band').textContent = band;
+  document.getElementById('result-band').style.color = colour;
+  document.getElementById('result-score').textContent = testScore + ' / 15';
+  document.getElementById('result-message').textContent = message;
+}
+
+function restartTest() {
+  testStarted = false; testScore = 0; testAnswered = 0; timeLeft = 420;
+  clearInterval(timerInterval);
+  document.getElementById('test-timer').textContent = '7:00';
+  document.getElementById('test-timer').style.color = 'var(--gold)';
+  document.getElementById('start-test-btn').style.display = 'inline-block';
+  document.getElementById('test-questions').style.display = 'none';
+  document.getElementById('test-score-display').style.display = 'none';
+  document.getElementById('test-result').style.display = 'none';
+  document.getElementById('live-test-score').textContent = '0';
+
+  document.querySelectorAll('.test-q').forEach(block => {
+    block.querySelectorAll('.test-opt').forEach(btn => {
+      btn.classList.remove('correct','incorrect');
+    });
+    const fb = block.querySelector('.test-feedback');
+    if (fb) { fb.className = 'feedback-box test-feedback'; fb.innerHTML = ''; }
+  });
+}
+</script>
+</body>
+</html>

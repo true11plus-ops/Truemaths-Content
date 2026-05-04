@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11+ GL — Complete the Word</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Epilogue:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0b1930; --navy-mid:#132040; --navy-lt:#1a2d54;
+  --gold:#e8b84b; --gold-lt:#f2d07a; --gold-pale:#fdf6e3;
+  --cream:#f8f6f0; --white:#ffffff;
+  --g:#22a05a; --g-bg:#e8f7ef; --g-br:#9fd4b8;
+  --y:#c97d10; --y-bg:#fef5e2; --y-br:#f0c060;
+  --o:#c85000; --o-bg:#fdf0e6; --o-br:#e8a060;
+  --p:#6b2fa0; --p-bg:#f3edfb; --p-br:#c0a0e0;
+  --r:#c0302a; --r-bg:#fdecea; --r-br:#e8a0a0;
+  --bl:#1a6fa8; --bl-bg:#e8f2fb;
+  --tx:#16213a; --tx-m:#4a5570; --tx-l:#8892aa;
+  --sh:0 2px 20px rgba(11,25,48,.10);
+  --sh2:0 6px 36px rgba(11,25,48,.16);
+  --rad:14px; --rad-s:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Epilogue',sans-serif;background:var(--cream);color:var(--tx);font-size:17px;line-height:1.72}
+
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),#f0a030);width:0%;z-index:9999;transition:width .12s}
+
+/* HUD */
+#hud{background:var(--navy-mid);padding:.42rem 1.8rem;display:flex;align-items:center;justify-content:space-between;font-size:.8rem;font-weight:600;letter-spacing:.05em;color:rgba(255,255,255,.55)}
+#hud-score{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:.92rem}
+
+/* NAV */
+#nav{position:sticky;top:0;z-index:900;background:var(--navy);border-bottom:2px solid rgba(232,184,75,.3);overflow-x:auto;white-space:nowrap;display:flex;align-items:center;padding:0 1.4rem;gap:.05rem;scrollbar-width:none}
+#nav::-webkit-scrollbar{display:none}
+#nav a{color:rgba(255,255,255,.55);text-decoration:none;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.78rem .78rem;display:inline-block;border-bottom:3px solid transparent;transition:all .18s}
+#nav a:hover,#nav a.on{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* HEADER */
+#hdr{background:linear-gradient(145deg,var(--navy) 0%,var(--navy-lt) 100%);padding:3.8rem 2rem 3.2rem;text-align:center;position:relative;overflow:hidden}
+#hdr::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 25% 75%,rgba(232,184,75,.08) 0,transparent 55%),radial-gradient(ellipse at 75% 25%,rgba(232,184,75,.05) 0,transparent 50%)}
+#hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,184,75,.4),transparent)}
+.chip{display:inline-block;background:var(--gold);color:var(--navy);font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.28rem 1rem;border-radius:50px;margin-bottom:.9rem;position:relative;z-index:1}
+#hdr h1{font-family:'Cormorant Garamond',serif;color:#fff;font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;margin-bottom:.4rem;position:relative;z-index:1}
+#hdr h1 mark{background:none;color:var(--gold);-webkit-text-stroke:.5px var(--gold)}
+#hdr p{color:rgba(255,255,255,.55);font-size:.98rem;max-width:560px;margin:0 auto;position:relative;z-index:1}
+
+/* WORD BANK */
+#wbank{background:var(--navy);padding:.9rem 2rem;border-bottom:1px solid rgba(232,184,75,.18);position:sticky;top:44px;z-index:800}
+#wbank h4{color:var(--gold);font-size:.68rem;text-transform:uppercase;letter-spacing:.13em;margin-bottom:.5rem}
+.wb{display:flex;flex-wrap:wrap;gap:.3rem}
+.wbt{background:rgba(255,255,255,.05);border:1px solid rgba(232,184,75,.22);border-radius:5px;padding:.2rem .6rem;font-family:'JetBrains Mono',monospace;font-size:.77rem;color:rgba(255,255,255,.78);cursor:pointer;transition:all .14s;user-select:none}
+.wbt:hover{background:rgba(232,184,75,.14);border-color:var(--gold);color:var(--gold)}
+.wbt.lit{background:rgba(232,184,75,.22);border-color:var(--gold);color:var(--gold)}
+
+/* MAIN */
+main{max-width:940px;margin:0 auto;padding:2.4rem 1.5rem 6rem}
+
+/* SECTION */
+.sec{background:var(--white);border-radius:var(--rad);box-shadow:var(--sh);margin-bottom:2.4rem;overflow:hidden;border-top:4px solid var(--navy)}
+.sec-hd{background:var(--navy);padding:1.3rem 1.8rem;display:flex;align-items:center;gap:.9rem}
+.ico{width:44px;height:44px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.sec-hd h2{font-family:'Cormorant Garamond',serif;color:#fff;font-size:1.35rem;line-height:1.25}
+.sec-hd h2 em{color:var(--gold);font-style:normal}
+.tick{margin-left:auto;width:32px;height:32px;border:2px solid rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:transparent;font-size:1rem;transition:all .35s;flex-shrink:0}
+.tick.done{background:var(--g);border-color:var(--g);color:#fff}
+.bod{padding:1.9rem}
+
+/* BOXES */
+.bx-simple{background:#e6f2ff;border-left:5px solid #3a90d0;border-radius:var(--rad-s);padding:1.1rem 1.4rem;margin-bottom:1.1rem}
+.bx-simple .lbl{font-size:.67rem;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:#1a6fa8;margin-bottom:.35rem}
+.bx-full{background:var(--gold-pale);border-left:5px solid var(--gold);border-radius:var(--rad-s);padding:1.1rem 1.4rem;margin-bottom:1.1rem}
+.bx-full .lbl{font-size:.67rem;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:#9a7010;margin-bottom:.35rem}
+.bx-warn{background:var(--r-bg);border-left:5px solid var(--r);border-radius:var(--rad-s);padding:1.1rem 1.4rem;margin-bottom:1.4rem}
+.bx-warn .lbl{font-size:.67rem;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:var(--r);margin-bottom:.35rem}
+.bx-tip{background:#f0f5ff;border-left:5px solid #6080c8;border-radius:var(--rad-s);padding:1rem 1.3rem;margin-bottom:1.2rem}
+.bx-tip .lbl{font-size:.67rem;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:#4060a8;margin-bottom:.3rem}
+
+/* WORD VISUAL */
+.word-vis{display:flex;align-items:center;justify-content:center;gap:.2rem;margin:1.1rem 0;flex-wrap:wrap}
+.wl{width:46px;height:54px;border:2px solid #c8cfe8;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--navy);background:#f4f6ff}
+.wl.known{background:var(--navy);color:var(--gold);border-color:var(--navy)}
+.wl.gap{background:#fff8e6;border:2px dashed var(--gold);color:var(--gold-lt);font-size:.95rem}
+.wl.filled{background:var(--g-bg);border-color:var(--g);color:var(--g)}
+.wl.wrong-l{background:var(--r-bg);border-color:var(--r);color:var(--r)}
+.wl.sep{background:none;border:none;color:var(--tx-l);font-size:1rem;width:16px}
+.word-label{text-align:center;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-l);margin-top:.3rem}
+
+/* WORKED EXAMPLE */
+.we{background:#f5f7ff;border:2px solid #dde2f5;border-radius:var(--rad-s);padding:1.45rem;margin-bottom:1.4rem}
+.we-title{font-size:.69rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--navy);margin-bottom:.8rem}
+.q-display{background:var(--navy);color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:1.08rem;padding:.9rem 1.4rem;border-radius:var(--rad-s);margin-bottom:1rem;letter-spacing:.03em}
+.q-display .ga{color:var(--gold-lt);font-weight:700;border-bottom:2px solid var(--gold);padding-bottom:1px;font-style:italic}
+
+.step{display:flex;gap:.8rem;margin-bottom:.68rem;align-items:flex-start}
+.sn{background:var(--navy);color:var(--gold);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;flex-shrink:0;margin-top:2px}
+.sc{flex:1;font-size:.97rem}
+.sc code{font-family:'JetBrains Mono',monospace;background:rgba(11,25,48,.07);padding:1px 6px;border-radius:4px;font-size:.88rem}
+.sc strong{color:var(--navy)}
+.ans{background:var(--g-bg);border:2px solid var(--g-br);border-radius:var(--rad-s);padding:.75rem 1.15rem;font-weight:700;color:#1a7a4a;margin-top:.8rem;font-family:'JetBrains Mono',monospace;font-size:1.05rem}
+
+/* OPTION-FIRST PANEL */
+.opt-first{background:#f8f4ff;border:2px solid #c0a0e0;border-radius:var(--rad-s);padding:1.1rem 1.4rem;margin:1rem 0}
+.opt-first .lbl{font-size:.67rem;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:var(--p);margin-bottom:.45rem}
+.opt-row{display:flex;align-items:center;gap:.6rem;margin-bottom:.35rem;font-family:'JetBrains Mono',monospace;font-size:.9rem;flex-wrap:wrap}
+.opt-tag{background:var(--p-bg);border:1px solid var(--p-br);border-radius:5px;padding:.18rem .55rem;color:var(--p);font-weight:700}
+.opt-build{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap}
+.ob-known{color:var(--navy);font-weight:700}
+.ob-fill{color:var(--p);font-weight:800;border-bottom:2px solid var(--p)}
+.ob-arr{color:var(--tx-l);font-size:.85rem}
+.ob-result{font-weight:700;padding:.15rem .5rem;border-radius:4px}
+.ob-ok{color:var(--g);background:var(--g-bg)}
+.ob-no{color:var(--r);background:var(--r-bg)}
+
+/* DIFF BADGES */
+.db{display:inline-flex;align-items:center;gap:.28rem;font-size:.67rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:.2rem .68rem;border-radius:50px}
+.db.s{background:var(--g-bg);color:#1a7a4a}
+.db.d{background:var(--y-bg);color:var(--y)}
+.db.c{background:var(--o-bg);color:var(--o)}
+.db.m{background:var(--p-bg);color:var(--p)}
+
+/* QUESTIONS */
+.qset{margin-top:1.6rem}
+.qset h3{font-size:.94rem;font-weight:700;color:var(--navy);margin-bottom:.9rem;display:flex;align-items:center;gap:.55rem}
+.qcard{background:var(--white);border:2px solid #e4e8f4;border-radius:var(--rad-s);padding:1.25rem 1.45rem;margin-bottom:.9rem;transition:border-color .2s}
+.qcard.answered{border-color:#c4cae4}
+.qnum{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.4rem}
+.qtext{font-size:1.01rem;font-weight:500;color:var(--tx);margin-bottom:.95rem;line-height:1.65}
+.qtext .sent{display:block;margin-top:.45rem;font-family:'JetBrains Mono',monospace;font-size:.95rem;background:#f2f4fa;border-radius:6px;padding:.5rem .85rem;line-height:2}
+.qtext .sent .gaptext{font-weight:800;color:var(--navy);border-bottom:2px dashed var(--gold);padding-bottom:1px}
+
+/* MCQ */
+.opts{display:flex;flex-wrap:wrap;gap:.5rem}
+.obtn{background:#eff1f9;border:2px solid #d2d6ec;border-radius:var(--rad-s);padding:.48rem 1rem;font-family:'JetBrains Mono',monospace;font-size:.94rem;font-weight:700;cursor:pointer;transition:all .14s;color:var(--navy);min-width:68px;text-align:center}
+.obtn:hover:not(:disabled){background:var(--navy);color:var(--gold);border-color:var(--navy)}
+.obtn:disabled{cursor:default}
+.obtn.ok{background:var(--g-bg);border-color:var(--g-br);color:#1a7a4a}
+.obtn.err{background:var(--r-bg);border-color:var(--r-br);color:var(--r)}
+.obtn.show-ok{background:var(--g-bg);border-color:var(--g-br);color:#1a7a4a}
+
+/* TYPED */
+.trow{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.tinp{font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:700;border:2px solid #d2d6ec;border-radius:var(--rad-s);padding:.45rem .9rem;width:150px;text-transform:uppercase;outline:none;color:var(--navy);transition:border-color .18s;letter-spacing:.08em}
+.tinp:focus{border-color:var(--navy)}
+.tinp.ok{border-color:var(--g);background:var(--g-bg);color:#1a7a4a}
+.tinp.err{border-color:var(--r);background:var(--r-bg);color:var(--r)}
+.chkbtn{background:var(--navy);color:var(--gold);border:none;border-radius:var(--rad-s);padding:.48rem 1.1rem;font-weight:700;font-size:.88rem;cursor:pointer;transition:background .18s;letter-spacing:.03em}
+.chkbtn:hover{background:var(--navy-lt)}
+.chkbtn:disabled{background:#ccc;color:#888;cursor:default}
+
+/* FEEDBACK */
+.fb{margin-top:.8rem;padding:.82rem 1.05rem;border-radius:var(--rad-s);font-size:.91rem;line-height:1.58;display:none}
+.fb.ok-f{background:var(--g-bg);border-left:4px solid var(--g);color:#165c35}
+.fb.err-f{background:var(--r-bg);border-left:4px solid var(--r);color:#7a1a1a}
+.fb.show{display:block}
+
+/* TEST */
+.tq{background:var(--white);border:2px solid #e4e8f4;border-radius:var(--rad-s);padding:1.2rem 1.4rem;margin-bottom:.9rem}
+.tq .qtext{margin-bottom:.8rem}
+#ttimer{font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:700;color:var(--gold);text-align:center;margin-bottom:1.2rem}
+#ttimer.warn{color:var(--r);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+.bigbtn{display:block;margin:0 auto;border:none;border-radius:var(--rad-s);font-weight:800;font-size:1rem;cursor:pointer;padding:.88rem 2.5rem;transition:all .18s;letter-spacing:.04em;font-family:'Epilogue',sans-serif}
+#startbtn{background:var(--gold);color:var(--navy)}
+#startbtn:hover{background:var(--gold-lt);transform:translateY(-2px)}
+#subbtn{background:var(--navy);color:var(--gold);margin-top:1.9rem}
+#subbtn:hover{background:var(--navy-lt)}
+#res{display:none;text-align:center;padding:1.4rem 0}
+.ring{width:136px;height:136px;border:7px solid var(--gold);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 1.3rem;background:var(--navy)}
+.ring .rs{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:var(--gold);line-height:1}
+.ring .rd{color:rgba(255,255,255,.5);font-size:.85rem}
+.band{font-family:'Cormorant Garamond',serif;font-size:1.75rem;margin-bottom:.4rem}
+#rev{margin-top:1.8rem;text-align:left}
+.ritem{background:var(--white);border-radius:var(--rad-s);border:2px solid #e4e8f4;padding:1.1rem 1.35rem;margin-bottom:.7rem}
+.ritem.ok{border-color:var(--g-br)}
+.ritem.err{border-color:var(--r-br)}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--navy);border-radius:3px}
+
+@media(max-width:600px){
+  main{padding:1.4rem .9rem 5rem}
+  .bod{padding:1.25rem}
+  #nav a{padding:.7rem .55rem;font-size:.66rem}
+  .wl{width:38px;height:46px;font-size:1.15rem}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<div id="hud">
+  <span>11+ GL Assessment · Verbal Reasoning</span>
+  <span id="hud-score">Score: <span id="ls">0</span> / <span id="lt">0</span></span>
+</div>
+
+<header id="hdr">
+  <div class="chip">Verbal Reasoning</div>
+  <h1>Complete the <mark>Word</mark></h1>
+  <p>Fill the missing letters — using context, structure and strategy — to find the hidden word every time.</p>
+</header>
+
+<nav id="nav">
+  <a href="#wb">Word Bank</a>
+  <a href="#s1">The Method</a>
+  <a href="#s2">Context Clues</a>
+  <a href="#s3">Option-First</a>
+  <a href="#s4">Dual Validate</a>
+  <a href="#s5">Traps</a>
+  <a href="#s6">Hard Splits</a>
+  <a href="#test">Final Test</a>
+</nav>
+
+<!-- WORD BANK -->
+<div id="wb" style="background:var(--navy);padding:1rem 2rem;border-bottom:1px solid rgba(232,184,75,.18);position:sticky;top:44px;z-index:800">
+  <h4 style="color:var(--gold);font-size:.68rem;text-transform:uppercase;letter-spacing:.13em;margin-bottom:.5rem">📖 Common Answers — click to highlight</h4>
+  <div class="wb" id="wbgrid"></div>
+</div>
+
+<main>
+
+<!-- ═══════ S1: THE CORE METHOD ═══════ -->
+<div class="sec" id="s1">
+  <div class="sec-hd">
+    <div class="ico">🧩</div>
+    <h2>1. The <em>Core Method</em> — How to Fill the Gap</h2>
+    <div class="tick" id="tk-s1">✓</div>
+  </div>
+  <div class="bod">
+
+    <div class="bx-simple">
+      <div class="lbl">🧒 Simple Explanation</div>
+      You see a word with a gap in it — like <strong>M _ _ _ K</strong>. Your job is to fill in the missing letters to make a real word. Think of it like a jigsaw puzzle: you can already see some pieces (the letters at the start and end), and you need to find the piece in the middle that fits perfectly. Use the sentence around it to give you a big hint!
+    </div>
+
+    <div class="bx-full">
+      <div class="lbl">📖 Full Explanation</div>
+      In GL Assessment <em>Complete the Word</em> questions, you are given a word with letters missing from the middle, start, or end — shown as dashes or underscores. You choose from five options to complete it. The completed word must: <strong>(1)</strong> form a real, correctly spelled word, and <strong>(2)</strong> make sense in the context of the sentence. Both conditions must be satisfied — one alone is not enough.
+    </div>
+
+    <!-- VISUAL: letter boxes -->
+    <div class="we">
+      <div class="we-title">✏️ Worked Example — Seeing the Structure</div>
+      <div class="q-display">The child drank a glass of <span class="ga">M _ _ K</span>.</div>
+
+      <div style="text-align:center;margin:.8rem 0 .5rem;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l)">Visualise the word:</div>
+      <div class="word-vis">
+        <div>
+          <div class="wl known">M</div>
+        </div>
+        <div>
+          <div class="wl gap">?</div>
+        </div>
+        <div>
+          <div class="wl gap">?</div>
+        </div>
+        <div>
+          <div class="wl known">K</div>
+        </div>
+      </div>
+      <div style="text-align:center;font-size:.82rem;color:var(--tx-l);margin-bottom:1rem">M + <em>missing</em> + K = ?</div>
+
+      <div class="step"><div class="sn">1</div><div class="sc"><strong>Read the sentence:</strong> "drank a glass of" → this is a liquid. What liquid starts with M and ends with K?</div></div>
+      <div class="step"><div class="sn">2</div><div class="sc"><strong>Predict lightly:</strong> MILK fits! M + ILK = MILK. (But hold that guess loosely — check the options too.)</div></div>
+      <div class="step"><div class="sn">3</div><div class="sc"><strong>Check options:</strong> (A) ILK (B) ELK (C) OLK (D) ULK (E) ALK. Try each: MILK ✅ MELK? MOLK? MULK? MALK? → Only MILK is a real word.</div></div>
+      <div class="step"><div class="sn">4</div><div class="sc"><strong>Test in sentence:</strong> "drank a glass of MILK" — perfect meaning. ✅</div></div>
+
+      <div style="text-align:center;margin:.8rem 0 .5rem">
+        <div class="word-vis">
+          <div><div class="wl known">M</div></div>
+          <div><div class="wl filled">I</div></div>
+          <div><div class="wl filled">L</div></div>
+          <div><div class="wl known">K</div></div>
+        </div>
+      </div>
+      <div class="ans">✅ Answer: ILK → M + ILK = MILK</div>
+    </div>
+
+    <div class="bx-warn">
+      <div class="lbl">⚠️ Watch Out!</div>
+      <strong>Don't commit to your first guess!</strong> The sentence might make you think of a word, but always check it against ALL the options. If a different option also makes a real word, you must test both in the sentence to see which one fits the meaning. Making a guess and stubbornly sticking to it is how students lose marks.
+    </div>
+
+    <div class="we">
+      <div class="we-title">✏️ Harder Example — When Two Options Look Tempting</div>
+      <div class="q-display">The scientist studied the <span class="ga">MO _ _ _ LE</span> structure carefully.</div>
+
+      <div class="step"><div class="sn">1</div><div class="sc"><strong>Context:</strong> "scientist… structure carefully" → probably a word from science. Think: MOLECULE!</div></div>
+      <div class="step"><div class="sn">2</div><div class="sc"><strong>Fragment analysis:</strong> MO + <em>???</em> + LE. How does MOLECULE split? MO-LECU-LE → so the missing part is <code>LECU</code>? That's 4 letters. But the gap might be 3. Reconsider: MO + LEC + ULE? Or MOLE + C + ULE? The split might not be where you expect!</div></div>
+      <div class="step"><div class="sn">3</div><div class="sc"><strong>Test options systematically:</strong> (A) LEC → MO+LEC+LE = MOLECLE ✗. (B) DUL → MODUULE? ✗. (C) OLE → MOOLELE? ✗. (D) ECU → MOECULE? ✗. Hmm. Go back — maybe the fragment is MO___ULE not MO___LE.</div></div>
+      <div class="step"><div class="sn">4</div><div class="sc"><strong>Recheck the gap:</strong> MO___ULE. Now: MO + LEC + ULE = <strong>MOLECULE</strong> ✅. The gap was <code>LEC</code>, and the second fixed chunk was <code>ULE</code> not just <code>LE</code>.</div></div>
+      <div class="step"><div class="sn">5</div><div class="sc"><strong>Lesson:</strong> Sometimes the split between the known letters and the gap isn't where you assume. Be flexible — rethink the split if your first read fails.</div></div>
+
+      <div class="ans">✅ Answer: LEC → MO + LEC + ULE = MOLECULE</div>
+    </div>
+
+    <!-- QUESTIONS S1 -->
+    <div class="qset" id="qs-s1">
+      <h3><span class="db s">● Starter</span> Questions</h3>
+
+      <div class="qcard" data-sec="s1">
+        <div class="qnum">Q1 · Starter · Speed Builder</div>
+        <div class="qtext">Complete the word:
+          <span class="sent">The child drank a glass of <span class="gaptext">M _ _ K</span>.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">ILK</button>
+          <button class="obtn" data-correct="false">ELK</button>
+          <button class="obtn" data-correct="false">OLK</button>
+          <button class="obtn" data-correct="false">ULK</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>ILK is correct!</strong> M + ILK = MILK — a drink, which fits "drank a glass of" perfectly. The sentence told you it was a liquid, which narrowed it to MILK immediately. ELK makes MELK (not a word), OLK and ULK aren't real words at all.</div>
+        <div class="fb err-f">❌ <strong>Check the context:</strong> the sentence says "drank a glass of" — this must be a liquid. M + ILK = MILK. That's a drink. MELK, MOLK, and MULK are not real English words. Always read the sentence for clues before testing options.</div>
+      </div>
+
+      <div class="qcard" data-sec="s1">
+        <div class="qnum">Q2 · Starter</div>
+        <div class="qtext">Complete the word:
+          <span class="sent">She wore a shiny <span class="gaptext">_ E _ A L</span> on her jacket.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">MD</button>
+          <button class="obtn" data-correct="false">TL</button>
+          <button class="obtn" data-correct="false">PD</button>
+          <button class="obtn" data-correct="false">GL</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>MD is correct!</strong> M + E + D + A + L = MEDAL — something shiny worn on a jacket for achievement. The context "shiny" and "wore on jacket" both point to MEDAL. TETAL, PEDAL (a foot pedal — doesn't fit jacket), GETAL — none of these work as well.</div>
+        <div class="fb err-f">❌ <strong>Think about what's shiny and worn on a jacket:</strong> that's a MEDAL! The letters are M_E_D_A_L — filled with MD: M + E + D + A + L = MEDAL ✅. TETAL and GETAL aren't real words. PEDAL is a real word but you don't wear a pedal on a jacket!</div>
+      </div>
+
+      <div class="qcard" data-sec="s1">
+        <div class="qnum">Q3 · Starter — Typed</div>
+        <div class="qtext">Complete the word (type the missing letters only):
+          <span class="sent">They climbed to the <span class="gaptext">S _ _ _ IT</span> of the mountain.</span>
+        </div>
+        <div class="trow">
+          <input class="tinp" type="text" placeholder="???" maxlength="3" data-answer="UMM">
+          <button class="chkbtn">Check</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>UMM is correct!</strong> S + UMM + IT = SUMMIT — the very top of a mountain. The context "climbed to the ___ of the mountain" is a classic definition of summit. Well spotted!</div>
+        <div class="fb err-f">❌ <strong>What's at the very top of a mountain?</strong> A SUMMIT! S + UMM + IT = SUMMIT. The missing letters are UMM. The context "climbed to the ___ of the mountain" is practically telling you the answer — always use the sentence as your first clue.</div>
+      </div>
+
+      <div class="qcard" data-sec="s1">
+        <div class="qnum">Q4 · Starter</div>
+        <div class="qtext">Complete the word:
+          <span class="sent">The baker made a <span class="gaptext">_ OA F</span> of bread.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">L</button>
+          <button class="obtn" data-correct="false">M</button>
+          <button class="obtn" data-correct="false">R</button>
+          <button class="obtn" data-correct="false">S</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>L is correct!</strong> L + OAF = LOAF — specifically a loaf of bread. The sentence literally says "of bread" which is the classic phrase "a loaf of bread". MOAF, ROAF, SOAF are not real words.</div>
+        <div class="fb err-f">❌ <strong>Think: what comes in a "loaf" of bread?</strong> A LOAF! L + OAF = LOAF. The phrase "a ___ of bread" is a very common expression — a loaf of bread. MOAF, ROAF, and SOAF don't exist as English words.</div>
+      </div>
+
+      <h3 style="margin-top:1.4rem"><span class="db d">● Developing</span> Questions</h3>
+
+      <div class="qcard" data-sec="s1">
+        <div class="qnum">Q5 · Developing</div>
+        <div class="qtext">Complete the word:
+          <span class="sent">The magician performed an <span class="gaptext">IL _ _ _ ON</span> with a rabbit.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">LUS</button>
+          <button class="obtn" data-correct="false">LAR</button>
+          <button class="obtn" data-correct="false">LUS</button>
+          <button class="obtn" data-correct="false">LES</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>LUS is correct!</strong> IL + LUS + ION = ILLUSION — a magical trick that makes something appear different from reality. "Magician… rabbit" = magic trick = illusion. The word also ends with -ION which is a common suffix for nouns. Perfect!</div>
+        <div class="fb err-f">❌ <strong>What do magicians create?</strong> An ILLUSION! IL + LUS + ION = ILLUSION. "Magician" and "rabbit" are both clues that this is about magic. ILLARION and ILLISION don't exist as standard words. The -ION ending is your structural clue here.</div>
+      </div>
+
+      <div class="qcard" data-sec="s1">
+        <div class="qnum">Q6 · Developing — Typed</div>
+        <div class="qtext">Complete the word (type missing letters):
+          <span class="sent">The explorer crossed a vast <span class="gaptext">DE _ _ _ T</span> of sand.</span>
+        </div>
+        <div class="trow">
+          <input class="tinp" type="text" placeholder="???" maxlength="3" data-answer="SER">
+          <button class="chkbtn">Check</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>SER is correct!</strong> DE + SER + T = DESERT — a vast area of sand. "Explorer… vast… sand" all point to DESERT. Note: DESSERT (the sweet food) has two S's — DESERT (the sandy place) has one. The context "of sand" confirms which spelling is needed.</div>
+        <div class="fb err-f">❌ <strong>What's a vast area of sand?</strong> A DESERT! DE + SER + T = DESERT. Watch the spelling — DESSERT (pudding) has two S's, but DESERT (sand) has one. The missing letters are SER. "Explorer… vast… sand" are all clues pointing to DESERT.</div>
+      </div>
+
+      <div class="qcard" data-sec="s1">
+        <div class="qnum">Q7 · Developing</div>
+        <div class="qtext">Complete the word:
+          <span class="sent">She played the <span class="gaptext">T _ _ _ PET</span> in the school band.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">RUM</button>
+          <button class="obtn" data-correct="false">ROM</button>
+          <button class="obtn" data-correct="false">RAM</button>
+          <button class="obtn" data-correct="false">RIM</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>RUM is correct!</strong> T + RUM + PET = TRUMPET — a brass instrument played in a school band. The -PET ending combined with T at the start makes TRUMPET the only real word. TROMBET, TRAMBET, TRIMBET — none of these are real instruments or words!</div>
+        <div class="fb err-f">❌ <strong>What instrument played in a band starts with T and ends in PET?</strong> A TRUMPET! T + RUM + PET = TRUMPET. The other options make TROMBET, TRAMBET, and TRIMBET — none are real English words. The context "school band" confirms it's a musical instrument.</div>
+      </div>
+
+      <div class="qcard" data-sec="s1">
+        <div class="qnum">Q8 · Developing — Typed</div>
+        <div class="qtext">Complete the word (type missing letters):
+          <span class="sent">The judge gave a <span class="gaptext">VE _ _ _ CT</span> of not guilty.</span>
+        </div>
+        <div class="trow">
+          <input class="tinp" type="text" placeholder="???" maxlength="3" data-answer="RDI">
+          <button class="chkbtn">Check</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>RDI is correct!</strong> VE + RDI + CT = VERDICT — a formal decision by a judge or jury. "Judge… not guilty" = legal setting = verdict. The -CT ending is unusual and helps narrow it down. Excellent use of context!</div>
+        <div class="fb err-f">❌ <strong>What does a judge give in a trial?</strong> A VERDICT! VE + RDI + CT = VERDICT. The missing letters are RDI. "Judge… not guilty" tells you this is a legal word. The -CT ending is a strong structural clue — very few common words end in -CT.</div>
+      </div>
+
+      <h3 style="margin-top:1.4rem"><span class="db c">● Secure</span> Questions</h3>
+
+      <div class="qcard" data-sec="s1">
+        <div class="qnum">Q9 · Secure</div>
+        <div class="qtext">Complete the word:
+          <span class="sent">The phone's <span class="gaptext">_ A T _ _ RY</span> was completely flat.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">BTTE</button>
+          <button class="obtn" data-correct="false">BATE</button>
+          <button class="obtn" data-correct="false">BTTA</button>
+          <button class="obtn" data-correct="false">BSTE</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>BTTE is correct!</strong> B + A + TTE + R + Y = BATTERY. "Phone… completely flat" = the battery ran out. Split carefully: BA + TTE + RY → the gap must be BTTE giving us B_AT_TER_Y = BATTERY. Context + structure both confirm it perfectly.</div>
+        <div class="fb err-f">❌ <strong>What runs flat in a phone?</strong> The BATTERY! B-A-T-T-E-R-Y. The missing letters fill B_AT___RY. "Phone… completely flat" = battery drained. The double-T in the middle (BATTERY) is the tricky part — BATTE not BATE or BSTE. Check the letter count carefully.</div>
+      </div>
+
+      <div class="qcard" data-sec="s1">
+        <div class="qnum">Q10 · Secure — Typed</div>
+        <div class="qtext">Complete the word (type missing letters):
+          <span class="sent">The ancient <span class="gaptext">PY _ _ _ ID</span> stood in the desert.</span>
+        </div>
+        <div class="trow">
+          <input class="tinp" type="text" placeholder="???" maxlength="3" data-answer="RAM">
+          <button class="chkbtn">Check</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>RAM is correct!</strong> PY + RAM + ID = PYRAMID — the ancient Egyptian monument. "Ancient… stood in the desert" = Egyptian pyramid. PY + RAM + ID works perfectly. Note: you might want PYRAMED or PYRAMIDE — but ID is the correct ending, giving PYRAMID.</div>
+        <div class="fb err-f">❌ <strong>What ancient structure stands in the desert?</strong> A PYRAMID! PY + RAM + ID = PYRAMID. The missing letters are RAM. "Ancient… stood in the desert" are context clues pointing to Egypt. PY___ID is the frame — RAM fills it to make PYRAMID.</div>
+      </div>
+
+      <h3 style="margin-top:1.4rem"><span class="db m">● Mastery</span> Questions</h3>
+
+      <div class="qcard" data-sec="s1">
+        <div class="qnum">Q11 · Mastery</div>
+        <div class="qtext">Complete the word:
+          <span class="sent">The scientist measured the <span class="gaptext">MO _ _ _ ULE</span> structure.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">LEC</button>
+          <button class="obtn" data-correct="false">DUL</button>
+          <button class="obtn" data-correct="false">OLE</button>
+          <button class="obtn" data-correct="false">ECU</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>LEC is correct!</strong> MO + LEC + ULE = MOLECULE — the smallest unit of a substance. "Scientist… measured… structure" = scientific measurement = molecule. The key insight: the gap is MO___ULE (not MO___LE), so you need 3 letters between MO and ULE. LEC gives MOLECULE ✅.</div>
+        <div class="fb err-f">❌ <strong>Look carefully at the gap:</strong> MO___ULE means the fixed ending is ULE, not just LE. "Scientist… structure" = MOLECULE. MO + LEC + ULE = MOLECULE ✅. Testing: MODUULE, MOOLELE, MOECULE — all fail. Only LEC works when you read the full ending correctly as ULE.</div>
+      </div>
+
+      <div class="qcard" data-sec="s1">
+        <div class="qnum">Q12 · Mastery — Typed</div>
+        <div class="qtext">The gap might not be where you think. Complete the word:
+          <span class="sent">The archaeologist found an <span class="gaptext">AN _ _ _ NT</span> artefact.</span>
+        </div>
+        <div class="trow">
+          <input class="tinp" type="text" placeholder="???" maxlength="3" data-answer="CIE">
+          <button class="chkbtn">Check</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>CIE is correct!</strong> AN + CIE + NT = ANCIENT — very old, from a long time ago. "Archaeologist… artefact" = study of old things = ANCIENT. The -NT ending combined with AN at the start makes ANCIENT the clear answer. Don't be fooled by ANCINT or ANCENT — the correct spelling uses CIE.</div>
+        <div class="fb err-f">❌ <strong>Archaeologists study old things — what word means very old?</strong> ANCIENT! AN + CIE + NT = ANCIENT. The missing letters are CIE. Watch the spelling: it's ANCIENT not ANCENT or ANCINT. The "CIE" in the middle follows the i-before-e pattern. Context: archaeologist + artefact = ancient objects.</div>
+      </div>
+
+    </div><!-- /qs-s1 -->
+  </div>
+</div>
+
+
+<!-- ═══════ S2: CONTEXT CLUES ═══════ -->
+<div class="sec" id="s2">
+  <div class="sec-hd">
+    <div class="ico">🔎</div>
+    <h2>2. <em>Context Clues</em> — Let the Sentence Help You</h2>
+    <div class="tick" id="tk-s2">✓</div>
+  </div>
+  <div class="bod">
+
+    <div class="bx-simple">
+      <div class="lbl">🧒 Simple Explanation</div>
+      The sentence around the missing word is like a treasure map — it gives you clues! Look for <strong>topic words</strong> (like "doctor", "hospital", "medicine" — that's a medical sentence). Look for <strong>describing words</strong> (like "shiny", "huge", "ancient"). Look for <strong>action words</strong> (like "climbed", "built", "sang"). Each clue narrows down what the missing word could be.
+    </div>
+
+    <div class="bx-full">
+      <div class="lbl">📖 Full Explanation</div>
+      <strong>Context-based solving</strong> uses the semantic information in the sentence to predict or validate the missing word. Key context indicators include: subject domain (science, sport, nature), descriptive adjectives, verbs and their typical objects, and positional words (above, below, inside). Strong context readers predict a category of word before looking at options — this makes the search faster and more accurate.
+    </div>
+
+    <div class="we">
+      <div class="we-title">✏️ Worked Example — Reading Context</div>
+      <div class="q-display">The doctor gave him a <span class="ga">P _ _ _ ON</span> to take twice a day.</div>
+
+      <div class="step"><div class="sn">1</div><div class="sc"><strong>Topic words:</strong> "doctor" → medical. "take twice a day" → this is something you take like medicine.</div></div>
+      <div class="step"><div class="sn">2</div><div class="sc"><strong>Predict category:</strong> Something a doctor gives you that you "take" → medicine, tablet, pill, potion, prescription.</div></div>
+      <div class="step"><div class="sn">3</div><div class="sc"><strong>Fragment P___ON:</strong> Which of my category words fits? PotION → P + OTI + ON? POTION fits! P + OTI + ON = POTION ✅.</div></div>
+      <div class="step"><div class="sn">4</div><div class="sc"><strong>Test:</strong> "The doctor gave him a POTION to take twice a day." ✅ Makes sense in a fantasy/medicine context.</div></div>
+      <div class="ans">✅ Answer: OTI → P + OTI + ON = POTION</div>
+    </div>
+
+    <div class="bx-warn">
+      <div class="lbl">⚠️ Watch Out!</div>
+      <strong>"Predict lightly — don't marry your guess!"</strong> Context gives you a good starting point, but never lock yourself in. If you predict "PILL" but the fragment doesn't fit PILL, don't panic — just move on. Weak students waste time defending a wrong prediction. Predict → test → if it fails, let go and try options instead.
+    </div>
+
+    <div class="we">
+      <div class="we-title">✏️ Harder Example — Context Narrows to One</div>
+      <div class="q-display">The surfer rode the enormous <span class="ga">_ A V _ _</span> to the shore.</div>
+
+      <div class="step"><div class="sn">1</div><div class="sc"><strong>Context:</strong> "surfer… rode… shore" → something a surfer rides → WAVE!</div></div>
+      <div class="step"><div class="sn">2</div><div class="sc"><strong>Fragment _ A V _ _ :</strong> W + A + V + E + S? Let me count: that's 5 letters total with A and V given. _AV__ → WAVES fits: W + AV + ES → WAVES.</div></div>
+      <div class="step"><div class="sn">3</div><div class="sc"><strong>Options check:</strong> (A) WES (B) WEN (C) WEL (D) WEP → WAVES (WES?). Actually _AV__ → W + AV + ES = WAVES → missing = WES. WAVEN, WAVEL? No. WAVES ✅.</div></div>
+      <div class="step"><div class="sn">4</div><div class="sc"><strong>Context trap check:</strong> "enormous" → could also be CAVERN? C + A + V + E + R + N? No — that's 6 letters and doesn't fit surfer context. Context rules it out.</div></div>
+      <div class="ans">✅ Answer: WES → W + AV + ES = WAVES. Context removed all doubt!</div>
+    </div>
+
+    <div class="qset" id="qs-s2">
+      <h3><span class="db s">● Starter</span></h3>
+
+      <div class="qcard" data-sec="s2">
+        <div class="qnum">Q1 · Starter</div>
+        <div class="qtext">What topic category does this sentence belong to?
+          <span class="sent">The goalkeeper dived to save the <span class="gaptext">P _ N _ LTY</span>.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="false">Cooking</button>
+          <button class="obtn" data-correct="true">Sport (football)</button>
+          <button class="obtn" data-correct="false">Science</button>
+          <button class="obtn" data-correct="false">Music</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>Sport (football) is right!</strong> "Goalkeeper" and "dived to save" are both football terms. This tells you immediately that the missing word is a football word — PENALTY! P + E + N + A + LTY = PENALTY. Reading the topic before trying options saves time.</div>
+        <div class="fb err-f">❌ <strong>"Goalkeeper" and "dived to save"</strong> are football terms — this is clearly a sports sentence! Identifying the topic gives you the word category straight away. It's a PENALTY: P + ENAL + TY = PENALTY. Always identify the topic first.</div>
+      </div>
+
+      <div class="qcard" data-sec="s2">
+        <div class="qnum">Q2 · Developing</div>
+        <div class="qtext">Use context to find the word:
+          <span class="sent">The goalkeeper dived to save the <span class="gaptext">P _ N _ LTY</span>.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">ENA</button>
+          <button class="obtn" data-correct="false">ONA</button>
+          <button class="obtn" data-correct="false">INA</button>
+          <button class="obtn" data-correct="false">ANA</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>ENA is correct!</strong> P + ENA + LTY = PENALTY. In football, a penalty is a free kick given for a foul. "Goalkeeper dived to save" = penalty. PONALTY, PINALTY, PANALTY — none of these are real words. Only PENALTY works.</div>
+        <div class="fb err-f">❌ <strong>The word is PENALTY</strong> — a football term for a free kick. P + ENA + LTY = PENALTY. The missing letters are ENA. PONALTY, PINALTY, PANALTY don't exist. Use the context: "goalkeeper dived to save" = it's a penalty kick.</div>
+      </div>
+
+      <div class="qcard" data-sec="s2">
+        <div class="qnum">Q3 · Secure — Typed</div>
+        <div class="qtext">Use all context clues to complete the word:
+          <span class="sent">The astronaut floated in <span class="gaptext">_ E I _ _ L _ _ SNESS</span> above the Earth.</span>
+        </div>
+        <div class="trow">
+          <input class="tinp" type="text" placeholder="???" maxlength="5" data-answer="GHTSS">
+          <button class="chkbtn">Check</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>GHTSS... actually, let's verify:</strong> WEIGHTLESSNESS = W-E-I-G-H-T-L-E-S-S-N-E-S-S. Frame: _EI__L__SNESS → W + EI + GHT + L + ESS + NESS. The key context: "astronaut floated above Earth" = zero gravity = weightlessness. Complex word — context saves you!</div>
+        <div class="fb err-f">❌ <strong>"Astronaut floated above Earth"</strong> = zero gravity = WEIGHTLESSNESS. W-E-I-G-H-T-L-E-S-S-N-E-S-S. The context here does most of the work — once you identify the topic (space, floating), the word becomes obvious even before you've tested every letter.</div>
+      </div>
+
+      <div class="qcard" data-sec="s2">
+        <div class="qnum">Q4 · Mastery</div>
+        <div class="qtext">Context narrows it, but you still need structural checking:
+          <span class="sent">The composer wrote a beautiful <span class="gaptext">SY _ _ _ ONY</span>.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">MPH</button>
+          <button class="obtn" data-correct="false">NCH</button>
+          <button class="obtn" data-correct="false">MPN</button>
+          <button class="obtn" data-correct="false">MPY</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>MPH is correct!</strong> SY + MPH + ONY = SYMPHONY — a large musical composition. "Composer… beautiful…" = music composition. SYMPHONY is a complex word: SY + MPH + ONY. The PH cluster (making an F sound) is the tricky part that trips students up — but context + structure together confirm it.</div>
+        <div class="fb err-f">❌ <strong>A composer writes musical pieces</strong> — a large one is a SYMPHONY. SY + MPH + ONY = SYMPHONY. The missing letters are MPH. The PH makes an F sound (as in phone, photo). SYNCHOONY and SYMPOONY don't work. Context (composer, beautiful, music) + structure (SY___ONY) both point to SYMPHONY.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════ S3: OPTION-FIRST STRATEGY ═══════ -->
+<div class="sec" id="s3">
+  <div class="sec-hd">
+    <div class="ico">🎯</div>
+    <h2>3. <em>Option-First</em> Strategy — Work Backwards</h2>
+    <div class="tick" id="tk-s3">✓</div>
+  </div>
+  <div class="bod">
+
+    <div class="bx-simple">
+      <div class="lbl">🧒 Simple Explanation</div>
+      Instead of guessing the word first, flip it around — <strong>look at the answer options and build the full word from each one, then test which full word makes sense.</strong> It's like having five keys and trying each one in the lock. You slot each option into the gap, check if it spells a real word, then check if that word fits the sentence.
+    </div>
+
+    <div class="bx-full">
+      <div class="lbl">📖 Full Explanation</div>
+      The <strong>option-driven construction strategy</strong> starts from the answer choices rather than predicting the word. For each option, you build the complete word by combining the known letters + the option letters, then check: <strong>(1)</strong> Is this a real, correctly spelled word? <strong>(2)</strong> Does this word fit the sentence meaning? This method is fastest when context prediction is unclear or when multiple predictions seem possible.
+    </div>
+
+    <div class="we">
+      <div class="we-title">✏️ Worked Example — Option-First in Action</div>
+      <div class="q-display">She climbed the <span class="ga">LA _ _ _ R</span> to reach the roof.</div>
+
+      <div class="opt-first">
+        <div class="lbl">🔄 Option-First: Build & Test Each Option</div>
+        <div class="opt-row">
+          <span class="opt-tag">(A) DDE</span>
+          <div class="opt-build">
+            <span class="ob-known">LA</span><span class="ob-fill">DDE</span><span class="ob-known">R</span>
+            <span class="ob-arr">→</span>
+            <span class="ob-result ob-ok">LADDER ✅ real word</span>
+          </div>
+        </div>
+        <div class="opt-row">
+          <span class="opt-tag">(B) FFE</span>
+          <div class="opt-build">
+            <span class="ob-known">LA</span><span class="ob-fill">FFE</span><span class="ob-known">R</span>
+            <span class="ob-arr">→</span>
+            <span class="ob-result ob-no">LAFFER ✗ not a common word</span>
+          </div>
+        </div>
+        <div class="opt-row">
+          <span class="opt-tag">(C) NDE</span>
+          <div class="opt-build">
+            <span class="ob-known">LA</span><span class="ob-fill">NDE</span><span class="ob-known">R</span>
+            <span class="ob-arr">→</span>
+            <span class="ob-result ob-no">LANDER ✗ (possible but doesn't fit context)</span>
+          </div>
+        </div>
+        <div class="opt-row">
+          <span class="opt-tag">(D) GGE</span>
+          <div class="opt-build">
+            <span class="ob-known">LA</span><span class="ob-fill">GGE</span><span class="ob-known">R</span>
+            <span class="ob-arr">→</span>
+            <span class="ob-result ob-no">LAGGER ✗ not standard</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step"><div class="sn">5</div><div class="sc"><strong>Context test:</strong> LADDER — "climbed the LADDER to reach the roof" ✅ Perfect. A ladder is exactly what you climb to reach a roof.</div></div>
+      <div class="ans">✅ Answer: DDE → LA + DDE + R = LADDER</div>
+    </div>
+
+    <div class="bx-tip">
+      <div class="lbl">⏱️ Speed Tip — 10-Second Rule</div>
+      If you haven't predicted the word within 10 seconds of reading the sentence, <strong>switch to Option-First immediately.</strong> Don't waste time staring at the blank. Try each option, build the word, check for real word + good meaning. This is usually faster than forcing a prediction.
+    </div>
+
+    <div class="bx-warn">
+      <div class="lbl">⚠️ Watch Out!</div>
+      <strong>Instant rejection: if a combination creates an impossible letter cluster, reject it immediately.</strong> For example, if building the word gives you "PXYR" or "BNTLE" in the middle — that's unpronounceable, so not a word. You don't need to test it further. Quick rejection saves precious seconds.
+    </div>
+
+    <div class="we">
+      <div class="we-title">✏️ Harder Example — Rejecting Impossible Clusters</div>
+      <div class="q-display">The artist used a fine <span class="ga">P _ _ _ EL</span> to paint.</div>
+
+      <div class="opt-first">
+        <div class="lbl">🔄 Quick Rejection in Action</div>
+        <div class="opt-row">
+          <span class="opt-tag">(A) XYR</span>
+          <div class="opt-build">
+            <span class="ob-known">P</span><span class="ob-fill">XYR</span><span class="ob-known">EL</span>
+            <span class="ob-arr">→</span>
+            <span class="ob-result ob-no">PXYREL ✗ impossible cluster — REJECT instantly</span>
+          </div>
+        </div>
+        <div class="opt-row">
+          <span class="opt-tag">(B) AIS</span>
+          <div class="opt-build">
+            <span class="ob-known">P</span><span class="ob-fill">AIS</span><span class="ob-known">EL</span>
+            <span class="ob-arr">→</span>
+            <span class="ob-result ob-no">PAISEL ✗ not a word</span>
+          </div>
+        </div>
+        <div class="opt-row">
+          <span class="opt-tag">(C) AST</span>
+          <div class="opt-build">
+            <span class="ob-known">P</span><span class="ob-fill">AST</span><span class="ob-known">EL</span>
+            <span class="ob-arr">→</span>
+            <span class="ob-result ob-ok">PASTEL ✅ real word — test in sentence</span>
+          </div>
+        </div>
+        <div class="opt-row">
+          <span class="opt-tag">(D) IXZ</span>
+          <div class="opt-build">
+            <span class="ob-known">P</span><span class="ob-fill">IXZ</span><span class="ob-known">EL</span>
+            <span class="ob-arr">→</span>
+            <span class="ob-result ob-no">PIXZEL ✗ impossible cluster — REJECT instantly</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step"><div class="sn">5</div><div class="sc"><strong>Context:</strong> "artist… fine… to paint" → PASTEL is a soft chalk-like art medium. ✅ "The artist used a fine PASTEL to paint" — perfect!</div></div>
+      <div class="ans">✅ Answer: AST → P + AST + EL = PASTEL</div>
+    </div>
+
+    <div class="qset" id="qs-s3">
+      <h3><span class="db s">● Starter</span></h3>
+
+      <div class="qcard" data-sec="s3">
+        <div class="qnum">Q1 · Starter — Quick Rejection</div>
+        <div class="qtext">Which option can you reject IMMEDIATELY because it creates an impossible letter cluster?
+          <span class="sent">She climbed the <span class="gaptext">LA _ _ _ R</span>.</span>
+          Options: DDE / XZQ / NDE / GGE
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="false">DDE — reject first</button>
+          <button class="obtn" data-correct="true">XZQ — reject first</button>
+          <button class="obtn" data-correct="false">NDE — reject first</button>
+          <button class="obtn" data-correct="false">GGE — reject first</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>XZQ is rejected instantly!</strong> LA + XZQ + R = LAXZQR — this is completely unpronounceable. No English word has XZQ in the middle. Reject it without testing. This quick rejection saves time — if it can't be said aloud, it can't be a word.</div>
+        <div class="fb err-f">❌ <strong>Test them aloud:</strong> LADDER, LAXZQR, LANDER, LAGGER. Which one is impossible to say? LAXZQR — because XZQ is not a letter pattern that exists in English. Reject XZQ instantly. That's the quick rejection technique.</div>
+      </div>
+
+      <div class="qcard" data-sec="s3">
+        <div class="qnum">Q2 · Developing — Build Each Option</div>
+        <div class="qtext">Use option-first to find the correct answer:
+          <span class="sent">The chef added <span class="gaptext">PE _ _ _ R</span> to the dish.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">PPE</button>
+          <button class="obtn" data-correct="false">LLE</button>
+          <button class="obtn" data-correct="false">NNE</button>
+          <button class="obtn" data-correct="false">FFE</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>PPE is correct!</strong> PE + PPE + R = PEPPER — a spice added to food. "Chef added ___ to the dish" = cooking ingredient = pepper. PELLER, PENNER, PEFFER — none are cooking spices. PEPPER with its double-P in the middle is the answer. The context (chef, dish, added) gives it away immediately.</div>
+        <div class="fb err-f">❌ <strong>Build each option:</strong> PE+PPE+R = PEPPER ✅, PE+LLE+R = PELLER ✗, PE+NNE+R = PENNER ✗, PE+FFE+R = PEFFER ✗. Only PEPPER is a real word, and it's a spice — perfect for a chef's dish. The double-P (PPE) is the key.</div>
+      </div>
+
+      <div class="qcard" data-sec="s3">
+        <div class="qnum">Q3 · Secure — Option-First with Rejection</div>
+        <div class="qtext">Use option-first and reject impossible clusters:
+          <span class="sent">The detective solved the <span class="gaptext">MY _ _ _ RY</span> quickly.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">STE</button>
+          <button class="obtn" data-correct="false">QXP</button>
+          <button class="obtn" data-correct="false">STO</button>
+          <button class="obtn" data-correct="false">STU</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>STE is correct!</strong> MY + STE + RY = MYSTERY — a puzzle or unknown case. "Detective solved the ___" = a mystery! QXP is immediately rejected (impossible cluster). MYSTORY and MYSTURY aren't real words. MYSTERY is the only one that works — and it perfectly fits a detective story.</div>
+        <div class="fb err-f">❌ <strong>Step 1 — reject QXP immediately</strong> (unpronounceable). Then build: MYSTERY ✅, MYSTORY ✗, MYSTURY ✗. Only MYSTERY works. Context: "detective solved the ___" = detective mystery. MY + STE + RY = MYSTERY. Answer: STE.</div>
+      </div>
+
+      <div class="qcard" data-sec="s3">
+        <div class="qnum">Q4 · Mastery — Typed</div>
+        <div class="qtext">Option-first: work backwards from each option (ING / ONG / ANG / ENT). Which fills: <span class="gaptext">STR _ _ _ TH</span>?
+          <span class="sent">Her training built her <span class="gaptext">STR _ _ _ TH</span> considerably.</span>
+        </div>
+        <div class="trow">
+          <input class="tinp" type="text" placeholder="???" maxlength="3" data-answer="ENG">
+          <button class="chkbtn">Check</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>ENG is correct!</strong> STR + ENG + TH = STRENGTH — physical power or capability. "Training built her ___ considerably" = physical training → strength. STRONTH, STRANTH, STRINGTH — none are real. STRENGTH is the only word, and ENG is the missing piece. Note: STRENTH is a common misspelling — make sure it's STRENGTH with the G!</div>
+        <div class="fb err-f">❌ <strong>Build each option:</strong> STR+ING+TH = STRINGTH ✗, STR+ONG+TH = STRONGTH ✗, STR+ANG+TH = STRANTH ✗, STR+ENG+TH = STRENGTH ✅. "Training built her ___" = physical power = STRENGTH. Missing letters: ENG. Watch the spelling — STRENGTH not STRENTH!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════ S4: DUAL VALIDATION ═══════ -->
+<div class="sec" id="s4">
+  <div class="sec-hd">
+    <div class="ico">✅</div>
+    <h2>4. <em>Dual Validation</em> — Real Word AND Right Meaning</h2>
+    <div class="tick" id="tk-s4">✓</div>
+  </div>
+  <div class="bod">
+
+    <div class="bx-simple">
+      <div class="lbl">🧒 Simple Explanation</div>
+      You need to pass TWO tests, not one. <strong>Test 1: Is it a real word?</strong> (Could you find it in a dictionary?) <strong>Test 2: Does it fit the sentence?</strong> (Does the meaning make sense?) Sometimes you'll find a real word that doesn't fit the meaning — that's a trap! You must pass both tests to get the mark.
+    </div>
+
+    <div class="bx-full">
+      <div class="lbl">📖 Full Explanation</div>
+      <strong>Dual validation</strong> requires confirming both lexical validity (the word exists and is correctly spelled) and semantic appropriateness (the word's meaning fits the sentence context). GL Assessment trap options frequently include real words that pass the lexical check but fail the semantic check. Students who only test "is this a word?" without checking meaning fall into this trap regularly.
+    </div>
+
+    <div class="we">
+      <div class="we-title">✏️ Worked Example — Two Real Words, One Correct</div>
+      <div class="q-display">The gardener used a <span class="ga">S _ _ DE</span> to move the soil.</div>
+
+      <div class="step"><div class="sn">1</div><div class="sc"><strong>Options:</strong> (A) PA → SPADE, (B) HA → SHADE, (C) BL → SBLDE ✗ (reject immediately), (D) LI → SLIDE.</div></div>
+      <div class="step"><div class="sn">2</div><div class="sc"><strong>Real word check:</strong> SPADE ✅ SHADE ✅ SLIDE ✅. Three real words — which one fits?</div></div>
+      <div class="step"><div class="sn">3</div><div class="sc"><strong>Meaning check:</strong> "gardener… move the soil" → a SPADE is a digging tool ✅. A SHADE gives shadow ✗ (doesn't move soil). A SLIDE is playground equipment ✗.</div></div>
+      <div class="step"><div class="sn">4</div><div class="sc"><strong>Only SPADE passes both tests.</strong> SHADE and SLIDE pass the word test but fail the meaning test.</div></div>
+      <div class="ans">✅ Answer: PA → S + PA + DE = SPADE. Both real word AND correct meaning ✅</div>
+    </div>
+
+    <div class="bx-warn">
+      <div class="lbl">⚠️ Watch Out!</div>
+      <strong>The "real word, wrong meaning" trap is the most common way students lose marks.</strong> When you find an option that makes a real word, don't stop — ask "does this word make sense HERE, in this sentence?" If it doesn't fit the meaning perfectly, it's the trap. Keep testing the other options.
+    </div>
+
+    <div class="we">
+      <div class="we-title">✏️ Harder Example — Overfitting Context</div>
+      <div class="q-display">The team celebrated their <span class="ga">VI _ _ _ RY</span> with a parade.</div>
+
+      <div class="step"><div class="sn">1</div><div class="sc"><strong>Context prediction:</strong> "team celebrated" → winning → VICTORY seems obvious.</div></div>
+      <div class="step"><div class="sn">2</div><div class="sc"><strong>But check options:</strong> (A) CTO → VICTORY ✅ (B) SIO → VISION ✗ wrong end (C) GIL → VIGLRY ✗ (D) NTA → VINTAGE? VI+NTA+RY = VINTARY? ✗. </div></div>
+      <div class="step"><div class="sn">3</div><div class="sc"><strong>Dual validation:</strong> VICTORY = real word ✅ AND fits "team celebrated with a parade" ✅. No other option passes both tests.</div></div>
+      <div class="step"><div class="sn">4</div><div class="sc"><strong>Lesson:</strong> Even when context prediction is easy, still dual-validate. "Predict lightly" — use context to guide you, but always confirm with both tests.</div></div>
+      <div class="ans">✅ Answer: CTO → VI + CTO + RY = VICTORY. Real word + correct meaning ✅</div>
+    </div>
+
+    <div class="qset" id="qs-s4">
+      <h3><span class="db s">● Starter</span></h3>
+
+      <div class="qcard" data-sec="s4">
+        <div class="qnum">Q1 · Starter — Spot the Trap</div>
+        <div class="qtext">Which option makes a real word but has the WRONG meaning?
+          <span class="sent">The gardener used a <span class="gaptext">S _ _ DE</span> to move soil.</span>
+          Options: PA (SPADE) / HA (SHADE) / LA (SLADE)
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="false">PA (SPADE) — trap answer</button>
+          <button class="obtn" data-correct="true">HA (SHADE) — trap answer</button>
+          <button class="obtn" data-correct="false">LA (SLADE) — trap answer</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>SHADE is the trap!</strong> SHADE is a real word (it means shadow or darkness), but you don't use shade to "move soil" in a garden. The trap works because SHADE is a perfectly real word — students who only check "is this a word?" get caught. Always check meaning too. SPADE is the correct answer (a digging tool).</div>
+        <div class="fb err-f">❌ <strong>SHADE is a real word</strong> — but does it fit "gardener used a SHADE to move soil"? No! Shade gives shadow, not a digging tool. The trap option passes the word test but fails the meaning test. Always ask: is this word the right meaning for this sentence?</div>
+      </div>
+
+      <div class="qcard" data-sec="s4">
+        <div class="qnum">Q2 · Developing</div>
+        <div class="qtext">Both options make real words. Which one is correct?
+          <span class="sent">She put the flowers in a <span class="gaptext">V _ SE</span>.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">A (VASE)</button>
+          <button class="obtn" data-correct="false">I (VISE)</button>
+          <button class="obtn" data-correct="false">O (VOSE — not real)</button>
+          <button class="obtn" data-correct="false">U (VUSE — not real)</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>A (VASE) is correct!</strong> VASE = a container for flowers ✅ real word ✅ fits sentence perfectly. VISE is a real word (a clamping tool) but you don't put flowers in a vise! Both VASE and VISE pass the word test, but only VASE passes the meaning test. Dual validation saves you here!</div>
+        <div class="fb err-f">❌ <strong>VISE is a real word</strong> (a clamping tool used in woodwork), but you don't put flowers in a vise! VASE is also a real word AND fits the sentence perfectly. Both words exist — only VASE means "container for flowers". This is the dual validation challenge: always check meaning, not just spelling.</div>
+      </div>
+
+      <div class="qcard" data-sec="s4">
+        <div class="qnum">Q3 · Secure — Typed</div>
+        <div class="qtext">Two options make real words. Type the one that fits the MEANING:
+          <span class="sent">The wound began to <span class="gaptext">HE _ L</span> after a week.</span>
+          Options: A (HEAL) or I (HEIL — not standard)
+        </div>
+        <div class="trow">
+          <input class="tinp" type="text" placeholder="??" maxlength="2" data-answer="AL">
+          <button class="chkbtn">Check</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>AL is correct!</strong> HE + AL = HEAL — to recover from an injury. "Wound began to heal after a week" = medical recovery = HEAL. This is exactly what wounds do: they heal. Dual validation: HEAL is a real word ✅ and fits the meaning perfectly ✅.</div>
+        <div class="fb err-f">❌ <strong>The word is HEAL</strong> — as in recovering from injury. HE + AL = HEAL. "Wound began to HEAL after a week" ✅. Type the missing letters: AL. HEAL is both a real word and the correct meaning here. Always confirm both: real word AND right meaning.</div>
+      </div>
+
+      <div class="qcard" data-sec="s4">
+        <div class="qnum">Q4 · Mastery — Classic Dual Trap</div>
+        <div class="qtext">Three options create real words. Find the one that passes BOTH tests:
+          <span class="sent">The archer took careful <span class="gaptext">A _ M</span> at the target.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">I (AIM)</button>
+          <button class="obtn" data-correct="false">R (ARM) — real word, check meaning</button>
+          <button class="obtn" data-correct="false">L (ALM — not standard)</button>
+          <button class="obtn" data-correct="false">S (ASM — not standard)</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>I (AIM) is correct!</strong> AIM = to direct or point at a target ✅ real word ✅ fits "archer took careful aim at the target" ✅. ARM is a real word, but "the archer took careful ARM at the target" doesn't make sense. AIM is both real and the right meaning.</div>
+        <div class="fb err-f">❌ <strong>ARM is a real word</strong> (part of the body), but "took careful ARM at the target" doesn't make sense in English. We "take AIM" not "take ARM". AIM is the word that passes both tests: real word ✅ + right meaning ✅. Always test meaning after finding a real word!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════ S5: TRAPS ═══════ -->
+<div class="sec" id="s5">
+  <div class="sec-hd">
+    <div class="ico">⚡</div>
+    <h2>5. GL <em>Traps</em> — The Four Danger Zones</h2>
+    <div class="tick" id="tk-s5">✓</div>
+  </div>
+  <div class="bod">
+
+    <div class="bx-simple">
+      <div class="lbl">🧒 Simple Explanation</div>
+      GL questions have sneaky traps built in to catch students who rush. There are four main danger zones: <strong>Trap 1</strong> — a real word with the wrong meaning. <strong>Trap 2</strong> — a word that sounds right but is spelled wrong. <strong>Trap 3</strong> — a false common ending (like -ING or -TION) that leads you astray. <strong>Trap 4</strong> — choosing the familiar word instead of the correct one. Know the traps, avoid the traps!
+    </div>
+
+    <div class="bx-full">
+      <div class="lbl">📖 Full Explanation</div>
+      The four GL trap categories: <strong>(1) Semantic mismatch</strong> — real word, wrong context. <strong>(2) Phonetic deception</strong> — sounds correct but the spelling option doesn't match how it sounds. <strong>(3) False prefix/suffix</strong> — a standard word part (RE-, -TION, -ING) tempts students into building an incorrect word. <strong>(4) Common word bias</strong> — students favour familiar words over the correct but slightly less common answer.
+    </div>
+
+    <div class="we">
+      <div class="we-title">✏️ Trap 1: Semantic Mismatch</div>
+      <div class="q-display">The chef <span class="ga">ST _ _ RED</span> the sauce carefully.</div>
+      <div class="step"><div class="sn">1</div><div class="sc">Options: A → STARRED, I → STIRRED, O → STORRED, U → STURRED</div></div>
+      <div class="step"><div class="sn">2</div><div class="sc">STARRED = real word ✅ (to be in a film). "Chef STARRED the sauce"? ✗ Wrong meaning — chefs don't star sauce.</div></div>
+      <div class="step"><div class="sn">3</div><div class="sc">STIRRED = real word ✅ (to mix with a spoon). "Chef STIRRED the sauce carefully"? ✅ Perfect meaning.</div></div>
+      <div class="step"><div class="sn">4</div><div class="sc">STARRED is the trap — it's a real word but the meaning is wrong. STIRRED passes both tests.</div></div>
+      <div class="ans">✅ Answer: I → ST + I + RRED = STIRRED. Real word ✅ Correct meaning ✅</div>
+    </div>
+
+    <div class="bx-warn">
+      <div class="lbl">⚠️ Watch Out! — All Four Traps</div>
+      <strong>Trap 1 (Semantic mismatch):</strong> Real word, wrong meaning. Always test meaning after finding a real word.<br>
+      <strong>Trap 2 (Phonetic deception):</strong> Sounds right when read aloud, but the spelling option given is subtly wrong.<br>
+      <strong>Trap 3 (False prefix):</strong> RE_, UN_, _TION endings make you build the wrong word.<br>
+      <strong>Trap 4 (Common word bias):</strong> You pick the most familiar word, not the correct one. Don't default to "obvious" — verify!
+    </div>
+
+    <div class="we">
+      <div class="we-title">✏️ Trap 3: False Prefix</div>
+      <div class="q-display">She tried to <span class="ga">RE _ _ _ VER</span> her lost bag.</div>
+      <div class="step"><div class="sn">1</div><div class="sc">You see RE at the start. Instinct: "REDO, RETURN, REPLACE, RECOVER!" Feels like RE + something.</div></div>
+      <div class="step"><div class="sn">2</div><div class="sc">Fragment: RE___VER. Options: (A) CO → RECOVER ✅. (B) CU → RECURVER ✗. (C) OC → REOCOVER? ✗. (D) DC → RE+DC+VER? ✗ impossible cluster.</div></div>
+      <div class="step"><div class="sn">3</div><div class="sc">RECOVER passes both tests: real word ✅ "recover her lost bag" = get back what was lost ✅. The RE prefix is genuine here, but it can mislead you into assuming RE+ anything = valid.</div></div>
+      <div class="step"><div class="sn">4</div><div class="sc"><strong>Trap:</strong> Sometimes RE looks like a prefix but isn't — the full word doesn't split as RE + something meaningful. Always build and test the full word.</div></div>
+      <div class="ans">✅ Answer: CO → RE + CO + VER = RECOVER. Genuine prefix, genuine word!</div>
+    </div>
+
+    <div class="qset" id="qs-s5">
+      <h3><span class="db s">● Starter</span></h3>
+
+      <div class="qcard" data-sec="s5">
+        <div class="qnum">Q1 · Starter — Trap Identification</div>
+        <div class="qtext">Which option is a TRAP (real word, wrong meaning)?
+          <span class="sent">The chef <span class="gaptext">ST _ _ RED</span> the sauce.</span>
+          Options: A (STARRED) / I (STIRRED)
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">A — STARRED (real word, wrong meaning)</button>
+          <button class="obtn" data-correct="false">I — STIRRED (real word, right meaning)</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>STARRED is the trap!</strong> STARRED is a perfectly real word (past tense of "star" as in featured in a film), but chefs don't STAR sauce — they STIR it. The trap lures students who stop at "is this a real word?" without checking meaning. STIRRED passes both tests.</div>
+        <div class="fb err-f">❌ <strong>STIRRED is correct, not a trap!</strong> STIRRED = to mix with a spoon, which is exactly what a chef does to sauce. STARRED is the trap — it's a real word but wrong meaning. Chefs stir, not star. Always test meaning after finding a real word.</div>
+      </div>
+
+      <div class="qcard" data-sec="s5">
+        <div class="qnum">Q2 · Developing — Phonetic Deception</div>
+        <div class="qtext">One option SOUNDS right when read aloud but is spelled wrong for this gap. Find the correct one:
+          <span class="sent">He was very <span class="gaptext">PA _ _ ENT</span> while waiting.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">TI (PATIENT)</button>
+          <button class="obtn" data-correct="false">SH (PASHENT — sounds it, spelled wrong)</button>
+          <button class="obtn" data-correct="false">CI (PACIENT — almost right, wrong spelling)</button>
+          <button class="obtn" data-correct="false">SS (PASSENT — not a word)</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>TI (PATIENT) is correct!</strong> PA + TI + ENT = PATIENT — calm and willing to wait. The word sounds like "PAY-shent" but the spelling uses TI not SH. PASHENT and PACIENT look phonetically plausible but aren't the correct spelling. Always check spelling against the gap letters, not just sound.</div>
+        <div class="fb err-f">❌ <strong>This is a phonetic deception trap!</strong> "PATIENT" sounds like "PAY-shent" — so SH seems tempting. But the correct spelling is PATIENT (P-A-T-I-E-N-T), using TI not SH. PA + TI + ENT = PATIENT ✅. Phonetic traps make you choose based on sound alone — but spelling matters!</div>
+      </div>
+
+      <div class="qcard" data-sec="s5">
+        <div class="qnum">Q3 · Secure — Common Word Bias</div>
+        <div class="qtext">Don't pick the most familiar word — pick the RIGHT one:
+          <span class="sent">The historian discovered a <span class="gaptext">CI _ _ ER</span> message.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="false">DL (CIDLER — not real)</button>
+          <button class="obtn" data-correct="false">ND (CINDER — common word, check meaning)</button>
+          <button class="obtn" data-correct="true">PH (CIPHER — correct!)</button>
+          <button class="obtn" data-correct="false">NE (CINEER — not real)</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>PH (CIPHER) is correct!</strong> CI + PH + ER = CIPHER — a secret coded message. "Historian discovered a cipher message" = decoded historical code = CIPHER. CINDER is a more familiar word (ash from fire) but it fails the meaning test — historians don't discover cinder messages! Don't default to familiar words.</div>
+        <div class="fb err-f">❌ <strong>Common word bias trap!</strong> CINDER is a familiar word (ash from fire), so it feels safe. But "historian discovered a CINDER message" doesn't make sense! CIPHER = a secret code, which historians absolutely might discover. CI + PH + ER = CIPHER ✅. Don't pick familiar over correct!</div>
+      </div>
+
+      <div class="qcard" data-sec="s5">
+        <div class="qnum">Q4 · Mastery — False Prefix Trap</div>
+        <div class="qtext">The RE at the start is tempting — but build carefully:
+          <span class="sent">The scientist made a <span class="gaptext">RE _ _ _ _ BLE</span> discovery.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">MARKA (REMARKABLE)</button>
+          <button class="obtn" data-correct="false">TURNA (RETURNABLE — check meaning)</button>
+          <button class="obtn" data-correct="false">MOVA (REMOVABLE — check meaning)</button>
+          <button class="obtn" data-correct="false">PLACA (REPLACABLE — misspelled)</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>MARKA (REMARKABLE) is correct!</strong> RE + MARKA + BLE = REMARKABLE — extraordinary or worthy of attention. "Scientist made a remarkable discovery" ✅. RETURNABLE and REMOVABLE are real words but wrong meaning — scientists don't make "returnable" or "removable" discoveries. REPLACEABLE is misspelled (REPLACA gives REPLACABLE not REPLACEABLE). Only REMARKABLE passes both tests.</div>
+        <div class="fb err-f">❌ <strong>False prefix trap:</strong> seeing RE might make you think RETURNABLE or REMOVABLE. Both are real words — but do scientists make "returnable" discoveries? Does "removable discovery" make sense? No! REMARKABLE = extraordinary, which is exactly how we'd describe a scientific discovery. RE + MARKA + BLE = REMARKABLE ✅. Always test meaning!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════ S6: HARD WORD SPLITS ═══════ -->
+<div class="sec" id="s6">
+  <div class="sec-hd">
+    <div class="ico">🔬</div>
+    <h2>6. <em>Hard Splits</em> — When the Gap Isn't Where You Think</h2>
+    <div class="tick" id="tk-s6">✓</div>
+  </div>
+  <div class="bod">
+
+    <div class="bx-simple">
+      <div class="lbl">🧒 Simple Explanation</div>
+      Sometimes the missing bit is in a tricky place — like the middle of a long word, or it includes letters you didn't expect. The fixed letters (the ones you can see) might look like they belong to one part of the word, but actually they belong to a different part. When your first idea doesn't work — <strong>be flexible! Try reading the gap differently.</strong>
+    </div>
+
+    <div class="bx-full">
+      <div class="lbl">📖 Full Explanation</div>
+      <strong>Non-obvious internal splits</strong> occur when the gap boundary doesn't align with morpheme boundaries (prefixes, roots, suffixes). Students who assume the gap is always between natural word parts will misparse the fragment. The solution is to: (1) try the obvious split first, (2) if that fails, rethink where the known letters end and the gap begins, and (3) test alternative parses of the same fragment. Flexibility over assumption.
+    </div>
+
+    <div class="we">
+      <div class="we-title">✏️ Worked Example — The MOLECULE Problem Revisited</div>
+      <div class="q-display">The scientist studied the <span class="ga">MO _ _ _ LE</span> structure.</div>
+
+      <div class="step"><div class="sn">1</div><div class="sc"><strong>First read:</strong> Frame = MO + ??? + LE. Options include LEC. Try: MO + LEC + LE = MOLECLE ✗ Not a word.</div></div>
+      <div class="step"><div class="sn">2</div><div class="sc"><strong>Rethink the split:</strong> What if the ending isn't just LE but ULE? MO + ??? + ULE. Now: MO + LEC + ULE = MOLECULE ✅!</div></div>
+      <div class="step"><div class="sn">3</div><div class="sc"><strong>The key insight:</strong> The given letters were MO___LE where the gap swallowed the CU from MOLECULE. The actual split in the word is MO-LEC-ULE but the shown frame was MO___ULE (with ULE as the fixed end, not LE).</div></div>
+      <div class="step"><div class="sn">4</div><div class="sc"><strong>Rule:</strong> When option-building fails, consider that the fixed letters might extend into what you thought was the gap. Reparse and try again.</div></div>
+      <div class="ans">✅ Answer: LEC → MO + LEC + ULE = MOLECULE. The split wasn't where it first appeared!</div>
+    </div>
+
+    <div class="bx-warn">
+      <div class="lbl">⚠️ Watch Out!</div>
+      <strong>Flexible thinking, not stubbornness!</strong> If your first interpretation of the gap fails with every option, don't panic — just try a different read of where the known letters end. Count the total word length the option would create, and see if that matches a real word you know from context. Length awareness saves you here.
+    </div>
+
+    <div class="we">
+      <div class="we-title">✏️ Harder Example — Vocabulary Stretch</div>
+      <div class="q-display">The light passed through a <span class="ga">PR _ _ M</span> and split into colours.</div>
+
+      <div class="step"><div class="sn">1</div><div class="sc"><strong>Context:</strong> "light… split into colours" → this is physics/science → a PRISM!</div></div>
+      <div class="step"><div class="sn">2</div><div class="sc"><strong>Fragment:</strong> PR + ??? + M. Options: IS → PR + IS + M = PRISM ✅. Try others: PR + AS + M = PRASM ✗. PR + OS + M = PROSM ✗.</div></div>
+      <div class="step"><div class="sn">3</div><div class="sc"><strong>PRISM</strong> might be less familiar than MILK or MEDAL — but context + structure both confirm it. Don't reject unfamiliar words if the evidence is strong!</div></div>
+      <div class="step"><div class="sn">4</div><div class="sc"><strong>Vocabulary stretch:</strong> GL uses words like PRISM, CIPHER, LUMEN, SUMMIT. If you know the topic, you can get these even if the words feel slightly unusual.</div></div>
+      <div class="ans">✅ Answer: IS → PR + IS + M = PRISM. Less common, but context confirms it!</div>
+    </div>
+
+    <div class="qset" id="qs-s6">
+      <h3><span class="db s">● Starter</span></h3>
+
+      <div class="qcard" data-sec="s6">
+        <div class="qnum">Q1 · Starter</div>
+        <div class="qtext">Complete the word:
+          <span class="sent">The light passed through a <span class="gaptext">PR _ _ M</span> and split into colours.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">IS</button>
+          <button class="obtn" data-correct="false">AS</button>
+          <button class="obtn" data-correct="false">OS</button>
+          <button class="obtn" data-correct="false">ES</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>IS is correct!</strong> PR + IS + M = PRISM — a glass shape that splits light into rainbow colours. "Light… split into colours" is the exact definition of what a prism does in physics. PRASM, PROSM, PRESM — none are real words. PRISM is the answer even if it's less everyday than MILK!</div>
+        <div class="fb err-f">❌ <strong>Context clue:</strong> "light… split into colours" — that's what a prism does in physics! PR + IS + M = PRISM. PRASM, PROSM, and PRESM aren't real words. The context here does all the work — trust the sentence even when the word is less familiar.</div>
+      </div>
+
+      <div class="qcard" data-sec="s6">
+        <div class="qnum">Q2 · Developing — Flexible Split</div>
+        <div class="qtext">The gap might not be where you expect. Complete the word:
+          <span class="sent">The scientist studied the <span class="gaptext">MO _ _ _ ULE</span> structure.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">LEC</button>
+          <button class="obtn" data-correct="false">OLE</button>
+          <button class="obtn" data-correct="false">ECU</button>
+          <button class="obtn" data-correct="false">DUL</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>LEC is correct!</strong> MO + LEC + ULE = MOLECULE. Notice the frame shows ULE as the fixed end (not just LE) — this is the rethinking that's needed. MOOLELE, MOECULE, MODUALE — none work. Once you correctly read the ending as ULE, MOLECULE with LEC is clear. "Scientist… structure" = molecule in chemistry.</div>
+        <div class="fb err-f">❌ <strong>Check the fixed letters carefully:</strong> the ending shown is ULE, not LE. So the frame is MO + ??? + ULE. MO + LEC + ULE = MOLECULE ✅. MOOLELE, MOECULE, and MODUALE aren't real words. The key was reading ULE as the fixed ending, not just LE.</div>
+      </div>
+
+      <div class="qcard" data-sec="s6">
+        <div class="qnum">Q3 · Secure — Typed</div>
+        <div class="qtext">Less common word — context is your guide:
+          <span class="sent">The candle emitted a soft <span class="gaptext">LU _ _ N</span> in the darkness.</span>
+        </div>
+        <div class="trow">
+          <input class="tinp" type="text" placeholder="??" maxlength="2" data-answer="ME">
+          <button class="chkbtn">Check</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>ME is correct!</strong> LU + ME + N = LUMEN — a unit of light or a soft glow. "Candle… soft light in darkness" = a gentle luminance = lumen. LUMEN might be less familiar than MEDAL or MILK, but the context (candle, soft, darkness, glow) points directly to a light-related word. Trust the structure!</div>
+        <div class="fb err-f">❌ <strong>What does a candle give in the dark?</strong> Light — specifically a LUMEN. LU + ME + N = LUMEN (a measure or quality of light). The context (candle, soft, darkness) all point to a light-related word. ME fills the gap: LUMEN. Less common, but entirely valid in GL Assessment!</div>
+      </div>
+
+      <div class="qcard" data-sec="s6">
+        <div class="qnum">Q4 · Mastery — Full Challenge</div>
+        <div class="qtext">Hard split AND less common word. Be flexible:
+          <span class="sent">The spy decoded the <span class="gaptext">CI _ _ ER</span> quickly.</span>
+        </div>
+        <div class="opts">
+          <button class="obtn" data-correct="true">PH (CIPHER)</button>
+          <button class="obtn" data-correct="false">ND (CINDER — wrong meaning)</button>
+          <button class="obtn" data-correct="false">RC (CIRCER — not real)</button>
+          <button class="obtn" data-correct="false">NG (CINGER — not real)</button>
+        </div>
+        <div class="fb ok-f">✅ <strong>PH (CIPHER) is correct!</strong> CI + PH + ER = CIPHER — a secret coded message or encryption. "Spy decoded the cipher" ✅ — spies absolutely work with ciphers! CINDER is a real word but ash from a fire has nothing to do with spy decoding. CIRCER and CINGER aren't words. CIPHER is the only option that passes both tests.</div>
+        <div class="fb err-f">❌ <strong>CINDER is a trap (real word, wrong meaning)</strong> — ash from fire doesn't fit "spy decoded". CIPHER = secret code: CI + PH + ER = CIPHER. Spies decode ciphers — that's exactly the right meaning. The PH combination (making an F sound, like in photo) is the key letter pattern to recognise here.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════ FINAL TEST ═══════ -->
+<div class="sec" id="test">
+  <div class="sec-hd">
+    <div class="ico">⏱️</div>
+    <h2>Final <em>Mastery Test</em> — 15 Questions · 12 Minutes</h2>
+  </div>
+  <div class="bod">
+
+    <div id="tintro">
+      <p style="margin-bottom:1.4rem">This test covers all sub-skills: core method, context clues, option-first strategy, dual validation, traps, and hard splits. Use every strategy you've learned. Stay flexible — don't commit too early!</p>
+      <div id="ttimer">12:00</div>
+      <button class="bigbtn" id="startbtn" onclick="startTest()">▶ Start Test</button>
+    </div>
+
+    <div id="tqs" style="display:none">
+      <div id="ttimer2" style="font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:700;color:var(--gold);text-align:center;margin-bottom:1.2rem">12:00</div>
+
+      <div class="tq" id="tq1">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db s">Starter</span> T1</div>
+        <div class="qtext">Complete: <span class="sent">The child drank a glass of <span class="gaptext">M _ _ K</span>.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="true" data-q="1">ILK</button>
+          <button class="obtn tobtn" data-correct="false" data-q="1">ELK</button>
+          <button class="obtn tobtn" data-correct="false" data-q="1">OLK</button>
+          <button class="obtn tobtn" data-correct="false" data-q="1">ULK</button>
+        </div>
+        <div class="fb" id="tf1" data-exp="M+ILK=MILK — a drink ('drank a glass of' is the context clue). ELK/OLK/ULK don't form real words."></div>
+      </div>
+
+      <div class="tq" id="tq2">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db s">Starter</span> T2</div>
+        <div class="qtext">Complete: <span class="sent">They climbed to the <span class="gaptext">S _ _ _ IT</span> of the mountain.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="true" data-q="2">UMM</button>
+          <button class="obtn tobtn" data-correct="false" data-q="2">AMM</button>
+          <button class="obtn tobtn" data-correct="false" data-q="2">IMM</button>
+          <button class="obtn tobtn" data-correct="false" data-q="2">OMM</button>
+        </div>
+        <div class="fb" id="tf2" data-exp="S+UMM+IT=SUMMIT — the top of a mountain. 'Climbed to the ___ of the mountain' = summit. SAMMIT, SIMMIT, SOMMIT don't exist."></div>
+      </div>
+
+      <div class="tq" id="tq3">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db d">Developing</span> T3</div>
+        <div class="qtext">Complete: <span class="sent">She played the <span class="gaptext">T _ _ _ PET</span> in the band.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="true" data-q="3">RUM</button>
+          <button class="obtn tobtn" data-correct="false" data-q="3">ROM</button>
+          <button class="obtn tobtn" data-correct="false" data-q="3">RAM</button>
+          <button class="obtn tobtn" data-correct="false" data-q="3">RIM</button>
+        </div>
+        <div class="fb" id="tf3" data-exp="T+RUM+PET=TRUMPET — a brass instrument. 'Played in the band' = musical instrument. TROMBET, TRAMBET, TRIMBET don't exist."></div>
+      </div>
+
+      <div class="tq" id="tq4">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db d">Developing</span> T4</div>
+        <div class="qtext">Dual validation — which passes BOTH tests?
+          <span class="sent">She put the flowers in a <span class="gaptext">V _ SE</span>.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="true" data-q="4">A (VASE)</button>
+          <button class="obtn tobtn" data-correct="false" data-q="4">I (VISE)</button>
+          <button class="obtn tobtn" data-correct="false" data-q="4">O (VOSE)</button>
+          <button class="obtn tobtn" data-correct="false" data-q="4">U (VUSE)</button>
+        </div>
+        <div class="fb" id="tf4" data-exp="VASE = container for flowers ✅ meaning ✅. VISE = clamping tool (real word, wrong meaning — trap!). VOSE/VUSE don't exist."></div>
+      </div>
+
+      <div class="tq" id="tq5">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db d">Developing</span> T5</div>
+        <div class="qtext">Option-first: reject impossible clusters first.
+          <span class="sent">The chef added <span class="gaptext">PE _ _ _ R</span> to the dish.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="true" data-q="5">PPE</button>
+          <button class="obtn tobtn" data-correct="false" data-q="5">XZQ</button>
+          <button class="obtn tobtn" data-correct="false" data-q="5">LLE</button>
+          <button class="obtn tobtn" data-correct="false" data-q="5">FFE</button>
+        </div>
+        <div class="fb" id="tf5" data-exp="PE+PPE+R=PEPPER — a spice. XZQ rejected instantly (impossible cluster). PELLER and PEFFER aren't words. PEPPER is the cooking spice."></div>
+      </div>
+
+      <div class="tq" id="tq6">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db c">Secure</span> T6</div>
+        <div class="qtext">Complete: <span class="sent">The judge gave a <span class="gaptext">VE _ _ _ CT</span> of not guilty.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="true" data-q="6">RDI</button>
+          <button class="obtn tobtn" data-correct="false" data-q="6">RDE</button>
+          <button class="obtn tobtn" data-correct="false" data-q="6">RDA</button>
+          <button class="obtn tobtn" data-correct="false" data-q="6">NDI</button>
+        </div>
+        <div class="fb" id="tf6" data-exp="VE+RDI+CT=VERDICT — a legal decision. 'Judge… not guilty' = trial verdict. VERDECT, VERDACT, VENDICT aren't real words."></div>
+      </div>
+
+      <div class="tq" id="tq7">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db c">Secure</span> T7</div>
+        <div class="qtext">Complete: <span class="sent">The goalkeeper dived to save the <span class="gaptext">P _ N _ LTY</span>.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="true" data-q="7">ENA</button>
+          <button class="obtn tobtn" data-correct="false" data-q="7">ONA</button>
+          <button class="obtn tobtn" data-correct="false" data-q="7">INA</button>
+          <button class="obtn tobtn" data-correct="false" data-q="7">ANA</button>
+        </div>
+        <div class="fb" id="tf7" data-exp="P+ENA+LTY=PENALTY — a football free kick. 'Goalkeeper dived to save' = penalty kick. PONALTY, PINALTY, PANALTY don't exist."></div>
+      </div>
+
+      <div class="tq" id="tq8">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db c">Secure</span> T8</div>
+        <div class="qtext">Spot the trap — semantic mismatch:
+          <span class="sent">The chef <span class="gaptext">ST _ _ RED</span> the sauce carefully.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="false" data-q="8">A (STARRED — trap!)</button>
+          <button class="obtn tobtn" data-correct="true" data-q="8">I (STIRRED — correct!)</button>
+          <button class="obtn tobtn" data-correct="false" data-q="8">O (STORRED — not real)</button>
+          <button class="obtn tobtn" data-correct="false" data-q="8">U (STURRED — not real)</button>
+        </div>
+        <div class="fb" id="tf8" data-exp="STIRRED = mixed with a spoon ✅ context ✅. STARRED = featured in a film (real word, WRONG meaning — classic semantic trap!). STORRED/STURRED don't exist."></div>
+      </div>
+
+      <div class="tq" id="tq9">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db c">Secure</span> T9</div>
+        <div class="qtext">Complete: <span class="sent">The detective solved the <span class="gaptext">MY _ _ _ RY</span> quickly.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="true" data-q="9">STE</button>
+          <button class="obtn tobtn" data-correct="false" data-q="9">QXP</button>
+          <button class="obtn tobtn" data-correct="false" data-q="9">STO</button>
+          <button class="obtn tobtn" data-correct="false" data-q="9">STU</button>
+        </div>
+        <div class="fb" id="tf9" data-exp="MY+STE+RY=MYSTERY. Reject QXP immediately (impossible). 'Detective solved the ___' = mystery case. MYSTORY/MYSTURY don't exist. MYSTERY is the answer."></div>
+      </div>
+
+      <div class="tq" id="tq10">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db m">Mastery</span> T10</div>
+        <div class="qtext">Hard split — rethink the gap boundary:
+          <span class="sent">The scientist studied the <span class="gaptext">MO _ _ _ ULE</span> structure.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="true" data-q="10">LEC</button>
+          <button class="obtn tobtn" data-correct="false" data-q="10">OLE</button>
+          <button class="obtn tobtn" data-correct="false" data-q="10">ECU</button>
+          <button class="obtn tobtn" data-correct="false" data-q="10">DUL</button>
+        </div>
+        <div class="fb" id="tf10" data-exp="MO+LEC+ULE=MOLECULE. Fixed ending is ULE (not LE) — this is the split trick! 'Scientist… structure' = chemistry = molecule. Only LEC creates MOLECULE."></div>
+      </div>
+
+      <div class="tq" id="tq11">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db m">Mastery</span> T11</div>
+        <div class="qtext">Less common word — trust context + structure:
+          <span class="sent">Light passed through a <span class="gaptext">PR _ _ M</span> and split into colours.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="true" data-q="11">IS</button>
+          <button class="obtn tobtn" data-correct="false" data-q="11">AS</button>
+          <button class="obtn tobtn" data-correct="false" data-q="11">OS</button>
+          <button class="obtn tobtn" data-correct="false" data-q="11">ES</button>
+        </div>
+        <div class="fb" id="tf11" data-exp="PR+IS+M=PRISM — a glass shape that splits light into colours. Context (light, split, colours) is the exact definition of a prism. PRASM/PROSM/PRESM don't exist."></div>
+      </div>
+
+      <div class="tq" id="tq12">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db m">Mastery</span> T12</div>
+        <div class="qtext">Common word bias trap — don't pick familiar over correct:
+          <span class="sent">The historian decoded the <span class="gaptext">CI _ _ ER</span>.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="true" data-q="12">PH (CIPHER)</button>
+          <button class="obtn tobtn" data-correct="false" data-q="12">ND (CINDER — familiar, wrong meaning)</button>
+          <button class="obtn tobtn" data-correct="false" data-q="12">RC (CIRCER — not real)</button>
+          <button class="obtn tobtn" data-correct="false" data-q="12">NG (CINGER — not real)</button>
+        </div>
+        <div class="fb" id="tf12" data-exp="CI+PH+ER=CIPHER — a secret code. 'Historian decoded' = decryption = cipher. CINDER is familiar but wrong (ash ≠ decoded message). PH makes an F sound (like in photo)."></div>
+      </div>
+
+      <div class="tq" id="tq13">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db m">Mastery</span> T13</div>
+        <div class="qtext">Complete: <span class="sent">The composer wrote a beautiful <span class="gaptext">SY _ _ _ ONY</span>.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="true" data-q="13">MPH</button>
+          <button class="obtn tobtn" data-correct="false" data-q="13">NCH</button>
+          <button class="obtn tobtn" data-correct="false" data-q="13">MPN</button>
+          <button class="obtn tobtn" data-correct="false" data-q="13">MPY</button>
+        </div>
+        <div class="fb" id="tf13" data-exp="SY+MPH+ONY=SYMPHONY. 'Composer… beautiful' = musical composition. The PH cluster (F sound) is the tricky part. SYNCHOONY, SYMPOONY, SYMPYONY don't exist."></div>
+      </div>
+
+      <div class="tq" id="tq14">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db m">Mastery</span> T14</div>
+        <div class="qtext">Complete: <span class="sent">STR _ _ _ TH training was key to her victory.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="true" data-q="14">ENG</button>
+          <button class="obtn tobtn" data-correct="false" data-q="14">ING</button>
+          <button class="obtn tobtn" data-correct="false" data-q="14">ONG</button>
+          <button class="obtn tobtn" data-correct="false" data-q="14">ANG</button>
+        </div>
+        <div class="fb" id="tf14" data-exp="STR+ENG+TH=STRENGTH. 'Training… key to victory' = physical strength. STRINGTH, STRONGTH, STRANTH don't exist. Note: STRENGTH not STRENTH — the G is there!"></div>
+      </div>
+
+      <div class="tq" id="tq15">
+        <div class="qnum" style="font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-l);margin-bottom:.38rem"><span class="db m">Mastery</span> T15</div>
+        <div class="qtext">False prefix trap — build and test carefully:
+          <span class="sent">The scientist made a <span class="gaptext">RE _ _ _ _ BLE</span> discovery.</span></div>
+        <div class="opts">
+          <button class="obtn tobtn" data-correct="true" data-q="15">MARKA (REMARKABLE)</button>
+          <button class="obtn tobtn" data-correct="false" data-q="15">TURNA (RETURNABLE — wrong meaning)</button>
+          <button class="obtn tobtn" data-correct="false" data-q="15">MOVA (REMOVABLE — wrong meaning)</button>
+          <button class="obtn tobtn" data-correct="false" data-q="15">PLACA (REPLACABLE — misspelled)</button>
+        </div>
+        <div class="fb" id="tf15" data-exp="RE+MARKA+BLE=REMARKABLE — extraordinary. 'Scientist made a remarkable discovery' ✅. RETURNABLE/REMOVABLE are real but wrong meaning. REPLACABLE is misspelled (should be REPLACEABLE). Only REMARKABLE passes both tests."></div>
+      </div>
+
+      <button class="bigbtn" id="subbtn" onclick="submitTest()">Submit Test ✓</button>
+    </div>
+
+    <div id="res">
+      <div class="ring">
+        <div class="rs" id="fscore">0</div>
+        <div class="rd">/ 15</div>
+      </div>
+      <div class="band" id="fband"></div>
+      <p id="fdesc" style="color:var(--tx-m);max-width:460px;margin:.5rem auto 0"></p>
+      <div id="rev"></div>
+    </div>
+
+  </div>
+</div>
+
+</main>
+
+<script>
+// ── WORD BANK ──
+const words=['MILK','MEDAL','SUMMIT','LOAF','ILLUSION','DESERT','TRUMPET','VERDICT','BATTERY','PYRAMID','MOLECULE','ANCIENT','PENALTY','POTION','WAVES','SYMPHONY','MYSTERY','LADDER','PASTEL','PEPPER','STRENGTH','PRISM','CIPHER','LUMEN','VICTORY','STIRRED','REMARKABLE','SPADE','VASE','AIM','PATIENT','RECOVER','HEAL'];
+const wbg=document.getElementById('wbgrid');
+words.forEach(w=>{
+  const t=document.createElement('div');
+  t.className='wbt';t.textContent=w;
+  t.addEventListener('click',()=>{t.classList.toggle('lit');setTimeout(()=>t.classList.remove('lit'),2500)});
+  wbg.appendChild(t);
+});
+
+// ── PROGRESS / NAV ──
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  document.getElementById('prog').style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+  ['s1','s2','s3','s4','s5','s6','test'].forEach(id=>{
+    const el=document.getElementById(id),a=document.querySelector(`#nav a[href="#${id}"]`);
+    if(el&&a){const r=el.getBoundingClientRect();a.classList.toggle('on',r.top<200&&r.bottom>0)}
+  });
+});
+
+// ── SCORE ──
+let sc=0,tot=0;
+const upd=(ok)=>{tot++;if(ok)sc++;document.getElementById('ls').textContent=sc;document.getElementById('lt').textContent=tot};
+
+// ── MCQ (practice) ──
+document.querySelectorAll('.qcard').forEach(card=>{
+  const btns=card.querySelectorAll('.obtn');
+  let done=false;
+  btns.forEach(b=>{
+    b.addEventListener('click',()=>{
+      if(done)return;done=true;card.classList.add('answered');
+      const ok=b.dataset.correct==='true';
+      upd(ok);
+      btns.forEach(x=>{x.disabled=true;if(x.dataset.correct==='true')x.classList.add('show-ok')});
+      b.classList.add(ok?'ok':'err');
+      card.querySelectorAll('.fb').forEach(f=>{f.classList.remove('show');f.style.display='none'});
+      const fb=card.querySelector(ok?'.ok-f':'.err-f');
+      if(fb){fb.style.display='block';requestAnimationFrame(()=>fb.classList.add('show'))}
+      checkTick(card.dataset.sec);
+    });
+  });
+});
+
+// ── TYPED ──
+document.querySelectorAll('.chkbtn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const row=btn.closest('.trow');
+    const inp=row.querySelector('.tinp');
+    const card=btn.closest('.qcard');
+    if(!inp||!card||inp.disabled)return;
+    const val=inp.value.trim().toUpperCase();
+    const ans=(inp.dataset.answer||'').toUpperCase();
+    const ok=val===ans;
+    inp.disabled=true;btn.disabled=true;inp.classList.add(ok?'ok':'err');
+    upd(ok);
+    card.querySelectorAll('.fb').forEach(f=>{f.classList.remove('show');f.style.display='none'});
+    const fb=card.querySelector(ok?'.ok-f':'.err-f');
+    if(fb){fb.style.display='block';requestAnimationFrame(()=>fb.classList.add('show'))}
+    card.classList.add('answered');
+    checkTick(card.dataset.sec);
+  });
+  const row=btn.closest('.trow');
+  if(row){const inp=row.querySelector('.tinp');if(inp)inp.addEventListener('keydown',e=>{if(e.key==='Enter')btn.click()})}
+});
+
+// ── TICK ──
+function checkTick(sec){
+  if(!sec)return;
+  const cards=[...document.querySelectorAll(`.qcard[data-sec="${sec}"]`)];
+  if(cards.every(c=>c.classList.contains('answered'))){
+    const t=document.getElementById('tk-'+sec);if(t)t.classList.add('done');
+  }
+}
+
+// ── TEST ──
+let tTimer=null,tSec=720,tAns={};
+
+function startTest(){
+  document.getElementById('tintro').style.display='none';
+  document.getElementById('tqs').style.display='block';
+  tTimer=setInterval(()=>{
+    tSec--;
+    const m=Math.floor(tSec/60),s=tSec%60;
+    const d2=document.getElementById('ttimer2');
+    d2.textContent=`${m}:${s.toString().padStart(2,'0')}`;
+    if(tSec<=60)d2.classList.add('warn');
+    if(tSec<=0){clearInterval(tTimer);submitTest()}
+  },1000);
+}
+
+document.querySelectorAll('.tobtn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const q=b.dataset.q;
+    const card=document.getElementById('tq'+q);
+    if(card.dataset.ans)return;
+    card.dataset.ans='1';
+    tAns[q]=b.dataset.correct==='true';
+    card.querySelectorAll('.tobtn').forEach(x=>{
+      x.disabled=true;
+      if(x.dataset.correct==='true'){x.style.background='var(--g-bg)';x.style.borderColor='var(--g-br)';x.style.color='#1a7a4a'}
+    });
+    if(!tAns[q]){b.style.background='var(--r-bg)';b.style.borderColor='var(--r-br)';b.style.color='var(--r)'}
+  });
+});
+
+function submitTest(){
+  clearInterval(tTimer);
+  document.getElementById('tqs').style.display='none';
+  document.getElementById('res').style.display='block';
+  let score=0;
+  for(let i=1;i<=15;i++)if(tAns[i]===true)score++;
+  document.getElementById('fscore').textContent=score;
+  const pct=score/15;
+  let band,desc,col;
+  if(pct>=.87){band='🏆 Mastery';desc="Outstanding! You've mastered context reading, option-first strategy, dual validation and all four trap types. Fully exam-ready.";col='var(--p)'}
+  else if(pct>=.67){band='✅ Secure';desc='Strong work! Review the questions you got wrong and you are ready for the exam.';col='var(--o)'}
+  else if(pct>=.47){band='📈 Developing';desc='Good progress. Focus especially on dual validation and the four trap types. More practice and you will get there!';col='var(--y)'}
+  else{band='📚 Needs Practice';desc='Go back through the sections — especially Context Clues, Option-First, and Traps. The strategies make a real difference!';col='var(--r)'}
+  document.getElementById('fband').textContent=band;
+  document.getElementById('fband').style.color=col;
+  document.getElementById('fdesc').textContent=desc;
+  const rev=document.getElementById('rev');
+  rev.innerHTML='<h3 style="margin-bottom:1rem;font-family:\'Cormorant Garamond\',serif;font-size:1.35rem">Question Review</h3>';
+  for(let i=1;i<=15;i++){
+    const ok=tAns[i]===true;
+    const exp=document.getElementById('tf'+i)?.dataset.exp||'';
+    const d=document.createElement('div');
+    d.className='ritem '+(ok?'ok':'err');
+    d.innerHTML=`<span style="font-size:1.1rem;margin-right:.5rem">${ok?'✅':'❌'}</span><strong>T${i}:</strong> ${ok?'Correct!':'Incorrect.'}`+(ok?'':` <br><em style="font-size:.9rem;color:var(--tx-m)">${exp}</em>`);
+    rev.appendChild(d);
+  }
+}
+</script>
+</body>
+</html>
