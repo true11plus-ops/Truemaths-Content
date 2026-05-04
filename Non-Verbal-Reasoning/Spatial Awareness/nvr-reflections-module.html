@@ -1,0 +1,2524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11+ GL NVR — Reflections Revision Module</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #1a2f4a;
+  --navy-light: #243d5c;
+  --gold: #f0b429;
+  --gold-light: #fcd96a;
+  --cream: #faf8f3;
+  --white: #ffffff;
+  --green: #22c55e;
+  --green-bg: #dcfce7;
+  --yellow: #eab308;
+  --yellow-bg: #fef9c3;
+  --orange: #f97316;
+  --orange-bg: #ffedd5;
+  --purple: #a855f7;
+  --purple-bg: #f3e8ff;
+  --red: #ef4444;
+  --red-bg: #fee2e2;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* PROGRESS BAR */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  width: 0%;
+  z-index: 1000;
+  transition: width 0.1s;
+}
+
+/* SCORE COUNTER */
+#score-counter {
+  position: fixed;
+  top: 8px; right: 16px;
+  z-index: 999;
+  background: var(--navy);
+  color: var(--gold);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--gold);
+}
+
+/* HEADER */
+header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1e3a5f 100%);
+  color: var(--white);
+  padding: 60px 24px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(240,180,41,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+header .badge {
+  display: inline-block;
+  background: rgba(240,180,41,0.15);
+  border: 1px solid rgba(240,180,41,0.4);
+  color: var(--gold-light);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+header h1 span { color: var(--gold); }
+header p {
+  color: rgba(255,255,255,0.65);
+  font-size: 15px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* NAV */
+nav {
+  background: var(--navy);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0 16px;
+  border-bottom: 2px solid var(--gold);
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+nav::-webkit-scrollbar { display: none; }
+nav a {
+  display: inline-block;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 14px 16px;
+  transition: color 0.2s;
+  letter-spacing: 0.02em;
+}
+nav a:hover, nav a.active { color: var(--gold); }
+nav .tick { color: var(--green); margin-left: 4px; }
+
+/* MAIN */
+main { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+
+/* SECTION */
+.section {
+  margin-bottom: 56px;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+}
+.section-icon {
+  width: 40px; height: 40px;
+  background: var(--navy);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.section-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.section-completion {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.section-completion .check { color: var(--green); font-size: 18px; display: none; }
+.section-completion.done .check { display: inline; }
+.section-completion.done .prog-text { display: none; }
+
+/* CARDS */
+.card {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border);
+}
+
+.simple-box {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+}
+.simple-box .label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #3b82f6;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+.simple-box p { font-size: 15px; color: var(--text); }
+
+.full-box {
+  background: var(--navy);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  color: rgba(255,255,255,0.88);
+}
+.full-box .label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.full-box p { font-size: 14px; line-height: 1.7; }
+
+.watchout {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-left: 4px solid var(--orange);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 14px;
+}
+.watchout .label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--orange);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+.watchout p { font-size: 14px; }
+
+/* WORKED EXAMPLE */
+.worked-example {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+.worked-example .ex-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+.ex-label.easy { background: var(--green-bg); color: #16a34a; }
+.ex-label.hard { background: var(--orange-bg); color: #c2410c; }
+
+.worked-example .ex-question {
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+.step-list { list-style: none; counter-reset: step; }
+.step-list li {
+  counter-increment: step;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.step-list li::before {
+  content: counter(step);
+  min-width: 24px;
+  height: 24px;
+  background: var(--navy);
+  color: var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.answer-reveal {
+  background: var(--green-bg);
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #15803d;
+}
+
+/* DIFFICULTY BADGE */
+.diff-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 6px;
+  margin-right: 6px;
+}
+.diff-badge.starter { background: var(--green-bg); color: #15803d; }
+.diff-badge.developing { background: var(--yellow-bg); color: #854d0e; }
+.diff-badge.secure { background: var(--orange-bg); color: #9a3412; }
+.diff-badge.mastery { background: var(--purple-bg); color: #7e22ce; }
+
+/* QUESTION CARD */
+.q-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+.q-card .q-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.q-card .q-number {
+  min-width: 28px; height: 28px;
+  background: var(--navy);
+  color: var(--white);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.q-card .q-text { font-size: 15px; font-weight: 500; flex: 1; }
+
+/* SHAPE SVG container */
+.shape-box {
+  background: #f1f5f9;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.shape-box svg { display: block; }
+.shape-label {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+/* MCQ BUTTONS */
+.mcq-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mcq-btn {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mcq-btn:hover:not(:disabled) {
+  border-color: var(--navy);
+  background: #f8fafc;
+}
+.mcq-btn .opt-letter {
+  min-width: 26px; height: 26px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.mcq-btn.correct {
+  background: var(--green-bg);
+  border-color: #22c55e;
+  color: #15803d;
+}
+.mcq-btn.correct .opt-letter { background: #22c55e; color: white; }
+.mcq-btn.wrong {
+  background: var(--red-bg);
+  border-color: var(--red);
+  color: #b91c1c;
+}
+.mcq-btn.wrong .opt-letter { background: var(--red); color: white; }
+.mcq-btn:disabled { cursor: not-allowed; }
+
+/* FEEDBACK BOX */
+.feedback-box {
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  display: none;
+}
+.feedback-box.show { display: block; }
+.feedback-box.correct-fb {
+  background: var(--green-bg);
+  border: 1px solid #86efac;
+  color: #15803d;
+}
+.feedback-box.wrong-fb {
+  background: var(--red-bg);
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+}
+
+/* TYPED ANSWER */
+.typed-answer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.typed-answer input {
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-family: 'DM Mono', monospace;
+  outline: none;
+  width: 140px;
+  transition: border-color 0.18s;
+}
+.typed-answer input:focus { border-color: var(--navy); }
+.submit-btn {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.submit-btn:hover { background: var(--navy-mid); }
+.submit-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+
+/* TIER GROUP */
+.tier-group {
+  margin-bottom: 28px;
+}
+.tier-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* FINAL TEST */
+#test-section {
+  background: var(--navy);
+  border-radius: 18px;
+  padding: 32px 28px;
+  margin-top: 48px;
+}
+#test-section h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--white);
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+#test-section > p {
+  color: rgba(255,255,255,0.65);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+#timer-bar-wrap {
+  background: rgba(255,255,255,0.1);
+  border-radius: 6px;
+  height: 8px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+#timer-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 6px;
+  transition: width 1s linear;
+}
+.test-q-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 14px;
+  color: var(--white);
+}
+.test-q-card .q-text { color: rgba(255,255,255,0.9); }
+.test-q-card .mcq-btn {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.85);
+}
+.test-q-card .mcq-btn:hover:not(:disabled) {
+  background: rgba(255,255,255,0.12);
+  border-color: var(--gold);
+}
+.test-q-card .mcq-btn .opt-letter {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+}
+.test-q-card .shape-box {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.15);
+}
+
+#start-test-btn, #submit-test-btn {
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: 10px;
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  display: block;
+  margin: 24px auto 0;
+  transition: background 0.18s, transform 0.1s;
+}
+#start-test-btn:hover, #submit-test-btn:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+}
+
+/* RESULTS */
+#results-panel {
+  display: none;
+  text-align: center;
+  padding: 24px 0;
+}
+#results-panel h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+#score-display {
+  font-size: 52px;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.band-badge {
+  display: inline-block;
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Alphabet strip */
+.alpha-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 14px;
+}
+.alpha-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 30px;
+  padding: 4px;
+  background: var(--white);
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+}
+.alpha-cell .letter { font-weight: 700; color: var(--navy); }
+.alpha-cell .num { color: var(--gold); font-weight: 600; }
+
+/* Table for elimination */
+.elim-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 12px 0;
+}
+.elim-table th {
+  background: var(--navy);
+  color: var(--gold);
+  padding: 8px 12px;
+  text-align: left;
+}
+.elim-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.elim-table tr:nth-child(even) td { background: #f8fafc; }
+.tick { color: var(--green); font-weight: 700; }
+.cross { color: var(--red); font-weight: 700; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .shape-box { flex-direction: column; }
+  .mcq-options { }
+  header { padding: 48px 16px 30px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="score-counter">⭐ Score: <span id="score-val">0</span></div>
+
+<header>
+  <div class="badge">11+ GL Assessment · Non-Verbal Reasoning</div>
+  <h1>Reflections<br><span>Complete Revision Module</span></h1>
+  <p>Master every type of reflection question — from simple flips to hidden mirrors and multi-feature traps.</p>
+</header>
+
+<nav id="main-nav">
+  <a href="#s1">1. What is Reflection?</a>
+  <a href="#s2">2. Mirror Direction</a>
+  <a href="#s3">3. Offset Reflections</a>
+  <a href="#s4">4. Diagonal Reflections</a>
+  <a href="#s5">5. Hidden Mirror</a>
+  <a href="#s6">6. Multi-Feature Shapes</a>
+  <a href="#s7">7. Common Traps</a>
+  <a href="#test-section">⏱ Final Test</a>
+</nav>
+
+<main>
+
+<!-- ===================== SECTION 1 ===================== -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <div class="section-icon">🪞</div>
+    <h2>1. What is Reflection?</h2>
+    <div class="section-completion" id="comp-s1">
+      <span class="prog-text">0/8 done</span>
+      <span class="check">✓</span>
+    </div>
+  </div>
+
+  <div class="simple-box">
+    <div class="label">Simple Explanation</div>
+    <p>Imagine you're holding a shape up to a mirror. The mirror shows you the shape flipped — like how your left hand looks like a right hand in the mirror. The shape doesn't spin or move sideways — it just gets <strong>flipped</strong>. Whatever is close to the mirror stays close on the other side. Whatever is far away stays far away.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="label">Full Explanation</div>
+    <p>Reflection is a transformation where every point on a shape is mapped to a corresponding point on the opposite side of the mirror line (also called the axis of reflection), at an <strong>equal perpendicular distance</strong>. The reflected image is the same size and shape as the original, but its orientation is reversed — left becomes right (for a vertical axis) or top becomes bottom (for a horizontal axis).</p>
+  </div>
+
+  <div class="worked-example">
+    <span class="ex-label easy">Worked Example — Easy</span>
+    <div class="ex-question">A triangle pointing RIGHT is reflected across a vertical mirror line. What does the reflection look like?</div>
+    <div class="shape-box">
+      <div>
+        <svg width="80" height="80" viewBox="0 0 80 80">
+          <line x1="55" y1="5" x2="55" y2="75" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,3"/>
+          <polygon points="10,40 45,15 45,65" fill="#3b82f6" opacity="0.8"/>
+          <text x="2" y="75" font-size="9" fill="#64748b">Original</text>
+        </svg>
+        <div class="shape-label">Original (points →)</div>
+      </div>
+      <div>
+        <svg width="80" height="80" viewBox="0 0 80 80">
+          <line x1="25" y1="5" x2="25" y2="75" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,3"/>
+          <polygon points="70,40 35,15 35,65" fill="#22c55e" opacity="0.8"/>
+          <text x="2" y="75" font-size="9" fill="#64748b">Reflection</text>
+        </svg>
+        <div class="shape-label">Reflection (points ←)</div>
+      </div>
+    </div>
+    <ul class="step-list">
+      <li>Find the mirror line — it's the vertical dashed red line.</li>
+      <li>The tip of the triangle is on the RIGHT side of the original. After reflection, the tip must be on the LEFT side.</li>
+      <li>The flat base was on the left. After reflection, it goes to the right.</li>
+      <li>Near stays near, far stays far — the distance from the mirror is preserved on both sides.</li>
+    </ul>
+    <div class="answer-reveal">✓ Answer: Triangle pointing LEFT — the tip has flipped to the other side of the mirror.</div>
+  </div>
+
+  <div class="watchout">
+    <div class="label">⚠️ Watch Out!</div>
+    <p>The most common mistake is choosing a shape that is <strong>identical</strong> to the original (no flip at all) or a <strong>rotation</strong>. A reflection always reverses the facing direction — like a left shoe vs a right shoe. If it looks exactly the same as the original, it's wrong!</p>
+  </div>
+
+  <div class="worked-example">
+    <span class="ex-label hard">Worked Example — Harder</span>
+    <div class="ex-question">A right-angled triangle has its right angle at the <strong>bottom-left</strong>. It is reflected across a vertical mirror. Where is the right angle in the reflection?</div>
+    <ul class="step-list">
+      <li>Identify the key feature: the right angle is at bottom-LEFT of the original.</li>
+      <li>After a vertical reflection, LEFT and RIGHT swap — but UP and DOWN stay the same.</li>
+      <li>So the right angle moves from bottom-LEFT to bottom-RIGHT.</li>
+      <li>Eliminate any option where the right angle is on the left or at the top.</li>
+    </ul>
+    <div class="answer-reveal">✓ Answer: Right angle at bottom-RIGHT. The vertical mirror swapped left and right only.</div>
+  </div>
+
+  <!-- QUESTIONS: Section 1 -->
+  <div class="tier-group">
+    <div class="tier-label"><span class="diff-badge starter">Starter</span></div>
+
+    <div class="q-card" data-section="s1" data-qid="s1q1">
+      <div class="q-header">
+        <div class="q-number">1</div>
+        <div class="q-text">A shape has a black dot on its <strong>left</strong> side. It is reflected across a vertical mirror. Where is the dot in the reflection?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q1')"><span class="opt-letter">A</span> Still on the left side</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s1q1')"><span class="opt-letter">B</span> On the right side</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q1')"><span class="opt-letter">C</span> At the top</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q1')"><span class="opt-letter">D</span> At the bottom</button>
+      </div>
+      <div class="feedback-box" id="fb-s1q1"></div>
+    </div>
+
+    <div class="q-card" data-section="s1" data-qid="s1q2">
+      <div class="q-header">
+        <div class="q-number">2</div>
+        <div class="q-text">A shape has a dot at the <strong>top</strong>. It is reflected across a <strong>horizontal</strong> mirror. Where is the dot in the reflection?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q2')"><span class="opt-letter">A</span> Still at the top</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q2')"><span class="opt-letter">B</span> On the left</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q2')"><span class="opt-letter">C</span> On the right</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s1q2')"><span class="opt-letter">D</span> At the bottom</button>
+      </div>
+      <div class="feedback-box" id="fb-s1q2"></div>
+    </div>
+
+    <div class="q-card" data-section="s1" data-qid="s1q3">
+      <div class="q-header">
+        <div class="q-number">3</div>
+        <div class="q-text">Which word best describes what happens to a shape's size when it is reflected?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q3')"><span class="opt-letter">A</span> It gets bigger</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q3')"><span class="opt-letter">B</span> It gets smaller</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s1q3')"><span class="opt-letter">C</span> It stays the same size</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q3')"><span class="opt-letter">D</span> It doubles in size</button>
+      </div>
+      <div class="feedback-box" id="fb-s1q3"></div>
+    </div>
+
+    <div class="q-card" data-section="s1" data-qid="s1q4">
+      <div class="q-header">
+        <div class="q-number">4</div>
+        <div class="q-text">A square with a dot very close to the mirror on the <strong>right</strong> side is reflected across a vertical mirror. In the reflection, where is the dot?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q4')"><span class="opt-letter">A</span> Far away from the mirror on the left</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s1q4')"><span class="opt-letter">B</span> Very close to the mirror on the left</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q4')"><span class="opt-letter">C</span> Still on the right, very close</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q4')"><span class="opt-letter">D</span> In the centre of the shape</button>
+      </div>
+      <div class="feedback-box" id="fb-s1q4"></div>
+    </div>
+  </div>
+
+  <div class="tier-group">
+    <div class="tier-label"><span class="diff-badge developing">Developing</span></div>
+
+    <div class="q-card" data-section="s1" data-qid="s1q5">
+      <div class="q-header">
+        <div class="q-number">5</div>
+        <div class="q-text">An arrow pointing to the <strong>right (→)</strong> is reflected across a vertical mirror. Which option shows the correct reflection?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q5')"><span class="opt-letter">A</span> Arrow pointing right (→) — same as original</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q5')"><span class="opt-letter">B</span> Arrow pointing up (↑)</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s1q5')"><span class="opt-letter">C</span> Arrow pointing left (←)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q5')"><span class="opt-letter">D</span> Arrow pointing down (↓)</button>
+      </div>
+      <div class="feedback-box" id="fb-s1q5"></div>
+    </div>
+
+    <div class="q-card" data-section="s1" data-qid="s1q6">
+      <div class="q-header">
+        <div class="q-number">6</div>
+        <div class="q-text">An arrow pointing <strong>up (↑)</strong> is reflected across a <strong>vertical</strong> mirror. What does the reflection look like?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s1q6')"><span class="opt-letter">A</span> Arrow pointing up (↑) — unchanged</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q6')"><span class="opt-letter">B</span> Arrow pointing down (↓)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q6')"><span class="opt-letter">C</span> Arrow pointing left (←)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q6')"><span class="opt-letter">D</span> Arrow pointing right (→)</button>
+      </div>
+      <div class="feedback-box" id="fb-s1q6"></div>
+    </div>
+
+    <div class="q-card" data-section="s1" data-qid="s1q7">
+      <div class="q-header">
+        <div class="q-number">7</div>
+        <div class="q-text">A flag shape has the pole on the LEFT and the flag triangle pointing RIGHT. It is reflected across a vertical mirror. Describe the reflection.</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q7')"><span class="opt-letter">A</span> Pole on the left, flag pointing right (identical)</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s1q7')"><span class="opt-letter">B</span> Pole on the right, flag pointing left</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q7')"><span class="opt-letter">C</span> Pole on the left, flag pointing left</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q7')"><span class="opt-letter">D</span> Pole on the right, flag pointing right</button>
+      </div>
+      <div class="feedback-box" id="fb-s1q7"></div>
+    </div>
+
+    <div class="q-card" data-section="s1" data-qid="s1q8">
+      <div class="q-header">
+        <div class="q-number">8</div>
+        <div class="q-text">A shape looks like the letter <strong>F</strong>. It is reflected across a vertical mirror. Which letter does the reflection most resemble?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q8')"><span class="opt-letter">A</span> T</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q8')"><span class="opt-letter">B</span> E</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s1q8')"><span class="opt-letter">C</span> A reversed F (⊢ shape)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s1q8')"><span class="opt-letter">D</span> L</button>
+      </div>
+      <div class="feedback-box" id="fb-s1q8"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 2 ===================== -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <div class="section-icon">↔️</div>
+    <h2>2. Identifying Mirror Direction</h2>
+    <div class="section-completion" id="comp-s2">
+      <span class="prog-text">0/8 done</span>
+      <span class="check">✓</span>
+    </div>
+  </div>
+
+  <div class="simple-box">
+    <div class="label">Simple Explanation</div>
+    <p>The mirror can stand upright (vertical) like a bathroom mirror, or lie flat (horizontal) like a pond reflecting trees, or lean diagonally like a tilted frame. Each type flips the shape differently. <strong>Vertical mirror → left and right swap.</strong> <strong>Horizontal mirror → top and bottom swap.</strong> Diagonal mirrors swap both at once in a tricky way.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="label">Full Explanation</div>
+    <p>The axis of reflection determines which dimension is reversed. A <strong>vertical axis</strong> (|) reverses horizontal position — left becomes right. A <strong>horizontal axis</strong> (—) reverses vertical position — top becomes bottom. A <strong>diagonal axis</strong> at 45° swaps x and y coordinates simultaneously, which also reverses the orientation of angled lines. Students must identify the mirror direction before attempting to reflect any feature.</p>
+  </div>
+
+  <div class="worked-example">
+    <span class="ex-label easy">Worked Example — Easy</span>
+    <div class="ex-question">A right-angled triangle has its right angle at the <strong>top-right</strong>. The mirror is <strong>horizontal</strong>. Where is the right angle in the reflection?</div>
+    <ul class="step-list">
+      <li>Identify mirror type: HORIZONTAL — this swaps top and bottom, but keeps left and right the same.</li>
+      <li>Right angle was at TOP-right. After a horizontal mirror, TOP becomes BOTTOM.</li>
+      <li>LEFT/RIGHT stays the same — so "right" stays "right".</li>
+      <li>Result: right angle is now at BOTTOM-right.</li>
+    </ul>
+    <div class="answer-reveal">✓ Answer: Right angle at bottom-right. Only top/bottom swapped.</div>
+  </div>
+
+  <div class="watchout">
+    <div class="label">⚠️ Watch Out!</div>
+    <p><strong>Don't confuse mirror direction with what gets flipped.</strong> A VERTICAL mirror flips LEFT↔RIGHT (not up/down). A HORIZONTAL mirror flips TOP↔BOTTOM (not left/right). Students often apply the wrong swap. Always ask: "Is the mirror standing up or lying flat?"</p>
+  </div>
+
+  <div class="worked-example">
+    <span class="ex-label hard">Worked Example — Harder</span>
+    <div class="ex-question">A shape has a shaded triangle in the top-left corner and a circle near the bottom-right. The mirror is horizontal. Describe the correct reflection.</div>
+    <ul class="step-list">
+      <li>Horizontal mirror: top↔bottom swap. Left and right stay the same.</li>
+      <li>Shaded triangle was at TOP-left. After reflection: BOTTOM-left.</li>
+      <li>Circle was near BOTTOM-right. After reflection: TOP-right.</li>
+      <li>Check: left/right positions are unchanged. Only up/down flipped.</li>
+    </ul>
+    <div class="answer-reveal">✓ Answer: Shaded triangle at bottom-left, circle at top-right.</div>
+  </div>
+
+  <div class="tier-group">
+    <div class="tier-label"><span class="diff-badge starter">Starter</span></div>
+    <div class="q-card" data-section="s2" data-qid="s2q1">
+      <div class="q-header"><div class="q-number">1</div>
+        <div class="q-text">A vertical mirror line is like which of these?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q1')"><span class="opt-letter">A</span> The surface of a pond (flat/horizontal)</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s2q1')"><span class="opt-letter">B</span> A bathroom mirror standing upright</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q1')"><span class="opt-letter">C</span> A ramp going diagonally</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q1')"><span class="opt-letter">D</span> A tilted picture frame</button>
+      </div>
+      <div class="feedback-box" id="fb-s2q1"></div>
+    </div>
+
+    <div class="q-card" data-section="s2" data-qid="s2q2">
+      <div class="q-header"><div class="q-number">2</div>
+        <div class="q-text">A vertical mirror swaps which direction?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s2q2')"><span class="opt-letter">A</span> Left and right</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q2')"><span class="opt-letter">B</span> Top and bottom</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q2')"><span class="opt-letter">C</span> Both at the same time</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q2')"><span class="opt-letter">D</span> Neither — the shape stays the same</button>
+      </div>
+      <div class="feedback-box" id="fb-s2q2"></div>
+    </div>
+
+    <div class="q-card" data-section="s2" data-qid="s2q3">
+      <div class="q-header"><div class="q-number">3</div>
+        <div class="q-text">A horizontal mirror swaps which direction?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q3')"><span class="opt-letter">A</span> Left and right</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s2q3')"><span class="opt-letter">B</span> Top and bottom</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q3')"><span class="opt-letter">C</span> Neither direction</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q3')"><span class="opt-letter">D</span> The shape rotates 90°</button>
+      </div>
+      <div class="feedback-box" id="fb-s2q3"></div>
+    </div>
+
+    <div class="q-card" data-section="s2" data-qid="s2q4">
+      <div class="q-header"><div class="q-number">4</div>
+        <div class="q-text">A dot is at the <strong>top-right</strong> of a shape. The mirror is <strong>horizontal</strong>. Where does the dot go?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q4')"><span class="opt-letter">A</span> Top-left</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q4')"><span class="opt-letter">B</span> Top-right (stays the same)</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s2q4')"><span class="opt-letter">C</span> Bottom-right</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q4')"><span class="opt-letter">D</span> Bottom-left</button>
+      </div>
+      <div class="feedback-box" id="fb-s2q4"></div>
+    </div>
+  </div>
+
+  <div class="tier-group">
+    <div class="tier-label"><span class="diff-badge developing">Developing</span></div>
+    <div class="q-card" data-section="s2" data-qid="s2q5">
+      <div class="q-header"><div class="q-number">5</div>
+        <div class="q-text">A shape has shading on its LEFT side. The mirror is <strong>vertical</strong>. In the reflection, where is the shading?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q5')"><span class="opt-letter">A</span> Still on the left</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s2q5')"><span class="opt-letter">B</span> On the right</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q5')"><span class="opt-letter">C</span> At the top</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q5')"><span class="opt-letter">D</span> At the bottom</button>
+      </div>
+      <div class="feedback-box" id="fb-s2q5"></div>
+    </div>
+
+    <div class="q-card" data-section="s2" data-qid="s2q6">
+      <div class="q-header"><div class="q-number">6</div>
+        <div class="q-text">A shape has shading on its <strong>top</strong>. The mirror is <strong>vertical</strong>. Where is the shading in the reflection?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s2q6')"><span class="opt-letter">A</span> Still at the top — vertical mirrors don't change up/down</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q6')"><span class="opt-letter">B</span> At the bottom</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q6')"><span class="opt-letter">C</span> On the right</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q6')"><span class="opt-letter">D</span> On the left</button>
+      </div>
+      <div class="feedback-box" id="fb-s2q6"></div>
+    </div>
+
+    <div class="q-card" data-section="s2" data-qid="s2q7">
+      <div class="q-header"><div class="q-number">7</div>
+        <div class="q-text">A shape has a thick border on its <strong>right</strong> side and a dot at the <strong>bottom</strong>. The mirror is <strong>horizontal</strong>. Which describes the correct reflection?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q7')"><span class="opt-letter">A</span> Thick border on left, dot at top</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s2q7')"><span class="opt-letter">B</span> Thick border on right, dot at top</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q7')"><span class="opt-letter">C</span> Thick border on left, dot at bottom</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q7')"><span class="opt-letter">D</span> Thick border on right, dot at bottom</button>
+      </div>
+      <div class="feedback-box" id="fb-s2q7"></div>
+    </div>
+
+    <div class="q-card" data-section="s2" data-qid="s2q8">
+      <div class="q-header"><div class="q-number">8</div>
+        <div class="q-text">A "P" shape is reflected across a <strong>vertical</strong> mirror. Which letter does it most resemble?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q8')"><span class="opt-letter">A</span> b (a rotated version)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q8')"><span class="opt-letter">B</span> d (flipped across a horizontal line too)</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s2q8')"><span class="opt-letter">C</span> q (mirrored P — bump now on left)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s2q8')"><span class="opt-letter">D</span> P (stays the same)</button>
+      </div>
+      <div class="feedback-box" id="fb-s2q8"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 3 ===================== -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <div class="section-icon">📏</div>
+    <h2>3. Offset Reflections (Distance from Mirror)</h2>
+    <div class="section-completion" id="comp-s3">
+      <span class="prog-text">0/8 done</span>
+      <span class="check">✓</span>
+    </div>
+  </div>
+
+  <div class="simple-box">
+    <div class="label">Simple Explanation</div>
+    <p>Imagine a swimmer standing 3 metres from a pool edge. Their reflection in the water also appears 3 metres deep. The distance from the mirror is <strong>always the same on both sides</strong>. A shape close to the mirror reflects close. A shape far from the mirror reflects far. The gap is copied exactly.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="label">Full Explanation</div>
+    <p>In offset reflections, the shape does not touch the mirror line. Each point on the shape is at a specific perpendicular distance from the mirror. Its reflection is placed at the same perpendicular distance on the opposite side. Students must track both the <strong>flip</strong> of orientation AND the <strong>preservation of distance</strong>. A common error is placing the reflected shape touching the mirror even when the original was far from it.</p>
+  </div>
+
+  <div class="worked-example">
+    <span class="ex-label easy">Worked Example — Easy</span>
+    <div class="ex-question">A square is 4 grid squares to the LEFT of a vertical mirror. Where does the reflection appear?</div>
+    <ul class="step-list">
+      <li>The shape is 4 squares to the LEFT of the mirror.</li>
+      <li>The reflection appears on the RIGHT side of the mirror.</li>
+      <li>The distance is preserved: the reflection is also 4 squares from the mirror.</li>
+      <li>So the reflection is 4 squares to the RIGHT of the mirror line.</li>
+    </ul>
+    <div class="answer-reveal">✓ Answer: The square appears 4 grid squares to the RIGHT of the mirror.</div>
+  </div>
+
+  <div class="watchout">
+    <div class="label">⚠️ Watch Out!</div>
+    <p>The trap here is choosing the reflection right next to the mirror even when the original is far away. <strong>Always count the distance!</strong> If the shape is 3 squares from the mirror, the reflection must also be exactly 3 squares from the mirror on the other side — not 1, not 5.</p>
+  </div>
+
+  <div class="worked-example">
+    <span class="ex-label hard">Worked Example — Harder</span>
+    <div class="ex-question">A triangle sits 2 grid squares to the RIGHT of a vertical mirror with its tip pointing UP-RIGHT. Which is the correct reflection?</div>
+    <ul class="step-list">
+      <li>Distance: 2 squares from mirror. Reflection must also be 2 squares from mirror — on the LEFT side.</li>
+      <li>Orientation flip: vertical mirror swaps left/right. Tip pointed UP-RIGHT. RIGHT becomes LEFT. So tip now points UP-LEFT.</li>
+      <li>Eliminate option: any reflection touching the mirror (wrong distance) → GONE.</li>
+      <li>Eliminate option: any reflection with tip pointing UP-RIGHT (no flip) → GONE.</li>
+      <li>Correct: triangle 2 squares to the LEFT, tip pointing UP-LEFT.</li>
+    </ul>
+    <div class="answer-reveal">✓ Answer: Triangle 2 squares to the left of the mirror, tip pointing up-left.</div>
+  </div>
+
+  <div class="tier-group">
+    <div class="tier-label"><span class="diff-badge starter">Starter</span></div>
+    <div class="q-card" data-section="s3" data-qid="s3q1">
+      <div class="q-header"><div class="q-number">1</div>
+        <div class="q-text">A circle is <strong>2 grid squares</strong> to the left of a vertical mirror. How far is the reflection from the mirror?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q1')"><span class="opt-letter">A</span> 1 grid square to the right</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s3q1')"><span class="opt-letter">B</span> 2 grid squares to the right</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q1')"><span class="opt-letter">C</span> 3 grid squares to the right</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q1')"><span class="opt-letter">D</span> Touching the mirror</button>
+      </div>
+      <div class="feedback-box" id="fb-s3q1"></div>
+    </div>
+
+    <div class="q-card" data-section="s3" data-qid="s3q2">
+      <div class="q-header"><div class="q-number">2</div>
+        <div class="q-text">A rectangle is very close to the mirror (touching it). Where does the reflected rectangle appear?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s3q2')"><span class="opt-letter">A</span> Also touching the mirror, on the other side</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q2')"><span class="opt-letter">B</span> 3 squares away from the mirror</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q2')"><span class="opt-letter">C</span> Overlapping with the original</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q2')"><span class="opt-letter">D</span> Far away from the mirror</button>
+      </div>
+      <div class="feedback-box" id="fb-s3q2"></div>
+    </div>
+
+    <div class="q-card" data-section="s3" data-qid="s3q3">
+      <div class="q-header"><div class="q-number">3</div>
+        <div class="q-text">Shape A is 5 squares from the mirror. Shape B (its reflection) must be how far from the mirror?</div>
+      </div>
+      <div class="typed-answer">
+        <input type="text" id="inp-s3q3" placeholder="e.g. 3 squares" />
+        <button class="submit-btn" onclick="handleTyped('s3q3','5 squares','5')">Check</button>
+      </div>
+      <div class="feedback-box" id="fb-s3q3"></div>
+    </div>
+
+    <div class="q-card" data-section="s3" data-qid="s3q4">
+      <div class="q-header"><div class="q-number">4</div>
+        <div class="q-text">If a shape is far from the mirror, its reflection will be…</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q4')"><span class="opt-letter">A</span> Close to the mirror</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q4')"><span class="opt-letter">B</span> Touching the mirror</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s3q4')"><span class="opt-letter">C</span> Also far from the mirror (same distance)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q4')"><span class="opt-letter">D</span> Smaller than the original</button>
+      </div>
+      <div class="feedback-box" id="fb-s3q4"></div>
+    </div>
+  </div>
+
+  <div class="tier-group">
+    <div class="tier-label"><span class="diff-badge secure">Secure</span></div>
+    <div class="q-card" data-section="s3" data-qid="s3q5">
+      <div class="q-header"><div class="q-number">5</div>
+        <div class="q-text">A right-pointing triangle is 3 squares to the RIGHT of a vertical mirror. Which option correctly shows the reflection?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q5')"><span class="opt-letter">A</span> Right-pointing triangle, 3 squares to the LEFT</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s3q5')"><span class="opt-letter">B</span> Left-pointing triangle, 3 squares to the LEFT</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q5')"><span class="opt-letter">C</span> Left-pointing triangle, touching the mirror</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q5')"><span class="opt-letter">D</span> Right-pointing triangle, touching the mirror</button>
+      </div>
+      <div class="feedback-box" id="fb-s3q5"></div>
+    </div>
+
+    <div class="q-card" data-section="s3" data-qid="s3q6">
+      <div class="q-header"><div class="q-number">6</div>
+        <div class="q-text">A shape has a dot near its TOP-LEFT corner. It is 2 squares ABOVE a horizontal mirror. Which shows the correct reflection?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q6')"><span class="opt-letter">A</span> Dot at top-left, 2 squares below mirror</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s3q6')"><span class="opt-letter">B</span> Dot at bottom-left, 2 squares below mirror</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q6')"><span class="opt-letter">C</span> Dot at bottom-right, 2 squares below mirror</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q6')"><span class="opt-letter">D</span> Dot at bottom-left, touching the mirror</button>
+      </div>
+      <div class="feedback-box" id="fb-s3q6"></div>
+    </div>
+
+    <div class="q-card" data-section="s3" data-qid="s3q7">
+      <div class="q-header"><div class="q-number">7</div>
+        <div class="q-text">The nearest point of a shape is 1 grid square from the vertical mirror, and the farthest point is 4 squares from it. How far are these two points in the reflection?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q7')"><span class="opt-letter">A</span> Nearest 4 squares, farthest 1 square</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s3q7')"><span class="opt-letter">B</span> Nearest 1 square, farthest 4 squares</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q7')"><span class="opt-letter">C</span> Both 2.5 squares</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q7')"><span class="opt-letter">D</span> Nearest 0, farthest 3 squares</button>
+      </div>
+      <div class="feedback-box" id="fb-s3q7"></div>
+    </div>
+
+    <div class="q-card" data-section="s3" data-qid="s3q8">
+      <div class="q-header"><div class="q-number">8</div>
+        <div class="q-text">A student sees a reflected shape touching the mirror line. What can they correctly conclude about the original?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q8')"><span class="opt-letter">A</span> The original was far from the mirror</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q8')"><span class="opt-letter">B</span> The original was rotated</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s3q8')"><span class="opt-letter">C</span> The original was also touching the mirror</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s3q8')"><span class="opt-letter">D</span> The original was smaller</button>
+      </div>
+      <div class="feedback-box" id="fb-s3q8"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 4 ===================== -->
+<div class="section" id="s4">
+  <div class="section-header">
+    <div class="section-icon">↗️</div>
+    <h2>4. Diagonal Lines in Reflections</h2>
+    <div class="section-completion" id="comp-s4">
+      <span class="prog-text">0/8 done</span>
+      <span class="check">✓</span>
+    </div>
+  </div>
+
+  <div class="simple-box">
+    <div class="label">Simple Explanation</div>
+    <p>Diagonal lines are the trickiest part of reflections. When you reflect a line that slopes up-to-the-right (like \), it becomes a line that slopes up-to-the-left (like /). The angle stays the same but the TILT DIRECTION flips. Think of it like a slide: if the slide goes down to the right, its reflection goes down to the left.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="label">Full Explanation</div>
+    <p>Diagonal lines undergo angle inversion when reflected. A line slanting at +45° (rising left to right, like /) reflects to a line at −45° (falling left to right, like \) across a vertical axis. The magnitude of the angle from the vertical is preserved, but the direction (left or right lean) is reversed. This is the most common discriminator in GL assessment options — two shapes can look similar, but opposite diagonal lean directions.</p>
+  </div>
+
+  <div class="worked-example">
+    <span class="ex-label easy">Worked Example — Easy</span>
+    <div class="ex-question">A line slopes from bottom-left to top-right ( / shape). It is reflected across a vertical mirror. What does the reflected line look like?</div>
+    <div class="shape-box">
+      <div>
+        <svg width="80" height="80" viewBox="0 0 80 80">
+          <line x1="55" y1="5" x2="55" y2="75" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,3"/>
+          <line x1="15" y1="65" x2="45" y2="15" stroke="#3b82f6" stroke-width="3" stroke-linecap="round"/>
+          <text x="5" y="78" font-size="9" fill="#64748b">Original: /</text>
+        </svg>
+      </div>
+      <div>
+        <svg width="80" height="80" viewBox="0 0 80 80">
+          <line x1="25" y1="5" x2="25" y2="75" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,3"/>
+          <line x1="35" y1="65" x2="65" y2="15" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
+          <text x="5" y="78" font-size="9" fill="#64748b">Reflection: \</text>
+        </svg>
+      </div>
+    </div>
+    <ul class="step-list">
+      <li>Original line: slopes UP going from left to right — the "/" direction.</li>
+      <li>Vertical mirror flips left↔right.</li>
+      <li>After flipping: the high end was on the RIGHT, now it must be on the LEFT.</li>
+      <li>So the line now slopes UP going from right to left — which means it goes "\" direction.</li>
+    </ul>
+    <div class="answer-reveal">✓ Answer: The line changes from / to \ direction.</div>
+  </div>
+
+  <div class="watchout">
+    <div class="label">⚠️ Watch Out!</div>
+    <p>The most dangerous trap: students think "same angle = correct reflection." Wrong! A reflected diagonal <strong>must change lean direction</strong> across a vertical mirror. If the original leans right, the reflection leans left. If you see an option with the same diagonal direction as the original, <strong>eliminate it immediately</strong>.</p>
+  </div>
+
+  <div class="worked-example">
+    <span class="ex-label hard">Worked Example — Harder</span>
+    <div class="ex-question">A triangle has a base at the bottom (horizontal) and a slanted left edge going from bottom-left to top-center ( the left edge is a / slope). It is reflected across a vertical mirror. What does the reflection look like?</div>
+    <ul class="step-list">
+      <li>Step 0: Eliminate any option that looks identical to the original — that's just a copy, not a reflection.</li>
+      <li>The base is horizontal. Horizontal lines are unchanged by a vertical mirror — the base stays horizontal.</li>
+      <li>The left slanting edge was a "/" slope (up-left to up-center). After vertical reflection, left↔right swap. The slant becomes "\" (up-right going toward center).</li>
+      <li>In the original, the tall peak was toward the center-top. In the reflection, the peak is still at the top-center (center is symmetric). But the slant directions of the two sides switch.</li>
+      <li>The reflected triangle: base still at bottom, but left and right sides are swapped — the steep/slanted sides reverse.</li>
+    </ul>
+    <div class="answer-reveal">✓ Answer: The triangle is the mirror image — its slanted sides have swapped, even though the base remains horizontal.</div>
+  </div>
+
+  <div class="tier-group">
+    <div class="tier-label"><span class="diff-badge starter">Starter</span></div>
+    <div class="q-card" data-section="s4" data-qid="s4q1">
+      <div class="q-header"><div class="q-number">1</div>
+        <div class="q-text">A line goes from <strong>bottom-left to top-right</strong> (like /). It is reflected across a vertical mirror. The reflected line goes from…</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q1')"><span class="opt-letter">A</span> Bottom-left to top-right (same as original /)</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s4q1')"><span class="opt-letter">B</span> Bottom-right to top-left (like \)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q1')"><span class="opt-letter">C</span> Left to right horizontally (—)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q1')"><span class="opt-letter">D</span> Top to bottom vertically (|)</button>
+      </div>
+      <div class="feedback-box" id="fb-s4q1"></div>
+    </div>
+
+    <div class="q-card" data-section="s4" data-qid="s4q2">
+      <div class="q-header"><div class="q-number">2</div>
+        <div class="q-text">A line goes from <strong>bottom-right to top-left</strong> (like \). It is reflected across a vertical mirror. What is the result?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s4q2')"><span class="opt-letter">A</span> From bottom-left to top-right (like /)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q2')"><span class="opt-letter">B</span> Still from bottom-right to top-left (same \)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q2')"><span class="opt-letter">C</span> Straight across (—)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q2')"><span class="opt-letter">D</span> Straight down (|)</button>
+      </div>
+      <div class="feedback-box" id="fb-s4q2"></div>
+    </div>
+
+    <div class="q-card" data-section="s4" data-qid="s4q3">
+      <div class="q-header"><div class="q-number">3</div>
+        <div class="q-text">A horizontal line (—) is reflected across a vertical mirror. What happens to it?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s4q3')"><span class="opt-letter">A</span> It stays horizontal (—) — unchanged</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q3')"><span class="opt-letter">B</span> It becomes vertical (|)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q3')"><span class="opt-letter">C</span> It becomes diagonal (/)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q3')"><span class="opt-letter">D</span> It disappears</button>
+      </div>
+      <div class="feedback-box" id="fb-s4q3"></div>
+    </div>
+
+    <div class="q-card" data-section="s4" data-qid="s4q4">
+      <div class="q-header"><div class="q-number">4</div>
+        <div class="q-text">A vertical line (|) is reflected across a horizontal mirror. What happens?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s4q4')"><span class="opt-letter">A</span> It stays vertical (|) — unchanged</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q4')"><span class="opt-letter">B</span> It becomes horizontal (—)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q4')"><span class="opt-letter">C</span> It rotates 45° into a diagonal</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q4')"><span class="opt-letter">D</span> It moves to the other side</button>
+      </div>
+      <div class="feedback-box" id="fb-s4q4"></div>
+    </div>
+  </div>
+
+  <div class="tier-group">
+    <div class="tier-label"><span class="diff-badge mastery">Mastery</span></div>
+    <div class="q-card" data-section="s4" data-qid="s4q5">
+      <div class="q-header"><div class="q-number">5</div>
+        <div class="q-text">A shape has two lines: one going \ and one going |. Reflected across a vertical mirror. What are the two lines in the reflection?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q5')"><span class="opt-letter">A</span> \ and | (no change)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q5')"><span class="opt-letter">B</span> / and — (both change)</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s4q5')"><span class="opt-letter">C</span> / and | (diagonal flips, vertical stays)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q5')"><span class="opt-letter">D</span> \ and — (neither changes correctly)</button>
+      </div>
+      <div class="feedback-box" id="fb-s4q5"></div>
+    </div>
+
+    <div class="q-card" data-section="s4" data-qid="s4q6">
+      <div class="q-header"><div class="q-number">6</div>
+        <div class="q-text">A shape has three lines: /, —, and |. Reflected across a vertical mirror. What are the three lines in the reflection?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s4q6')"><span class="opt-letter">A</span> \, —, and | (only / changes)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q6')"><span class="opt-letter">B</span> /, |, and — (no change)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q6')"><span class="opt-letter">C</span> \, |, and / (wrong — | and / don't swap)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q6')"><span class="opt-letter">D</span> All change to diagonals</button>
+      </div>
+      <div class="feedback-box" id="fb-s4q6"></div>
+    </div>
+
+    <div class="q-card" data-section="s4" data-qid="s4q7">
+      <div class="q-header"><div class="q-number">7</div>
+        <div class="q-text">A student says: "The reflected shape has the same diagonal line direction as the original, so it must be correct." Are they right?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q7')"><span class="opt-letter">A</span> Yes — same angle means correct reflection</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s4q7')"><span class="opt-letter">B</span> No — a vertical mirror reverses the lean direction of diagonal lines</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q7')"><span class="opt-letter">C</span> Only correct if the mirror is horizontal</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q7')"><span class="opt-letter">D</span> Yes — diagonal lines are always unchanged</button>
+      </div>
+      <div class="feedback-box" id="fb-s4q7"></div>
+    </div>
+
+    <div class="q-card" data-section="s4" data-qid="s4q8">
+      <div class="q-header"><div class="q-number">8</div>
+        <div class="q-text"><strong>TRAP QUESTION:</strong> Two answer options both show the shape flipped the right way and at the right distance. Option C has a \ diagonal. Option D has a / diagonal. The original had a \ diagonal. Which is correct?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q8')"><span class="opt-letter">A</span> Option C — same diagonal as original</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s4q8')"><span class="opt-letter">B</span> Option D — diagonal must flip from \ to /</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q8')"><span class="opt-letter">C</span> Both are equally correct</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s4q8')"><span class="opt-letter">D</span> Neither — diagonal lines can't be reflected</button>
+      </div>
+      <div class="feedback-box" id="fb-s4q8"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 5 ===================== -->
+<div class="section" id="s5">
+  <div class="section-header">
+    <div class="section-icon">🕵️</div>
+    <h2>5. Hidden Mirror Lines</h2>
+    <div class="section-completion" id="comp-s5">
+      <span class="prog-text">0/8 done</span>
+      <span class="check">✓</span>
+    </div>
+  </div>
+
+  <div class="simple-box">
+    <div class="label">Simple Explanation</div>
+    <p>Sometimes in exam questions, the dashed mirror line is <strong>not shown</strong>. You have to figure out where the mirror must be just by looking at the shape and its reflection. The trick is to find the middle point between any part of the original and the same part of the reflection — the mirror always runs through that middle point.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="label">Full Explanation</div>
+    <p>When the axis of reflection is not explicitly shown, students must <strong>infer its position and orientation</strong>. The mirror line is the perpendicular bisector of the segment joining any point on the original to its corresponding point on the reflection. To find it: pick a recognisable feature (e.g. a corner, a dot), find the equivalent feature in the reflection, and locate the midpoint between them — the mirror passes through that midpoint, perpendicular to the line joining the two features.</p>
+  </div>
+
+  <div class="worked-example">
+    <span class="ex-label easy">Worked Example — Easy</span>
+    <div class="ex-question">A triangle's tip is at position (2, 5) on a grid. The reflection's tip is at (8, 5). Find the mirror line.</div>
+    <ul class="step-list">
+      <li>Both tips are at the same height (y=5) — so the mirror is vertical (it doesn't tilt).</li>
+      <li>The two tips are at x=2 and x=8. The midpoint is (2+8)÷2 = 5.</li>
+      <li>So the mirror line is the vertical line x=5, running between the two shapes.</li>
+      <li>Check: distance from x=2 to x=5 is 3. Distance from x=5 to x=8 is 3. ✓ Equal distances.</li>
+    </ul>
+    <div class="answer-reveal">✓ Answer: Vertical mirror at x=5 (the midpoint between the two corresponding tips).</div>
+  </div>
+
+  <div class="watchout">
+    <div class="label">⚠️ Watch Out!</div>
+    <p>Don't assume the mirror is always vertical! Look at the relationship between the original and reflection. If one is directly above the other, the mirror is horizontal. If they're side by side, the mirror is vertical. If they're diagonal from each other — check carefully for a diagonal mirror.</p>
+  </div>
+
+  <div class="worked-example">
+    <span class="ex-label hard">Worked Example — Harder</span>
+    <div class="ex-question">You see two L-shapes on a grid. One L opens to the right. The other opens upward and appears diagonally across. What type of mirror is this?</div>
+    <ul class="step-list">
+      <li>An L opening right reflected across a VERTICAL mirror → L opening left (not upward).</li>
+      <li>An L opening right reflected across a HORIZONTAL mirror → L opening right but flipped vertically (still opens right).</li>
+      <li>An L opening right reflected across a 45° DIAGONAL mirror → the horizontal and vertical arms swap. The L opens upward.</li>
+      <li>The shapes are arranged diagonally from each other AND one opens upward (rotated 90° from the original). This matches a 45° diagonal mirror.</li>
+    </ul>
+    <div class="answer-reveal">✓ Answer: 45° diagonal mirror. A diagonal mirror swaps x and y coordinates, turning an L on its side.</div>
+  </div>
+
+  <div class="tier-group">
+    <div class="tier-label"><span class="diff-badge starter">Starter</span></div>
+    <div class="q-card" data-section="s5" data-qid="s5q1">
+      <div class="q-header"><div class="q-number">1</div>
+        <div class="q-text">Two shapes are side-by-side (left and right of each other) and are mirror images. The hidden mirror line runs…</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s5q1')"><span class="opt-letter">A</span> Vertically between them</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q1')"><span class="opt-letter">B</span> Horizontally between them</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q1')"><span class="opt-letter">C</span> Diagonally through both</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q1')"><span class="opt-letter">D</span> There is no mirror</button>
+      </div>
+      <div class="feedback-box" id="fb-s5q1"></div>
+    </div>
+
+    <div class="q-card" data-section="s5" data-qid="s5q2">
+      <div class="q-header"><div class="q-number">2</div>
+        <div class="q-text">Two shapes are directly above and below each other and are mirror images. The hidden mirror line runs…</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q2')"><span class="opt-letter">A</span> Vertically between them</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s5q2')"><span class="opt-letter">B</span> Horizontally between them</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q2')"><span class="opt-letter">C</span> Diagonally through both</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q2')"><span class="opt-letter">D</span> Around the shapes</button>
+      </div>
+      <div class="feedback-box" id="fb-s5q2"></div>
+    </div>
+
+    <div class="q-card" data-section="s5" data-qid="s5q3">
+      <div class="q-header"><div class="q-number">3</div>
+        <div class="q-text">To find where a hidden mirror line is, you should find the… between matching points on the original and reflection.</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q3')"><span class="opt-letter">A</span> Largest point</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s5q3')"><span class="opt-letter">B</span> Midpoint</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q3')"><span class="opt-letter">C</span> Smallest point</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q3')"><span class="opt-letter">D</span> Endpoint</button>
+      </div>
+      <div class="feedback-box" id="fb-s5q3"></div>
+    </div>
+
+    <div class="q-card" data-section="s5" data-qid="s5q4">
+      <div class="q-header"><div class="q-number">4</div>
+        <div class="q-text">A dot on the original is 3 squares to the left of where the mirror must be. The matching dot on the reflection is how far from the mirror?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q4')"><span class="opt-letter">A</span> 1 square</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q4')"><span class="opt-letter">B</span> 6 squares</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s5q4')"><span class="opt-letter">C</span> 3 squares</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q4')"><span class="opt-letter">D</span> 0 squares (on the mirror)</button>
+      </div>
+      <div class="feedback-box" id="fb-s5q4"></div>
+    </div>
+  </div>
+
+  <div class="tier-group">
+    <div class="tier-label"><span class="diff-badge secure">Secure</span></div>
+    <div class="q-card" data-section="s5" data-qid="s5q5">
+      <div class="q-header"><div class="q-number">5</div>
+        <div class="q-text">Shape A has its pointed tip at grid position (1, 4). Shape B (its reflection) has its pointed tip at (7, 4). The hidden vertical mirror line is at x = ?</div>
+      </div>
+      <div class="typed-answer">
+        <input type="text" id="inp-s5q5" placeholder="e.g. 4" />
+        <button class="submit-btn" onclick="handleTyped('s5q5','x = 4','4')">Check</button>
+      </div>
+      <div class="feedback-box" id="fb-s5q5"></div>
+    </div>
+
+    <div class="q-card" data-section="s5" data-qid="s5q6">
+      <div class="q-header"><div class="q-number">6</div>
+        <div class="q-text">A shape and its reflection look like one is directly above the other (same column). The shape's bottom edge is at row 3. The reflection's top edge is at row 5. Where is the hidden horizontal mirror?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s5q6')"><span class="opt-letter">A</span> Row 4 — the midpoint between row 3 and row 5</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q6')"><span class="opt-letter">B</span> Row 3 (at the bottom edge of the original)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q6')"><span class="opt-letter">C</span> Row 5 (at the top edge of the reflection)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q6')"><span class="opt-letter">D</span> Row 8 (total of both)</button>
+      </div>
+      <div class="feedback-box" id="fb-s5q6"></div>
+    </div>
+
+    <div class="q-card" data-section="s5" data-qid="s5q7">
+      <div class="q-header"><div class="q-number">7</div>
+        <div class="q-text">In a hidden-mirror question, which feature should you pick FIRST to locate the mirror?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q7')"><span class="opt-letter">A</span> The most central feature of the shape</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s5q7')"><span class="opt-letter">B</span> The most distinctive and easy-to-find feature (e.g. a sharp corner or a dot)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q7')"><span class="opt-letter">C</span> The largest part of the shape</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q7')"><span class="opt-letter">D</span> The shaded region</button>
+      </div>
+      <div class="feedback-box" id="fb-s5q7"></div>
+    </div>
+
+    <div class="q-card" data-section="s5" data-qid="s5q8">
+      <div class="q-header"><div class="q-number">8</div>
+        <div class="q-text">You find that the mirror line runs between two shapes diagonally (at 45°). What does this tell you about how left/right and up/down are affected?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q8')"><span class="opt-letter">A</span> Only left/right is flipped</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q8')"><span class="opt-letter">B</span> Only top/bottom is flipped</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s5q8')"><span class="opt-letter">C</span> Nothing is flipped</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s5q8')"><span class="opt-letter">C</span> Both horizontal and vertical positions are swapped simultaneously</button>
+      </div>
+      <div class="feedback-box" id="fb-s5q8"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 6 ===================== -->
+<div class="section" id="s6">
+  <div class="section-header">
+    <div class="section-icon">🔷</div>
+    <h2>6. Multi-Feature Shapes</h2>
+    <div class="section-completion" id="comp-s6">
+      <span class="prog-text">0/8 done</span>
+      <span class="check">✓</span>
+    </div>
+  </div>
+
+  <div class="simple-box">
+    <div class="label">Simple Explanation</div>
+    <p>Some shapes have several things to track at once: shading, arrows, dots, stripes, and different line angles. The trick is to check features <strong>one at a time, in order of importance</strong>. Start with the most unusual or easy-to-spot feature. Check it first. If an option gets that feature wrong, cross it out immediately and move on.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="label">Full Explanation</div>
+    <p>Multi-feature reflections require systematic <strong>feature prioritisation</strong>. Not all features are equally discriminating. Arrows and directional indicators are most useful because they have an obvious orientation. Shading regions follow next. Dots and small marks are useful for distance verification. Students should apply the Point-Reach Method: identify the most distinctive feature, check its reflected position and orientation, eliminate wrong options, then verify secondary features.</p>
+  </div>
+
+  <div class="worked-example">
+    <span class="ex-label easy">Worked Example — Easy</span>
+    <div class="ex-question">A rectangle has: a black dot in the top-left corner, diagonal shading on the right half, and an arrow pointing right. Vertical mirror. What does the reflection look like?</div>
+    <div class="shape-box">
+      <div>
+        <svg width="100" height="70" viewBox="0 0 100 70">
+          <rect x="5" y="5" width="55" height="50" fill="none" stroke="#1e293b" stroke-width="2"/>
+          <!-- Right half shading -->
+          <rect x="32" y="5" width="28" height="50" fill="url(#hatch1)" stroke="none"/>
+          <defs><pattern id="hatch1" patternUnits="userSpaceOnUse" width="6" height="6"><line x1="0" y1="6" x2="6" y2="0" stroke="#94a3b8" stroke-width="1"/></pattern></defs>
+          <!-- Dot top-left -->
+          <circle cx="15" cy="15" r="5" fill="#1e293b"/>
+          <!-- Arrow right -->
+          <line x1="15" y1="40" x2="40" y2="40" stroke="#1e293b" stroke-width="2"/>
+          <polygon points="40,36 48,40 40,44" fill="#1e293b"/>
+          <text x="5" y="66" font-size="9" fill="#64748b">Original</text>
+        </svg>
+      </div>
+    </div>
+    <ul class="step-list">
+      <li>Step 0: Eliminate any option that looks identical (no flip). And any rotation.</li>
+      <li>Arrow: was pointing RIGHT →. Vertical mirror flips left/right. Arrow now points LEFT ←. Eliminate any option where arrow still points right.</li>
+      <li>Dot: was in TOP-LEFT. Vertical mirror: left↔right. Dot moves to TOP-RIGHT.</li>
+      <li>Shading: was on the RIGHT half. After vertical flip: shading moves to the LEFT half.</li>
+      <li>Check all three features in the correct answer: arrow left, dot top-right, shading on left half.</li>
+    </ul>
+    <div class="answer-reveal">✓ Answer: Arrow points left, dot in top-right, shading on left half.</div>
+  </div>
+
+  <div class="watchout">
+    <div class="label">⚠️ Watch Out!</div>
+    <p><strong>Central fixation error:</strong> students focus only on the middle of the shape and miss edge features like dots in corners or shading along a border. Always scan the <strong>entire</strong> shape — corners and edges are where exam traps hide.</p>
+  </div>
+
+  <div class="worked-example">
+    <span class="ex-label hard">Worked Example — Harder (GL Trap Level)</span>
+    <div class="ex-question">A rectangle split diagonally (\). Left triangle: shaded. Right triangle: white. A small arrow points toward top-right (↗). A semicircle sits on the left edge. Vertical mirror. Which is correct?</div>
+    <ul class="step-list">
+      <li>Step 0: Eliminate identical copies and rotations immediately.</li>
+      <li>Diagonal \: across a vertical mirror, \ becomes /. Any option with \ is wrong.</li>
+      <li>Arrow ↗: after vertical mirror, left↔right. ↗ becomes ↖. Any option with ↗ or ↙ is wrong.</li>
+      <li>Semicircle on LEFT edge: left↔right. Semicircle moves to the RIGHT edge. Eliminate any option with semicircle still on left.</li>
+      <li>Shading: was in the LEFT triangle (to the left of the \). After flip — the shading stays in the same relative triangle (now to the right of the / diagonal), meaning shading is in the RIGHT triangle.</li>
+      <li>Correct answer: / diagonal, arrow ↖, semicircle on right edge, right triangle shaded.</li>
+    </ul>
+    <div class="answer-reveal">✓ Answer: / diagonal, arrow pointing top-left (↖), semicircle on right edge, right side shaded.</div>
+  </div>
+
+  <div class="tier-group">
+    <div class="tier-label"><span class="diff-badge starter">Starter</span></div>
+    <div class="q-card" data-section="s6" data-qid="s6q1">
+      <div class="q-header"><div class="q-number">1</div>
+        <div class="q-text">When checking a multi-feature reflection, what should you check FIRST?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q1')"><span class="opt-letter">A</span> The overall size of the shape</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s6q1')"><span class="opt-letter">B</span> The most distinctive or directional feature (e.g. an arrow)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q1')"><span class="opt-letter">C</span> The colour of the shape</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q1')"><span class="opt-letter">D</span> The number of sides</button>
+      </div>
+      <div class="feedback-box" id="fb-s6q1"></div>
+    </div>
+
+    <div class="q-card" data-section="s6" data-qid="s6q2">
+      <div class="q-header"><div class="q-number">2</div>
+        <div class="q-text">A shape has a dot in the BOTTOM-RIGHT corner and stripes on the LEFT side. Vertical mirror. Which describes the reflection?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q2')"><span class="opt-letter">A</span> Dot bottom-left, stripes on left</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q2')"><span class="opt-letter">B</span> Dot bottom-right, stripes on right</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s6q2')"><span class="opt-letter">C</span> Dot bottom-left, stripes on right</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q2')"><span class="opt-letter">D</span> Dot top-left, stripes on right</button>
+      </div>
+      <div class="feedback-box" id="fb-s6q2"></div>
+    </div>
+
+    <div class="q-card" data-section="s6" data-qid="s6q3">
+      <div class="q-header"><div class="q-number">3</div>
+        <div class="q-text">A shape has an arrow ↓ (pointing down) and a circle in the top-right. Vertical mirror. Which is correct?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s6q3')"><span class="opt-letter">A</span> Arrow still ↓, circle now in top-left</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q3')"><span class="opt-letter">B</span> Arrow now ↑, circle in top-left</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q3')"><span class="opt-letter">C</span> Arrow still ↓, circle still in top-right</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q3')"><span class="opt-letter">D</span> Arrow now →, circle in bottom-left</button>
+      </div>
+      <div class="feedback-box" id="fb-s6q3"></div>
+    </div>
+
+    <div class="q-card" data-section="s6" data-qid="s6q4">
+      <div class="q-header"><div class="q-number">4</div>
+        <div class="q-text">A shape has shading on the LEFT and an arrow pointing RIGHT (→). Vertical mirror. The reflection has…</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q4')"><span class="opt-letter">A</span> Shading on left, arrow pointing right (no change)</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q4')"><span class="opt-letter">B</span> Shading on left, arrow pointing left</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s6q4')"><span class="opt-letter">C</span> Shading on right, arrow pointing left</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q4')"><span class="opt-letter">D</span> Shading on right, arrow pointing right</button>
+      </div>
+      <div class="feedback-box" id="fb-s6q4"></div>
+    </div>
+  </div>
+
+  <div class="tier-group">
+    <div class="tier-label"><span class="diff-badge mastery">Mastery</span></div>
+    <div class="q-card" data-section="s6" data-qid="s6q5">
+      <div class="q-header"><div class="q-number">5</div>
+        <div class="q-text">A shape has: a \ diagonal, a dot in the upper-left triangle, and an arrow pointing ↗. Vertical mirror. Pick the correct reflection.</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q5')"><span class="opt-letter">A</span> \ diagonal, dot in upper-right, arrow ↖</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s6q5')"><span class="opt-letter">B</span> / diagonal, dot in upper-right, arrow ↖</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q5')"><span class="opt-letter">C</span> / diagonal, dot in upper-left, arrow ↗</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q5')"><span class="opt-letter">D</span> \ diagonal, dot in upper-left, arrow ↗</button>
+      </div>
+      <div class="feedback-box" id="fb-s6q5"></div>
+    </div>
+
+    <div class="q-card" data-section="s6" data-qid="s6q6">
+      <div class="q-header"><div class="q-number">6</div>
+        <div class="q-text">A rectangle has: shaded left half, a semicircle on its RIGHT edge pointing outward, and a / diagonal line inside. Horizontal mirror. Pick the correct reflection.</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q6')"><span class="opt-letter">A</span> Shaded top half, semicircle on right edge, / diagonal</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q6')"><span class="opt-letter">B</span> Shaded left half, semicircle on left edge, \ diagonal</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s6q6')"><span class="opt-letter">C</span> Shaded left half, semicircle on right edge, \ diagonal</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q6')"><span class="opt-letter">D</span> Shaded right half, semicircle on right edge, / diagonal</button>
+      </div>
+      <div class="feedback-box" id="fb-s6q6"></div>
+    </div>
+
+    <div class="q-card" data-section="s6" data-qid="s6q7">
+      <div class="q-header"><div class="q-number">7</div>
+        <div class="q-text">Two answer options look nearly identical. Option A has a slightly wrong diagonal direction. Option B has everything correct. A student thinks "Option A looks close enough." What should they do?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q7')"><span class="opt-letter">A</span> Choose Option A — close enough is good enough</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s6q7')"><span class="opt-letter">B</span> Choose Option B — diagonal direction is a decisive clue and must be exact</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q7')"><span class="opt-letter">C</span> Guess randomly between A and B</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q7')"><span class="opt-letter">D</span> Choose the one that "feels" right</button>
+      </div>
+      <div class="feedback-box" id="fb-s6q7"></div>
+    </div>
+
+    <div class="q-card" data-section="s6" data-qid="s6q8">
+      <div class="q-header"><div class="q-number">8</div>
+        <div class="q-text"><strong>Symmetry Trap:</strong> A shape is perfectly symmetrical (like a square with X in the middle). All four answer options look the same. What should a student do?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q8')"><span class="opt-letter">A</span> Pick the first option — they're all the same so it doesn't matter</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s6q8')"><span class="opt-letter">B</span> Look for a tiny detail (a dot, a small mark, a slightly different shade) that breaks the symmetry — that's the real discriminator</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q8')"><span class="opt-letter">C</span> Skip the question entirely</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s6q8')"><span class="opt-letter">D</span> Mark the shape as having no reflection</button>
+      </div>
+      <div class="feedback-box" id="fb-s6q8"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 7 ===================== -->
+<div class="section" id="s7">
+  <div class="section-header">
+    <div class="section-icon">⚠️</div>
+    <h2>7. Common Traps & Misconceptions</h2>
+    <div class="section-completion" id="comp-s7">
+      <span class="prog-text">0/8 done</span>
+      <span class="check">✓</span>
+    </div>
+  </div>
+
+  <div class="simple-box">
+    <div class="label">Simple Explanation</div>
+    <p>GL examiners know exactly where students go wrong, and they put those wrong answers as options to trap you. The four biggest traps are: (1) picking the identical shape, (2) picking a rotation instead of a reflection, (3) getting the diagonal direction wrong, and (4) forgetting to check the distance from the mirror. Know the traps, beat the traps.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="label">Full Explanation</div>
+    <p>The elimination strategy for reflections: <strong>Step 0 — immediately eliminate identical copies and rotations.</strong> Then check nearest distinctive feature orientation. Then check diagonal directions (critical discriminator). Then verify distance from mirror. Finally confirm all minor details. This ordered process prevents the most common errors: choosing unchecked identical-looking distractors and failing to notice angle inversions.</p>
+  </div>
+
+  <!-- ELIMINATION TABLE -->
+  <div class="card">
+    <strong>Elimination Table — Quick Reference</strong>
+    <table class="elim-table">
+      <tr><th>Trap</th><th>How to Spot It</th><th>Eliminate?</th></tr>
+      <tr><td>Identical copy (no flip)</td><td>Looks exactly like the original</td><td class="cross">✗ Eliminate</td></tr>
+      <tr><td>Rotation</td><td>Shape turned, not flipped — check if it could be a rotation</td><td class="cross">✗ Eliminate</td></tr>
+      <tr><td>Wrong diagonal direction</td><td>\ should become / or vice versa</td><td class="cross">✗ Eliminate</td></tr>
+      <tr><td>Wrong distance from mirror</td><td>Shape too close or too far from mirror</td><td class="cross">✗ Eliminate</td></tr>
+      <tr><td>Correct on all counts</td><td>Passed all checks above</td><td class="tick">✓ Select</td></tr>
+    </table>
+  </div>
+
+  <div class="watchout">
+    <div class="label">⚠️ Watch Out!</div>
+    <p><strong>"It looks right" is not enough.</strong> Always run through the checklist. GL questions are designed so that a "close but wrong" option looks visually convincing. The difference might be a single diagonal line direction or one dot in the wrong corner.</p>
+  </div>
+
+  <div class="worked-example">
+    <span class="ex-label easy">Worked Example — Trap Spotting</span>
+    <div class="ex-question">You see 4 options. Original: triangle pointing up-right with a \ diagonal. Vertical mirror. Spot the trap options.</div>
+    <ul class="step-list">
+      <li>Option A: Triangle pointing up-right, \ diagonal → IDENTICAL COPY. Eliminate immediately.</li>
+      <li>Option B: Triangle rotated 90° clockwise → ROTATION not reflection. Eliminate.</li>
+      <li>Option C: Triangle pointing up-left, \ diagonal → DIAGONAL WRONG (should be /). Eliminate.</li>
+      <li>Option D: Triangle pointing up-left, / diagonal → Correct flip, correct diagonal. Keep.</li>
+    </ul>
+    <div class="answer-reveal">✓ Answer: D. Every other option contained a deliberate trap.</div>
+  </div>
+
+  <div class="tier-group">
+    <div class="tier-label"><span class="diff-badge starter">Starter</span></div>
+    <div class="q-card" data-section="s7" data-qid="s7q1">
+      <div class="q-header"><div class="q-number">1</div>
+        <div class="q-text">An answer option looks <strong>exactly</strong> the same as the original shape. Should you choose it?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q1')"><span class="opt-letter">A</span> Yes — it looks correct</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s7q1')"><span class="opt-letter">B</span> No — an identical copy means no flip has occurred; eliminate it immediately</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q1')"><span class="opt-letter">C</span> Only if the mirror is vertical</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q1')"><span class="opt-letter">D</span> Yes, because symmetrical shapes can look the same</button>
+      </div>
+      <div class="feedback-box" id="fb-s7q1"></div>
+    </div>
+
+    <div class="q-card" data-section="s7" data-qid="s7q2">
+      <div class="q-header"><div class="q-number">2</div>
+        <div class="q-text">What is the key difference between a <strong>reflection</strong> and a <strong>rotation</strong>?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q2')"><span class="opt-letter">A</span> Rotation changes the size; reflection doesn't</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s7q2')"><span class="opt-letter">B</span> Reflection flips orientation (like a mirror image); rotation turns the shape without flipping</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q2')"><span class="opt-letter">C</span> They are the same thing</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q2')"><span class="opt-letter">D</span> Reflection always moves the shape further away</button>
+      </div>
+      <div class="feedback-box" id="fb-s7q2"></div>
+    </div>
+
+    <div class="q-card" data-section="s7" data-qid="s7q3">
+      <div class="q-header"><div class="q-number">3</div>
+        <div class="q-text">Which should you check FIRST when eliminating wrong answers?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s7q3')"><span class="opt-letter">A</span> Is any option an identical copy or rotation? Eliminate those first.</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q3')"><span class="opt-letter">B</span> Check diagonal directions first</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q3')"><span class="opt-letter">C</span> Check the distance from the mirror first</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q3')"><span class="opt-letter">D</span> Check the shading first</button>
+      </div>
+      <div class="feedback-box" id="fb-s7q3"></div>
+    </div>
+
+    <div class="q-card" data-section="s7" data-qid="s7q4">
+      <div class="q-header"><div class="q-number">4</div>
+        <div class="q-text">A student is down to two options. Both have the shape flipped correctly. One has a \ diagonal; the other has a /. The original had a / diagonal. Which should they choose?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s7q4')"><span class="opt-letter">A</span> The one with \ — because / reflects to \ across a vertical mirror</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q4')"><span class="opt-letter">B</span> The one with / — same diagonal as original</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q4')"><span class="opt-letter">C</span> Either — diagonal doesn't matter</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q4')"><span class="opt-letter">D</span> Guess — they're both equally valid</button>
+      </div>
+      <div class="feedback-box" id="fb-s7q4"></div>
+    </div>
+  </div>
+
+  <div class="tier-group">
+    <div class="tier-label"><span class="diff-badge mastery">Mastery</span></div>
+    <div class="q-card" data-section="s7" data-qid="s7q5">
+      <div class="q-header"><div class="q-number">5</div>
+        <div class="q-text"><strong>Symmetry Ambiguity Trap:</strong> A shape is a perfect isosceles triangle (both sides equal). All four reflection options look identical. What breaks the symmetry?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q5')"><span class="opt-letter">A</span> The overall outline of the triangle</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s7q5')"><span class="opt-letter">B</span> A small internal mark, dot, or shading detail that is NOT centred</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q5')"><span class="opt-letter">C</span> The triangle's height</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q5')"><span class="opt-letter">D</span> There is no correct answer in this case</button>
+      </div>
+      <div class="feedback-box" id="fb-s7q5"></div>
+    </div>
+
+    <div class="q-card" data-section="s7" data-qid="s7q6">
+      <div class="q-header"><div class="q-number">6</div>
+        <div class="q-text"><strong>Double Illusion Trap:</strong> A shape looks like it could be EITHER reflected OR rotated 180° to get an option. How do you tell which one is actually a reflection?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q6')"><span class="opt-letter">A</span> Choose the rotation — it's more likely in GL questions</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s7q6')"><span class="opt-letter">B</span> Check a directional feature (like an arrow or a diagonal). A reflection reverses facing direction; a 180° rotation also reverses facing but from a spin — look at whether the shape is truly flipped (mirror image) or simply turned</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q6')"><span class="opt-letter">C</span> They are always the same</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q6')"><span class="opt-letter">D</span> Count the sides</button>
+      </div>
+      <div class="feedback-box" id="fb-s7q6"></div>
+    </div>
+
+    <div class="q-card" data-section="s7" data-qid="s7q7">
+      <div class="q-header"><div class="q-number">7</div>
+        <div class="q-text">A student checks the shape's main body and picks an answer. They don't check the small arrow in the corner. What's the likely outcome?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q7')"><span class="opt-letter">A</span> Probably correct — the main body matters most</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s7q7')"><span class="opt-letter">B</span> Likely wrong — GL questions deliberately put the trap in the small details like arrows and dots</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q7')"><span class="opt-letter">C</span> Doesn't matter — arrows don't change in reflections</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q7')"><span class="opt-letter">D</span> The question must be wrong then</button>
+      </div>
+      <div class="feedback-box" id="fb-s7q7"></div>
+    </div>
+
+    <div class="q-card" data-section="s7" data-qid="s7q8">
+      <div class="q-header"><div class="q-number">8</div>
+        <div class="q-text"><strong>Grid Misalignment Trap:</strong> Two options appear almost identical, but one has the shape shifted half a square off. How should a student identify the correct one?</div>
+      </div>
+      <div class="mcq-options">
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q8')"><span class="opt-letter">A</span> Pick the one that looks bigger</button>
+        <button class="mcq-btn" data-correct="true" onclick="handleMCQ(this,'s7q8')"><span class="opt-letter">B</span> Count grid squares carefully — the distance from the mirror must be exactly equal on both sides</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q8')"><span class="opt-letter">C</span> It doesn't matter — small shifts are acceptable</button>
+        <button class="mcq-btn" data-correct="false" onclick="handleMCQ(this,'s7q8')"><span class="opt-letter">D</span> Pick randomly since both look the same</button>
+      </div>
+      <div class="feedback-box" id="fb-s7q8"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== FINAL TEST ===================== -->
+<div id="test-section">
+  <h2>⏱ Final Mastery Test</h2>
+  <p>15 questions · All sub-skills · Timed: 12 minutes · Score shown at end</p>
+  <div id="timer-bar-wrap"><div id="timer-bar" style="width:100%"></div></div>
+  <div id="test-start-panel" style="text-align:center; padding:20px 0;">
+    <p style="color:rgba(255,255,255,0.7); margin-bottom:20px;">Complete all 15 questions then click Submit to see your score and band.</p>
+    <button id="start-test-btn" onclick="startTest()">Start Test</button>
+  </div>
+  <div id="test-questions" style="display:none;"></div>
+  <button id="submit-test-btn" onclick="submitTest()" style="display:none;">Submit Test</button>
+  <div id="results-panel"></div>
+</div>
+
+</main>
+
+<script>
+// ===== SCORE & TRACKING =====
+let score = 0;
+let totalAttempted = 0;
+const sectionCounts = {s1:0,s2:0,s3:0,s4:0,s5:0,s6:0,s7:0};
+const sectionTotals = {s1:8,s2:8,s3:8,s4:8,s5:8,s6:8,s7:8};
+
+function addScore(correct) {
+  totalAttempted++;
+  if (correct) { score++; }
+  document.getElementById('score-val').textContent = score;
+}
+
+function updateSectionCompletion(section) {
+  sectionCounts[section]++;
+  const total = sectionTotals[section];
+  const count = sectionCounts[section];
+  const el = document.getElementById('comp-' + section);
+  if (el) {
+    el.querySelector('.prog-text').textContent = count + '/' + total + ' done';
+    if (count >= total) el.classList.add('done');
+  }
+}
+
+// ===== MCQ HANDLER =====
+const feedbackData = {
+  // Section 1
+  's1q1': {
+    'true': '✓ Correct! A vertical mirror swaps left and right. The dot was on the left, so it moves to the right in the reflection.',
+    'A': '✗ This is the same as the original — no flip has happened. A vertical mirror always swaps left and right.',
+    'C': '✗ A vertical mirror does not change up/down positions — only left and right are swapped.',
+    'D': '✗ A vertical mirror does not change up/down positions — only left and right are swapped.'
+  },
+  's1q2': {
+    'true': '✓ Correct! A horizontal mirror swaps top and bottom. The dot was at the top, so it moves to the bottom.',
+    'A': '✗ This would be true for a vertical mirror, but a horizontal mirror swaps top and bottom — the dot must move.',
+    'B': '✗ A horizontal mirror swaps top and bottom, not left and right. Left/right positions are unchanged.',
+    'C': '✗ A horizontal mirror swaps top and bottom, not left and right. Left/right positions are unchanged.'
+  },
+  's1q3': {
+    'true': '✓ Correct! Reflection is a congruent transformation — the size and shape are completely preserved, only the orientation (facing direction) changes.',
+    'A': '✗ Reflections never change size. The reflected shape is always the same size as the original.',
+    'B': '✗ Reflections never change size. The reflected shape is always the same size as the original.',
+    'D': '✗ Reflections never change size. Only orientation is reversed — not dimensions.'
+  },
+  's1q4': {
+    'true': '✓ Correct! Distance from the mirror is always preserved. The dot is close to the mirror on the right, so its reflection is equally close to the mirror — but on the left side.',
+    'A': '✗ If the dot is very close to the mirror, its reflection must also be very close — not far away. Distance is always preserved.',
+    'C': '✗ The reflection always appears on the opposite side of the mirror. Close on the right → close on the LEFT, not still on the right.',
+    'D': '✗ The dot\'s position relative to the mirror is preserved. Close-to-mirror means close on the other side — not at the centre of the shape.'
+  },
+  's1q5': {
+    'true': '✓ Correct! A vertical mirror swaps left and right. An arrow pointing right (→) becomes an arrow pointing left (←) in the reflection.',
+    'A': '✗ This is an identical copy — no flip. A reflection must reverse the facing direction.',
+    'B': '✗ A vertical mirror only swaps left/right. It cannot turn a horizontal arrow into a vertical one.',
+    'D': '✗ A vertical mirror only swaps left/right. It cannot turn a horizontal arrow into a vertical one.'
+  },
+  's1q6': {
+    'true': '✓ Correct! A vertical mirror only swaps LEFT↔RIGHT. An upward arrow (↑) has no left/right component — so it stays pointing up in the reflection. This is a key trap: not everything changes!',
+    'B': '✗ A vertical mirror does not flip up/down. Only a horizontal mirror would turn ↑ into ↓.',
+    'C': '✗ A vertical mirror swaps left↔right, but ↑ has no left/right component. The arrow stays pointing up.',
+    'D': '✗ A vertical mirror swaps left↔right, but ↑ has no left/right component. The arrow stays pointing up.'
+  },
+  's1q7': {
+    'true': '✓ Correct! A vertical mirror swaps left and right. The pole was on the left, so it moves to the right. The flag pointed right, so it now points left.',
+    'A': '✗ This is an identical copy — the pole and flag are in the same positions as the original. A reflection must swap left and right.',
+    'C': '✗ The pole moved correctly from left to right, but the flag direction is wrong. The flag pointed right → after vertical reflection, it must point left.',
+    'D': '✗ The flag direction is wrong. A right-pointing flag reflects to a LEFT-pointing flag across a vertical mirror.'
+  },
+  's1q8': {
+    'true': '✓ Correct! The letter F has its arms pointing to the RIGHT. A vertical reflection swaps left↔right, so the arms must point LEFT — creating a reversed F shape (like ⊢).',
+    'A': '✗ The letter T is symmetrical — reflecting it produces the same T. An F reflected across a vertical mirror produces a reversed F, not a T.',
+    'B': '✗ The letter E is almost what you get when you reflect F, but E has TWO arms on each side. A reflected F has arms pointing left — it\'s a reversed F shape.',
+    'D': '✗ The letter L has a corner at the bottom. F reflects to a reversed F — the backbone stays on the right, arms point left.'
+  },
+  // Section 2
+  's2q1': {
+    'true': '✓ Correct! A bathroom mirror standing upright is a perfect example of a vertical mirror. Objects in it appear flipped left-to-right.',
+    'A': '✗ A pond surface is horizontal — it reflects things from top to bottom (trees appear upside down). That\'s a horizontal mirror, not vertical.',
+    'C': '✗ A ramp describes a diagonal line/mirror. That\'s different from vertical.',
+    'D': '✗ A tilted picture frame represents a diagonal axis, not a vertical one.'
+  },
+  's2q2': {
+    'true': '✓ Correct! A vertical mirror line (standing upright, like |) swaps left and right. Your left hand appears on the right in a vertical mirror.',
+    'B': '✗ Top-and-bottom swapping is done by a HORIZONTAL mirror, not a vertical one.',
+    'C': '✗ A vertical mirror only swaps left↔right. Both directions are swapped only by a diagonal mirror.',
+    'D': '✗ A vertical mirror always flips left↔right — the shape is not unchanged.'
+  },
+  's2q3': {
+    'true': '✓ Correct! A horizontal mirror (lying flat, like —) swaps top and bottom. Imagine a lake reflecting trees upside down.',
+    'A': '✗ Left-and-right swapping is done by a VERTICAL mirror, not a horizontal one.',
+    'C': '✗ A horizontal mirror always swaps top↔bottom. The shape is not unchanged.',
+    'D': '✗ Reflection does not rotate the shape — it flips it. A horizontal mirror swaps top↔bottom only.'
+  },
+  's2q4': {
+    'true': '✓ Correct! A horizontal mirror swaps top↔bottom. The dot was at TOP-right. TOP becomes BOTTOM. RIGHT stays RIGHT (horizontal mirror doesn\'t change left/right). So: bottom-right.',
+    'A': '✗ A horizontal mirror doesn\'t change left↔right. "Right" stays "right." Only top↔bottom changes. So top-right → bottom-right.',
+    'B': '✗ A horizontal mirror always changes the top/bottom position. The dot cannot stay in the same place unless the mirror is vertical — which this isn\'t.',
+    'D': '✗ A horizontal mirror changes top↔bottom (top→bottom correct) but does NOT change left↔right (right stays right, not left).'
+  },
+  's2q5': {
+    'true': '✓ Correct! A vertical mirror swaps left↔right. Shading on the left moves to the right in the reflection.',
+    'A': '✗ If shading was on the left in the original, a vertical mirror must flip it to the right. The shading cannot stay on the same side.',
+    'C': '✗ A vertical mirror only swaps left↔right — it does not move things to the top. The shading moves from left to right.',
+    'D': '✗ A vertical mirror only swaps left↔right — it does not move things to the bottom. The shading moves from left to right.'
+  },
+  's2q6': {
+    'true': '✓ Correct! This is a key trap. A vertical mirror ONLY swaps left↔right. The top of the shape stays at the top. So shading at the TOP stays at the TOP in the reflection.',
+    'B': '✗ A vertical mirror does NOT swap top↔bottom. That\'s a horizontal mirror. Top-shading stays at the top when reflected vertically.',
+    'C': '✗ Shading at the top does not become shading "on the right" — a vertical mirror only swaps left↔right. Top shading stays at the top.',
+    'D': '✗ Shading at the top does not become shading "on the left" — a vertical mirror only swaps left↔right. Top shading stays at the top.'
+  },
+  's2q7': {
+    'true': '✓ Correct! A horizontal mirror swaps top↔bottom only. The thick border was on the RIGHT — right stays right (unchanged). The dot was at the BOTTOM — bottom becomes TOP. So: thick border on right, dot at top.',
+    'A': '✗ A horizontal mirror does not change left↔right. The thick border was on the right — it must stay on the right, not move to the left.',
+    'C': '✗ The thick border cannot move from right to left — a horizontal mirror only swaps top↔bottom. Also, the dot moved correctly to the top, but the border is wrong.',
+    'D': '✗ The dot was at the BOTTOM. A horizontal mirror swaps top↔bottom, so the dot must move to the TOP. Choosing "bottom" means no flip has occurred.'
+  },
+  's2q8': {
+    'true': '✓ Correct! The letter P has its bump on the right side. A vertical mirror swaps left↔right, so the bump moves to the left. This creates a shape that looks like a reversed P — commonly written as "q" (bump on left, pole on right).',
+    'A': '✗ The letter "b" is a P rotated 180° — a rotation, not a reflection. Rotating P gives b; reflecting P gives q.',
+    'B': '✗ The letter "d" is a P flipped both vertically AND horizontally. A single vertical reflection of P gives "q" — just the left/right flip.',
+    'D': '✗ A vertical reflection of P cannot produce P again unless P is perfectly left-right symmetric. P is not — its bump is only on one side.'
+  },
+  // Section 3
+  's3q1': {
+    'true': '✓ Correct! Distance from the mirror is always preserved in a reflection. The circle was 2 squares to the left, so its reflection is exactly 2 squares to the right.',
+    'A': '✗ The distance must be preserved. If the circle is 2 squares away, the reflection must also be 2 squares away — not 1.',
+    'C': '✗ The distance must be preserved. 2 squares away reflects to 2 squares away — not 3.',
+    'D': '✗ The original is not touching the mirror, so the reflection also cannot touch it. Distance is preserved: 2 squares on each side.'
+  },
+  's3q2': {
+    'true': '✓ Correct! When a shape touches the mirror, its reflection also touches the mirror on the other side. The distance (zero) is preserved.',
+    'B': '✗ The original is touching the mirror (distance = 0). The reflection must also touch the mirror. It cannot be 3 squares away.',
+    'C': '✗ The original and its reflection are on opposite sides of the mirror. They cannot overlap unless the mirror cuts through the shape.',
+    'D': '✗ If the original is touching the mirror, the reflection is also touching — not far away. Distance is always preserved.'
+  },
+  's3q3': {
+    'true': '✓ Correct! Distance from the mirror is always exactly preserved. If Shape A is 5 squares from the mirror, Shape B (the reflection) must also be exactly 5 squares from the mirror on the other side.',
+    'wrong': '✗ Distance is always preserved in reflection. Whatever the distance on one side, it must be exactly the same on the other side. The answer is 5 squares.'
+  },
+  's3q4': {
+    'true': '✓ Correct! In reflection, distance from the mirror is always preserved. Far stays far — the reflected shape appears at the same distance, just on the other side of the mirror.',
+    'A': '✗ Distance is always preserved. A shape far from the mirror reflects to be equally far — not close.',
+    'B': '✗ The reflection touches the mirror only if the original does too. A far-away shape reflects far away.',
+    'D': '✗ Reflection preserves both size and distance. The reflected shape is the same size and at the same distance — never smaller.'
+  },
+  's3q5': {
+    'true': '✓ Correct! Both things must be right: (1) The shape is flipped — right-pointing becomes left-pointing across a vertical mirror. (2) Distance is preserved — 3 squares to the right reflects to 3 squares to the LEFT.',
+    'A': '✗ The shape is flipped correctly (3 squares left), but the direction is wrong. Right-pointing must become LEFT-pointing after a vertical reflection.',
+    'C': '✗ The direction is correct (left-pointing), but the distance is wrong. The shape was 3 squares away — the reflection must also be 3 squares away, not touching the mirror.',
+    'D': '✗ Two things wrong: the shape direction should flip (right→left), and the distance should be 3 squares, not touching the mirror.'
+  },
+  's3q6': {
+    'true': '✓ Correct! Horizontal mirror: top↔bottom swap. Dot was at TOP-left. TOP becomes BOTTOM → dot is now at BOTTOM-left. LEFT stays LEFT (horizontal mirror doesn\'t change left/right). Distance: 2 squares above mirror reflects to 2 squares below mirror.',
+    'A': '✗ A horizontal mirror must flip the dot from top to bottom. "Dot at top-left" is the original — it cannot remain at the top after a horizontal reflection.',
+    'C': '✗ A horizontal mirror does not change left↔right. The dot was on the left — it stays on the left (at the bottom now). Moving it to the right is wrong.',
+    'D': '✗ The distance must be preserved. The shape was 2 squares above the mirror, so the reflection must be 2 squares below — not touching it.'
+  },
+  's3q7': {
+    'true': '✓ Correct! Every single point preserves its distance from the mirror. The nearest point stays nearest (1 square away) and the farthest point stays farthest (4 squares away) — both on the opposite side.',
+    'A': '✗ Distances are not swapped — they are preserved. The nearest point stays nearest (1 square), not farthest. Reflection mirrors position, not reverses distance.',
+    'C': '✗ Distances are not averaged out. Each point\'s distance is preserved exactly. 1 square stays 1 square; 4 squares stays 4 squares.',
+    'D': '✗ Distances are preserved exactly. The nearest point is still 1 square from the mirror in the reflection, and the farthest is still 4 squares.'
+  },
+  's3q8': {
+    'true': '✓ Correct! Distance is always preserved in reflection. If the reflection is touching the mirror (distance = 0), then the original must also have been touching the mirror.',
+    'A': '✗ A reflection touching the mirror means its source (the original) was also touching the mirror — not far away. Far sources reflect far away.',
+    'B': '✗ Reflection preserves size and orientation — it does not involve rotation. A rotated source would produce a rotated reflection, not necessarily a mirror-touching one.',
+    'D': '✗ Reflection preserves size — the original and reflection are always the same size.'
+  },
+  // Section 4
+  's4q1': {
+    'true': '✓ Correct! A / line goes from bottom-left to top-right. When reflected across a vertical mirror, LEFT↔RIGHT swap. The top end was on the RIGHT; it moves to the LEFT. So the line now goes from bottom-RIGHT to top-LEFT — which is the \\ direction.',
+    'A': '✗ This is the identical original — no flip. A vertical mirror must change the lean direction of diagonal lines.',
+    'C': '✗ A vertical mirror does not turn a diagonal line into a horizontal one. It reverses the lean direction.',
+    'D': '✗ A vertical mirror does not turn a diagonal line into a vertical one. It reverses the lean direction: / becomes \\.'
+  },
+  's4q2': {
+    'true': '✓ Correct! A \\ line goes from bottom-right to top-left. Reflecting across a vertical mirror swaps LEFT↔RIGHT. The top end was on the LEFT; it moves to the RIGHT. So the line goes from bottom-LEFT to top-RIGHT — which is the / direction.',
+    'B': '✗ This is the identical original — no flip. A vertical mirror must reverse the lean direction of diagonal lines. \\ must become /.',
+    'C': '✗ A vertical mirror doesn\'t turn a diagonal into a horizontal. It reverses the lean: \\ becomes /.',
+    'D': '✗ A vertical mirror doesn\'t turn a diagonal into a vertical. It reverses the lean: \\ becomes /.'
+  },
+  's4q3': {
+    'true': '✓ Correct! A horizontal line (—) runs left-to-right. A vertical mirror swaps LEFT↔RIGHT but the line already runs equally in both directions. The left end becomes the right end and vice versa — but the line looks exactly the same. Horizontal lines are unchanged by vertical mirrors.',
+    'B': '✗ A vertical mirror does not change orientation from horizontal to vertical. Horizontal lines remain horizontal.',
+    'C': '✗ A vertical mirror does not create diagonal lines from horizontal ones. The line remains horizontal.',
+    'D': '✗ Lines cannot disappear in a reflection. A horizontal line reflected across a vertical mirror remains a horizontal line in the same position.'
+  },
+  's4q4': {
+    'true': '✓ Correct! A vertical line (|) runs top-to-bottom. A horizontal mirror swaps TOP↔BOTTOM, but the line already runs equally in both directions. The top becomes the bottom and vice versa — the line looks exactly the same. Vertical lines are unchanged by horizontal mirrors.',
+    'B': '✗ A horizontal mirror does not change orientation from vertical to horizontal. Vertical lines remain vertical.',
+    'C': '✗ A horizontal mirror does not create diagonal lines from vertical ones. The line remains vertical.',
+    'D': '✗ The line\'s direction (|) doesn\'t change. However, its position on the shape does change — it appears on the other side of the mirror, but remains vertical.'
+  },
+  's4q5': {
+    'true': '✓ Correct! A vertical mirror reverses diagonal lines (| becomes \\ becomes /) but leaves vertical lines (|) unchanged. So \\ becomes / (correct), and | stays | (correct). This is a critical combination to know.',
+    'A': '✗ The \\ line must change to / after a vertical reflection. Keeping it as \\ means no diagonal flip occurred.',
+    'B': '✗ The | (vertical) line does NOT change under a vertical mirror. Only diagonal lines reverse. A | cannot become —.',
+    'D': '✗ | stays |, so the vertical line is correct here. But \\ must become /, not stay as \\. This has the diagonal wrong.'
+  },
+  's4q6': {
+    'true': '✓ Correct! Under a vertical mirror: / becomes \\ (diagonal reverses). — stays — (horizontal unchanged). | stays | (vertical unchanged). So the reflection has \\, —, and |.',
+    'B': '✗ The / must change to \\ — leaving it as / means the diagonal was not reflected correctly.',
+    'C': '✗ | and / do not swap with each other. Only / reverses to \\. | stays |.',
+    'D': '✗ — and | do not become diagonals. Only diagonals reverse. Horizontal and vertical lines are unchanged by a vertical mirror.'
+  },
+  's4q7': {
+    'true': '✓ Correct! This is a major GL trap. "Same angle" is not the same as "correct reflection." A vertical mirror reverses the LEAN DIRECTION of diagonal lines. If the original leans right (/), the reflection leans left (\\). Same angle magnitude, opposite direction.',
+    'A': '✗ This is the dangerous trap! Same angle does NOT mean correct. The lean direction must reverse. A / becomes \\ and vice versa.',
+    'C': '✗ Diagonal lines always reverse direction under any vertical mirror. This is not limited to horizontal mirrors.',
+    'D': '✗ Diagonal lines are definitely changed by vertical mirrors — their lean direction reverses. Only horizontal and vertical lines are unchanged.'
+  },
+  's4q8': {
+    'true': '✓ Correct! The original has a \\ diagonal. A vertical mirror reverses the lean: \\ becomes /. Option D has the / diagonal — this is the correct reflection. Option C kept the \\ which is wrong.',
+    'A': '✗ Keeping \\ means the diagonal was not reflected — this is the identical diagonal as the original. A vertical mirror must change \\ to /.',
+    'C': '✗ Both options cannot be correct. The diagonal direction is the decisive clue here and it must change: \\ → /.',
+    'D': '✗ In reflection, diagonal lines must change direction. They do not stay the same as the original.'
+  },
+  // Section 5
+  's5q1': {
+    'true': '✓ Correct! When the original and reflection are side-by-side (left and right), the mirror that separates them must be vertical — running between them from top to bottom.',
+    'B': '✗ A horizontal mirror would produce a reflection directly above or below the original, not side by side.',
+    'C': '✗ A diagonal mirror would produce a reflection diagonally from the original, with a rotated orientation. Side-by-side images indicate a vertical mirror.',
+    'D': '✗ If two shapes are mirror images of each other, there must be a mirror between them.'
+  },
+  's5q2': {
+    'true': '✓ Correct! When the original and reflection are directly above and below each other, the mirror between them must be horizontal — running left to right between the two shapes.',
+    'A': '✗ A vertical mirror would produce a reflection to the left or right of the original, not above or below.',
+    'C': '✗ A diagonal mirror would produce a reflection diagonally positioned with a rotated orientation. Above/below positioning means a horizontal mirror.',
+    'D': '✗ Mirrors don\'t surround shapes — they are straight lines. Above/below arrangement = horizontal mirror.'
+  },
+  's5q3': {
+    'true': '✓ Correct! The mirror line is the MIDPOINT between any point on the original and its corresponding point on the reflection. The mirror is always exactly halfway between them.',
+    'A': '✗ The largest point doesn\'t help locate the mirror — you need the middle point between the original and its reflection.',
+    'C': '✗ The smallest point doesn\'t determine mirror position. The midpoint between matching features does.',
+    'D': '✗ The endpoint is one of the extreme points, not the middle. The mirror is halfway (midpoint) between matching features.'
+  },
+  's5q4': {
+    'true': '✓ Correct! Distance from the mirror is always preserved. If the original dot is 3 squares to the left of the mirror, the reflected dot must also be exactly 3 squares to the right of the mirror.',
+    'A': '✗ Distance is always preserved. 3 squares on one side → 3 squares on the other side. Not 1 square.',
+    'B': '✗ 6 squares would be the total distance between the original and reflected dots — not the distance from the mirror. The mirror distance is 3 squares.',
+    'D': '✗ 0 squares would mean the dot is ON the mirror line itself, which isn\'t the case. Distance is preserved: 3 squares on each side.'
+  },
+  's5q5': {
+    'true': '✓ Correct! The two tips are at x=1 and x=7. The midpoint is (1+7)÷2 = 4. So the vertical mirror is at x=4. Check: 4−1=3 squares on the left, 7−4=3 squares on the right. Equal distances ✓',
+    'wrong': '✗ To find the mirror, calculate the midpoint between the two matching points. The tips are at x=1 and x=7. Midpoint = (1+7)÷2 = 4. The mirror is at x=4.'
+  },
+  's5q6': {
+    'true': '✓ Correct! The original\'s bottom is at row 3. The reflection\'s top is at row 5. The mirror is between them at the midpoint: (3+5)÷2 = 4. So the horizontal mirror is at row 4.',
+    'B': '✗ The mirror is between the two shapes, not at the edge of the original. Midpoint of rows 3 and 5 = row 4.',
+    'C': '✗ The mirror is between the two shapes. At row 5 would be the top of the reflection, not the mirror itself.',
+    'D': '✗ Adding rows 3 and 5 gives 8, which has no geometric meaning. The midpoint (average) is 4.'
+  },
+  's5q7': {
+    'true': '✓ Correct! Start with the most distinctive and clearly-positioned feature — like a sharp corner or a dot. These are easy to find in both the original and reflection, making it straightforward to calculate the midpoint (mirror position).',
+    'A': '✗ The most central feature is often the hardest to measure from precisely. A distinctive extreme feature (like a sharp corner) gives a clearer measurement.',
+    'C': '✗ The largest feature may not give the clearest measurement point. A sharp corner or a dot is more precise.',
+    'D': '✗ Shading can cover a large area, making it hard to pinpoint an exact position. A single-point feature like a corner or dot is more precise.'
+  },
+  's5q8': {
+    'true': '✓ Correct! A 45° diagonal mirror swaps horizontal and vertical coordinates simultaneously. What was left of the original becomes below the reflection, and what was above becomes to the right. Both dimensions swap.',
+    'A': '✗ A 45° diagonal mirror doesn\'t just flip left/right — it swaps both horizontal AND vertical positions at once.',
+    'B': '✗ A 45° diagonal mirror doesn\'t just flip top/bottom — it swaps both horizontal AND vertical positions at once.',
+    'C': '✗ A diagonal mirror between two shapes definitely changes their relative positions — both dimensions are affected simultaneously.'
+  },
+  // Section 6
+  's6q1': {
+    'true': '✓ Correct! Arrows and directional indicators are the most useful features to check first because they have a clear direction that must reverse correctly. If an option has the arrow wrong, eliminate it immediately.',
+    'A': '✗ Size is always preserved in reflection — checking size doesn\'t help eliminate options. Check directional features first.',
+    'C': '✗ Colour is not typically what varies in GL reflection questions. Check directional features and position first.',
+    'D': '✗ The number of sides doesn\'t change in reflection. All options will have the same number of sides as the original.'
+  },
+  's6q2': {
+    'true': '✓ Correct! Vertical mirror: left↔right swap only. Dot was at bottom-RIGHT → moves to bottom-LEFT. Stripes were on the LEFT → move to the RIGHT.',
+    'A': '✗ The dot moved correctly (bottom-left), but the stripes are wrong. Stripes were on the LEFT — they must move to the RIGHT after a vertical reflection.',
+    'B': '✗ The dot hasn\'t moved from bottom-right (same as original). A vertical mirror must move it from right to left.',
+    'D': '✗ A vertical mirror does not change up/down positions. The dot was at the bottom — it stays at the bottom (moves from right to left, not to top-left).'
+  },
+  's6q3': {
+    'true': '✓ Correct! Vertical mirror: only left↔right changes. Arrow ↓ has no left/right component → stays ↓. Circle was in top-RIGHT → moves to top-LEFT. Up/down stays the same.',
+    'B': '✗ The arrow ↓ is correct (stays pointing down). But the circle moved correctly to top-left. However, the arrow cannot change to ↑ — that would require a horizontal mirror.',
+    'C': '✗ The circle must move. A vertical mirror swaps left↔right. The circle was in the top-RIGHT — it must move to the top-LEFT.',
+    'D': '✗ Two things wrong: the arrow ↓ cannot become → (that\'s a rotation, not a reflection), and the circle position is also wrong.'
+  },
+  's6q4': {
+    'true': '✓ Correct! Vertical mirror swaps left↔right. Shading on LEFT → moves to RIGHT. Arrow → (right) → becomes ← (left). Both features flip correctly.',
+    'A': '✗ This is the identical original — nothing has been reflected. Both the shading and arrow must change sides.',
+    'B': '✗ The arrow is correct (← after vertical reflection), but the shading is wrong. Shading on the LEFT must move to the RIGHT after vertical reflection.',
+    'D': '✗ The shading moved correctly (left→right). But the arrow → should become ← after a vertical reflection. A right-pointing arrow reflects to a left-pointing arrow.'
+  },
+  's6q5': {
+    'true': '✓ Correct! Vertical mirror: \\ becomes / (diagonal flips). Dot was in upper-LEFT triangle (the upper-left part of the \\ split) → after left↔right swap, it moves to upper-RIGHT. Arrow ↗ → LEFT↔RIGHT reverses the horizontal component: ↗ becomes ↖.',
+    'A': '✗ The \\ diagonal is wrong — it must become / after a vertical reflection. Also, the dot and arrow are correct, but the diagonal alone disqualifies this option.',
+    'C': '✗ The diagonal / is correct, and the arrow ↗ should become ↖ (correct here). But the dot was in the upper-LEFT — it must move to upper-RIGHT, not stay upper-left.',
+    'D': '✗ The \\ diagonal is wrong (must become /) and the arrow ↗ is wrong (must become ↖). Two errors.'
+  },
+  's6q6': {
+    'true': '✓ Correct! Horizontal mirror: only top↔bottom changes; left↔right stays. Shading was on LEFT half → stays on LEFT (not changed by horizontal mirror). Semicircle was on RIGHT edge → stays on RIGHT edge. / diagonal → horizontal mirror flips top↔bottom: / becomes \\ (the high end was on the right, now the low end is on the right). All three features correct.',
+    'A': '✗ A horizontal mirror does not change shading from left half to top half. Left/right is unchanged. Shading stays on the left half.',
+    'B': '✗ The semicircle was on the RIGHT edge. A horizontal mirror doesn\'t change left↔right, so it must stay on the RIGHT edge, not move to the left.',
+    'D': '✗ The shading was on the LEFT half. A horizontal mirror doesn\'t change left↔right, so the shading stays on the LEFT half.'
+  },
+  's6q7': {
+    'true': '✓ Correct! Diagonal direction is a decisive discriminator. GL exam designers deliberately put this as the difference between the correct answer and a very tempting wrong option. Always verify diagonal directions precisely.',
+    'A': '✗ "Close enough" is not acceptable in GL assessments. Wrong diagonal direction = wrong answer. Only one option is correct.',
+    'C': '✗ Between two options, examining the diagonal direction will identify the correct answer. Don\'t guess.',
+    'D': '✗ "Feels right" is not a strategy. Use the systematic checklist: eliminate identical copies, rotations, wrong diagonals, wrong distances.'
+  },
+  's6q8': {
+    'true': '✓ Correct! In symmetry traps, the question setter has included a tiny asymmetric detail (a dot, a small mark, a dash of shading) that breaks the symmetry. This detail is the real answer. Always look for it carefully.',
+    'A': '✗ Don\'t assume they\'re all identical — look more carefully. GL questions always have exactly ONE correct answer. There must be a tiny detail difference between the options.',
+    'C': '✗ Never skip — find the tiny detail that breaks the symmetry. It\'s always there in a well-set question.',
+    'D': '✗ Perfectly symmetrical shapes CAN be reflected — they just look the same. But these questions always include a small asymmetric detail that IS reflected. Find it.'
+  },
+  // Section 7
+  's7q1': {
+    'true': '✓ Correct! An identical copy (no change from original) means no reflection has occurred. In a reflection question, always eliminate options that are identical to the original immediately — this is the first trap GL setters use.',
+    'A': '✗ Looking correct is not enough! An identical copy means the shape wasn\'t flipped. Reflection always reverses the orientation.',
+    'C': '✗ Identical copies are wrong for ALL types of mirrors. A reflection always produces a flipped image, never an identical one.',
+    'D': '✗ Even symmetrical shapes reflected across certain axes won\'t look identical if there are any asymmetric details. An exact copy is always the wrong answer.'
+  },
+  's7q2': {
+    'true': '✓ Correct! This is the key distinction. A reflection creates a mirror image — the shape is "flipped" and cannot be rotated back onto the original. A rotation turns the shape but keeps the same "handedness" (a right glove rotated is still a right glove; reflected it becomes a left glove).',
+    'A': '✗ Both reflection and rotation preserve size. Size is never changed by either transformation.',
+    'C': '✗ Reflection and rotation are different transformations. A reflection flips orientation (creates a mirror image). A rotation turns the shape without flipping.',
+    'D': '✗ Reflection doesn\'t necessarily move a shape further away. It places the reflection on the other side of the mirror at the same distance.'
+  },
+  's7q3': {
+    'true': '✓ Correct! Step 0 of the elimination strategy: immediately remove any option that is an identical copy or a rotation. These are the easiest wrong answers to spot and eliminating them first saves time.',
+    'B': '✗ Diagonal direction comes SECOND — after eliminating identical copies and rotations. Step 0 is always: identical copy? rotation? eliminate immediately.',
+    'C': '✗ Distance from mirror is checked AFTER eliminating identical copies and rotations, and after checking the main orientation.',
+    'D': '✗ Shading details are checked last — they\'re secondary features. Always start with Step 0: identical copies and rotations.'
+  },
+  's7q4': {
+    'true': '✓ Correct! The original had a / diagonal. A vertical mirror reverses the lean direction: / becomes \\. Choose the option with \\. This is one of the most decisive steps in final answer selection.',
+    'B': '✗ Keeping the same diagonal (/) as the original means no diagonal flip occurred. A vertical reflection must change / to \\.',
+    'C': '✗ Diagonal direction absolutely matters — it\'s often the single feature that separates the correct answer from the most tempting wrong answer.',
+    'D': '✗ This is not a guess — the diagonal rule is clear and definitive. / reflects to \\ across a vertical mirror. Only one answer is correct.'
+  },
+  's7q5': {
+    'true': '✓ Correct! In symmetry traps, the examiner always hides a tiny asymmetric detail — a dot that is slightly off-centre, a small mark near one corner, or a subtle shading difference. This is the feature that the question actually tests.',
+    'A': '✗ The overall outline of a symmetrical triangle looks the same from every option. The discriminating detail is always a small internal mark that is NOT in the centre.',
+    'C': '✗ Height is preserved in reflection and the same for all options. The discriminating detail is an off-centre small mark.',
+    'D': '✗ GL questions always have exactly one correct answer. In symmetry traps, the correct answer is identified by the tiny asymmetric detail.'
+  },
+  's7q6': {
+    'true': '✓ Correct! Use a directional feature like an arrow to test: (1) Reflection reverses facing direction relative to the mirror. (2) 180° rotation also reverses facing, but achieved by turning. Check if the shape can be physically rotated onto the option — if it can, it\'s a rotation. If you must flip it, it\'s a reflection.',
+    'A': '✗ The question specifies which transformation to identify — the task is always to identify the reflection specifically. Rotations are distractors.',
+    'C': '✗ Reflection and 180° rotation can sometimes look similar, but they are different. A directional feature (arrow) combined with position analysis reveals the difference.',
+    'D': '✗ The number of sides is the same for both rotation and reflection. Use directional features and position analysis.'
+  },
+  's7q7': {
+    'true': '✓ Correct! GL exam designers deliberately put the critical difference in small details like arrows and dots. Students who only check the main body fall for this every time. Always check ALL features, especially small ones in corners.',
+    'A': '✗ Small details like arrows are specifically included by GL setters to catch students who only check the main body. Always check all features.',
+    'C': '✗ Arrows always change in reflections if they have a left/right component. An arrow is one of the most important features to check.',
+    'D': '✗ The student has made an error in their approach. The question is well-set — the small arrow is the deliberate discriminator.'
+  },
+  's7q8': {
+    'true': '✓ Correct! Grid-count precision is essential. The distance from the mirror must be exactly equal on both sides. Count carefully — don\'t estimate. Half a square off is still wrong.',
+    'A': '✗ Size is always preserved in reflection. Both options are the same size. The correct approach is to count grid squares precisely.',
+    'C': '✗ Small grid shifts are NOT acceptable. The distance must be exactly equal on both sides of the mirror.',
+    'D': '✗ This is not a guess situation. Count the grid squares carefully — the correct distance will become clear.'
+  }
+};
+
+function handleMCQ(btn, qid) {
+  const card = btn.closest('.q-card');
+  const buttons = card.querySelectorAll('.mcq-btn');
+  buttons.forEach(b => b.disabled = true);
+
+  const isCorrect = btn.dataset.correct === 'true';
+  const fb = document.getElementById('fb-' + qid);
+
+  if (isCorrect) {
+    btn.classList.add('correct');
+    fb.className = 'feedback-box correct-fb show';
+    fb.innerHTML = feedbackData[qid] && feedbackData[qid]['true'] ? feedbackData[qid]['true'] : '✓ Correct!';
+    addScore(true);
+  } else {
+    btn.classList.add('wrong');
+    // Find and highlight correct
+    buttons.forEach(b => { if (b.dataset.correct === 'true') b.classList.add('correct'); });
+    fb.className = 'feedback-box wrong-fb show';
+    // Get option letter
+    const letter = btn.querySelector('.opt-letter').textContent.trim();
+    const fd = feedbackData[qid];
+    let msg = fd && fd[letter] ? fd[letter] : '✗ That\'s not quite right. The correct answer is highlighted above.';
+    fb.innerHTML = msg;
+    addScore(false);
+  }
+
+  const section = card.dataset.section;
+  if (section) updateSectionCompletion(section);
+}
+
+function handleTyped(qid, displayAnswer, acceptedValue) {
+  const input = document.getElementById('inp-' + qid);
+  const fb = document.getElementById('fb-' + qid);
+  if (!input || input.disabled) return;
+  input.disabled = true;
+  document.querySelector(`[onclick="handleTyped('${qid}','${displayAnswer}','${acceptedValue}')"]`).disabled = true;
+
+  const val = input.value.trim().replace(/[^0-9]/g,'');
+  const isCorrect = val === acceptedValue;
+  const card = input.closest('.q-card');
+
+  if (isCorrect) {
+    input.style.borderColor = '#22c55e';
+    fb.className = 'feedback-box correct-fb show';
+    const fd = feedbackData[qid];
+    fb.innerHTML = fd && fd['true'] ? fd['true'] : `✓ Correct! The answer is ${displayAnswer}.`;
+    addScore(true);
+  } else {
+    input.style.borderColor = '#ef4444';
+    fb.className = 'feedback-box wrong-fb show';
+    const fd = feedbackData[qid];
+    fb.innerHTML = fd && fd['wrong'] ? fd['wrong'] : `✗ Not quite. The correct answer is ${displayAnswer}.`;
+    addScore(false);
+  }
+
+  const section = card.dataset.section;
+  if (section) updateSectionCompletion(section);
+}
+
+// ===== PROGRESS BAR =====
+window.addEventListener('scroll', () => {
+  const docH = document.body.scrollHeight - window.innerHeight;
+  const pct = (window.scrollY / docH) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+// ===== NAV ACTIVE =====
+const navLinks = document.querySelectorAll('nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  document.querySelectorAll('.section, #test-section').forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.remove('active');
+    if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+  });
+});
+
+// ===== TEST =====
+const testQuestions = [
+  {
+    q: "A shape has a black dot in the TOP-LEFT corner. It is reflected across a VERTICAL mirror. Where is the dot in the reflection?",
+    opts: ["Top-left (unchanged)", "Top-right", "Bottom-left", "Bottom-right"],
+    correct: 1,
+    explain: "A vertical mirror swaps LEFT↔RIGHT. The dot was at top-LEFT → moves to top-RIGHT. Up/down is unchanged by a vertical mirror."
+  },
+  {
+    q: "A shape has shading on the BOTTOM. The mirror is HORIZONTAL. Where is the shading in the reflection?",
+    opts: ["Still at the bottom", "At the top", "On the left", "On the right"],
+    correct: 1,
+    explain: "A horizontal mirror swaps TOP↔BOTTOM. Shading at the BOTTOM → moves to the TOP. Left/right is unchanged."
+  },
+  {
+    q: "A shape is 4 grid squares to the LEFT of a vertical mirror. How far is the reflection from the mirror?",
+    opts: ["2 grid squares to the right", "4 grid squares to the right", "4 grid squares to the left", "Touching the mirror"],
+    correct: 1,
+    explain: "Distance from the mirror is always preserved. 4 squares to the left → 4 squares to the RIGHT of the mirror."
+  },
+  {
+    q: "A line goes from BOTTOM-RIGHT to TOP-LEFT (like \\). It is reflected across a vertical mirror. What is the result?",
+    opts: ["Still \\ direction (unchanged)", "Becomes / direction", "Becomes horizontal (—)", "Becomes vertical (|)"],
+    correct: 1,
+    explain: "A vertical mirror reverses the lean direction of diagonals. \\ (top goes left) → / (top goes right) after left↔right swap."
+  },
+  {
+    q: "An arrow points RIGHT (→). The mirror is VERTICAL. What does the arrow point to in the reflection?",
+    opts: ["Still right (→)", "Up (↑)", "Left (←)", "Down (↓)"],
+    correct: 2,
+    explain: "A vertical mirror swaps LEFT↔RIGHT. An arrow pointing right (→) becomes an arrow pointing left (←) in the reflection."
+  },
+  {
+    q: "Two shapes are side-by-side and are mirror images of each other. The hidden mirror line runs…",
+    opts: ["Horizontally between them", "Vertically between them", "Diagonally through them", "Around both shapes"],
+    correct: 1,
+    explain: "Side-by-side mirror images have a VERTICAL mirror between them. Above/below images have a horizontal mirror."
+  },
+  {
+    q: "A shape has: a dot in the BOTTOM-RIGHT and an arrow pointing UP (↑). Vertical mirror. Which is correct?",
+    opts: ["Dot bottom-right, arrow ↑ (no change)", "Dot bottom-left, arrow ↑", "Dot bottom-left, arrow ↓", "Dot top-left, arrow ↑"],
+    correct: 1,
+    explain: "Vertical mirror swaps LEFT↔RIGHT. Dot was bottom-RIGHT → bottom-LEFT. Arrow ↑ has no left/right component → stays ↑. Up/down unchanged."
+  },
+  {
+    q: "A rectangle has shading on the LEFT and a diagonal / inside it. It is reflected across a HORIZONTAL mirror. Which describes the reflection?",
+    opts: ["Shading left, / diagonal", "Shading left, \\ diagonal", "Shading right, / diagonal", "Shading right, \\ diagonal"],
+    correct: 1,
+    explain: "Horizontal mirror: top↔bottom only. Left/right unchanged → shading stays on LEFT. Diagonal /: top goes right, bottom goes left. After top↔bottom swap: top goes left, bottom goes right → becomes \\. Answer: shading left, \\ diagonal."
+  },
+  {
+    q: "Which answer option should ALWAYS be eliminated immediately in a reflection question?",
+    opts: ["The option with the fewest details", "An option that looks identical to the original", "The option furthest from the mirror", "The option with diagonal lines"],
+    correct: 1,
+    explain: "Step 0 rule: an identical copy means no flip — eliminate it immediately. A reflection always reverses orientation."
+  },
+  {
+    q: "A shape has a \\ diagonal and an arrow ↗. Vertical mirror. What is the correct reflection?",
+    opts: ["\\ diagonal, arrow ↖", "\\ diagonal, arrow ↗", "/ diagonal, arrow ↗", "/ diagonal, arrow ↖"],
+    correct: 3,
+    explain: "Vertical mirror: \\ becomes / (diagonal flips). Arrow ↗ (up-right): left↔right reverses the RIGHT component → ↖ (up-left). Both change together. Answer: / diagonal, arrow ↖."
+  },
+  {
+    q: "A point on a shape is at grid position (2, 6). The vertical mirror is at x=5. Where is the reflected point?",
+    opts: ["(2, 6) — unchanged", "(8, 6)", "(5, 6)", "(5, 2)"],
+    correct: 1,
+    explain: "The point at x=2 is 3 squares to the LEFT of the mirror at x=5. The reflection is 3 squares to the RIGHT: x = 5+3 = 8. Y stays the same: (8, 6)."
+  },
+  {
+    q: "A perfectly symmetrical shape reflects and all options look the same. What should you look for?",
+    opts: ["Nothing — pick any option", "A tiny off-centre mark, dot, or detail that breaks the symmetry", "The option with the most lines", "The mirror position only"],
+    correct: 1,
+    explain: "Symmetry traps always have a tiny asymmetric detail that IS affected by the reflection. Find that detail — it's the real question."
+  },
+  {
+    q: "A shape is reflected across a HORIZONTAL mirror. Which of these does NOT change?",
+    opts: ["The top/bottom position of features", "The left/right position of features", "Diagonal line directions (/ and \\)", "None of the above"],
+    correct: 1,
+    explain: "A horizontal mirror swaps TOP↔BOTTOM. LEFT/RIGHT positions do NOT change. Note: diagonals DO change — / becomes \\ under a horizontal mirror too (top↔bottom swap reverses the high end)."
+  },
+  {
+    q: "A student finds two remaining options. One has the shape 3 squares from the mirror; the other has it 5 squares from the mirror. The original was 3 squares away. Which should they choose?",
+    opts: ["The one 5 squares away", "The one 3 squares away", "Either — both are close enough", "Neither — restart the question"],
+    correct: 1,
+    explain: "Distance from the mirror is always exactly preserved. The original was 3 squares away → reflection must be exactly 3 squares away. The 5-square option is wrong."
+  },
+  {
+    q: "FINAL TRAP: A shape has three features: a horizontal line (—), a vertical line (|), and a diagonal (/). All reflected across a VERTICAL mirror. Which change?",
+    opts: ["All three change", "Only the horizontal line changes", "Only the diagonal (/) changes", "The horizontal and vertical lines both change; diagonal stays"],
+    correct: 2,
+    explain: "Vertical mirror: — (horizontal) stays —. | (vertical) stays |. Only / (diagonal) changes — it becomes \\. So only the diagonal changes."
+  }
+];
+
+let testStarted = false;
+let timerInterval = null;
+let timeLeft = 720; // 12 minutes
+
+function startTest() {
+  testStarted = true;
+  document.getElementById('test-start-panel').style.display = 'none';
+  document.getElementById('test-questions').style.display = 'block';
+  document.getElementById('submit-test-btn').style.display = 'block';
+
+  const container = document.getElementById('test-questions');
+  testQuestions.forEach((tq, i) => {
+    const card = document.createElement('div');
+    card.className = 'test-q-card';
+    const letters = ['A','B','C','D'];
+    let opts = tq.opts.map((o, j) => `
+      <button class="mcq-btn" data-tidx="${i}" data-oidx="${j}" onclick="selectTestOpt(this)">
+        <span class="opt-letter">${letters[j]}</span> ${o}
+      </button>`).join('');
+    card.innerHTML = `
+      <div class="q-header">
+        <div class="q-number" style="background:var(--gold);color:var(--navy);">${i+1}</div>
+        <div class="q-text">${tq.q}</div>
+      </div>
+      <div class="mcq-options">${opts}</div>
+      <div class="feedback-box" id="tfb-${i}"></div>`;
+    container.appendChild(card);
+  });
+
+  // Timer
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    const pct = (timeLeft / 720) * 100;
+    document.getElementById('timer-bar').style.width = pct + '%';
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      submitTest();
+    }
+  }, 1000);
+}
+
+function selectTestOpt(btn) {
+  const tidx = btn.dataset.tidx;
+  const card = btn.closest('.test-q-card');
+  // Allow changing answer before submit
+  card.querySelectorAll('.mcq-btn').forEach(b => b.classList.remove('correct','wrong'));
+  btn.style.background = 'rgba(240,180,41,0.25)';
+  btn.style.borderColor = 'var(--gold)';
+  btn.dataset.selected = 'true';
+  card.querySelectorAll('.mcq-btn').forEach(b => {
+    if (b !== btn) { b.style.background = ''; b.style.borderColor = ''; b.removeAttribute('data-selected'); }
+  });
+}
+
+function submitTest() {
+  clearInterval(timerInterval);
+  document.getElementById('submit-test-btn').style.display = 'none';
+  document.getElementById('timer-bar').style.width = '0%';
+
+  let testScore = 0;
+  testQuestions.forEach((tq, i) => {
+    const card = document.querySelectorAll('.test-q-card')[i];
+    const btns = card.querySelectorAll('.mcq-btn');
+    let selected = -1;
+    btns.forEach((b, j) => { if (b.dataset.selected) selected = j; });
+
+    btns.forEach(b => {
+      b.disabled = true;
+      b.style.background = '';
+      b.style.borderColor = '';
+    });
+
+    if (selected === tq.correct) {
+      btns[selected].classList.add('correct');
+      testScore++;
+    } else {
+      if (selected >= 0) btns[selected].classList.add('wrong');
+      btns[tq.correct].classList.add('correct');
+      const fb = document.getElementById('tfb-' + i);
+      fb.className = 'feedback-box wrong-fb show';
+      fb.innerHTML = `✗ ${tq.explain}`;
+    }
+    // Show correct explanation for correct answers too
+    if (selected === tq.correct) {
+      const fb = document.getElementById('tfb-' + i);
+      fb.className = 'feedback-box correct-fb show';
+      fb.innerHTML = `✓ ${tq.explain}`;
+    }
+  });
+
+  const pct = Math.round((testScore / 15) * 100);
+  let band, bandColor;
+  if (pct < 40) { band = 'Needs Practice'; bandColor = '#ef4444'; }
+  else if (pct < 60) { band = 'Developing'; bandColor = '#eab308'; }
+  else if (pct < 80) { band = 'Secure'; bandColor = '#f97316'; }
+  else { band = 'Mastery'; bandColor = '#a855f7'; }
+
+  const results = document.getElementById('results-panel');
+  results.style.display = 'block';
+  results.innerHTML = `
+    <h3>Test Complete!</h3>
+    <div id="score-display">${testScore}/15</div>
+    <div class="band-badge" style="background:${bandColor}22;color:${bandColor};border:1px solid ${bandColor}">${band}</div>
+    <p style="color:rgba(255,255,255,0.7);font-size:14px;">You scored ${pct}% — see explanations above for any questions you missed.</p>
+  `;
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>

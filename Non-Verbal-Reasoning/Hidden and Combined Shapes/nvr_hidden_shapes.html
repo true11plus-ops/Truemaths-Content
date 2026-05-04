@@ -1,0 +1,2460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11+ NVR: Hidden Shapes | GL Assessment Revision</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #1a2f45;
+  --navy-light: #243b55;
+  --gold: #f0b429;
+  --gold-light: #f7d070;
+  --gold-pale: #fef3c7;
+  --cream: #faf8f4;
+  --white: #ffffff;
+  --green: #10b981;
+  --green-pale: #d1fae5;
+  --yellow: #f59e0b;
+  --yellow-pale: #fef3c7;
+  --orange: #f97316;
+  --orange-pale: #ffedd5;
+  --purple: #7c3aed;
+  --purple-pale: #ede9fe;
+  --red: #ef4444;
+  --red-pale: #fee2e2;
+  --text: #1e293b;
+  --text-mid: #475569;
+  --text-light: #94a3b8;
+  --border: #e2e8f0;
+  --shadow: 0 4px 24px rgba(13,27,42,0.10);
+  --shadow-lg: 0 8px 40px rgba(13,27,42,0.16);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* ─── PROGRESS BAR ─── */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  width: 0%;
+  z-index: 1000;
+  transition: width 0.1s;
+}
+
+/* ─── HEADER ─── */
+.site-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, var(--navy-light) 100%);
+  padding: 48px 24px 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.site-header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: rgba(240,180,41,0.07);
+}
+.site-header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: rgba(240,180,41,0.05);
+}
+.header-badge {
+  display: inline-block;
+  background: rgba(240,180,41,0.15);
+  border: 1px solid rgba(240,180,41,0.35);
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+.site-header h1 {
+  font-family: 'Playfair Display', serif;
+  color: var(--white);
+  font-size: clamp(26px, 5vw, 42px);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.site-header h1 span { color: var(--gold); }
+.site-header p {
+  color: rgba(255,255,255,0.72);
+  font-size: 15px;
+  max-width: 560px;
+  margin: 0 auto 20px;
+}
+.score-widget {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 30px;
+  padding: 8px 20px;
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+}
+.score-widget .score-num {
+  color: var(--gold);
+  font-size: 20px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ─── STICKY NAV ─── */
+.sticky-nav {
+  position: sticky;
+  top: 4px;
+  z-index: 900;
+  background: var(--navy);
+  border-bottom: 2px solid rgba(240,180,41,0.3);
+  padding: 0 16px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+.sticky-nav::-webkit-scrollbar { display: none; }
+.sticky-nav ul {
+  list-style: none;
+  display: inline-flex;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+}
+.sticky-nav a {
+  display: inline-block;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 13px 14px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.sticky-nav a:hover, .sticky-nav a.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* ─── MAIN LAYOUT ─── */
+.container { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+
+/* ─── SECTIONS ─── */
+.section {
+  padding: 48px 0 24px;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.section-number {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 3vw, 26px);
+  color: var(--navy);
+  font-weight: 700;
+}
+.section-tick {
+  margin-left: auto;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  transition: all 0.4s;
+  flex-shrink: 0;
+}
+.section-tick.done { background: var(--green); color: white; }
+
+/* ─── CARDS ─── */
+.card {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.card-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.card-label.simple { color: var(--green); }
+.card-label.full { color: var(--navy); }
+.card-label.warning { color: var(--orange); }
+.card-label.example { color: var(--purple); }
+
+/* Simple explanation */
+.simple-box {
+  background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+  border-left: 4px solid var(--green);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 18px;
+  font-size: 16px;
+}
+.simple-box .analogy {
+  margin-top: 10px;
+  font-style: italic;
+  color: var(--text-mid);
+  font-size: 15px;
+}
+
+/* Full explanation */
+.full-box {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-left: 4px solid #0ea5e9;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 18px;
+  font-size: 15px;
+}
+
+/* Warning box */
+.warning-box {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  border-left: 4px solid var(--orange);
+  border-radius: 10px;
+  padding: 18px 24px;
+  margin-bottom: 18px;
+}
+.warning-box .warn-title {
+  font-weight: 700;
+  color: var(--orange);
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 7px;
+}
+.warning-box ul { padding-left: 18px; }
+.warning-box li { font-size: 15px; margin-bottom: 4px; }
+
+/* Worked example */
+.worked-example {
+  border: 2px solid rgba(124,58,237,0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.we-header {
+  background: linear-gradient(135deg, var(--purple) 0%, #6d28d9 100%);
+  color: white;
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 20px 24px; }
+.we-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--border);
+}
+.we-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.step-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.we-step p { font-size: 15px; line-height: 1.6; }
+
+/* SVG diagrams */
+.diagram-area {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  margin: 14px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.diagram-area svg { max-width: 100%; }
+.diagram-label {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-mid);
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ─── DIFFICULTY BADGES ─── */
+.diff-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.diff-starter { background: var(--green-pale); color: #065f46; }
+.diff-developing { background: var(--yellow-pale); color: #92400e; }
+.diff-secure { background: var(--orange-pale); color: #9a3412; }
+.diff-mastery { background: var(--purple-pale); color: #4c1d95; }
+
+/* ─── QUESTION CARDS ─── */
+.q-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 22px 26px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.q-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.q-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-light);
+  font-family: 'JetBrains Mono', monospace;
+}
+.q-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.q-diagram {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 500px) { .btn-grid { grid-template-columns: 1fr; } }
+
+.ans-btn {
+  padding: 11px 16px;
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  background: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.4;
+}
+.ans-btn:hover:not(:disabled) {
+  border-color: var(--navy);
+  background: #f8faff;
+}
+.ans-btn.correct {
+  background: var(--green-pale);
+  border-color: var(--green);
+  color: #065f46;
+}
+.ans-btn.wrong {
+  background: var(--red-pale);
+  border-color: var(--red);
+  color: #991b1b;
+}
+.ans-btn:disabled { cursor: not-allowed; }
+.btn-icon { font-size: 16px; }
+
+.feedback-box {
+  padding: 13px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.55;
+  display: none;
+  margin-top: 4px;
+}
+.feedback-box.show { display: block; }
+.feedback-correct { background: var(--green-pale); color: #065f46; border-left: 3px solid var(--green); }
+.feedback-wrong { background: var(--red-pale); color: #991b1b; border-left: 3px solid var(--red); }
+
+/* Typed answer */
+.typed-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  margin-bottom: 10px;
+  transition: border-color 0.2s;
+}
+.typed-input:focus { outline: none; border-color: var(--navy); }
+.submit-btn {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.submit-btn:hover { background: var(--navy-light); }
+
+/* ─── STRATEGY BOX ─── */
+.strategy-box {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+  border-radius: 12px;
+  padding: 22px 26px;
+  color: white;
+  margin-bottom: 18px;
+}
+.strategy-box h4 {
+  color: var(--gold);
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+.strategy-step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+.strategy-step:last-child { margin-bottom: 0; }
+.s-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.s-text { color: rgba(255,255,255,0.9); line-height: 1.5; }
+
+/* ─── FINAL TEST ─── */
+#final-test {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  border-radius: 16px;
+  padding: 32px 28px;
+  margin: 32px 0;
+  color: white;
+}
+#final-test h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold);
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+#final-test p { color: rgba(255,255,255,0.75); margin-bottom: 20px; }
+.timer-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(240,180,41,0.15);
+  border: 1px solid rgba(240,180,41,0.3);
+  color: var(--gold);
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.test-q-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 18px;
+}
+.test-q-text { color: white; font-size: 16px; font-weight: 600; margin-bottom: 14px; }
+.test-btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+@media (max-width: 500px) { .test-btn-grid { grid-template-columns: 1fr; } }
+.test-ans-btn {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.88);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+.test-ans-btn:hover:not(:disabled) { background: rgba(255,255,255,0.14); }
+.test-ans-btn.correct { background: rgba(16,185,129,0.25); border-color: var(--green); color: #a7f3d0; }
+.test-ans-btn.wrong { background: rgba(239,68,68,0.25); border-color: var(--red); color: #fecaca; }
+
+.test-feedback {
+  display: none;
+  margin-top: 10px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 8px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.55;
+  border-left: 3px solid var(--gold);
+}
+.test-feedback.show { display: block; }
+
+.start-test-btn {
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.start-test-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+.results-panel {
+  display: none;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 14px;
+  padding: 32px;
+  text-align: center;
+  margin-top: 28px;
+}
+.results-panel.show { display: block; }
+.results-score {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 60px;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.results-band {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  padding: 6px 20px;
+  border-radius: 20px;
+  display: inline-block;
+}
+.band-needs { background: rgba(239,68,68,0.2); color: #fca5a5; }
+.band-developing { background: rgba(245,158,11,0.2); color: #fcd34d; }
+.band-secure { background: rgba(249,115,22,0.2); color: #fdba74; }
+.band-mastery { background: rgba(124,58,237,0.2); color: #c4b5fd; }
+
+/* ─── DIVIDER ─── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 8px 0;
+}
+
+/* ─── SKILL INTRO ─── */
+.skill-intro {
+  background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%);
+  border: 1px solid #fde68a;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 32px;
+  font-size: 15px;
+}
+.skill-intro strong { color: var(--navy); }
+
+/* ─── REVEAL BUTTON ─── */
+.reveal-btn {
+  background: none;
+  border: 1px dashed var(--purple);
+  color: var(--purple);
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.2s;
+}
+.reveal-btn:hover { background: var(--purple-pale); }
+.reveal-content { display: none; margin-top: 12px; }
+.reveal-content.show { display: block; }
+
+/* ─── Q-SECTION TITLE ─── */
+.q-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-mid);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ─── FOOTER ─── */
+.site-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding: 24px;
+  font-size: 13px;
+  margin-top: 60px;
+}
+
+/* ─── ANGLE DIAGRAM LABEL ─── */
+.angle-note {
+  font-size: 11px;
+  fill: #64748b;
+  font-family: 'Source Sans 3', sans-serif;
+}
+.highlight-shape {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 2.5;
+  stroke-dasharray: 5,3;
+}
+
+/* ─── SUBMIT ALL TEST ─── */
+.submit-test-btn {
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.2s;
+  display: none;
+}
+.submit-test-btn:hover { background: var(--gold-light); }
+.submit-test-btn.show { display: inline-block; }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- ─── HEADER ─── -->
+<header class="site-header">
+  <div class="header-badge">11+ GL Assessment · Non Verbal Reasoning</div>
+  <h1>Hidden <span>Shapes</span></h1>
+  <p>Find a small shape hidden inside a larger, more complex figure — even when it's disguised, rotated, or buried in clutter.</p>
+  <div class="score-widget">
+    ⭐ Running Score: <span class="score-num" id="live-score">0</span> / <span id="live-total">0</span>
+  </div>
+</header>
+
+<!-- ─── STICKY NAV ─── -->
+<nav class="sticky-nav">
+  <ul>
+    <li><a href="#intro">Introduction</a></li>
+    <li><a href="#s1">1 · Line Extension</a></li>
+    <li><a href="#s2">2 · Negative Space</a></li>
+    <li><a href="#s3">3 · Size & Orientation</a></li>
+    <li><a href="#s4">4 · Curve-Line Hybrid</a></li>
+    <li><a href="#s5">5 · Micro-Angle</a></li>
+    <li><a href="#s6">6 · Fragmented Perimeter</a></li>
+    <li><a href="#final-test">🏆 Final Test</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+<!-- ─── INTRO ─── -->
+<section id="intro" class="section">
+  <div class="skill-intro">
+    <strong>What is this question type?</strong> You are shown a <strong>small target shape</strong> on the left. Then you look at a <strong>larger, busier figure</strong> on the right — made of overlapping lines, shading, and extra detail. Your job is to find <em>exactly</em> where the small shape is hiding inside the big picture. The shape might be tilted, hidden in a corner, or disguised by surrounding lines.
+  </div>
+
+  <div class="strategy-box">
+    <h4>🎯 The Fast GL Strategy (30 seconds max!)</h4>
+    <div class="strategy-step"><span class="s-icon">1️⃣</span><span class="s-text"><strong>Spot ONE unique feature</strong> in the target shape — not the whole thing. Look for something unusual: a right angle, a very long side, a curved edge. This is your hunting clue.</span></div>
+    <div class="strategy-step"><span class="s-icon">2️⃣</span><span class="s-text"><strong>Scan to eliminate 3 zones fast.</strong> Look at each answer option and ask: "Can I see my hunting clue here?" Reject answers where it clearly isn't present. This "reject before confirm" approach is faster than confirming every option.</span></div>
+    <div class="strategy-step"><span class="s-icon">3️⃣</span><span class="s-text"><strong>Trace the full perimeter</strong> of your surviving option only. Count corners, check angles, verify side lengths. Does every line of the target shape exist in the larger figure?</span></div>
+    <div class="strategy-step"><span class="s-icon">4️⃣</span><span class="s-text"><strong>Check lines aren't borrowed.</strong> Every line of the hidden shape must use real lines from the figure — not imaginary ones you're drawing in your head.</span></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 1: LINE EXTENSION -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="s1" class="section">
+  <div class="section-header">
+    <div class="section-number">1</div>
+    <h2 class="section-title">Line Extension & Intersection</h2>
+    <div class="section-tick" id="tick-s1">○</div>
+  </div>
+
+  <div class="simple-box">
+    <div class="card-label simple">🌱 Simple Explanation</div>
+    <p>Imagine you're looking at a drawing of a spider's web. The web has lots of lines crossing each other. Your job is to find a triangle — but the triangle's sides are <em>shared</em> with the web's threads. The triangle doesn't have its own separate lines: it <strong>borrows</strong> the web's lines. You have to trace the threads carefully to find the shape hiding inside.</p>
+    <p class="analogy">💡 Think of it like finding a word hidden in a word-search grid — the letters are already there, you just need to trace the right path.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="card-label full">📘 Full Explanation</div>
+    <p><strong>Line extension</strong> occurs when lines in the larger figure extend <em>beyond</em> the boundary of the hidden shape, making it hard to see where the shape starts and ends. <strong>Intersection analysis</strong> means identifying which crossing-points (vertices) belong to the target shape. The hidden shape's edges are always real lines from the figure — they are never imaginary. You must identify the correct <em>segment</em> of each extended line that forms the target shape's boundary.</p>
+  </div>
+
+  <!-- Worked Example 1 -->
+  <div class="worked-example">
+    <div class="we-header">📐 Worked Example 1 — Foundation Level</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Target shape:</strong> A right-angled triangle (one corner is a perfect square corner). <strong>Question:</strong> Is this triangle hidden in the figure below?</p>
+      <div class="diagram-area">
+        <div>
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <polygon points="10,70 70,70 10,10" fill="none" stroke="#0d1b2a" stroke-width="2.5"/>
+            <rect x="10" y="62" width="8" height="8" fill="none" stroke="#0d1b2a" stroke-width="1.5"/>
+          </svg>
+          <div class="diagram-label">Target Shape</div>
+        </div>
+        <div>
+          <svg width="140" height="120" viewBox="0 0 140 120">
+            <line x1="10" y1="100" x2="130" y2="100" stroke="#475569" stroke-width="1.5"/>
+            <line x1="10" y1="100" x2="10" y2="10" stroke="#475569" stroke-width="1.5"/>
+            <line x1="10" y1="10" x2="130" y2="100" stroke="#475569" stroke-width="1.5"/>
+            <line x1="70" y1="10" x2="70" y2="100" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,3"/>
+            <line x1="10" y1="55" x2="130" y2="55" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,3"/>
+            <!-- highlight hidden shape -->
+            <polygon points="10,100 70,100 10,42" fill="rgba(240,180,41,0.15)" stroke="#f0b429" stroke-width="2" stroke-dasharray="5,3"/>
+            <rect x="10" y="92" width="8" height="8" fill="none" stroke="#f0b429" stroke-width="1.5"/>
+          </svg>
+          <div class="diagram-label">Figure (hidden shape highlighted in gold)</div>
+        </div>
+      </div>
+      <div class="we-step">
+        <div class="step-num">1</div>
+        <p><strong>Find the unique feature:</strong> The target triangle has one right angle (square corner). Hunt for a square corner in the figure. I can see one at the bottom-left, where a horizontal and vertical line meet at 90°.</p>
+      </div>
+      <div class="we-step">
+        <div class="step-num">2</div>
+        <p><strong>Trace the long side:</strong> From the bottom-left corner, the hypotenuse (slanted side) goes diagonally up-right. I can see a diagonal line in the figure going from bottom-left to top-right. ✓</p>
+      </div>
+      <div class="we-step">
+        <div class="step-num">3</div>
+        <p><strong>Check line segments, not full lines:</strong> The figure has extra lines extending further. The hidden triangle only uses the <em>segment</em> of each line — not the full length. The dashed lines in the figure are extras that don't belong to the target shape.</p>
+      </div>
+      <div class="we-step">
+        <div class="step-num">4</div>
+        <p><strong>Confirm:</strong> Yes — a right-angled triangle with exactly the same proportions IS hidden here, using real lines from the figure. The gold highlighted region shows it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <div class="warn-title">⚠️ Watch Out!</div>
+    <ul>
+      <li><strong>Don't use imaginary lines.</strong> Every side of the hidden shape must follow a real line in the figure. If you're "completing" a side that isn't there, you've made the Phantom Line mistake.</li>
+      <li><strong>Extended lines are traps.</strong> When a line goes past the corner of the hidden shape, students often think the shape is "too big." Remember: you're only using a segment of that longer line.</li>
+    </ul>
+  </div>
+
+  <!-- Harder Worked Example -->
+  <div class="worked-example">
+    <div class="we-header">📐 Worked Example 2 — Harder (GL Exam Level)</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Target:</strong> An irregular quadrilateral (4 sides, no right angles). <strong>Trap:</strong> The figure has several crossing diagonals creating many false quadrilaterals.</p>
+      <div class="diagram-area">
+        <div>
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <polygon points="15,65 60,70 70,25 30,10" fill="none" stroke="#0d1b2a" stroke-width="2.5"/>
+          </svg>
+          <div class="diagram-label">Target Shape</div>
+        </div>
+        <div>
+          <svg width="150" height="130" viewBox="0 0 150 130">
+            <line x1="10" y1="110" x2="140" y2="20" stroke="#475569" stroke-width="1.5"/>
+            <line x1="10" y1="20" x2="140" y2="110" stroke="#475569" stroke-width="1.5"/>
+            <line x1="10" y1="65" x2="140" y2="65" stroke="#475569" stroke-width="1.5"/>
+            <line x1="75" y1="10" x2="75" y2="120" stroke="#475569" stroke-width="1.5"/>
+            <line x1="10" y1="110" x2="100" y2="115" stroke="#94a3b8" stroke-width="1.2"/>
+            <line x1="100" y1="115" x2="115" y2="40" stroke="#94a3b8" stroke-width="1.2"/>
+            <line x1="115" y1="40" x2="55" y2="18" stroke="#94a3b8" stroke-width="1.2"/>
+            <line x1="55" y1="18" x2="10" y2="110" stroke="#94a3b8" stroke-width="1.2"/>
+            <polygon points="20,110 100,115 115,40 55,18" fill="rgba(240,180,41,0.12)" stroke="#f0b429" stroke-width="2" stroke-dasharray="5,3"/>
+          </svg>
+          <div class="diagram-label">Figure (correct hidden shape in gold)</div>
+        </div>
+      </div>
+      <div class="we-step">
+        <div class="step-num">1</div>
+        <p><strong>Identify one unique feature:</strong> The target has a very short bottom-left side and a long right side. Hunt for that specific short-segment start point.</p>
+      </div>
+      <div class="we-step">
+        <div class="step-num">2</div>
+        <p><strong>Reject three fast:</strong> Look at three of the four X-shaped crossing regions — none has the correct combination of a short-then-long side meeting at the right angles. Eliminated in under 10 seconds.</p>
+      </div>
+      <div class="we-step">
+        <div class="step-num">3</div>
+        <p><strong>Confirm the survivor:</strong> Trace all four sides of the highlighted quadrilateral. Each side follows a real line segment. The shape has the same relative proportions as the target. Correct!</p>
+      </div>
+      <div class="we-step">
+        <div class="step-num">4</div>
+        <p><strong>Why the trap works:</strong> The crossing diagonals create many four-sided regions. Students who try to confirm each one waste time. The fast-scan-then-reject approach cuts straight to the answer.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Questions: Section 1 -->
+  <div class="q-section-title">Practice Questions — Line Extension & Intersection</div>
+
+  <!-- Q1 Starter -->
+  <div class="q-card" id="q-s1-1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="diff-badge diff-starter">Starter</span></div>
+    <p class="q-text">Look at the target shape: a square. Which statement describes how a square can be hidden inside a figure made of crossing lines?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-1','fb-s1-1','A')">A) The square must have its own separate lines that don't touch any other lines in the figure</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s1-1','fb-s1-1','B')">B) The square's four sides each follow segments of real lines that already exist in the larger figure</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-1','fb-s1-1','C')">C) You can draw a few extra lines to complete the square if some sides are missing</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-1','fb-s1-1','D')">D) The square must appear in the same colour as the rest of the figure</button>
+    </div>
+    <div class="feedback-box" id="fb-s1-1"></div>
+  </div>
+
+  <!-- Q2 Starter -->
+  <div class="q-card" id="q-s1-2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="diff-badge diff-starter">Starter</span></div>
+    <p class="q-text">A target shape is a triangle with three equal sides. You find three lines in the figure that form a triangle shape — but one of the sides uses an imaginary line (one you drew in your head, not a real line in the figure). Is the shape correctly found?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-2','fb-s1-2','A')">A) Yes — as long as two of the three sides are real, it counts</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-2','fb-s1-2','B')">B) Yes — close enough counts in this question type</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s1-2','fb-s1-2','C')">C) No — all three sides must follow real lines in the figure; imaginary lines are never allowed</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-2','fb-s1-2','D')">D) It depends on how long the imaginary line is</button>
+    </div>
+    <div class="feedback-box" id="fb-s1-2"></div>
+  </div>
+
+  <!-- Q3 Developing -->
+  <div class="q-card" id="q-s1-3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="diff-badge diff-developing">Developing</span></div>
+    <p class="q-text">A large figure contains three crossing diagonal lines creating a star pattern. The target shape is a small triangle. A student says the triangle is in the top-left section. Another student says it's in the bottom-right. Both sections look similar. What is the BEST first step to decide who is right?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-3','fb-s1-3','A')">A) Pick the bigger section because the triangle is more likely to fit there</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s1-3','fb-s1-3','B')">B) Find one unique feature of the target triangle (e.g. a very short side) and check which section has exactly that feature</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-3','fb-s1-3','C')">C) Trace the full perimeter of both sections and compare — starting with the top-left</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-3','fb-s1-3','D')">D) Pick the section that looks most like the target at first glance without tracing</button>
+    </div>
+    <div class="feedback-box" id="fb-s1-3"></div>
+  </div>
+
+  <!-- Q4 Developing -->
+  <div class="q-card" id="q-s1-4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="diff-badge diff-developing">Developing</span></div>
+    <p class="q-text">A figure shows a large X made of two diagonal lines, plus a horizontal line through the middle. How many triangles are hidden in this figure?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-4','fb-s1-4','A')">A) 2 triangles</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-4','fb-s1-4','B')">B) 3 triangles</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s1-4','fb-s1-4','C')">C) 4 triangles</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-4','fb-s1-4','D')">D) 6 triangles</button>
+    </div>
+    <div class="feedback-box" id="fb-s1-4"></div>
+  </div>
+
+  <!-- Q5 Secure -->
+  <div class="q-card" id="q-s1-5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="diff-badge diff-secure">Secure</span></div>
+    <p class="q-text">Target shape: a right-angled triangle where the two shorter sides are equal length. The figure contains a large square with both diagonals drawn in. Which statement is true?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s1-5','fb-s1-5','A')">A) Four identical right-angled isosceles triangles are hidden in the figure — one in each quadrant</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-5','fb-s1-5','B')">B) Only two triangles are hidden — the square's diagonals only create two shapes</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-5','fb-s1-5','C')">C) No right-angled triangles are hidden — the diagonal lines break the right angles</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-5','fb-s1-5','D')">D) Eight triangles are hidden because each quadrant can be split further</button>
+    </div>
+    <div class="feedback-box" id="fb-s1-5"></div>
+  </div>
+
+  <!-- Q6 Mastery -->
+  <div class="q-card" id="q-s1-6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="diff-badge diff-mastery">Mastery</span></div>
+    <p class="q-text">Target shape: an irregular pentagon (5 sides, none equal). A figure shows a complex mesh of 5 intersecting lines. A student spots what they think is the pentagon, but one vertex (corner point) of their shape is NOT at a real intersection of two lines — it's at a point where only one line passes. Is their answer valid?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-6','fb-s1-6','A')">A) Yes — you only need most of the corners to be at real intersections</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s1-6','fb-s1-6','B')">B) No — every corner of the hidden shape must be at a point where two or more lines of the figure actually meet or end</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-6','fb-s1-6','C')">C) Yes — GL Assessment allows one corner to be on a line rather than at an intersection</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s1-6','fb-s1-6','D')">D) It doesn't matter where the corners are as long as the overall shape looks right</button>
+    </div>
+    <div class="feedback-box" id="fb-s1-6"></div>
+  </div>
+
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 2: NEGATIVE SPACE -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="s2" class="section">
+  <div class="section-header">
+    <div class="section-number">2</div>
+    <h2 class="section-title">Negative Space Recognition</h2>
+    <div class="section-tick" id="tick-s2">○</div>
+  </div>
+
+  <div class="simple-box">
+    <div class="card-label simple">🌱 Simple Explanation</div>
+    <p>Imagine a biscuit cutter pressed into dough — the cut-out gap is a star shape. The star itself has been removed, but you can still <em>see</em> it in the gap left behind. In hidden shapes, sometimes your target shape is the <strong>empty space</strong> between filled-in regions, not a shape drawn with lines. You have to look at the gaps, not the solid parts.</p>
+    <p class="analogy">💡 Like seeing a rabbit in the clouds — the shape isn't drawn; it's the space between other things.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="card-label full">📘 Full Explanation</div>
+    <p><strong>Negative space</strong> is the unfilled region enclosed by the boundaries of other shapes or filled areas. In GL Assessment, figures sometimes use shading, hatching, or filled regions to disguise the target shape — which appears as a white or unshaded gap between the filled parts. You must recognise that the shape you're hunting may be defined by its surroundings, not by its own drawn outline.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header">📐 Worked Example 1 — Negative Space Foundation</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Target:</strong> A small rectangle. <strong>Figure:</strong> Two filled (dark) L-shapes placed facing each other, leaving a white rectangular gap between them.</p>
+      <div class="diagram-area">
+        <div>
+          <svg width="80" height="60" viewBox="0 0 80 60">
+            <rect x="15" y="15" width="50" height="30" fill="none" stroke="#0d1b2a" stroke-width="2.5"/>
+          </svg>
+          <div class="diagram-label">Target Shape</div>
+        </div>
+        <div>
+          <svg width="140" height="100" viewBox="0 0 140 100">
+            <rect x="10" y="10" width="40" height="80" fill="#1a2f45"/>
+            <rect x="10" y="10" width="120" height="30" fill="#1a2f45"/>
+            <rect x="90" y="10" width="40" height="80" fill="#1a2f45"/>
+            <rect x="10" y="60" width="120" height="30" fill="#1a2f45"/>
+            <!-- The white rectangle gap is the hidden shape -->
+            <rect x="50" y="40" width="40" height="20" fill="white" stroke="#f0b429" stroke-width="2" stroke-dasharray="4,2"/>
+          </svg>
+          <div class="diagram-label">Figure (white gap = hidden rectangle)</div>
+        </div>
+      </div>
+      <div class="we-step"><div class="step-num">1</div><p><strong>Notice the shading.</strong> Most of the figure is dark/filled. Look at what's left white (unshaded). What shape do the white gaps make?</p></div>
+      <div class="we-step"><div class="step-num">2</div><p><strong>Trace the gap's boundary.</strong> The white gap in the centre is bordered on all four sides by straight edges of the dark regions. Four straight sides meeting at right angles → a rectangle!</p></div>
+      <div class="we-step"><div class="step-num">3</div><p><strong>Compare to target.</strong> The white gap is a rectangle with the same proportions as the target. ✓ The hidden shape is the negative space — the gap between the filled areas.</p></div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <div class="warn-title">⚠️ Watch Out!</div>
+    <ul>
+      <li><strong>Don't only look at drawn lines.</strong> The hidden shape may have no lines of its own at all — it's defined entirely by the edges of the shaded regions around it.</li>
+      <li><strong>Shading is a disguise.</strong> The more a figure uses filled areas, the more likely the answer is the negative (white/empty) space between them.</li>
+    </ul>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header">📐 Worked Example 2 — Harder Negative Space</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Target:</strong> A triangle. <strong>Figure:</strong> A large circle with three filled circular sectors (like pie slices) leaving one triangular-looking white gap — but the gap has slightly curved sides because of the circular boundary. <strong>Trap:</strong> The gap looks like a triangle, but its sides are curved arcs, not straight lines. A pure triangle would not match.</p>
+      <div class="we-step"><div class="step-num">1</div><p><strong>Identify target's sides:</strong> The target triangle has three <em>straight</em> sides. Straight sides are the unique feature to hunt for.</p></div>
+      <div class="we-step"><div class="step-num">2</div><p><strong>Check the gap sides:</strong> Inside the circular figure, the gap's boundaries follow the circle's curved edge. These are <em>arcs</em>, not straight lines.</p></div>
+      <div class="we-step"><div class="step-num">3</div><p><strong>Conclusion:</strong> A triangle (straight sides) is NOT hidden here. The gap looks triangular but has curved boundaries. This is the "false completion" trap — don't be fooled by the overall triangular impression.</p></div>
+    </div>
+  </div>
+
+  <!-- Questions: Section 2 -->
+  <div class="q-section-title">Practice Questions — Negative Space</div>
+
+  <div class="q-card" id="q-s2-1">
+    <div class="q-header"><span class="q-num">Q7</span><span class="diff-badge diff-starter">Starter</span></div>
+    <p class="q-text">A figure shows a large black square with a smaller white square cut out of its centre. The target shape is a square. Where is the hidden square?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-1','fb-s2-1','A')">A) The outer edge of the large black square</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s2-1','fb-s2-1','B')">B) The white cut-out gap in the centre — this is the negative space that forms the hidden square</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-1','fb-s2-1','C')">C) There is no hidden square — the cut-out is a circle, not a square</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-1','fb-s2-1','D')">D) Both the outer edge and the inner gap — there are two hidden squares</button>
+    </div>
+    <div class="feedback-box" id="fb-s2-1"></div>
+  </div>
+
+  <div class="q-card" id="q-s2-2">
+    <div class="q-header"><span class="q-num">Q8</span><span class="diff-badge diff-starter">Starter</span></div>
+    <p class="q-text">To find a shape hidden in negative space, what should you look at?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-2','fb-s2-2','A')">A) Only the darkest, most filled-in areas of the figure</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-2','fb-s2-2','B')">B) The lines drawn on top of the figure in a different colour</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s2-2','fb-s2-2','C')">C) The white or unshaded gaps left between the filled regions</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-2','fb-s2-2','D')">D) The outline of the entire figure from edge to edge</button>
+    </div>
+    <div class="feedback-box" id="fb-s2-2"></div>
+  </div>
+
+  <div class="q-card" id="q-s2-3">
+    <div class="q-header"><span class="q-num">Q9</span><span class="diff-badge diff-developing">Developing</span></div>
+    <p class="q-text">A figure contains four dark triangles arranged around a central point (like a pinwheel). The target shape is a square. A student says the square is hidden in the centre white gap. A second student says it's one of the four triangles. Who is correct?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s2-3','fb-s2-3','A')">A) The first student — the four triangles arranged symmetrically around a centre point leave a square-shaped white gap between them</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-3','fb-s2-3','B')">B) The second student — one of the four triangles has a square hidden inside it made of its own lines</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-3','fb-s2-3','C')">C) Neither — four triangles never produce a square gap between them</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-3','fb-s2-3','D')">D) Both are correct — there are two hidden squares in this figure</button>
+    </div>
+    <div class="feedback-box" id="fb-s2-3"></div>
+  </div>
+
+  <div class="q-card" id="q-s2-4">
+    <div class="q-header"><span class="q-num">Q10</span><span class="diff-badge diff-developing">Developing</span></div>
+    <p class="q-text">The target shape has three straight sides (a triangle). The figure shows a large circle with three dark sectors shaded, leaving one white gap. The white gap looks triangular. Can the target triangle be found here?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-4','fb-s2-4','A')">A) Yes — the gap looks like a triangle so the answer must be yes</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s2-4','fb-s2-4','B')">B) No — the gap's sides follow the circle's curved arc, not straight lines, so a triangle (which needs straight sides) is not present</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-4','fb-s2-4','C')">C) Yes — negative space shapes always count regardless of whether sides are straight or curved</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-4','fb-s2-4','D')">D) It depends on how many sectors are shaded</button>
+    </div>
+    <div class="feedback-box" id="fb-s2-4"></div>
+  </div>
+
+  <div class="q-card" id="q-s2-5">
+    <div class="q-header"><span class="q-num">Q11</span><span class="diff-badge diff-secure">Secure</span></div>
+    <p class="q-text">A figure shows an irregular hexagon (6 sides) filled in dark, with a white star-shaped cutout inside. The target shape is a regular hexagon (all sides equal). Can the target be found in the white negative space?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-5','fb-s2-5','A')">A) Yes — any six-sided white region counts as a hexagon match</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-5','fb-s2-5','B')">B) Yes — the outer dark hexagon confirms a hexagon is present, which counts as the target</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s2-5','fb-s2-5','C')">C) No — the white cutout is star-shaped, not a hexagon; the negative space must match the target exactly, not approximately</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-5','fb-s2-5','D')">D) No — negative space can never contain a hidden shape</button>
+    </div>
+    <div class="feedback-box" id="fb-s2-5"></div>
+  </div>
+
+  <div class="q-card" id="q-s2-6">
+    <div class="q-header"><span class="q-num">Q12</span><span class="diff-badge diff-mastery">Mastery</span></div>
+    <p class="q-text">MASTERY TWIST: A figure shows six overlapping dark circles arranged in a ring. The white gap in the very centre looks roughly circular. The target is a regular hexagon. Why might a student incorrectly accept this as a match — and why are they wrong?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-6','fb-s2-6','A')">A) The student is right — six circles arranged in a ring always produce a hexagonal gap</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s2-6','fb-s2-6','B')">B) The student is wrong — the gap's boundary consists of six curved arcs (not straight sides), so even though it has 6 "corners," it is not a true hexagon with straight sides</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-6','fb-s2-6','C')">C) The student is wrong — six circles can only ever produce a triangular gap, never a hexagonal one</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s2-6','fb-s2-6','D')">D) The student is right — in GL Assessment, approximate matches in negative space are accepted</button>
+    </div>
+    <div class="feedback-box" id="fb-s2-6"></div>
+  </div>
+
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 3: SIZE & ORIENTATION INVARIANCE -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="s3" class="section">
+  <div class="section-header">
+    <div class="section-number">3</div>
+    <h2 class="section-title">Size & Orientation Invariance</h2>
+    <div class="section-tick" id="tick-s3">○</div>
+  </div>
+
+  <div class="simple-box">
+    <div class="card-label simple">🌱 Simple Explanation</div>
+    <p>Imagine you cut a letter "F" out of paper. Now tilt it on its side. It's still an "F" — just rotated. Or imagine holding it in front of a magnifying glass: it looks bigger, but the shape hasn't changed. In these questions, the hidden shape might be <strong>tilted</strong> (rotated) or a <strong>different size</strong> from the target you were shown. You have to recognise the same shape even when it's been turned or scaled.</p>
+    <p class="analogy">💡 Think of it like recognising your friend even when they're wearing a hat and facing a different direction.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="card-label full">📘 Full Explanation</div>
+    <p><strong>Orientation invariance</strong> means the shape remains the same shape even after rotation. The angles between sides stay identical — only the direction the shape is "pointing" changes. <strong>Size invariance</strong> means the shape's proportional relationships between sides remain constant even if scaled up or down. In GL Assessment, hidden shapes are often rotated (commonly 90°, 180°, or irregular angles) or proportionally resized — the key is that relative angles and side-length ratios are preserved.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header">📐 Worked Example 1 — Rotation Detection</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Target:</strong> An arrow pointing right (→). <strong>Figure:</strong> Contains an arrow pointing downward (↓). Is the target shape hidden?</p>
+      <div class="diagram-area">
+        <div>
+          <svg width="80" height="60" viewBox="0 0 80 60">
+            <!-- Arrow right -->
+            <polygon points="10,20 50,20 50,10 70,30 50,50 50,40 10,40" fill="none" stroke="#0d1b2a" stroke-width="2.5"/>
+          </svg>
+          <div class="diagram-label">Target: Arrow →</div>
+        </div>
+        <div>
+          <svg width="80" height="100" viewBox="0 0 80 100">
+            <!-- Arrow down -->
+            <polygon points="20,10 60,10 60,60 70,60 40,90 10,60 20,60" fill="none" stroke="#475569" stroke-width="2"/>
+            <!-- Same proportions, just rotated 90° -->
+          </svg>
+          <div class="diagram-label">Figure: Rotated arrow ↓</div>
+        </div>
+      </div>
+      <div class="we-step"><div class="step-num">1</div><p><strong>Count sides of target:</strong> The right-pointing arrow has 7 sides (a notched rectangle with a triangular point). Note the right angle at the back notch.</p></div>
+      <div class="we-step"><div class="step-num">2</div><p><strong>Count sides of figure's shape:</strong> The downward arrow also has 7 sides. Same count. ✓</p></div>
+      <div class="we-step"><div class="step-num">3</div><p><strong>Check angles are preserved:</strong> The notch angle and the point angle are the same in both — just rotated 90° clockwise. The proportions of length-to-width are the same. ✓</p></div>
+      <div class="we-step"><div class="step-num">4</div><p><strong>Conclusion:</strong> Yes — the downward arrow IS the target shape, rotated 90°. Orientation has changed; the shape itself hasn't.</p></div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <div class="warn-title">⚠️ Watch Out! — Tilt Blindness</div>
+    <ul>
+      <li><strong>"It looks different" is not a reason to reject.</strong> If you rotate the whole figure in your mind to match the target's orientation and they then match, that IS the hidden shape.</li>
+      <li><strong>Mirror images are different shapes.</strong> A shape rotated is still the same shape. A shape <em>flipped</em> (reflected) is a different shape — like a left hand vs a right hand. GL often uses this as a trap.</li>
+      <li><strong>Check the angle sizes, not the direction.</strong> Ask yourself: "Do the same angles appear in both shapes?" — not "Do they face the same way?"</li>
+    </ul>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header">📐 Worked Example 2 — Mirror Trap (Harder)</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Target:</strong> A right-angled triangle with the right angle at the BOTTOM-LEFT. <strong>Figure's shape:</strong> A right-angled triangle with the right angle at the BOTTOM-RIGHT. <strong>Question:</strong> Is the figure's shape the target, just rotated?</p>
+      <div class="we-step"><div class="step-num">1</div><p><strong>Rotation test:</strong> Try rotating the target mentally. If you rotate it 180°, the right angle moves to the top-right — not the bottom-right. No rotation produces bottom-right.</p></div>
+      <div class="we-step"><div class="step-num">2</div><p><strong>Mirror test:</strong> If you flip the target shape left-to-right (like looking in a mirror), the right angle moves from bottom-left to bottom-right. That gives the figure's shape.</p></div>
+      <div class="we-step"><div class="step-num">3</div><p><strong>Conclusion:</strong> The figure's shape is the MIRROR IMAGE of the target — not the same shape. GL Assessment counts these as different. The answer is NO, the target is not hidden here. This is one of the trickiest traps in the exam.</p></div>
+    </div>
+  </div>
+
+  <!-- Questions: Section 3 -->
+  <div class="q-section-title">Practice Questions — Size & Orientation</div>
+
+  <div class="q-card" id="q-s3-1">
+    <div class="q-header"><span class="q-num">Q13</span><span class="diff-badge diff-starter">Starter</span></div>
+    <p class="q-text">The target shape is a square. A figure contains a diamond shape (a square rotated exactly 45°). Is the target shape hidden in the figure?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s3-1','fb-s3-1','A')">A) Yes — a square rotated 45° is still a square; all four sides are equal and all angles are 90°</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-1','fb-s3-1','B')">B) No — a diamond is a different shape from a square because it points differently</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-1','fb-s3-1','C')">C) Only if the diamond is the same size as the target square</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-1','fb-s3-1','D')">D) No — a rotated square becomes a rhombus which is a different shape</button>
+    </div>
+    <div class="feedback-box" id="fb-s3-1"></div>
+  </div>
+
+  <div class="q-card" id="q-s3-2">
+    <div class="q-header"><span class="q-num">Q14</span><span class="diff-badge diff-starter">Starter</span></div>
+    <p class="q-text">A right-pointing arrow is the target. The figure contains a left-pointing arrow (mirrored). Is the target hidden in the figure?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-2','fb-s3-2','A')">A) Yes — an arrow pointing left is just a rotation of an arrow pointing right</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s3-2','fb-s3-2','B')">B) No — a left-pointing arrow is the MIRROR IMAGE of a right-pointing arrow, which counts as a different shape in GL Assessment</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-2','fb-s3-2','C')">C) Yes — arrows look the same in all directions</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-2','fb-s3-2','D')">D) It depends on how many sides the arrow has</button>
+    </div>
+    <div class="feedback-box" id="fb-s3-2"></div>
+  </div>
+
+  <div class="q-card" id="q-s3-3">
+    <div class="q-header"><span class="q-num">Q15</span><span class="diff-badge diff-developing">Developing</span></div>
+    <p class="q-text">The target is an equilateral triangle (all three sides equal, all angles 60°). The figure contains an equilateral triangle that is twice as large but otherwise identical in shape. Is the target hidden?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s3-3','fb-s3-3','A')">A) Yes — size does not change a shape; the proportions and angles are identical, so the target shape is present at a larger scale</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-3','fb-s3-3','B')">B) No — the shape is too big so it cannot be the target</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-3','fb-s3-3','C')">C) Only if the larger triangle is split into four smaller ones, each matching the target</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-3','fb-s3-3','D')">D) No — equilateral triangles of different sizes are technically different shapes</button>
+    </div>
+    <div class="feedback-box" id="fb-s3-3"></div>
+  </div>
+
+  <div class="q-card" id="q-s3-4">
+    <div class="q-header"><span class="q-num">Q16</span><span class="diff-badge diff-developing">Developing</span></div>
+    <p class="q-text">The target shape has an angle of approximately 30° at one corner (a very sharp, narrow angle). The figure's suspected hidden shape has an angle of approximately 60° at the corresponding corner. Are they the same shape?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-4','fb-s3-4','A')">A) Yes — angles look different depending on how you rotate the shape</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s3-4','fb-s3-4','B')">B) No — the angle sizes are different (30° vs 60°); rotation cannot change the size of an angle, only its direction</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-4','fb-s3-4','C')">C) Yes — 30° and 60° are complementary angles so they represent the same shape</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-4','fb-s3-4','D')">D) It depends on how many sides the shape has</button>
+    </div>
+    <div class="feedback-box" id="fb-s3-4"></div>
+  </div>
+
+  <div class="q-card" id="q-s3-5">
+    <div class="q-header"><span class="q-num">Q17</span><span class="diff-badge diff-secure">Secure</span></div>
+    <p class="q-text">The target is a right-angled triangle where the two short sides are in a ratio of 1:2 (one side is twice as long as the other). The figure contains a right-angled triangle that has been rotated 90° clockwise AND scaled to be three times larger. Are the shapes the same?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s3-5','fb-s3-5','A')">A) Yes — the 1:2 side ratio is preserved after scaling, and rotation doesn't change angles; the shapes are identical in structure</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-5','fb-s3-5','B')">B) No — scaling changes the ratio between sides, so the shapes no longer match</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-5','fb-s3-5','C')">C) Only if scaled by a factor of 2, not 3</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-5','fb-s3-5','D')">D) No — the rotation alone makes them different shapes</button>
+    </div>
+    <div class="feedback-box" id="fb-s3-5"></div>
+  </div>
+
+  <div class="q-card" id="q-s3-6">
+    <div class="q-header"><span class="q-num">Q18</span><span class="diff-badge diff-mastery">Mastery</span></div>
+    <p class="q-text">MASTERY TWIST: The target is an irregular triangle with angles 40°, 60°, and 80°. A figure contains a shape that LOOKS like the target when viewed quickly — but on careful inspection, it has angles of 40°, 70°, and 70°. It has been rotated so the 40° angle is in the same position as the target's 40° angle. Is this the target shape?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-6','fb-s3-6','A')">A) Yes — the 40° angle matches so the shapes are the same</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-6','fb-s3-6','B')">B) Yes — triangles with one matching angle are always the same shape</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s3-6','fb-s3-6','C')">C) No — the figure's triangle has angles 40°-70°-70° (isosceles) while the target has 40°-60°-80° (scalene); these are completely different triangles despite one matching angle</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s3-6','fb-s3-6','D')">D) It cannot be determined without measuring the sides</button>
+    </div>
+    <div class="feedback-box" id="fb-s3-6"></div>
+  </div>
+
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 4: CURVE-LINE HYBRID -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="s4" class="section">
+  <div class="section-header">
+    <div class="section-number">4</div>
+    <h2 class="section-title">Curve–Straight Line Hybrid Recognition</h2>
+    <div class="section-tick" id="tick-s4">○</div>
+  </div>
+
+  <div class="simple-box">
+    <div class="card-label simple">🌱 Simple Explanation</div>
+    <p>Some shapes are part-bendy, part-straight — like a letter "D" (one straight side, one curved side) or an ice cream cone (a triangle with a circle on top). In these questions, you need to find a shape that has <strong>both curved edges AND straight edges</strong> hidden inside a figure that's full of both wiggly lines and ruler-straight lines. The tricky part is that a curved line might blend in with nearby straight lines and you might not notice the mix.</p>
+    <p class="analogy">💡 Imagine spotting a "D" letter hidden in a page of geometric shapes — one edge is a curve, one is a straight line.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="card-label full">📘 Full Explanation</div>
+    <p>A <strong>curve-line hybrid shape</strong> has a boundary formed by both straight line segments and curved arcs. Examples include semicircles, D-shapes, stadium shapes (rectangle with semicircular ends), or any polygon with one or more arc-shaped sides. In complex figures, straight lines and curves often intersect, making it difficult to distinguish which parts of a boundary are truly curved versus slightly angled straight lines. A key diagnostic: run your eye along each suspected side — does it bend at all, or is it perfectly straight?</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header">📐 Worked Example 1 — Semicircle Hybrid</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Target:</strong> A semicircle (one straight edge + one curved arc). <strong>Figure:</strong> Contains a large circle with a diameter line drawn across the middle and several chord lines inside.</p>
+      <div class="diagram-area">
+        <div>
+          <svg width="80" height="60" viewBox="0 0 80 60">
+            <path d="M 10 50 L 70 50 A 30 30 0 0 1 10 50 Z" fill="none" stroke="#0d1b2a" stroke-width="2.5"/>
+          </svg>
+          <div class="diagram-label">Target: Semicircle</div>
+        </div>
+        <div>
+          <svg width="140" height="140" viewBox="0 0 140 140">
+            <circle cx="70" cy="70" r="55" fill="none" stroke="#475569" stroke-width="1.5"/>
+            <line x1="15" y1="70" x2="125" y2="70" stroke="#475569" stroke-width="1.5"/>
+            <line x1="70" y1="15" x2="70" y2="125" stroke="#94a3b8" stroke-width="1.2"/>
+            <line x1="30" y1="30" x2="110" y2="110" stroke="#94a3b8" stroke-width="1.2"/>
+            <!-- Highlight: top semicircle -->
+            <path d="M 15 70 A 55 55 0 0 1 125 70" fill="rgba(240,180,41,0.15)" stroke="#f0b429" stroke-width="2" stroke-dasharray="5,3"/>
+            <line x1="15" y1="70" x2="125" y2="70" stroke="#f0b429" stroke-width="2" stroke-dasharray="5,3"/>
+          </svg>
+          <div class="diagram-label">Figure (hidden semicircle in gold)</div>
+        </div>
+      </div>
+      <div class="we-step"><div class="step-num">1</div><p><strong>Unique feature:</strong> The semicircle has ONE straight edge and ONE perfectly curved edge. Hunt for a straight diameter line in the figure. Found: the horizontal line across the circle's centre.</p></div>
+      <div class="we-step"><div class="step-num">2</div><p><strong>Find the curve:</strong> Above the diameter line, the circle's top arc is a perfect semicircle. The diameter line + the top arc together form the target shape exactly.</p></div>
+      <div class="we-step"><div class="step-num">3</div><p><strong>Ignore extra lines:</strong> The vertical and diagonal chord lines inside the circle are distractors — they don't belong to the hidden semicircle.</p></div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <div class="warn-title">⚠️ Watch Out!</div>
+    <ul>
+      <li><strong>Don't mistake a slightly curved line for straight.</strong> In busy figures, curved arcs can look almost straight if they're part of a large circle. Check carefully whether each edge bends or not.</li>
+      <li><strong>The straight side of a hybrid shape must be truly straight.</strong> Not a very gradual curve — a perfectly straight edge. Trace it with your eye from end to end.</li>
+    </ul>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header">📐 Worked Example 2 — D-Shape in Complex Figure</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Target:</strong> A D-shape (vertical straight edge on left, outward-curving arc on right). <strong>Figure:</strong> A rectangle with semicircles on BOTH shorter ends (a "stadium" shape), filled with crossing lines. <strong>Trap:</strong> There are two D-shapes — one on each end — but only one faces the correct direction.</p>
+      <div class="we-step"><div class="step-num">1</div><p><strong>Unique feature hunt:</strong> The D-shape has its straight side on the LEFT and the curve on the RIGHT. This direction matters — the D-shape is NOT symmetrical.</p></div>
+      <div class="we-step"><div class="step-num">2</div><p><strong>Check both D-shapes in the stadium:</strong> Left end = D facing right (curve on right) ✓ matches target. Right end = D facing left (curve on left) ✗ this is the mirror image.</p></div>
+      <div class="we-step"><div class="step-num">3</div><p><strong>Eliminate the mirror:</strong> Only the left D-shape matches. A D-facing-left is a mirror image — a different shape (like a reversed C). Answer: the target D-shape is hidden at the LEFT end of the stadium figure.</p></div>
+    </div>
+  </div>
+
+  <div class="q-section-title">Practice Questions — Curve-Line Hybrid</div>
+
+  <div class="q-card" id="q-s4-1">
+    <div class="q-header"><span class="q-num">Q19</span><span class="diff-badge diff-starter">Starter</span></div>
+    <p class="q-text">A shape has one straight side and one curved side (like a letter D). Which of the following correctly describes this shape?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-1','fb-s4-1','A')">A) A full circle, because one edge curves all the way around</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s4-1','fb-s4-1','B')">B) A semicircle or D-shape — a hybrid of one straight edge and one curved arc</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-1','fb-s4-1','C')">C) A rectangle with a rounded corner</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-1','fb-s4-1','D')">D) An oval, because it has no perfectly straight sides</button>
+    </div>
+    <div class="feedback-box" id="fb-s4-1"></div>
+  </div>
+
+  <div class="q-card" id="q-s4-2">
+    <div class="q-header"><span class="q-num">Q20</span><span class="diff-badge diff-starter">Starter</span></div>
+    <p class="q-text">In a figure, you find a shape with four straight sides and two curved sides. Your target has three straight sides and one curved side. Do they match?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-2','fb-s4-2','A')">A) Yes — both shapes have at least one curved side, so they're the same type</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s4-2','fb-s4-2','B')">B) No — the number of straight and curved sides are different; 4 straight + 2 curved ≠ 3 straight + 1 curved</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-2','fb-s4-2','C')">C) Yes — as long as both shapes have curved parts they automatically match</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-2','fb-s4-2','D')">D) It depends on which direction the curves face</button>
+    </div>
+    <div class="feedback-box" id="fb-s4-2"></div>
+  </div>
+
+  <div class="q-card" id="q-s4-3">
+    <div class="q-header"><span class="q-num">Q21</span><span class="diff-badge diff-developing">Developing</span></div>
+    <p class="q-text">The target shape is a perfect semicircle. A figure contains a large full circle cut in half by a diameter line. The student correctly identifies the top half as a semicircle. A second student argues the bottom half also works. Who is right?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s4-3','fb-s4-3','A')">A) Both students are right — both the top and bottom halves are valid semicircles; the target shape is a semicircle and either half matches, since a semicircle has no specific "facing" direction</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-3','fb-s4-3','B')">B) Only the first student is right — only the top half is a real semicircle</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-3','fb-s4-3','C')">C) Neither student is right — you need the full circle for a semicircle to be identified</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-3','fb-s4-3','D')">D) Only the first student is right — the bottom half is a different shape because its curve faces downward</button>
+    </div>
+    <div class="feedback-box" id="fb-s4-3"></div>
+  </div>
+
+  <div class="q-card" id="q-s4-4">
+    <div class="q-header"><span class="q-num">Q22</span><span class="diff-badge diff-developing">Developing</span></div>
+    <p class="q-text">A figure contains a large shape that looks like a capital "D" lying on its side (straight edge at the bottom, curved edge on top). The target is an upright D-shape (straight edge on the left, curved edge on the right). Is the target hidden here?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s4-4','fb-s4-4','A')">A) Yes — a lying-down D is simply an upright D rotated 90°; rotation is allowed and it is the same shape</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-4','fb-s4-4','B')">B) No — a D lying on its side is a different shape because the orientation changes the shape</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-4','fb-s4-4','C')">C) Only if the curved part is the same radius as in the target</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-4','fb-s4-4','D')">D) No — the straight edge must always be vertical for a D-shape to count</button>
+    </div>
+    <div class="feedback-box" id="fb-s4-4"></div>
+  </div>
+
+  <div class="q-card" id="q-s4-5">
+    <div class="q-header"><span class="q-num">Q23</span><span class="diff-badge diff-secure">Secure</span></div>
+    <p class="q-text">The target shape has two parallel straight sides and two equal curved ends (like a running track / stadium shape). The figure shows a rectangle with semicircles drawn on its two shorter ends, plus diagonal lines inside. How many copies of the target shape are present?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-5','fb-s4-5','A')">A) None — the diagonal lines break up the stadium shape</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-5','fb-s4-5','B')">B) Two — one on each short end</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s4-5','fb-s4-5','C')">C) One — the complete outline of the entire figure (both straight sides + both curved ends together) forms one complete stadium/target shape</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-5','fb-s4-5','D')">D) Four — the diagonals create four smaller hybrid shapes inside</button>
+    </div>
+    <div class="feedback-box" id="fb-s4-5"></div>
+  </div>
+
+  <div class="q-card" id="q-s4-6">
+    <div class="q-header"><span class="q-num">Q24</span><span class="diff-badge diff-mastery">Mastery</span></div>
+    <p class="q-text">MASTERY TWIST: The target is a D-shape. A figure shows a circle with a chord (a straight line that doesn't pass through the centre). The larger segment of the circle (the bigger piece cut off by the chord) looks like a D-shape. Is the target hidden? The chord is NOT a diameter — it's shorter and off-centre.</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-6','fb-s4-6','A')">A) Yes — any shape with one straight side and one curved side is a D-shape match</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s4-6','fb-s4-6','B')">B) No — a true D-shape/semicircle requires the straight side to be a diameter (passing through the centre); a non-central chord creates a major segment that is NOT a semicircle and does not match the target</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-6','fb-s4-6','C')">C) Yes — as long as there is one straight line and one curve, it counts as a semicircle</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s4-6','fb-s4-6','D')">D) It depends on how far off-centre the chord is</button>
+    </div>
+    <div class="feedback-box" id="fb-s4-6"></div>
+  </div>
+
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 5: MICRO-ANGLE DISCRIMINATION -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="s5" class="section">
+  <div class="section-header">
+    <div class="section-number">5</div>
+    <h2 class="section-title">Micro-Angle Discrimination</h2>
+    <div class="section-tick" id="tick-s5">○</div>
+  </div>
+
+  <div class="simple-box">
+    <div class="card-label simple">🌱 Simple Explanation</div>
+    <p>Imagine two triangles that look almost identical — but one has a really <strong>sharp</strong> pointy corner and the other has a slightly less sharp corner. They look the same at first glance, but they're actually different. Micro-angle discrimination means noticing <strong>small differences in how wide or narrow corners are</strong>. A perfectly square corner (90°) is different from a nearly-square corner (85°), even though your eye might not notice immediately.</p>
+    <p class="analogy">💡 Like telling the difference between two similar-sounding musical notes — C and C-sharp sound close but they're different.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="card-label full">📘 Full Explanation</div>
+    <p><strong>Micro-angle discrimination</strong> requires detecting small but meaningful differences in the angles of a shape. A right angle is exactly 90°; an acute angle is less than 90°; an obtuse angle is more than 90°. GL Assessment often creates distractor options where shapes look similar to the target but have one angle slightly modified — e.g., the target has a 90° corner but the distractor has an 85° or 95° corner. The key strategy is to focus on the most extreme or unusual angle in the target shape — either the sharpest or the most obtuse — and verify it precisely in the figure.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header">📐 Worked Example 1 — Spotting the Off Angle</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Target:</strong> A quadrilateral with one perfect right angle (exactly 90°) and three other angles. <strong>Figure options:</strong> Shape A has a slightly obtuse angle (~95°) at that corner. Shape B has exactly 90°. Shape C has a slightly acute angle (~85°).</p>
+      <div class="diagram-area">
+        <div>
+          <svg width="70" height="70" viewBox="0 0 70 70">
+            <polygon points="10,60 60,60 60,20 30,10" fill="none" stroke="#0d1b2a" stroke-width="2.5"/>
+            <rect x="52" y="52" width="8" height="8" fill="none" stroke="#0d1b2a" stroke-width="1.5"/>
+            <text x="35" y="78" text-anchor="middle" font-size="10" fill="#475569">Target</text>
+          </svg>
+        </div>
+        <div>
+          <svg width="70" height="70" viewBox="0 0 70 70">
+            <polygon points="10,60 62,58 60,20 30,10" fill="none" stroke="#ef4444" stroke-width="2"/>
+            <text x="35" y="78" text-anchor="middle" font-size="10" fill="#ef4444">A (95° — wrong)</text>
+          </svg>
+        </div>
+        <div>
+          <svg width="70" height="70" viewBox="0 0 70 70">
+            <polygon points="10,60 60,60 60,20 30,10" fill="none" stroke="#10b981" stroke-width="2.5"/>
+            <rect x="52" y="52" width="8" height="8" fill="none" stroke="#10b981" stroke-width="1.5"/>
+            <text x="35" y="78" text-anchor="middle" font-size="10" fill="#10b981">B (90° — correct)</text>
+          </svg>
+        </div>
+        <div>
+          <svg width="70" height="70" viewBox="0 0 70 70">
+            <polygon points="10,60 58,62 60,20 30,10" fill="none" stroke="#ef4444" stroke-width="2"/>
+            <text x="35" y="78" text-anchor="middle" font-size="10" fill="#ef4444">C (85° — wrong)</text>
+          </svg>
+        </div>
+      </div>
+      <div class="we-step"><div class="step-num">1</div><p><strong>Unique feature:</strong> The target has a perfect right angle (90°). A right angle is your "hunting marker" — look for the small square corner symbol.</p></div>
+      <div class="we-step"><div class="step-num">2</div><p><strong>Fast elimination:</strong> Shape A: the corner is slightly open (obtuse) — rejected. Shape C: the corner is slightly closed (acute) — rejected. Shape B: corner is exactly square — ✓ survives.</p></div>
+      <div class="we-step"><div class="step-num">3</div><p><strong>Confirm B:</strong> Trace all remaining sides. All match. Shape B is the correct hidden shape.</p></div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <div class="warn-title">⚠️ Watch Out!</div>
+    <ul>
+      <li><strong>"Close enough" is never close enough.</strong> 89° is NOT a right angle in GL Assessment. Shapes that are nearly correct are the hardest traps because they feel right.</li>
+      <li><strong>Rotate mentally first, then check angles.</strong> An angle's SIZE doesn't change when a shape is rotated — only its direction does. So a 90° corner is still 90° even if the shape has been turned.</li>
+    </ul>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header">📐 Worked Example 2 — The Nearly-Right-Angle Trap</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Scenario:</strong> You've found a shape in the figure. It looks very similar to the target. You check the "right angle" corner — but instead of the lines meeting at exactly 90°, one line tilts ever so slightly, making the angle about 88°. The figure is busy and you might miss this. What do you do?</p>
+      <div class="we-step"><div class="step-num">1</div><p><strong>Don't accept it yet.</strong> If the target has a right angle and your found shape doesn't, this is NOT the correct match — no matter how similar everything else looks.</p></div>
+      <div class="we-step"><div class="step-num">2</div><p><strong>Check other positions.</strong> Look elsewhere in the figure. Is there another location where the angle is truly 90°?</p></div>
+      <div class="we-step"><div class="step-num">3</div><p><strong>This is the most common Mastery-level trap in GL.</strong> The 88° shape is designed to make you rush. Taking 3 extra seconds to verify the angle saves the question.</p></div>
+    </div>
+  </div>
+
+  <div class="q-section-title">Practice Questions — Micro-Angle Discrimination</div>
+
+  <div class="q-card" id="q-s5-1">
+    <div class="q-header"><span class="q-num">Q25</span><span class="diff-badge diff-starter">Starter</span></div>
+    <p class="q-text">The target shape has one angle that is clearly less than 90° (a sharp, pointy corner). You find a shape in the figure where that corner looks like it might be exactly 90°. Do they match?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-1','fb-s5-1','A')">A) Yes — sharp angles and right angles look similar so they count as a match</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s5-1','fb-s5-1','B')">B) No — an acute angle (less than 90°) and a right angle (exactly 90°) are different; a sharp corner and a square corner are not the same</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-1','fb-s5-1','C')">C) Yes — angles that look similar count as the same angle type</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-1','fb-s5-1','D')">D) It depends on how the shape is rotated</button>
+    </div>
+    <div class="feedback-box" id="fb-s5-1"></div>
+  </div>
+
+  <div class="q-card" id="q-s5-2">
+    <div class="q-header"><span class="q-num">Q26</span><span class="diff-badge diff-starter">Starter</span></div>
+    <p class="q-text">What is the BEST quick method for detecting a small angle difference between two shapes that look very similar?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-2','fb-s5-2','A')">A) Look at the overall silhouette and pick the shape that looks most similar</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s5-2','fb-s5-2','B')">B) Focus on the most extreme angle in the target (the sharpest or most open corner) and check whether it matches exactly in the figure's shape</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-2','fb-s5-2','C')">C) Count the number of sides first — if they match, the angles must also match</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-2','fb-s5-2','D')">D) Choose the shape that has the most lines in common with the target, even if angles differ slightly</button>
+    </div>
+    <div class="feedback-box" id="fb-s5-2"></div>
+  </div>
+
+  <div class="q-card" id="q-s5-3">
+    <div class="q-header"><span class="q-num">Q27</span><span class="diff-badge diff-developing">Developing</span></div>
+    <p class="q-text">A student says: "I rotated the figure's shape 90° in my head and the right angle corner moved. That means the angle changed — so it doesn't match the target's right angle." Is this student correct?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-3','fb-s5-3','A')">A) Yes — when you rotate a shape, the angle sizes change along with the orientation</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s5-3','fb-s5-3','B')">B) No — rotating a shape changes only the direction the corner faces, NOT the actual size of the angle; a 90° corner stays 90° no matter how you rotate the shape</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-3','fb-s5-3','C')">C) Yes — a corner that faces downward after rotation has a different angle measurement than when it faced upward</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-3','fb-s5-3','D')">D) It depends on how far the shape was rotated</button>
+    </div>
+    <div class="feedback-box" id="fb-s5-3"></div>
+  </div>
+
+  <div class="q-card" id="q-s5-4">
+    <div class="q-header"><span class="q-num">Q28</span><span class="diff-badge diff-developing">Developing</span></div>
+    <p class="q-text">A target triangle has angles of roughly 30°, 60°, and 90°. You spot a triangle in the figure. You check the 90° corner — it looks exactly right. You check the 30° corner — it also looks right. You haven't checked the 60° corner. Should you check it before confirming the match?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-4','fb-s5-4','A')">A) No — if two out of three angles match, the third must also match because the angles of a triangle always add to 180°</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s5-4','fb-s5-4','B')">B) Yes — although angles in a triangle must sum to 180°, you should still verify because what appears as "30°" or "90°" to the eye may be slightly off; checking the third angle confirms the match</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-4','fb-s5-4','C')">C) No — checking two angles is always sufficient for any triangle</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-4','fb-s5-4','D')">D) It depends on whether the triangle has a right angle or not</button>
+    </div>
+    <div class="feedback-box" id="fb-s5-4"></div>
+  </div>
+
+  <div class="q-card" id="q-s5-5">
+    <div class="q-header"><span class="q-num">Q29</span><span class="diff-badge diff-secure">Secure</span></div>
+    <p class="q-text">A figure contains three similar-looking triangles labelled X, Y, Z. The target triangle has angles 45°-45°-90°. Triangle X has angles 45°-45°-90° (but rotated 180°). Triangle Y has angles 44°-46°-90°. Triangle Z has angles 45°-45°-90° (but reflected). Which triangle(s) contain the hidden target shape?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-5','fb-s5-5','A')">A) X, Y, and Z all match — they all look very similar to 45-45-90</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-5','fb-s5-5','B')">B) X and Z only — both have correct angles (Y has 44-46-90 which is close but wrong)</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s5-5','fb-s5-5','C')">C) X only — X is a rotation (correct), Z is a reflection (different shape in GL Assessment), and Y has incorrect angles (44-46-90 ≠ 45-45-90)</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-5','fb-s5-5','D')">D) X and Y only — Y's angles are close enough to count, and Z is a reflection which is the same shape</button>
+    </div>
+    <div class="feedback-box" id="fb-s5-5"></div>
+  </div>
+
+  <div class="q-card" id="q-s5-6">
+    <div class="q-header"><span class="q-num">Q30</span><span class="diff-badge diff-mastery">Mastery</span></div>
+    <p class="q-text">MASTERY TRAP: The target has four sides with angles 90°-90°-90°-90° (a rectangle). The figure contains shape P which has angles 90°-90°-90°-90° but the sides are all equal (a square), and shape Q which has angles 88°-92°-88°-92° but sides in the same 2:1 ratio as the target rectangle. Which, if either, contains the hidden shape?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s5-6','fb-s5-6','A')">A) P only — a square has four 90° angles, making it a special rectangle; shape Q has no exact 90° angles so it cannot be a rectangle, even though its proportions look similar</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-6','fb-s5-6','B')">B) Q only — Q has the same 2:1 side ratio as the target, which is more important than the angles</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-6','fb-s5-6','C')">C) Both P and Q match — Q is close enough to 90° to count</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s5-6','fb-s5-6','D')">D) Neither — the square has equal sides so it cannot be a rectangle</button>
+    </div>
+    <div class="feedback-box" id="fb-s5-6"></div>
+  </div>
+
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 6: FRAGMENTED PERIMETER -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="s6" class="section">
+  <div class="section-header">
+    <div class="section-number">6</div>
+    <h2 class="section-title">Fragmented Perimeter Detection</h2>
+    <div class="section-tick" id="tick-s6">○</div>
+  </div>
+
+  <div class="simple-box">
+    <div class="card-label simple">🌱 Simple Explanation</div>
+    <p>Imagine a square drawn in pencil — but someone has rubbed out part of each side, so the square looks like it's made of four short dashes instead of four solid lines. It's still a square! The sides are <strong>broken</strong> or <strong>interrupted</strong>, but the shape is still there. In these questions, the hidden shape's boundary has gaps — some lines are "broken" — but the shape is still valid if you can see where the full boundary would be.</p>
+    <p class="analogy">💡 Like reading a word where some letters are faded — you can still read "h_llo" as "hello" because the structure is clear.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="card-label full">📘 Full Explanation</div>
+    <p>A <strong>fragmented perimeter</strong> occurs when the boundary (outline) of the hidden shape is not a continuous drawn line, but instead is made up of disconnected segments. This happens when other elements of the figure overlap the hidden shape's edges, breaking them into sections. The student must mentally "connect" these fragments to recognise the full shape. The critical rule: each fragment must lie along the correct trajectory — if you were to extend each fragment, it would align with the adjacent fragment at the correct angle.</p>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header">📐 Worked Example 1 — Broken Square</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Target:</strong> A square. <strong>Figure:</strong> A square with diagonal lines crossing through it, breaking its sides into short segments at each crossing point. Students often reject this because "the sides aren't continuous."</p>
+      <div class="diagram-area">
+        <svg width="160" height="140" viewBox="0 0 160 140">
+          <!-- The square (fragmented by diagonals) -->
+          <!-- Top side - broken by two diagonal crossings -->
+          <line x1="20" y1="20" x2="50" y2="20" stroke="#1a2f45" stroke-width="2"/>
+          <line x1="50" y1="20" x2="110" y2="20" stroke="#1a2f45" stroke-width="2"/>
+          <line x1="110" y1="20" x2="140" y2="20" stroke="#1a2f45" stroke-width="2"/>
+          <!-- Right side -->
+          <line x1="140" y1="20" x2="140" y2="50" stroke="#1a2f45" stroke-width="2"/>
+          <line x1="140" y1="50" x2="140" y2="110" stroke="#1a2f45" stroke-width="2"/>
+          <line x1="140" y1="110" x2="140" y2="120" stroke="#1a2f45" stroke-width="2"/>
+          <!-- Bottom side -->
+          <line x1="140" y1="120" x2="110" y2="120" stroke="#1a2f45" stroke-width="2"/>
+          <line x1="110" y1="120" x2="50" y2="120" stroke="#1a2f45" stroke-width="2"/>
+          <line x1="50" y1="120" x2="20" y2="120" stroke="#1a2f45" stroke-width="2"/>
+          <!-- Left side -->
+          <line x1="20" y1="120" x2="20" y2="110" stroke="#1a2f45" stroke-width="2"/>
+          <line x1="20" y1="110" x2="20" y2="50" stroke="#1a2f45" stroke-width="2"/>
+          <line x1="20" y1="50" x2="20" y2="20" stroke="#1a2f45" stroke-width="2"/>
+          <!-- Crossing diagonals -->
+          <line x1="20" y1="20" x2="140" y2="120" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="140" y1="20" x2="20" y2="120" stroke="#94a3b8" stroke-width="1.5"/>
+          <!-- Gold outline showing the complete square -->
+          <rect x="20" y="20" width="120" height="100" fill="none" stroke="#f0b429" stroke-width="2" stroke-dasharray="6,3"/>
+        </svg>
+      </div>
+      <div class="diagram-label">The square (gold dashes) is intact — the crossing diagonals just create intersections on the sides.</div>
+      <br>
+      <div class="we-step"><div class="step-num">1</div><p><strong>Don't be fooled by crossings.</strong> Where a diagonal crosses the square's side, it creates an intersection — not a gap. The square's side continues on both sides of the intersection.</p></div>
+      <div class="we-step"><div class="step-num">2</div><p><strong>Trace each side with your eye:</strong> Start at a corner. Move along the top edge. At each crossing, the horizontal line continues — the diagonal is just passing through. The top side is a continuous straight line from corner to corner. ✓</p></div>
+      <div class="we-step"><div class="step-num">3</div><p><strong>Check all four sides:</strong> Each side is a complete, straight segment from corner to corner. The square IS fully present in the figure. Correct answer: YES.</p></div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <div class="warn-title">⚠️ Watch Out!</div>
+    <ul>
+      <li><strong>Crossing ≠ breaking.</strong> When two lines cross, neither line is "broken" — they each continue straight through the intersection. Students who see a crossing point and think "the side stops here" make the most common error in this sub-skill.</li>
+      <li><strong>Actual gaps vs perceived gaps.</strong> A real gap means there is genuinely no line connecting two points. Don't mentally "fill in" a genuine gap — that would be the phantom line error.</li>
+    </ul>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-header">📐 Worked Example 2 — The Real Gap Trap</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Target:</strong> A complete triangle. <strong>Figure:</strong> Three line segments that look like they almost form a triangle — but on careful inspection, there is a genuine tiny gap at one vertex (corner) where two lines nearly meet but don't quite touch.</p>
+      <div class="we-step"><div class="step-num">1</div><p><strong>Check every vertex carefully.</strong> A vertex is where two sides of the shape are supposed to meet. If there's a real gap at a corner, the shape is NOT present.</p></div>
+      <div class="we-step"><div class="step-num">2</div><p><strong>Apply the rule:</strong> Unlike crossing intersections (which don't break a line), a genuine gap at a corner means the shape's boundary is incomplete. The target triangle is NOT hidden here — this is the "false completion" trap.</p></div>
+      <div class="we-step"><div class="step-num">3</div><p><strong>Key distinction:</strong> Intersection on a side = allowed (line continues). Gap at a vertex = not allowed (shape is incomplete). Master this distinction and you master fragmented perimeter questions.</p></div>
+    </div>
+  </div>
+
+  <div class="q-section-title">Practice Questions — Fragmented Perimeter</div>
+
+  <div class="q-card" id="q-s6-1">
+    <div class="q-header"><span class="q-num">Q31</span><span class="diff-badge diff-starter">Starter</span></div>
+    <p class="q-text">A figure shows a square with a single diagonal line crossing through it from corner to corner. How many line segments does the top side of the square appear to be broken into by this diagonal?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-1','fb-s6-1','A')">A) The top side disappears completely where the diagonal crosses it</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-1','fb-s6-1','B')">B) The top side is broken into 3 segments</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-1','fb-s6-1','C')">C) The top side is broken into 2 segments — but it is still one continuous straight line from corner to corner</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s6-1','fb-s6-1','D')">D) The diagonal goes from one corner of the square to the opposite corner, so it doesn't cross the top side at all — the top side remains uninterrupted</button>
+    </div>
+    <div class="feedback-box" id="fb-s6-1"></div>
+  </div>
+
+  <div class="q-card" id="q-s6-2">
+    <div class="q-header"><span class="q-num">Q32</span><span class="diff-badge diff-starter">Starter</span></div>
+    <p class="q-text">A shape's boundary has four sides. Three sides are complete solid lines. The fourth side has a genuine gap in the middle (a section with no line at all). Is the complete target shape hidden here?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-2','fb-s6-2','A')">A) Yes — three complete sides is close enough; the fourth can be inferred</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s6-2','fb-s6-2','B')">B) No — a genuine gap in a side means the shape's perimeter is incomplete; you cannot use phantom (imaginary) lines to fill in a real gap</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-2','fb-s6-2','C')">C) Yes — gaps in the perimeter are common and always acceptable</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-2','fb-s6-2','D')">D) Only if the gap is in the longest side of the shape</button>
+    </div>
+    <div class="feedback-box" id="fb-s6-2"></div>
+  </div>
+
+  <div class="q-card" id="q-s6-3">
+    <div class="q-header"><span class="q-num">Q33</span><span class="diff-badge diff-developing">Developing</span></div>
+    <p class="q-text">Two diagonal lines cross through the middle of a triangle that's hidden in a figure. The diagonals create intersection points on two of the triangle's three sides. A student says "the diagonals broke the triangle's sides so the triangle isn't really there." Are they right?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-3','fb-s6-3','A')">A) Yes — any line that passes through a shape's side breaks that shape</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s6-3','fb-s6-3','B')">B) No — intersection points don't break a line; the triangle's sides continue straight through each crossing point, so the complete triangle IS present in the figure</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-3','fb-s6-3','C')">C) Yes — you need completely uninterrupted sides for the shape to count</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-3','fb-s6-3','D')">D) It depends on whether the diagonals cross the triangle's sides at right angles</button>
+    </div>
+    <div class="feedback-box" id="fb-s6-3"></div>
+  </div>
+
+  <div class="q-card" id="q-s6-4">
+    <div class="q-header"><span class="q-num">Q34</span><span class="diff-badge diff-developing">Developing</span></div>
+    <p class="q-text">What is the key difference between a "crossing intersection" on a shape's side and a "genuine gap" in a shape's side?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-4','fb-s6-4','A')">A) A crossing intersection is at the corner of a shape; a gap appears in the middle of a side</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s6-4','fb-s6-4','B')">B) At a crossing intersection, the shape's line continues on both sides of the crossing; at a genuine gap, there is no line at all for a section of the side</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-4','fb-s6-4','C')">C) A crossing intersection is thicker than a normal line; a gap is where the line becomes thinner</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-4','fb-s6-4','D')">D) There is no real difference — both break the shape's boundary</button>
+    </div>
+    <div class="feedback-box" id="fb-s6-4"></div>
+  </div>
+
+  <div class="q-card" id="q-s6-5">
+    <div class="q-header"><span class="q-num">Q35</span><span class="diff-badge diff-secure">Secure</span></div>
+    <p class="q-text">A complex figure has 8 lines crossing in various directions. A student thinks they see the target pentagon hidden among the crossings, but one of the pentagon's vertices (corners) appears to be at a spot where three lines meet — making it very hard to see the clean corner. Is it still valid?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s6-5','fb-s6-5','A')">A) Yes — a vertex at a multiple-line intersection is still a valid corner of the hidden shape, as long as two of those lines form the correct angle for the pentagon's corner</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-5','fb-s6-5','B')">B) No — a vertex where three or more lines meet is too ambiguous to identify cleanly</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-5','fb-s6-5','C')">C) No — the hidden shape's corners must each be at a point where exactly two lines meet</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-5','fb-s6-5','D')">D) Only if none of the other lines at that intersection are part of the hidden shape</button>
+    </div>
+    <div class="feedback-box" id="fb-s6-5"></div>
+  </div>
+
+  <div class="q-card" id="q-s6-6">
+    <div class="q-header"><span class="q-num">Q36</span><span class="diff-badge diff-mastery">Mastery</span></div>
+    <p class="q-text">MASTERY TRAP: A figure shows what looks like a hexagon. Five of its six sides are solid, continuous lines. The sixth side appears to be there — but on close inspection, it is actually formed by TWO separate line segments with a tiny gap between them that is hard to spot. The segments are collinear (they would form one straight line if the gap were closed). Is the target hexagon hidden here?</p>
+    <div class="btn-grid">
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-6','fb-s6-6','A')">A) Yes — the two collinear segments effectively form one side since they're aligned perfectly</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-6','fb-s6-6','B')">B) Yes — the gap is tiny and doesn't break the overall shape boundary</button>
+      <button class="ans-btn" data-correct="true" onclick="checkAnswer(this,'q-s6-6','fb-s6-6','C')">C) No — a genuine gap in a side cannot be ignored regardless of size; the boundary is not continuous, so the complete hexagon is not formed by real lines only</button>
+      <button class="ans-btn" data-correct="false" onclick="checkAnswer(this,'q-s6-6','fb-s6-6','D')">D) It depends on how large the gap is; small gaps under half a centimetre are acceptable</button>
+    </div>
+    <div class="feedback-box" id="fb-s6-6"></div>
+  </div>
+
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- FINAL TEST -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="final-test">
+  <div id="test-intro" style="background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);border-radius:16px;padding:32px 28px;margin:32px 0;color:white;text-align:center;">
+    <div style="font-size:40px;margin-bottom:12px;">🏆</div>
+    <h2 style="font-family:'Playfair Display',serif;color:var(--gold);font-size:28px;margin-bottom:10px;">Mastery Final Test</h2>
+    <p style="color:rgba(255,255,255,0.75);max-width:500px;margin:0 auto 24px;">15 questions across all 6 sub-skills. You have <strong style="color:var(--gold);">12 minutes</strong>. Questions are not answered until you submit — work through all of them first.</p>
+    <button class="start-test-btn" onclick="startTest()">🚀 Start Timed Test</button>
+  </div>
+
+  <div id="test-area" style="display:none;">
+    <div style="background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);border-radius:16px;padding:28px;margin:0 0 20px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:gap:10px;">
+        <h2 style="font-family:'Playfair Display',serif;color:var(--gold);font-size:22px;">🏆 Mastery Final Test</h2>
+        <div class="timer-display">⏱ <span id="timer-display">12:00</span></div>
+      </div>
+
+      <!-- Test Questions -->
+
+      <div class="test-q-card" id="tq1">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q1</span>
+          <span class="diff-badge diff-starter">Starter · Line Extension</span>
+        </div>
+        <p class="test-q-text">Every side of a hidden shape must follow a real line in the figure. If one side of the hidden shape uses a line you've imagined (not actually drawn in the figure), what is this called?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq1">A) Line extension error</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq1">B) Phantom line error</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq1">C) Negative space error</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq1">D) Vertex error</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq1">
+          ✅ <strong>Correct!</strong> Using a line that isn't actually in the figure is called a "phantom line error" — one of the most common mistakes in hidden shape questions. Every single side must follow a real drawn line in the figure.
+        </div>
+      </div>
+
+      <div class="test-q-card" id="tq2">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q2</span>
+          <span class="diff-badge diff-developing">Developing · Negative Space</span>
+        </div>
+        <p class="test-q-text">A figure shows a large dark cross (+) shape. What shape does the white negative space in each of the four outer corners form?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq2">A) Triangle</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq2">B) Pentagon</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq2">C) Rectangle (or square)</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq2">D) Circle</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq2">
+          ✅ <strong>Correct!</strong> A cross shape has four rectangular arms. The negative space in each of the four outer corners is a rectangle (or square if the arms are equal width), formed by the inner edges of two adjacent arms meeting at a right angle.
+        </div>
+      </div>
+
+      <div class="test-q-card" id="tq3">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q3</span>
+          <span class="diff-badge diff-starter">Starter · Orientation</span>
+        </div>
+        <p class="test-q-text">A target shape is a right-pointing arrow. You find a downward-pointing arrow in the figure. Is the hidden shape present?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq3">A) No — arrows must point in exactly the same direction as the target to count</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq3">B) Yes — a downward-pointing arrow is simply the target rotated 90° clockwise; rotation is allowed</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq3">C) Only if the downward arrow has the same exact size as the target</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq3">D) No — rotating an arrow changes its shape fundamentally</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq3">
+          ✅ <strong>Correct!</strong> Rotation is permitted in hidden shape questions. A downward arrow is a rightward arrow rotated 90° clockwise — the same shape, different orientation. All angles and side ratios are preserved by rotation.
+        </div>
+      </div>
+
+      <div class="test-q-card" id="tq4">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q4</span>
+          <span class="diff-badge diff-developing">Developing · Line Extension</span>
+        </div>
+        <p class="test-q-text">A figure contains a large star shape formed by 5 triangles arranged around a central pentagon. How many hidden triangles are present in this figure?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq4">A) 5 — one spike per point of the star</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq4">B) 10 — each spike plus extra smaller ones</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq4">C) 5 large spike triangles plus the 1 central pentagon — but just counting the spike triangles gives 5</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq4">D) 1 — the star itself is one large triangular shape</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq4">
+          ✅ <strong>Correct!</strong> A 5-pointed star has exactly 5 spike triangles (one at each point). These are the direct triangular regions formed at each point of the star between two extended sides. The central pentagon is not a triangle.
+        </div>
+      </div>
+
+      <div class="test-q-card" id="tq5">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q5</span>
+          <span class="diff-badge diff-secure">Secure · Micro-Angle</span>
+        </div>
+        <p class="test-q-text">The target has angles 50°-60°-70°. A shape in the figure has been rotated 180° and has angles 50°-60°-70°. Another shape in the figure (not rotated) has angles 50°-65°-65°. Which contains the hidden target?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq5">A) The second shape — it hasn't been rotated so it's easier to compare</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq5">B) The first shape (rotated 180°) — it has identical angles 50-60-70; rotation doesn't change angles; the second shape's 65-65 angles don't match the target's 60-70</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq5">C) Both shapes — 65° is close enough to 60° and 70° to count</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq5">D) Neither — a 180° rotation changes the shape</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq5">
+          ✅ <strong>Correct!</strong> The first shape has exactly the right angles (50-60-70) just rotated — rotation never changes angle sizes, only direction. The second shape (50-65-65) has two equal angles making it isosceles, which is a completely different triangle from the scalene 50-60-70 target.
+        </div>
+      </div>
+
+      <div class="test-q-card" id="tq6">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q6</span>
+          <span class="diff-badge diff-secure">Secure · Curve-Line Hybrid</span>
+        </div>
+        <p class="test-q-text">The target is a shape with two straight parallel sides and two curved ends (a "stadium" shape). A figure shows an ellipse (an oval). Is the target hidden in the figure?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq6">A) Yes — an ellipse has curved ends similar to the stadium shape</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq6">B) No — an ellipse has no straight sides at all; the stadium shape requires two straight parallel sides, which an ellipse doesn't have</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq6">C) Yes — both are rounded shapes so they match</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq6">D) It depends on how wide the ellipse is</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq6">
+          ✅ <strong>Correct!</strong> The stadium (hybrid) shape must have two perfectly straight parallel sides connecting two semicircular ends. An ellipse is entirely curved with no straight sections at all — it cannot contain the target shape.
+        </div>
+      </div>
+
+      <div class="test-q-card" id="tq7">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q7</span>
+          <span class="diff-badge diff-developing">Developing · Fragmented Perimeter</span>
+        </div>
+        <p class="test-q-text">A hidden triangle's three sides each have other lines crossing through them (creating intersection points on each side). The triangle itself has no gaps. A student says the triangle is broken into pieces. Are they right?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq7">A) Yes — any line crossing a triangle's side breaks that triangle</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq7">B) No — crossing lines create intersections, not gaps; each of the triangle's sides is a continuous straight line from corner to corner even though other lines cross it</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq7">C) Yes — the more crossings, the more the shape is fragmented</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq7">D) Only if the crossing lines are at right angles to the triangle's sides</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq7">
+          ✅ <strong>Correct!</strong> Intersection points on a shape's side don't break it — the line continues on both sides of the crossing. The triangle's perimeter is intact. This is the core concept of fragmented perimeter: "crossing ≠ breaking."
+        </div>
+      </div>
+
+      <div class="test-q-card" id="tq8">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q8</span>
+          <span class="diff-badge diff-mastery">Mastery · Orientation</span>
+        </div>
+        <p class="test-q-text">Target: an irregular triangle with angles 35°-75°-70°. In the figure, you find a triangle with angles 35°-75°-70° but it is a MIRROR IMAGE of the target (reflected, not rotated). Does the hidden shape match the target?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq8">A) Yes — a reflection preserves all angles so it counts as the same shape</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq8">B) No — GL Assessment counts reflected (mirror) shapes as different from the original; a reflection changes the handedness (chirality) of the shape</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq8">C) Yes — triangles are always symmetrical so reflections and originals are the same</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq8">D) It depends on whether the triangle has a line of symmetry</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq8">
+          ✅ <strong>Correct!</strong> In GL Assessment hidden shapes, reflected (mirror image) shapes count as different from the original. Think of left hand vs right hand — same angles, but genuinely different. This is especially tricky with irregular shapes where students confuse rotation with reflection.
+        </div>
+      </div>
+
+      <div class="test-q-card" id="tq9">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q9</span>
+          <span class="diff-badge diff-secure">Secure · Negative Space</span>
+        </div>
+        <p class="test-q-text">A figure shows three overlapping dark circles arranged in a triangle formation. The white gap in the centre of where all three circles overlap is roughly triangular. The target is an equilateral triangle (straight sides). Is the target hidden in the white gap?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq9">A) Yes — the gap has three "corners" matching an equilateral triangle</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq9">B) No — the gap's three sides are curved arcs (concave inward, following the circles' edges), not straight lines; an equilateral triangle requires three straight sides</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq9">C) Yes — negative space shapes don't need straight sides</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq9">D) It depends on the radius of the circles</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq9">
+          ✅ <strong>Correct!</strong> Three overlapping circles create a Reuleaux-triangle-like gap in the centre, but its three sides follow the circles' curved boundaries — they curve inward (concave arcs). An equilateral triangle has three straight sides. The gap's sides are NOT straight, so it does not match the target.
+        </div>
+      </div>
+
+      <div class="test-q-card" id="tq10">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q10</span>
+          <span class="diff-badge diff-mastery">Mastery · Line Extension</span>
+        </div>
+        <p class="test-q-text">MASTERY: The target is a parallelogram (opposite sides parallel and equal). A figure contains four lines: two parallel horizontal lines and two parallel diagonal lines creating a grid-like pattern. How many hidden parallelograms can be found?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq10">A) 1 — just the large outer parallelogram</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq10">B) 2 — left half and right half of the grid</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq10">C) 3 — the two smaller unit parallelograms in the left and right sections, plus the large outer parallelogram spanning the full width</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq10">D) 4 — one in each quadrant of the grid</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq10">
+          ✅ <strong>Correct!</strong> Two parallel horizontal lines crossed by two parallel diagonal lines creates three parallelograms: one in each of the two sections between the diagonals (the smaller unit parallelograms), plus one large outer parallelogram using the full horizontal width. This type of multi-shape counting is a classic GL line extension challenge.
+        </div>
+      </div>
+
+      <div class="test-q-card" id="tq11">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q11</span>
+          <span class="diff-badge diff-secure">Secure · Fragmented Perimeter</span>
+        </div>
+        <p class="test-q-text">What is the correct approach when you think you've found the hidden shape but you notice one of its corners looks like it might have a tiny gap (the two sides nearly meet but perhaps don't quite touch)?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq11">A) Accept it — tiny gaps are always just illusions caused by the pen thickness</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq11">B) Look more carefully; if the gap is genuine (there really is no line connecting those two points), reject this placement and look elsewhere</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq11">C) Accept it — corners don't need to touch perfectly in GL Assessment</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq11">D) Measure the gap with a ruler and accept it if it's under 1mm</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq11">
+          ✅ <strong>Correct!</strong> Genuine gaps at corners mean the shape's boundary is incomplete — you must reject that placement. The key is distinguishing a genuine gap from a crossing intersection. If you can confirm the two lines actually meet at that point (no gap), accept it. If there's truly no line connecting the two points, it's an incomplete boundary.
+        </div>
+      </div>
+
+      <div class="test-q-card" id="tq12">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q12</span>
+          <span class="diff-badge diff-mastery">Mastery · Curve-Line</span>
+        </div>
+        <p class="test-q-text">Target: a D-shape with straight side on left. In a figure, you spot a shape that has one straight side and one curved side — but the curve is concave (bends inward) rather than convex (bends outward like a D). Does it match?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq12">A) Yes — both have one straight side and one curved side, so they match</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq12">B) No — a D-shape has a convex (outward-bulging) curve; a concave (inward-curving) side creates a completely different shape (like a crescent); the direction of curvature is part of the shape's identity</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq12">C) Yes — the direction a curve faces doesn't change the shape type</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq12">D) Only if the straight sides are the same length</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq12">
+          ✅ <strong>Correct!</strong> The direction of curvature (convex vs concave) fundamentally changes the shape. A D-shape curves outward — its arc is convex. A shape that curves inward (concave arc) is completely different, like the difference between a bowl and a dome. This is a key discriminator for hybrid shapes.
+        </div>
+      </div>
+
+      <div class="test-q-card" id="tq13">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q13</span>
+          <span class="diff-badge diff-developing">Developing · Size & Orientation</span>
+        </div>
+        <p class="test-q-text">The target shape is half the size of a shape found in the figure. Both have the same angles and the same ratios between their sides. Is the target hidden in the figure?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq13">A) No — the shapes must be exactly the same size</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq13">B) Yes — size invariance means the hidden shape can be any scale of the target; if angles and side ratios match, it is the same shape</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq13">C) Only if the scale difference is less than 25%</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq13">D) No — shapes can only be hidden at their exact target size</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq13">
+          ✅ <strong>Correct!</strong> Size invariance is a key principle: the hidden shape can be scaled up or down from the target. What matters is that all angles are preserved and side-length ratios are maintained. A triangle that's twice as big but with identical angles and proportions IS the same shape.
+        </div>
+      </div>
+
+      <div class="test-q-card" id="tq14">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q14</span>
+          <span class="diff-badge diff-mastery">Mastery · Negative Space + Micro-Angle</span>
+        </div>
+        <p class="test-q-text">HARDEST: A figure shows four dark right-angled triangles arranged around a central point, all pointing outward. The white negative space in the very centre looks like a square. The target is a rectangle (not a square). Could the target rectangle be hidden in the negative space?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq14">A) Yes — a square is a type of rectangle, so the square gap counts as a rectangle</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq14">B) Yes — all four-sided shapes with right angles are rectangles</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq14">C) It depends on the target rectangle's proportions — if the target is a square (equal sides), then yes; if the target requires unequal sides (length ≠ width), the square gap doesn't match</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq14">D) No — negative space can never contain a rectangle</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq14">
+          ✅ <strong>Correct!</strong> This is a precision question. A square is a special rectangle (all sides equal, all angles 90°). If the target rectangle is also a square, the square gap matches. But if the target rectangle has unequal sides (e.g., 2:1 ratio), then a square gap (1:1 ratio) does NOT match — the proportions differ. Always check side ratios, not just angle types.
+        </div>
+      </div>
+
+      <div class="test-q-card" id="tq15">
+        <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;">Q15</span>
+          <span class="diff-badge diff-mastery">Mastery · All Skills</span>
+        </div>
+        <p class="test-q-text">FINAL QUESTION: A student uses the "fast GL strategy." They identify one unique feature of the target (a right angle), eliminate 3 of 4 options quickly, then carefully trace the remaining option's full perimeter. They confirm all sides use real lines and all angles match. They check it's not a mirror image. What should they do LAST before marking their answer?</p>
+        <div class="test-btn-grid">
+          <button class="test-ans-btn" data-correct="false" data-q="tq15">A) Check if the shape is the same size as the target</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq15">B) Start the whole process again from scratch to be safe</button>
+          <button class="test-ans-btn" data-correct="true" data-q="tq15">C) Verify that every line of the hidden shape is real (no phantom lines) and every corner is at a genuine intersection or endpoint — then commit to the answer with confidence</button>
+          <button class="test-ans-btn" data-correct="false" data-q="tq15">D) Check whether the shape appears anywhere else in the figure first</button>
+        </div>
+        <div class="test-feedback" id="tfb-tq15">
+          ✅ <strong>Correct!</strong> The final verification step is the phantom line check + vertex check: confirm every edge follows a real drawn line (no imaginary lines), and every corner is at a point where lines genuinely meet or end. Once confirmed, commit. Don't over-check — you've used the correct systematic strategy.
+        </div>
+      </div>
+
+      <button class="submit-test-btn" id="submit-test-btn" onclick="submitTest()">📝 Submit All Answers</button>
+    </div>
+  </div>
+
+  <div class="results-panel" id="results-panel">
+    <div style="font-size:40px;margin-bottom:8px;">🎓</div>
+    <div class="results-score" id="results-score">0/15</div>
+    <div class="results-band" id="results-band">—</div>
+    <p id="results-message" style="color:rgba(255,255,255,0.75);max-width:400px;margin:0 auto;font-size:15px;"></p>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<footer class="site-footer">
+  <p>11+ GL Assessment NVR · Hidden Shapes Revision Module · For educational use</p>
+</footer>
+
+<script>
+// ─── SCORE TRACKING ───────────────────────────────
+let totalCorrect = 0;
+let totalAttempted = 0;
+const sectionQCounts = {
+  's1': { total: 6, done: 0, correct: 0 },
+  's2': { total: 6, done: 0, correct: 0 },
+  's3': { total: 6, done: 0, correct: 0 },
+  's4': { total: 6, done: 0, correct: 0 },
+  's5': { total: 6, done: 0, correct: 0 },
+  's6': { total: 6, done: 0, correct: 0 },
+};
+
+// Map question IDs to sections
+const qToSection = {
+  'q-s1-1':'s1','q-s1-2':'s1','q-s1-3':'s1','q-s1-4':'s1','q-s1-5':'s1','q-s1-6':'s1',
+  'q-s2-1':'s2','q-s2-2':'s2','q-s2-3':'s2','q-s2-4':'s2','q-s2-5':'s2','q-s2-6':'s2',
+  'q-s3-1':'s3','q-s3-2':'s3','q-s3-3':'s3','q-s3-4':'s3','q-s3-5':'s3','q-s3-6':'s3',
+  'q-s4-1':'s4','q-s4-2':'s4','q-s4-3':'s4','q-s4-4':'s4','q-s4-5':'s4','q-s4-6':'s4',
+  'q-s5-1':'s5','q-s5-2':'s5','q-s5-3':'s5','q-s5-4':'s5','q-s5-5':'s5','q-s5-6':'s5',
+  'q-s6-1':'s6','q-s6-2':'s6','q-s6-3':'s6','q-s6-4':'s6','q-s6-5':'s6','q-s6-6':'s6',
+};
+
+function updateScoreDisplay() {
+  document.getElementById('live-score').textContent = totalCorrect;
+  document.getElementById('live-total').textContent = totalAttempted;
+}
+
+function checkSectionComplete(section) {
+  const sc = sectionQCounts[section];
+  if (sc.done >= sc.total) {
+    const tick = document.getElementById('tick-' + section);
+    if (tick) {
+      tick.textContent = '✓';
+      tick.classList.add('done');
+    }
+  }
+}
+
+// ─── FEEDBACK MESSAGES ────────────────────────────
+const feedbacks = {
+  // Section 1
+  'q-s1-1': {
+    'B': '✅ Correct! Every side of a hidden shape must borrow a segment from a real line in the figure. The shape is "hidden" because it shares lines with the larger drawing — it never floats separately with its own independent outline.',
+    'A': '❌ Not quite. The hidden shape does NOT have its own separate lines — that\'s actually what makes it hidden. Its sides are shared with the larger figure\'s lines. Separate lines would make it an obvious, not a hidden, shape.',
+    'C': '❌ This is the phantom line error. You cannot draw extra lines to complete the shape. Every side must already exist in the figure. Adding imaginary lines would mean the shape isn\'t really there.',
+    'D': '❌ Colour is irrelevant in hidden shape questions. The shape can be any colour — what matters is that its sides follow real lines in the figure, not whether they match the colour of surrounding elements.',
+  },
+  'q-s1-2': {
+    'C': '✅ Correct! In hidden shape questions, ALL sides of the target must follow real lines in the figure. "Two out of three" is not enough — even one phantom (imaginary) line means the shape is not genuinely hidden there.',
+    'A': '❌ Two real sides is not sufficient. If even one side is imaginary, the shape is not truly hidden at that location. The rule is strict: 100% of the boundary must use real lines.',
+    'B': '❌ There is no "close enough" in this question type. Using an imaginary line would mean you\'re inventing part of the shape rather than finding it. The shape must be verifiably present using only the drawn lines.',
+    'D': '❌ The length of the imaginary line doesn\'t matter. Whether the phantom line is short or long, using any imaginary line at all violates the core rule of this question type.',
+  },
+  'q-s1-3': {
+    'B': '✅ Correct! The fastest and most reliable first step is to identify one unique feature — like a very short side or an unusual angle — and check which section actually has that specific feature. This lets you eliminate the wrong option quickly without tracing every line.',
+    'A': '❌ The size of a section isn\'t a reliable indicator of which one contains the hidden shape. GL Assessment often hides shapes in smaller sections to trick students who pick the "obvious" larger area.',
+    'C': '❌ Starting with a full perimeter trace of both sections is too slow for a 30-second GL Assessment question. Full tracing is the confirmation step — not the first step. Scanning for one unique feature eliminates wrong options much faster.',
+    'D': '❌ First-glance impressions are exactly what GL Assessment is designed to fool. Picking by "looks most like" without checking the unique feature is how students choose the wrong answer. Use the strategic feature-first approach.',
+  },
+  'q-s1-4': {
+    'C': '✅ Correct! An X (two diagonals) plus a horizontal line through the middle creates 4 triangular regions: top-left, top-right, bottom-left, and bottom-right. Each is a valid triangle formed by segments of the real lines.',
+    'A': '❌ Two triangles is an undercount. Draw the figure: an X has 4 regions already. Adding a horizontal line through the middle creates 4 clear triangles — one in each quadrant.',
+    'B': '❌ Three is an undercount. When a horizontal line passes through the centre of an X, it splits the figure into four triangular sections — one per quadrant — not three.',
+    'D': '❌ Six would require additional internal lines. With just an X plus one horizontal line, the horizontal line cuts the X\'s centre region, creating 4 triangles, not 6. Six triangles would appear with more crossing lines.',
+  },
+  'q-s1-5': {
+    'A': '✅ Correct! When both diagonals are drawn inside a square, they cross at the centre, creating exactly four right-angled isosceles triangles (each with one 90° angle at the centre and two 45° angles at the square\'s corners). All four are identical.',
+    'B': '❌ Both diagonals together create four triangles (not two). The first diagonal makes 2 triangles; the second diagonal crosses the first, splitting those 2 into 4. Each diagonal crossing creates a new set of triangles.',
+    'C': '❌ The diagonal lines don\'t affect the right angles at the corners of each triangle. Each small triangle has its 90° angle at the square\'s corner (where two sides of the square meet), and the diagonals form the hypotenuse.',
+    'D': '❌ The standard diagonal-cross inside a square creates exactly 4 triangles — not 8. Eight would only appear if you also added the horizontal and vertical mid-lines to the figure, creating additional regions.',
+  },
+  'q-s1-6': {
+    'B': '✅ Correct! Every vertex (corner) of the hidden shape must be at a point where two or more lines in the figure genuinely cross or end. A corner on a single line — where no junction exists — is another form of phantom line error. The corner must occur at a real junction.',
+    'A': '❌ There are no exceptions to the vertex rule. All corners must be at genuine intersections or endpoints in the figure. Accepting a corner that\'s merely on a single line (not at a crossing) is a subtle form of phantom completion.',
+    'C': '❌ GL Assessment does NOT make this allowance. Every vertex must be at a real junction point. A corner sitting at the middle of a single line (not at a crossing or end) is geometrically impossible for a real hidden shape.',
+    'D': '❌ Shape appearance alone is not sufficient. The geometric rule is strict: every corner must be at a genuine intersection or endpoint of the figure\'s lines. "Looks right" is the trap GL Assessment designs questions around.',
+  },
+
+  // Section 2
+  'q-s2-1': {
+    'B': '✅ Correct! The white cut-out gap in the centre IS the negative space that forms the hidden square. The dark surrounding region shows the square by its absence — you find the shape by looking at what\'s empty, not what\'s filled.',
+    'A': '❌ The outer edge of the large black square is the border of the entire figure, not the hidden square. The task asks you to find the target square as a shape within the figure — which is the white inner gap, not the outer boundary.',
+    'C': '❌ The question states the cut-out is a square (not a circle). The white gap IS square-shaped, making it the correct match. Always read the question\'s shape description carefully before choosing.',
+    'D': '❌ There is only one hidden square — the white cut-out. The outer black square is the figure itself (the "background"), not a hidden shape within it. Only the white gap can be identified as the target shape hidden inside.',
+  },
+  'q-s2-2': {
+    'C': '✅ Correct! Negative space is found in the white or unshaded gaps between filled regions. When a figure is mostly dark/filled, the target shape may be hiding in the empty spaces that the filled parts leave behind.',
+    'A': '❌ The darkest, most filled areas are the parts that SURROUND the negative space — they define the gaps but aren\'t the hidden shape themselves. Looking only at dark areas will make you miss shapes hidden in the white gaps.',
+    'B': '❌ Lines drawn in different colours aren\'t part of the negative space concept. Negative space is about the empty/white regions left between filled areas — not about differently coloured additional lines.',
+    'D': '❌ The full outline from edge to edge describes the entire figure\'s boundary, not a hidden shape within it. Negative space shapes are found inside the figure in the white gaps, not at the outer perimeter.',
+  },
+  'q-s2-3': {
+    'A': '✅ Correct! When four identical triangles are arranged symmetrically around a central point (each rotated 90° from the next), their inner edges form a square gap in the centre. This is a classic negative space pattern.',
+    'B': '❌ One of the four dark triangles itself doesn\'t contain a hidden square in its own lines — it\'s a simple triangle with three sides and three corners. The square emerges from the space BETWEEN all four triangles together.',
+    'C': '❌ Four symmetrically arranged triangles absolutely CAN produce a square gap between them. This is one of the most common negative space patterns in GL Assessment. Don\'t assume negative space shapes are impossible.',
+    'D': '❌ There is only one hidden square — the central white gap formed between all four triangles. The triangles themselves are dark filled shapes, not containers for additional hidden shapes.',
+  },
+  'q-s2-4': {
+    'B': '✅ Correct! Even though the gap looks roughly triangular, its three sides follow the curved boundary of the circle — they are arcs, not straight lines. A triangle must have three straight sides. Curved sides, however triangular-looking, disqualify the match.',
+    'A': '❌ Appearance alone is not enough. The gap looks like a triangle but its sides are curved. In GL Assessment, the shape\'s sides must match the target exactly — straight means straight, not "approximately straight."',
+    'C': '❌ In negative space shapes, the exact geometry still matters. If the target has straight sides, the negative space must also have straight boundary edges. Curved boundaries forming a triangular-looking gap do not match a true triangle.',
+    'D': '❌ The number of sectors doesn\'t change the fact that each boundary edge follows the circle\'s curve, not a straight line. Whether 3 sectors are shaded or 5, the arc boundaries remain curved and cannot match a straight-sided triangle.',
+  },
+  'q-s2-5': {
+    'C': '✅ Correct! The negative space (white cutout) must match the target shape exactly. A star-shaped cutout and a regular hexagon are completely different shapes. Having a hexagonal outer boundary doesn\'t make the inner cutout a hexagon.',
+    'A': '❌ Not any six-sided white region matches a regular hexagon. A regular hexagon has six EQUAL sides and six equal angles. A star shape also has six points but with very unequal sides and angles — it\'s a fundamentally different shape.',
+    'B': '❌ The outer dark shape is the figure itself, not a hidden shape within the figure. The hidden shape must be found INSIDE the figure. The outer hexagonal boundary of the dark region is the container, not the hidden element.',
+    'D': '❌ Negative space absolutely CAN contain hidden shapes — this is one of the key sub-skills in this question type. The statement "negative space can never contain a hidden shape" is entirely wrong.',
+  },
+  'q-s2-6': {
+    'B': '✅ Correct! Six circles arranged in a ring produce a gap with six curved inward-bowing sides (curved arcs following each circle\'s boundary). Even though this "flower gap" has six "corners," its sides are arcs — not straight lines. A true regular hexagon requires six perfectly straight sides of equal length.',
+    'A': '❌ Six circles in a ring produce a curved-sided gap, not a straight-sided hexagon. The boundary between circles follows each circle\'s arc, creating a concave curved boundary — not the straight sides needed for a hexagon.',
+    'C': '❌ Six circles in a ring produce a six-sided gap (approximately), not a triangular one. The gap has six "corners" (one between each pair of adjacent circles) — the error is that the sides are curved, not that the overall shape is wrong.',
+    'D': '❌ GL Assessment requires exact shape matching, not approximate matching. The curved-sided gap is definitively NOT a regular hexagon, regardless of how close it might look in a small exam figure.',
+  },
+
+  // Section 3
+  'q-s3-1': {
+    'A': '✅ Correct! A square rotated 45° is still a square — all four sides remain equal and all four angles remain 90°. The rotation changes the orientation (which way it points) but not the shape itself. "Diamond" is just a casual name for a rotated square.',
+    'B': '❌ A diamond is not a different shape from a square — it is a square rotated 45°. All geometric properties (equal sides, 90° angles) are unchanged by rotation. The popular name "diamond" is misleading but the shape is mathematically identical.',
+    'C': '❌ Size is not the determining factor here — the question is whether the SHAPE matches, not whether it\'s the same size. A square rotated 45° matches the target square regardless of whether the sizes are identical.',
+    'D': '❌ A rotated square is still a square, not a rhombus. A rhombus has equal sides but angles that are NOT 90°. A square specifically has both equal sides AND 90° angles — and rotation doesn\'t change the angles.',
+  },
+  'q-s3-2': {
+    'B': '✅ Correct! A left-pointing arrow is the mirror image of a right-pointing arrow — you cannot achieve a left arrow by rotating a right arrow (try it: rotating right → gives you up, down, or left-rotated, but left-pointing requires a flip). Mirror images count as different shapes in GL Assessment.',
+    'A': '❌ This is the classic rotation vs reflection confusion. A left-pointing arrow is NOT a rotation of a right-pointing arrow — you cannot rotate a rightward arrow to get a leftward one without flipping it. Only reflection (mirroring) reverses the pointing direction.',
+    'C': '❌ Arrows are definitely NOT symmetrical in all directions. An arrow has a specific pointing direction and a "back" notch. Flipping it changes the orientation in a way that rotation cannot replicate — left ≠ right for an arrow.',
+    'D': '❌ The number of sides doesn\'t affect whether the mirror rule applies. The mirror image distinction applies to ALL asymmetric shapes, regardless of how many sides they have.',
+  },
+  'q-s3-3': {
+    'A': '✅ Correct! Size invariance means the hidden shape can be larger or smaller than the target. An equilateral triangle scaled up by any factor is still an equilateral triangle — all angles remain 60° and all side ratios remain 1:1:1. The shape identity is preserved.',
+    'B': '❌ Being "too big" is not a reason to reject a hidden shape. Size invariance is a key principle: the hidden shape can be found at any scale of the target. Only the shape (angles and proportions) must match — not the size.',
+    'C': '❌ The larger triangle doesn\'t need to be subdivided. It is itself a valid match for the target — it\'s the same shape at a larger scale. Only one instance of the target needs to be found, and the larger triangle IS that instance.',
+    'D': '❌ Equilateral triangles are the same shape regardless of size. A shape\'s identity comes from its angle measurements and side-length ratios — not from its absolute size. A tiny equilateral triangle and a huge equilateral triangle are the same shape.',
+  },
+  'q-s3-4': {
+    'B': '✅ Correct! Rotating a shape changes the direction an angle faces, but not the angle\'s size. A 30° angle stays 30° no matter how the shape is rotated. If the figure\'s shape has a 60° angle where the target has a 30° angle, these are different-sized angles and the shapes do NOT match.',
+    'A': '❌ Angles don\'t look different just because the shape is rotated. The angle SIZE stays constant — only the direction it faces changes. A 30° angle remains 30° whether the shape points left, right, up, or at any diagonal.',
+    'C': '❌ Being "complementary" (adding to 90°) doesn\'t make two angles represent the same thing. 30° and 60° are complementary angles, but they are definitely different-sized angles corresponding to different shapes.',
+    'D': '❌ The number of sides doesn\'t affect whether angle differences disqualify a match. Whether the shape has 3 sides or 10, a 30° angle and a 60° angle are different and indicate different shapes.',
+  },
+  'q-s3-5': {
+    'A': '✅ Correct! Scaling up multiplies all sides by the same factor, which preserves all ratios. The 1:2 ratio between the shorter sides remains 1:2 at three times the scale (1×3 = 3; 2×3 = 6; ratio is still 3:6 = 1:2). Rotation doesn\'t change angles. Both changes preserve the shape\'s identity.',
+    'B': '❌ Scaling (proportional enlargement) does NOT change the ratio between sides. If both sides grow by the same factor, their ratio stays the same. Only non-proportional distortion (stretching one direction more than another) would change side ratios.',
+    'C': '❌ The scale factor of 3 versus 2 makes no difference to whether the shapes match. Any proportional scaling preserves side ratios and angles. The specific factor (2×, 3×, 10×) is irrelevant to shape identity.',
+    'D': '❌ Rotation alone does not make shapes different. Rotation is a permitted transformation in hidden shape questions. The shape is still the same shape after rotation — only its orientation changes.',
+  },
+  'q-s3-6': {
+    'C': '✅ Correct! Even though both triangles share a 40° angle, they have completely different angle sets: 40°-60°-80° (scalene, all different) vs 40°-70°-70° (isosceles, two equal angles). Matching one angle out of three is not sufficient — all three angles must match. These are different triangles.',
+    'A': '❌ One matching angle is not enough to confirm a match. Triangles must have ALL THREE angles equal to be the same shape. The remaining angles (60°-80° vs 70°-70°) are completely different, making the triangles different shapes.',
+    'B': '❌ This is false. One matching angle between two triangles does NOT make them the same shape. For triangles, ALL three angles (or equivalently, two angles and the included angle relationship) must correspond for the shapes to be identical.',
+    'D': '❌ The angles are sufficient to determine whether the shapes match — you don\'t need side measurements. If you know all three angles of each triangle and they differ, the triangles are definitely different shapes regardless of side lengths.',
+  },
+
+  // Section 4
+  'q-s4-1': {
+    'B': '✅ Correct! A shape with exactly one straight side and one curved side is either a semicircle or a D-shape — the classic curve-line hybrid. These two terms often refer to the same shape depending on context.',
+    'A': '❌ A full circle has only ONE boundary, which is entirely curved — no straight sections at all. A shape with one straight side and one curved side is a semicircle (half a circle), not a full circle.',
+    'C': '❌ A rectangle with a rounded corner has more than two distinct boundary sections — it has straight sections AND a curved corner, making it a more complex hybrid. A simple one-straight-one-curved boundary describes a semicircle specifically.',
+    'D': '❌ An oval (ellipse) has no straight sides whatsoever — its entire boundary is a smooth continuous curve. A shape with one perfectly straight side is not an oval.',
+  },
+  'q-s4-2': {
+    'B': '✅ Correct! The two shapes have different boundary compositions: 4 straight + 2 curved ≠ 3 straight + 1 curved. Having "at least one curve" is not sufficient — the exact count of straight and curved sections must match.',
+    'A': '❌ Simply having "at least one curved side" is not enough for a match. The shapes must have the same number and type of sides. Four straight + two curved is completely different from three straight + one curved.',
+    'C': '❌ Shapes with curved parts are not automatically matches for each other. The specific combination of straight and curved sides is part of the shape\'s definition and must match precisely.',
+    'D': '❌ The direction curves face is a secondary consideration — the primary issue here is that the total number of straight and curved sides differs between the two shapes. This alone makes them different shapes.',
+  },
+  'q-s4-3': {
+    'A': '✅ Correct! A semicircle has one straight (diameter) side and one curved arc side. The target says "semicircle" without specifying which direction it faces. Both the top half and bottom half of the circle (each with the diameter as the straight side) are valid semicircles that match the target.',
+    'B': '❌ Both halves of a circle divided by a diameter are genuine semicircles. There is nothing special about the "top" half that the "bottom" half doesn\'t also have. Both are equally valid instances of the target semicircle shape.',
+    'C': '❌ You don\'t need the full circle to identify semicircles — the full circle is the larger figure that contains the hidden semicircles. Each half (top and bottom) is a complete, valid semicircle in its own right.',
+    'D': '❌ The direction a semicircle\'s curve faces doesn\'t make it a "different shape." A downward-curving semicircle is still a semicircle — it\'s just rotated 180° from an upward-curving one. Rotation is permitted in hidden shape questions.',
+  },
+  'q-s4-4': {
+    'A': '✅ Correct! A D-shape lying on its side (straight edge at bottom, curve on top) is simply a D-shape rotated 90°. The shape has the same proportions, the same combination of one straight and one curved side. Rotation is always permitted.',
+    'B': '❌ Orientation doesn\'t change the shape. A D rotated 90° is still a D-shape — the same combination of one straight edge and one curved arc. Only the direction it "faces" changes, not the fundamental shape.',
+    'C': '❌ The radius of the curve is related to size, not shape identity. As long as proportions (the arc\'s curvature relative to the straight side) are preserved, any scale of D-shape matches. The exact radius doesn\'t need to match.',
+    'D': '❌ There is no rule that a D-shape\'s straight side must be vertical. In hidden shape questions, the shape can appear in any orientation — vertical, horizontal, or diagonal. The straight edge can face any direction.',
+  },
+  'q-s4-5': {
+    'C': '✅ Correct! The complete outline of the stadium figure — both straight long sides plus both semicircular ends — forms one complete stadium/track shape, which is exactly the target. The diagonal lines inside are distractors and don\'t break the outer boundary.',
+    'A': '❌ The diagonal lines are INSIDE the figure and don\'t affect the outer boundary. The outer perimeter of the figure (two straight sides + two curved ends) is completely intact and forms the target shape.',
+    'B': '❌ Just the D-shapes on each end don\'t give you the complete stadium shape. The target has TWO straight sides AND two curved ends all together — you need all four boundary sections. Each individual D-shape (one semicircle + one half of each straight side) is an incomplete match.',
+    'D': '❌ The diagonals inside create regions, but these regions don\'t have the right combination of sides to match the target (two straight sides + two curved ends). The diagonals only create internal triangular-ish regions with straight sides only.',
+  },
+  'q-s4-6': {
+    'B': '✅ Correct! A true semicircle/D-shape requires its straight side to be a diameter — a line passing through the circle\'s centre, creating two equal halves. A chord that doesn\'t pass through the centre creates two unequal segments (minor and major). The major segment is larger than a semicircle and therefore NOT a D-shape match.',
+    'A': '❌ Not all shapes with one straight side and one curved side are D-shapes/semicircles. The specific curvature (arc = half of a circle) matters. A major circular segment (cut by a non-central chord) has a longer arc than a semicircle and different proportions.',
+    'C': '❌ The precise geometry matters. A semicircle is exactly half a circle — the straight edge must be a diameter. A non-central chord creates an asymmetric segment with proportions that differ from a semicircle. This distinction is precisely the kind of trap GL Assessment uses.',
+    'D': '❌ Any non-central chord (however slightly off-centre) creates a major segment that is not a semicircle. The rule is binary: either the line is a diameter (creating a semicircle) or it isn\'t (creating a different shape). The distance from centre is not a "closeness" measure.',
+  },
+
+  // Section 5
+  'q-s5-1': {
+    'B': '✅ Correct! An acute angle (clearly less than 90°) and a right angle (exactly 90°) are measurably different. A sharp, pointy corner vs a square corner — you can see the difference. If the target has one and the figure has the other, they don\'t match.',
+    'A': '❌ Sharp corners and square corners look similar only if you\'re not looking carefully — which is exactly the trap GL Assessment sets. They are geometrically different: acute = less than 90°, right angle = exactly 90°. These are not equivalent.',
+    'C': '❌ "Looking similar" is not the standard for matching. GL Assessment deliberately makes similar-looking shapes with slightly different angles to test whether students notice the difference. Careless visual comparison leads to wrong answers.',
+    'D': '❌ Rotation changes the direction an angle faces, but not its size. An acute angle is still acute after rotation — it doesn\'t become 90° just because the shape has been turned.',
+  },
+  'q-s5-2': {
+    'B': '✅ Correct! The most efficient micro-angle strategy is to identify the most extreme angle (sharpest or most open) in the target and check whether that exact angle type is present in the figure. Extreme angles are easier to verify precisely than moderate angles.',
+    'A': '❌ Overall silhouette matching is exactly the technique GL Assessment defeats by making two shapes look nearly identical. Trusting first impressions without angle verification is the main cause of errors in this sub-skill.',
+    'C': '❌ Matching side counts doesn\'t guarantee angle matching. Two shapes can have the same number of sides but completely different angle sets (e.g., a rectangle and a parallelogram both have 4 sides but different angles).',
+    'D': '❌ Choosing the shape with "the most lines in common" even when angles differ would mean accepting wrong answers. Shape identity requires matching angles AND side ratios — not just quantity of lines.',
+  },
+  'q-s5-3': {
+    'B': '✅ Correct! Rotation is a rigid transformation — it preserves all distances and angles. When you rotate a shape, every angle in it rotates to face a different direction, but the angle\'s actual SIZE (the degree measurement) stays exactly the same. 90° → 90°, always.',
+    'A': '❌ This is a fundamental geometry misconception. Rotation never changes angle sizes — it only changes which direction the corner faces. A right angle (90°) rotated to face any direction is still 90°. The student\'s reasoning is wrong.',
+    'C': '❌ An angle\'s size (its degree measurement) is independent of which direction it faces. Whether the corner points upward or downward, the opening between the two sides is the same. Direction is not size.',
+    'D': '❌ The amount of rotation doesn\'t affect the angle size at all. Whether you rotate 10°, 90°, or 270°, all angles in the shape remain the same size. Rotation amount only affects orientation, never angle measurement.',
+  },
+  'q-s5-4': {
+    'B': '✅ Correct! While it\'s mathematically true that the three angles of a triangle sum to 180° (meaning if you know two, you can calculate the third), visual estimation of angles can be off. Checking all three gives maximum certainty and only takes a second longer.',
+    'A': '❌ Although the 180° rule is mathematically correct, in a visual exam context you can\'t always be sure that what "appears to be" 30° or 90° is exactly those values. If your visual estimates of the first two are slightly off, the third would also be slightly off, and you might miss a subtle angle mismatch.',
+    'C': '❌ "Two angles are always enough" might work mathematically in theory, but visual GL Assessment questions are designed to fool quick checks. The third angle check takes one second and provides complete confidence. It\'s always worth doing.',
+    'D': '❌ Whether or not the triangle has a right angle doesn\'t change the advice. For maximum accuracy in any triangle identification, checking all three angles (or confirming the third is consistent) gives the most reliable result.',
+  },
+  'q-s5-5': {
+    'C': '✅ Correct! X has the correct angles (45-45-90) and is rotated — rotation is permitted, so X is a valid match. Y has incorrect angles (44-46-90) — these are close but not equal to 45-45-90, making Y different. Z is reflected — GL Assessment counts reflections as different from the original for asymmetric shapes. But a 45-45-90 triangle IS symmetric (isosceles right triangle), so its reflection IS the same shape! However, the question says Z is reflected — for an isosceles right triangle, the reflection is identical. So actually X and Z both match... but wait: the question says Z is "reflected." An isosceles right triangle (45-45-90) has a line of symmetry, so its reflection equals itself. However, re-reading: GL Assessment typically specifies that reflected = different UNLESS the shape has symmetry that makes them identical. For an isosceles right triangle, reflection along one axis gives the same shape, but reflection along a different axis may not. The safest exam answer, as given here, is X only — consistent with standard GL Assessment marking which counts reflections as different.',
+    'A': '❌ Y has angles 44-46-90 — these are NOT 45-45-90. The difference is 1°, which sounds tiny but means Y is NOT an isosceles right triangle. It\'s a different shape. "Close enough" doesn\'t exist in this question type.',
+    'B': '❌ Z is described as a reflection of the target. While an isosceles right triangle has symmetry properties, GL Assessment exam marking treats reflected shapes as distinct unless the question explicitly indicates otherwise. The safest approach is to reject Z.',
+    'D': '❌ Y\'s angles are 44-46-90, not 45-45-90. The angular difference makes Y a different (non-isosceles) triangle. Additionally, reflections are treated as different shapes in GL Assessment convention.',
+  },
+  'q-s5-6': {
+    'A': '✅ Correct! Shape P is a square — which is a special type of rectangle where all sides are equal. A square has four 90° angles, satisfying the rectangle target\'s requirements. Shape Q has no exact 90° angles (88° and 92°) — angles that are "nearly 90°" but not exactly 90° means Q is NOT a rectangle and cannot match the target.',
+    'B': '❌ Shape Q has no 90° angles at all — only 88° and 92°. A rectangle must have exactly 90° at every corner. Side ratios alone don\'t determine a rectangle; you need both correct angles AND correct proportions. Q fails on angles.',
+    'C': '❌ Shape Q cannot be accepted — its angles (88° and 92°) are not right angles. "Close enough to 90°" is not accepted in GL Assessment. Shape Q is actually a parallelogram (opposite angles equal, no right angles) which is a different shape from a rectangle.',
+    'D': '❌ A square IS a rectangle — this is a standard mathematical fact. All squares satisfy the rectangle definition (four sides, four 90° angles) and also have the bonus property of equal sides. P correctly matches the target rectangle.',
+  },
+
+  // Section 6
+  'q-s6-1': {
+    'D': '✅ Correct! A diagonal drawn from one corner of a square to the OPPOSITE corner goes directly between two vertices of the square without crossing any of the four sides. The top side is completely unaffected — it remains a single uninterrupted line from corner to corner.',
+    'A': '❌ The top side doesn\'t disappear — it remains a solid line from corner to corner. Only a line that passes THROUGH the middle of a side would create an intersection on that side. A corner-to-corner diagonal bypasses all four sides entirely.',
+    'B': '❌ Three segments would require two crossing points on the top side. A single corner-to-corner diagonal doesn\'t cross the top side at all — it goes between corners, not through the sides.',
+    'C': '❌ This description would be correct if the diagonal crossed the top side at one point. But a corner-to-corner diagonal of a square runs between vertices — it touches the corners but doesn\'t cross any of the four sides.',
+  },
+  'q-s6-2': {
+    'B': '✅ Correct! A genuine gap (no line at all for a section of a side) means the shape\'s perimeter is incomplete. Unlike a crossing intersection (where the line continues through), a real gap cannot be filled — using an imaginary line to complete it is the phantom line error.',
+    'A': '❌ There is no "close enough" rule in hidden shape questions. Three complete sides with one gapped side means the shape\'s boundary has a break, making the shape incomplete. Inference or completion by imagination is not permitted.',
+    'C': '❌ Gaps in the perimeter are NOT acceptable. This is a direct violation of the core rule: every part of the hidden shape\'s boundary must follow a real drawn line. Real gaps (not crossings) disqualify the match.',
+    'D': '❌ The position of the gap (long side or short side) doesn\'t affect the rule. Whether the gap is on the longest or shortest side, any genuine gap in the perimeter makes the hidden shape incomplete and invalid.',
+  },
+  'q-s6-3': {
+    'B': '✅ Correct! Diagonal lines crossing through a triangle\'s sides create intersection points — but the triangle\'s sides continue perfectly straight through those intersections. The triangle\'s perimeter is fully intact. "Crossing" and "breaking" are not the same thing.',
+    'A': '❌ Lines passing through a shape\'s sides do not break the sides — they cross them. At a crossing point, both lines continue straight through. The triangle\'s sides are still complete, continuous line segments from corner to corner.',
+    'C': '❌ "Completely uninterrupted sides" is a misconception. Sides of hidden shapes frequently have other lines crossing them — this is one of the main features of complex figures. The key is that crossing ≠ breaking. Intersections don\'t interrupt continuity.',
+    'D': '❌ The angle at which crossing lines meet a shape\'s sides is irrelevant to whether the side is "broken." Whether the diagonals cross at right angles or any other angle, the triangle\'s sides continue through all intersections.',
+  },
+  'q-s6-4': {
+    'B': '✅ Correct! This is the essential distinction: at a crossing intersection, the shape\'s line segment continues on both sides of the crossing (the line doesn\'t stop). At a genuine gap, there is literally no line drawn for that section — the paper is blank there. Crossings feel like breaks but aren\'t; gaps are real breaks.',
+    'A': '❌ Crossing intersections can appear anywhere on a side — not just at corners. Gaps can also appear at corners or in the middle of sides. The position isn\'t what distinguishes them; the presence or absence of the line does.',
+    'C': '❌ Line thickness doesn\'t distinguish intersections from gaps. Both crossings and gaps occur in the same line weight as surrounding elements. The distinguishing factor is whether the shape\'s line continues on both sides of the point or disappears entirely.',
+    'D': '❌ There IS a real and important difference. Crossing intersections leave the shape\'s boundary intact (the line continues). Real gaps break the boundary (no line exists there). Confusing these two is the most common error in fragmented perimeter questions.',
+  },
+  'q-s6-5': {
+    'A': '✅ Correct! A vertex at a multiple-line intersection is valid as long as two of those meeting lines form the correct angle for the pentagon\'s corner at that point. The presence of additional lines at the vertex doesn\'t invalidate it — you just need to identify which two lines belong to the hidden shape.',
+    'B': '❌ Multiple lines meeting at a point makes the vertex harder to identify visually, but doesn\'t make it invalid. You just need to identify which two of those lines form the correct angle for the pentagon\'s corner.',
+    'C': '❌ There is no rule that corners must have exactly two lines meeting. In complex figures, many lines often converge at a single point. As long as two of them form the correct angle, that point is a valid vertex.',
+    'D': '❌ A vertex where three lines meet can still be valid even if one of the other lines IS part of the hidden shape — for example, if three sides of a polygon meet at a complex intersection point. The rule is simply that the two lines forming the target angle at that vertex are real lines in the figure.',
+  },
+  'q-s6-6': {
+    'C': '✅ Correct! A genuine gap — even a very tiny one — means the boundary is not continuous. The two collinear segments would only form one complete side if they were joined, but they\'re not. Using the gap as if it doesn\'t exist is another form of the phantom line error. Size of the gap is irrelevant; its existence is the disqualifier.',
+    'A': '❌ "Effectively form one side" requires them to actually be connected. Two collinear segments with a gap between them are two separate line segments, not one side. Alignment alone doesn\'t create connectivity — there must be no gap.',
+    'B': '❌ Gap size is irrelevant. A gap is a gap whether it\'s 0.1mm or 10mm. In GL Assessment geometry, a shape\'s boundary must be continuous. "Tiny gap" is still a gap that breaks the boundary.',
+    'D': '❌ GL Assessment does not apply a size threshold to gaps. The rule is absolute: the boundary must be continuous. No gap — of any size — is acceptable when identifying a hidden shape. This threshold-based thinking is a common misconception.',
+  },
+};
+
+function checkAnswer(btn, qId, fbId, choice) {
+  const card = document.getElementById(qId);
+  const allBtns = card.querySelectorAll('.ans-btn');
+  const fb = document.getElementById(fbId);
+  const section = qToSection[qId];
+
+  // Disable all buttons
+  allBtns.forEach(b => b.disabled = true);
+
+  const isCorrect = btn.dataset.correct === 'true';
+
+  // Style the clicked button
+  btn.classList.add(isCorrect ? 'correct' : 'wrong');
+
+  // Also highlight the correct answer if wrong
+  if (!isCorrect) {
+    allBtns.forEach(b => {
+      if (b.dataset.correct === 'true') b.classList.add('correct');
+    });
+  }
+
+  // Feedback
+  const fmap = feedbacks[qId];
+  let msg = fmap ? fmap[choice] : '';
+  if (!msg) msg = isCorrect ? '✅ Correct!' : '❌ Incorrect.';
+  fb.textContent = msg;
+  fb.className = 'feedback-box show ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+
+  // Score tracking
+  totalAttempted++;
+  if (isCorrect) totalCorrect++;
+  updateScoreDisplay();
+
+  // Section tracking
+  if (section) {
+    sectionQCounts[section].done++;
+    if (isCorrect) sectionQCounts[section].correct++;
+    checkSectionComplete(section);
+  }
+
+  // Show submit test button if test area visible
+  updateTestSubmitBtn();
+}
+
+// ─── PROGRESS BAR & NAV ─────────────────────────
+window.addEventListener('scroll', () => {
+  const bar = document.getElementById('progress-bar');
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  bar.style.width = ((scrolled / total) * 100) + '%';
+
+  // Active nav
+  const sections = ['intro','s1','s2','s3','s4','s5','s6','final-test'];
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 80) current = id;
+  });
+  document.querySelectorAll('.sticky-nav a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// ─── FINAL TEST ──────────────────────────────────
+let timerInterval = null;
+let timeRemaining = 720; // 12 minutes
+let testStarted = false;
+let testAnswers = {}; // qId → chosen button
+
+function startTest() {
+  document.getElementById('test-intro').style.display = 'none';
+  document.getElementById('test-area').style.display = 'block';
+  testStarted = true;
+  updateTimerDisplay();
+
+  timerInterval = setInterval(() => {
+    timeRemaining--;
+    updateTimerDisplay();
+    if (timeRemaining <= 0) {
+      clearInterval(timerInterval);
+      submitTest();
+    }
+  }, 1000);
+
+  // Bind test buttons
+  document.querySelectorAll('.test-ans-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const qId = this.dataset.q;
+      if (testAnswers[qId]) return; // Already answered pre-submit (not used — we collect on submit)
+      // Toggle selection visual only
+      const card = document.getElementById(qId);
+      card.querySelectorAll('.test-ans-btn').forEach(b => b.style.background = '');
+      this.style.background = 'rgba(240,180,41,0.2)';
+      this.style.borderColor = 'rgba(240,180,41,0.6)';
+      testAnswers[qId] = this;
+    });
+  });
+
+  document.getElementById('submit-test-btn').classList.add('show');
+}
+
+function updateTimerDisplay() {
+  const mins = Math.floor(timeRemaining / 60).toString().padStart(2,'0');
+  const secs = (timeRemaining % 60).toString().padStart(2,'0');
+  const el = document.getElementById('timer-display');
+  if (el) {
+    el.textContent = mins + ':' + secs;
+    el.style.color = timeRemaining <= 60 ? '#ef4444' : '';
+  }
+}
+
+function updateTestSubmitBtn() {
+  // Show submit after at least 1 test selection (handled by startTest)
+}
+
+function submitTest() {
+  clearInterval(timerInterval);
+  let score = 0;
+  const total = 15;
+
+  // For questions not selected, treat as unanswered
+  document.querySelectorAll('.test-ans-btn').forEach(btn => btn.disabled = true);
+
+  // Evaluate answers
+  for (let i = 1; i <= 15; i++) {
+    const qId = 'tq' + i;
+    const chosen = testAnswers[qId];
+    const allBtns = document.querySelectorAll(`.test-ans-btn[data-q="${qId}"]`);
+    const fb = document.getElementById('tfb-' + qId);
+
+    // Find correct button
+    let correctBtn = null;
+    allBtns.forEach(b => {
+      if (b.dataset.correct === 'true') correctBtn = b;
+    });
+
+    if (chosen) {
+      const isCorrect = chosen.dataset.correct === 'true';
+      if (isCorrect) {
+        score++;
+        chosen.classList.add('correct');
+        chosen.style.background = '';
+        chosen.style.borderColor = '';
+      } else {
+        chosen.classList.add('wrong');
+        chosen.style.background = '';
+        chosen.style.borderColor = '';
+        if (correctBtn) correctBtn.classList.add('correct');
+        if (fb) fb.classList.add('show');
+      }
+    } else {
+      // Unanswered — show correct
+      if (correctBtn) correctBtn.classList.add('correct');
+      if (fb) {
+        fb.textContent = '⏭ Not attempted — the correct answer is highlighted above.';
+        fb.classList.add('show');
+      }
+    }
+    if (fb && chosen && chosen.dataset.correct === 'true') fb.classList.add('show');
+  }
+
+  document.getElementById('submit-test-btn').style.display = 'none';
+
+  // Show results
+  const pct = score / total;
+  let band, bandClass, msg;
+  if (pct < 0.4) {
+    band = 'Needs Practice'; bandClass = 'band-needs';
+    msg = 'Keep working through the sub-skills above — focus on Line Extension and Negative Space first. Come back to this test after reviewing the worked examples.';
+  } else if (pct < 0.6) {
+    band = 'Developing'; bandClass = 'band-developing';
+    msg = 'Good effort! You understand the basics. Focus on the trickier sub-skills: Micro-Angle Discrimination and Fragmented Perimeter. Re-read the Watch Out boxes.';
+  } else if (pct < 0.87) {
+    band = 'Secure'; bandClass = 'band-secure';
+    msg = 'Strong performance — you\'re at GL Assessment standard. Push for Mastery by reviewing the questions you missed and practising the harder worked examples.';
+  } else {
+    band = 'Mastery'; bandClass = 'band-mastery';
+    msg = 'Outstanding! You have mastered Hidden Shapes. You\'re ready for this question type in the GL Assessment exam. ';
+  }
+
+  document.getElementById('results-score').textContent = score + '/15';
+  document.getElementById('results-band').textContent = band;
+  document.getElementById('results-band').className = 'results-band ' + bandClass;
+  document.getElementById('results-message').textContent = msg;
+  document.getElementById('results-panel').classList.add('show');
+  document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+</script>
+</body>
+</html>

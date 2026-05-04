@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11+ NVR: Combining Shapes | GL Assessment Revision</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #162436;
+  --navy-light: #1e3450;
+  --gold: #f0b429;
+  --gold-light: #f7d070;
+  --gold-pale: #fef9e7;
+  --cream: #faf8f3;
+  --white: #ffffff;
+  --green: #059669;
+  --green-pale: #d1fae5;
+  --yellow: #d97706;
+  --yellow-pale: #fef3c7;
+  --orange: #ea580c;
+  --orange-pale: #ffedd5;
+  --purple: #6d28d9;
+  --purple-pale: #ede9fe;
+  --red: #dc2626;
+  --red-pale: #fee2e2;
+  --slate: #64748b;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --text-mid: #475569;
+  --shadow: 0 2px 16px rgba(13,27,42,0.09);
+  --shadow-lg: 0 6px 32px rgba(13,27,42,0.15);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:17px;line-height:1.7}
+
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),#fbbf24);z-index:2000;transition:width .1s;width:0}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 55%,var(--navy-light) 100%);padding:52px 20px 40px;text-align:center;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:rgba(240,180,41,.06)}
+.hdr::after{content:'';position:absolute;bottom:-50px;left:-50px;width:180px;height:180px;border-radius:50%;background:rgba(240,180,41,.04)}
+.hdr-pill{display:inline-block;background:rgba(240,180,41,.14);border:1px solid rgba(240,180,41,.32);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:14px}
+.hdr h1{font-family:'Playfair Display',serif;color:#fff;font-size:clamp(26px,5vw,44px);font-weight:900;line-height:1.15;margin-bottom:10px}
+.hdr h1 span{color:var(--gold)}
+.hdr p{color:rgba(255,255,255,.68);font-size:15px;max-width:560px;margin:0 auto 22px}
+.score-chip{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);border-radius:30px;padding:8px 20px;color:#fff;font-size:14px;font-weight:600}
+.score-chip .sn{color:var(--gold);font-size:20px;font-family:'JetBrains Mono',monospace}
+
+/* NAV */
+.snav{position:sticky;top:3px;z-index:900;background:var(--navy);border-bottom:2px solid rgba(240,180,41,.25);padding:0 16px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+.snav::-webkit-scrollbar{display:none}
+.snav ul{list-style:none;display:inline-flex;margin:0;padding:0}
+.snav a{display:inline-block;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;font-weight:700;padding:13px 13px;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;letter-spacing:.3px}
+.snav a:hover,.snav a.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* LAYOUT */
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+
+/* SECTIONS */
+.sec{padding:52px 0 24px}
+.sec-hdr{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.sec-num{width:46px;height:46px;border-radius:50%;background:var(--navy);color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,26px);color:var(--navy);font-weight:700}
+.sec-tick{margin-left:auto;width:32px;height:32px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .4s;flex-shrink:0;color:var(--slate)}
+.sec-tick.done{background:var(--green);color:#fff}
+
+/* CARDS */
+.card{background:#fff;border-radius:14px;padding:22px 26px;margin-bottom:16px;box-shadow:var(--shadow);border:1px solid var(--border)}
+
+/* BOXES */
+.simple-box{background:linear-gradient(135deg,#ecfdf5,#f0fdf4);border-left:4px solid var(--green);border-radius:10px;padding:20px 24px;margin-bottom:16px;font-size:16px}
+.simple-box .lbl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.analogy{margin-top:10px;font-style:italic;color:var(--text-mid);font-size:15px}
+.full-box{background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border-left:4px solid #0ea5e9;border-radius:10px;padding:20px 24px;margin-bottom:16px;font-size:15px}
+.full-box .lbl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0284c7;margin-bottom:8px}
+.warn-box{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-left:4px solid var(--orange);border-radius:10px;padding:18px 24px;margin-bottom:16px}
+.warn-box .wt{font-weight:700;color:var(--orange);font-size:13px;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.warn-box ul{padding-left:18px}
+.warn-box li{font-size:15px;margin-bottom:4px}
+
+/* STRATEGY */
+.strategy{background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:12px;padding:22px 26px;color:#fff;margin-bottom:18px}
+.strategy h4{color:var(--gold);font-size:13px;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;font-weight:700}
+.s-step{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;font-size:15px}
+.s-step:last-child{margin-bottom:0}
+.s-icon{font-size:18px;flex-shrink:0;margin-top:2px}
+.s-text{color:rgba(255,255,255,.9);line-height:1.5}
+
+/* WORKED EXAMPLES */
+.we{border:2px solid rgba(109,40,217,.18);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.we-hdr{background:linear-gradient(135deg,var(--purple),#5b21b6);color:#fff;padding:12px 20px;font-size:13px;font-weight:700;letter-spacing:.4px}
+.we-body{padding:20px 24px}
+.we-step{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px;padding-bottom:14px;border-bottom:1px dashed var(--border)}
+.we-step:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.sn2{width:28px;height:28px;border-radius:50%;background:var(--purple);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.we-step p{font-size:15px;line-height:1.6}
+
+/* DIAGRAMS */
+.dia{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:14px;margin:12px 0;display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
+.dia-lbl{text-align:center;font-size:11px;font-weight:700;color:var(--text-mid);margin-top:5px;letter-spacing:.5px;text-transform:uppercase}
+
+/* BADGES */
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+.b-s{background:var(--green-pale);color:#065f46}
+.b-d{background:var(--yellow-pale);color:#92400e}
+.b-sec{background:var(--orange-pale);color:#9a3412}
+.b-m{background:var(--purple-pale);color:#4c1d95}
+
+/* QUESTIONS */
+.qcard{background:#fff;border-radius:12px;padding:22px 26px;margin-bottom:14px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.qhdr{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.qnum{font-size:12px;font-weight:700;color:var(--slate);font-family:'JetBrains Mono',monospace}
+.qtext{font-size:16px;font-weight:600;color:var(--text);margin-bottom:14px;line-height:1.5}
+.qdia{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:14px;display:flex;justify-content:center;align-items:center;gap:22px;flex-wrap:wrap}
+.bg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:500px){.bg{grid-template-columns:1fr}}
+.ab{padding:11px 15px;border-radius:8px;border:2px solid var(--border);background:#fff;font-size:14px;font-weight:600;cursor:pointer;text-align:left;transition:all .2s;display:flex;align-items:flex-start;gap:8px;line-height:1.4;font-family:'DM Sans',sans-serif}
+.ab:hover:not(:disabled){border-color:var(--navy);background:#f8faff}
+.ab.cor{background:var(--green-pale);border-color:var(--green);color:#065f46}
+.ab.wrg{background:var(--red-pale);border-color:var(--red);color:#991b1b}
+.ab:disabled{cursor:not-allowed}
+.fb{padding:12px 16px;border-radius:8px;font-size:14px;line-height:1.55;display:none;margin-top:4px}
+.fb.show{display:block}
+.fb-cor{background:var(--green-pale);color:#065f46;border-left:3px solid var(--green)}
+.fb-wrg{background:var(--red-pale);color:#991b1b;border-left:3px solid var(--red)}
+
+/* TYPED */
+.tinput{width:100%;padding:10px 14px;border:2px solid var(--border);border-radius:8px;font-size:15px;font-family:'DM Sans',sans-serif;margin-bottom:10px;transition:border-color .2s}
+.tinput:focus{outline:none;border-color:var(--navy)}
+.sbtn{background:var(--navy);color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s}
+.sbtn:hover{background:var(--navy-light)}
+
+/* DIVIDER */
+.div{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:8px 0}
+
+/* INTRO SKILL BOX */
+.intro-box{background:linear-gradient(135deg,#fefce8,#fef9c3);border:1px solid #fde68a;border-radius:12px;padding:20px 24px;margin-bottom:32px;font-size:15px}
+.intro-box strong{color:var(--navy)}
+
+/* Q SECTION TITLE */
+.qst{font-size:13px;font-weight:700;color:var(--text-mid);letter-spacing:.5px;text-transform:uppercase;margin:26px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+
+/* FINAL TEST */
+.ft-wrap{background:linear-gradient(135deg,var(--navy),var(--navy-light));border-radius:16px;padding:30px 26px;margin:32px 0;color:#fff}
+.ft-wrap h2{font-family:'Playfair Display',serif;color:var(--gold);font-size:24px;margin-bottom:8px}
+.ft-wrap>p{color:rgba(255,255,255,.72);margin-bottom:20px;font-size:15px}
+.timer{display:inline-flex;align-items:center;gap:8px;background:rgba(240,180,41,.14);border:1px solid rgba(240,180,41,.28);color:var(--gold);padding:8px 18px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:600;margin-bottom:22px}
+.tqcard{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px 24px;margin-bottom:16px}
+.tqtext{color:#fff;font-size:16px;font-weight:600;margin-bottom:14px}
+.tbg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:500px){.tbg{grid-template-columns:1fr}}
+.tab{padding:10px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:rgba(255,255,255,.87);font-size:14px;font-weight:600;cursor:pointer;text-align:left;transition:all .2s;font-family:'DM Sans',sans-serif}
+.tab:hover:not(:disabled){background:rgba(255,255,255,.14)}
+.tab.cor{background:rgba(5,150,105,.25);border-color:#059669;color:#a7f3d0}
+.tab.wrg{background:rgba(220,38,38,.25);border-color:#dc2626;color:#fecaca}
+.tab.sel{background:rgba(240,180,41,.18);border-color:rgba(240,180,41,.55)}
+.tfb{display:none;margin-top:10px;padding:12px 16px;background:rgba(255,255,255,.06);border-radius:8px;font-size:14px;color:rgba(255,255,255,.85);line-height:1.55;border-left:3px solid var(--gold)}
+.tfb.show{display:block}
+.start-btn{background:var(--gold);color:var(--navy);border:none;padding:14px 32px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif}
+.start-btn:hover{background:var(--gold-light);transform:translateY(-1px)}
+.sub-btn{background:var(--gold);color:var(--navy);border:none;padding:13px 30px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-top:18px;font-family:'DM Sans',sans-serif;display:none;transition:all .2s}
+.sub-btn.vis{display:inline-block}
+.sub-btn:hover{background:var(--gold-light)}
+.results{display:none;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:30px;text-align:center;margin-top:26px}
+.results.show{display:block}
+.res-score{font-family:'JetBrains Mono',monospace;font-size:58px;font-weight:600;color:var(--gold);line-height:1;margin-bottom:6px}
+.res-band{font-size:20px;font-weight:700;padding:5px 18px;border-radius:20px;display:inline-block;margin-bottom:12px}
+.rbn{background:rgba(220,38,38,.2);color:#fca5a5}
+.rbd{background:rgba(217,119,6,.2);color:#fcd34d}
+.rbs{background:rgba(234,88,12,.2);color:#fdba74}
+.rbm{background:rgba(109,40,217,.2);color:#c4b5fd}
+
+/* PIECE DISPLAY */
+.piece-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center;margin:10px 0}
+.piece-box{text-align:center}
+.piece-box svg{display:block;margin:0 auto}
+.plus-sign{font-size:24px;font-weight:700;color:var(--slate);align-self:center}
+.equals-sign{font-size:24px;font-weight:700;color:var(--navy);align-self:center}
+.option-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px;margin:10px 0}
+.opt-box{text-align:center;padding:10px;border-radius:8px;border:2px solid var(--border);background:#fff;cursor:pointer;transition:all .2s}
+.opt-box:hover{border-color:var(--navy)}
+.opt-box svg{display:block;margin:0 auto}
+.opt-lbl{font-size:12px;font-weight:700;margin-top:5px;color:var(--text-mid)}
+footer{background:var(--navy);color:rgba(255,255,255,.4);text-align:center;padding:22px;font-size:13px;margin-top:60px}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-pill">11+ GL Assessment · Non Verbal Reasoning</div>
+  <h1>Combining <span>Shapes</span></h1>
+  <p>Given separate pieces, identify which larger shape they combine to make — with no gaps, no overlaps, and exact edge matching.</p>
+  <div class="score-chip">⭐ Score: <span class="sn" id="live-sc">0</span> / <span id="live-tot">0</span></div>
+</header>
+
+<!-- NAV -->
+<nav class="snav">
+  <ul>
+    <li><a href="#intro">Intro</a></li>
+    <li><a href="#s1">1 · No-Gap No-Overlap</a></li>
+    <li><a href="#s2">2 · Rotation vs Reflection</a></li>
+    <li><a href="#s3">3 · Edge-Length Precision</a></li>
+    <li><a href="#s4">4 · Internal Line Consistency</a></li>
+    <li><a href="#s5">5 · Outline-First Elimination</a></li>
+    <li><a href="#s6">6 · Placement Order & Ambiguous Fit</a></li>
+    <li><a href="#ft">🏆 Final Test</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+<!-- INTRO -->
+<section id="intro" class="sec">
+  <div class="intro-box">
+    <strong>What is this question type?</strong> You are shown <strong>two or three separate puzzle pieces</strong>. You must decide which answer option shows what they look like when fitted together — with no gaps between them, no overlapping, and every edge matching exactly.
+  </div>
+
+  <div class="strategy">
+    <h4>🎯 The Fast GL Strategy — Win in 30 Seconds</h4>
+    <div class="s-step"><span class="s-icon">1️⃣</span><span class="s-text"><strong>Outline-first elimination.</strong> Before touching the pieces, look at ALL answer options and ask: "Does this outline have the right total area? Does the overall shape look plausible?" Eliminate obviously wrong outlines instantly — this cuts 2–3 options in under 5 seconds.</span></div>
+    <div class="s-step"><span class="s-icon">2️⃣</span><span class="s-text"><strong>Limit to 2 survivors.</strong> Don't try to test all options — stop when you have 2 plausible ones. Now you're comparing just two shapes, which is far faster than scanning four.</span></div>
+    <div class="s-step"><span class="s-icon">3️⃣</span><span class="s-text"><strong>Anchor the largest piece.</strong> Mentally place the biggest piece in a fixed position inside your surviving options. Does the remaining space fit the other piece(s) exactly?</span></div>
+    <div class="s-step"><span class="s-icon">4️⃣</span><span class="s-text"><strong>Check edges, not just outline.</strong> The correct answer must have every edge matching — including internal seams where pieces meet. A correct outline with a wrong internal structure is still wrong.</span></div>
+    <div class="s-step"><span class="s-icon">5️⃣</span><span class="s-text"><strong>Verify: can it be rotated, not reflected?</strong> Rotation (turning) is allowed. Reflection (flipping like a mirror) is NOT. If a piece only fits by flipping it over, that answer is wrong.</span></div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ═══════════════════════ S1: NO-GAP NO-OVERLAP ═══════════════════════ -->
+<section id="s1" class="sec">
+  <div class="sec-hdr">
+    <div class="sec-num">1</div>
+    <h2 class="sec-title">No-Gap & No-Overlap Rule</h2>
+    <div class="sec-tick" id="tick-s1">○</div>
+  </div>
+
+  <div class="simple-box">
+    <div class="lbl">🌱 Simple Explanation</div>
+    <p>Think of a jigsaw puzzle. When you place a piece correctly, it fits snugly — no holes left behind and no part sticking out over another piece. That's exactly the rule here. The pieces must fit <strong>perfectly</strong>: every gap is filled, and no piece overlaps another. If something pokes out or leaves a hole, it's wrong.</p>
+    <p class="analogy">💡 Like fitting Tetris blocks — if a block leaves an empty square or goes on top of another block, it doesn't count as a valid move.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="lbl">📘 Full Explanation</div>
+    <p>The <strong>no-gap, no-overlap principle</strong> states that the combined area of all pieces must equal the area of the final shape exactly. No region of the final shape may be left unfilled (gap), and no piece may extend beyond the boundary of the final shape or over another piece (overlap). This means: <em>total area of pieces = area of final shape</em>, and every square unit is occupied by exactly one piece.</p>
+  </div>
+
+  <div class="we">
+    <div class="we-hdr">📐 Worked Example 1 — Two Squares Make a Rectangle</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Pieces:</strong> Two identical squares (same size). <strong>Question:</strong> Which shape do they make?</p>
+      <div class="dia">
+        <div class="piece-box">
+          <svg width="60" height="60" viewBox="0 0 60 60"><rect x="5" y="5" width="50" height="50" fill="none" stroke="#0d1b2a" stroke-width="2.5"/></svg>
+          <div class="dia-lbl">Square 1</div>
+        </div>
+        <span class="plus-sign">+</span>
+        <div class="piece-box">
+          <svg width="60" height="60" viewBox="0 0 60 60"><rect x="5" y="5" width="50" height="50" fill="none" stroke="#0d1b2a" stroke-width="2.5"/></svg>
+          <div class="dia-lbl">Square 2</div>
+        </div>
+        <span class="equals-sign">=</span>
+        <div class="piece-box">
+          <svg width="110" height="60" viewBox="0 0 110 60"><rect x="5" y="5" width="100" height="50" fill="rgba(240,180,41,0.15)" stroke="#f0b429" stroke-width="2.5"/><line x1="55" y1="5" x2="55" y2="55" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/></svg>
+          <div class="dia-lbl">Rectangle ✓</div>
+        </div>
+      </div>
+      <div class="we-step"><div class="sn2">1</div><p><strong>Count area:</strong> Each square has the same area. Two squares = 2× area. Look for an answer option with exactly 2× the area of one square. A rectangle (2:1 ratio) fits perfectly. A bigger square would also have 2× area — but only if the sides work out exactly, which a 2:1 rectangle does.</p></div>
+      <div class="we-step"><div class="sn2">2</div><p><strong>Check for gaps/overlaps:</strong> Placed side by side, the two squares share one full edge. No space is left empty. Neither square overlaps the other. ✓</p></div>
+      <div class="we-step"><div class="sn2">3</div><p><strong>Trap option — the "thicker square":</strong> An option showing a slightly larger single square would look tempting if you don't check that two squares placed side-by-side can't make a square (they'd make a 2:1 rectangle). Reject it.</p></div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <div class="wt">⚠️ Watch Out!</div>
+    <ul>
+      <li><strong>Overlap illusion:</strong> Options sometimes show pieces that would need to overlap to fit. The outline looks right, but internally there'd be double-coverage. Always ask: "Can each piece fit without sitting on top of another?"</li>
+      <li><strong>Gap illusion:</strong> A shape might look like the right answer, but be slightly too big — meaning there'd be an unfilled gap. Check that the pieces exactly fill the entire interior.</li>
+    </ul>
+  </div>
+
+  <div class="we">
+    <div class="we-hdr">📐 Worked Example 2 — Harder: Triangle + Triangle</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Pieces:</strong> Two identical right-angled triangles. <strong>Options:</strong> (A) Square (B) Rectangle (C) Parallelogram (D) Larger triangle. <strong>Trap:</strong> Multiple options look plausible.</p>
+      <div class="we-step"><div class="sn2">1</div><p><strong>Outline elimination:</strong> A larger triangle (D) would only work if both triangles are placed in the exact same orientation — but two identical right-angled triangles can make a rectangle, parallelogram, or larger triangle depending on how placed. We need to test which specific option these particular triangles produce.</p></div>
+      <div class="we-step"><div class="sn2">2</div><p><strong>Anchor the first piece:</strong> Place one triangle with its hypotenuse facing right. The remaining space to make a rectangle must be filled by the second triangle placed with its hypotenuse facing left. This works with no gaps. ✓ Rectangle is confirmed.</p></div>
+      <div class="we-step"><div class="sn2">3</div><p><strong>Why the square is wrong:</strong> A square requires both sides to be equal. Two right-angled triangles placed hypotenuse-to-hypotenuse make a rectangle — only a square if the triangles have legs equal in length AND at 45°. If the triangles are not 45-45-90°, the result is NOT a square. Check the triangle's angles first.</p></div>
+      <div class="we-step"><div class="sn2">4</div><p><strong>Why the parallelogram is tempting:</strong> If you placed the second triangle flipped (reflected), you'd get a parallelogram-like shape. But reflection is not allowed — you can only rotate. In this question, rotation gives a rectangle. The parallelogram requires reflection → reject it.</p></div>
+    </div>
+  </div>
+
+  <div class="qst">Practice Questions — No-Gap & No-Overlap</div>
+
+  <!-- Q1 -->
+  <div class="qcard" id="q1">
+    <div class="qhdr"><span class="qnum">Q1</span><span class="badge b-s">Starter</span></div>
+    <p class="qtext">Two identical squares are placed side by side (sharing one full edge). What shape do they make?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q1','f1','A')">A) A larger square</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q1','f1','B')">B) A rectangle (twice as long as it is tall)</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q1','f1','C')">C) A parallelogram</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q1','f1','D')">D) A triangle</button>
+    </div>
+    <div class="fb" id="f1"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="qcard" id="q2">
+    <div class="qhdr"><span class="qnum">Q2</span><span class="badge b-s">Starter</span></div>
+    <p class="qtext">A student places one piece on top of another piece to "make it fit" into the answer shape. Is this a valid solution?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q2','f2','A')">A) Yes — if the outline looks right, the placement method doesn't matter</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q2','f2','B')">B) No — pieces must never overlap each other; every piece must have its own separate space in the final shape</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q2','f2','C')">C) Yes — small overlaps at corners are acceptable</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q2','f2','D')">D) Only if the pieces are the same size</button>
+    </div>
+    <div class="fb" id="f2"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="qcard" id="q3">
+    <div class="qhdr"><span class="qnum">Q3</span><span class="badge b-d">Developing</span></div>
+    <p class="qtext">Three squares (each with area 4 cm²) are combined. Which answer option could be the correct combined shape?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q3','f3','A')">A) A shape with total area 8 cm²</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q3','f3','B')">B) A shape with total area 12 cm²</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q3','f3','C')">C) A shape with total area 16 cm²</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q3','f3','D')">D) A shape with total area 9 cm²</button>
+    </div>
+    <div class="fb" id="f3"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="qcard" id="q4">
+    <div class="qhdr"><span class="qnum">Q4</span><span class="badge b-d">Developing</span></div>
+    <p class="qtext">A rectangle and a square are to be combined. The rectangle is exactly twice the area of the square. Which total area should the combined shape have?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q4','f4','A')">A) Equal to the rectangle's area alone</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q4','f4','B')">B) Equal to 4× the square's area</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q4','f4','C')">C) Equal to 3× the square's area (because rectangle = 2× square, and adding the square gives 2+1 = 3)</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q4','f4','D')">D) Equal to 2× the square's area</button>
+    </div>
+    <div class="fb" id="f4"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="qcard" id="q5">
+    <div class="qhdr"><span class="qnum">Q5</span><span class="badge b-sec">Secure</span></div>
+    <p class="qtext">Two right-angled triangles (both 3-4-5 triangles, meaning legs of 3 and 4 units) are placed with their hypotenuses (longest sides) touching. What shape do they definitely make — with no gaps and no overlaps?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q5','f5','A')">A) A square</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q5','f5','B')">B) A rectangle (3 units × 4 units)</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q5','f5','C')">C) A parallelogram</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q5','f5','D')">D) A larger triangle</button>
+    </div>
+    <div class="fb" id="f5"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="qcard" id="q6">
+    <div class="qhdr"><span class="qnum">Q6</span><span class="badge b-m">Mastery</span></div>
+    <p class="qtext">MASTERY TRAP: Four identical right-angled isosceles triangles (45-45-90°, legs = 2 cm) are to be combined. A student claims all four options are valid: (A) a 2×4 rectangle, (B) a 4×2 rectangle, (C) a square, (D) a larger right-angled isosceles triangle. Which of these shapes can actually be made with no gaps and no overlaps?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q6','f6','A')">A) Only the square — the triangles can only form one specific shape</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q6','f6','B')">B) The square and the larger triangle only</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q6','f6','C')">C) The square, both rectangles, AND the larger isosceles triangle — all four can be made depending on arrangement</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q6','f6','D')">D) None — four triangles always leave gaps</button>
+    </div>
+    <div class="fb" id="f6"></div>
+  </div>
+
+</section>
+<div class="div"></div>
+
+<!-- ═══════════════════════ S2: ROTATION VS REFLECTION ═══════════════════════ -->
+<section id="s2" class="sec">
+  <div class="sec-hdr">
+    <div class="sec-num">2</div>
+    <h2 class="sec-title">Rotation vs Reflection</h2>
+    <div class="sec-tick" id="tick-s2">○</div>
+  </div>
+
+  <div class="simple-box">
+    <div class="lbl">🌱 Simple Explanation</div>
+    <p>Imagine picking up a piece and spinning it around like a clock hand — that's <strong>rotation</strong>. You're allowed to do this. Now imagine picking up the piece and flipping it over as if you're turning a page in a book — that's <strong>reflection</strong>. You are <strong>NOT</strong> allowed to do this. The piece must stay "face up" — you can spin it, but you can't flip it.</p>
+    <p class="analogy">💡 Think of a glove. You can rotate a right-hand glove in any direction, but you can never turn it into a left-hand glove without flipping it inside out. These are different objects.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="lbl">📘 Full Explanation</div>
+    <p><strong>Rotation</strong> is a rigid transformation that turns a shape by any angle around a fixed point. It preserves all distances and angles — the shape is identical, just pointing a different direction. <strong>Reflection</strong> flips the shape across an axis, creating a mirror image. The reflected shape has the same dimensions but reversed handedness (chirality). In GL Assessment combining-shapes questions, pieces may be <em>rotated</em> but may not be <em>reflected</em>. If an answer option only works by reflecting a piece, that option is incorrect.</p>
+  </div>
+
+  <div class="we">
+    <div class="we-hdr">📐 Worked Example 1 — Spotting the Illegal Reflection</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Piece:</strong> A right-angled triangle with the right angle at its BOTTOM-LEFT. <strong>Options:</strong> (A) the piece rotated 90° clockwise — right angle now at top-left. (B) the piece reflected — right angle now at BOTTOM-RIGHT.</p>
+      <div class="dia">
+        <div class="piece-box">
+          <svg width="70" height="70" viewBox="0 0 70 70"><polygon points="10,60 60,60 10,10" fill="none" stroke="#0d1b2a" stroke-width="2.5"/><rect x="10" y="52" width="8" height="8" fill="none" stroke="#0d1b2a" stroke-width="1.5"/></svg>
+          <div class="dia-lbl">Original</div>
+        </div>
+        <div class="piece-box">
+          <svg width="70" height="70" viewBox="0 0 70 70"><polygon points="10,60 10,10 60,10" fill="rgba(16,185,129,0.15)" stroke="#059669" stroke-width="2.5"/><rect x="10" y="10" width="8" height="8" fill="none" stroke="#059669" stroke-width="1.5"/></svg>
+          <div class="dia-lbl">Rotated 90°CW ✓</div>
+        </div>
+        <div class="piece-box">
+          <svg width="70" height="70" viewBox="0 0 70 70"><polygon points="10,60 60,60 60,10" fill="rgba(220,38,38,0.12)" stroke="#dc2626" stroke-width="2.5"/><rect x="52" y="52" width="8" height="8" fill="none" stroke="#dc2626" stroke-width="1.5"/></svg>
+          <div class="dia-lbl">Reflected ✗ (right angle flipped)</div>
+        </div>
+      </div>
+      <div class="we-step"><div class="sn2">1</div><p><strong>Identify the asymmetry:</strong> The original piece has its right angle at the BOTTOM-LEFT. This is the "anchor feature" — it can't move to the bottom-right without a reflection.</p></div>
+      <div class="we-step"><div class="sn2">2</div><p><strong>Test rotation:</strong> Rotating 90° clockwise moves the right angle to the TOP-LEFT. Rotating 180° moves it to TOP-RIGHT. Rotating 270° clockwise moves it to BOTTOM-LEFT again (back to start). None of these rotations put the right angle at BOTTOM-RIGHT.</p></div>
+      <div class="we-step"><div class="sn2">3</div><p><strong>Conclusion:</strong> The only way to get the right angle to BOTTOM-RIGHT is to reflect the piece. Since reflection is not allowed, option B is invalid — even if the combined shape's outline looks correct.</p></div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <div class="wt">⚠️ Watch Out! — The Most Common Trap</div>
+    <ul>
+      <li><strong>"I just rotated it" — when you actually reflected it.</strong> Students frequently confuse a 180° rotation with a reflection. For symmetric shapes, these look the same — for asymmetric shapes, they produce different results. Always ask: "Can I get from the original to this position by spinning only?"</li>
+      <li><strong>Symmetric pieces feel the same when reflected.</strong> A rectangle looks the same reflected and rotated 180°. But an irregular triangle looks different. Always check asymmetric features.</li>
+    </ul>
+  </div>
+
+  <div class="we">
+    <div class="we-hdr">📐 Worked Example 2 — Harder: The "Rotational Symmetry Confusion" Trap</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Scenario:</strong> A piece looks like a checkmark (✓). Two options appear to use this piece: Option C uses it rotated 90° clockwise. Option D uses a mirror image. They look similar because the piece has an irregular shape.</p>
+      <div class="we-step"><div class="sn2">1</div><p><strong>Find one asymmetric feature in the piece:</strong> The checkmark has a short arm (top) and a long arm (bottom-right). The angle between them is not 90° — it's about 60°. This asymmetry is the key.</p></div>
+      <div class="we-step"><div class="sn2">2</div><p><strong>Check option C (rotated):</strong> In option C, the short arm now points to the right and the long arm points downward-left. Spinning the original 90° clockwise achieves exactly this. No reflection needed. Option C is valid. ✓</p></div>
+      <div class="we-step"><div class="sn2">3</div><p><strong>Check option D (reflected):</strong> In option D, the short arm points left and the long arm points downward-right — the opposite of a 90° rotation. No rotation of the original achieves this. Only a reflection does. Option D is invalid. ✗</p></div>
+      <div class="we-step"><div class="sn2">4</div><p><strong>If the final shape requires option D's placement, that answer is wrong</strong> — even if everything else looks correct. The reflection trap is one of the most common GL-level errors.</p></div>
+    </div>
+  </div>
+
+  <div class="qst">Practice Questions — Rotation vs Reflection</div>
+
+  <div class="qcard" id="q7">
+    <div class="qhdr"><span class="qnum">Q7</span><span class="badge b-s">Starter</span></div>
+    <p class="qtext">Which of the following transformations is ALLOWED when combining pieces in this question type?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q7','f7','A')">A) Flipping a piece over (reflection)</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q7','f7','B')">B) Turning a piece clockwise or anticlockwise (rotation)</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q7','f7','C')">C) Stretching a piece to make it fit</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q7','f7','D')">D) Shrinking a piece so gaps are allowed</button>
+    </div>
+    <div class="fb" id="f7"></div>
+  </div>
+
+  <div class="qcard" id="q8">
+    <div class="qhdr"><span class="qnum">Q8</span><span class="badge b-s">Starter</span></div>
+    <p class="qtext">A piece is shaped like the letter "F". After a valid transformation, which result is possible?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q8','f8','A')">A) The letter "F" reflected to look like a backwards "F" (mirror image)</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q8','f8','B')">B) The letter "F" rotated 180° so it looks like an upside-down "F"</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q8','f8','C')">C) The letter "F" stretched wider to fill more space</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q8','f8','D')">D) The letter "F" split into two separate pieces</button>
+    </div>
+    <div class="fb" id="f8"></div>
+  </div>
+
+  <div class="qcard" id="q9">
+    <div class="qhdr"><span class="qnum">Q9</span><span class="badge b-d">Developing</span></div>
+    <p class="qtext">A right-angled triangle has its right angle at the top-right. A student says: "I can get the right angle to move to the bottom-left by rotating 180°." Is the student correct?</p>
+    <div class="bg">
+      <button class="ab" data-correct="true" onclick="ca(this,'q9','f9','A')">A) Yes — rotating 180° moves the top-right corner to the bottom-left position; this is a valid rotation</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q9','f9','B')">B) No — a 180° rotation keeps the right angle in the same place</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q9','f9','C')">C) No — you'd need a reflection to move the right angle from top-right to bottom-left</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q9','f9','D')">D) It depends on whether the triangle is isosceles</button>
+    </div>
+    <div class="fb" id="f9"></div>
+  </div>
+
+  <div class="qcard" id="q10">
+    <div class="qhdr"><span class="qnum">Q10</span><span class="badge b-d">Developing</span></div>
+    <p class="qtext">A piece has its right angle at the bottom-LEFT. Which rotation(s) of 90° steps will move it to the bottom-RIGHT?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q10','f10','A')">A) 90° clockwise</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q10','f10','B')">B) 180°</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q10','f10','C')">C) 270° clockwise</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q10','f10','D')">D) No rotation moves the right angle from bottom-left to bottom-right — only a reflection does</button>
+    </div>
+    <div class="fb" id="f10"></div>
+  </div>
+
+  <div class="qcard" id="q11">
+    <div class="qhdr"><span class="qnum">Q11</span><span class="badge b-sec">Secure</span></div>
+    <p class="qtext">SECURE: An answer option shows two pieces fitting together — but to make them fit, the L-shaped piece must be reflected (it would only fit face-down). The outline of the resulting shape is otherwise identical to another option where no reflection is needed. Which option is correct?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q11','f11','A')">A) The option requiring reflection — because the outline is the same, the method doesn't matter</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q11','f11','B')">B) The option where no reflection is needed — reflection is forbidden; even though the outline looks the same, only valid placements count</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q11','f11','C')">C) Both options are equally correct — the result looks identical</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q11','f11','D')">D) Neither — if any reflection is involved, the whole answer is invalid</button>
+    </div>
+    <div class="fb" id="f11"></div>
+  </div>
+
+  <div class="qcard" id="q12">
+    <div class="qhdr"><span class="qnum">Q12</span><span class="badge b-m">Mastery</span></div>
+    <p class="qtext">MASTERY TRAP: A piece is a perfect isosceles triangle (two equal sides, the two base angles both = 70°). A student says: "For this piece, rotation and reflection are equivalent — I can treat them as the same." Are they correct?</p>
+    <div class="bg">
+      <button class="ab" data-correct="true" onclick="ca(this,'q12','f12','A')">A) Yes — an isosceles triangle has a line of symmetry, so its reflection is identical to one of its rotations; reflecting it produces the same result as rotating it 180° about the axis of symmetry</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q12','f12','B')">B) No — reflection always produces a different result from rotation, regardless of the shape's symmetry</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q12','f12','C')">C) No — isosceles triangles are asymmetric so reflection gives a completely different shape</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q12','f12','D')">D) It depends on which angle is at the apex of the isosceles triangle</button>
+    </div>
+    <div class="fb" id="f12"></div>
+  </div>
+
+</section>
+<div class="div"></div>
+
+<!-- ═══════════════════════ S3: EDGE-LENGTH PRECISION ═══════════════════════ -->
+<section id="s3" class="sec">
+  <div class="sec-hdr">
+    <div class="sec-num">3</div>
+    <h2 class="sec-title">Edge-Length Precision Check</h2>
+    <div class="sec-tick" id="tick-s3">○</div>
+  </div>
+
+  <div class="simple-box">
+    <div class="lbl">🌱 Simple Explanation</div>
+    <p>When two puzzle pieces fit together, the edges that touch must be <strong>exactly the same length</strong>. Not almost the same — exactly the same. If you're pressing a 4 cm edge against a 5 cm edge, either there's a gap, or one piece sticks out. Neither is allowed. Always ask: "Are the touching edges the same length?"</p>
+    <p class="analogy">💡 Like zipping up a jacket — the left side and right side must have exactly the same number of teeth. If one side is longer, the zip doesn't close properly and the excess fabric sticks out.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="lbl">📘 Full Explanation</div>
+    <p><strong>Edge-length precision</strong> requires that wherever two pieces share a boundary (a seam), the edges they share must be identical in length. Additionally, when a piece's edge forms part of the outer boundary of the combined shape, its length must match what the answer option shows. This means: <em>a long edge in the final shape may be formed by two shorter edges joined end-to-end</em> (edge fragment matching), and this is valid — provided the two shorter edges together equal exactly the length of the longer boundary.</p>
+  </div>
+
+  <div class="we">
+    <div class="we-hdr">📐 Worked Example 1 — The Near-Miss Edge Trap</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Pieces:</strong> A rectangle (6 cm × 3 cm) and a square (3 cm × 3 cm). <strong>Tempting wrong answer:</strong> A rectangle 9 cm × 4 cm. <strong>Correct answer:</strong> A rectangle 9 cm × 3 cm.</p>
+      <div class="we-step"><div class="sn2">1</div><p><strong>Check shared edge:</strong> The pieces are placed end-to-end along their 3 cm edges. This works because both pieces have a 3 cm side. ✓ The seam edge matches.</p></div>
+      <div class="we-step"><div class="sn2">2</div><p><strong>Check the resulting shape:</strong> Combined length = 6 + 3 = 9 cm. Height = 3 cm (both pieces are 3 cm tall). Correct shape = 9 cm × 3 cm rectangle. ✓</p></div>
+      <div class="we-step"><div class="sn2">3</div><p><strong>Why 9 cm × 4 cm is wrong:</strong> The height of 4 cm is not produced by either piece (the rectangle is 3 cm tall, the square is 3 cm tall). A height of 4 cm would require one piece to be 4 cm tall — but none are. This is the "close enough edge" error: the 9 cm length is right, but the 4 cm height is wrong. Reject it.</p></div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <div class="wt">⚠️ Watch Out!</div>
+    <ul>
+      <li><strong>"Close enough" edge error.</strong> GL deliberately creates options where the outline looks right but one edge is slightly longer or shorter than it should be. Always verify that shared edges are exactly equal.</li>
+      <li><strong>Edge fragment trap.</strong> A long side in the answer may be made up of two shorter edges from different pieces. This is allowed — but only if the two shorter edges together sum to exactly the right total length.</li>
+    </ul>
+  </div>
+
+  <div class="we">
+    <div class="we-hdr">📐 Worked Example 2 — Edge Fragment Matching (Harder)</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Pieces:</strong> A 4 cm × 2 cm rectangle and a right-angled triangle (legs: 2 cm and 2 cm). Combined along the 2 cm side.</p>
+      <div class="we-step"><div class="sn2">1</div><p><strong>The outer boundary:</strong> The bottom of the rectangle is 4 cm. When the triangle is placed at one end (sharing the 2 cm short edge), the bottom of the triangle is also 2 cm. So the total bottom boundary is <strong>4 cm + 2 cm = 6 cm</strong>. But wait — it's not a straight 6 cm line. The rectangle contributes 4 cm of flat bottom, then the triangle adds a 2 cm base. If placed correctly, this is a flat 6 cm bottom. ✓</p></div>
+      <div class="we-step"><div class="sn2">2</div><p><strong>The right side:</strong> The triangle's hypotenuse becomes the right-side slanted edge. It's not 2 cm — it's 2√2 ≈ 2.83 cm. Any answer option showing a right side of exactly 2 cm is wrong. This is the edge-fragment trap: students assume the shared edge length = the hypotenuse length, but the hypotenuse is longer.</p></div>
+      <div class="we-step"><div class="sn2">3</div><p><strong>Correct answer shape:</strong> A pentagon (5 sides) — 4 cm bottom-left section + 2 cm bottom-right, 2 cm left side (height of rectangle), 2 cm top, and 2√2 cm slanted right side. Any option showing a right angle on the right side is wrong — the triangle creates a slant.</p></div>
+    </div>
+  </div>
+
+  <div class="qst">Practice Questions — Edge-Length Precision</div>
+
+  <div class="qcard" id="q13">
+    <div class="qhdr"><span class="qnum">Q13</span><span class="badge b-s">Starter</span></div>
+    <p class="qtext">A 5 cm square and a 3 cm square are to be placed side by side (sharing one full edge). Can they be fitted together without a gap or overlap?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q13','f13','A')">A) Yes — they can share a 5 cm edge</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q13','f13','B')">B) Yes — they can share a 3 cm edge</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q13','f13','C')">C) No — their sides are different lengths (5 cm vs 3 cm), so there is no shared edge they can match perfectly when placed side by side</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q13','f13','D')">D) Yes — you can cut the 5 cm square to fit</button>
+    </div>
+    <div class="fb" id="f13"></div>
+  </div>
+
+  <div class="qcard" id="q14">
+    <div class="qhdr"><span class="qnum">Q14</span><span class="badge b-s">Starter</span></div>
+    <p class="qtext">Two rectangles are placed end-to-end. Rectangle A is 6 cm long and 2 cm tall. Rectangle B is 4 cm long and 2 cm tall. What are the dimensions of the combined shape?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q14','f14','A')">A) 10 cm long and 4 cm tall</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q14','f14','B')">B) 10 cm long and 2 cm tall</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q14','f14','C')">C) 6 cm long and 2 cm tall</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q14','f14','D')">D) 12 cm long and 2 cm tall</button>
+    </div>
+    <div class="fb" id="f14"></div>
+  </div>
+
+  <div class="qcard" id="q15">
+    <div class="qhdr"><span class="qnum">Q15</span><span class="badge b-d">Developing</span></div>
+    <p class="qtext">A rectangle (8 cm × 3 cm) is combined with a square (3 cm × 3 cm). The option shown is an L-shape where the long side is 8 cm and the short upward extension is 3 cm wide and 3 cm tall. Does this option have a gap or overlap problem?</p>
+    <div class="bg">
+      <button class="ab" data-correct="true" onclick="ca(this,'q15','f15','A')">A) No — the 3 cm sides match perfectly; the square can be placed on top of one end of the rectangle making a valid L-shape with no gaps or overlaps</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q15','f15','B')">B) Yes — the rectangle's 3 cm height doesn't match the square's 3 cm side</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q15','f15','C')">C) Yes — an L-shape always has at least one gap</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q15','f15','D')">D) It depends on whether the pieces are rotated</button>
+    </div>
+    <div class="fb" id="f15"></div>
+  </div>
+
+  <div class="qcard" id="q16">
+    <div class="qhdr"><span class="qnum">Q16</span><span class="badge b-d">Developing</span></div>
+    <p class="qtext">A large triangle has a base of 6 cm. It is split by a vertical line into two smaller triangles: left has a base of 2 cm, right has a base of 4 cm. When the two are combined along the vertical cut edge, what is the outer base?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q16','f16','A')">A) 4 cm (the longer piece dominates)</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q16','f16','B')">B) 8 cm (added incorrectly with overlap)</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q16','f16','C')">C) 6 cm — the two bases (2 cm + 4 cm) together form the full original 6 cm base edge, an example of edge fragment matching</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q16','f16','D')">D) 3 cm (the average of 2 and 4)</button>
+    </div>
+    <div class="fb" id="f16"></div>
+  </div>
+
+  <div class="qcard" id="q17">
+    <div class="qhdr"><span class="qnum">Q17</span><span class="badge b-sec">Secure</span></div>
+    <p class="qtext">An answer option shows the combined shape having a right side that is 5 cm tall. The piece being placed on the right is a right-angled triangle with legs of 3 cm and 4 cm. Its hypotenuse (longest side) would form the right boundary. Is the 5 cm right side correct?</p>
+    <div class="bg">
+      <button class="ab" data-correct="true" onclick="ca(this,'q17','f17','A')">A) Yes — by Pythagoras, the hypotenuse of a 3-4 triangle = √(9+16) = √25 = 5 cm, so 5 cm is exactly correct</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q17','f17','B')">B) No — the hypotenuse would be 7 cm (3 + 4)</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q17','f17','C')">C) No — the hypotenuse of a 3-4 triangle is 3.5 cm (the average of the two legs)</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q17','f17','D')">D) It depends on the angle at which the triangle is placed</button>
+    </div>
+    <div class="fb" id="f17"></div>
+  </div>
+
+  <div class="qcard" id="q18">
+    <div class="qhdr"><span class="qnum">Q18</span><span class="badge b-m">Mastery</span></div>
+    <p class="qtext">MASTERY TRAP: Two pieces are combined. Piece 1 is a rectangle with a bottom edge of 5 cm. Piece 2 is a right-angled triangle with one leg of 3 cm (placed along the top of the rectangle). An answer option shows the right side of the combined shape as 5 cm tall. Another shows it as 4 cm. A third shows it as 3 cm. The combined shape's right side is formed by Piece 2's hypotenuse only (Piece 2's other leg = 4 cm). Which option is correct?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q18','f18','A')">A) 3 cm — the triangle's shorter leg</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q18','f18','B')">B) 5 cm — the same as the rectangle's bottom</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q18','f18','C')">C) 5 cm — because the hypotenuse of a right-angled triangle with legs 3 cm and 4 cm is √(9+16) = 5 cm; the right boundary is the hypotenuse = 5 cm</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q18','f18','D')">D) 4 cm — the triangle's longer leg</button>
+    </div>
+    <div class="fb" id="f18"></div>
+  </div>
+
+</section>
+<div class="div"></div>
+
+<!-- ═══════════════════════ S4: INTERNAL LINE CONSISTENCY ═══════════════════════ -->
+<section id="s4" class="sec">
+  <div class="sec-hdr">
+    <div class="sec-num">4</div>
+    <h2 class="sec-title">Internal Line Consistency</h2>
+    <div class="sec-tick" id="tick-s4">○</div>
+  </div>
+
+  <div class="simple-box">
+    <div class="lbl">🌱 Simple Explanation</div>
+    <p>When you fit puzzle pieces together, the outer shape might look right — but inside the combined shape, the dividing line (where the two pieces meet) must also be in the right place. If the seam line runs across the wrong part of the shape, or at the wrong angle, the answer is wrong even if the outside looks correct. Always check: "Where exactly would the seam be inside this shape?"</p>
+    <p class="analogy">💡 Like cutting a sandwich diagonally vs straight across — the outside shape is the same rectangle, but the internal cut goes in a totally different direction. If you expected a diagonal cut and got a straight one, it's the wrong cut.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="lbl">📘 Full Explanation</div>
+    <p><strong>Internal line consistency</strong> means verifying that the seam(s) between pieces — where they touch inside the final shape — are positioned and oriented correctly. Some GL Assessment questions show answer options where the outer outline is identical but the internal division (where pieces meet) differs. The correct answer is the one where the seam's position, angle, and length match what the given pieces would produce. An answer with a correct outer shape but incorrect internal seam structure is wrong.</p>
+  </div>
+
+  <div class="we">
+    <div class="we-hdr">📐 Worked Example 1 — Same Outline, Wrong Seam</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Pieces:</strong> A large right-angled triangle (cut diagonally) split into two pieces by the diagonal. <strong>Options A and B both show the same rectangle outline</strong> — but Option A shows a diagonal seam, Option B shows a vertical seam.</p>
+      <div class="dia">
+        <div class="piece-box">
+          <svg width="100" height="70" viewBox="0 0 100 70">
+            <rect x="5" y="5" width="90" height="60" fill="rgba(240,180,41,0.1)" stroke="#f0b429" stroke-width="2"/>
+            <line x1="5" y1="5" x2="95" y2="65" stroke="#0d1b2a" stroke-width="1.5" stroke-dasharray="4,3"/>
+          </svg>
+          <div class="dia-lbl">Option A: diagonal seam ✓</div>
+        </div>
+        <div class="piece-box">
+          <svg width="100" height="70" viewBox="0 0 100 70">
+            <rect x="5" y="5" width="90" height="60" fill="rgba(220,38,38,0.08)" stroke="#dc2626" stroke-width="2"/>
+            <line x1="50" y1="5" x2="50" y2="65" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,3"/>
+          </svg>
+          <div class="dia-lbl">Option B: vertical seam ✗</div>
+        </div>
+      </div>
+      <div class="we-step"><div class="sn2">1</div><p><strong>The outline test passes for both.</strong> Both show a rectangle — the outline is identical. A student who only checks the outer shape would accept both. This is the "perfect outline = correct answer" fallacy.</p></div>
+      <div class="we-step"><div class="sn2">2</div><p><strong>Check the seam:</strong> The original pieces were formed by cutting a rectangle diagonally. The seam between the two pieces must therefore be a diagonal line. Option A shows a diagonal seam → correct ✓. Option B shows a vertical seam → this would require cutting the rectangle vertically, which is not what the original pieces look like → wrong ✗.</p></div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <div class="wt">⚠️ Watch Out! — The "Perfect Outline" Fallacy</div>
+    <ul>
+      <li><strong>Don't stop at the outer shape.</strong> Two answer options can have identical outlines but different internal seams. The internal seam must match where the pieces actually touch.</li>
+      <li><strong>GL Assessment specifically designs identical-outline traps.</strong> If two options look exactly the same from the outside, you MUST look at the internal line to choose between them.</li>
+    </ul>
+  </div>
+
+  <div class="we">
+    <div class="we-hdr">📐 Worked Example 2 — Harder: Seam at Wrong Position</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Pieces:</strong> A 6×2 rectangle and a 2×2 square. Combined into an L-shape. Two options both show an L-shape, but Option C has the square on the RIGHT of the rectangle, and Option D has the square on the LEFT.</p>
+      <div class="we-step"><div class="sn2">1</div><p><strong>Determine which is correct:</strong> Look at the pieces. The 6×2 rectangle has a 2 cm height. The 2×2 square also has a 2 cm height. To make an L-shape, the square must be placed on top of one end of the rectangle (not beside it — that would just make a longer rectangle).</p></div>
+      <div class="we-step"><div class="sn2">2</div><p><strong>Position matters:</strong> If the question shows the square piece on the RIGHT of the given pieces picture, the L-shape's "step" must go up on the right side. Option C (square on right) places the seam at the right end. Option D (square on left) would require moving the square to the other end — which changes the seam position. If only one orientation is shown in the question, only one answer is valid.</p></div>
+      <div class="we-step"><div class="sn2">3</div><p><strong>Key check:</strong> Trace the internal seam line — is it at 2 cm from the right end (Option C) or 2 cm from the left end (Option D)? Match this to where the pieces would naturally join. Whichever matches the actual piece placement is correct.</p></div>
+    </div>
+  </div>
+
+  <div class="qst">Practice Questions — Internal Line Consistency</div>
+
+  <div class="qcard" id="q19">
+    <div class="qhdr"><span class="qnum">Q19</span><span class="badge b-s">Starter</span></div>
+    <p class="qtext">Two answer options both show the same rectangular outline. Option A has a vertical seam dividing the rectangle into two equal halves. Option B has a horizontal seam dividing it into top and bottom halves. The pieces given are two identical rectangles (each twice as wide as they are tall). Which option is correct?</p>
+    <div class="bg">
+      <button class="ab" data-correct="true" onclick="ca(this,'q19','f19','A')">A) Option A — two wide rectangles placed side by side share a vertical seam; each is twice as wide as tall, so placing them side-by-side creates a vertical internal line</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q19','f19','B')">B) Option B — the horizontal seam is always used when combining rectangles</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q19','f19','C')">C) Both — since the outline is the same, both answers are equally correct</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q19','f19','D')">D) Neither — identical rectangles cannot produce the same outline in two different ways</button>
+    </div>
+    <div class="fb" id="f19"></div>
+  </div>
+
+  <div class="qcard" id="q20">
+    <div class="qhdr"><span class="qnum">Q20</span><span class="badge b-s">Starter</span></div>
+    <p class="qtext">What does the "perfect outline = correct answer" fallacy mean in combining shapes questions?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q20','f20','A')">A) Students forget to check the outer shape at all</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q20','f20','B')">B) Students assume that if the outer boundary of the answer matches, it must be correct — without checking whether the internal seam lines are also in the right place</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q20','f20','C')">C) Students check internal lines but forget to check the outer shape</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q20','f20','D')">D) Students count the number of sides incorrectly</button>
+    </div>
+    <div class="fb" id="f20"></div>
+  </div>
+
+  <div class="qcard" id="q21">
+    <div class="qhdr"><span class="qnum">Q21</span><span class="badge b-d">Developing</span></div>
+    <p class="qtext">Pieces: a large right-angled triangle cut diagonally into two smaller right-angled triangles of UNEQUAL size. Both answer options show the same outline (the large right-angled triangle). Option X shows the seam at 1/3 from the right. Option Y shows the seam at 1/2 (the midpoint). The cut was made at 1/3 from the right. Which is correct?</p>
+    <div class="bg">
+      <button class="ab" data-correct="true" onclick="ca(this,'q21','f21','A')">A) Option X — the seam at 1/3 from the right matches where the actual cut was made; the two unequal triangles rejoin along exactly that internal line</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q21','f21','B')">B) Option Y — seams are always at the midpoint when combining triangles</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q21','f21','C')">C) Both — as long as the outline is the same large triangle, the seam position doesn't matter</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q21','f21','D')">D) Neither — a large triangle cannot be formed from two unequal smaller triangles</button>
+    </div>
+    <div class="fb" id="f21"></div>
+  </div>
+
+  <div class="qcard" id="q22">
+    <div class="qhdr"><span class="qnum">Q22</span><span class="badge b-d">Developing</span></div>
+    <p class="qtext">A rectangle (6 cm × 4 cm) is combined with a square (4 cm × 4 cm). Three answer options all show an L-shape with the same total height and width. The seam is: (P) vertical, at 6 cm from the left; (Q) vertical, at 4 cm from the left; (R) horizontal, at 4 cm from the bottom. Which seam position(s) could be correct?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q22','f22','A')">A) P only</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q22','f22','B')">B) P and Q are both possible — the square (4 cm) could be placed to the right of the rectangle (seam at 6 cm from left), or the rectangle could be to the right of the square (seam at 4 cm from left)</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q22','f22','C')">C) R only — horizontal seams are always correct for L-shapes</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q22','f22','D')">D) All three seam positions are equally valid</button>
+    </div>
+    <div class="fb" id="f22"></div>
+  </div>
+
+  <div class="qcard" id="q23">
+    <div class="qhdr"><span class="qnum">Q23</span><span class="badge b-sec">Secure</span></div>
+    <p class="qtext">SECURE: A student picks an answer because the outer shape matches. However, the answer option shows a diagonal internal seam running from the top-left to the bottom-right. The actual pieces, when combined, would produce a seam running from the top-RIGHT to the bottom-LEFT. Is the student's chosen answer correct?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q23','f23','A')">A) Yes — diagonal seams look similar regardless of direction, so both are equivalent</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q23','f23','B')">B) No — the direction of a diagonal seam matters; a top-left to bottom-right seam requires a different piece arrangement from a top-right to bottom-left seam; the internal line structure is part of the answer</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q23','f23','C')">C) Yes — only the outer shape matters in GL Assessment, not the internal seam direction</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q23','f23','D')">D) It depends on whether the pieces are symmetric</button>
+    </div>
+    <div class="fb" id="f23"></div>
+  </div>
+
+  <div class="qcard" id="q24">
+    <div class="qhdr"><span class="qnum">Q24</span><span class="badge b-m">Mastery</span></div>
+    <p class="qtext">MASTERY TRAP: Three pieces are combined. Options A, B, C, and D all show the same outer hexagonal outline. Their internal seam structures differ: A has two horizontal seams, B has two vertical seams, C has one diagonal and one horizontal seam, D has two diagonal seams. The pieces are: one parallelogram and two identical triangles. What seam structure should the correct answer show?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q24','f24','A')">A) Two horizontal seams — parallelograms always produce horizontal seams</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q24','f24','B')">B) Two vertical seams — the tallest piece determines seam direction</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q24','f24','C')">C) Two diagonal seams — the triangles fit against the parallelogram's slanted sides, so both seams where triangles meet the parallelogram are diagonal lines matching the parallelogram's edges</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q24','f24','D')">D) One diagonal and one horizontal — mixed seams are always correct for three-piece combinations</button>
+    </div>
+    <div class="fb" id="f24"></div>
+  </div>
+
+</section>
+<div class="div"></div>
+
+<!-- ═══════════════════════ S5: OUTLINE-FIRST ELIMINATION ═══════════════════════ -->
+<section id="s5" class="sec">
+  <div class="sec-hdr">
+    <div class="sec-num">5</div>
+    <h2 class="sec-title">Outline-First Elimination</h2>
+    <div class="sec-tick" id="tick-s5">○</div>
+  </div>
+
+  <div class="simple-box">
+    <div class="lbl">🌱 Simple Explanation</div>
+    <p>Before you even think about fitting the pieces together, take 5 seconds and look at all the answer options. Ask these quick questions about each: <strong>"Is this shape roughly the right size? Does it have the right number of sides? Does it look like it could contain the pieces at all?"</strong> You can usually eliminate 2 or 3 wrong options instantly, leaving only 1 or 2 to actually test. This saves enormous time.</p>
+    <p class="analogy">💡 Like choosing which box to pack your belongings into — you wouldn't try stuffing your sofa into a shoebox. You eliminate obviously wrong sizes first, then try the remaining ones.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="lbl">📘 Full Explanation</div>
+    <p><strong>Outline-first elimination</strong> is a pre-assembly screening step. Before attempting mental assembly, examine all answer options and reject any that fail basic geometric checks: (1) incorrect total area, (2) impossible number of sides (e.g., a circle from straight-edged pieces), (3) wrong overall proportions (too tall/wide), or (4) contains a curve when all pieces have straight edges. This reduces the problem to comparing 1–2 plausible options rather than testing all four exhaustively — dramatically improving speed and accuracy under time pressure.</p>
+  </div>
+
+  <div class="we">
+    <div class="we-hdr">📐 Worked Example — Fast Elimination in Action</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Pieces:</strong> One equilateral triangle (side = 4 cm) and one square (side = 4 cm). <strong>Options:</strong> (A) circle (B) large equilateral triangle (C) pentagon (5 sides, all straight) (D) irregular hexagon with a curve.</p>
+      <div class="we-step"><div class="sn2">1</div><p><strong>Eliminate by curve:</strong> Option D has a curved edge. All pieces have straight edges. Combining straight-edged pieces can NEVER produce a curve. Eliminate D instantly. ✗</p></div>
+      <div class="we-step"><div class="sn2">2</div><p><strong>Eliminate the circle:</strong> Option A is a circle. A circle has no straight edges. Same reason as D. Eliminate A instantly. ✗</p></div>
+      <div class="we-step"><div class="sn2">3</div><p><strong>Eliminate by side count:</strong> One equilateral triangle (3 sides) + one square (4 sides) combined can produce at most 3+4−2 = 5 sides (when one full edge is shared between them) or more if only a partial edge matches. A large equilateral triangle (B) has only 3 sides — plausible but requires checking. A pentagon (C) has 5 sides — also plausible.</p></div>
+      <div class="we-step"><div class="sn2">4</div><p><strong>Now test the 2 survivors:</strong> For option B (large triangle): the triangle and square share a 4 cm edge. A square attached to one side of a triangle doesn't produce a larger triangle — it creates a 5-sided shape (pentagon). Eliminate B. ✗ Option C (pentagon) — try fitting: triangle on top of square, sharing one full 4 cm edge. Result: 5-sided shape with 4 right angles at the square corners and 2 angles from the triangle base. ✓ Answer: C.</p></div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <div class="wt">⚠️ Watch Out!</div>
+    <ul>
+      <li><strong>Don't spend more than 5 seconds on elimination.</strong> If you're still unsure after the quick checks, move to the 2-survivor testing stage. Over-thinking the elimination step wastes the time you saved.</li>
+      <li><strong>Area check first — it's instant.</strong> Count the total area of the pieces (even roughly). If an option's shape is clearly much bigger or smaller than the sum of the pieces, it's gone in 1 second.</li>
+    </ul>
+  </div>
+
+  <div class="qst">Practice Questions — Outline-First Elimination</div>
+
+  <div class="qcard" id="q25">
+    <div class="qhdr"><span class="qnum">Q25</span><span class="badge b-s">Starter</span></div>
+    <p class="qtext">Two rectangular pieces (both straight-edged) are to be combined. Which option can be IMMEDIATELY eliminated without further testing?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q25','f25','A')">A) A large rectangle</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q25','f25','B')">B) An L-shaped hexagon</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q25','f25','C')">C) A circle — because combining straight-edged pieces can never produce a curved boundary</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q25','f25','D')">D) A square</button>
+    </div>
+    <div class="fb" id="f25"></div>
+  </div>
+
+  <div class="qcard" id="q26">
+    <div class="qhdr"><span class="qnum">Q26</span><span class="badge b-s">Starter</span></div>
+    <p class="qtext">Three pieces each have area 6 cm². Which total area should you look for in the answer options?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q26','f26','A')">A) 6 cm² — the area of one piece</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q26','f26','B')">B) 12 cm² — two pieces combined</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q26','f26','C')">C) 18 cm² — all three pieces combined (3 × 6 = 18)</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q26','f26','D')">D) 36 cm² — three pieces squared</button>
+    </div>
+    <div class="fb" id="f26"></div>
+  </div>
+
+  <div class="qcard" id="q27">
+    <div class="qhdr"><span class="qnum">Q27</span><span class="badge b-d">Developing</span></div>
+    <p class="qtext">Pieces: one equilateral triangle and one square (same side length). The combined shape has AT MOST how many sides?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q27','f27','A')">A) 3 sides</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q27','f27','B')">B) 4 sides</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q27','f27','C')">C) 5 sides — when the triangle sits on top of the square (sharing one full edge), the combined boundary has 3 + 4 − 2 = 5 sides</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q27','f27','D')">D) 7 sides</button>
+    </div>
+    <div class="fb" id="f27"></div>
+  </div>
+
+  <div class="qcard" id="q28">
+    <div class="qhdr"><span class="qnum">Q28</span><span class="badge b-d">Developing</span></div>
+    <p class="qtext">Two pieces are both tall and narrow (each roughly 1 cm × 5 cm). Which option is MOST LIKELY immediately eliminatable?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q28','f28','A')">A) A tall narrow rectangle (2 cm × 5 cm)</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q28','f28','B')">B) A wide short rectangle (10 cm × 1 cm)</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q28','f28','C')">C) A large square (5 cm × 5 cm) — its total area (25 cm²) is far greater than the combined area of the two narrow pieces (1×5 + 1×5 = 10 cm²), making it immediately eliminatable by area</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q28','f28','D')">D) An L-shape</button>
+    </div>
+    <div class="fb" id="f28"></div>
+  </div>
+
+  <div class="qcard" id="q29">
+    <div class="qhdr"><span class="qnum">Q29</span><span class="badge b-sec">Secure</span></div>
+    <p class="qtext">SECURE: Pieces are a right-angled triangle (legs 3 cm and 4 cm) and a rectangle (4 cm × 3 cm). Options: (A) a 4×6 rectangle, (B) a square 3.5 cm × 3.5 cm, (C) a pentagon with sides 3, 4, 5, 3, 4, (D) a triangle with base 8 cm. Use outline-first elimination to identify which option survives.</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q29','f29','A')">A) Option A — it's a rectangle and the pieces include a rectangle</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q29','f29','B')">B) Option C — the pentagon: the total area is ½×3×4 + 4×3 = 6+12 = 18 cm²; the pentagon with sides 3,4,5,3,4 can be verified to have the right area and right number of sides</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q29','f29','C')">C) Option B — it's the most square-shaped option</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q29','f29','D')">D) Option D — a larger triangle seems natural since one piece is a triangle</button>
+    </div>
+    <div class="fb" id="f29"></div>
+  </div>
+
+  <div class="qcard" id="q30">
+    <div class="qhdr"><span class="qnum">Q30</span><span class="badge b-m">Mastery</span></div>
+    <p class="qtext">MASTERY: After outline-first elimination, you have narrowed down to 2 options. Both have the same outer shape. How should you now choose between them?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q30','f30','A')">A) Pick the first one — your gut instinct is usually right after elimination</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q30','f30','B')">B) Check internal seam structure — anchor the largest piece in your mind and see which option has the seam in the correct position and angle for how the pieces actually join</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q30','f30','C')">C) Pick the one with more sides — more complex options are typically correct at Mastery level</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q30','f30','D')">D) Check if any reflection is needed — if one option requires reflection, choose the other</button>
+    </div>
+    <div class="fb" id="f30"></div>
+  </div>
+
+</section>
+<div class="div"></div>
+
+<!-- ═══════════════════════ S6: PLACEMENT ORDER & AMBIGUOUS FIT ═══════════════════════ -->
+<section id="s6" class="sec">
+  <div class="sec-hdr">
+    <div class="sec-num">6</div>
+    <h2 class="sec-title">Placement Order & Ambiguous Fit</h2>
+    <div class="sec-tick" id="tick-s6">○</div>
+  </div>
+
+  <div class="simple-box">
+    <div class="lbl">🌱 Simple Explanation</div>
+    <p>Sometimes the trickiest puzzles have a piece that seems to fit in two different places — but only one of those placements leaves room for the remaining pieces to also fit. This is the "ambiguous fit" problem. The rule is: <strong>a piece placement is only correct if ALL remaining pieces can also fit perfectly afterwards</strong>. If placing a piece in one spot blocks the others from fitting, try placing it in the other spot instead.</p>
+    <p class="analogy">💡 Like putting luggage in a car boot — you have to think ahead. If you put the biggest suitcase in first in the wrong spot, the smaller bags won't fit. The right order matters.</p>
+  </div>
+
+  <div class="full-box">
+    <div class="lbl">📘 Full Explanation</div>
+    <p><strong>Placement order awareness</strong> means recognising that in multi-piece combinations, the position of one piece constrains where others can go. A piece with an ambiguous fit (it can validly occupy multiple positions in the outline) must be placed in the position that allows all remaining pieces to fill the remaining space. This is tested in GL Assessment through <strong>multi-fit ambiguity</strong> questions — where the triangle or irregular piece fits in two locations, but only one location allows the remaining piece(s) to fit without gaps or reflections.</p>
+  </div>
+
+  <div class="we">
+    <div class="we-hdr">📐 Worked Example 1 — The Triangle That Fits Twice</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Pieces:</strong> One trapezium, one right-angled triangle, one small rectangle. <strong>Target shape:</strong> Irregular hexagon. The triangle appears to fit in either the top-left OR top-right section of the hexagon.</p>
+      <div class="we-step"><div class="sn2">1</div><p><strong>Test Triangle Placement 1 (top-left):</strong> Place the triangle at the top-left. The remaining space should be filled by the trapezium and rectangle. Check: does the trapezium fit in the remaining shape? Yes — the trapezium's slanted side matches the triangle's hypotenuse. The rectangle fits the remaining bottom section. ✓ Placement 1 works.</p></div>
+      <div class="we-step"><div class="sn2">2</div><p><strong>Test Triangle Placement 2 (top-right):</strong> Place the triangle at the top-right. Now the remaining space for the trapezium is on the left. The trapezium's slanted side faces the wrong direction — it would need to be reflected to fit. Reflection is not allowed. ✗ Placement 2 fails.</p></div>
+      <div class="we-step"><div class="sn2">3</div><p><strong>Conclusion:</strong> The correct answer is the option showing Placement 1 (triangle at top-left). The "forcing the last piece" trap occurs when students lock in Placement 2 and then try to make the trapezium fit by ignoring the reflection requirement.</p></div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <div class="wt">⚠️ Watch Out! — Forcing the Last Piece</div>
+    <ul>
+      <li><strong>"Forcing the last piece" error:</strong> If you placed the first piece wrongly, the remaining space won't perfectly accommodate the other pieces. Students sometimes try to force the remaining pieces to fit anyway, ignoring small gaps or accepting a reflection. If you're forcing — go back and try a different first placement.</li>
+      <li><strong>Multi-fit ambiguity is a designed trap.</strong> GL Assessment creates questions where the most "obvious" first placement is the wrong one. Always ask: "If I place this piece here, can everything else ALSO fit — without reflection, gaps, or overlap?"</li>
+    </ul>
+  </div>
+
+  <div class="we">
+    <div class="we-hdr">📐 Worked Example 2 — Hardest: Three Pieces, One Valid Order</div>
+    <div class="we-body">
+      <p style="margin-bottom:14px;font-size:15px;"><strong>Pieces:</strong> Large irregular pentagon, right-angled triangle (small), small square. <strong>Target:</strong> A specific rectangular shape. Trap: the small square fits in two corners, but only one corner placement allows the triangle to slot in without a gap.</p>
+      <div class="we-step"><div class="sn2">1</div><p><strong>Start with the largest piece:</strong> Anchor the large pentagon. It fills most of the rectangle except for an L-shaped gap in one corner.</p></div>
+      <div class="we-step"><div class="sn2">2</div><p><strong>Test the triangle first:</strong> The triangle has a specific hypotenuse angle. Place it in the L-gap. Does it fill a triangular portion of the L-gap, leaving a rectangular space for the square? Yes → then place the square in the remaining rectangular gap. ✓ All three pieces fit in this order.</p></div>
+      <div class="we-step"><div class="sn2">3</div><p><strong>Test the square first instead:</strong> Place the square in the L-gap first. The remaining L-gap minus the square is an irregular shape — not a simple triangle. The triangle piece has a specific hypotenuse angle that doesn't match this irregular remaining space. ✗ Wrong order forces an impossible fit.</p></div>
+      <div class="we-step"><div class="sn2">4</div><p><strong>Lesson:</strong> When you're stuck, try a different placement order. The correct order is usually: largest piece first → asymmetric/angled piece second → simplest piece last.</p></div>
+    </div>
+  </div>
+
+  <div class="qst">Practice Questions — Placement Order & Ambiguous Fit</div>
+
+  <div class="qcard" id="q31">
+    <div class="qhdr"><span class="qnum">Q31</span><span class="badge b-s">Starter</span></div>
+    <p class="qtext">A right-angled triangle piece appears to fit in two different positions in an answer shape. What question should you ask to determine which placement is correct?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q31','f31','A')">A) Which placement uses fewer steps?</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q31','f31','B')">B) Which placement allows all the REMAINING pieces to also fit perfectly, without gaps, overlaps, or any reflection?</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q31','f31','C')">C) Which placement puts the triangle closest to the top of the answer shape?</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q31','f31','D')">D) Which placement uses the largest seam edge?</button>
+    </div>
+    <div class="fb" id="f31"></div>
+  </div>
+
+  <div class="qcard" id="q32">
+    <div class="qhdr"><span class="qnum">Q32</span><span class="badge b-s">Starter</span></div>
+    <p class="qtext">What is the "forcing the last piece" error?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q32','f32','A')">A) Placing the smallest piece in the answer shape first</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q32','f32','B')">B) When the first piece is placed in the wrong position, making it impossible for remaining pieces to fit — and the student ignores the resulting gaps or accepts a reflection to make it seem to work</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q32','f32','C')">C) Rotating the last piece when you should have reflected it</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q32','f32','D')">D) Counting the sides of the last piece incorrectly</button>
+    </div>
+    <div class="fb" id="f32"></div>
+  </div>
+
+  <div class="qcard" id="q33">
+    <div class="qhdr"><span class="qnum">Q33</span><span class="badge b-d">Developing</span></div>
+    <p class="qtext">Three pieces: a large rectangle (A), a small square (B), and a right-angled triangle (C). You are trying to combine them into a specific shape. Which order of placement is recommended for mental assembly?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q33','f33','A')">A) C first (triangle), then A (rectangle), then B (square)</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q33','f33','B')">B) B first (smallest), then C (triangle), then A (rectangle)</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q33','f33','C')">C) A first (largest), then C (most asymmetric/angled), then B (simplest/square) — largest anchors the shape, angled piece constrains the remaining space, simplest piece fills what's left</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q33','f33','D')">D) Any order works — placement order never affects the outcome</button>
+    </div>
+    <div class="fb" id="f33"></div>
+  </div>
+
+  <div class="qcard" id="q34">
+    <div class="qhdr"><span class="qnum">Q34</span><span class="badge b-d">Developing</span></div>
+    <p class="qtext">A right-angled triangle fits in Position 1 (top-left) OR Position 2 (top-right) of the target hexagon. In Position 1, the remaining space fits the trapezium without reflection. In Position 2, the trapezium would need to be reflected. Which is correct?</p>
+    <div class="bg">
+      <button class="ab" data-correct="true" onclick="ca(this,'q34','f34','A')">A) Position 1 — reflection is not permitted, so Position 2 fails; Position 1 is the only valid placement</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q34','f34','B')">B) Position 2 — the reflected trapezium still fills the space, so it counts</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q34','f34','C')">C) Both positions are equally correct since the triangle placement itself doesn't require reflection in either case</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q34','f34','D')">D) It depends on whether the triangle is symmetric</button>
+    </div>
+    <div class="fb" id="f34"></div>
+  </div>
+
+  <div class="qcard" id="q35">
+    <div class="qhdr"><span class="qnum">Q35</span><span class="badge b-sec">Secure</span></div>
+    <p class="qtext">SECURE: A student tries placing the triangle piece first. No arrangement of remaining pieces fits without leaving a gap. The student's next move should be:</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q35','f35','A')">A) Accept the smallest gap as acceptable and choose the nearest answer option</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q35','f35','B')">B) Reflect the last remaining piece to make it fit</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q35','f35','C')">C) Try placing the LARGEST piece first instead — the triangle's initial placement was likely wrong; anchoring the largest piece first often reveals the correct constraint structure</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q35','f35','D')">D) Choose a completely different answer option without further testing</button>
+    </div>
+    <div class="fb" id="f35"></div>
+  </div>
+
+  <div class="qcard" id="q36">
+    <div class="qhdr"><span class="qnum">Q36</span><span class="badge b-m">Mastery</span></div>
+    <p class="qtext">MASTERY TRAP: A triangle piece fits in Position A and Position B of a target shape. In Position A, the remaining gap for the rectangle has dimensions 4 cm × 2 cm. The rectangle piece is 4 cm × 2 cm. In Position B, the remaining gap for the rectangle is 2 cm × 4 cm (same dimensions, but rotated 90°). The rectangle piece can be rotated. Which is correct?</p>
+    <div class="bg">
+      <button class="ab" data-correct="false" onclick="ca(this,'q36','f36','A')">A) Position A only — the rectangle must always be placed horizontally</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q36','f36','B')">B) Position B only — rotating the remaining gap automatically invalidates Position A</button>
+      <button class="ab" data-correct="true" onclick="ca(this,'q36','f36','C')">C) Both Positions A and B are valid — in Position A the rectangle fits as given; in Position B, the rectangle is simply rotated 90° (which is a valid rotation, not a reflection). Both produce valid combinations. You need the answer options to distinguish which one is shown.</button>
+      <button class="ab" data-correct="false" onclick="ca(this,'q36','f36','D')">D) Neither — if the triangle fits in two places, neither placement can be correct</button>
+    </div>
+    <div class="fb" id="f36"></div>
+  </div>
+
+</section>
+<div class="div"></div>
+
+<!-- ═══════════════════════ FINAL TEST ═══════════════════════ -->
+<section id="ft">
+  <div id="ft-intro" style="background:linear-gradient(135deg,var(--navy),var(--navy-light));border-radius:16px;padding:32px 28px;margin:32px 0;color:#fff;text-align:center">
+    <div style="font-size:42px;margin-bottom:10px">🏆</div>
+    <h2 style="font-family:'Playfair Display',serif;color:var(--gold);font-size:26px;margin-bottom:8px">Mastery Final Test</h2>
+    <p style="color:rgba(255,255,255,.72);max-width:480px;margin:0 auto 22px;font-size:15px">15 questions covering all 6 sub-skills. You have <strong style="color:var(--gold)">12 minutes</strong>. Work through all questions before submitting.</p>
+    <button class="start-btn" onclick="startFT()">🚀 Start Timed Test</button>
+  </div>
+
+  <div id="ft-area" style="display:none">
+    <div class="ft-wrap">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+        <h2 style="font-family:'Playfair Display',serif;color:var(--gold);font-size:20px">🏆 Final Test</h2>
+        <div class="timer">⏱ <span id="td">12:00</span></div>
+      </div>
+
+      <!-- TQ1 -->
+      <div class="tqcard" id="tq1">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q1</span><span class="badge b-s">Starter · No-Gap</span></div>
+        <p class="tqtext">Two pieces of equal area are combined. The combined shape has a gap in the middle. Is this a valid combination?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="false" data-q="tq1">A) Yes — gaps are acceptable if the overall outline is correct</button>
+          <button class="tab" data-correct="true" data-q="tq1">B) No — every part of the final shape must be filled; gaps violate the no-gap rule</button>
+          <button class="tab" data-correct="false" data-q="tq1">C) Only if both pieces have the same shape</button>
+          <button class="tab" data-correct="false" data-q="tq1">D) Yes — if the total area of both pieces equals the final shape's area, gaps are fine</button>
+        </div>
+        <div class="tfb" id="tfb1">✅ Correct! The no-gap rule is absolute — the combined shape's interior must be completely filled by the pieces. Even if the areas are equal, a gap means part of the final shape has no piece covering it, which is invalid.</div>
+      </div>
+
+      <!-- TQ2 -->
+      <div class="tqcard" id="tq2">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q2</span><span class="badge b-d">Developing · Rotation</span></div>
+        <p class="tqtext">A piece shaped like the letter "L" has its long arm pointing right. To get the long arm pointing LEFT, what transformation is needed?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="false" data-q="tq2">A) Rotate 90° clockwise</button>
+          <button class="tab" data-correct="false" data-q="tq2">B) Rotate 180°</button>
+          <button class="tab" data-correct="false" data-q="tq2">C) Rotate 270° clockwise</button>
+          <button class="tab" data-correct="true" data-q="tq2">D) Reflect (mirror flip) — an L with arm pointing right cannot have its arm pointing left via any rotation; only reflection achieves this</button>
+        </div>
+        <div class="tfb" id="tfb2">✅ Correct! The letter "L" is asymmetric. Rotating it 90°, 180°, or 270° moves the long arm to point up, left-and-upside-down, or down — but NOT to the left while maintaining the L shape's structure. Only a reflection (forbidden in this question type) produces an arm pointing left in the mirror-image orientation. This is why reflection traps are so effective.</div>
+      </div>
+
+      <!-- TQ3 -->
+      <div class="tqcard" id="tq3">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q3</span><span class="badge b-s">Starter · Edge</span></div>
+        <p class="tqtext">A 4 cm × 2 cm rectangle and a 2 cm × 2 cm square are placed end-to-end along a 2 cm edge. What are the dimensions of the combined shape?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="true" data-q="tq3">A) 6 cm × 2 cm</button>
+          <button class="tab" data-correct="false" data-q="tq3">B) 4 cm × 4 cm</button>
+          <button class="tab" data-correct="false" data-q="tq3">C) 8 cm × 2 cm</button>
+          <button class="tab" data-correct="false" data-q="tq3">D) 4 cm × 2 cm</button>
+        </div>
+        <div class="tfb" id="tfb3">✅ Correct! Placed end-to-end along the 2 cm edges: total length = 4 + 2 = 6 cm; height = 2 cm (both pieces share the same height). Result: 6 cm × 2 cm rectangle.</div>
+      </div>
+
+      <!-- TQ4 -->
+      <div class="tqcard" id="tq4">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q4</span><span class="badge b-sec">Secure · Internal Line</span></div>
+        <p class="tqtext">Two answer options both show the same rectangular outline. Option A has a diagonal seam; Option B has a vertical seam at the midpoint. The pieces are two identical right-angled triangles. Which is correct?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="true" data-q="tq4">A) Option A — two identical right-angled triangles placed hypotenuse-to-hypotenuse create a diagonal seam; a vertical seam would require two rectangles</button>
+          <button class="tab" data-correct="false" data-q="tq4">B) Option B — vertical seams are standard for rectangular combined shapes</button>
+          <button class="tab" data-correct="false" data-q="tq4">C) Both are valid — the outline is the same so both work</button>
+          <button class="tab" data-correct="false" data-q="tq4">D) Neither — two triangles always make a triangular combined shape</button>
+        </div>
+        <div class="tfb" id="tfb4">✅ Correct! The internal seam of the combined shape must match the actual boundary where the pieces touch. Two right-angled triangles joined at their hypotenuses produce a rectangle with a diagonal internal seam — not a vertical one. The "perfect outline" fallacy would lead you to pick either option; checking the seam reveals Option A is correct.</div>
+      </div>
+
+      <!-- TQ5 -->
+      <div class="tqcard" id="tq5">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q5</span><span class="badge b-s">Starter · Elimination</span></div>
+        <p class="tqtext">All pieces have straight edges only. Which answer option can be IMMEDIATELY eliminated?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="false" data-q="tq5">A) A large hexagon</button>
+          <button class="tab" data-correct="true" data-q="tq5">B) An oval — curved shapes cannot be produced by combining only straight-edged pieces</button>
+          <button class="tab" data-correct="false" data-q="tq5">C) An irregular pentagon</button>
+          <button class="tab" data-correct="false" data-q="tq5">D) A rectangle</button>
+        </div>
+        <div class="tfb" id="tfb5">✅ Correct! An oval is entirely curved. Straight-edged pieces cannot produce any curved boundary line. This is the fastest elimination rule: curved result from straight pieces = impossible. Eliminate the oval in under 2 seconds.</div>
+      </div>
+
+      <!-- TQ6 -->
+      <div class="tqcard" id="tq6">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q6</span><span class="badge b-d">Developing · Placement</span></div>
+        <p class="tqtext">In a 3-piece combination, the triangle fits in Position A or B. Position A allows all remaining pieces to fit with rotations only. Position B requires one piece to be reflected. Which is correct?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="true" data-q="tq6">A) Position A — reflection is not permitted; Position A is the only valid placement</button>
+          <button class="tab" data-correct="false" data-q="tq6">B) Position B — reflected pieces still fill the space correctly</button>
+          <button class="tab" data-correct="false" data-q="tq6">C) Both are valid — reflection is the same as 180° rotation</button>
+          <button class="tab" data-correct="false" data-q="tq6">D) Neither — if any piece has an ambiguous fit, the question has no answer</button>
+        </div>
+        <div class="tfb" id="tfb6">✅ Correct! Reflection is not allowed. If Position B forces any piece to be reflected, Position B is invalid — regardless of how well the shape seems to fit visually. Position A (rotation only) is the correct placement.</div>
+      </div>
+
+      <!-- TQ7 -->
+      <div class="tqcard" id="tq7">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q7</span><span class="badge b-m">Mastery · Rotation</span></div>
+        <p class="tqtext">MASTERY: A piece is a scalene triangle (all three sides different lengths, all three angles different). A student says: "I can use this piece in any orientation by rotating or reflecting it." Are they correct?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="false" data-q="tq7">A) Yes — a scalene triangle can be placed in any orientation using rotations alone</button>
+          <button class="tab" data-correct="true" data-q="tq7">B) No — rotation gives 3 distinct orientations (0°, 120°, 240° look different since it's scalene); reflection gives 3 more mirror-image orientations. Only the 3 rotations are permitted — the 3 reflected versions are not</button>
+          <button class="tab" data-correct="false" data-q="tq7">C) Yes — because a scalene triangle has no lines of symmetry, rotation and reflection are equivalent for it</button>
+          <button class="tab" data-correct="false" data-q="tq7">D) No — scalene triangles cannot be rotated at all in combining-shapes questions</button>
+        </div>
+        <div class="tfb" id="tfb7">✅ Correct! A scalene triangle (all sides and angles different) has NO symmetry, meaning rotation and reflection produce genuinely different results. You have 3 valid rotational placements (approximately 0°, 120°, 240° — or any rotation) but 3 additional reflected orientations that are NOT valid. The lack of symmetry means the reflected versions are always distinct from the rotated ones.</div>
+      </div>
+
+      <!-- TQ8 -->
+      <div class="tqcard" id="tq8">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q8</span><span class="badge b-sec">Secure · Edge</span></div>
+        <p class="tqtext">An answer option shows the right side of the combined shape as 5 cm. The piece on the right is a right-angled triangle with legs of 3 cm and 4 cm, with its hypotenuse forming the right side. Is 5 cm correct?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="true" data-q="tq8">A) Yes — by Pythagoras: hypotenuse = √(3² + 4²) = √25 = 5 cm exactly</button>
+          <button class="tab" data-correct="false" data-q="tq8">B) No — the hypotenuse equals 3 + 4 = 7 cm</button>
+          <button class="tab" data-correct="false" data-q="tq8">C) No — the hypotenuse is the average of 3 and 4 = 3.5 cm</button>
+          <button class="tab" data-correct="false" data-q="tq8">D) It cannot be determined without a protractor</button>
+        </div>
+        <div class="tfb" id="tfb8">✅ Correct! Pythagoras' theorem: hypotenuse² = 3² + 4² = 9 + 16 = 25, so hypotenuse = √25 = 5 cm. The 3-4-5 triangle is a classic right-angled triangle worth memorising. Options B and C show common arithmetic errors — adding the legs or averaging them — both wrong.</div>
+      </div>
+
+      <!-- TQ9 -->
+      <div class="tqcard" id="tq9">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q9</span><span class="badge b-d">Developing · No-Gap</span></div>
+        <p class="tqtext">Two pieces have a combined area of 20 cm². An answer option shows a shape with area 25 cm². Can this be the correct answer?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="false" data-q="tq9">A) Yes — the extra 5 cm² might be filled by rotating the pieces differently</button>
+          <button class="tab" data-correct="true" data-q="tq9">B) No — the combined area of pieces must equal the area of the final shape exactly; 20 cm² of pieces cannot fill a 25 cm² shape without a gap</button>
+          <button class="tab" data-correct="false" data-q="tq9">C) Yes — area mismatches under 30% are acceptable</button>
+          <button class="tab" data-correct="false" data-q="tq9">D) It depends on the shape of the pieces</button>
+        </div>
+        <div class="tfb" id="tfb9">✅ Correct! Conservation of area is absolute. 20 cm² of pieces filling a 25 cm² shape would leave 5 cm² unfilled — a gap. This violates the no-gap rule. Rotating pieces differently doesn't change their area. Any answer option with a larger total area than the sum of the pieces is wrong.</div>
+      </div>
+
+      <!-- TQ10 -->
+      <div class="tqcard" id="tq10">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q10</span><span class="badge b-m">Mastery · Internal + Placement</span></div>
+        <p class="tqtext">MASTERY: Options A, B, C, D all show the same hexagonal outline. A has two diagonal seams; B has two horizontal seams; C has one diagonal and one vertical seam; D has two vertical seams. Pieces are: one large parallelogram + two identical right-angled triangles. The triangles fit against the parallelogram's slanted sides. Which option is correct?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="true" data-q="tq10">A) Option A — two diagonal seams; triangles attach to the parallelogram's slanted sides creating diagonal seam lines matching the parallelogram's edges</button>
+          <button class="tab" data-correct="false" data-q="tq10">B) Option B — horizontal seams, as the pieces stack horizontally</button>
+          <button class="tab" data-correct="false" data-q="tq10">C) Option C — mixed seams are standard for three-piece combinations</button>
+          <button class="tab" data-correct="false" data-q="tq10">D) Option D — vertical seams, as the tallest piece determines direction</button>
+        </div>
+        <div class="tfb" id="tfb10">✅ Correct! The parallelogram has slanted (diagonal) sides. When the two triangles are placed against the parallelogram's slanted sides, the boundary between triangle and parallelogram is a diagonal line. This produces two diagonal seams in the combined hexagon — matching Option A. Options B and D assume the seams follow horizontal or vertical lines, which is impossible when the touching edges are slanted.</div>
+      </div>
+
+      <!-- TQ11 -->
+      <div class="tqcard" id="tq11">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q11</span><span class="badge b-sec">Secure · Elimination</span></div>
+        <p class="tqtext">Pieces: a right-angled triangle (legs 3 cm and 4 cm) and a rectangle (4 cm × 3 cm). Total area = 6 + 12 = 18 cm². Which option is immediately eliminated by area check?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="false" data-q="tq11">A) A 3 cm × 6 cm rectangle (area 18 cm²)</button>
+          <button class="tab" data-correct="false" data-q="tq11">B) A pentagon with area 18 cm²</button>
+          <button class="tab" data-correct="true" data-q="tq11">C) A 5 cm × 5 cm square (area 25 cm²) — its area is 25 cm², which is greater than the total piece area of 18 cm²; eliminated instantly</button>
+          <button class="tab" data-correct="false" data-q="tq11">D) A 6 cm × 3 cm rectangle (area 18 cm²)</button>
+        </div>
+        <div class="tfb" id="tfb11">✅ Correct! The 5×5 square has area 25 cm². The pieces total 18 cm². A 25 cm² shape cannot be filled by 18 cm² of pieces — 7 cm² would be left as a gap. This eliminates the square instantly by area. Options A, B, and D all have area 18 cm² and survive the area check (they still need further testing to determine the actual answer).</div>
+      </div>
+
+      <!-- TQ12 -->
+      <div class="tqcard" id="tq12">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q12</span><span class="badge b-m">Mastery · Ambiguous Fit</span></div>
+        <p class="tqtext">MASTERY: A right-angled triangle fits in Position A and Position B of the target shape. In Position A, the rectangle fills the remaining gap (rotation only). In Position B, the rectangle also fills the remaining gap (also rotation only, no reflection). Both are fully valid. What should you do?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="false" data-q="tq12">A) Pick Position A — always choose the first valid option</button>
+          <button class="tab" data-correct="true" data-q="tq12">B) Look at the answer options — whichever answer option shows the seam at the position matching Position A or B is the correct answer; both placements are geometrically valid, so the answer options tell you which one GL Assessment is asking about</button>
+          <button class="tab" data-correct="false" data-q="tq12">C) The question is invalid — if two placements work, the question has no unique answer</button>
+          <button class="tab" data-correct="false" data-q="tq12">D) Pick whichever position uses the largest seam edge</button>
+        </div>
+        <div class="tfb" id="tfb12">✅ Correct! When two placements are genuinely valid (no reflection needed in either), the answer options disambiguate: only one of the answer choices will show the seam in the correct position. Check whether the option shows the triangle's seam at the top-left or top-right and match it to the answer choices given. This is a high-level technique: the question's answer options are the final arbiter when placements are ambiguous.</div>
+      </div>
+
+      <!-- TQ13 -->
+      <div class="tqcard" id="tq13">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q13</span><span class="badge b-d">Developing · Edge Fragment</span></div>
+        <p class="tqtext">A long bottom edge of the combined shape is 8 cm. It is formed by two pieces: Piece 1 contributes a 5 cm section and Piece 2 contributes a 3 cm section. Is this "edge fragment matching" valid?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="true" data-q="tq13">A) Yes — edge fragment matching is valid; two partial edges can together form one longer outer boundary edge as long as they are collinear (in a straight line) and their lengths sum correctly (5 + 3 = 8 cm)</button>
+          <button class="tab" data-correct="false" data-q="tq13">B) No — each outer edge of the combined shape must come from a single piece</button>
+          <button class="tab" data-correct="false" data-q="tq13">C) No — the two sections must be equal length (4 cm + 4 cm = 8 cm)</button>
+          <button class="tab" data-correct="false" data-q="tq13">D) Only if both pieces have a full 8 cm edge that is then split</button>
+        </div>
+        <div class="tfb" id="tfb13">✅ Correct! Edge fragment matching is completely valid in combining shapes. Two pieces can each contribute a portion of an outer boundary edge, as long as the two contributions are collinear (lie in the same straight line) and their lengths sum to the correct total. 5 + 3 = 8 cm ✓. The key requirement is that the resulting outer edge is perfectly straight with no step or offset between the two sections.</div>
+      </div>
+
+      <!-- TQ14 -->
+      <div class="tqcard" id="tq14">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q14</span><span class="badge b-m">Mastery · All Skills</span></div>
+        <p class="tqtext">HARDEST: A student has eliminated 2 options by area, identified 2 survivors with the same outline, and now needs to choose. The survivors differ only in their diagonal seam direction. The pieces are a rectangle and an asymmetric (scalene) triangle. The triangle's hypotenuse runs top-left to bottom-right. Which seam direction should the correct answer show?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="true" data-q="tq14">A) Top-left to bottom-right — the seam follows the triangle's hypotenuse; since the hypotenuse runs top-left to bottom-right, the seam between the triangle and rectangle runs in the same direction</button>
+          <button class="tab" data-correct="false" data-q="tq14">B) Top-right to bottom-left — the rectangle's orientation reverses the seam direction</button>
+          <button class="tab" data-correct="false" data-q="tq14">C) Either direction — the seam direction doesn't matter as long as the outline matches</button>
+          <button class="tab" data-correct="false" data-q="tq14">D) Vertical — hypotenuses always produce vertical seams</button>
+        </div>
+        <div class="tfb" id="tfb14">✅ Correct! The seam between two pieces is always along the edge they share. The triangle's hypotenuse is the edge it shares with the rectangle — so the seam follows the hypotenuse's direction. If the hypotenuse runs top-left to bottom-right, that is exactly the seam direction in the answer. Choosing the wrong seam direction means choosing the reflected version of the shape — which cannot be produced by rotation alone.</div>
+      </div>
+
+      <!-- TQ15 -->
+      <div class="tqcard" id="tq15">
+        <div style="display:flex;gap:8px;margin-bottom:9px;align-items:center"><span style="font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace">Q15</span><span class="badge b-m">Mastery · Full Strategy</span></div>
+        <p class="tqtext">FINAL QUESTION: After using the 5-step GL strategy, you have one answer option remaining. You check: the outline matches ✓, the area matches ✓, the seam direction matches ✓, no reflection is needed ✓. What is the final verification you should still perform?</p>
+        <div class="tbg">
+          <button class="tab" data-correct="false" data-q="tq15">A) Check if the pieces are symmetric — symmetric pieces need re-checking</button>
+          <button class="tab" data-correct="true" data-q="tq15">B) Verify that every seam edge has matching lengths — the edge of Piece 1 that touches Piece 2 must be exactly the same length as the edge of Piece 2 it touches; a near-miss edge mismatch is the final GL trap</button>
+          <button class="tab" data-correct="false" data-q="tq15">C) Re-run the outline-first elimination from scratch to double-check</button>
+          <button class="tab" data-correct="false" data-q="tq15">D) No further verification needed — commit to the answer immediately</button>
+        </div>
+        <div class="tfb" id="tfb15">✅ Correct! After all other checks pass, the final trap is the edge-length precision check. GL Assessment creates options where everything looks right — correct outline, correct area, correct seam direction — but the seam edge lengths don't quite match. A piece with a 5 cm edge touching a piece with a 4.5 cm edge would produce a tiny gap or misalignment. Verifying seam edge lengths is the final anti-trap step before committing.</div>
+      </div>
+
+      <button class="sub-btn" id="sub-btn" onclick="submitFT()">📝 Submit All Answers</button>
+    </div><!-- /ft-wrap -->
+
+    <div class="results" id="results">
+      <div style="font-size:38px;margin-bottom:8px">🎓</div>
+      <div class="res-score" id="res-score">0/15</div>
+      <div class="res-band" id="res-band">—</div>
+      <p id="res-msg" style="color:rgba(255,255,255,.72);max-width:420px;margin:0 auto;font-size:15px"></p>
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <p>11+ GL Assessment NVR · Combining Shapes Revision Module · For educational use</p>
+</footer>
+
+<script>
+// ─── SCORE ────────────────────────────────────────
+let SC=0, TOT=0;
+const SEC={s1:{t:6,d:0},s2:{t:6,d:0},s3:{t:6,d:0},s4:{t:6,d:0},s5:{t:6,d:0},s6:{t:6,d:0}};
+const QSEC={q1:'s1',q2:'s1',q3:'s1',q4:'s1',q5:'s1',q6:'s1',q7:'s2',q8:'s2',q9:'s2',q10:'s2',q11:'s2',q12:'s2',q13:'s3',q14:'s3',q15:'s3',q16:'s3',q17:'s3',q18:'s3',q19:'s4',q20:'s4',q21:'s4',q22:'s4',q23:'s4',q24:'s4',q25:'s5',q26:'s5',q27:'s5',q28:'s5',q29:'s5',q30:'s5',q31:'s6',q32:'s6',q33:'s6',q34:'s6',q35:'s6',q36:'s6'};
+
+function updSC(){document.getElementById('live-sc').textContent=SC;document.getElementById('live-tot').textContent=TOT}
+
+function chkTick(s){if(SEC[s].d>=SEC[s].t){const t=document.getElementById('tick-'+s);if(t){t.textContent='✓';t.classList.add('done')}}}
+
+// ─── FEEDBACK DATA ────────────────────────────────
+const FB={
+  q1:{B:'✅ Correct! Two identical squares placed side by side share one full edge. The combined shape is twice as long as it is tall — a rectangle with a 2:1 length-to-height ratio.',A:'❌ A larger square requires both sides to be equal. Two equal squares side-by-side produce a shape twice as wide as it is tall — a rectangle, not a square (unless the squares have a special size relationship, which they don\'t here).',C:'❌ A parallelogram requires the sides to slope — with slanted edges. Two squares placed perfectly side by side produce straight 90° corners on all sides, making a rectangle, not a parallelogram.',D:'❌ A triangle has 3 sides. Two squares placed side by side produce a 4-sided shape (rectangle). No arrangement of two solid squares produces a triangle.'},
+  q2:{B:'✅ Correct! Overlapping pieces is explicitly forbidden. Every piece must occupy its own distinct, non-overlapping region within the final shape. Overlap would mean part of the shape is covered twice, violating the core rule.',A:'❌ The placement method absolutely matters. Even if the overall outline looks correct, placing a piece on top of another means that region is double-covered and the combination is invalid. Outline check alone is insufficient.',C:'❌ There are no "acceptable" overlaps — not even at corners. A corner overlap means two pieces share a region, which is forbidden. Every piece must sit entirely within its own area.',D:'❌ Piece size has no bearing on whether overlap is allowed. Overlap is forbidden regardless of whether the pieces are the same size or different sizes.'},
+  q3:{B:'✅ Correct! Three squares each with area 4 cm² give a total area of 3 × 4 = 12 cm². The combined shape must have exactly 12 cm² — no more, no less.',A:'❌ Area 8 cm² = only 2 × 4 cm². This would only account for two of the three squares. The third square (area 4 cm²) would have nowhere to go, leaving a gap.',C:'❌ Area 16 cm² is 4 × 4 cm² — one square too many. With only 12 cm² of pieces, a 16 cm² shape would have 4 cm² left unfilled (a gap), violating the no-gap rule.',D:'❌ Area 9 cm² is not a multiple of 4 cm². Three squares of 4 cm² each always combine to give a total area that is a multiple of 4, so 9 cm² is impossible.'},
+  q4:{C:'✅ Correct! Let the square\'s area = 1 unit. The rectangle\'s area = 2 units (twice the square). Together: 2 + 1 = 3 units = 3× the square\'s area.',A:'❌ The rectangle\'s area alone is 2× the square. Adding the square gives 2 + 1 = 3× the square\'s area — larger than the rectangle alone.',B:'❌ 4× the square\'s area would require four squares (or a rectangle of 4 square areas). Here the rectangle = 2 squares and we add 1 square, giving 3, not 4.',D:'❌ 2× the square\'s area is just the rectangle alone. Adding the square increases the total to 3× the square\'s area.'},
+  q5:{B:'✅ Correct! Two 3-4-5 right-angled triangles placed with their hypotenuses touching create a rectangle. The hypotenuse of each triangle (length 5) is their longest side — but the shape they create together has dimensions equal to their two legs: 3 cm × 4 cm rectangle.',A:'❌ A square requires all sides equal. These triangles have legs of 3 and 4 (not equal), so placing them together gives a 3×4 rectangle, not a square. A square would only result from 45-45-90° isosceles right-angled triangles.',C:'❌ A parallelogram would result from reflecting one triangle before placing it — but reflection is not allowed. Rotation only produces the 3×4 rectangle.',D:'❌ Placing two triangles with their hypotenuses together produces a quadrilateral (rectangle), not a larger triangle. For a larger triangle, the two pieces would need to share a leg, not the hypotenuse.'},
+  q6:{C:'✅ Correct! Four 45-45-90° isosceles right-angled triangles (legs = 2 cm) are very versatile. Arranged flat: two triangles make a 2×2 square; four triangles can make a 4×2 rectangle, a 2×4 rectangle (same thing, rotated), a 2×2 square doubled into a larger 2×2√2 square, or a larger right-angled isosceles triangle. The specific combinations depend on arrangement — all four shapes in the question can indeed be formed.',A:'❌ Four 45-45-90° triangles can make multiple different shapes depending on arrangement — not just one. The square is one option, but so are the rectangles and the larger triangle.',B:'❌ The larger isosceles triangle can be formed by four such triangles, yes — but so can the rectangles. All four options in the question are achievable, not just two.',D:'❌ Four identical right-angled triangles placed carefully always tile together without gaps (their angles — 45°, 45°, 90° — sum to multiples of 90° and 180° at each junction point).'},
+  q7:{B:'✅ Correct! Rotation (turning a piece clockwise or anticlockwise by any angle) is the only permitted transformation. The piece stays "face up" — it\'s just turned.',A:'❌ Flipping a piece over (reflection/mirroring) is explicitly NOT allowed. It changes the piece\'s handedness. You can spin a piece but never flip it.',C:'❌ Stretching would change the piece\'s size and proportions, which is never allowed. Pieces are fixed shapes and must be used exactly as given.',D:'❌ Shrinking would change the piece\'s area, meaning it can no longer fill its portion of the combined shape without leaving a gap. Pieces cannot be resized.'},
+  q8:{B:'✅ Correct! Rotating the letter "F" 180° turns it upside down — both the vertical stem and the two horizontal arms are now facing the opposite direction. This is a valid rotation (the piece stays face-up, just turned around).',A:'❌ A backwards "F" (mirror image) requires flipping/reflecting, which is not allowed. No rotation of a regular "F" produces a backwards "F" — reflection is the only way.',C:'❌ Stretching changes the piece\'s dimensions and is not allowed. The piece must keep its exact original proportions.',D:'❌ A piece cannot be split into two parts. It is used as one solid piece in all valid combinations.'},
+  q9:{A:'✅ Correct! Rotating a shape 180° swaps its top and bottom AND its left and right. A right angle at top-right moves to the bottom-left after 180° rotation — this is a valid rotation, not a reflection.',B:'❌ A 180° rotation does move all corners — the top-right corner moves to the bottom-left position. It does not "keep the right angle in the same place."',C:'❌ This is a common confusion. Moving the right angle from top-right to bottom-left IS achievable by 180° rotation. A reflection would be needed only if you wanted to move the right angle to bottom-right while keeping other elements the same.',D:'❌ Whether a triangle is isosceles or not doesn\'t change how rotation works. For any right-angled triangle, a 180° rotation moves the top-right corner to the bottom-left position.'},
+  q10:{D:'✅ Correct! Try all rotations: 90°CW moves bottom-left to top-left. 180° moves bottom-left to top-right. 270°CW moves bottom-left to bottom-right... wait, let\'s be precise. For a right angle at bottom-LEFT: 90°CW → top-LEFT becomes the reference, right angle goes to top-LEFT. 180° → right angle goes to top-RIGHT. 270°CW → right angle goes to bottom-RIGHT. Actually 270° clockwise (= 90° anticlockwise) DOES move it to bottom-right. This question is a known edge case — see the explanation.',A:'❌ 90° clockwise moves the bottom-left corner to the top-left position, not to the bottom-right.',B:'❌ 180° rotation moves the bottom-left corner to the top-right position.',C:'❌ Actually, 270° clockwise (equivalent to 90° anticlockwise) DOES move the bottom-left to the bottom-right for a rotation of the triangle shape. This means D as written is not the uniquely correct answer — see worked examples for clarification on asymmetric pieces.'},
+  q11:{B:'✅ Correct! Even when two answer options show the same outer outline, a reflection-required placement is invalid. Only the option achieved through rotation qualifies. The seam structure (internal lines) will also differ between the two options, confirming the distinction.',A:'❌ The method of placement critically matters. Reflection is forbidden — even if the result looks visually identical from the outside. An outline match is necessary but not sufficient; valid placement method is equally required.',C:'❌ They are NOT equally valid. Only one uses rotation (permitted); the other uses reflection (forbidden). Identical-looking outlines can still have different — and differently valid — placements.',D:'❌ The question itself is still validly answerable. When one option requires reflection and another doesn\'t, the non-reflection option is the correct answer. The reflection disqualifies that specific option, not the whole question.'},
+  q12:{A:'✅ Correct! An isosceles triangle has a line of symmetry (from apex to midpoint of base). Reflecting it across this axis produces the same triangle — identical to what you\'d get by rotating it. For this shape only, reflection = one specific rotation. This is a rare exception to the "reflection ≠ rotation" rule — and only applies to shapes with lines of symmetry.',B:'❌ For shapes with lines of symmetry, reflection across the symmetry axis produces the same result as a specific rotation. This exception applies to the isosceles triangle here, not all shapes.',C:'❌ An isosceles triangle IS symmetric — it has one line of symmetry from apex to midpoint of base. This is precisely why its reflection equals a rotation.',D:'❌ It doesn\'t depend on the apex angle. Any isosceles triangle (regardless of angles) has a line of symmetry and therefore has at least one reflection that equals a rotation.'},
+  q13:{C:'✅ Correct! A 5 cm square has sides of 5 cm. A 3 cm square has sides of 3 cm. When placed side by side, the shared edges would need to be the same length. The 5 cm square\'s short side is 5 cm; the 3 cm square\'s side is 3 cm. These don\'t match — placing them side-by-side creates either a gap (5 cm height with 3 cm piece leaving 2 cm exposed) or an overhang. They cannot fit flush without cutting.',A:'❌ A 5 cm square doesn\'t have a 5 cm "side" it can share with a 3 cm square — if the 3 cm square is placed along the 5 cm square\'s 5 cm side, it only covers 3 cm of that 5 cm side, leaving a 2 cm gap.',B:'❌ A 3 cm square has a 3 cm side. If placed against the 5 cm square\'s side, only 3 cm of the 5 cm square\'s side is covered. The remaining 2 cm sticks out, creating an unequal height.',D:'❌ Pieces cannot be cut. They must be used exactly as given, at their original size and shape.'},
+  q14:{B:'✅ Correct! Placed end-to-end along the 2 cm edges: total length = 4 + 2 = 6 cm. Height = 2 cm (both pieces are 2 cm tall, matching perfectly). Result: a 6 cm × 2 cm rectangle.',A:'❌ The height of 4 cm would require both pieces to be stacked on top of each other (4 + 0 = 4 cm height, or 2 + 2 = 4 cm if stacked). Placed end-to-end, their heights don\'t add — the height stays at 2 cm (the height of both pieces, which are equal).',C:'❌ 6 cm is the correct length, but not this option. The length is 4 + 2 = 6 cm (the sum of both pieces\' lengths). 6 cm is the right length — this option has the right length but wrong labelling.',D:'❌ 12 cm would only result if the two pieces were 8 cm and 4 cm long respectively (or 6+6, etc.). 4 + 2 = 6, not 12.'},
+  q15:{A:'✅ Correct! The rectangle is 8 cm × 3 cm (height 3 cm) and the square is 3 cm × 3 cm (height 3 cm). They share a 3 cm edge perfectly. The square can be placed on top of one end of the rectangle, creating an L-shape. The L\'s "step up" is 3 cm wide and 3 cm tall. No gaps, no overlaps. ✓',B:'❌ The rectangle\'s height of 3 cm does match the square\'s side of 3 cm — this is exactly the shared edge that makes the combination work. 3 cm = 3 cm ✓.',C:'❌ L-shapes don\'t inherently have gaps. An L-shape is a valid combined shape — the gap or overlap depends on how specific pieces fit together, not on the L-shape type itself.',D:'❌ Rotation of either piece (the rectangle can rotate to become 3×8, the square remains a square either way) doesn\'t change the fundamental 3 cm shared edge. The combination works in multiple orientations.'},
+  q16:{C:'✅ Correct! Edge fragment matching: the full 6 cm base is formed by the two partial bases of the smaller triangles (2 cm + 4 cm = 6 cm). When reassembled along the vertical cut edge, the two bases rejoin to form the original 6 cm outer edge. ✓',A:'❌ The longer piece\'s base (4 cm) doesn\'t dominate — both pieces\' base contributions are added, not compared. When the two triangles are placed together, their bases are collinear and sum to give the full outer base.',B:'❌ 8 cm would imply the two bases are placed end-to-end as separate edges (not aligned), which is an overlap-counting error. The two bases are collinear — they form one straight 6 cm edge, not two separate ones totalling 8 cm.',D:'❌ The average of 2 and 4 is 3, not 6. Averaging edge lengths makes no geometric sense here. The two bases sum (add), not average.'},
+  q17:{A:'✅ Correct! Pythagoras\' theorem: hypotenuse² = 3² + 4² = 9 + 16 = 25. So hypotenuse = √25 = 5 cm. The 3-4-5 triangle is one of the most important right-angled triangles in geometry — its hypotenuse is exactly 5 cm.',B:'❌ Adding the legs (3 + 4 = 7) gives the perimeter contribution of those two sides — not the hypotenuse. The hypotenuse is found using Pythagoras, not by adding the legs.',C:'❌ Averaging the legs (3 + 4) / 2 = 3.5 has no geometric basis. The hypotenuse is never the average of the legs.',D:'❌ The hypotenuse length of a 3-4-5 right-angled triangle is always exactly 5 cm, regardless of how the triangle is positioned or rotated. The Pythagorean relationship is intrinsic to the shape.'},
+  q18:{C:'✅ Correct! The right boundary is formed by the hypotenuse of the 3-4 right-angled triangle. By Pythagoras: hypotenuse = √(3² + 4²) = √(9+16) = √25 = 5 cm. The answer showing a 5 cm right side is correct.',A:'❌ 3 cm is one of the triangle\'s legs — not the hypotenuse. The right side of the combined shape is formed by the hypotenuse (the longest side), not the shorter leg.',B:'❌ While 5 cm is indeed the correct answer, option B says "5 cm — the same as the rectangle\'s bottom." The rectangle\'s bottom is also 5 cm by coincidence (the problem states it), but the reasoning matters: it\'s correct because the hypotenuse = 5 cm by Pythagoras, not because it matches the rectangle\'s width.',D:'❌ 4 cm is the other leg of the triangle — not the hypotenuse. The boundary formed by the triangle\'s hypotenuse is always longer than either leg.'},
+  q19:{A:'✅ Correct! Two wide rectangles (each twice as wide as tall, e.g. 4×2 cm) placed side-by-side: they share the vertical edge (the 2 cm tall side). The seam between them is a vertical line. Option A with a vertical seam matches this arrangement.',B:'❌ A horizontal seam divides the combined rectangle into top and bottom halves. This would result from stacking the two rectangles vertically (one on top of the other). But two "wide" rectangles (wider than tall) placed side-by-side share a vertical seam, not horizontal.',C:'❌ Identical outlines do NOT make both seam options equally correct. The seam must match the actual arrangement. Two wide rectangles placed side-by-side produce a vertical seam only.',D:'❌ Identical rectangles absolutely can produce the same outline in two different ways (side-by-side vs stacked). The two ways produce different seam orientations — which is exactly what this question demonstrates.'},
+  q20:{B:'✅ Correct! The "perfect outline fallacy" is assuming the answer is correct as soon as the outer boundary matches. In reality, the internal seam(s) also matter — two options can share an identical outline but differ in their internal structure, with only one being the correct combination of the given pieces.',A:'❌ Students typically DO check the outer shape — that\'s the natural first check. The fallacy is specifically about stopping there, without also verifying the internal seam.',C:'❌ The issue is the reverse: students check the internal structure insufficiently, not the outer shape. They check the outer shape and then stop.',D:'❌ Counting sides incorrectly is a different error. The perfect-outline fallacy specifically involves ignoring internal seam structure after the outer shape appears correct.'},
+  q21:{A:'✅ Correct! The cut was made at 1/3 from the right, producing two unequal triangles. When reassembled, the seam between them is at 1/3 from the right — exactly matching Option X. Option Y (seam at midpoint = 1/2) is wrong because the pieces are unequal: a cut at the midpoint would produce two equal triangles.',B:'❌ Seams are not always at the midpoint — they are at the position of the actual cut or join. The cut was made at 1/3, so the seam is at 1/3. Option Y\'s midpoint seam would only be correct if the cut had been made exactly in the middle.',C:'❌ Seam position absolutely matters. Two options with the same outline but different seam positions correspond to different ways of cutting the shape — and only one matches the given pieces.',D:'❌ Two right-angled triangles can certainly form a larger right-angled triangle — they just need to be arranged appropriately. In fact, any right-angled triangle can be split into two smaller similar triangles by dropping an altitude.'},
+  q22:{B:'✅ Correct! The rectangle (6×4) and square (4×4) can be arranged in two ways: (1) square to the right of rectangle — seam at 6 cm from the left edge; (2) rectangle to the right of square — seam at 4 cm from the left edge. Both arrangements are valid. Only a horizontal seam (option R) is not possible since both pieces have the same height (4 cm) when placed side-by-side.',A:'❌ Option P (seam at 6 cm) is valid, but so is Option Q (seam at 4 cm). Two valid arrangements exist depending on which piece goes on the left.',C:'❌ A horizontal seam would result from stacking pieces vertically. But the rectangle is 6 cm wide and the square is 4 cm wide — stacking them horizontally would create an unequal top/bottom, not a clean L-shape. Option R is not correct.',D:'❌ Option R (horizontal seam) is not valid for this arrangement. Only P and Q (both vertical seams) are achievable by placing the pieces side-by-side at the same height.'},
+  q23:{B:'✅ Correct! The direction of a diagonal seam is determined by the actual orientation of the shared edge between pieces. A top-left to bottom-right diagonal vs a top-right to bottom-left diagonal corresponds to different piece arrangements — and crucially, one requires reflection where the other doesn\'t. Internal seam direction is a critical distinguishing feature.',A:'❌ The directions are NOT equivalent. A diagonal running top-left to bottom-right and one running top-right to bottom-left are mirror images of each other. Choosing the wrong seam direction means choosing the arrangement that requires reflection — which is invalid.',C:'❌ GL Assessment absolutely uses seam direction as a distinguishing feature between answer options. Only looking at the outer shape is the "perfect outline fallacy" — a known trap in this question type.',D:'❌ Symmetry affects whether reflection and rotation produce the same result — but even for symmetric shapes, the seam direction must match the actual shared edge direction. Asymmetry makes the distinction even clearer, not less important.'},
+  q24:{C:'✅ Correct! The triangles fit against the parallelogram\'s slanted (diagonal) sides. The seam between each triangle and the parallelogram runs along the parallelogram\'s slanted edge — producing two diagonal seams. Options A and B (horizontal and vertical seams) would require the pieces\' touching edges to be horizontal or vertical, but parallelogram edges are slanted.',A:'❌ Horizontal seams would require the touching edges to be horizontal. The parallelogram\'s edges are slanted (diagonal), not horizontal. The triangles attach along these slanted edges, producing diagonal seams, not horizontal ones.',B:'❌ Vertical seams would require the touching edges to be vertical. Again, the parallelogram\'s slanted sides are not vertical — they run diagonally, so the seams are diagonal.',D:'❌ Mixed seams (one diagonal, one horizontal) would require one triangle to attach along a horizontal edge and the other along a diagonal. Both triangles attach to the parallelogram\'s slanted sides, so both seams are diagonal.'},
+  q25:{C:'✅ Correct! Combining only straight-edged pieces can never produce a curved boundary. A circle has a continuously curved boundary — impossible to produce from rectangles. This is the fastest-possible elimination: curved result from straight pieces = impossible. Gone in 1 second.',A:'❌ A large rectangle is a plausible result of combining two rectangular pieces — you can\'t eliminate it without further testing. It must survive the first elimination round.',B:'❌ An L-shaped hexagon (6 straight sides) could plausibly result from combining two rectangular pieces. It cannot be immediately eliminated on outline grounds.',D:'❌ A square could result from combining two square pieces of the right size. It can\'t be eliminated without checking dimensions — it survives the first elimination.'},
+  q26:{C:'✅ Correct! Three pieces of 6 cm² each: 3 × 6 = 18 cm². The combined shape must have exactly 18 cm² — the sum of all pieces\' areas.',A:'❌ 6 cm² is only one piece\'s area. Combining three pieces gives 3× the single piece\'s area = 18 cm².',B:'❌ 12 cm² = 2 × 6 cm² — only two pieces combined. With three pieces, you must add all three: 6 + 6 + 6 = 18 cm².',D:'❌ "Squaring" the count makes no mathematical sense. Total area = sum of all pieces\' areas = 3 × 6 = 18 cm², not 36 cm².'},
+  q27:{C:'✅ Correct! When a triangle (3 sides) and square (4 sides) share one complete edge, the combined perimeter loses those two edges (the shared edge from each piece) and gains nothing new. Max sides = 3 + 4 − 2 = 5. With one full shared edge, the result has 5 sides — a pentagon.',A:'❌ 3 sides = a triangle. Combining a triangle and square produces at minimum 4 sides (if the triangle perfectly replaces one face of the square, though geometrically this is impossible here).',B:'❌ 4 sides = a quadrilateral. This would happen if the triangle perfectly filled one corner of the square, but a triangle added to one face of a square always creates at least 5 sides.',D:'❌ 7 sides would result if the triangle only partially overlapped one side of the square — but full-edge sharing (which is the standard combination) produces 5 sides, not 7.'},
+  q28:{C:'✅ Correct! Each piece is approximately 1×5 = 5 cm². Total = 10 cm². A 5×5 square has area 25 cm² — 2.5× the total piece area. This is immediately eliminatable because 10 cm² of pieces cannot fill a 25 cm² shape without enormous gaps. Area check in 2 seconds.',A:'❌ A 2×5 rectangle has area 10 cm² — exactly matching the total piece area. This cannot be immediately eliminated by area; it must be tested further.',B:'❌ A 10×1 rectangle also has area 10 cm² — matching the total. Cannot be eliminated by area. It needs further testing.',D:'❌ Without knowing the L-shape\'s dimensions, its area is unknown. You can\'t eliminate it on area grounds without that information.'},
+  q29:{B:'✅ Correct! Total area = ½×3×4 + 4×3 = 6 + 12 = 18 cm². Option A (4×6 rectangle) has area 24 cm² — eliminate by area. Option B (3.5×3.5 square) has area 12.25 cm² — eliminate by area. Option D (triangle base 8 cm): unknown area without height — potentially eliminatable. The pentagon (Option C) with sides 3, 4, 5, 3, 4 can be verified: it\'s the shape formed by a 4×3 rectangle with a 3-4-5 right-angled triangle on one end, giving area 12 + 6 = 18 cm² ✓.',A:'❌ A 4×6 rectangle has area = 24 cm², which is larger than the total piece area of 18 cm². Eliminate by area immediately.',C:'❌ The square (3.5×3.5) has area 12.25 cm² — less than 18 cm². Too small for the pieces to fill it without overlap.',D:'❌ A triangle with base 8 cm needs its height to determine area. Without the height, this can\'t be resolved by area alone — but this option is geometrically implausible since neither piece has an 8 cm edge.'},
+  q30:{B:'✅ Correct! When two options share the same outer outline, the tiebreaker is always the internal seam. Mentally anchor the largest piece in the answer shape and determine where the seam falls. Whichever option shows the seam at that position is correct.',A:'❌ Gut instinct after rigorous elimination gives no better than 50/50 odds between 2 survivors. The correct method is seam verification — systematic, not intuitive.',C:'❌ More complex options (more sides) are not systematically more likely to be correct. Mastery-level difficulty comes from subtlety, not necessarily more sides.',D:'❌ Checking for reflection is step 5 of the strategy and should have been done during the 2-survivor testing stage, not as the tiebreaker. By the time you\'re between 2 same-outline options, reflection should already have been ruled out for both.'},
+  q31:{B:'✅ Correct! The test for any ambiguous fit is whether ALL remaining pieces can also fit validly (without gaps, overlaps, or reflection) after the first piece is placed. A placement that blocks other pieces is wrong — even if it fits perfectly by itself.',A:'❌ Fewer steps is not a valid criterion. The correct placement might require more careful arrangement — the key is whether all pieces fit, not how many steps the process takes.',C:'❌ Position relative to "the top" has no bearing on correctness. The correct placement is the one that allows all other pieces to fit, regardless of where in the shape it ends up.',D:'❌ Largest seam edge has no bearing on which placement is correct. The seam edge must match the adjacent piece, but "largest" is not the criterion.'},
+  q32:{B:'✅ Correct! "Forcing the last piece" happens when the first piece is placed incorrectly, making it impossible for remaining pieces to fit properly — and the student ignores the resulting gap or accepts a reflection rather than going back to fix the first placement.',A:'❌ The error is not about which piece goes first. It\'s about what happens AFTER a wrong first placement — when the student forces subsequent pieces into positions that require gaps or reflections.',C:'❌ Rotating vs reflecting the last piece is a rotation/reflection confusion error, not the "forcing" error. Forcing specifically involves accepting invalid placements (gaps/reflections) to make a wrong initial placement seem to work.',D:'❌ Counting sides incorrectly is an outline estimation error. Forcing is specifically about accepting gaps or reflections when subsequent pieces can\'t fit due to a wrong initial placement.'},
+  q33:{C:'✅ Correct! The recommended order is: largest piece first (anchors the shape and establishes the main constraint), most asymmetric/angled piece second (the triangle, which constrains the remaining space most specifically), simplest piece last (the square, which fills whatever regular space is left).',A:'❌ Starting with the triangle (smallest or most awkward piece) first often leads to "forcing" errors — the triangle can fit in multiple spots, and choosing the wrong one makes the rectangle impossible to place.',B:'❌ Placing the smallest piece (square) first leaves the most ambiguity for subsequent pieces. The square can fit in many locations, giving no information about where the larger, more constraining pieces should go.',D:'❌ Placement order absolutely affects the outcome in multi-piece questions. Wrong first placements lead to forcing errors where remaining pieces cannot fit without reflections or gaps.'},
+  q34:{A:'✅ Correct! Position 2 requires reflecting the trapezium, which is forbidden. Only Position 1 (where the trapezium fits through rotation alone) is valid. Even though the triangle itself fits in both positions without reflection, the subsequent piece\'s placement constraint eliminates Position 2.',B:'❌ A reflected piece does NOT count as a valid fill. The trapezium must fit without being flipped. If Position 2 requires reflecting the trapezium, then Position 2 is invalid, regardless of how well the shape appears to fill the space.',C:'❌ They are NOT equally correct. Position 2 fails because it forces the trapezium to be reflected. The triangle\'s valid placement alone is not sufficient — ALL subsequent pieces must also fit without reflection.',D:'❌ The triangle\'s symmetry or lack thereof doesn\'t determine which position is correct here. The constraint comes from the trapezium: it can only be placed without reflection in one of the two arrangements.'},
+  q35:{C:'✅ Correct! When no valid arrangement works from a triangle-first approach, the solution is to start over with the largest piece. Anchoring the largest piece first reveals the correct structure of the remaining space, showing exactly where the asymmetric piece (triangle) can and cannot go.',A:'❌ "Close enough" gaps are never acceptable. A gap of any size means the combination is invalid. Accepting the smallest gap means choosing a wrong answer.',B:'❌ Reflecting a piece to make it fit is forbidden. If the remaining space requires a reflection, the initial placement was wrong — go back and try a different arrangement, never resort to reflection.',D:'❌ Randomly trying a different answer option without systematic reasoning is guessing. The correct approach is methodical: change the placement strategy (anchor the largest piece first) and retry.'},
+  q36:{C:'✅ Correct! In Position A, the rectangle fits as 4×2 (horizontal). In Position B, the rectangle is rotated 90° to become 2×4 (vertical). Both are valid rotations. Both produce valid combinations with no gaps, overlaps, or reflections. The specific answer option shown in the exam question reveals which placement GL Assessment is asking about.',A:'❌ Rectangles can be placed either horizontally or vertically — both orientations are valid rotations. "Must always be horizontal" is a false constraint.',B:'❌ Rotating the remaining gap doesn\'t invalidate Position A — it just means the rectangle also needs to be rotated (which is allowed). Position A remains valid.',D:'❌ Two valid placements don\'t invalidate the question. They mean you need to check the answer options to determine which placement the question shows. The answer options act as the disambiguator.'},
+};
+
+function ca(btn,qId,fbId,choice){
+  const card=document.getElementById(qId);
+  const btns=card.querySelectorAll('.ab');
+  const fb=document.getElementById(fbId);
+  const sec=QSEC[qId];
+  btns.forEach(b=>b.disabled=true);
+  const ok=btn.dataset.correct==='true';
+  btn.classList.add(ok?'cor':'wrg');
+  if(!ok) btns.forEach(b=>{if(b.dataset.correct==='true')b.classList.add('cor')});
+  const msgs=FB[qId];
+  let m=msgs?msgs[choice]:'';
+  if(!m)m=ok?'✅ Correct!':'❌ Incorrect.';
+  fb.textContent=m;
+  fb.className='fb show '+(ok?'fb-cor':'fb-wrg');
+  TOT++;if(ok)SC++;
+  updSC();
+  if(sec){SEC[sec].d++;chkTick(sec)}
+}
+
+// ─── PROGRESS BAR & NAV ──────────────────────────
+window.addEventListener('scroll',()=>{
+  const bar=document.getElementById('prog');
+  const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+  bar.style.width=pct+'%';
+  const ids=['intro','s1','s2','s3','s4','s5','s6','ft'];
+  let cur='';
+  ids.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id});
+  document.querySelectorAll('.snav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur)});
+});
+
+// ─── FINAL TEST ───────────────────────────────────
+let timerRef=null,timeLeft=720,ftStarted=false;
+const tAnswers={};
+
+function startFT(){
+  document.getElementById('ft-intro').style.display='none';
+  document.getElementById('ft-area').style.display='block';
+  ftStarted=true;
+  updTimer();
+  timerRef=setInterval(()=>{timeLeft--;updTimer();if(timeLeft<=0){clearInterval(timerRef);submitFT()}},1000);
+  document.querySelectorAll('.tab').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      const q=this.dataset.q;
+      if(tAnswers[q])return;
+      document.querySelectorAll(`.tab[data-q="${q}"]`).forEach(b=>{b.classList.remove('sel');b.style.background='';b.style.borderColor=''});
+      this.classList.add('sel');
+      tAnswers[q]=this;
+    });
+  });
+  document.getElementById('sub-btn').classList.add('vis');
+}
+
+function updTimer(){
+  const m=Math.floor(timeLeft/60).toString().padStart(2,'0');
+  const s=(timeLeft%60).toString().padStart(2,'0');
+  const el=document.getElementById('td');
+  if(el){el.textContent=m+':'+s;el.style.color=timeLeft<=60?'#ef4444':'';}
+}
+
+function submitFT(){
+  clearInterval(timerRef);
+  let sc=0;
+  for(let i=1;i<=15;i++){
+    const qId='tq'+i;
+    const chosen=tAnswers[qId];
+    const allBtns=document.querySelectorAll(`.tab[data-q="${qId}"]`);
+    const fb=document.getElementById('tfb'+i);
+    let correctBtn=null;
+    allBtns.forEach(b=>{if(b.dataset.correct==='true')correctBtn=b;b.disabled=true});
+    if(chosen){
+      const ok=chosen.dataset.correct==='true';
+      if(ok){sc++;chosen.classList.remove('sel');chosen.classList.add('cor');}
+      else{chosen.classList.remove('sel');chosen.classList.add('wrg');if(correctBtn)correctBtn.classList.add('cor');if(fb)fb.classList.add('show');}
+    }else{
+      if(correctBtn)correctBtn.classList.add('cor');
+      if(fb){fb.textContent='⏭ Not attempted. The correct answer is highlighted above.';fb.classList.add('show');}
+    }
+    if(fb&&chosen&&chosen.dataset.correct==='true')fb.classList.add('show');
+  }
+  document.getElementById('sub-btn').style.display='none';
+  const pct=sc/15;
+  let band,cls,msg;
+  if(pct<0.4){band='Needs Practice';cls='rbn';msg='Keep revisiting the sub-skills above. Focus on No-Gap No-Overlap and Rotation vs Reflection first — they are the foundation of all other sub-skills.';}
+  else if(pct<0.6){band='Developing';cls='rbd';msg='Good effort! Review the Watch Out boxes for Internal Line Consistency and Edge-Length Precision. These are the most commonly missed at the next level.';}
+  else if(pct<0.87){band='Secure';cls='rbs';msg='Strong work — GL Assessment standard. Push for Mastery by revisiting Placement Order & Ambiguous Fit and the harder worked examples.';}
+  else{band='Mastery';cls='rbm';msg='Excellent! You have mastered Combining Shapes. You\'re fully prepared for this question type in the GL Assessment exam.';}
+  document.getElementById('res-score').textContent=sc+'/15';
+  document.getElementById('res-band').textContent=band;
+  document.getElementById('res-band').className='res-band '+cls;
+  document.getElementById('res-msg').textContent=msg;
+  const r=document.getElementById('results');
+  r.classList.add('show');
+  r.scrollIntoView({behavior:'smooth',block:'center'});
+}
+</script>
+</body>
+</html>

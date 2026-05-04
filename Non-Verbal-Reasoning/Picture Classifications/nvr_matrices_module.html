@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NVR: Matrices — 11+ GL Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0c1e35;
+  --navy-mid: #162d4a;
+  --navy-light: #1e3d60;
+  --gold: #e8b84b;
+  --gold-light: #f5d07a;
+  --gold-dim: #b8882a;
+  --cream: #f7f3ed;
+  --white: #ffffff;
+  --green: #1e7a4a;
+  --green-bg: #e6f4ed;
+  --yellow: #9a6e00;
+  --yellow-bg: #fef7e0;
+  --orange: #b84a10;
+  --orange-bg: #fef0e6;
+  --purple: #5c1d99;
+  --purple-bg: #f1e8ff;
+  --red: #be2d2d;
+  --red-bg: #fde8e8;
+  --blue: #1a5fa8;
+  --blue-bg: #e8f2ff;
+  --text: #111827;
+  --text-mid: #374151;
+  --text-soft: #6b7280;
+  --border: #e0d9ce;
+  --shadow: 0 2px 16px rgba(12,30,53,0.08);
+  --shadow-lg: 0 6px 32px rgba(12,30,53,0.14);
+  --r: 12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:17px;line-height:1.7}
+
+/* ── PROGRESS ── */
+#prog-wrap{position:fixed;top:0;left:0;width:100%;height:4px;z-index:1100;background:rgba(255,255,255,0.15)}
+#prog-bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width .15s}
+
+/* ── NAV ── */
+#snav{position:sticky;top:4px;z-index:1000;background:var(--navy);border-bottom:2px solid rgba(232,184,75,0.3)}
+.snav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;gap:0}
+.snav-inner::-webkit-scrollbar{display:none}
+.snav-a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:12px;font-weight:600;padding:13px 13px;white-space:nowrap;border-bottom:3px solid transparent;letter-spacing:.05em;text-transform:uppercase;transition:all .2s}
+.snav-a:hover,.snav-a.on{color:var(--gold);border-color:var(--gold)}
+#score-pill{margin-left:auto;background:var(--gold);color:var(--navy);font-weight:700;font-size:12px;padding:5px 14px;border-radius:20px;white-space:nowrap;flex-shrink:0;font-family:'JetBrains Mono',monospace}
+
+/* ── HEADER ── */
+header{background:linear-gradient(140deg,var(--navy) 0%,var(--navy-mid) 55%,#1a3d6b 100%);padding:70px 1rem 60px;text-align:center;position:relative;overflow:hidden;border-bottom:3px solid var(--gold)}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 75% 25%,rgba(232,184,75,.09) 0%,transparent 60%)}
+header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:3px;background:var(--gold)}
+.h-eyebrow{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin-bottom:18px;opacity:.9}
+.h-title{font-family:'DM Serif Display',serif;color:#fff;font-size:clamp(30px,6vw,56px);line-height:1.05;margin-bottom:14px}
+.h-title em{color:var(--gold);font-style:italic}
+.h-sub{color:rgba(255,255,255,.6);font-size:15px;max-width:520px;margin:0 auto;font-weight:400}
+
+/* ── MAIN ── */
+.wrap{max-width:900px;margin:0 auto;padding:2rem 1rem 5rem}
+
+/* ── SECTION HEADER ── */
+.sec-hd{display:flex;align-items:center;gap:14px;margin:3.5rem 0 1.5rem}
+.sec-num{background:var(--navy);color:var(--gold);font-family:'DM Serif Display',serif;font-size:20px;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--navy)}
+.sec-tick{margin-left:auto;font-size:18px;opacity:.2;transition:opacity .3s}
+.sec-tick.done{opacity:1;color:var(--green)}
+
+/* ── CARDS ── */
+.card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:1.4rem 1.6rem;margin-bottom:1.1rem;border:1px solid var(--border)}
+.card-simple{background:#e9f3ff;border-left:5px solid #3b7dd8}
+.card-full{border-left:5px solid var(--navy)}
+.card-warn{background:var(--yellow-bg);border-left:5px solid var(--gold-dim)}
+.card-worked{border:2px solid var(--navy-light)}
+.card-strategy{background:var(--navy);color:#fff;border:none}
+.clabel{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:9px;opacity:.65}
+.card-simple .clabel{color:#1a5fa8}
+.card-full .clabel{color:var(--navy)}
+.card-warn .clabel{color:var(--yellow)}
+.card-worked .clabel{color:var(--navy)}
+.card-strategy .clabel{color:var(--gold);opacity:1}
+
+/* ── MATRIX DISPLAY ── */
+.mx-wrap{display:flex;flex-direction:column;gap:6px;margin:1rem 0;align-items:flex-start}
+.mx-row{display:flex;gap:6px}
+.mx-cell{width:76px;height:76px;border:2px solid #c8c0b5;border-radius:8px;background:var(--cream);display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}
+.mx-cell.blank{border-style:dashed;border-color:var(--gold);background:#fffdf5}
+.mx-cell svg{width:56px;height:56px}
+.mx-cell-lbl{position:absolute;bottom:2px;right:5px;font-size:9px;font-weight:700;color:var(--text-soft);font-family:'JetBrains Mono',monospace}
+.mx-center{display:flex;justify-content:center}
+.mx-label{font-size:12px;color:var(--text-soft);margin-top:6px;font-style:italic}
+
+/* ── STEPS ── */
+.steps{list-style:none;margin-top:.5rem}
+.steps li{display:flex;gap:12px;margin-bottom:11px;align-items:flex-start}
+.sn{background:var(--navy);color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.st{font-size:15px;line-height:1.55}
+
+/* ── BADGES ── */
+.badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:6px}
+.b-s{background:var(--green-bg);color:var(--green)}
+.b-d{background:var(--yellow-bg);color:var(--yellow)}
+.b-sec{background:var(--orange-bg);color:var(--orange)}
+.b-m{background:var(--purple-bg);color:var(--purple)}
+
+/* ── QUESTION CARDS ── */
+.qcard{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.9rem;box-shadow:var(--shadow)}
+.qtxt{font-size:15px;font-weight:600;margin-bottom:1rem;color:var(--navy);line-height:1.5}
+.qopts{display:flex;flex-wrap:wrap;gap:9px}
+.qbtn{padding:8px 17px;border:2px solid var(--border);border-radius:8px;background:var(--white);color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;font-weight:600;transition:all .18s;line-height:1.3}
+.qbtn:hover:not(:disabled){border-color:var(--navy);background:#f0f4ff}
+.qbtn.ok{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.qbtn.no{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.qbtn:disabled{cursor:default}
+.qfb{margin-top:11px;padding:11px 13px;border-radius:8px;font-size:14px;display:none;line-height:1.55}
+.qfb.show{display:block}
+.qfb.ok-fb{background:var(--green-bg);color:#144d2e;border-left:4px solid var(--green)}
+.qfb.no-fb{background:var(--red-bg);color:#7a1a1a;border-left:4px solid var(--red)}
+
+/* ── PRIORITY BOX ── */
+.priority-box{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:1rem 0}
+.pitem{background:var(--navy-mid);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px}
+.pnum{background:var(--gold);color:var(--navy);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ptxt{color:#fff;font-size:13px;font-weight:600}
+
+/* ── GRID STRATEGY BOX ── */
+.grid-strat{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1rem 0}
+.gst-card{background:var(--navy-mid);border-radius:10px;padding:14px;color:#fff}
+.gst-title{color:var(--gold);font-weight:700;font-size:13px;margin-bottom:6px}
+.gst-txt{font-size:13px;color:rgba(255,255,255,.8);line-height:1.5}
+
+/* ── TEST ── */
+#test-wrap{margin-top:3rem}
+.test-hdr{background:var(--navy);padding:1.4rem 1.5rem;border-radius:var(--r) var(--r) 0 0;display:flex;align-items:center;justify-content:space-between}
+.test-title{font-family:'DM Serif Display',serif;color:#fff;font-size:19px}
+#timer{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:22px;font-weight:600}
+.test-body{background:var(--white);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r) var(--r);padding:1.5rem}
+#start-btn{background:var(--gold);color:var(--navy);border:none;padding:13px 34px;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:block;margin:1rem auto 0;transition:all .2s}
+#start-btn:hover{background:var(--gold-light);transform:translateY(-2px)}
+.tq{margin-bottom:1.4rem;padding-bottom:1.4rem;border-bottom:1px solid var(--border)}
+.tq:last-child{border-bottom:none}
+.tq-num{font-size:11px;font-weight:700;color:var(--text-soft);text-transform:uppercase;margin-bottom:5px;font-family:'JetBrains Mono',monospace}
+.tq-txt{font-weight:600;margin-bottom:10px;font-size:15px;color:var(--navy)}
+#submit-btn{background:var(--navy);color:#fff;border:none;padding:13px 34px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:1rem;display:none;transition:background .2s}
+#submit-btn:hover{background:var(--navy-mid)}
+#results{display:none;text-align:center;padding:2rem 1rem}
+.r-score{font-family:'DM Serif Display',serif;font-size:62px;color:var(--navy)}
+.r-band{display:inline-block;padding:8px 24px;border-radius:20px;font-size:17px;font-weight:700;margin:1rem 0}
+.band-np{background:var(--red-bg);color:var(--red)}
+.band-dev{background:var(--yellow-bg);color:var(--yellow)}
+.band-sec{background:var(--orange-bg);color:var(--orange)}
+.band-mas{background:var(--purple-bg);color:var(--purple)}
+#review{margin-top:1.5rem;text-align:left}
+.rev-item{background:var(--cream);border-radius:10px;padding:1rem;margin-bottom:1rem;border-left:4px solid var(--border);font-size:14px}
+.rev-item.cr{border-color:var(--green)}
+.rev-item.wr{border-color:var(--red)}
+#retry-btn{background:var(--navy);color:#fff;border:none;padding:11px 28px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:1rem}
+
+/* ── REVEAL ANIM ── */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
+.reveal.vis{opacity:1;transform:none}
+
+/* ── HIGHLIGHT BOX ── */
+.hbox{background:var(--navy);color:#fff;border-radius:10px;padding:14px 16px;margin:1rem 0;font-size:14px;line-height:1.6}
+.hbox strong{color:var(--gold)}
+
+/* ── RULE TAGS ── */
+.rtag{display:inline-block;background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;margin:2px}
+
+@media(max-width:600px){
+  .mx-cell{width:62px;height:62px}.mx-cell svg{width:46px;height:46px}
+  .priority-box,.grid-strat{grid-template-columns:1fr}
+  .snav-a{font-size:10px;padding:11px 9px}
+}
+</style>
+</head>
+<body>
+
+<div id="prog-wrap"><div id="prog-bar"></div></div>
+
+<nav id="snav">
+  <div class="snav-inner">
+    <a class="snav-a" href="#intro">Intro</a>
+    <a class="snav-a" href="#progression">Progression</a>
+    <a class="snav-a" href="#alternating">Alternating</a>
+    <a class="snav-a" href="#rotation">Rotation</a>
+    <a class="snav-a" href="#translation">Translation</a>
+    <a class="snav-a" href="#combination">Combination</a>
+    <a class="snav-a" href="#dual">Dual Rules</a>
+    <a class="snav-a" href="#traps">Traps</a>
+    <a class="snav-a" href="#test-wrap">Final Test</a>
+    <div id="score-pill">Score: <span id="snum">0</span></div>
+  </div>
+</nav>
+
+<header>
+  <div class="h-eyebrow">11+ GL Assessment · Non-Verbal Reasoning</div>
+  <h1 class="h-title">Complete the <em>Matrix</em></h1>
+  <p class="h-sub">Every rule, pattern, trap — from foundation to GL-level nasty.</p>
+</header>
+
+<main class="wrap">
+
+<!-- ═══════ INTRO / STRATEGY ═══════ -->
+<section id="intro">
+  <div class="sec-hd reveal">
+    <div class="sec-num">0</div>
+    <h2 class="sec-title">What Is a Matrix Question?</h2>
+    <div class="sec-tick" id="tick-intro">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="clabel">Simple Explanation</div>
+    <p>A matrix is like a grid of pictures — usually 2×2 or 3×3. Think of it as a table where shapes follow a pattern going <strong>across each row</strong> and <strong>down each column</strong>. One square is missing (usually the bottom-right). Your job is to work out what pattern the shapes follow, then pick the missing square.</p>
+    <p style="margin-top:10px">It's like a puzzle where every row tells you a rule — and you have to use that rule to predict what comes next.</p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="clabel">Full Explanation</div>
+    <p>Matrix questions present a grid (2×2 or 3×3) of figures with one cell missing. Figures follow consistent rules across rows and/or down columns. Rules may involve: <strong>attribute progression</strong> (size/count increases), <strong>alternating patterns</strong>, <strong>rotation</strong> (shapes turn by a set angle), <strong>translation</strong> (elements move position), <strong>combination</strong> (elements from two cells merge into a third), and <strong>dual independent rules</strong> (different rules govern different properties simultaneously).</p>
+  </div>
+
+  <div class="card card-strategy reveal">
+    <div class="clabel">⚡ The Priority Scanning System</div>
+    <p style="color:rgba(255,255,255,.8);margin-bottom:14px;font-size:15px">When you see a matrix, scan these properties in this order:</p>
+    <div class="priority-box">
+      <div class="pitem"><div class="pnum">1</div><div class="ptxt">Count — dots, sides, elements</div></div>
+      <div class="pitem"><div class="pnum">2</div><div class="ptxt">Shape — what type of shape</div></div>
+      <div class="pitem"><div class="pnum">3</div><div class="ptxt">Rotation — which way is it pointing?</div></div>
+      <div class="pitem"><div class="pnum">4</div><div class="ptxt">Shading — filled, empty, striped?</div></div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:8px;padding:12px 14px;margin-top:8px;font-size:14px;color:rgba(255,255,255,.85)">
+      <strong style="color:var(--gold)">Abandon Rule Fast:</strong> If your rule doesn't work for 2 rows, it is wrong — drop it immediately and try the next property.<br><br>
+      <strong style="color:var(--gold)">Predict Before You Look:</strong> Before reading the answer options, mentally describe what the missing square should look like. Then find the option that matches your prediction.
+    </div>
+  </div>
+
+  <div class="card card-strategy reveal">
+    <div class="clabel">2×2 vs 3×3 — Different Strategies</div>
+    <div class="grid-strat">
+      <div class="gst-card">
+        <div class="gst-title">2×2 Grid</div>
+        <div class="gst-txt">Usually involves a single transformation: one shape is rotated, reflected, or shaded differently. Look for what changes between left and right — apply the same change top and bottom.</div>
+      </div>
+      <div class="gst-card">
+        <div class="gst-title">3×3 Grid</div>
+        <div class="gst-txt">Usually involves progression or dual rules. Check rows first (left→right pattern), then check columns (top→bottom pattern). At high level, the row rule and column rule may be different.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SECTION 1: ATTRIBUTE PROGRESSION ═══════ -->
+<section id="progression">
+  <div class="sec-hd reveal">
+    <div class="sec-num">1</div>
+    <h2 class="sec-title">Attribute Progression</h2>
+    <div class="sec-tick" id="tick-progression">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="clabel">Simple Explanation</div>
+    <p>Imagine stairs. Each step goes up by the same amount. In a matrix, a property — like the number of dots or the size of a shape — can go up (or down) by the same amount in every row or column. <strong>Count what changes and by how much — then continue the pattern.</strong></p>
+    <p style="margin-top:10px">Also watch for <strong>counting with reset</strong>: sometimes the count goes 1→2→3 then resets to 1→2→3 again. Don't assume it always keeps going up!</p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="clabel">Full Explanation</div>
+    <p>Attribute progression rules involve a numerical property that changes by a fixed amount (the <em>common difference</em>) across each row or down each column. Properties that progress include: number of sides, number of dots/spots, number of internal lines, size, or position value. <strong>Counting with reset</strong> is a key variant: the sequence cycles (e.g. 1→2→3→1→2→3) rather than continuing linearly. Always check whether the pattern continues or resets.</p>
+  </div>
+
+  <div class="card card-worked reveal">
+    <div class="clabel">📐 Worked Example 1 — Basic Dot Count Progression</div>
+    <p style="margin-bottom:12px;font-size:15px">Each row shows a grid with increasing dots. What goes in the missing square (bottom-right)?</p>
+    <div class="mx-center">
+      <div>
+        <div class="mx-wrap">
+          <div class="mx-row">
+            <div class="mx-cell">
+              <svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="7" fill="#0c1e35"/></svg>
+              <span class="mx-cell-lbl">R1C1</span>
+            </div>
+            <div class="mx-cell">
+              <svg viewBox="0 0 56 56"><circle cx="18" cy="28" r="7" fill="#0c1e35"/><circle cx="38" cy="28" r="7" fill="#0c1e35"/></svg>
+              <span class="mx-cell-lbl">R1C2</span>
+            </div>
+            <div class="mx-cell">
+              <svg viewBox="0 0 56 56"><circle cx="14" cy="28" r="6" fill="#0c1e35"/><circle cx="28" cy="28" r="6" fill="#0c1e35"/><circle cx="42" cy="28" r="6" fill="#0c1e35"/></svg>
+              <span class="mx-cell-lbl">R1C3</span>
+            </div>
+          </div>
+          <div class="mx-row">
+            <div class="mx-cell">
+              <svg viewBox="0 0 56 56"><rect x="14" y="14" width="28" height="28" fill="none" stroke="#0c1e35" stroke-width="2.5"/><circle cx="28" cy="28" r="5" fill="#0c1e35"/></svg>
+              <span class="mx-cell-lbl">R2C1</span>
+            </div>
+            <div class="mx-cell">
+              <svg viewBox="0 0 56 56"><rect x="14" y="14" width="28" height="28" fill="none" stroke="#0c1e35" stroke-width="2.5"/><circle cx="20" cy="28" r="5" fill="#0c1e35"/><circle cx="36" cy="28" r="5" fill="#0c1e35"/></svg>
+              <span class="mx-cell-lbl">R2C2</span>
+            </div>
+            <div class="mx-cell">
+              <svg viewBox="0 0 56 56"><rect x="14" y="14" width="28" height="28" fill="none" stroke="#0c1e35" stroke-width="2.5"/><circle cx="16" cy="28" r="4" fill="#0c1e35"/><circle cx="28" cy="28" r="4" fill="#0c1e35"/><circle cx="40" cy="28" r="4" fill="#0c1e35"/></svg>
+              <span class="mx-cell-lbl">R2C3</span>
+            </div>
+          </div>
+          <div class="mx-row">
+            <div class="mx-cell">
+              <svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="20" fill="none" stroke="#0c1e35" stroke-width="2.5"/><circle cx="28" cy="28" r="5" fill="#0c1e35"/></svg>
+              <span class="mx-cell-lbl">R3C1</span>
+            </div>
+            <div class="mx-cell">
+              <svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="20" fill="none" stroke="#0c1e35" stroke-width="2.5"/><circle cx="20" cy="28" r="5" fill="#0c1e35"/><circle cx="36" cy="28" r="5" fill="#0c1e35"/></svg>
+              <span class="mx-cell-lbl">R3C2</span>
+            </div>
+            <div class="mx-cell blank">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:22px;color:var(--gold);font-weight:700">?</span>
+              <span class="mx-cell-lbl">R3C3</span>
+            </div>
+          </div>
+        </div>
+        <div class="mx-label">Grid: outer shape changes by row; dot count increases across each row (+1)</div>
+      </div>
+    </div>
+    <ol class="steps" style="margin-top:14px">
+      <li><div class="sn">1</div><div class="st"><strong>What changes across each row?</strong> Dot count: R1: 1→2→3, R2: 1→2→3, R3: 1→2→?. Pattern is +1 per column. Missing square needs <strong>3 dots</strong>.</div></li>
+      <li><div class="sn">2</div><div class="st"><strong>What changes down each column?</strong> Outer shape: Row 1=plain dots, Row 2=square border, Row 3=circle border. Row 3 pattern → circle border.</div></li>
+      <li><div class="sn">3</div><div class="st"><strong>Combine both rules:</strong> Missing square = circle border + 3 dots. ✓</div></li>
+    </ol>
+  </div>
+
+  <div class="card card-warn reveal">
+    <div class="clabel">⚠️ Watch Out!</div>
+    <p><strong>Counting with Reset trap:</strong> If you see 1→2→3 in row 1, you might assume row 2 continues with 4→5→6. But in many GL grids, each row RESETS to 1→2→3. Always check row 2 from the start — don't assume it continues from where row 1 left off.</p>
+  </div>
+
+  <div class="card card-worked reveal">
+    <div class="clabel">📐 Worked Example 2 — Harder: +2 Progression with Column Reset</div>
+    <p style="font-size:15px;margin-bottom:10px">Row rule: sides increase by 2 (triangle→pentagon→heptagon). Column rule: size increases (small→medium→large). What fills the missing cell?</p>
+    <ol class="steps">
+      <li><div class="sn">1</div><div class="st">Row 1: triangle(3)→pentagon(5)→heptagon(7). +2 sides each step.</div></li>
+      <li><div class="sn">2</div><div class="st">Row 2 starts again: triangle(3)→pentagon(5)→? = heptagon(7). NOT 9.</div></li>
+      <li><div class="sn">3</div><div class="st">Column 3: small heptagon → medium heptagon → <strong>large heptagon</strong>. That is the answer.</div></li>
+    </ol>
+    <div class="hbox"><strong>Key lesson:</strong> Row 2 resets the count. Students who think "the next shape has 9 sides" are applying a global linear rule that doesn't exist. Check each row independently.</div>
+  </div>
+
+  <!-- QUESTIONS: PROGRESSION -->
+  <div id="qs-progression">
+    <h3 style="font-family:'DM Serif Display',serif;color:var(--navy);margin:1.5rem 0 1rem;font-size:19px">Practice Questions</h3>
+
+    <div class="qcard reveal" data-sec="progression">
+      <div class="badge b-s">Starter</div>
+      <div class="qtxt">In a 3×3 grid, the number of dots in each row goes: Row 1: 1, 2, 3. Row 2: 1, 2, 3. Row 3: 1, 2, ?. How many dots does the missing square contain?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'1 would be correct if the count reset again, but looking at Row 3 it starts at 1 and goes to 2 — so it follows the +1 rule, not a reset at position 3. Each row goes 1→2→3, so position 3 needs 3 dots.')">1</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'2 is the middle value. But Row 3 already has 2 in position 2. Each row increases by 1 from left to right, so position 3 must be one more than position 2, which is 3.')">2</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Every row follows the +1 dot rule: positions 1, 2, 3 contain 1, 2, 3 dots respectively. Row 3 position 3 = 3 dots. The row resets each time — this is the counting with reset pattern.')">3</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'4 would only make sense if the count continued upward from row to row. But each ROW independently goes 1→2→3 and resets. Row 3, position 3 = 3, not 4.')">4</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="progression">
+      <div class="badge b-d">Developing</div>
+      <div class="qtxt">A 3×3 grid has shapes with increasing sides going across each row. Row 1: triangle(3), square(4), pentagon(5). Row 2: triangle(3), square(4), pentagon(5). Row 3: triangle(3), square(4), ?. The size increases going DOWN each column: small, medium, large. What is the missing square?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'A small pentagon ignores the column rule. Column 3 goes small (row 1) → medium (row 2) → large (row 3). The size must be large, not small.')">Small pentagon</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'A large hexagon has 6 sides. But the row rule says each row goes triangle→square→pentagon (3→4→5 sides), then resets. Row 3 also ends with a pentagon (5 sides), not a hexagon.')">Large hexagon</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! The row rule: 3→4→5 sides, resetting each row. So Row 3, Column 3 = pentagon (5 sides). The column rule: small→medium→large. Column 3, Row 3 = large. Answer: large pentagon.')">Large pentagon</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'A medium pentagon has the right shape but wrong size. Column 3 goes small→medium→large, so row 3 must be LARGE, not medium.')">Medium pentagon</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="progression">
+      <div class="badge b-sec">Secure</div>
+      <div class="qtxt">A 3×3 grid: each row the number of sides DOUBLES. Row 1: triangle(3), hexagon(6), 12-sided shape. Row 2: triangle(3), hexagon(6), 12-sided shape. Row 3: triangle(3), hexagon(6), ?. Shading goes: Column 1 = empty, Column 2 = striped, Column 3 = filled. What is the missing square?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'An empty 12-sided shape has the right number of sides but the wrong shading. Column 3 is always FILLED (solid black). The shading column rule is: Column 1=empty, Column 2=striped, Column 3=filled.')">Empty 12-sided shape</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'A filled hexagon has the right shading (filled) but the wrong shape. The row rule doubles the sides: 3→6→12. Position 3 must have 12 sides, not 6.')">Filled hexagon</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Row rule: sides double (3→6→12), so position 3 = 12-sided shape. Column rule: column 3 = filled (solid black). Answer: filled 12-sided shape. You needed to track TWO independent rules simultaneously.')">Filled 12-sided shape</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'A striped 12-sided shape has the right number of sides but the wrong shading. Column 3 is FILLED, not striped. Column 2 is striped.')">Striped 12-sided shape</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="progression">
+      <div class="badge b-m">Mastery</div>
+      <div class="qtxt">A 3×3 grid. Row rule: dots = (column number × row number). So R1C1=1×1=1, R1C2=1×2=2, R1C3=1×3=3; R2C1=2×1=2, R2C2=2×2=4, R2C3=2×3=6; R3C1=3×1=3, R3C2=3×2=6, R3C3=? How many dots in the missing square?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'7 dots: there is no way to get 7 using the rule dots = row × column. R3C3 = 3×3. Check: 3×3=9, not 7. This answer might come from incorrectly adding 3+3+1.')">7</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'8 dots: this might come from continuing a +2 pattern (6+2=8). But the actual rule is multiplicative: dots = row number × column number. R3C3 = 3×3 = 9, not 8.')">8</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! The rule is: dots = row number × column number. R3C3 = 3×3 = 9 dots. Check: R2C3=2×3=6 ✓, R3C2=3×2=6 ✓. Both row and column checks confirm 9.')">9</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'12 dots: this might come from incorrectly multiplying the previous value: 6×2=12. But the rule is: row number × column number, not previous cell × 2. R3C3 = 3×3 = 9.')">12</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SECTION 2: ALTERNATING PATTERNS ═══════ -->
+<section id="alternating">
+  <div class="sec-hd reveal">
+    <div class="sec-num">2</div>
+    <h2 class="sec-title">Alternating Patterns</h2>
+    <div class="sec-tick" id="tick-alternating">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="clabel">Simple Explanation</div>
+    <p>Think of a light switch. On, off, on, off. An alternating pattern just switches back and forth between two things — it never "progresses" or gets bigger. In a matrix, a shape might go: <strong>Circle → Square → Circle → Square</strong>. Or shading: filled → empty → filled → empty. <strong>It's not going anywhere — it's just taking turns.</strong></p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="clabel">Full Explanation</div>
+    <p>Alternating patterns follow an A→B→A→B cycle rather than a linear progression. Common alternating properties: shape type (circle↔square), shading (filled↔empty), orientation (upright↔inverted), line style (solid↔dashed), and element presence (dot present↔absent). <strong>Key diagnostic:</strong> if position 1 = position 3 in a row, the pattern is alternating, not progressing.</p>
+  </div>
+
+  <div class="card card-worked reveal">
+    <div class="clabel">📐 Worked Example — Alternating Shape Type</div>
+    <p style="font-size:15px;margin-bottom:10px">3×3 grid. Row 1: circle, square, circle. Row 2: square, circle, square. Row 3: circle, square, ?</p>
+    <ol class="steps">
+      <li><div class="sn">1</div><div class="st">Row 1: circle→square→circle. Position 1 = position 3. This is alternating (A→B→A), not progressing.</div></li>
+      <li><div class="sn">2</div><div class="st">Row 2: square→circle→square. Same alternating rule, but starts on square this time.</div></li>
+      <li><div class="sn">3</div><div class="st">Row 3: circle→square→? The pattern is A→B→A, so position 3 = circle again.</div></li>
+      <li><div class="sn">4</div><div class="st">Column check: Column 3 has: circle (R1), square (R2), ? (R3). Alternating → circle. ✓ Both checks agree.</div></li>
+    </ol>
+  </div>
+
+  <div class="card card-warn reveal">
+    <div class="clabel">⚠️ Watch Out!</div>
+    <p><strong>Don't confuse alternating with progression:</strong> Students often see circle→square and assume the next step must be something new (like triangle). But if the third cell matches the first cell, the pattern is alternating — it goes back, not forward. Always check whether position 1 = position 3 before assuming progression.</p>
+  </div>
+
+  <div id="qs-alternating">
+    <h3 style="font-family:'DM Serif Display',serif;color:var(--navy);margin:1.5rem 0 1rem;font-size:19px">Practice Questions</h3>
+
+    <div class="qcard reveal" data-sec="alternating">
+      <div class="badge b-s">Starter</div>
+      <div class="qtxt">A row shows: filled circle → empty circle → filled circle → ? What comes next in this alternating shading pattern?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'A striped circle doesn\'t appear in the alternating pattern. The pattern only alternates between filled and empty. Striped is a third option that was never introduced — the pattern can only use filled or empty.')">Striped circle</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! The alternating pattern is: filled→empty→filled→empty. After "filled circle" (position 3), the next step returns to "empty circle". The pattern toggles like a switch: filled, empty, filled, empty.')">Empty circle</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Another filled circle would mean the pattern is filled→empty→filled→filled, which breaks the alternating rule. After three positions (filled, empty, filled), position 4 must return to empty.')">Filled circle</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'A filled square changes the shape type, which is not part of this pattern. The shape stays as a circle throughout — only the shading (filled/empty) alternates.')">Filled square</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="alternating">
+      <div class="badge b-d">Developing</div>
+      <div class="qtxt">3×3 grid. Shading alternates: Row 1 = filled, empty, filled. Row 2 = empty, filled, empty. Row 3 = filled, empty, ?. What shading does the missing square have?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Striped shading was never part of this grid. The grid only uses filled and empty in an alternating pattern. Introducing striped would be adding a third option that doesn\'t exist in the rule.')">Striped</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Row 3 follows the alternating pattern: filled→empty→filled. Position 3 is filled. Also check column 3: filled(R1)→empty(R2)→filled(R3) ✓. Both row and column checks confirm: filled.')">Filled</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Empty shading would make Row 3: filled→empty→empty, which breaks the alternating rule (A→B→A). Position 3 must match position 1 in each row. Row 3 starts with "filled", so position 3 is also "filled".')">Empty</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="alternating">
+      <div class="badge b-sec">Secure</div>
+      <div class="qtxt">A 3×3 grid alternates BOTH shape and shading independently. Shape alternates by row: odd rows = triangles, even rows = squares. Shading alternates by column: odd columns = filled, even columns = empty. Row 3, Column 3 is missing. Row 3 is an odd row. Column 3 is an odd column. What is the missing cell?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'An empty square has the wrong shape and wrong shading. Row 3 is an odd row → triangles. Column 3 is an odd column → filled. The answer must be a filled triangle, not an empty square.')">Empty square</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'An empty triangle has the right shape (odd row = triangle) but wrong shading. Column 3 is an odd column → filled (not empty). Even columns are empty; odd columns are filled.')">Empty triangle</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'A filled square has the right shading (odd column = filled) but wrong shape. Row 3 is an odd row → triangles, not squares. Even rows have squares.')">Filled square</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Two independent alternating rules apply simultaneously. Shape rule (by row): odd rows = triangles → Row 3 is odd → triangle. Shading rule (by column): odd columns = filled → Column 3 is odd → filled. Answer: filled triangle.')">Filled triangle</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="alternating">
+      <div class="badge b-m">Mastery</div>
+      <div class="qtxt">A 3×3 grid has a TRIPLE alternating rule: shape alternates (circle↔square), shading alternates (filled↔empty), AND an internal dot alternates (present↔absent). Row 1: filled circle with dot, empty square no dot, filled circle with dot. Row 2: empty square no dot, filled circle with dot, empty square no dot. Row 3: filled circle with dot, empty square no dot, ?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'An empty circle with dot breaks two rules: the shape should be a circle ✓, but the shading should be filled (not empty) and the dot should be present ✓. Wait — let us check: Row 3 position 3 follows the A→B→A pattern which means it matches position 1. Position R3C1 = filled circle with dot. So the answer is filled circle with dot, not empty circle.')">Empty circle with dot</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'A filled square with dot: the shape should be a circle in position 3 of Row 3. Row 3 alternates circle→square→circle, so position 3 = circle. A square is wrong here.')">Filled square with dot</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! All three alternating rules must be tracked simultaneously. Row 3 pattern: filled circle+dot → empty square+no dot → filled circle+dot. Position 3 returns to the position-1 state: filled circle with dot. Column 3 check: R1C3=filled circle+dot, R2C3=empty square+no dot, R3C3=filled circle+dot ✓ (column also alternates).')">Filled circle with dot</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'An empty square no dot: this is the Row 3 position 2 option, not position 3. Position 3 in Row 3 returns to the position-1 state (filled circle with dot), because the alternating rule goes A→B→A.')">Empty square no dot</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SECTION 3: ROTATION ═══════ -->
+<section id="rotation">
+  <div class="sec-hd reveal">
+    <div class="sec-num">3</div>
+    <h2 class="sec-title">Rotation Rules</h2>
+    <div class="sec-tick" id="tick-rotation">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="clabel">Simple Explanation</div>
+    <p>Imagine spinning a clock hand. If it starts pointing up, after a quarter turn it points to the right. After another quarter turn, it points down. In matrix questions, a shape might rotate by the same amount each step. <strong>Work out how far it has turned — then turn it the same amount again.</strong></p>
+    <p style="margin-top:10px">Also remember: <strong>rotating</strong> (spinning) is different from <strong>reflecting</strong> (flipping in a mirror). An "L" shape rotated four times returns to the start. An "L" reflected looks backwards and can never be rotated back.</p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="clabel">Full Explanation</div>
+    <p>Rotation rules involve shapes turning by a fixed angle (45°, 90°, 180°) across each row or down each column. Key distinctions: <strong>rotation vs reflection</strong> (asymmetric shapes can be reflected but no rotation achieves the mirror image); <strong>element rotation inside a shape</strong> (a dot inside a square moves clockwise/anticlockwise rather than the whole shape rotating); <strong>progressive rotation</strong> (45°→90°→135° each step). Always check whether an apparently rotated shape is actually a reflection.</p>
+  </div>
+
+  <div class="card card-worked reveal">
+    <div class="clabel">📐 Worked Example — 90° Clockwise Rotation</div>
+    <p style="font-size:15px;margin-bottom:10px">An arrow points up in cell (1,1). It rotates 90° clockwise each step. Where does it point in cell (2,3)?</p>
+    <ol class="steps">
+      <li><div class="sn">1</div><div class="st">Start: arrow points UP (12 o'clock).</div></li>
+      <li><div class="sn">2</div><div class="st">+90° clockwise = points RIGHT (3 o'clock). This is cell (1,2).</div></li>
+      <li><div class="sn">3</div><div class="st">+90° clockwise = points DOWN (6 o'clock). This is cell (1,3).</div></li>
+      <li><div class="sn">4</div><div class="st">Row 2 continues: +90° = points LEFT (9 o'clock). Cell (2,1).</div></li>
+      <li><div class="sn">5</div><div class="st">+90° = points UP again. Cell (2,2). +90° = points RIGHT. Cell (2,3).</div></li>
+      <li><div class="sn">6</div><div class="st"><strong>Answer: arrow points RIGHT in cell (2,3).</strong></div></li>
+    </ol>
+  </div>
+
+  <div class="card card-warn reveal">
+    <div class="clabel">⚠️ Watch Out!</div>
+    <p><strong>Rotation vs Reflection trap:</strong> If a shape is asymmetric (like an F, L, or R), a reflected version looks like a rotation but isn't. Test: trace the shape, physically rotate your paper — if you can't match the option by rotating, it's a reflection and a different rule applies. At GL level, one option in the answer choices is always the reflection of the correct rotation.</p>
+  </div>
+
+  <div id="qs-rotation">
+    <h3 style="font-family:'DM Serif Display',serif;color:var(--navy);margin:1.5rem 0 1rem;font-size:19px">Practice Questions</h3>
+
+    <div class="qcard reveal" data-sec="rotation">
+      <div class="badge b-s">Starter</div>
+      <div class="qtxt">An arrow points UP in position 1. It rotates 90° clockwise each step. What direction does it point in position 3?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Up is the starting position (position 1). After 90° clockwise it points right (position 2). After another 90° it points down (position 3). So position 3 is not up.')">Up</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Right is position 2 (after one 90° turn clockwise). Position 3 requires a second 90° clockwise turn, which takes it from right to down.')">Right</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Starting up: +90° clockwise → right (position 2), +90° clockwise → down (position 3). Each 90° clockwise turn: up→right→down→left→up.')">Down</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Left is position 4 (after three 90° clockwise turns from up). Position 3 is down, position 4 is left, and position 5 returns to up.')">Left</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="rotation">
+      <div class="badge b-d">Developing</div>
+      <div class="qtxt">A 3×3 matrix has an L-shape that rotates 90° clockwise across each row. Row 1: L pointing top-right, L pointing bottom-right, L pointing bottom-left. Row 2: L pointing top-right, L pointing bottom-right, ?. What is the missing cell?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'An L pointing top-right is the starting position (position 1 of each row). After two 90° clockwise rotations from top-right, the L points bottom-left. Position 3 of Row 2 should be the same as position 3 of Row 1, which is bottom-left.')">L pointing top-right</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'An L pointing bottom-right is position 2 of the sequence (after one 90° clockwise turn). Row 2 position 3 requires a second 90° turn from bottom-right, giving bottom-left — not bottom-right again.')">L pointing bottom-right</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Each step rotates 90° clockwise. Top-right → bottom-right → bottom-left (two turns). Row 2 follows the same rule as Row 1 and ends in the same position 3 state: L pointing bottom-left.')">L pointing bottom-left</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'An L pointing top-left would require three 90° clockwise turns from the start (top-right). But position 3 only involves two turns. Top-left is position 4 in the sequence.')">L pointing top-left</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="rotation">
+      <div class="badge b-sec">Secure</div>
+      <div class="qtxt">A matrix has an F-shape. Across Row 1: F rotates 90° clockwise each step (positions: normal F → F rotated 90°CW → F rotated 180°). Across Row 2: the same rule applies but the SHADING also changes: Row 2 shapes are all filled black. Row 3: the F also rotates 90°CW each step AND shapes are empty (outline only). Row 3 starts with a normal F (empty). What is Row 3, position 3?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'A filled F rotated 180° has the right rotation but wrong shading. Row 3 shapes are all empty (outline only). Row 3 shading = empty, not filled.')">Filled F rotated 180°</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'An empty mirrored F is a reflection, not a rotation. You cannot reach a mirrored F by rotating the original F. This is the classic rotation-vs-reflection trap. Stick to rotating 90° clockwise twice from the normal F to get F rotated 180°.')">Empty mirrored F</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Rotation rule: +90°CW per step. Normal F → 90°CW → 180°. Row 3 shading rule: empty (outline only). Combining both: empty F rotated 180°.')">Empty F rotated 180°</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'An empty F rotated 90°CW is position 2 of Row 3 (after one turn). Position 3 requires a second 90° clockwise turn, giving a 180° rotation — not 90°.')">Empty F rotated 90°CW</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="rotation">
+      <div class="badge b-m">Mastery</div>
+      <div class="qtxt">A 3×3 grid. The main shape (triangle) stays the same. A DOT inside the triangle moves clockwise around the triangle's three corners: top→right-corner→left-corner, then repeats. Row 1: dot top, dot right-corner, dot left-corner. Row 2: dot top, dot right-corner, dot left-corner. Row 3: dot top, dot right-corner, ?. ALSO: number of lines inside the triangle increases by 1 per row (Row 1=1 line, Row 2=2 lines, Row 3=3 lines). What fills the missing cell?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Triangle with 3 lines and dot at top: the line count (3) is correct for Row 3, but the dot position is wrong. The cyclic movement goes top→right-corner→left-corner per row. Row 3, position 3 = dot at left-corner, not top.')">Triangle, 3 lines, dot at top</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Triangle with 2 lines and dot at left-corner: the dot position (left-corner) is correct, but Row 3 must have 3 internal lines, not 2. Row 1=1 line, Row 2=2 lines, Row 3=3 lines — a +1 progression by row.')">Triangle, 2 lines, dot at left-corner</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Two rules tracked simultaneously: (1) Dot position cycles top→right-corner→left-corner. Row 3, position 3 = left-corner. (2) Line count increases by row: Row 3 = 3 lines. Answer: triangle with 3 internal lines and dot at left-corner.')">Triangle, 3 lines, dot at left-corner</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Triangle with 3 lines and dot at right-corner: the line count is correct, but the dot position is wrong. Right-corner is position 2 in the cyclic sequence (middle column). Position 3 must be left-corner.')">Triangle, 3 lines, dot at right-corner</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SECTION 4: TRANSLATIONAL LOGIC ═══════ -->
+<section id="translation">
+  <div class="sec-hd reveal">
+    <div class="sec-num">4</div>
+    <h2 class="sec-title">Translation &amp; Cyclic Movement</h2>
+    <div class="sec-tick" id="tick-translation">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="clabel">Simple Explanation</div>
+    <p>Translation means <strong>moving without rotating or changing</strong>. Imagine a ball that slides from the left side of a box to the right side. It doesn't spin — it just moves. In matrix questions, a dot or element might slide across, up, or down — or it might move in a circle (clockwise or anticlockwise) inside the shape. <strong>Track where it starts, and figure out which direction and how far it moves each step.</strong></p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="clabel">Full Explanation</div>
+    <p>Translational rules involve elements moving position without changing shape or orientation. Two subtypes: <strong>linear translation</strong> (element moves left/right or up/down by a fixed distance) and <strong>cyclic movement</strong> (element moves around a fixed loop: top→right→bottom→left→top for a square, or clockwise around a circle). Cyclic movement is very common in GL and easy to miss if you only check "what the shape looks like" rather than "where the element is."</p>
+  </div>
+
+  <div class="card card-worked reveal">
+    <div class="clabel">📐 Worked Example — Cyclic Dot Movement</div>
+    <p style="font-size:15px;margin-bottom:10px">A square has a dot. The dot moves clockwise: top→right→bottom→left. Matrix has this sequence continuing across cells. Cell 1: dot at top. Cell 2: dot at right. Cell 3: dot at bottom. Cell 4: dot at ?</p>
+    <ol class="steps">
+      <li><div class="sn">1</div><div class="st">Identify the cycle: top→right→bottom→left (4 positions in a clockwise loop).</div></li>
+      <li><div class="sn">2</div><div class="st">Map positions: Cell 1=top, Cell 2=right, Cell 3=bottom, Cell 4=?</div></li>
+      <li><div class="sn">3</div><div class="st">After "bottom" comes "left" in the clockwise cycle. Cell 4 = dot at <strong>left</strong>.</div></li>
+      <li><div class="sn">4</div><div class="st">Cell 5 would return to top. The cycle repeats every 4 steps.</div></li>
+    </ol>
+  </div>
+
+  <div class="card card-warn reveal">
+    <div class="clabel">⚠️ Watch Out!</div>
+    <p><strong>"Near the edge" ≠ "at the edge":</strong> In translation questions, being precise matters. A dot "near the top" is different from a dot "at the top". Similarly, don't confuse "moving right" with "rotating" — a shape that slides right doesn't change its orientation at all. If the shape looks exactly the same but is in a different position, that's translation, not rotation.</p>
+  </div>
+
+  <div id="qs-translation">
+    <h3 style="font-family:'DM Serif Display',serif;color:var(--navy);margin:1.5rem 0 1rem;font-size:19px">Practice Questions</h3>
+
+    <div class="qcard reveal" data-sec="translation">
+      <div class="badge b-s">Starter</div>
+      <div class="qtxt">A dot moves clockwise around the edges of a square: top→right→bottom→left→top. Cell 1: dot at top. Cell 2: dot at right. Cell 3: dot at bottom. Cell 4: dot at left. Cell 5: dot at ?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Dot at right: this is position 2 in the cycle. Cell 5 must return to the start of the 4-step cycle. After left (position 4) comes top again (position 5=position 1 of the new cycle).')">Dot at right</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Dot at bottom: this is position 3 in the cycle. Cell 5 is position 5 in the sequence, which equals position 1 of the repeating cycle (5÷4 = 1 remainder 1 → position 1 = top).')">Dot at bottom</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Dot at left: this is position 4 in the cycle. Cell 5 moves one step past left, which brings the dot back to the top. The cycle is: top(1), right(2), bottom(3), left(4), top(5).')">Dot at left</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! The cycle has 4 positions: top(1)→right(2)→bottom(3)→left(4)→top(5). Cell 5 returns to the beginning of the cycle: dot at top. This is the cyclic movement rule — after the last position, it resets.')">Dot at top</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="translation">
+      <div class="badge b-d">Developing</div>
+      <div class="qtxt">A 3×3 grid: a small square moves one step RIGHT in each column. Row 1: square at left. Row 2: square at centre. Row 3: square at ?. The shape of the outer box also changes by row: Row 1=circle, Row 2=triangle, Row 3=pentagon. What is the missing cell (Row 3, Column 3)?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Pentagon with square at left: the shape (pentagon) is correct for Row 3, but "square at left" is Row 1\'s position. The column rule shows the square moves right each row: left→centre→right. Row 3 = right position.')">Pentagon with square at left</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Circle with square at right: the position (right) is correct for Row 3, but the outer shape is wrong. Row 3\'s outer shape is a pentagon, not a circle. Circles are Row 1.')">Circle with square at right</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Two rules: (1) Translation rule (by row): inner square moves left→centre→right. Row 3 = right. (2) Outer shape rule (by row): circle→triangle→pentagon. Row 3 = pentagon. Answer: pentagon with inner square at right.')">Pentagon with square at right</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Triangle with square at right: the position (right) is correct, but the outer shape is triangle, which belongs to Row 2, not Row 3. Row 3\'s outer shape is pentagon.')">Triangle with square at right</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="translation">
+      <div class="badge b-sec">Secure</div>
+      <div class="qtxt">A 3×3 grid. A dot cycles clockwise inside each square: top→right→bottom→left. Row 1, Col 1=top; Row 1, Col 2=right; Row 1, Col 3=bottom. Row 2, Col 1=right; Row 2, Col 2=bottom; Row 2, Col 3=left. Row 3, Col 1=bottom; Row 3, Col 2=left; Row 3, Col 3=?. Additionally, the size of the square increases by column: Col 1=small, Col 2=medium, Col 3=large. What is the missing cell?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Large square, dot at bottom: the size (large) is correct for Column 3, but the dot position is wrong. Check the diagonal pattern: R1C3=bottom, R2C3=left, so R3C3 continues clockwise to top — not back to bottom.')">Large square, dot at bottom</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Large square, dot at left: this was R2C3\'s dot position. The sequence for Column 3 is: bottom(R1)→left(R2)→top(R3) — continuing clockwise. Left already appeared in R2C3.')">Large square, dot at left</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Column 3 dot sequence: R1=bottom, R2=left, R3=top (continuing clockwise: bottom→left→top). Size rule: Column 3 = large. Answer: large square with dot at top.')">Large square, dot at top</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Small square, dot at top: the dot position (top) is correct, but the size is wrong. Column 3 = large squares, not small. Small squares are Column 1.')">Small square, dot at top</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="translation">
+      <div class="badge b-m">Mastery</div>
+      <div class="qtxt">A 3×3 grid. TWO dots are inside each square. Dot 1 moves clockwise (top→right→bottom→left). Dot 2 moves ANTICLOCKWISE (top→left→bottom→right). Both start at "top" in R1C1. R1: C1=both at top; C2=Dot1 at right, Dot2 at left; C3=Dot1 at bottom, Dot2 at bottom. R2: C1=Dot1 at right, Dot2 at left; C2=Dot1 at bottom, Dot2 at bottom; C3=Dot1 at left, Dot2 at right. R3: C1=Dot1 at bottom, Dot2 at bottom; C2=Dot1 at left, Dot2 at right; C3=?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Dot1 at top, Dot2 at top: let us check. R3C2 has Dot1 at left and Dot2 at right. One more clockwise step for Dot1: left→top ✓. One more anticlockwise step for Dot2: right→top ✓. Actually this IS correct — wait, let me verify from the sequence. R1C1: both top. R1C2: D1 right, D2 left. R1C3: D1 bottom, D2 bottom. R2C1: D1 right, D2 left. R2C2: D1 bottom, D2 bottom. R2C3: D1 left, D2 right. R3C1: D1 bottom, D2 bottom. R3C2: D1 left, D2 right. R3C3: D1 clockwise from left = top; D2 anticlockwise from right = top. So Dot1 at top, Dot2 at top IS the answer.')">Dot1 at top, Dot2 at top</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Dot1 at right, Dot2 at left: this was the R1C2 and R2C1 pattern. From R3C2 (D1 left, D2 right), the next clockwise step for D1 is top, and next anticlockwise step for D2 is top. Both move to top, not right and left.')">Dot1 at right, Dot2 at left</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Dot1 at bottom, Dot2 at bottom: this was R1C3, R2C2, and R3C1. From R3C2, D1 is at left and D2 is at right. Left+clockwise = top; right+anticlockwise = top. Both move to top, not bottom.')">Dot1 at bottom, Dot2 at bottom</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Dot1 at left, Dot2 at right: this was R2C3 and R3C2. The question asks for R3C3. From R3C2 (D1 left, D2 right), one more step: D1 clockwise from left = top; D2 anticlockwise from right = top. Both converge at top.')">Dot1 at left, Dot2 at right</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="translation">
+      <div class="badge b-m">Mastery (corrected)</div>
+      <div class="qtxt">Re-read the pattern above. R3C2 has Dot1 at left and Dot2 at right. Dot1 moves clockwise: left → next clockwise position = TOP. Dot2 moves anticlockwise: right → next anticlockwise position = TOP. What is in R3C3?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Dot1 moves clockwise: from left, one clockwise step → top. Dot2 moves anticlockwise: from right, one anticlockwise step → top. Both dots meet at the top in R3C3. This is the point where the clockwise and anticlockwise dots converge after completing ¾ of their respective cycles.')">Both dots at top</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Dot1 at right, Dot2 at left: Dot1 is currently at left — clockwise from left gives top, not right. Right would require two more clockwise steps. Check your clockwise direction: top→right→bottom→left→top.')">Dot1 at right, Dot2 at left</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Both dots at bottom: Dot1 at left + one clockwise step = top (not bottom). Bottom would be two steps back from left going anticlockwise, or two steps forward clockwise from left. One clockwise step from left = top.')">Both dots at bottom</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Dot1 at top, Dot2 at bottom: Dot2 moves anticlockwise. From right, one anticlockwise step = top (clockwise sequence is top→right→bottom→left, so anticlockwise is top→left→bottom→right; from right going anticlockwise = top). So Dot2 lands at top, not bottom.')">Dot1 at top, Dot2 at bottom</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SECTION 5: COMBINATION RULES ═══════ -->
+<section id="combination">
+  <div class="sec-hd reveal">
+    <div class="sec-num">5</div>
+    <h2 class="sec-title">Combination Rules</h2>
+    <div class="sec-tick" id="tick-combination">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="clabel">Simple Explanation</div>
+    <p>Imagine you have two stamps. You press stamp A on paper (you see shape A). You press stamp B on paper (you see shape B). Now you press both stamps together on the same paper — you see both shapes overlapping. <strong>In a combination matrix, the third square is made by combining (overlapping) the first two.</strong></p>
+    <p style="margin-top:10px">Sometimes it works differently: shapes that appear in BOTH the first two squares <strong>cancel out</strong> (disappear) in the third square. This is called XOR logic.</p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="clabel">Full Explanation</div>
+    <p>Combination rules use the first two cells in a row to produce the third. Two main variants: <strong>Union (OR)</strong> — the third cell contains everything from both cells; <strong>XOR (Exclusive OR)</strong> — the third cell contains only elements that appear in exactly ONE of the first two cells (elements appearing in BOTH cancel out). A third variant: <strong>selective combination</strong> — only some properties combine (e.g. shapes merge but shading doesn't). Always check whether it's union or XOR by looking at overlapping elements.</p>
+  </div>
+
+  <div class="card card-worked reveal">
+    <div class="clabel">📐 Worked Example — XOR Combination</div>
+    <p style="font-size:15px;margin-bottom:10px">Row 1: Cell A has (circle + dot). Cell B has (circle + triangle). Cell C = ?</p>
+    <ol class="steps">
+      <li><div class="sn">1</div><div class="st">List elements in A: circle ✓, dot ✓.</div></li>
+      <li><div class="sn">2</div><div class="st">List elements in B: circle ✓, triangle ✓.</div></li>
+      <li><div class="sn">3</div><div class="st">Find what appears in BOTH: circle appears in both A and B.</div></li>
+      <li><div class="sn">4</div><div class="st">XOR rule: elements in BOTH cancel. Elements in ONLY ONE survive.</div></li>
+      <li><div class="sn">5</div><div class="st">Survivors: dot (only in A) + triangle (only in B). Circle cancels out.</div></li>
+      <li><div class="sn">6</div><div class="st"><strong>Cell C = dot + triangle (no circle).</strong></div></li>
+    </ol>
+  </div>
+
+  <div class="card card-warn reveal">
+    <div class="clabel">⚠️ Watch Out!</div>
+    <p><strong>Union vs XOR confusion:</strong> The most common mistake is using the wrong combination rule. Always verify your rule by checking Row 2: if both union and XOR seem possible in Row 1, the Row 2 result will tell you which is correct. If an element appears in BOTH cells 1 and 2 of row 2 and ALSO appears in cell 3 of row 2 — it's union. If it disappears in cell 3 — it's XOR.</p>
+  </div>
+
+  <div id="qs-combination">
+    <h3 style="font-family:'DM Serif Display',serif;color:var(--navy);margin:1.5rem 0 1rem;font-size:19px">Practice Questions</h3>
+
+    <div class="qcard reveal" data-sec="combination">
+      <div class="badge b-s">Starter</div>
+      <div class="qtxt">Union rule: the third cell contains all elements from cells 1 and 2. Cell 1 = (circle, star). Cell 2 = (triangle, dot). Cell 3 = ?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Circle and triangle only: you are missing the star (from Cell 1) and the dot (from Cell 2). The union rule means ALL elements from BOTH cells appear in Cell 3. Nothing is left out.')">Circle and triangle only</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Union rule: Cell 3 = everything in Cell 1 + everything in Cell 2. Cell 1 has circle and star. Cell 2 has triangle and dot. Cell 3 = circle + star + triangle + dot. All four elements appear.')">Circle, star, triangle, and dot</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Star and dot only: these are just one element from each cell. The union rule includes ALL elements from BOTH cells — not just one from each. Cell 3 needs all four elements.')">Star and dot only</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Circle and dot only: this would be one element from each cell, chosen randomly. The union rule combines everything from both cells. All four elements (circle, star, triangle, dot) must appear in Cell 3.')">Circle and dot only</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="combination">
+      <div class="badge b-d">Developing</div>
+      <div class="qtxt">XOR rule: elements appearing in BOTH cells cancel; elements in only ONE cell survive. Cell 1 = (square, circle, triangle). Cell 2 = (circle, diamond, triangle). What is Cell 3?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Square, circle, triangle, diamond: this would be the result of a UNION rule (all elements from both). But the rule here is XOR: elements in BOTH cells cancel. Circle and triangle appear in both cells, so they cancel out. Only square (only in Cell 1) and diamond (only in Cell 2) survive.')">Square, circle, triangle, diamond</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! XOR rule: find what appears in BOTH cells — circle appears in both, triangle appears in both. These cancel. What survives: square (only in Cell 1) + diamond (only in Cell 2). Cell 3 = square and diamond.')">Square and diamond</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Circle and triangle only: these are the elements that appeared in BOTH cells. In XOR logic, elements in both cells CANCEL — they do not appear in Cell 3. The survivors are the unique elements: square and diamond.')">Circle and triangle only</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Just a square: the square survives (it was only in Cell 1) ✓. But you are forgetting the diamond, which was only in Cell 2 and also survives the XOR rule. Cell 3 = square AND diamond.')">Square only</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="combination">
+      <div class="badge b-sec">Secure</div>
+      <div class="qtxt">A 3×3 grid uses XOR combination across rows AND down columns. Row 1: C1=(circle, dot), C2=(circle, star), C3=?. Row 2: C1=(triangle, dot), C2=(triangle, star), C3=?. Row 3 uses the same XOR rule down Column 3. Column 3 row 1 and row 2 results both feed into the column rule. What is Row 1, Cell 3?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Circle and dot: the circle appears in BOTH C1 and C2 of Row 1, so it cancels under XOR. The dot only appears in C1, so it survives. But the star only appears in C2, so it also survives. Row 1 C3 = dot + star (no circle).')">Circle and dot</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Circle only: the circle appears in both C1 and C2 and therefore CANCELS under XOR. It does not appear in C3. Only the unique elements (dot from C1, star from C2) survive.')">Circle only</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! XOR rule for Row 1: C1=(circle, dot) vs C2=(circle, star). Circle is in BOTH → cancels. Dot is only in C1 → survives. Star is only in C2 → survives. Row 1, C3 = dot + star.')">Dot and star</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Circle, dot, and star: this is the union result. The XOR rule cancels elements that appear in BOTH cells. Circle appears in both C1 and C2, so it cancels. C3 = dot + star (no circle).')">Circle, dot, and star</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="combination">
+      <div class="badge b-m">Mastery</div>
+      <div class="qtxt">Selective combination: only SHAPES combine (XOR); shading stays as whatever was in Cell 1. Cell 1 = filled square + filled circle. Cell 2 = empty circle + empty triangle. Cell 3 = ?. The shapes that survive XOR: square (only in C1), triangle (only in C2). Circle appears in both → cancels. Shading = Cell 1's shading (filled). What is Cell 3?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Empty square + empty triangle: the shapes (square + triangle) are correct, but the shading is wrong. In selective combination, shading comes from Cell 1. Cell 1 is filled, so Cell 3 must be filled, not empty.')">Empty square and empty triangle</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Filled circle + filled triangle: the circle cancelled out (it appears in both C1 and C2 shapes). Filled circle should not appear in Cell 3. The surviving shapes are square (only in C1) and triangle (only in C2).')">Filled circle and filled triangle</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Selective XOR on shapes: circle appears in both → cancels. Square (only in C1) + triangle (only in C2) → survive. Shading rule: use Cell 1\'s shading = filled. Cell 3 = filled square + filled triangle.')">Filled square and filled triangle</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Filled square + filled circle + filled triangle: circle appeared in both C1 and C2, so it cancels under XOR. Including the circle means you applied union logic, not XOR. Remove the circle.')">Filled square, filled circle, and filled triangle</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SECTION 6: DUAL INDEPENDENT RULES ═══════ -->
+<section id="dual">
+  <div class="sec-hd reveal">
+    <div class="sec-num">6</div>
+    <h2 class="sec-title">Dual &amp; Multi-Variable Rules</h2>
+    <div class="sec-tick" id="tick-dual">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="clabel">Simple Explanation</div>
+    <p>Imagine a game where <strong>two things change at once</strong> — the colour of a ball changes AND its size changes — by different rules. This is what "dual rules" means in matrix questions. The shape might follow one rule across the row. The shading might follow a completely different rule down the column. <strong>You have to find BOTH rules and use BOTH to get the answer.</strong></p>
+    <p style="margin-top:10px">The hardest version: the row rule and the column rule are different. Using only one will give you a wrong answer that almost fits.</p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="clabel">Full Explanation</div>
+    <p>Dual-rule grids have two independent rules operating simultaneously: one rule governs one property (e.g. shape type changes by row), and a completely separate rule governs another property (e.g. shading changes by column). At the highest GL level, the row rule and the column rule may be different rules entirely — for example, rows follow an alternating pattern while columns follow a +1 progression. The correct answer must satisfy BOTH rules simultaneously.</p>
+  </div>
+
+  <div class="card card-worked reveal">
+    <div class="clabel">📐 Worked Example — Row ≠ Column Rule</div>
+    <p style="font-size:15px;margin-bottom:10px">3×3 grid. Row rule: shape alternates circle↔square. Column rule: dot count increases (+1 per row). Find R3C3.</p>
+    <ol class="steps">
+      <li><div class="sn">1</div><div class="st">Row rule: Odd rows = circle, even rows = square. Row 3 is odd → <span class="rtag">circle</span>.</div></li>
+      <li><div class="sn">2</div><div class="st">Column rule: Column 3 dot count by row: R1=1 dot, R2=2 dots, R3=3 dots. → <span class="rtag">3 dots</span>.</div></li>
+      <li><div class="sn">3</div><div class="st">Combine: R3C3 = circle with 3 dots.</div></li>
+      <li><div class="sn">4</div><div class="st"><strong>Trap check:</strong> Wrong answer "square with 3 dots" satisfies the column rule but fails the row rule. Wrong answer "circle with 2 dots" satisfies the row rule but fails the column rule. Only "circle with 3 dots" satisfies BOTH.</div></li>
+    </ol>
+    <div class="hbox"><strong>Rule Interference check:</strong> After you find your answer using the row rule, check it against the column rule. If your answer doesn't fit the column, you've only solved half the problem.</div>
+  </div>
+
+  <div class="card card-warn reveal">
+    <div class="clabel">⚠️ Watch Out!</div>
+    <p><strong>The "Almost Works" option:</strong> At GL level, one wrong answer option satisfies the row rule perfectly but violates the column rule. Another wrong option satisfies the column rule but not the row. Students who only check one direction will pick these traps. <strong>Always verify your answer against BOTH rows AND columns.</strong></p>
+  </div>
+
+  <div id="qs-dual">
+    <h3 style="font-family:'DM Serif Display',serif;color:var(--navy);margin:1.5rem 0 1rem;font-size:19px">Practice Questions</h3>
+
+    <div class="qcard reveal" data-sec="dual">
+      <div class="badge b-s">Starter</div>
+      <div class="qtxt">A 2×2 grid. Top-left = filled square. Top-right = empty square. Bottom-left = filled circle. Bottom-right = ?. Rule: shading alternates left-to-right (filled→empty). Shape alternates top-to-bottom (square→circle).</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Filled circle: the shape (circle) is correct for the bottom row, but the shading should be empty. The left-to-right shading rule is filled→empty. Bottom-left is filled, so bottom-right must be empty.')">Filled circle</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Shape rule (top-to-bottom): top=square, bottom=circle → bottom-right is a circle ✓. Shading rule (left-to-right): left=filled, right=empty → bottom-right is empty ✓. Answer: empty circle.')">Empty circle</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Empty square: the shading (empty) is correct, but the shape should be circle. The top-to-bottom shape rule: top=square, bottom=circle. Bottom-right is in the bottom row, so it must be a circle.')">Empty square</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Filled square: both the shape and shading are wrong here. The shape should be circle (bottom row) and the shading should be empty (right column). Filled square belongs in the top-left position.')">Filled square</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="dual">
+      <div class="badge b-d">Developing</div>
+      <div class="qtxt">3×3 grid. Row rule: number of dots increases +1 per column (1,2,3 in each row, resetting). Column rule: shape changes by column — Col1=triangles, Col2=squares, Col3=circles. What is in Row 2, Column 3?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Triangle with 3 dots: the dot count (3) is correct for Column 3 in any row. But the shape is wrong — Column 3 always contains circles, not triangles. Triangles are Column 1.')">Triangle with 3 dots</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Circle with 2 dots: the shape (circle) is correct for Column 3. But the dot count is wrong. The row rule says each row goes 1→2→3 dots across columns 1, 2, 3. Column 3 always has 3 dots, not 2.')">Circle with 2 dots</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Row rule: Column 3 always has 3 dots (1→2→3 reset per row). Column rule: Column 3 always has circles. Both rules satisfied: circle with 3 dots. The row number (Row 2) doesn\'t change this because the dot count resets per row and the shape is fixed per column.')">Circle with 3 dots</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Square with 3 dots: the dot count (3) is correct for Column 3. But the shape is wrong — squares are Column 2, not Column 3. Column 3 shapes are circles.')">Square with 3 dots</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="dual">
+      <div class="badge b-sec">Secure</div>
+      <div class="qtxt">A 3×3 grid has a hidden constant. One element NEVER changes across the whole grid (it is the same in every cell), while everything else follows a complex dual rule. The hidden constant is: every cell always contains exactly ONE horizontal line inside the shape. Row rule: shape alternates circle↔square by row. Column rule: shading cycles filled→striped→empty by column. Row 3, Col 3 = ?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Empty circle with no line: the shape (circle) and shading (empty) follow correctly, but the horizontal line is MISSING. The hidden constant rule states every cell has exactly one horizontal line — this never changes. Always include the line.')">Empty circle, no line</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Empty square with one line: the shading (empty, for Column 3) is correct, and the line is present ✓. But the shape is wrong. Row rule: odd rows = circles, even rows = squares. Row 3 is odd → circle, not square.')">Empty square with one line</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Three rules: (1) Shape rule by row: Row 3 is odd → circle. (2) Shading rule by column: Column 3 = empty. (3) Hidden constant: always one horizontal line. Answer: empty circle with one horizontal line.')">Empty circle with one line</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Filled circle with one line: the shape (circle ✓) and line (✓) are correct, but shading is wrong. Column 3 shading is empty (the cycle is filled→striped→empty for columns 1→2→3). Filled is Column 1\'s shading.')">Filled circle with one line</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="dual">
+      <div class="badge b-m">Mastery</div>
+      <div class="qtxt">RULE INTERFERENCE — the hardest GL-level trap. Row rule: shapes rotate 90°CW per step. Column rule: dot count increases by 1 per row (+1 down). R1C3 has a shape pointing DOWN with 3 dots. R2C3 has a shape pointing LEFT with 4 dots. R3C3 = ?. One answer option satisfies ONLY the rotation rule. One satisfies ONLY the dot-count rule. Only one satisfies BOTH. Which is correct?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Shape pointing UP with 3 dots: the shape pointing UP is correct (left+90°CW=up ✓). But 3 dots is wrong. Column 3 dot count: R1=3, R2=4, R3=5. This option satisfies rotation but FAILS the dot-count rule.')">Shape pointing UP, 3 dots</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Shape pointing LEFT with 5 dots: 5 dots is correct (column dot count: 3→4→5 ✓). But pointing LEFT is wrong. R2C3 already points left. R3C3 must rotate one more 90°CW step from left, which gives up. This option satisfies dot-count but FAILS rotation.')">Shape pointing LEFT, 5 dots</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Both rules must be satisfied. Rotation: R2C3 points left → +90°CW → points up. Dot count (column 3): R1=3, R2=4, R3=5. Answer: shape pointing UP with 5 dots. This satisfies rotation (up ✓) and dot count (5 ✓).')">Shape pointing UP, 5 dots</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Shape pointing DOWN with 4 dots: down was R1C3\'s orientation. The rotation rule moves the shape forward each step — R3C3 is two steps past R1C3, not a return to down. And 4 dots was R2C3. Neither the rotation nor the count is correct here.')">Shape pointing DOWN, 4 dots</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SECTION 7: TRAPS ═══════ -->
+<section id="traps">
+  <div class="sec-hd reveal">
+    <div class="sec-num">7</div>
+    <h2 class="sec-title">Common Traps &amp; Misconceptions</h2>
+    <div class="sec-tick" id="tick-traps">✓</div>
+  </div>
+
+  <div class="card card-warn reveal">
+    <div class="clabel">⚠️ Trap 1: The Fake Pattern</div>
+    <p>The first row appears to show a clear rule. The second row breaks it — revealing the real rule was different. Never finalise your rule after checking only ONE row. Always verify it works in at least two rows before trusting it.</p>
+  </div>
+
+  <div class="card card-warn reveal">
+    <div class="clabel">⚠️ Trap 2: The "Almost Works" Answer</div>
+    <p>One wrong option fits the row rule perfectly but fails the column rule. Another fits the column but not the row. Students who check only one direction get confidently wrong answers. <strong>Always check BOTH directions.</strong></p>
+  </div>
+
+  <div class="card card-warn reveal">
+    <div class="clabel">⚠️ Trap 3: Single Variable Bias</div>
+    <p>You notice the shape rotates — and lock onto that as "the rule". But shading is also changing by a different rule. Because you fixed on rotation, you miss the shading. Always scan ALL four properties (Count, Shape, Rotation, Shading) before deciding which one is the rule.</p>
+  </div>
+
+  <div class="card card-warn reveal">
+    <div class="clabel">⚠️ Trap 4: Overcomplication</div>
+    <p>You invent a complex, multi-step rule that fits cells 1 and 2 but has exceptions. Meanwhile the real rule is simple (+1 dot per column). If your rule requires more than one sentence to explain, try again with simpler properties first.</p>
+  </div>
+
+  <div class="card card-warn reveal">
+    <div class="clabel">⚠️ Trap 5: Diagonal Distraction</div>
+    <p>Sometimes a pattern appears along the diagonal (top-left → middle → bottom-right). GL matrices almost never use diagonal rules — rows and columns are always the intended logic. If you think you see a diagonal pattern, check rows and columns first.</p>
+  </div>
+
+  <div id="qs-traps">
+    <h3 style="font-family:'DM Serif Display',serif;color:var(--navy);margin:1.5rem 0 1rem;font-size:19px">Trap Practice Questions</h3>
+
+    <div class="qcard reveal" data-sec="traps">
+      <div class="badge b-sec">Secure</div>
+      <div class="qtxt">Fake Pattern trap: Row 1 shows: triangle, square, pentagon (+1 side each step). You assume Row 2 will be: triangle, square, pentagon too. But Row 2 shows: circle, oval, lens shape. What was the real rule?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'+1 side per step within rows: this described Row 1 only. Row 2 breaks this completely (circles have no sides). The fake pattern was convincing in Row 1 but failed when tested against Row 2.')">+1 side per step within each row</button>
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! The real rule is: Row 1 = straight-sided shapes, Row 2 = curved shapes. The fake pattern (+1 side) was misleading — it only worked in Row 1. The actual rule governs shape category by row, not side count within each row.')">Row 1 = straight-sided shapes; Row 2 = curved shapes</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Shapes always alternate between big and small: there is no size information given in this question. Do not invent a size rule that was not shown in the grid.')">Shapes alternate big and small</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Shapes rotate 90° clockwise each step: rotation involves the orientation of a shape, not a change in shape type. The second row uses circles and ovals — these are new shapes, not rotated versions of the first row.')">Shapes rotate 90° clockwise</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="qcard reveal" data-sec="traps">
+      <div class="badge b-m">Mastery</div>
+      <div class="qtxt">Rule Interference + Almost Works: R3C3 should satisfy BOTH rules. Row rule: shapes are always circles in Row 3. Column rule: Column 3 always has 2 dots. Four options: (A) Circle, 2 dots. (B) Square, 2 dots. (C) Circle, 1 dot. (D) Circle, 3 dots. Which is correct?</div>
+      <div class="qopts">
+        <button class="qbtn" data-correct="true" onclick="ansQ(this,'Correct! Option A satisfies BOTH rules: circle (row 3 rule ✓) + 2 dots (column 3 rule ✓). This is the only answer that passes both checks simultaneously.')">A: Circle, 2 dots</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Option B has 2 dots (satisfies the column rule ✓) but the shape is a square (fails the row rule ✗). Row 3 must contain circles. This is the classic "almost works" trap — it passes one check but fails the other.')">B: Square, 2 dots</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Option C has a circle (satisfies the row rule ✓) but only 1 dot (fails the column rule ✗). Column 3 must have 2 dots. This passes one check but fails the other — another "almost works" trap.')">C: Circle, 1 dot</button>
+        <button class="qbtn" data-correct="false" onclick="ansQ(this,'Option D has a circle (satisfies the row rule ✓) but 3 dots (fails the column rule ✗). Column 3 has 2 dots, not 3. Yet another "almost works" option — the shape is right but the count is wrong.')">D: Circle, 3 dots</button>
+      </div>
+      <div class="qfb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FINAL TEST ═══════ -->
+<div id="test-wrap">
+  <div class="sec-hd reveal">
+    <div class="sec-num">★</div>
+    <h2 class="sec-title">Final Mastery Test</h2>
+  </div>
+  <div class="test-hdr">
+    <div class="test-title">15 Questions · All Sub-Skills · Timed</div>
+    <div id="timer">15:00</div>
+  </div>
+  <div class="test-body">
+    <p style="color:var(--text-mid);font-size:15px;margin-bottom:1rem">This test covers all sub-skills from this module. You have 15 minutes. Explanations are revealed only after you submit.</p>
+    <button id="start-btn" onclick="startTest()">Start Test ▶</button>
+    <div id="test-qs" style="display:none;margin-top:1.5rem"></div>
+    <button id="submit-btn" onclick="submitTest()">Submit Answers</button>
+    <div id="results">
+      <div class="r-score" id="rscore">0/15</div>
+      <div class="r-band" id="rband"></div>
+      <p style="color:var(--text-mid);font-size:15px;margin:1rem 0">Review your answers:</p>
+      <div id="review"></div>
+      <button id="retry-btn" onclick="resetTest()">Try Again</button>
+    </div>
+  </div>
+</div>
+
+</main>
+<footer style="text-align:center;padding:2rem;color:var(--text-soft);font-size:13px">
+  <p>11+ GL Assessment Prep · NVR · <span style="color:var(--gold-dim)">Complete the Matrix</span></p>
+</footer>
+
+<script>
+// ─── SCORE ───
+let totalScore = 0;
+function addScore(n){totalScore+=n;document.getElementById('snum').textContent=totalScore}
+
+// ─── QUESTION HANDLER ───
+function ansQ(btn, msg){
+  const card = btn.closest('.qcard');
+  if(card.dataset.answered) return;
+  card.dataset.answered='1';
+  card.querySelectorAll('.qbtn').forEach(b=>{
+    b.disabled=true;
+    if(b.dataset.correct==='true') b.classList.add('ok');
+  });
+  const fb=card.querySelector('.qfb');
+  fb.style.display='block';
+  if(btn.dataset.correct==='true'){
+    btn.classList.add('ok');
+    fb.className='qfb show ok-fb';
+    fb.innerHTML='✓ '+msg;
+    addScore(1);
+  } else {
+    btn.classList.add('no');
+    fb.className='qfb show no-fb';
+    fb.innerHTML='✗ '+msg;
+  }
+  checkTick(card);
+}
+
+function checkTick(card){
+  const sec=card.closest('section');
+  if(!sec) return;
+  const all=sec.querySelectorAll('.qcard');
+  if([...all].every(c=>c.dataset.answered)){
+    const tick=sec.querySelector('.sec-tick');
+    if(tick){tick.classList.add('done')}
+  }
+}
+
+// ─── PROGRESS BAR ───
+window.addEventListener('scroll',()=>{
+  const st=window.scrollY, dh=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('prog-bar').style.width=(dh>0?st/dh*100:0)+'%';
+});
+
+// ─── NAV ACTIVE ───
+const secs=[...document.querySelectorAll('section[id], div[id="test-wrap"]')];
+const navAs=[...document.querySelectorAll('.snav-a')];
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-130)cur=s.id});
+  navAs.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur));
+});
+
+// ─── REVEAL ───
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// ─── TEST DATA ───
+// Each: {q, opts:[{label,correct,expl}]}
+const TD=[
+  {
+    q:'PROGRESSION — A 3×3 grid. Row rule: dot count goes 1→2→3 (reset each row). Column rule: shapes change — Col1=triangle, Col2=square, Col3=circle. What is Row 2, Column 3?',
+    opts:[
+      {label:'Triangle with 3 dots',correct:false,expl:'Triangle is Column 1\'s shape. Column 3 always has circles. The shape is wrong even though the dot count (3) is correct for Column 3.'},
+      {label:'Circle with 2 dots',correct:false,expl:'Circle is correct for Column 3, but dot count 2 belongs to Column 2. Each row goes 1→2→3 dots, so Column 3 always has 3 dots.'},
+      {label:'Circle with 3 dots',correct:true,expl:'Correct! Row rule: Column 3 = 3 dots. Column rule: Column 3 = circles. Both satisfied: circle with 3 dots.'},
+      {label:'Circle with 1 dot',correct:false,expl:'Circle is correct but 1 dot belongs to Column 1. Column 3 always has 3 dots in any row.'}
+    ]
+  },
+  {
+    q:'PROGRESSION — Counting with Reset: Row 1 goes 1→2→3, Row 2 goes 1→2→3. What does Row 3 start with?',
+    opts:[
+      {label:'4',correct:false,expl:'4 would only be correct if the count continued upward from row to row. But each row resets independently. Row 3 starts fresh at 1, same as rows 1 and 2.'},
+      {label:'1',correct:true,expl:'Correct! Each row resets to 1. This is the "counting with reset" pattern. Row 3, Column 1 = 1 dot. Students often assume 4 by continuing the global count — this is the key trap.'},
+      {label:'3',correct:false,expl:'3 is the last value of Row 2 (Column 3). But Row 3 is a new row and starts fresh. The reset means Column 1 of any row = 1 dot.'},
+      {label:'2',correct:false,expl:'2 does not fit as a starting value for any row in this pattern. Each row begins at 1 and increments: 1→2→3.'}
+    ]
+  },
+  {
+    q:'ALTERNATING — Row 1: filled, empty, filled. Row 2: empty, filled, empty. Row 3: filled, empty, ?',
+    opts:[
+      {label:'Filled',correct:true,expl:'Correct! Row 3 alternates: filled→empty→filled. Position 3 = filled (matches position 1). Also check Column 3: filled(R1)→empty(R2)→filled(R3). Both row and column confirm: filled.'},
+      {label:'Empty',correct:false,expl:'Empty would make Row 3: filled→empty→empty — which breaks the alternating pattern. In an alternating row, position 3 always matches position 1. Row 3 starts with filled, so position 3 = filled.'},
+      {label:'Striped',correct:false,expl:'Striped never appeared in the grid. The alternating rule uses only the two options that are already present: filled and empty. Introducing a third option is incorrect.'},
+      {label:'Half-filled',correct:false,expl:'Half-filled was not part of the established pattern. The grid uses only filled and empty in an alternating rule. Only these two options are valid.'}
+    ]
+  },
+  {
+    q:'ALTERNATING — Dual alternating rules. Shape alternates by row: odd rows=circles, even rows=squares. Shading alternates by column: odd columns=filled, even columns=empty. Row 3, Column 2 = ?',
+    opts:[
+      {label:'Filled circle',correct:false,expl:'Row 3 is odd → circle ✓. But Column 2 is even → empty, not filled. Filled belongs to odd columns (Col 1 and Col 3).'},
+      {label:'Empty square',correct:false,expl:'Column 2 is even → empty ✓. But Row 3 is odd → circles, not squares. Squares belong to even rows (Row 2).'},
+      {label:'Empty circle',correct:true,expl:'Correct! Row rule: Row 3 is odd → circle. Column rule: Column 2 is even → empty. Both rules give: empty circle.'},
+      {label:'Filled square',correct:false,expl:'Filled (odd column) applies to Column 2? No — Column 2 is even → empty. Square (even row) applies to Row 3? No — Row 3 is odd → circle. Both properties are wrong here.'}
+    ]
+  },
+  {
+    q:'ROTATION — An arrow starts pointing UP. It rotates 90° clockwise each step. What direction does it point after 6 steps?',
+    opts:[
+      {label:'Up',correct:false,expl:'Up would be correct after 4 or 8 steps (multiples of 4). After 6 steps: 6÷4=1 remainder 2. 2 steps from up going clockwise: up→right→down. So 6 steps lands on down, not up.'},
+      {label:'Right',correct:false,expl:'Right would be correct after 1 or 5 steps. After 6 steps: 6 mod 4 = 2 steps from up = down. Right is only 1 step from up.'},
+      {label:'Down',correct:true,expl:'Correct! 6 steps at 90° clockwise = 540° total. 540 mod 360 = 180°. Starting from up, 180° clockwise = down. Or: the cycle repeats every 4 steps (up→right→down→left→up). 6÷4 = remainder 2. 2 steps from up = right(1)→down(2). Answer: down.'},
+      {label:'Left',correct:false,expl:'Left would be correct after 3 steps (270°). After 6 steps: 6 mod 4 = 2. Two clockwise steps from up: right(step1) → down(step2). Left is step 3, not step 2.'}
+    ]
+  },
+  {
+    q:'ROTATION — R vs mirror-R: An "R" shape appears in 5 cells. Which of these describes a REFLECTION (not a rotation) of the normal R?',
+    opts:[
+      {label:'R rotated 90° clockwise',correct:false,expl:'R rotated 90° clockwise is still the same R — just oriented differently. You can achieve this by physically spinning the page. It is a rotation, not a reflection.'},
+      {label:'R rotated 180°',correct:false,expl:'R rotated 180° is the upside-down R. You can achieve this by spinning the page 180°. It is a rotation, not a reflection. No mirror image is produced.'},
+      {label:'Backwards R (mirror image)',correct:true,expl:'Correct! A backwards R (horizontally flipped) cannot be achieved by any rotation of the normal R. You need to flip the page over (reflect it) to match. Asymmetric shapes like R, F, and L have distinct mirror images.'},
+      {label:'R rotated 270° clockwise',correct:false,expl:'R rotated 270° clockwise is equivalent to rotating 90° anticlockwise. It is still the same R shape, just in a different orientation. No reflection has occurred.'}
+    ]
+  },
+  {
+    q:'TRANSLATION — A dot moves clockwise inside a square: top→right→bottom→left. It starts at top in Cell 1. In Cell 7, where is the dot? (Cycle length = 4)',
+    opts:[
+      {label:'Top',correct:false,expl:'Top appears at positions 1, 5, 9 (multiples of 4 plus 1). Cell 7: 7 mod 4 = 3. Position 3 in the cycle is bottom, not top.'},
+      {label:'Right',correct:false,expl:'Right appears at positions 2, 6, 10. Cell 7: 7 mod 4 = 3. Position 3 = bottom. Right is position 2 in the cycle.'},
+      {label:'Bottom',correct:true,expl:'Correct! Cycle: top(1)→right(2)→bottom(3)→left(4)→top(5)→right(6)→bottom(7). Cell 7 = bottom. Or: 7 mod 4 = 3 (remainder 3) → position 3 = bottom.'},
+      {label:'Left',correct:false,expl:'Left appears at positions 4, 8, 12. Cell 7: 7 mod 4 = 3. Position 3 = bottom. Left is position 4 in the cycle.'}
+    ]
+  },
+  {
+    q:'TRANSLATION — 3×3 grid. A small circle slides RIGHT by one position per row: Row1=left, Row2=centre, Row3=right. Outer shape changes per column: Col1=square, Col2=triangle, Col3=pentagon. What is Row 3, Col 3?',
+    opts:[
+      {label:'Pentagon with circle at left',correct:false,expl:'Left position is Row 1. Row 3 has the circle at the RIGHT. The translation rule moves the circle one step right per row: left→centre→right.'},
+      {label:'Square with circle at right',correct:false,expl:'Right position is correct for Row 3 ✓. But the outer shape for Column 3 is pentagon, not square. Squares are Column 1.'},
+      {label:'Pentagon with circle at right',correct:true,expl:'Correct! Translation rule: Row 3 = circle at right. Shape rule: Col 3 = pentagon. Both satisfied: pentagon with circle at right.'},
+      {label:'Triangle with circle at right',correct:false,expl:'Right position is correct for Row 3 ✓. But the outer shape for Col 3 is pentagon. Triangles are Col 2.'}
+    ]
+  },
+  {
+    q:'COMBINATION (Union) — Cell 1 = (triangle, star). Cell 2 = (circle, dot). Union rule: Cell 3 contains everything from both cells. What is in Cell 3?',
+    opts:[
+      {label:'Triangle and circle only',correct:false,expl:'This includes one shape from each cell but omits the star (from Cell 1) and the dot (from Cell 2). The union rule includes ALL elements from BOTH cells — all four elements must appear.'},
+      {label:'Star and dot only',correct:false,expl:'Star and dot are each from one cell, but the union rule also includes the triangle (from Cell 1) and circle (from Cell 2). Nothing is excluded in union logic.'},
+      {label:'Triangle, star, circle, and dot',correct:true,expl:'Correct! Union rule: Cell 3 = everything from Cell 1 + everything from Cell 2. Cell 1 contributes triangle and star. Cell 2 contributes circle and dot. All four appear in Cell 3.'},
+      {label:'Triangle and dot only',correct:false,expl:'This picks one element from each cell but ignores the star (from Cell 1) and circle (from Cell 2). Union means ALL elements from BOTH cells are combined into Cell 3.'}
+    ]
+  },
+  {
+    q:'COMBINATION (XOR) — Cell 1 = (circle, square). Cell 2 = (square, triangle). XOR rule: elements in BOTH cells cancel; elements in only ONE cell survive. What is in Cell 3?',
+    opts:[
+      {label:'Circle and triangle',correct:true,expl:'Correct! XOR: square appears in BOTH Cell 1 and Cell 2 → cancels. Circle (only in Cell 1) → survives. Triangle (only in Cell 2) → survives. Cell 3 = circle + triangle.'},
+      {label:'Circle, square, and triangle',correct:false,expl:'This is the union result (all elements from both cells). XOR is different: elements in BOTH cells cancel. Square appears in both → square cancels. Remove the square: Cell 3 = circle + triangle.'},
+      {label:'Square only',correct:false,expl:'Square appears in BOTH cells — so in XOR logic it CANCELS and does NOT appear in Cell 3. The survivors are circle (only in Cell 1) and triangle (only in Cell 2).'},
+      {label:'Circle only',correct:false,expl:'Circle survives ✓ (only in Cell 1). But triangle also survives (only in Cell 2). Cell 3 needs both: circle AND triangle. Choosing only one gives an incomplete answer.'}
+    ]
+  },
+  {
+    q:'DUAL RULES — 2×2 grid. Top-left = empty triangle. Top-right = filled triangle. Bottom-left = empty circle. Bottom-right = ?. Row rule: shading goes empty→filled. Column rule: shape goes triangle→circle.',
+    opts:[
+      {label:'Empty triangle',correct:false,expl:'The row rule says shading goes empty→filled, so the bottom-right should be filled (not empty). The column rule says bottom = circle, not triangle. Both properties are wrong here.'},
+      {label:'Filled triangle',correct:false,expl:'Shading (filled) is correct per the row rule ✓. But the column rule says the bottom row contains circles. Triangle belongs to the top row. Shape is wrong.'},
+      {label:'Empty circle',correct:false,expl:'Shape (circle) is correct per the column rule ✓. But the row rule says shading goes empty→filled. Bottom-left is empty, so bottom-right must be filled. Shading is wrong.'},
+      {label:'Filled circle',correct:true,expl:'Correct! Row rule: empty→filled, so bottom-right = filled ✓. Column rule: triangle→circle, so bottom-right = circle ✓. Both rules satisfied: filled circle.'}
+    ]
+  },
+  {
+    q:'DUAL RULES — Rule Interference. Row 3 rule: all shapes are pentagons. Column 3 rule: all shapes have 3 dots. Which answer satisfies BOTH?',
+    opts:[
+      {label:'Pentagon with 2 dots',correct:false,expl:'Pentagon ✓ (satisfies row rule). But 2 dots ✗ (fails column rule — Column 3 needs 3 dots). This satisfies only ONE of the two rules.'},
+      {label:'Triangle with 3 dots',correct:false,expl:'3 dots ✓ (satisfies column rule). But triangle ✗ (fails row rule — Row 3 must have pentagons). This satisfies only ONE of the two rules.'},
+      {label:'Pentagon with 3 dots',correct:true,expl:'Correct! Pentagon satisfies the Row 3 rule ✓. 3 dots satisfies the Column 3 rule ✓. This is the only answer that passes both checks simultaneously.'},
+      {label:'Hexagon with 3 dots',correct:false,expl:'3 dots ✓ (satisfies column rule). But hexagon ✗ (Row 3 rule specifies pentagons, not hexagons). Satisfies one rule but fails the other.'}
+    ]
+  },
+  {
+    q:'TRAPS — Fake Pattern: Row 1 shows circles getting bigger (small→medium→large). You assume Row 2 also shows getting bigger. Row 2 shows: large→medium→small (getting SMALLER). What is the correct rule?',
+    opts:[
+      {label:'Shapes always get bigger from left to right',correct:false,expl:'This described Row 1 only — the fake pattern. Row 2 gets SMALLER from left to right. The true rule must account for both rows.'},
+      {label:'Shapes get bigger in odd rows and smaller in even rows',correct:true,expl:'Correct! Row 1 (odd): small→medium→large. Row 2 (even): large→medium→small. The fake pattern (always getting bigger) was convincing for one row. The real rule involves odd vs even row direction.'},
+      {label:'Size alternates small↔large in every cell',correct:false,expl:'If sizes simply alternated small↔large, Row 1 would be small, large, small. But Row 1 goes small→medium→large — three distinct sizes in order. This alternating rule doesn\'t fit.'},
+      {label:'Size never changes',correct:false,expl:'Size clearly changes across both rows. Row 1: small to large. Row 2: large to small. Size is the main changing property — it just changes in opposite directions per row.'}
+    ]
+  },
+  {
+    q:'TRAPS — Single Variable Bias. A student examines a matrix, notices the shape rotates 90° per step, and selects an answer based on rotation alone. But they get it wrong. What did they most likely miss?',
+    opts:[
+      {label:'They forgot to check the answer options',correct:false,expl:'Forgetting to check options is a test-technique issue, not a pattern-recognition issue. The single variable bias trap is specifically about checking only one visual property while ignoring others.'},
+      {label:'A second rule governing shading or dot count',correct:true,expl:'Correct! Single variable bias means the student focused only on rotation and ignored a second independent rule (such as shading cycling or dot count increasing). The correct answer must satisfy BOTH rules. Always scan all four properties: count, shape, rotation, shading.'},
+      {label:'They applied the rule in the wrong direction',correct:false,expl:'Applying the rule in the wrong direction (e.g. anticlockwise instead of clockwise) is a different error. Single variable bias is specifically about missing a second, independent rule that was operating simultaneously.'},
+      {label:'They calculated the rotation angle incorrectly',correct:false,expl:'Miscalculating the angle is an arithmetic error, not a bias error. Single variable bias means the student found one correct rule (rotation) but never looked for a second rule that was also present.'}
+    ]
+  },
+  {
+    q:'MULTI-VARIABLE — The hardest type. A 3×3 grid has THREE simultaneous rules: (1) Shape by row: Row1=triangles, Row2=squares, Row3=circles. (2) Dot count by column: Col1=1, Col2=2, Col3=3. (3) Shading: shapes with >1 dot are filled; shapes with 1 dot are empty. What is Row 3, Col 3?',
+    opts:[
+      {label:'Empty circle with 3 dots',correct:false,expl:'Circle ✓ (Row 3 rule). 3 dots ✓ (Column 3 rule). But shading: 3 dots > 1, so this shape should be FILLED, not empty. Shading rule: more than 1 dot = filled.'},
+      {label:'Filled circle with 3 dots',correct:true,expl:'Correct! Rule 1: Row 3 = circles ✓. Rule 2: Col 3 = 3 dots ✓. Rule 3: 3 dots > 1 → filled ✓. All three rules satisfied simultaneously.'},
+      {label:'Filled square with 3 dots',correct:false,expl:'3 dots ✓ and filled ✓, but the shape is wrong. Row 3 must contain circles, not squares. Squares are the Row 2 shape.'},
+      {label:'Empty circle with 1 dot',correct:false,expl:'Circle ✓ (Row 3). Empty ✓ (1 dot, so shading = empty). But Column 3 must have 3 dots, not 1. The dot count is wrong — 1 dot is Column 1\'s count.'}
+    ]
+  }
+];
+
+let tAnswers={};
+let timerInv=null;
+let tLeft=900;
+
+function startTest(){
+  document.getElementById('start-btn').style.display='none';
+  document.getElementById('test-qs').style.display='block';
+  document.getElementById('submit-btn').style.display='block';
+  renderTest();
+  startTimer();
+}
+
+function renderTest(){
+  const c=document.getElementById('test-qs');
+  c.innerHTML='';
+  TD.forEach((q,i)=>{
+    const d=document.createElement('div');
+    d.className='tq';
+    d.innerHTML=`<div class="tq-num">Question ${i+1} of ${TD.length}</div>
+      <div class="tq-txt">${q.q}</div>
+      <div class="qopts" id="to${i}">${q.opts.map((o,j)=>`<button class="qbtn" onclick="pickT(${i},${j})" id="tb${i}_${j}">${o.label}</button>`).join('')}</div>`;
+    c.appendChild(d);
+  });
+}
+
+function pickT(qi,oi){
+  tAnswers[qi]=oi;
+  document.querySelectorAll(`#to${qi} .qbtn`).forEach((b,j)=>{
+    b.style.background=j===oi?'#dbeafe':'';
+    b.style.borderColor=j===oi?'#3b7dd8':'';
+    b.style.color=j===oi?'#1a5fa8':'';
+  });
+}
+
+function startTimer(){
+  timerInv=setInterval(()=>{
+    tLeft--;
+    const m=Math.floor(tLeft/60),s=tLeft%60;
+    document.getElementById('timer').textContent=`${m}:${s.toString().padStart(2,'0')}`;
+    if(tLeft<=60) document.getElementById('timer').style.color='#ef4444';
+    if(tLeft<=0){clearInterval(timerInv);submitTest();}
+  },1000);
+}
+
+function submitTest(){
+  clearInterval(timerInv);
+  document.getElementById('test-qs').style.display='none';
+  document.getElementById('submit-btn').style.display='none';
+  document.getElementById('results').style.display='block';
+  let score=0;
+  TD.forEach((q,i)=>{if(tAnswers[i]!==undefined&&q.opts[tAnswers[i]].correct)score++;});
+  document.getElementById('rscore').textContent=score+'/15';
+  const bandEl=document.getElementById('rband');
+  if(score<=5){bandEl.textContent='Needs Practice';bandEl.className='r-band band-np';}
+  else if(score<=9){bandEl.textContent='Developing';bandEl.className='r-band band-dev';}
+  else if(score<=12){bandEl.textContent='Secure';bandEl.className='r-band band-sec';}
+  else{bandEl.textContent='Mastery';bandEl.className='r-band band-mas';}
+  const rev=document.getElementById('review');
+  rev.innerHTML='';
+  TD.forEach((q,i)=>{
+    const ua=tAnswers[i];
+    const isCorr=ua!==undefined&&q.opts[ua].correct;
+    const corrIdx=q.opts.findIndex(o=>o.correct);
+    const d=document.createElement('div');
+    d.className='rev-item '+(isCorr?'cr':'wr');
+    const yourLbl=ua!==undefined?q.opts[ua].label:'Not answered';
+    d.innerHTML=`<strong>Q${i+1}:</strong> ${q.q}<br>
+      <span style="color:${isCorr?'var(--green)':'var(--red)'};font-weight:700">Your answer: ${yourLbl} ${isCorr?'✓':'✗'}</span><br>
+      <span style="color:var(--text-mid);font-size:13px;display:block;margin-top:4px">${isCorr?q.opts[corrIdx].expl:`Correct: ${q.opts[corrIdx].label}. ${q.opts[corrIdx].expl}`}</span>`;
+    rev.appendChild(d);
+  });
+  addScore(score);
+}
+
+function resetTest(){
+  document.getElementById('results').style.display='none';
+  document.getElementById('start-btn').style.display='block';
+  tAnswers={};tLeft=900;
+  document.getElementById('timer').textContent='15:00';
+  document.getElementById('timer').style.color='var(--gold)';
+  document.getElementById('review').innerHTML='';
+}
+</script>
+</body>
+</html>

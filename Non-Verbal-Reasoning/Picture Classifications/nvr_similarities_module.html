@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>11+ GL — NVR: Similarities</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#0d1b3e;
+  --navy2:#162347;
+  --navy3:#1e2f5a;
+  --gold:#f0b429;
+  --gold2:#ffd166;
+  --cream:#f8f5ef;
+  --white:#ffffff;
+  --green:#22c55e;
+  --green-bg:#dcfce7;
+  --yellow:#eab308;
+  --yellow-bg:#fef9c3;
+  --orange:#f97316;
+  --orange-bg:#ffedd5;
+  --purple:#a855f7;
+  --purple-bg:#f3e8ff;
+  --red:#ef4444;
+  --red-bg:#fee2e2;
+  --card-shadow:0 2px 16px rgba(13,27,62,0.10);
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:#1e293b;font-size:16px;min-height:100vh;}
+
+/* PROGRESS BAR */
+#progress-bar{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2));z-index:9999;transition:width .2s;}
+
+/* NAV */
+#sticky-nav{position:sticky;top:0;z-index:900;background:var(--navy);border-bottom:2px solid var(--gold);overflow-x:auto;white-space:nowrap;}
+#sticky-nav .nav-inner{display:flex;align-items:center;gap:4px;padding:0 18px;}
+#sticky-nav a{color:var(--gold2);font-size:13px;font-weight:600;padding:12px 14px;text-decoration:none;display:inline-block;border-bottom:2px solid transparent;transition:border-color .2s,color .2s;letter-spacing:.02em;}
+#sticky-nav a:hover,#sticky-nav a.active{color:#fff;border-bottom-color:var(--gold);}
+
+/* HEADER */
+header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy3) 100%);padding:48px 24px 36px;text-align:center;border-bottom:4px solid var(--gold);}
+header .badge{display:inline-block;background:var(--gold);color:var(--navy);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:18px;}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);color:#fff;line-height:1.15;margin-bottom:10px;}
+header h1 span{color:var(--gold);}
+header p{color:#c8d6f0;font-size:1.05rem;max-width:560px;margin:0 auto;}
+
+/* SCORE COUNTER */
+#score-bar{background:var(--navy2);padding:10px 24px;display:flex;align-items:center;justify-content:center;gap:24px;border-bottom:1px solid rgba(240,180,41,0.2);}
+.score-pill{background:rgba(255,255,255,0.07);border:1px solid rgba(240,180,41,0.3);border-radius:30px;padding:6px 18px;color:var(--gold2);font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;}
+.score-pill .num{color:#fff;font-size:16px;}
+
+/* CONTAINER */
+.container{max-width:860px;margin:0 auto;padding:32px 16px 80px;}
+
+/* SECTION */
+.section{margin-bottom:56px;scroll-margin-top:60px;}
+.section-title{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--navy);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.section-title .sec-icon{width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.section-complete{display:none;color:var(--green);font-size:20px;margin-left:auto;}
+.section-complete.show{display:inline;}
+
+/* CARDS */
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:22px 24px;margin-bottom:18px;border-left:4px solid transparent;}
+.card.simple{border-left-color:var(--gold);}
+.card.full{border-left-color:var(--navy);}
+.card.watchout{border-left-color:var(--red);background:var(--red-bg);}
+.card.example{border-left-color:var(--green);background:#f0fdf4;}
+.card-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;opacity:.7;}
+.card h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;color:var(--navy);}
+.card p,.card li{font-size:.97rem;line-height:1.65;color:#374151;}
+.card ul{padding-left:18px;margin-top:6px;}
+.card ul li{margin-bottom:4px;}
+.analogy{background:var(--yellow-bg);border-radius:8px;padding:12px 16px;margin-top:10px;font-size:.95rem;font-style:italic;border-left:3px solid var(--yellow);}
+
+/* STEPS */
+.steps{counter-reset:step;}
+.step{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start;}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.step-body{flex:1;}
+.step-body strong{display:block;margin-bottom:3px;color:var(--navy);}
+
+/* SHAPES SVG */
+.svg-row{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0;align-items:center;}
+.svg-box{background:#f1f5f9;border-radius:10px;padding:10px;text-align:center;}
+.svg-box svg{display:block;margin:0 auto;}
+.svg-box .lbl{font-size:11px;margin-top:5px;color:#64748b;font-weight:600;}
+.arrow-sep{font-size:22px;color:var(--navy);align-self:center;}
+
+/* DIFFICULTY BADGES */
+.badge-starter{background:var(--green-bg);color:#15803d;font-size:11px;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:20px;text-transform:uppercase;}
+.badge-developing{background:var(--yellow-bg);color:#854d0e;font-size:11px;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:20px;text-transform:uppercase;}
+.badge-secure{background:var(--orange-bg);color:#9a3412;font-size:11px;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:20px;text-transform:uppercase;}
+.badge-mastery{background:var(--purple-bg);color:#6b21a8;font-size:11px;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:20px;text-transform:uppercase;}
+
+/* QUESTIONS */
+.question-block{background:var(--white);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:20px 22px;margin-bottom:16px;}
+.question-block .q-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.question-block .q-text{font-weight:600;font-size:1rem;margin-bottom:14px;color:#1e293b;line-height:1.5;}
+.options{display:flex;flex-direction:column;gap:8px;}
+.opt-btn{background:#f1f5f9;border:2px solid #e2e8f0;border-radius:9px;padding:11px 16px;text-align:left;font-size:.95rem;font-weight:500;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;color:#1e293b;}
+.opt-btn:hover:not(:disabled){background:#e0e7ff;border-color:#818cf8;}
+.opt-btn.correct{background:var(--green-bg);border-color:var(--green);color:#166534;}
+.opt-btn.wrong{background:var(--red-bg);border-color:var(--red);color:#991b1b;}
+.opt-btn:disabled{cursor:default;}
+.feedback{margin-top:12px;padding:12px 16px;border-radius:9px;font-size:.92rem;line-height:1.55;display:none;}
+.feedback.show{display:block;}
+.feedback.correct{background:var(--green-bg);border-left:3px solid var(--green);color:#166534;}
+.feedback.wrong{background:var(--red-bg);border-left:3px solid var(--red);color:#991b1b;}
+
+/* typed answer */
+.typed-wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.typed-input{border:2px solid #e2e8f0;border-radius:9px;padding:10px 14px;font-size:1rem;font-family:'DM Mono',monospace;width:120px;outline:none;transition:border-color .2s;}
+.typed-input:focus{border-color:var(--navy);}
+.typed-input.correct{border-color:var(--green);background:var(--green-bg);}
+.typed-input.wrong{border-color:var(--red);background:var(--red-bg);}
+.submit-btn{background:var(--navy);color:#fff;border:none;border-radius:9px;padding:10px 20px;font-size:.95rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s;}
+.submit-btn:hover{background:var(--navy3);}
+.submit-btn:disabled{background:#94a3b8;cursor:default;}
+
+/* SPANS TOOLBOX */
+.spans-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:12px;}
+.spans-card{background:var(--navy);color:#fff;border-radius:10px;padding:14px 16px;}
+.spans-card .letter{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);line-height:1;}
+.spans-card .word{font-size:.85rem;font-weight:700;color:var(--gold2);margin-bottom:6px;}
+.spans-card .desc{font-size:.82rem;color:#c8d6f0;line-height:1.45;}
+
+/* PRIORITY ORDER */
+.priority-list{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+.priority-item{display:flex;align-items:center;gap:12px;background:#f8fafc;border-radius:8px;padding:10px 14px;}
+.priority-num{width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* TIMER */
+#timer-display{font-family:'DM Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--gold);}
+#timer-display.urgent{color:#ef4444;}
+
+/* FINAL TEST */
+#final-test{background:var(--white);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:28px;}
+.test-header{background:var(--navy);color:#fff;border-radius:10px;padding:20px 24px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:gap:12px;}
+.test-header h3{font-family:'Playfair Display',serif;font-size:1.3rem;}
+#start-test-btn{background:var(--gold);color:var(--navy);border:none;border-radius:9px;padding:12px 28px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+#start-test-btn:hover{background:var(--gold2);}
+#test-area{display:none;}
+#test-results{display:none;}
+.results-band{border-radius:12px;padding:24px;text-align:center;margin-bottom:20px;}
+.band-needs{background:#fee2e2;color:#991b1b;}
+.band-dev{background:var(--yellow-bg);color:#854d0e;}
+.band-secure{background:var(--orange-bg);color:#9a3412;}
+.band-mastery{background:var(--purple-bg);color:#6b21a8;}
+.results-band h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:8px;}
+.results-band .pct{font-size:3rem;font-weight:900;}
+
+/* SHAPE EXAMPLES */
+.shape-example{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0;}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.shape-item .slbl{font-size:11px;color:#64748b;font-weight:600;}
+
+/* ROTATION VIZ */
+.rotation-strip{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0;}
+.rot-step{background:#f1f5f9;border-radius:8px;padding:8px;text-align:center;}
+.rot-step .deg{font-size:10px;color:#64748b;margin-top:4px;}
+
+hr.divider{border:none;border-top:2px dashed #e2e8f0;margin:24px 0;}
+
+.section-progress{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.prog-dot{width:10px;height:10px;border-radius:50%;background:#e2e8f0;transition:background .3s;}
+.prog-dot.done{background:var(--green);}
+
+@media(max-width:600px){
+  .spans-grid{grid-template-columns:1fr 1fr;}
+  .svg-row{gap:8px;}
+  header h1{font-size:1.6rem;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar" style="width:0%"></div>
+
+<!-- STICKY NAV -->
+<nav id="sticky-nav">
+  <div class="nav-inner">
+    <a href="#sec-intro">Intro</a>
+    <a href="#sec-spans">SPANS</a>
+    <a href="#sec-shape">Shape</a>
+    <a href="#sec-number">Number</a>
+    <a href="#sec-shading">Shading</a>
+    <a href="#sec-position">Position</a>
+    <a href="#sec-rotation">Rotation</a>
+    <a href="#sec-lines">Lines</a>
+    <a href="#sec-conditional">Conditional</a>
+    <a href="#sec-traps">Traps</a>
+    <a href="#sec-test">Final Test</a>
+  </div>
+</nav>
+
+<header>
+  <div class="badge">11+ GL Assessment · Non-Verbal Reasoning</div>
+  <h1>Finding <span>Similarities</span></h1>
+  <p>Master every rule type, strategy, and trap tested by GL examiners — from basic shapes to rotation sequences.</p>
+</header>
+
+<!-- SCORE BAR -->
+<div id="score-bar">
+  <div class="score-pill">✅ Correct <span class="num" id="global-correct">0</span></div>
+  <div class="score-pill">❌ Wrong <span class="num" id="global-wrong">0</span></div>
+  <div class="score-pill">📊 Score <span class="num" id="global-pct">—</span></div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════ INTRO ═══ -->
+<section class="section" id="sec-intro">
+  <div class="section-title">
+    <div class="sec-icon">🎯</div>
+    What is "Similarities"?
+    <span class="section-complete" id="comp-intro">✅</span>
+  </div>
+
+  <div class="card simple">
+    <div class="card-label">Simple Explanation</div>
+    <p>You get a group of shapes that all follow the <strong>same secret rules</strong>. Your job is to find what those rules are — and then pick the answer that follows ALL the same rules.</p>
+    <div class="analogy">Think of it like a club with strict rules. If every member wears a hat, has spots, and faces left — then to join the club, you MUST wear a hat, have spots, AND face left. One rule wrong and you're out!</div>
+  </div>
+
+  <div class="card full">
+    <div class="card-label">Full Explanation</div>
+    <p>In NVR Similarities questions, you are presented with a set of 5 example shapes (the "group") that all share a defined set of geometric properties. You must identify the complete rule set governing those properties — which may include <strong>shape type, quantity, shading, position, orientation, size, internal elements, line type, and relationships between elements</strong> — and then select the answer option that satisfies every identified rule simultaneously.</p>
+    <p style="margin-top:8px;">A common trap: <em>distractor options satisfy most rules but fail on one</em>. A correct answer must pass ALL rules, not just the majority.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ SPANS ═══ -->
+<section class="section" id="sec-spans">
+  <div class="section-title">
+    <div class="sec-icon">🔍</div>
+    The SPANS Strategy
+    <span class="section-complete" id="comp-spans">✅</span>
+  </div>
+
+  <div class="card simple">
+    <div class="card-label">Simple Explanation — SPANS</div>
+    <p>SPANS is your scanning checklist. Every time you look at a group of shapes, go through each letter in order. This stops you from panicking or missing something!</p>
+    <div class="analogy">It's like a pilot's pre-flight checklist. They check every single thing in order — they don't skip steps, even if they're in a hurry.</div>
+  </div>
+
+  <div class="spans-grid">
+    <div class="spans-card">
+      <div class="letter">S</div>
+      <div class="word">Shape</div>
+      <div class="desc">What type of shape is it? Circle, triangle, square, arrow, star?</div>
+    </div>
+    <div class="spans-card">
+      <div class="letter">P</div>
+      <div class="word">Position</div>
+      <div class="desc">Where is it? Top, bottom, left, right, centre, corner?</div>
+    </div>
+    <div class="spans-card">
+      <div class="letter">A</div>
+      <div class="word">Amount</div>
+      <div class="desc">How many shapes, dots, sides, or lines are there?</div>
+    </div>
+    <div class="spans-card">
+      <div class="letter">N</div>
+      <div class="word">Nature</div>
+      <div class="desc">What type of lines? Straight, curved, dashed? Do lines touch or cross?</div>
+    </div>
+    <div class="spans-card">
+      <div class="letter">S</div>
+      <div class="word">Shading</div>
+      <div class="desc">Is it filled black, white, grey, striped, or dotted?</div>
+    </div>
+  </div>
+
+  <div class="card full" style="margin-top:18px;">
+    <div class="card-label">Priority Scanning Order</div>
+    <p style="margin-bottom:10px;">Always scan in this order — it finds rules fastest and eliminates wrong answers quickly:</p>
+    <div class="priority-list">
+      <div class="priority-item"><div class="priority-num">1</div><strong>Amount</strong> — count first. It's the easiest to check and eliminates the most options instantly.</div>
+      <div class="priority-item"><div class="priority-num">2</div><strong>Shading</strong> — black/white/grey is very easy to see and often a key rule.</div>
+      <div class="priority-item"><div class="priority-num">3</div><strong>Shape</strong> — what type of shape? Is it always the same, or does the type not matter?</div>
+      <div class="priority-item"><div class="priority-num">4</div><strong>Position</strong> — where is the shape sitting? Is there always a small shape in a corner?</div>
+      <div class="priority-item"><div class="priority-num">5</div><strong>Nature</strong> — line type, rotation, whether shapes touch. Check this last — it's the trickiest.</div>
+    </div>
+    <p style="margin-top:12px;font-size:.93rem;color:#64748b;"><strong>2-Rule Minimum:</strong> If you can only find 1 rule, keep looking. GL questions almost always use at least 2 rules simultaneously. Finding only 1 means you're probably about to choose a trap answer.</p>
+  </div>
+
+  <div class="card watchout">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <h3>The Most Common SPANS Mistake</h3>
+    <p>Students stop scanning after finding the first rule. They think "all shapes are circles — done!" and pick the first circle they see in the answers. But the right answer might need to be a <em>white circle with a dot inside in the top corner</em>. Always finish the full SPANS scan before looking at answer options.</p>
+  </div>
+
+  <!-- SPANS QUESTIONS -->
+  <hr class="divider"/>
+  <h3 style="font-size:1rem;color:var(--navy);margin-bottom:14px;font-weight:700;">SPANS Strategy Practice</h3>
+  <div class="section-progress" id="prog-spans"></div>
+
+  <!-- Q1 Starter -->
+  <div class="question-block" data-section="spans">
+    <div class="q-header"><span class="badge-starter">Starter</span></div>
+    <div class="q-text">When using SPANS, which letter should you always check FIRST — because it is the quickest way to eliminate wrong answers?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'sp-q1', 'Wrong. S stands for Shape — it\'s important, but Amount is faster to check and eliminates more options instantly.')">S — Shape</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'sp-q1', 'Wrong. P stands for Position — useful, but position is trickier to verify than counting. Amount comes first.')">P — Position</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this, 'sp-q1', 'Correct! A stands for Amount. Counting shapes/dots is fast and immediately rules out answers with the wrong number of elements.')">A — Amount</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'sp-q1', 'Wrong. N stands for Nature (line type/rotation) — this is actually checked LAST because it requires the most careful observation.')">N — Nature</button>
+    </div>
+    <div class="feedback" id="sp-q1"></div>
+  </div>
+
+  <!-- Q2 Starter -->
+  <div class="question-block" data-section="spans">
+    <div class="q-header"><span class="badge-starter">Starter</span></div>
+    <div class="q-text">What is the "2-Rule Minimum" rule?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'sp-q2', 'Wrong. The 2-Rule Minimum is not about answer options — it\'s about how many rules you must identify in the GROUP before you choose an answer.')">You must check at least 2 answer options before deciding.</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this, 'sp-q2', 'Correct! GL questions almost always use at least 2 rules at once. If you\'ve only found 1 rule, keep scanning — you\'re likely missing something that a trap answer exploits.')">If you have only found 1 rule, keep scanning — GL questions use at least 2 rules.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'sp-q2', 'Wrong. You only need to check ALL 5 SPANS letters, not just 2. The 2-Rule Minimum refers to the number of rules in the GROUP, not the number of scanning steps.')">You only need to check 2 letters of SPANS, not all 5.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'sp-q2', 'Wrong. The rule applies to all similarity questions, not just hard ones. Even on starter-level questions, there are usually 2 rules working together.')">Only hard questions have 2 rules — easy questions usually have 1.</button>
+    </div>
+    <div class="feedback" id="sp-q2"></div>
+  </div>
+
+  <!-- Q3 Developing -->
+  <div class="question-block" data-section="spans">
+    <div class="q-header"><span class="badge-developing">Developing</span></div>
+    <div class="q-text">A student finds 3 possible answer options after their first SPANS check (Amount). What should they do next?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'sp-q3', 'Wrong. Guessing after one check is the trap! You still have 3 options — you need to keep scanning with the next SPANS letter to eliminate more.')">Guess between the 3 remaining options — they\'re all probably fine.</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this, 'sp-q3', 'Correct! After Amount, move to Shading (the next priority step). Check if all group shapes share the same shading — this will usually eliminate at least one more option.')">Move to the next SPANS check — Shading — and eliminate further.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'sp-q3', 'Wrong. Skipping to Nature (the last and trickiest step) wastes time and skips easier checks like Shading and Shape which should come first.')">Skip straight to Nature (the last SPANS letter) to save time.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'sp-q3', 'Wrong. Re-checking the same step (Amount) will give you the same result. The strategy is to move to the NEXT SPANS check to find a new rule to eliminate options.')">Re-check Amount again — you may have miscounted.</button>
+    </div>
+    <div class="feedback" id="sp-q3"></div>
+  </div>
+
+  <!-- Q4 Secure -->
+  <div class="question-block" data-section="spans">
+    <div class="q-header"><span class="badge-secure">Secure</span></div>
+    <div class="q-text">After full SPANS scanning, 2 answer options remain. Option A passes all 5 rules. Option B passes 4 rules but fails on Position. Which should you choose and why?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this, 'sp-q4', 'Correct! In Similarities, every rule must be satisfied. Option B fails one rule (Position), so it cannot be the answer regardless of how many other rules it passes. Option A is the only valid choice.')">Option A — because the correct answer must pass ALL rules, not just most of them.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'sp-q4', 'Wrong. 4 out of 5 is NOT enough in Similarities. The answer must follow every single rule — GL examiners design trap options that pass most rules but fail one, knowing students will pick them.')">Option B — 4 out of 5 rules is close enough.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'sp-q4', 'Wrong. Position is always a valid rule in SPANS. You should not ignore any SPANS category — all five are equally important when determining the correct answer.')">Option A — but ignore the Position rule because it is not that important.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'sp-q4', 'Wrong. If two options remain after full SPANS scanning and one fails a rule, you do not need to guess. Option A clearly passes all rules — it is the definitive answer.')">Guess randomly — you cannot be sure if 2 options remain.</button>
+    </div>
+    <div class="feedback" id="sp-q4"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ SHAPE ═══ -->
+<section class="section" id="sec-shape">
+  <div class="section-title">
+    <div class="sec-icon">⬡</div>
+    Shape Rules
+    <span class="section-complete" id="comp-shape">✅</span>
+  </div>
+
+  <div class="card simple">
+    <div class="card-label">Simple Explanation</div>
+    <p>Look at ALL the shapes in the group and ask: <strong>"What kind of shape is it?"</strong> Sometimes ALL shapes are the same type (all circles). Sometimes the TYPE doesn't matter — but the number of SIDES does. Count the sides carefully!</p>
+    <div class="analogy">It's like sorting your LEGO bricks. Sometimes all bricks must be the same colour AND shape. Sometimes the colour doesn't matter — only the size does.</div>
+  </div>
+
+  <div class="card full">
+    <div class="card-label">Full Explanation</div>
+    <p>Shape rules govern the <strong>geometric form</strong> of elements. Key properties to check:</p>
+    <ul style="margin-top:8px;">
+      <li><strong>Shape type constant:</strong> All shapes are always circles / always triangles etc.</li>
+      <li><strong>Shape type irrelevant:</strong> The type varies — the rule is about something else (e.g., number of sides &gt; 4).</li>
+      <li><strong>Inner vs outer shape:</strong> Outer shape may vary; inner shape stays fixed (or vice versa).</li>
+      <li><strong>Size rule:</strong> One shape is always larger/smaller than another.</li>
+      <li><strong>Symmetry:</strong> All shapes are symmetrical (or all are asymmetrical).</li>
+    </ul>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">Worked Example — Basic Shape Rule</div>
+    <p><strong>Group:</strong> Large circle with small triangle inside. Large square with small triangle inside. Large pentagon with small triangle inside.</p>
+    <div class="steps" style="margin-top:14px;">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Check Amount:</strong> Every group member has exactly 2 shapes (1 large + 1 small).</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Check Shape of outer:</strong> Circle, square, pentagon — these VARY. So the outer shape type is NOT the rule.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Check Shape of inner:</strong> Triangle, triangle, triangle — ALWAYS a triangle! This IS the rule.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Check Shading:</strong> The inner triangle is always white (unfilled).</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Rules found:</strong> (1) 2 shapes total, (2) inner is always a white triangle, (3) outer can be any shape.</div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body"><strong>Choose answer:</strong> Find the option with any large shape containing a white triangle inside. ✅</div></div>
+    </div>
+  </div>
+
+  <div class="card watchout">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <h3>The "Number = Sides" Trap</h3>
+    <p>A group shows: triangle with 1 dot, square with 1 dot, pentagon with 1 dot. Students think: "dots = sides − 2" and pick the hexagon with 4 dots. But the actual rule is simply <strong>always 1 dot</strong>, regardless of shape. Don't invent rules that aren't there!</p>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">Harder Worked Example — Inner Shape Stays Constant</div>
+    <p><strong>Group:</strong> Pentagon containing black circle. Hexagon containing black circle. Irregular quadrilateral containing black circle.</p>
+    <div class="steps" style="margin-top:10px;">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Amount:</strong> Always 2 shapes (1 outer, 1 inner).</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Outer shape:</strong> Pentagon (5 sides), Hexagon (6 sides), Quad (4 sides) — VARIES. Not the rule.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Inner shape:</strong> Circle, Circle, Circle — CONSTANT. Rule: inner = circle.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Shading of inner:</strong> Black, Black, Black — Rule: inner circle is always filled black.</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Answer:</strong> Any outer shape containing a black filled circle. ✅ Trap: a shape with a white circle inside ❌ or a black triangle inside ❌.</div></div>
+    </div>
+  </div>
+
+  <!-- SHAPE QUESTIONS -->
+  <hr class="divider"/>
+  <div class="section-progress" id="prog-shape"></div>
+
+  <div class="question-block" data-section="shape">
+    <div class="q-header"><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Every shape in a group has exactly 4 sides. Which answer option belongs in the group?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sh-q1','Wrong. A triangle has 3 sides, not 4. The rule is exactly 4 sides — a triangle fails this rule immediately.')">A triangle</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'sh-q1','Correct! A rectangle has exactly 4 sides, just like every other shape in the group. Squares, rhombuses, and parallelograms would also work — they all have 4 sides.')">A rectangle</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sh-q1','Wrong. A circle has 0 sides — it has a curved boundary, not straight sides. It completely fails the 4-sides rule.')">A circle</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sh-q1','Wrong. A pentagon has 5 sides, not 4. Close — but the rule is EXACTLY 4, not more than 3.')">A pentagon</button>
+    </div>
+    <div class="feedback" id="sh-q1"></div>
+  </div>
+
+  <div class="question-block" data-section="shape">
+    <div class="q-header"><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Group: Circle with a white square inside. Triangle with a white square inside. Hexagon with a white square inside. Which answer is correct?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sh-q2','Wrong. A pentagon with a black square fails the shading rule — the inner square must be WHITE (unfilled), not black.')">A pentagon containing a black square</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'sh-q2','Correct! The inner shape is always a WHITE square, and the outer shape can be anything. An oval with a white square inside satisfies both rules.')">An oval containing a white square</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sh-q2','Wrong. A circle with a white triangle fails because the inner shape must be a SQUARE, not a triangle. The inner shape type is always constant in this group.')">A circle containing a white triangle</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sh-q2','Wrong. A square containing nothing fails the Amount rule — every group member has exactly 2 shapes: an outer AND an inner white square.')">A square containing nothing</button>
+    </div>
+    <div class="feedback" id="sh-q2"></div>
+  </div>
+
+  <div class="question-block" data-section="shape">
+    <div class="q-header"><span class="badge-developing">Developing</span></div>
+    <div class="q-text">Group: Large white circle, small black circle. Large white triangle, small black triangle. Large white square, small black square. Which answer belongs?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sh-q3','Wrong. This option has two shapes of different types (circle and triangle). The rule is that BOTH shapes must be the SAME type — a large white shape paired with a small black version of the SAME shape.')">Large white circle, small black triangle</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sh-q3','Wrong. This has the shading reversed — the large shape should be WHITE and the small shape should be BLACK, not the other way around.')">Large black pentagon, small white pentagon</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'sh-q3','Correct! Large white pentagon paired with small black pentagon. Rules: (1) two shapes of the same type, (2) large shape is white, (3) small shape is black. All three rules are satisfied.')">Large white pentagon, small black pentagon</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sh-q3','Wrong. Two white hexagons of the same size fails two rules: the sizes must differ (large + small), and the small shape must be BLACK, not white.')">Two white hexagons of the same size</button>
+    </div>
+    <div class="feedback" id="sh-q3"></div>
+  </div>
+
+  <div class="question-block" data-section="shape">
+    <div class="q-header"><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text">Group: Pentagon with a black dot OUTSIDE the shape (to the right). Hexagon with a black dot OUTSIDE the shape (to the right). Square with a black dot OUTSIDE the shape (to the right). Which answer belongs? (Twist: one option has the right shape type and dot count, but the dot is in the wrong place.)</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sh-q4','Wrong. The dot is inside the triangle, but the rule is that the dot is always OUTSIDE the shape and specifically to the RIGHT. Inside fails the position rule.')">Triangle with a black dot inside</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sh-q4','Wrong. The dot is to the LEFT, but the rule is specifically to the RIGHT. This is the classic positional trap — right amount, right shading, wrong position. Always check Position carefully!')">Octagon with a black dot to the LEFT</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'sh-q4','Correct! Circle with a black dot to the RIGHT. Rules: (1) any outer shape, (2) 1 black dot, (3) dot is OUTSIDE and to the RIGHT. All three rules pass.')">Circle with a black dot to the RIGHT</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sh-q4','Wrong. Two dots fail the Amount rule — every group member has exactly 1 dot, not 2.')">Triangle with two black dots to the right</button>
+    </div>
+    <div class="feedback" id="sh-q4"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ NUMBER ═══ -->
+<section class="section" id="sec-number">
+  <div class="section-title">
+    <div class="sec-icon">🔢</div>
+    Number / Amount Rules
+    <span class="section-complete" id="comp-number">✅</span>
+  </div>
+
+  <div class="card simple">
+    <div class="card-label">Simple Explanation</div>
+    <p>Count <strong>everything</strong> you can see: shapes, dots, lines, sides, stripes. Does the count ALWAYS stay the same? That's a rule! Check your count at least twice — rushing leads to counting errors.</p>
+    <div class="analogy">Think of it like counting people in a photo. If every photo in a series has exactly 3 people, then the answer photo must also have exactly 3 people — no more, no less.</div>
+  </div>
+
+  <div class="card full">
+    <div class="card-label">Full Explanation</div>
+    <p>Number rules cover:</p>
+    <ul style="margin-top:8px;">
+      <li><strong>Total shape count:</strong> Always 2, always 3, etc.</li>
+      <li><strong>Dot/mark count:</strong> Number of internal or external dots/circles.</li>
+      <li><strong>Side count:</strong> All shapes always have the same number of sides.</li>
+      <li><strong>Line count:</strong> Number of lines inside or outside a boundary.</li>
+      <li><strong>Element ratio:</strong> E.g., always twice as many dots as shapes.</li>
+    </ul>
+    <p style="margin-top:8px;"><strong>Overcounting trap:</strong> Students sometimes count internal AND external elements together incorrectly — e.g., counting dots inside AND dots outside as one total, when they follow separate rules.</p>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">Worked Example</div>
+    <p><strong>Group:</strong> Square with 3 dots inside. Pentagon with 3 dots inside. Circle with 3 dots inside.</p>
+    <div class="steps" style="margin-top:10px;">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Shape type:</strong> Square, Pentagon, Circle — varies. Not the rule.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Dot count:</strong> 3, 3, 3 — CONSTANT. Rule: always 3 dots inside.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Position of dots:</strong> Scattered inside each shape — no fixed position rule.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Answer:</strong> Any shape containing exactly 3 dots inside. A hexagon with 3 dots ✅. A hexagon with 4 dots ❌.</div></div>
+    </div>
+  </div>
+
+  <div class="card watchout">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <h3>The Overcounting Trap</h3>
+    <p>If a shape has 2 dots inside AND 1 dot outside, count them separately! The rules might be "always 2 inside, always 1 outside" — not "always 3 total." Treat internal and external elements as separate categories when checking Amount.</p>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">Harder Worked Example — Ratio Rule</div>
+    <p><strong>Group:</strong> 1 square, 2 dots. 1 triangle, 2 dots. 1 circle, 2 dots.</p>
+    <div class="steps" style="margin-top:10px;">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Shape count:</strong> Always 1 outer shape.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Dot count:</strong> Always exactly 2 dots.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Key insight:</strong> Shape type VARIES, dot count CONSTANT. The two rules are independent.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Trap answer:</strong> A pentagon with 5 dots looks tempting if you think "dots = sides" — but the rule is always 2 dots regardless of the shape's sides.</div></div>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+  <div class="section-progress" id="prog-number"></div>
+
+  <div class="question-block" data-section="number">
+    <div class="q-header"><span class="badge-starter">Starter</span></div>
+    <div class="q-text">A group shows: triangle with 2 dots, circle with 2 dots, square with 2 dots. How many dots must the answer have?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'nb-q1','Wrong. 3 dots would break the rule. Every group member has exactly 2 dots — the answer must also have exactly 2.')">3 dots</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'nb-q1','Correct! Every shape in the group has exactly 2 dots, so the answer must also have exactly 2 dots, regardless of what shape it is.')">2 dots</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'nb-q1','Wrong. 1 dot would break the rule. The number is always 2 — never more, never less.')">1 dot</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'nb-q1','Wrong. The number of dots does NOT depend on the number of sides. A circle has no sides but still has 2 dots. The rule is simply: always 2 dots.')">It depends on how many sides the shape has</button>
+    </div>
+    <div class="feedback" id="nb-q1"></div>
+  </div>
+
+  <div class="question-block" data-section="number">
+    <div class="q-header"><span class="badge-developing">Developing</span></div>
+    <div class="q-text">Group: Shape A has 1 dot inside and 2 dots outside. Shape B has 1 dot inside and 2 dots outside. Shape C has 1 dot inside and 2 dots outside. Which answer is correct?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'nb-q2','Wrong. This has 2 dots inside and 1 outside — both counts are reversed. The rule is specifically 1 INSIDE and 2 OUTSIDE, not the other way around.')">1 shape with 2 dots inside and 1 dot outside</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'nb-q2','Wrong. 3 total (1+2) does match the total count, but this option puts all 3 dots INSIDE. The inside and outside counts are separate rules — 1 inside AND 2 outside must both be correct.')">1 shape with 3 dots all inside</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'nb-q2','Correct! 1 dot inside and 2 dots outside matches both rules precisely. You must treat internal and external dot counts as separate rules.')">1 shape with 1 dot inside and 2 dots outside</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'nb-q2','Wrong. No dots at all fails both rules. Every group member has dots both inside AND outside the shape.')">1 shape with no dots</button>
+    </div>
+    <div class="feedback" id="nb-q2"></div>
+  </div>
+
+  <div class="question-block" data-section="number">
+    <div class="q-header"><span class="badge-secure">Secure</span></div>
+    <div class="q-text">Group: Pentagon (5 sides) with 5 dots. Hexagon (6 sides) with 6 dots. Heptagon (7 sides) with 7 dots. A student says the answer is "any shape with 7 dots." Are they right?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'nb-q3','Wrong — this analysis is backwards. The rule here IS about sides matching dots. The number of dots equals the number of sides. So the answer must have dots = sides of the chosen shape.')">Yes — 7 dots works because 7 was the last number seen.</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'nb-q3','Correct! The rule is "dots always equal the number of sides." A square with 4 dots would qualify. A triangle with 3 dots would qualify. The dot count is NOT fixed — it varies with the shape chosen.')">No — the rule is dots = number of sides, so the dot count must match the shape chosen.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'nb-q3','Wrong. There IS a number pattern here — dots equals sides. The sequence is clear: 5→5, 6→6, 7→7. This is a progression-style rule, not a fixed-count rule.')">No — there is no number rule at all, so any dot count works.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'nb-q3','Wrong. The dot count depends entirely on which shape you choose, not automatically 8. If you chose an octagon then yes, 8 dots. But if you chose a triangle, 3 dots would be correct.')">Yes — the next number in the pattern is 8, so 8 dots.</button>
+    </div>
+    <div class="feedback" id="nb-q3"></div>
+  </div>
+
+  <div class="question-block" data-section="number">
+    <div class="q-header"><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text">Group: Large shape (1 element) contains 2 small shapes, each containing 1 dot. Which option correctly follows ALL rules?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'nb-q4','Wrong. This has 3 small shapes, but the rule is exactly 2 small shapes inside the large one.')">Large shape containing 3 small shapes, each with 1 dot</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'nb-q4','Wrong. The 2 small shapes have no dots — but the rule requires each small shape to contain exactly 1 dot inside it. The dot count is part of the rule.')">Large shape containing 2 small shapes with no dots</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'nb-q4','Wrong. The dots are outside the small shapes — they should be INSIDE each small shape. Position of dots matters: inside the small shapes, which are inside the large shape.')">Large shape containing 2 small shapes, with 2 dots outside the small shapes</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'nb-q4','Correct! This satisfies all three rules: (1) exactly 2 small shapes inside the large shape, (2) each small shape contains exactly 1 dot inside it, (3) the three-layer structure is maintained.')">Large shape containing 2 small shapes, each of which contains 1 dot inside</button>
+    </div>
+    <div class="feedback" id="nb-q4"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ SHADING ═══ -->
+<section class="section" id="sec-shading">
+  <div class="section-title">
+    <div class="sec-icon">🎨</div>
+    Shading Rules
+    <span class="section-complete" id="comp-shading">✅</span>
+  </div>
+
+  <div class="card simple">
+    <div class="card-label">Simple Explanation</div>
+    <p>Is each shape filled in (black), empty (white), grey, or patterned (stripes/dots)? Sometimes ALL shapes have the same shading. Sometimes the OUTER shape is always white but the INNER shape is always black.</p>
+    <div class="analogy">Think of colouring-in: if every shape in the group has been coloured the same way, the answer must be coloured the same way too!</div>
+  </div>
+
+  <div class="card full">
+    <div class="card-label">Full Explanation</div>
+    <p>Shading rules cover:</p>
+    <ul style="margin-top:8px;">
+      <li><strong>Solid black (filled):</strong> Shape is entirely black.</li>
+      <li><strong>White/outline only:</strong> Shape has a border but is not filled.</li>
+      <li><strong>Grey/half-shaded:</strong> Shape is partially filled.</li>
+      <li><strong>Striped/hatched:</strong> Shape has diagonal lines inside.</li>
+      <li><strong>Shading contrast rule:</strong> E.g., outer shape always white, inner always black (or vice versa).</li>
+      <li><strong>Opposite shading:</strong> Large shape black → small shape white; always inverted.</li>
+    </ul>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">Worked Example — Contrast Rule</div>
+    <p><strong>Group:</strong> Black outer square, white inner circle. Black outer triangle, white inner circle. Black outer hexagon, white inner circle.</p>
+    <div class="steps" style="margin-top:10px;">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Outer shading:</strong> Black, Black, Black — constant. Rule: outer is always black.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Inner shading:</strong> White, White, White — constant. Rule: inner is always white.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Inner shape type:</strong> Circle, Circle, Circle — constant. Rule: inner is always a circle.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Answer:</strong> A black outer shape containing a white circle. ✅ Wrong: white outer with black circle ❌.</div></div>
+    </div>
+  </div>
+
+  <div class="card watchout">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <h3>The "Almost Correct" Shading Trap</h3>
+    <p>The most deceptive trap: an option that gets shape, number, and position right — but uses the WRONG shading. For example, the group uses black inner shapes, but a trap answer shows a grey inner shape. Grey and black look similar at a glance. Always name the exact shading out loud: "filled solid black" vs "grey" vs "striped."</p>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">Harder Worked Example — Opposite Shading</div>
+    <p><strong>Group:</strong> Large black shape, small white shape. The pair is always one black and one white of the same shape type.</p>
+    <div class="steps" style="margin-top:10px;">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Shading check:</strong> Large = black, Small = white. Rule: shading is always OPPOSITE between large and small.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Shape type:</strong> Both shapes must be the same type (both circles, or both triangles).</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Answer:</strong> A large black version + small white version of the same shape. E.g., large black pentagon + small white pentagon. ✅</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Trap:</strong> Large white + small black (shading rule reversed) ❌.</div></div>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+  <div class="section-progress" id="prog-shading"></div>
+
+  <div class="question-block" data-section="shading">
+    <div class="q-header"><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Every shape in a group is filled solid black. Which answer belongs in the group?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sd-q1','Wrong. A white (outline only) shape fails the shading rule — every group member is filled solid BLACK, not white.')">A white triangle</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sd-q1','Wrong. A striped circle has lines inside but is not fully black. The rule is solid black filling, not striped or partially filled.')">A striped circle</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'sd-q1','Correct! A black square is fully filled in solid black — it satisfies the shading rule perfectly. The shape type (square) does not matter as long as it is solid black.')">A solid black square</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sd-q1','Wrong. A grey pentagon is partially shaded, not fully black. Grey and black are different shadings — always check carefully.')">A grey pentagon</button>
+    </div>
+    <div class="feedback" id="sd-q1"></div>
+  </div>
+
+  <div class="question-block" data-section="shading">
+    <div class="q-header"><span class="badge-developing">Developing</span></div>
+    <div class="q-text">Group: Large white circle, small black circle. Large white square, small black square. Large white triangle, small black triangle. Which answer belongs?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'sd-q2','Correct! Large white hexagon + small black hexagon. Rules: (1) both shapes same type, (2) large = white, (3) small = black. All rules satisfied.')">Large white hexagon, small black hexagon</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sd-q2','Wrong. Both shapes being the same shading (both black) breaks the contrast rule. The rule is large = WHITE and small = BLACK — they must be opposite.')">Large black hexagon, small black hexagon</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sd-q2','Wrong. The shading is reversed — in this group, the LARGE shape is white and the SMALL shape is black, not the other way around.')">Large black hexagon, small white hexagon</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sd-q2','Wrong. Different shape types fails an additional rule — both shapes must be the SAME type (e.g., both hexagons, both circles). A circle + hexagon pair breaks the shape-match rule.')">Large white circle, small black hexagon</button>
+    </div>
+    <div class="feedback" id="sd-q2"></div>
+  </div>
+
+  <div class="question-block" data-section="shading">
+    <div class="q-header"><span class="badge-secure">Secure</span></div>
+    <div class="q-text">Group: Shape with striped outer, black inner. Shape with striped outer, black inner. Shape with striped outer, black inner. A student picks an answer with a white outer and a black inner. Is this correct?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sd-q3','Wrong. The outer shading rule is STRIPED — not white. White and striped are visually different. The student has missed the outer shading rule, which is a classic SPANS error.')">Yes — white and striped are basically the same (both unfilled).</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'sd-q3','Correct! Striped and white are NOT the same. The rule is striped outer + black inner. White outer fails the shading rule, even though the inner shading (black) is correct.')">No — the outer must be STRIPED, not white. White fails the shading rule.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sd-q3','Wrong. There IS a shading rule — the outer is always striped and the inner is always black. Both parts of the shading rule must be correct.')">Yes — shading doesn\'t matter, only shape type does.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sd-q3','Wrong. This answer ignores the outer shading entirely. The outer being white fails the rule, but the inner being black IS correct. The error is only with the outer shading.')">No — the inner shading is also wrong.</button>
+    </div>
+    <div class="feedback" id="sd-q3"></div>
+  </div>
+
+  <div class="question-block" data-section="shading">
+    <div class="q-header"><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text">Group: 3 shapes. Shape 1: black outer, white inner, 1 grey dot. Shape 2: black outer, white inner, 1 grey dot. Shape 3: black outer, white inner, 1 grey dot. Which answer is the trap?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sd-q4','This is actually the CORRECT answer — it satisfies all three shading rules: black outer, white inner, 1 grey dot. This is not the trap.')">Black outer, white inner, 1 grey dot</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'sd-q4','Correct — this IS the trap answer! Black outer and white inner are both correct, but the dot is BLACK not GREY. Students often miss the dot shading because they\'re focused on the main shapes. Always check every element\'s shading individually.')">Black outer, white inner, 1 BLACK dot — the dot colour is wrong!</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sd-q4','This is clearly wrong — the outer is white when it should be black. This is an obvious error, not a subtle trap. The real trap is harder to spot.')">White outer, white inner, 1 grey dot</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'sd-q4','This fails because there is no dot at all — but the trap question is about which option LOOKS almost right. No dot at all is obviously wrong, not a subtle trap.')">Black outer, white inner, no dot</button>
+    </div>
+    <div class="feedback" id="sd-q4"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ POSITION ═══ -->
+<section class="section" id="sec-position">
+  <div class="section-title">
+    <div class="sec-icon">📍</div>
+    Position Rules
+    <span class="section-complete" id="comp-position">✅</span>
+  </div>
+
+  <div class="card simple">
+    <div class="card-label">Simple Explanation</div>
+    <p>Where is the shape? Top-left? Centre? Bottom-right? Is there always a small dot in a corner? Does the big shape always sit on the right? Think of a <strong>3×3 grid</strong> inside the box — which cell is the shape always in?</p>
+    <div class="analogy">Imagine a 9-square grid like a noughts-and-crosses board. If the star is always in the TOP-LEFT square, then the answer must also have the star in the TOP-LEFT square.</div>
+  </div>
+
+  <div class="card full">
+    <div class="card-label">Full Explanation</div>
+    <p>Position rules cover:</p>
+    <ul style="margin-top:8px;">
+      <li><strong>Absolute position:</strong> Always top-left, always centre, etc.</li>
+      <li><strong>Relative position:</strong> Small shape is always above the large shape.</li>
+      <li><strong>Inside/outside:</strong> Dot always inside the boundary vs always outside.</li>
+      <li><strong>Edge/corner vs centre:</strong> "Element always touches a corner" or "element never touches the boundary."</li>
+      <li><strong>Alignment:</strong> Two shapes always aligned horizontally/vertically.</li>
+    </ul>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">Worked Example</div>
+    <p><strong>Group:</strong> Each box has a large shape on the LEFT and a small dot on the RIGHT.</p>
+    <div class="steps" style="margin-top:10px;">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Large shape position:</strong> Always LEFT. Constant rule.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Small dot position:</strong> Always RIGHT. Constant rule.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Answer:</strong> Any large shape on the left with a small dot on the right. ✅</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Trap:</strong> Large shape on the right with dot on the left — looks the same but is mirrored ❌.</div></div>
+    </div>
+  </div>
+
+  <div class="card watchout">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <h3>The Mirror Trap</h3>
+    <p>A trap answer will place elements in the correct position but MIRRORED (left-right flipped or top-bottom flipped). Always state the exact position: "dot is in the BOTTOM-RIGHT corner" — not just "dot is in a corner." Top-right ≠ bottom-right.</p>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">Harder Worked Example — Inside/Outside</div>
+    <p><strong>Group:</strong> Pentagon → dot is outside to the right. Hexagon → dot is outside to the right. Circle → dot is outside to the right.</p>
+    <div class="steps" style="margin-top:10px;">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Dot position:</strong> Outside, to the right in all cases. Clear rule.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Shape type:</strong> Changes — not the rule.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Trap:</strong> A square with a dot INSIDE the square — correct shape type, wrong position ❌.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Answer:</strong> Any shape with a dot OUTSIDE to the RIGHT ✅.</div></div>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+  <div class="section-progress" id="prog-position"></div>
+
+  <div class="question-block" data-section="position">
+    <div class="q-header"><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Every shape in the group has a small black dot in the TOP-LEFT corner. Which answer belongs?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ps-q1','Wrong. Bottom-right is the opposite corner from top-left. The position rule is very specific — top-left only.')">A square with a dot in the BOTTOM-RIGHT corner</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'ps-q1','Correct! A circle with a dot in the TOP-LEFT corner satisfies the position rule. The shape type does not matter — only the dot position.')">A circle with a dot in the TOP-LEFT corner</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ps-q1','Wrong. Centre is not the same as top-left. Even though the dot is still inside the box, it is in the wrong position.')">A triangle with a dot in the CENTRE</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ps-q1','Wrong. Top-right is next to top-left but it is a different corner. The rule specifies TOP-LEFT exactly — not just "top somewhere".')">A pentagon with a dot in the TOP-RIGHT corner</button>
+    </div>
+    <div class="feedback" id="ps-q1"></div>
+  </div>
+
+  <div class="question-block" data-section="position">
+    <div class="q-header"><span class="badge-developing">Developing</span></div>
+    <div class="q-text">Group: Each image has a large shape on the LEFT side and a small star on the RIGHT side. Which answer is the positional trap?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ps-q2','This is the CORRECT answer — large shape on left, small star on right. This correctly follows the position rule.')">Large pentagon on the left, small star on the right</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'ps-q2','Correct — this IS the trap! The star is on the left and the shape is on the right — a mirror image. This looks similar at a glance but completely reverses the position rule.')">Large pentagon on the RIGHT, small star on the LEFT — mirrored!</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ps-q2','This option has no star at all — it obviously breaks the rule. The trap answer is more subtle than this.')">Large pentagon on the left, no star</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ps-q2','This breaks the rule because both elements are on the same side. The rule requires the large shape LEFT and the star RIGHT — they must be on opposite sides.')">Large pentagon and small star both on the left</button>
+    </div>
+    <div class="feedback" id="ps-q2"></div>
+  </div>
+
+  <div class="question-block" data-section="position">
+    <div class="q-header"><span class="badge-secure">Secure</span></div>
+    <div class="q-text">Group: Each image has a small triangle always OUTSIDE the large shape, touching its bottom edge. Which answer satisfies this rule?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ps-q3','Wrong. The triangle is inside the shape — but the rule is that it must be OUTSIDE, touching the bottom edge. Inside fails the inside/outside position rule.')">Large circle with a small triangle INSIDE it, at the bottom</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ps-q3','Wrong. The triangle is outside but touching the TOP edge — not the bottom edge. Top and bottom are opposite positions; this fails the specific edge rule.')">Large circle with a small triangle outside, touching the TOP edge</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'ps-q3','Correct! The triangle is outside the circle and touches the bottom edge. Both parts of the position rule are satisfied: (1) outside and (2) bottom edge.')">Large circle with a small triangle OUTSIDE, touching the BOTTOM edge</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ps-q3','Wrong. The triangle is floating in space — it doesn\'t touch the shape at all. The rule specifies that the triangle must be touching the bottom edge of the large shape.')">Large circle with a small triangle floating far below it</button>
+    </div>
+    <div class="feedback" id="ps-q3"></div>
+  </div>
+
+  <div class="question-block" data-section="position">
+    <div class="q-header"><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text">Group: 3 shapes each contain a dot. In shape 1, the dot is top-left. In shape 2, the dot is top-left. In shape 3, the dot is top-left. A student picks: "large hexagon, dot inside at top-left, with an extra small arrow at bottom-right." Does this satisfy ALL position rules?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ps-q4','Wrong. While the dot position is correct (top-left), the extra arrow at bottom-right introduces a NEW element that is not present in the group. This fails because the answer must match ALL properties of the group — including Amount.')">Yes — the dot is in the top-left, which is all that matters.</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'ps-q4','Correct! The extra arrow is an additional element not found in the group. Every group member has exactly 1 dot — no arrow. Adding a new element breaks the Amount rule, even if the dot position is correct.')">No — the extra arrow breaks the Amount rule (group has 1 element, not 2).</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ps-q4','Wrong. The dot position IS correct — the error is the extra arrow, not the dot position. Always check Amount FIRST to catch extra elements.')">No — the dot is in the wrong position.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ps-q4','Wrong. The hexagon shape type is not the problem — shape type varies in the group. The problem is the extra arrow that adds an element not present in any group member.')">No — hexagons are not in the group, so the shape type is wrong.</button>
+    </div>
+    <div class="feedback" id="ps-q4"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ ROTATION ═══ -->
+<section class="section" id="sec-rotation">
+  <div class="section-title">
+    <div class="sec-icon">🔄</div>
+    Rotation &amp; Reflection Rules
+    <span class="section-complete" id="comp-rotation">✅</span>
+  </div>
+
+  <div class="card simple">
+    <div class="card-label">Simple Explanation</div>
+    <p>Some shapes look different because they've been <strong>spun around</strong> (rotated) or <strong>flipped</strong> (reflected like in a mirror). An arrow pointing up, right, down, left — it's the same arrow, just turned! Look past the direction and check: is it the same shape?</p>
+    <div class="analogy">Think of a clock hand. At 12 o'clock it points up. At 3 o'clock it points right. It's still the same hand — it's just been rotated 90 degrees each time!</div>
+  </div>
+
+  <div class="card full">
+    <div class="card-label">Full Explanation</div>
+    <p>Rotation and reflection rules cover:</p>
+    <ul style="margin-top:8px;">
+      <li><strong>Rotation sequences:</strong> Shape rotates by a fixed amount each step (90°, 45°, etc.).</li>
+      <li><strong>Consistent orientation:</strong> All group members show the shape at the same angle.</li>
+      <li><strong>Reflection/mirror:</strong> Shape is flipped horizontally or vertically.</li>
+      <li><strong>Orientation illusion:</strong> Same shape rotated looks "different" — students reject it incorrectly.</li>
+      <li><strong>Rotation + shading:</strong> Shape rotates AND shading changes together (compound rule).</li>
+    </ul>
+    <p style="margin-top:8px;"><strong>Key insight:</strong> When checking for rotation, mentally hold the shape and spin it — does it become a group member? If yes, it might be correct.</p>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">Worked Example — Rotation Rule</div>
+    <p><strong>Group:</strong> Box 1: square with arrow pointing UP. Box 2: square with arrow pointing RIGHT. Box 3: square with arrow pointing DOWN.</p>
+    <div class="steps" style="margin-top:10px;">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Shape type:</strong> Always a square + an arrow. ✓</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Shading:</strong> Square is always white, arrow is always black. ✓</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Rotation pattern:</strong> UP → RIGHT → DOWN. Each step is +90° clockwise. So the next is LEFT.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Answer:</strong> White square with black arrow pointing LEFT. ✅</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Trap:</strong> Arrow pointing UP again (students think it "resets") ❌. Or arrow pointing RIGHT (students miss the pattern) ❌.</div></div>
+    </div>
+  </div>
+
+  <div class="card watchout">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <h3>The Orientation Illusion</h3>
+    <p>Students often reject a rotated shape because it "looks different." An L-shape rotated 90° looks like a backwards J — but it IS the same L-shape, just rotated. Don't let rotation fool you into thinking it's a different shape. Always ask: "If I rotated this, would it look like the other group members?"</p>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">Harder Worked Example — Rotation + Shading Combined</div>
+    <p><strong>Group:</strong> Box 1: black triangle pointing UP. Box 2: white triangle pointing RIGHT. Box 3: black triangle pointing DOWN.</p>
+    <div class="steps" style="margin-top:10px;">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Shape:</strong> Always a triangle.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Rotation:</strong> UP → RIGHT → DOWN → ? = LEFT (90° clockwise each time).</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Shading:</strong> Black → White → Black → ? = WHITE (alternating).</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Compound rule!</strong> Two rules working together: rotation AND alternating shading.</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Answer:</strong> WHITE triangle pointing LEFT. ✅ Trap: black triangle pointing left ❌ (right rotation, wrong shading).</div></div>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+  <div class="section-progress" id="prog-rotation"></div>
+
+  <div class="question-block" data-section="rotation">
+    <div class="q-header"><span class="badge-starter">Starter</span></div>
+    <div class="q-text">An arrow points UP in every shape in the group. Which answer is correct?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ro-q1','Wrong. An arrow pointing DOWN is a 180° rotation from UP — it breaks the orientation rule. Every group member points UP.')">An arrow pointing DOWN</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'ro-q1','Correct! The group rule is that arrows always point UP. The answer must also have the arrow pointing UP.')">An arrow pointing UP</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ro-q1','Wrong. An arrow pointing LEFT is rotated 90° from the group direction. The rule is consistent orientation — all arrows point UP.')">An arrow pointing LEFT</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ro-q1','Wrong. An arrow pointing RIGHT is 90° from UP. While it is the same arrow shape, its direction breaks the orientation rule in this group.')">An arrow pointing RIGHT</button>
+    </div>
+    <div class="feedback" id="ro-q1"></div>
+  </div>
+
+  <div class="question-block" data-section="rotation">
+    <div class="q-header"><span class="badge-developing">Developing</span></div>
+    <div class="q-text">Group follows a clockwise rotation: Box 1 = arrow pointing UP. Box 2 = arrow pointing RIGHT. Box 3 = arrow pointing DOWN. Box 4 = ?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ro-q2','Wrong. UP was the starting position (Box 1). The pattern does not reset — it continues rotating clockwise. After DOWN, the next clockwise step is LEFT.')">Arrow pointing UP (resets to start)</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ro-q2','Wrong. RIGHT was Box 2. The sequence is UP → RIGHT → DOWN → LEFT, not repeating RIGHT again.')">Arrow pointing RIGHT</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'ro-q2','Correct! The pattern is clockwise rotation: UP → RIGHT → DOWN → LEFT. After DOWN, the next step is LEFT. Well spotted!')">Arrow pointing LEFT</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ro-q2','Wrong. DOWN was Box 3. The sequence continues clockwise past DOWN — the next step after DOWN is LEFT.')">Arrow pointing DOWN</button>
+    </div>
+    <div class="feedback" id="ro-q2"></div>
+  </div>
+
+  <div class="question-block" data-section="rotation">
+    <div class="q-header"><span class="badge-secure">Secure</span></div>
+    <div class="q-text">Group: Box 1 = black triangle pointing right. Box 2 = white triangle pointing down. Box 3 = black triangle pointing left. Box 4 = ?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ro-q3','Wrong. A black triangle pointing up only gets the rotation right but fails the shading rule. The shading alternates: black→white→black→WHITE. Box 4 must be WHITE.')">Black triangle pointing up</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'ro-q3','Correct! Two rules: (1) Clockwise rotation: right→down→left→UP. (2) Alternating shading: black→white→black→WHITE. Box 4 is a white triangle pointing up.')">White triangle pointing up</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ro-q3','Wrong. The direction is not right — after left, the clockwise next step is UP, not right. Also, white is correct for the shading, but the direction fails.')">White triangle pointing right</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ro-q3','Wrong. Both the direction AND shading are wrong. After left (Box 3), the next step is UP. And shading must be white (the alternating pattern is black-white-black-white).')">Black triangle pointing down</button>
+    </div>
+    <div class="feedback" id="ro-q3"></div>
+  </div>
+
+  <div class="question-block" data-section="rotation">
+    <div class="q-header"><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text">Group: Square containing a BLACK triangle pointing UP. Square containing a BLACK triangle pointing RIGHT. Square containing a BLACK triangle pointing DOWN. Which is the TRAP answer for Box 4?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ro-q4','This IS the correct answer — white square, black triangle pointing LEFT. The outer square stays white, the inner triangle rotates clockwise to LEFT and stays black.')">White square with black triangle pointing LEFT</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'ro-q4','Correct — this IS the trap! The direction (left) is right, but the triangle is WHITE instead of BLACK. Students who spot the rotation but forget to check shading will pick this. Always check shading on inner shapes too!')">White square with WHITE triangle pointing LEFT — direction right, shading wrong!</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ro-q4','This is obviously wrong — there is no inner shape. The trap is more subtle than a completely missing element.')">White square with no triangle inside</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ro-q4','This is clearly wrong — both direction and shading fail. The trap is designed to look ALMOST right, unlike this option which fails on two obvious counts.')">White square with white triangle pointing UP</button>
+    </div>
+    <div class="feedback" id="ro-q4"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ LINES ═══ -->
+<section class="section" id="sec-lines">
+  <div class="section-title">
+    <div class="sec-icon">📏</div>
+    Line Relationship Rules
+    <span class="section-complete" id="comp-lines">✅</span>
+  </div>
+
+  <div class="card simple">
+    <div class="card-label">Simple Explanation</div>
+    <p>Sometimes the rule is about <strong>lines</strong> — not shapes. Do the lines always cross? Do they always run side-by-side (parallel)? Do they always touch the edge of the box — or never touch it?</p>
+    <div class="analogy">Think of train tracks. Parallel tracks never cross. But some roads cross each other at junctions. Check: do the lines cross, run alongside each other, or touch the walls of the box?</div>
+  </div>
+
+  <div class="card full">
+    <div class="card-label">Full Explanation</div>
+    <p>Line rules include:</p>
+    <ul style="margin-top:8px;">
+      <li><strong>Parallel lines:</strong> Two or more lines always run in the same direction without meeting.</li>
+      <li><strong>Intersecting lines:</strong> Lines always cross each other.</li>
+      <li><strong>Line count:</strong> Always 2 lines, always 3 lines, etc.</li>
+      <li><strong>Touching boundary:</strong> Lines always touch the edge — or lines never touch the edge.</li>
+      <li><strong>Line type:</strong> Always straight, always curved, always dashed.</li>
+      <li><strong>Meeting point:</strong> Lines always meet at the centre — or always meet at a corner.</li>
+    </ul>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">Worked Example — Parallel Lines</div>
+    <p><strong>Group:</strong> Box 1: two horizontal parallel lines. Box 2: two diagonal parallel lines. Box 3: two vertical parallel lines.</p>
+    <div class="steps" style="margin-top:10px;">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Line count:</strong> Always exactly 2 lines.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Relationship:</strong> Always parallel (never cross). Constant rule.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Direction:</strong> Varies (horizontal, diagonal, vertical). NOT the rule.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Answer:</strong> Any 2 parallel lines, regardless of direction. ✅ Two crossing lines ❌.</div></div>
+    </div>
+  </div>
+
+  <div class="card watchout">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <h3>Near-Miss Line Traps</h3>
+    <p>Two lines that are almost parallel but angle slightly toward each other may look parallel at a glance. Similarly, "lines meet at the edge" and "lines touch the corner" are different rules. Read line positions very precisely.</p>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">Harder Worked Example — Boundary Rule</div>
+    <p><strong>Group:</strong> Every box has lines that start at the boundary edges but never intersect each other inside the box.</p>
+    <div class="steps" style="margin-top:10px;">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Rule 1:</strong> Lines always touch the boundary (edge of the box).</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Rule 2:</strong> Lines inside the box never cross each other.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Answer:</strong> Lines touching edges, not crossing inside ✅. Lines floating in middle ❌. Lines crossing inside ❌.</div></div>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+  <div class="section-progress" id="prog-lines"></div>
+
+  <div class="question-block" data-section="lines">
+    <div class="q-header"><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Every group member shows exactly 2 parallel horizontal lines. Which answer is correct?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ln-q1','Wrong. Three lines fails the count rule — the group always has exactly 2 lines, not 3.')">3 parallel horizontal lines</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ln-q1','Wrong. Crossing lines are NOT parallel — parallel lines never meet. This fails the relationship rule entirely.')">2 lines that cross (form an X)</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'ln-q1','Correct! Exactly 2 parallel horizontal lines — matches both the count (2) and the relationship (parallel) rules.')">2 parallel horizontal lines</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ln-q1','Wrong. 1 line fails the count rule — the group always has exactly 2 lines.')">1 horizontal line</button>
+    </div>
+    <div class="feedback" id="ln-q1"></div>
+  </div>
+
+  <div class="question-block" data-section="lines">
+    <div class="q-header"><span class="badge-developing">Developing</span></div>
+    <div class="q-text">Group: Lines always intersect exactly once in the centre of the box. Which answer breaks this rule?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ln-q2','This is actually correct — one intersection in the centre satisfies both rules. This does not break the rule.')">Two straight lines crossing once in the centre</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'ln-q2','Correct — this breaks the rule! The lines cross in the CORNER, not the centre. The rule specifies the intersection must be at the CENTRE of the box.')">Two lines crossing once, but in the corner of the box</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ln-q2','This is correct — diagonal lines crossing in the centre still satisfies both rules (one intersection, at the centre). Line direction does not matter.')">Two diagonal lines crossing once in the centre</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ln-q2','This is correct — one horizontal and one vertical line cross once in the centre. The rule says nothing about the lines needing to be the same direction.')">One horizontal and one vertical line crossing in the centre</button>
+    </div>
+    <div class="feedback" id="ln-q2"></div>
+  </div>
+
+  <div class="question-block" data-section="lines">
+    <div class="q-header"><span class="badge-secure">Secure</span></div>
+    <div class="q-text">Group: Every image has lines that touch at least one edge of the box AND are always straight (not curved). Which answer fails?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ln-q3','This passes both rules — the lines are straight AND touch an edge. This is a correct answer.')">Two straight diagonal lines touching opposite edges</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'ln-q3','Correct — this fails! Curved lines break the "always straight" rule, even though they touch the edges. Line type (straight vs curved) is part of the Nature check in SPANS.')">Two curved lines touching the edges</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ln-q3','This passes both rules — straight lines, touching an edge. Three lines is fine as long as line COUNT is not restricted.')">Three straight lines, all touching edges</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ln-q3','This passes — straight horizontal lines touching left and right edges. Both rules satisfied.')">Two straight horizontal lines touching left and right edges</button>
+    </div>
+    <div class="feedback" id="ln-q3"></div>
+  </div>
+
+  <div class="question-block" data-section="lines">
+    <div class="q-header"><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text">Group: Each box has exactly 3 straight lines. All 3 lines always meet at a SINGLE point (not all crossing in pairs). Which is the correct answer?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ln-q4','Wrong. If 3 lines cross in pairs, they create up to 3 intersection points — but the rule says all 3 must meet at ONE single point. Three pairwise crossings breaks this rule.')">3 lines that cross each other in pairs (3 intersection points)</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'ln-q4','Correct! Three straight lines all meeting at a single point (like a Y-shape or asterisk) satisfies both rules: exactly 3 lines AND they all share one meeting point.')">3 lines all meeting at a single shared point (like a Y-shape)</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ln-q4','Wrong. Two parallel lines never meet — so they cannot share a meeting point with the third line. This creates at most 2 intersections, not a single shared point for all 3.')">2 parallel lines and 1 crossing line</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'ln-q4','Wrong. 4 lines fails the count rule — the group always has exactly 3 lines, not 4.')">4 lines all meeting at a single point</button>
+    </div>
+    <div class="feedback" id="ln-q4"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ CONDITIONAL ═══ -->
+<section class="section" id="sec-conditional">
+  <div class="section-title">
+    <div class="sec-icon">🔀</div>
+    Conditional &amp; Negative Rules
+    <span class="section-complete" id="comp-conditional">✅</span>
+  </div>
+
+  <div class="card simple">
+    <div class="card-label">Simple Explanation</div>
+    <p>Some rules only apply <strong>IF</strong> something else is true. Like: "IF the outer shape is a triangle, the dot is INSIDE. IF the outer shape is a circle, the dot is OUTSIDE." You have to learn both parts of the rule!</p>
+    <div class="analogy">Like a secret password that changes depending on who you are. If you're wearing a red badge, the password is "apple." If you're wearing a blue badge, the password is "banana." Both rules exist at the same time.</div>
+  </div>
+
+  <div class="card full">
+    <div class="card-label">Full Explanation</div>
+    <p>Conditional and negative rules include:</p>
+    <ul style="margin-top:8px;">
+      <li><strong>Conditional pairing:</strong> "If outer = circle → inner = triangle." "If outer = square → inner = circle."</li>
+      <li><strong>Negative rules:</strong> "No shapes touch." "No lines cross." "No element reaches the boundary."</li>
+      <li><strong>Hidden constraint:</strong> Only ONE element changes between group members; everything else is fixed.</li>
+      <li><strong>Symmetry-breaking:</strong> Shapes look symmetrical but have one tiny deliberate violation (e.g., one dot missing).</li>
+    </ul>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">Worked Example — Conditional Pairing</div>
+    <p><strong>Group:</strong> Triangle → dot inside. Circle → dot outside. Square → dot inside. Hexagon → dot outside.</p>
+    <div class="steps" style="margin-top:10px;">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Pattern:</strong> Triangle: inside. Circle: outside. Square: inside. Hexagon: outside.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Rule discovered:</strong> Polygons with an ODD number of sides → dot inside. Shapes with EVEN sides (or curves) → dot outside.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Test:</strong> Pentagon (5 sides = odd) → dot inside. Octagon (8 sides = even) → dot outside.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Answer:</strong> Match the conditional rule to the shape given in the answer options. ✅</div></div>
+    </div>
+  </div>
+
+  <div class="card watchout">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <h3>The "Hidden Constraint" Trap</h3>
+    <p>In some groups, ONLY ONE element changes between members — everything else is identical. Students who only notice the changing element often pick wrong answers because they ignore the fixed elements. Always ask: "What is STAYING THE SAME across all members?"</p>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">Harder Worked Example — Negative Rule</div>
+    <p><strong>Group:</strong> Multiple shapes in each box, but shapes NEVER touch each other. They are always separated by a gap.</p>
+    <div class="steps" style="margin-top:10px;">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Positive rule:</strong> Multiple shapes are always present.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Negative rule:</strong> No two shapes ever touch each other.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Trap answer:</strong> Correct shapes and shadings, but two shapes are touching ❌.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Answer:</strong> Same shapes with clear gaps between all of them ✅.</div></div>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+  <div class="section-progress" id="prog-conditional"></div>
+
+  <div class="question-block" data-section="conditional">
+    <div class="q-header"><span class="badge-starter">Starter</span></div>
+    <div class="q-text">Rule: "If the shape is a triangle, the dot is BLACK. If the shape is a circle, the dot is WHITE." A circle is shown. What colour is the dot?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'cd-q1','Wrong. Black dots go with triangles, not circles. The conditional rule specifies: circle → white dot. You must match the shape to its correct paired rule.')">Black</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'cd-q1','Correct! The conditional rule states: if the shape is a circle, the dot is WHITE. The circle → white dot pairing is the rule. Well done for reading both conditions!')">White</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'cd-q1','Wrong. Grey is not specified in either condition. The rule only gives two options: black (for triangles) and white (for circles). No grey option exists.')">Grey</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'cd-q1','Wrong. The conditional rule tells us exactly what to expect. With a circle, the dot colour IS known — it is white. There is no ambiguity.')">It could be any colour — we cannot tell.</button>
+    </div>
+    <div class="feedback" id="cd-q1"></div>
+  </div>
+
+  <div class="question-block" data-section="conditional">
+    <div class="q-header"><span class="badge-developing">Developing</span></div>
+    <div class="q-text">Negative rule: "No shapes in the group ever touch each other." An answer option shows correct shapes with the right shading, but two shapes are touching. Should you choose it?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'cd-q2','Wrong. The negative rule "no shapes touch" is just as important as any positive rule. Breaking it disqualifies the answer, even if shape type and shading are both correct.')">Yes — shape type and shading are both correct, so it qualifies.</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'cd-q2','Correct! A negative rule ("no shapes touch") must be respected just like any positive rule. If two shapes are touching, this answer fails the negative rule and cannot be correct.')">No — the negative rule is broken. Two shapes touching disqualifies this answer.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'cd-q2','Wrong. Negative rules are rules — they are not optional or less important than positive rules. Breaking ANY rule eliminates an answer.')">Yes — negative rules are less important than positive rules.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'cd-q2','Wrong. "Close together" is different from "touching." The rule says no shapes touch — if they are touching, this answer is wrong regardless of how small the overlap is.')">Yes — they are only touching slightly, which probably does not count.</button>
+    </div>
+    <div class="feedback" id="cd-q2"></div>
+  </div>
+
+  <div class="question-block" data-section="conditional">
+    <div class="q-header"><span class="badge-secure">Secure</span></div>
+    <div class="q-text">Group: Pentagon + black dot inside. Triangle + black dot inside. Hexagon + black dot OUTSIDE. Octagon + black dot OUTSIDE. The hidden rule is: odd sides → dot inside; even sides → dot outside. A square (4 sides) is shown. Where should the dot be?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'cd-q3','Wrong. Inside goes with ODD-sided shapes. A square has 4 sides (even), so the dot must be OUTSIDE, not inside.')">Inside the square</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'cd-q3','Correct! A square has 4 sides (even number). The rule is even sides → dot OUTSIDE. So the dot must appear outside the square.')">Outside the square</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'cd-q3','Wrong. The dot exists in every group member — removing it entirely fails the Amount rule. The conditional rule only tells you WHERE the dot goes, not whether it exists.')">No dot — squares have no dot.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'cd-q3','Wrong. A square is a well-defined shape (4 sides), so the conditional rule applies clearly. Even sides → outside. There is no ambiguity for a square.')">It cannot be determined — squares are ambiguous.</button>
+    </div>
+    <div class="feedback" id="cd-q3"></div>
+  </div>
+
+  <div class="question-block" data-section="conditional">
+    <div class="q-header"><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text">Group: All shapes look symmetrical, but hidden rule: exactly ONE shape in each box is slightly different (e.g., one side is slightly longer). In the answer options, which type of answer is the TRAP?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'cd-q4','Wrong. An obviously wrong shape (e.g., wrong number of sides) is easy to eliminate — it\'s not the trap. The trap is more subtle than a clearly wrong shape.')">An option with the completely wrong shape type</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'cd-q4','Correct! The trap is an option where ALL shapes are perfectly symmetrical. This looks "neater" and more appealing — but the rule requires exactly one element to differ subtly. A perfectly symmetrical set actually BREAKS the hidden rule.')">An option where ALL shapes are perfectly symmetrical — too neat!</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'cd-q4','Wrong. An option with the wrong shading is relatively easy to spot during a careful SPANS check. The trap in this type of question is more structural — it\'s about the symmetry rule itself.')">An option with the wrong shading</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'cd-q4','Wrong. The wrong number of shapes is detectable with the Amount check. The subtle trap here exploits the hidden symmetry rule, which is harder to detect.')">An option with the wrong number of shapes</button>
+    </div>
+    <div class="feedback" id="cd-q4"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ TRAPS ═══ -->
+<section class="section" id="sec-traps">
+  <div class="section-title">
+    <div class="sec-icon">⚠️</div>
+    Common Traps &amp; Misconceptions
+    <span class="section-complete" id="comp-traps">✅</span>
+  </div>
+
+  <div class="card simple">
+    <div class="card-label">Simple Explanation — Know Your Enemies</div>
+    <p>GL examiners are clever. They design wrong answers that look <strong>almost right</strong>. Learning these traps in advance means you won't fall for them under pressure!</p>
+  </div>
+
+  <div class="card full" style="border-left-color:var(--orange);">
+    <div class="card-label">The 5 Classic GL Traps</div>
+    <ul style="margin-top:8px;">
+      <li style="margin-bottom:12px;"><strong>1. The 4/5 Rule Trap:</strong> An answer passes 4 out of 5 rules but fails one. It looks almost perfect. Only a full SPANS scan catches it.</li>
+      <li style="margin-bottom:12px;"><strong>2. The Orientation Illusion:</strong> Same shape, rotated — students reject it thinking it's a different shape. Always mentally spin the shape before deciding.</li>
+      <li style="margin-bottom:12px;"><strong>3. The Overcounting Trap:</strong> Students count internal + external elements together. They follow separate rules.</li>
+      <li style="margin-bottom:12px;"><strong>4. The Visual Bias Trap:</strong> A larger or bolder shape distracts the eye. Students focus on the big obvious shape and miss a small rule (e.g., a tiny dot in the corner).</li>
+      <li style="margin-bottom:12px;"><strong>5. The Mirror Trap:</strong> Correct elements, but mirrored (left↔right or top↔bottom). "Top-right corner" and "top-left corner" look similar under time pressure.</li>
+    </ul>
+  </div>
+
+  <hr class="divider"/>
+  <div class="section-progress" id="prog-traps"></div>
+
+  <div class="question-block" data-section="traps">
+    <div class="q-header"><span class="badge-secure">Secure</span></div>
+    <div class="q-text">An answer passes the Shape, Amount, Shading, and Nature checks — but the small dot is in the top-RIGHT corner instead of the top-LEFT corner. Should you choose it?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'tr-q1','Wrong. This is exactly the 4/5 Rule Trap. Passing 4 checks is NOT enough — all 5 must pass. The Position rule is broken here.')">Yes — passing 4 out of 5 checks is good enough.</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'tr-q1','Correct! This is the classic 4/5 Rule Trap. The answer fails Position — the dot is in the wrong corner. Every single rule must pass. Four is not enough.')">No — this is the 4/5 Rule Trap. Position fails, so this answer is wrong.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'tr-q1','Wrong. Position IS important — it is one of the 5 SPANS checks. A dot in the wrong corner breaks a position rule, which disqualifies this answer.')">Yes — the dot position is a minor detail and probably doesn\'t count.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'tr-q1','Wrong. You would not guess between it and another — you know this answer fails Position. Eliminate it and choose the option that passes ALL 5 checks.')">Maybe — guess between it and one other option.</button>
+    </div>
+    <div class="feedback" id="tr-q1"></div>
+  </div>
+
+  <div class="question-block" data-section="traps">
+    <div class="q-header"><span class="badge-secure">Secure</span></div>
+    <div class="q-text">A large black triangle dominates the image. There is also a tiny white dot in the bottom-left corner, present in EVERY group member. A student misses the dot and picks an answer with just a large black triangle. What trap did they fall into?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'tr-q2','Wrong. An orientation illusion is about a rotated shape looking different. The error here is about missing a small element entirely — not about rotation.')">The Orientation Illusion</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'tr-q2','Wrong. Overcounting is about counting elements incorrectly (too many). Here the student UNDERCOUNTED by missing the dot entirely. The trap name is different.')">The Overcounting Trap</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'tr-q2','Correct! The Visual Bias Trap. The large black triangle drew all the attention, causing the student to miss the small white dot. Always scan ALL areas of the image, not just the most obvious element.')">The Visual Bias Trap</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'tr-q2','Wrong. The Mirror Trap involves elements in the right position but mirrored. Here the student missed the dot completely — not confused it with a mirrored version.')">The Mirror Trap</button>
+    </div>
+    <div class="feedback" id="tr-q2"></div>
+  </div>
+
+  <div class="question-block" data-section="traps">
+    <div class="q-header"><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text">Group: Each box has 2 dots INSIDE the shape and 1 dot OUTSIDE. A student counts 3 dots total and thinks "always 3 dots." They pick an answer with 3 dots all INSIDE. What went wrong?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'tr-q3','Wrong. Orientation is about rotation/flipping. This error is about counting — mixing up internal and external dot counts.')">They fell for the Orientation Illusion — they confused the direction of the dots.</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'tr-q3','Correct! The Overcounting Trap. The student combined internal and external dots into one total (3). But the rule is actually TWO separate rules: 2 dots INSIDE and 1 dot OUTSIDE. They must always be tracked separately.')">They fell for the Overcounting Trap — combining inside and outside dots hides two separate rules.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'tr-q3','Wrong. The 4/5 Rule Trap is about passing most SPANS checks but failing one. Here the student made a counting error, not a scanning completeness error.')">They fell for the 4/5 Rule Trap — they stopped SPANS scanning too early.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'tr-q3','Wrong. The Mirror Trap is about left-right or top-bottom flipping. The error here is combining two separate dot counts, which is the Overcounting Trap.')">They fell for the Mirror Trap — they mirrored the dot positions.</button>
+    </div>
+    <div class="feedback" id="tr-q3"></div>
+  </div>
+
+  <div class="question-block" data-section="traps">
+    <div class="q-header"><span class="badge-mastery">Mastery</span></div>
+    <div class="q-text">You have 30 seconds left and 2 answer options remain. Option A passes 5/5 rules but looks "unusual." Option B passes 4/5 rules but looks "neater and more obvious." What should you do?</div>
+    <div class="options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'tr-q4','Wrong. "Neater" and "more obvious" are not valid criteria for a correct answer. Option B has been shown to fail a rule — it cannot be correct regardless of how it looks.')">Choose Option B — it looks more like the group.</button>
+      <button class="opt-btn" data-correct="true"  onclick="handleMCQ(this,'tr-q4','Correct! Always trust your SPANS analysis over visual intuition. If Option A passes all 5 rules, it is the correct answer. GL examiners deliberately make correct answers look "unusual" to trick students who rely on gut feeling.')">Choose Option A — it passes all 5 rules, regardless of how it looks.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'tr-q4','Wrong. Your analysis is complete — Option A passes all rules and Option B fails one. There is no reason to guess. Trust your SPANS work.')">Guess randomly — 50/50 chance either way.</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this,'tr-q4','Wrong. There IS time to choose — simply pick Option A, which passes all rules. Skip to the next question after marking your answer. Don\'t abandon a question with 30 seconds left.')">Leave it blank and move on — no time left.</button>
+    </div>
+    <div class="feedback" id="tr-q4"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ FINAL TEST ═══ -->
+<section class="section" id="sec-test">
+  <div class="section-title">
+    <div class="sec-icon">🏆</div>
+    Mastery Test — 15 Questions (Timed)
+  </div>
+
+  <div id="final-test">
+    <div class="test-header">
+      <div>
+        <h3>Timed Mastery Test</h3>
+        <p style="color:#c8d6f0;font-size:.92rem;margin-top:4px;">15 questions · All sub-skills · 12 minutes</p>
+      </div>
+      <button id="start-test-btn" onclick="startTest()">Start Test ▶</button>
+    </div>
+
+    <div id="pre-test-info">
+      <div class="card" style="border-left-color:var(--gold);">
+        <h3>📋 Test Instructions</h3>
+        <ul style="margin-top:8px;">
+          <li>15 questions covering all skills: SPANS, Shape, Number, Shading, Position, Rotation, Lines, Conditional, Traps.</li>
+          <li>You have <strong>12 minutes</strong> (same GL exam pace).</li>
+          <li>After submitting, every question reveals its full explanation.</li>
+          <li>Your result shows a performance band.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="test-area">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;background:var(--navy);padding:14px 20px;border-radius:10px;">
+        <div style="color:#c8d6f0;font-size:.95rem;"><span id="test-q-counter">Question 1/15</span></div>
+        <div id="timer-display">12:00</div>
+      </div>
+      <div id="test-questions"></div>
+      <button id="submit-test-btn" onclick="submitTest()" style="background:var(--gold);color:var(--navy);border:none;border-radius:10px;padding:14px 32px;font-size:1.05rem;font-weight:700;cursor:pointer;margin-top:20px;font-family:'DM Sans',sans-serif;display:none;">Submit Test</button>
+    </div>
+
+    <div id="test-results">
+      <div id="results-band-div"></div>
+      <div id="test-review"></div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<script>
+// ──────────────────────────────────────────────────────────────
+// GLOBAL SCORE
+// ──────────────────────────────────────────────────────────────
+let globalCorrect = 0;
+let globalWrong = 0;
+
+function updateGlobalScore(isCorrect){
+  if(isCorrect) globalCorrect++;
+  else globalWrong++;
+  document.getElementById('global-correct').textContent = globalCorrect;
+  document.getElementById('global-wrong').textContent = globalWrong;
+  const total = globalCorrect + globalWrong;
+  document.getElementById('global-pct').textContent = total ? Math.round(globalCorrect/total*100)+'%' : '—';
+}
+
+// ──────────────────────────────────────────────────────────────
+// PROGRESS BAR
+// ──────────────────────────────────────────────────────────────
+window.addEventListener('scroll',()=>{
+  const docH = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docH > 0 ? (window.scrollY/docH)*100 : 0;
+  document.getElementById('progress-bar').style.width = pct+'%';
+});
+
+// ──────────────────────────────────────────────────────────────
+// SECTION PROGRESS DOTS
+// ──────────────────────────────────────────────────────────────
+const sectionQuestions = {};
+
+function initSectionProgress(){
+  document.querySelectorAll('.question-block[data-section]').forEach(block=>{
+    const sec = block.dataset.section;
+    if(!sectionQuestions[sec]) sectionQuestions[sec] = {total:0,done:0};
+    sectionQuestions[sec].total++;
+  });
+
+  ['spans','shape','number','shading','position','rotation','lines','conditional','traps'].forEach(sec=>{
+    const prog = document.getElementById('prog-'+sec);
+    if(!prog || !sectionQuestions[sec]) return;
+    const count = sectionQuestions[sec].total;
+    prog.innerHTML = Array.from({length:count},(_,i)=>`<div class="prog-dot" id="dot-${sec}-${i}"></div>`).join('');
+    sectionQuestions[sec].doneCount = 0;
+  });
+}
+
+const sectionDotIndex = {};
+
+function markSectionDot(sec){
+  if(sectionDotIndex[sec] === undefined) sectionDotIndex[sec] = 0;
+  const dot = document.getElementById(`dot-${sec}-${sectionDotIndex[sec]}`);
+  if(dot){ dot.classList.add('done'); sectionDotIndex[sec]++; }
+
+  const info = sectionQuestions[sec];
+  if(info && sectionDotIndex[sec] >= info.total){
+    const compId = 'comp-'+sec;
+    const comp = document.getElementById(compId);
+    if(comp) comp.classList.add('show');
+  }
+}
+
+// ──────────────────────────────────────────────────────────────
+// MCQ HANDLER
+// ──────────────────────────────────────────────────────────────
+function handleMCQ(btn, feedbackId, message){
+  const block = btn.closest('.question-block');
+  if(block.dataset.answered) return;
+  block.dataset.answered = 'true';
+
+  const sec = block.dataset.section;
+  const isCorrect = btn.dataset.correct === 'true';
+
+  block.querySelectorAll('.opt-btn').forEach(b=>{
+    b.disabled = true;
+    if(b.dataset.correct === 'true') b.classList.add('correct');
+  });
+
+  if(!isCorrect) btn.classList.add('wrong');
+
+  const fb = document.getElementById(feedbackId);
+  fb.textContent = (isCorrect ? '✅ ' : '❌ ') + message;
+  fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'wrong');
+
+  updateGlobalScore(isCorrect);
+  if(sec) markSectionDot(sec);
+}
+
+// ──────────────────────────────────────────────────────────────
+// FINAL TEST DATA
+// ──────────────────────────────────────────────────────────────
+const testQuestions = [
+  {
+    skill:'SPANS',
+    q: 'When using SPANS to scan a group, what does the letter N stand for?',
+    options:[
+      {text:'Number — how many shapes there are',correct:false,why:'Wrong. Amount/Number is represented by A in SPANS. N stands for Nature — the type of lines and how they interact.'},
+      {text:'Nature — the type of lines and how they relate to each other',correct:true,why:'Correct! N = Nature. This covers line type (straight, curved, dashed), whether lines cross, and how elements relate to one another.'},
+      {text:'Nothing — N has no meaning in SPANS',correct:false,why:'Wrong. Every letter in SPANS has a specific meaning. N stands for Nature — checking line type, relationships, and orientation details.'},
+      {text:'Negative — checking for missing elements',correct:false,why:'Wrong. N is Nature, not "Negative." Nature covers line type and element relationships.'}
+    ]
+  },
+  {
+    skill:'Shape',
+    q: 'Group: Circle with a grey triangle inside. Square with a grey triangle inside. Pentagon with a grey triangle inside. Which answer is correct?',
+    options:[
+      {text:'Hexagon with a black triangle inside',correct:false,why:'Wrong. The inner triangle must be GREY, not black. The outer shape type can vary, but the inner triangle shading is always grey.'},
+      {text:'Hexagon with a grey triangle inside',correct:true,why:'Correct! Rules: (1) any outer shape, (2) inner triangle always grey. A hexagon with a grey inner triangle satisfies both rules.'},
+      {text:'Hexagon with a grey circle inside',correct:false,why:'Wrong. The inner shape must be a TRIANGLE, not a circle. The inner shape type is constant across all group members.'},
+      {text:'Hexagon with no inner shape',correct:false,why:'Wrong. Every group member has 2 shapes — an outer shape containing an inner grey triangle. An empty hexagon fails the Amount rule.'}
+    ]
+  },
+  {
+    skill:'Number',
+    q: 'Group: Triangle with 4 dots. Square with 4 dots. Heptagon with 4 dots. Which is correct?',
+    options:[
+      {text:'Pentagon with 5 dots',correct:false,why:'Wrong. The dot count is always 4, regardless of the shape. Pentagon has 5 sides but the rule is 4 dots — not dots = sides.'},
+      {text:'Pentagon with 4 dots',correct:true,why:'Correct! The rule is always 4 dots, regardless of the shape type. A pentagon with 4 dots satisfies both rules.'},
+      {text:'Pentagon with 3 dots',correct:false,why:'Wrong. 3 dots fails the count rule. Every group member has exactly 4 dots.'},
+      {text:'Hexagon with 6 dots',correct:false,why:'Wrong. The rule is always exactly 4 dots — not dots equal to the number of sides. 6 dots fails.'}
+    ]
+  },
+  {
+    skill:'Shading',
+    q: 'Group: Each image has a black outer shape and a white inner shape. Which answer is the trap?',
+    options:[
+      {text:'Black outer pentagon, white inner circle',correct:false,why:'This is actually correct — black outer, white inner. This satisfies both shading rules.'},
+      {text:'White outer pentagon, black inner circle',correct:true,why:'Correct — this IS the trap! Shading is reversed — the outer should be black and inner should be white, not the other way around. This is a classic shading contrast reversal trap.'},
+      {text:'Black outer triangle, white inner square',correct:false,why:'This is correct — black outer, white inner. The inner shape type may differ but shading rules are satisfied.'},
+      {text:'Black outer hexagon, white inner triangle',correct:false,why:'This is correct — black outer, white inner. Satisfies both shading rules.'}
+    ]
+  },
+  {
+    skill:'Position',
+    q: 'Group: Every image has a small star in the BOTTOM-LEFT corner. Which answer is correct?',
+    options:[
+      {text:'A shape with a small star in the top-left corner',correct:false,why:'Wrong. Top-left and bottom-left are different corners. The rule specifies BOTTOM-LEFT precisely.'},
+      {text:'A shape with a small star in the bottom-right corner',correct:false,why:'Wrong. Bottom-right is the mirror of bottom-left. Left and right are different — position rules are exact.'},
+      {text:'A shape with a small star in the bottom-left corner',correct:true,why:'Correct! The position rule is clear: small star always in the BOTTOM-LEFT corner. This answer satisfies that rule exactly.'},
+      {text:'A shape with no star',correct:false,why:'Wrong. Every group member has a small star. Removing it entirely fails the Amount rule.'}
+    ]
+  },
+  {
+    skill:'Rotation',
+    q: 'Clockwise rotation sequence: Box 1 = arrow pointing RIGHT. Box 2 = arrow pointing DOWN. Box 3 = arrow pointing LEFT. Box 4 = ?',
+    options:[
+      {text:'Arrow pointing RIGHT (resets)',correct:false,why:'Wrong. The pattern doesn\'t reset. It continues clockwise: RIGHT → DOWN → LEFT → UP. The next step is UP, not right.'},
+      {text:'Arrow pointing UP',correct:true,why:'Correct! Clockwise sequence: RIGHT → DOWN → LEFT → UP. After LEFT, the next clockwise step is UP.'},
+      {text:'Arrow pointing DOWN',correct:false,why:'Wrong. DOWN was Box 2. The sequence moves forward clockwise each time, not backwards.'},
+      {text:'Arrow pointing LEFT',correct:false,why:'Wrong. LEFT was Box 3. The pattern advances one step each time — after LEFT comes UP.'}
+    ]
+  },
+  {
+    skill:'Rotation + Shading',
+    q: 'Group: Box 1 = black triangle pointing up. Box 2 = white triangle pointing right. Box 3 = black triangle pointing down. Box 4 = ?',
+    options:[
+      {text:'Black triangle pointing left',correct:false,why:'Wrong. The direction (left) is correct but the shading is wrong. Shading alternates: black→white→black→WHITE. Box 4 must be white.'},
+      {text:'White triangle pointing left',correct:true,why:'Correct! Two rules: (1) clockwise rotation: up→right→down→LEFT. (2) Alternating shading: black→white→black→WHITE. Box 4 = white triangle pointing left.'},
+      {text:'White triangle pointing up',correct:false,why:'Wrong. Shading (white) is correct for Box 4, but direction is wrong. After DOWN, the next clockwise step is LEFT, not UP.'},
+      {text:'Black triangle pointing right',correct:false,why:'Wrong. Both rules fail — right was Box 2, and shading should be white for Box 4.'}
+    ]
+  },
+  {
+    skill:'Lines',
+    q: 'Group: All images have exactly 2 lines that always cross in the centre. Which answer breaks the rule?',
+    options:[
+      {text:'Two diagonal lines crossing in the centre',correct:false,why:'This is correct — 2 lines, crossing in centre. Direction does not matter.'},
+      {text:'Two lines crossing in the corner',correct:true,why:'Correct — this breaks the rule! The crossing point must be the CENTRE, not a corner. Location of intersection is part of the position rule.'},
+      {text:'One vertical and one horizontal line crossing in the centre',correct:false,why:'This is correct — 2 lines, crossing in the centre. Mixed directions are fine.'},
+      {text:'Two straight lines crossing in the middle of the image',correct:false,why:'This is correct — "middle of the image" is the centre. 2 lines crossing there satisfies the rule.'}
+    ]
+  },
+  {
+    skill:'Conditional',
+    q: 'Rule: If shape has more than 4 sides, dot is BLACK. If shape has 4 or fewer sides, dot is WHITE. A hexagon (6 sides) is shown. What colour is the dot?',
+    options:[
+      {text:'White',correct:false,why:'Wrong. White is for shapes with 4 or fewer sides. A hexagon has 6 sides — more than 4 — so the dot must be BLACK.'},
+      {text:'Black',correct:true,why:'Correct! Hexagon has 6 sides (more than 4), so the conditional rule gives a black dot.'},
+      {text:'Grey',correct:false,why:'Wrong. Grey is not an option in this conditional rule. The rule specifies only black or white based on the number of sides.'},
+      {text:'No dot',correct:false,why:'Wrong. Every shape has a dot — the conditional rule only determines its colour, not whether it exists.'}
+    ]
+  },
+  {
+    skill:'Traps',
+    q: 'An answer option has the correct shape, correct shading, and correct number of elements — but the small inner triangle is WHITE instead of BLACK (as in all group members). Which trap is this?',
+    options:[
+      {text:'The Visual Bias Trap — the large shape distracted from the inner triangle',correct:false,why:'Partially right idea, but the Visual Bias Trap is specifically about size distracting from a secondary element. The issue here is shading on a secondary element — this is more precisely the 4/5 Rule Trap.'},
+      {text:'The 4/5 Rule Trap — almost correct but fails inner shading',correct:true,why:'Correct! This is the 4/5 Rule Trap. The answer passes Shape, Amount, Position, and Nature — but fails Shading (inner triangle colour). All 5 must pass.'},
+      {text:'The Mirror Trap — the triangle is reflected',correct:false,why:'Wrong. The Mirror Trap involves elements being in mirrored positions (e.g., left vs right). Here the issue is shading colour, not position.'},
+      {text:'The Overcounting Trap — the student miscounted the triangles',correct:false,why:'Wrong. Overcounting is about counting elements incorrectly. Here the count is correct — the error is that the inner triangle has the wrong shading (white instead of black).'}
+    ]
+  },
+  {
+    skill:'Shape',
+    q: 'Group: Large shape always has 4 sides. Small shape inside always has 3 sides. Which answer is correct?',
+    options:[
+      {text:'Large triangle (3 sides) containing a small square (4 sides)',correct:false,why:'Wrong. Both shape types are reversed — the large shape needs 4 sides and the small shape needs 3 sides. Here it\'s 3 large and 4 small, which breaks both rules.'},
+      {text:'Large circle containing a small triangle',correct:false,why:'Wrong. A circle has 0 straight sides — it fails the "large shape has 4 sides" rule. The large shape must have exactly 4 straight sides.'},
+      {text:'Large square (4 sides) containing a small triangle (3 sides)',correct:true,why:'Correct! Large square = 4 sides ✓. Small inner triangle = 3 sides ✓. Both side-count rules are satisfied.'},
+      {text:'Large pentagon (5 sides) containing a small triangle (3 sides)',correct:false,why:'Wrong. A pentagon has 5 sides, but the rule specifies the large shape must have exactly 4 sides. The small shape (triangle, 3 sides) is correct, but the large shape fails.'}
+    ]
+  },
+  {
+    skill:'Number',
+    q: 'Group: 2 dots inside, 1 dot outside. A student counts "3 total" and picks an answer with 3 dots all inside. What is wrong?',
+    options:[
+      {text:'Nothing — 3 dots total is correct',correct:false,why:'Wrong. The total of 3 is superficially right, but the POSITIONS are separate rules. 2 must be INSIDE and 1 must be OUTSIDE — not all 3 inside.'},
+      {text:'The count is wrong — there should be 4 dots total',correct:false,why:'Wrong. 3 dots total (2 inside + 1 outside) is correct. The error is not in the total — it\'s in treating inside and outside as one group instead of two separate rules.'},
+      {text:'The student confused inside and outside dot counts — they are separate rules',correct:true,why:'Correct! This is the Overcounting Trap. 2 dots inside and 1 dot outside are two independent rules. Combining them hides the positional requirement.'},
+      {text:'The shape type is wrong',correct:false,why:'Wrong. Shape type is not the issue here. The error is about dot positions — mixing inside and outside counts into one total.'}
+    ]
+  },
+  {
+    skill:'Shading + Position',
+    q: 'Group: Large black shape on the left. Small white shape on the right. Which answer is the mirror trap?',
+    options:[
+      {text:'Large black shape on left, small white shape on right',correct:false,why:'This is the CORRECT answer — both position and shading rules are satisfied.'},
+      {text:'Large black shape on right, small white shape on left',correct:true,why:'Correct — this IS the mirror trap! The shading is right (black large, white small) but position is completely reversed (left↔right). This is exactly the Mirror Trap.'},
+      {text:'Large white shape on left, small black shape on right',correct:false,why:'This fails the shading rules — large should be black and small should be white. This is an obvious shading error, not the subtle mirror trap.'},
+      {text:'Two black shapes on the left',correct:false,why:'This fails multiple rules — wrong shading (small should be white) and wrong position (both on left). This is too obviously wrong to be the mirror trap.'}
+    ]
+  },
+  {
+    skill:'Rotation',
+    q: 'A student sees an L-shape in the group, but in the answer options the same L-shape appears rotated 90°. The student rejects it thinking it\'s a different shape. Which trap did they fall into?',
+    options:[
+      {text:'The Visual Bias Trap',correct:false,why:'Wrong. The Visual Bias Trap is about size or boldness distracting from a secondary element. This is about a shape being rejected because it looks unfamiliar due to rotation.'},
+      {text:'The Orientation Illusion',correct:true,why:'Correct! The Orientation Illusion is when a rotated shape looks different, causing students to think it\'s a new shape rather than a rotated version of the same one. Always mentally rotate before rejecting.'},
+      {text:'The Mirror Trap',correct:false,why:'Wrong. The Mirror Trap involves left-right or top-bottom flipping of element positions. The Orientation Illusion is specifically about a rotated shape being mistaken for a different shape type.'},
+      {text:'The Overcounting Trap',correct:false,why:'Wrong. Overcounting is about combining counts incorrectly. This error is about shape recognition under rotation.'}
+    ]
+  },
+  {
+    skill:'Conditional',
+    q: 'Group: All boxes have multiple shapes that never touch each other. An answer has correct shape types and shading but two shapes are touching. Should this answer be chosen?',
+    options:[
+      {text:'Yes — shape type and shading are correct, so minor touching doesn\'t matter',correct:false,why:'Wrong. "Minor touching" still breaks the negative rule ("no shapes touch"). All rules — including negative ones — must be satisfied.'},
+      {text:'Yes — negative rules are less important than positive rules',correct:false,why:'Wrong. Negative rules carry exactly the same weight as positive rules. Any rule broken disqualifies an answer.'},
+      {text:'No — the negative rule (no shapes touch) is broken and this answer fails',correct:true,why:'Correct! Negative rules must be respected as fully as positive rules. Two shapes touching breaks "no shapes touch" — this answer is disqualified.'},
+      {text:'Maybe — it depends on how much they are touching',correct:false,why:'Wrong. There is no "how much" threshold. If shapes touch at all, the rule is broken. The rule is binary — either shapes touch or they don\'t.'}
+    ]
+  }
+];
+
+// ──────────────────────────────────────────────────────────────
+// TEST LOGIC
+// ──────────────────────────────────────────────────────────────
+let testTimer = null;
+let testSecondsLeft = 720;
+let testAnswers = [];
+
+function startTest(){
+  document.getElementById('pre-test-info').style.display='none';
+  document.getElementById('start-test-btn').style.display='none';
+  document.getElementById('test-area').style.display='block';
+  document.getElementById('submit-test-btn').style.display='block';
+
+  testAnswers = new Array(testQuestions.length).fill(null);
+  renderTestQuestions();
+  startTestTimer();
+}
+
+function renderTestQuestions(){
+  const container = document.getElementById('test-questions');
+  container.innerHTML = '';
+  document.getElementById('test-q-counter').textContent = `${testQuestions.length} Questions`;
+
+  testQuestions.forEach((q,i)=>{
+    const block = document.createElement('div');
+    block.className = 'question-block';
+    block.id = `tq-${i}`;
+
+    const shuffled = [...q.options].sort(()=>Math.random()-0.5);
+    const optsHTML = shuffled.map((o,j)=>
+      `<button class="opt-btn" data-correct="${o.correct}" data-why="${encodeURIComponent(o.why)}" onclick="handleTestMCQ(this,${i})">${o.text}</button>`
+    ).join('');
+
+    block.innerHTML = `
+      <div class="q-header">
+        <span class="badge-secure">Q${i+1}</span>
+        <span style="font-size:12px;color:#64748b;margin-left:6px;">[${q.skill}]</span>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="options">${optsHTML}</div>
+      <div class="feedback" id="tfb-${i}"></div>
+    `;
+    container.appendChild(block);
+  });
+}
+
+function handleTestMCQ(btn, qIndex){
+  const block = btn.closest('.question-block');
+  if(block.dataset.answered) return;
+  block.dataset.answered='true';
+
+  const isCorrect = btn.dataset.correct === 'true';
+  testAnswers[qIndex] = isCorrect;
+
+  block.querySelectorAll('.opt-btn').forEach(b=>{
+    b.disabled=true;
+    if(b.dataset.correct==='true') b.classList.add('correct');
+  });
+  if(!isCorrect) btn.classList.add('wrong');
+}
+
+function startTestTimer(){
+  testSecondsLeft = 720;
+  updateTimerDisplay();
+  testTimer = setInterval(()=>{
+    testSecondsLeft--;
+    updateTimerDisplay();
+    if(testSecondsLeft<=60) document.getElementById('timer-display').classList.add('urgent');
+    if(testSecondsLeft<=0){ clearInterval(testTimer); submitTest(); }
+  },1000);
+}
+
+function updateTimerDisplay(){
+  const m = Math.floor(testSecondsLeft/60).toString().padStart(2,'0');
+  const s = (testSecondsLeft%60).toString().padStart(2,'0');
+  document.getElementById('timer-display').textContent = `${m}:${s}`;
+}
+
+function submitTest(){
+  clearInterval(testTimer);
+  document.getElementById('test-area').style.display='none';
+  document.getElementById('submit-test-btn').style.display='none';
+  document.getElementById('test-results').style.display='block';
+
+  const correct = testAnswers.filter(a=>a===true).length;
+  const total = testQuestions.length;
+  const pct = Math.round(correct/total*100);
+
+  let band, bandClass, advice;
+  if(pct < 40){ band='Needs Practice'; bandClass='band-needs'; advice='Keep revising! Focus on Shape and Shading rules first, then build up to Rotation and Conditional rules.'; }
+  else if(pct < 60){ band='Developing'; bandClass='band-dev'; advice='Good progress! Review the SPANS priority order and practise Rotation + Shading combined questions.'; }
+  else if(pct < 80){ band='Secure'; bandClass='band-secure'; advice='Solid performance! Focus on Conditional rules and Mastery-level trap questions to reach the top band.'; }
+  else { band='Mastery'; bandClass='band-mastery'; advice='Outstanding! You\'ve demonstrated command of all NVR Similarities rule types. Keep your SPANS scanning sharp under timed conditions.'; }
+
+  const bandDiv = document.getElementById('results-band-div');
+  bandDiv.innerHTML = `
+    <div class="results-band ${bandClass}">
+      <div class="pct">${correct}/${total}</div>
+      <h2>${band}</h2>
+      <p style="margin-top:8px;font-size:.97rem;">${advice}</p>
+    </div>
+  `;
+
+  // Show all explanations
+  const reviewDiv = document.getElementById('test-review');
+  reviewDiv.innerHTML = '<h3 style="margin-bottom:14px;color:var(--navy);font-family:\'Playfair Display\',serif;">Full Review</h3>';
+
+  testQuestions.forEach((q,i)=>{
+    const answered = testAnswers[i];
+    const correct_opt = q.options.find(o=>o.correct);
+    const wrong_opt = q.options.find(o=>!o.correct);
+
+    const card = document.createElement('div');
+    card.className = 'question-block';
+    card.style.borderLeft = `4px solid ${answered===true ? 'var(--green)' : 'var(--red)'}`;
+    card.innerHTML = `
+      <div class="q-header">
+        <span class="${answered===true?'badge-starter':'badge-secure'}">Q${i+1} ${answered===true?'✅':'❌'}</span>
+        <span style="font-size:12px;color:#64748b;margin-left:6px;">[${q.skill}]</span>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="feedback show ${answered===true?'correct':'wrong'}">
+        <strong>Correct answer:</strong> ${correct_opt.text}<br/><br/>
+        ${correct_opt.why}
+      </div>
+    `;
+    reviewDiv.appendChild(card);
+  });
+}
+
+// ──────────────────────────────────────────────────────────────
+// ACTIVE NAV
+// ──────────────────────────────────────────────────────────────
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('#sticky-nav a');
+
+window.addEventListener('scroll',()=>{
+  let current = '';
+  sections.forEach(sec=>{
+    if(window.scrollY >= sec.offsetTop - 80) current = sec.id;
+  });
+  navLinks.forEach(link=>{
+    link.classList.toggle('active', link.getAttribute('href') === '#'+current);
+  });
+});
+
+// ──────────────────────────────────────────────────────────────
+// INIT
+// ──────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', initSectionProgress);
+</script>
+</body>
+</html>

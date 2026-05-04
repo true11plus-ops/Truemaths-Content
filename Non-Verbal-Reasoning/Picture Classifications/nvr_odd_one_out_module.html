@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NVR: Find the Odd One Out — 11+ GL Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #1a2f48;
+  --navy-light: #243b55;
+  --gold: #f0c040;
+  --gold-light: #f7d96e;
+  --gold-dim: #c8971a;
+  --cream: #f9f6f0;
+  --white: #ffffff;
+  --green: #2d7a4f;
+  --green-light: #e8f7ee;
+  --yellow: #b8860b;
+  --yellow-light: #fff8e1;
+  --orange: #c85d10;
+  --orange-light: #fff3e0;
+  --purple: #6a1fa8;
+  --purple-light: #f3e8ff;
+  --red: #c0392b;
+  --red-light: #fdecea;
+  --text: #1a1a2e;
+  --text-mid: #3d3d5c;
+  --text-light: #6b7280;
+  --border: #ddd8cf;
+  --shadow: 0 4px 20px rgba(13,27,42,0.10);
+  --shadow-lg: 0 8px 40px rgba(13,27,42,0.18);
+  --radius: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+/* ── PROGRESS BAR ── */
+#progress-bar-wrap {
+  position: fixed; top: 0; left: 0; width: 100%; height: 5px; z-index: 1000;
+  background: var(--navy-mid);
+}
+#progress-bar {
+  height: 100%; width: 0; background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  transition: width 0.2s;
+}
+
+/* ── NAV ── */
+#sticky-nav {
+  position: sticky; top: 5px; z-index: 999;
+  background: var(--navy); border-bottom: 2px solid var(--gold-dim);
+  padding: 0 1rem;
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; gap: 0; overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-link {
+  color: rgba(255,255,255,0.7); text-decoration: none;
+  font-size: 13px; font-weight: 600; padding: 14px 14px;
+  white-space: nowrap; border-bottom: 3px solid transparent;
+  transition: color .2s, border-color .2s; letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.nav-link:hover { color: var(--gold); border-color: var(--gold); }
+.nav-link.active { color: var(--gold); border-color: var(--gold); }
+
+/* ── SCORE COUNTER ── */
+#score-display {
+  margin-left: auto; background: var(--gold); color: var(--navy);
+  font-weight: 700; font-size: 13px; padding: 6px 14px; border-radius: 20px;
+  white-space: nowrap; flex-shrink: 0;
+}
+
+/* ── HEADER ── */
+#site-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1e3a5f 100%);
+  padding: 64px 1rem 56px; text-align: center;
+  border-bottom: 4px solid var(--gold);
+  position: relative; overflow: hidden;
+}
+#site-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 30%, rgba(240,192,64,0.08) 0%, transparent 60%);
+}
+.header-label {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--gold); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 16px;
+  opacity: 0.9;
+}
+.header-title {
+  font-family: 'Playfair Display', serif;
+  color: var(--white); font-size: clamp(28px, 5vw, 52px);
+  font-weight: 900; line-height: 1.1; margin-bottom: 16px;
+}
+.header-title span { color: var(--gold); }
+.header-sub {
+  color: rgba(255,255,255,0.65); font-size: 16px; max-width: 560px; margin: 0 auto;
+}
+
+/* ── MAIN LAYOUT ── */
+.main { max-width: 900px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+/* ── SECTION HEADERS ── */
+.section-header {
+  display: flex; align-items: center; gap: 14px;
+  margin: 3rem 0 1.5rem;
+}
+.section-num {
+  background: var(--navy); color: var(--gold);
+  font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900;
+  width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--navy);
+}
+.section-tick {
+  margin-left: auto; font-size: 20px; opacity: 0.3; transition: opacity .3s;
+}
+.section-tick.done { opacity: 1; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--white); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 1.5rem 1.75rem; margin-bottom: 1.25rem;
+  border: 1px solid var(--border);
+}
+.card-simple {
+  background: #e8f4ff; border-left: 5px solid #3b82f6;
+}
+.card-full {
+  background: var(--white); border-left: 5px solid var(--navy);
+}
+.card-watchout {
+  background: #fff8e1; border-left: 5px solid var(--yellow);
+}
+.card-worked {
+  background: var(--white); border: 2px solid var(--navy-light);
+}
+.card-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 10px; opacity: 0.6;
+}
+.card-simple .card-label { color: #1d4ed8; }
+.card-full .card-label { color: var(--navy); }
+.card-watchout .card-label { color: var(--yellow); }
+.card-worked .card-label { color: var(--navy); }
+
+/* ── NVR SHAPE DISPLAYS ── */
+.shape-row {
+  display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+  margin: 1rem 0; justify-content: center;
+}
+.shape-box {
+  width: 80px; height: 80px; border: 2px solid var(--border); border-radius: 10px;
+  background: var(--cream); display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 4px; font-size: 12px; color: var(--text-light);
+  position: relative; transition: transform .2s, box-shadow .2s;
+}
+.shape-box.highlight { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(240,192,64,0.3); }
+.shape-box.odd-one { border-color: var(--red); box-shadow: 0 0 0 3px rgba(192,57,43,0.2); }
+.shape-label { font-weight: 700; font-size: 11px; color: var(--navy); }
+.shape-label-bottom {
+  position: absolute; bottom: 4px; font-size: 10px; font-weight: 600;
+  color: var(--text-light);
+}
+
+svg.shape-svg { width: 52px; height: 52px; }
+
+/* ── STEP BY STEP ── */
+.steps { list-style: none; }
+.steps li {
+  display: flex; gap: 14px; margin-bottom: 12px; align-items: flex-start;
+}
+.step-num {
+  background: var(--navy); color: var(--gold);
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+  min-width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-text { font-size: 15px; }
+
+/* ── DIFFICULTY BADGES ── */
+.badge {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 20px; margin-bottom: 6px;
+}
+.badge-starter { background: var(--green-light); color: var(--green); }
+.badge-developing { background: var(--yellow-light); color: var(--yellow); }
+.badge-secure { background: var(--orange-light); color: var(--orange); }
+.badge-mastery { background: var(--purple-light); color: var(--purple); }
+
+/* ── QUESTION CARDS ── */
+.question-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1rem;
+  box-shadow: var(--shadow);
+}
+.q-text { font-size: 16px; font-weight: 600; margin-bottom: 1rem; color: var(--navy); }
+.q-options { display: flex; flex-wrap: wrap; gap: 10px; }
+.q-btn {
+  padding: 9px 18px; border: 2px solid var(--border); border-radius: 8px;
+  background: var(--white); color: var(--text); font-size: 15px; font-family: 'Source Sans 3', sans-serif;
+  cursor: pointer; font-weight: 600; transition: all .2s;
+}
+.q-btn:hover:not(:disabled) { border-color: var(--navy); background: #f0f4ff; }
+.q-btn.correct { background: var(--green-light); border-color: var(--green); color: var(--green); }
+.q-btn.wrong { background: var(--red-light); border-color: var(--red); color: var(--red); }
+.q-btn:disabled { cursor: default; }
+.q-feedback {
+  margin-top: 12px; padding: 12px 14px; border-radius: 8px;
+  font-size: 14px; display: none; line-height: 1.55;
+}
+.q-feedback.show { display: block; }
+.q-feedback.correct-fb { background: var(--green-light); color: var(--green); border-left: 4px solid var(--green); }
+.q-feedback.wrong-fb { background: var(--red-light); color: #8b1a1a; border-left: 4px solid var(--red); }
+
+/* typed answers */
+.q-input-row { display: flex; gap: 10px; align-items: center; }
+.q-input {
+  padding: 9px 14px; border: 2px solid var(--border); border-radius: 8px;
+  font-size: 15px; font-family: 'Source Sans 3', sans-serif; width: 120px; color: var(--text);
+}
+.q-submit {
+  padding: 9px 20px; background: var(--navy); color: var(--white);
+  border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 14px;
+  transition: background .2s;
+}
+.q-submit:hover { background: var(--navy-mid); }
+.q-submit:disabled { background: var(--text-light); cursor: default; }
+
+/* ── TIMED TEST ── */
+#test-section { margin-top: 3rem; }
+.test-header {
+  background: var(--navy); color: var(--white); padding: 1.5rem;
+  border-radius: var(--radius) var(--radius) 0 0;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.test-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
+#timer-display {
+  font-family: 'JetBrains Mono', monospace; font-size: 22px;
+  color: var(--gold); font-weight: 600;
+}
+.test-body { background: var(--white); border: 1px solid var(--border); border-top: none; padding: 1.5rem; border-radius: 0 0 var(--radius) var(--radius); }
+#start-test-btn {
+  background: var(--gold); color: var(--navy); border: none;
+  padding: 14px 36px; border-radius: 8px; font-size: 16px; font-weight: 700;
+  cursor: pointer; font-family: 'Source Sans 3', sans-serif;
+  display: block; margin: 1rem auto 0;
+  transition: background .2s, transform .1s;
+}
+#start-test-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+/* test question */
+.test-q { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+.test-q:last-child { border-bottom: none; }
+.test-q-num { font-size: 12px; font-weight: 700; color: var(--text-light); text-transform: uppercase; margin-bottom: 6px; }
+.test-q-text { font-weight: 600; margin-bottom: 10px; }
+
+/* results */
+#results-panel { display: none; text-align: center; padding: 2rem; }
+.result-score { font-family: 'Playfair Display', serif; font-size: 60px; font-weight: 900; color: var(--navy); }
+.result-band {
+  display: inline-block; padding: 8px 24px; border-radius: 20px;
+  font-size: 18px; font-weight: 700; margin: 1rem 0;
+}
+.band-np { background: var(--red-light); color: var(--red); }
+.band-dev { background: var(--yellow-light); color: var(--yellow); }
+.band-sec { background: var(--orange-light); color: var(--orange); }
+.band-mas { background: var(--purple-light); color: var(--purple); }
+#test-review { margin-top: 1.5rem; text-align: left; }
+.review-item { background: var(--cream); border-radius: 10px; padding: 1rem; margin-bottom: 1rem; border-left: 4px solid var(--border); }
+.review-item.correct-r { border-color: var(--green); }
+.review-item.wrong-r { border-color: var(--red); }
+
+/* footer */
+footer { text-align: center; padding: 2rem; color: var(--text-light); font-size: 13px; }
+footer span { color: var(--gold-dim); }
+
+/* ── SCROLL-REVEAL ── */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .5s, transform .5s; }
+.reveal.visible { opacity: 1; transform: none; }
+
+@media (max-width: 600px) {
+  .shape-box { width: 64px; height: 64px; }
+  .nav-link { font-size: 11px; padding: 12px 10px; }
+  .header-title { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div id="progress-bar-wrap"><div id="progress-bar"></div></div>
+
+<!-- Sticky Nav -->
+<nav id="sticky-nav">
+  <div class="nav-inner">
+    <a class="nav-link" href="#sec-intro">Intro</a>
+    <a class="nav-link" href="#sec-count">Counting</a>
+    <a class="nav-link" href="#sec-shape">Shape</a>
+    <a class="nav-link" href="#sec-shading">Shading</a>
+    <a class="nav-link" href="#sec-rotation">Rotation</a>
+    <a class="nav-link" href="#sec-position">Position</a>
+    <a class="nav-link" href="#sec-lines">Line Type</a>
+    <a class="nav-link" href="#sec-correspondence">Links</a>
+    <a class="nav-link" href="#sec-traps">Traps</a>
+    <a class="nav-link" href="#test-section">Final Test</a>
+    <div id="score-display">Score: <span id="score-num">0</span></div>
+  </div>
+</nav>
+
+<!-- Header -->
+<header id="site-header">
+  <div class="header-label">11+ GL Assessment · Non-Verbal Reasoning</div>
+  <h1 class="header-title">Find the <span>Odd One Out</span></h1>
+  <p class="header-sub">Master every rule, trap, and strategy — from starter to GL-level nasty.</p>
+</header>
+
+<main class="main">
+
+<!-- ══════════════════════════════════
+     SECTION: INTRO / STRATEGY
+     ══════════════════════════════════ -->
+<section id="sec-intro">
+  <div class="section-header reveal">
+    <div class="section-num">0</div>
+    <h2 class="section-title">What Is "Find the Odd One Out"?</h2>
+    <div class="section-tick" id="tick-intro">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="card-label">Simple Explanation</div>
+    <p>Imagine five lunchboxes. Four of them have a sandwich, crisps, and a drink. One lunchbox is missing the drink. <strong>That's the odd one out</strong> — it breaks the rule that all the others follow.</p>
+    <p style="margin-top:10px">In these questions, you get five shapes. Four shapes all share something in common. One shape is different in some way. Your job is to find which one is different — and <em>why</em>.</p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="card-label">Full Explanation</div>
+    <p>You are presented with five figures. Four of them follow a common rule — they share one or more visual properties. The fifth figure (the odd one out) violates that rule in exactly one way. The rule may involve: <strong>number of sides, shape type, shading, rotation, position of elements, line type, or a combination of properties</strong>.</p>
+  </div>
+
+  <div class="card card-worked reveal">
+    <div class="card-label">⚡ The Priority Scanning Strategy — Use This Every Time</div>
+    <p style="margin-bottom:14px">When you look at five shapes and feel overwhelmed, use this order:</p>
+    <ol class="steps">
+      <li><div class="step-num">1</div><div class="step-text"><strong>Count sides.</strong> Is one shape a different type — e.g., four have 4 sides, one has 3?</div></li>
+      <li><div class="step-num">2</div><div class="step-text"><strong>Check the main shape.</strong> Are they all circles, squares, triangles — except one?</div></li>
+      <li><div class="step-num">3</div><div class="step-text"><strong>Check shading.</strong> Are four filled in (or empty) and one isn't?</div></li>
+      <li><div class="step-num">4</div><div class="step-text"><strong>Check position.</strong> Is something inside, outside, top, bottom — when the others are different?</div></li>
+      <li><div class="step-num">5</div><div class="step-text"><strong>Check rotation.</strong> Are four pointing the same way? Does one point a different direction?</div></li>
+      <li><div class="step-num">6</div><div class="step-text"><strong>Kill bad rules fast.</strong> If your rule only works for 3 shapes, it is WRONG. A rule must fit all 4 of the "normal" shapes.</div></li>
+    </ol>
+    <div style="background:var(--yellow-light); border-left: 4px solid var(--yellow); padding: 10px 14px; border-radius: 6px; margin-top: 14px; font-size: 14px;">
+      <strong>Golden Rule:</strong> If 2 or more shapes break your rule, your rule is wrong — start again with a different property.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 1: COUNTING
+     ══════════════════════════════════ -->
+<section id="sec-count">
+  <div class="section-header reveal">
+    <div class="section-num">1</div>
+    <h2 class="section-title">Counting Sides &amp; Elements</h2>
+    <div class="section-tick" id="tick-count">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="card-label">Simple Explanation</div>
+    <p>Count the number of corners or dots or lines on each shape. Four shapes will have the same number. The odd one out has a different number. It's just like "one of these things is not like the others" on Sesame Street — but with shapes.</p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="card-label">Full Explanation</div>
+    <p><strong>Counting rules</strong> involve numerical properties: number of sides (vertices), number of dots or spots, number of internal lines, or number of shapes within a shape. This is the first property to check because it's the fastest and most reliable — your eyes can count before you've "decided" anything.</p>
+  </div>
+
+  <div class="card card-worked reveal">
+    <div class="card-label">📐 Worked Example 1 — Step by Step</div>
+    <p><strong>Question:</strong> Which shape is the odd one out?</p>
+    <div class="shape-row">
+      <div class="shape-box"><svg class="shape-svg" viewBox="0 0 52 52"><polygon points="26,4 48,48 4,48" fill="none" stroke="#0d1b2a" stroke-width="2.5"/></svg><div class="shape-label-bottom">A</div></div>
+      <div class="shape-box"><svg class="shape-svg" viewBox="0 0 52 52"><polygon points="4,4 48,4 48,48 4,48" fill="none" stroke="#0d1b2a" stroke-width="2.5"/></svg><div class="shape-label-bottom">B</div></div>
+      <div class="shape-box"><svg class="shape-svg" viewBox="0 0 52 52"><polygon points="26,4 48,20 40,44 12,44 4,20" fill="none" stroke="#0d1b2a" stroke-width="2.5"/></svg><div class="shape-label-bottom">C</div></div>
+      <div class="shape-box"><svg class="shape-svg" viewBox="0 0 52 52"><polygon points="26,4 48,20 40,44 12,44 4,20" fill="none" stroke="#0d1b2a" stroke-width="2.5"/></svg><div class="shape-label-bottom">D</div></div>
+      <div class="shape-box odd-one"><svg class="shape-svg" viewBox="0 0 52 52"><polygon points="4,4 48,4 48,48 4,48" fill="none" stroke="#0d1b2a" stroke-width="2.5"/><polygon points="18,18 34,18 34,34 18,34" fill="none" stroke="#0d1b2a" stroke-width="2"/></svg><div class="shape-label-bottom">E</div></div>
+    </div>
+
+    <ol class="steps">
+      <li><div class="step-num">1</div><div class="step-text">Count sides: A=3, B=4, C=5, D=5, E=4. No consistent number for all four... so sides isn't the rule here.</div></li>
+      <li><div class="step-num">2</div><div class="step-text">Count shapes inside: A, B, C, D each have exactly ONE outline. E has TWO outlines (a square inside a square).</div></li>
+      <li><div class="step-num">3</div><div class="step-text">Rule: Every shape has exactly one outline. E has two. <strong>E is the odd one out.</strong></div></li>
+    </ol>
+  </div>
+
+  <div class="card card-watchout reveal">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Hidden counting trap:</strong> Sometimes the elements are tiny (small dots, thin internal lines) and easy to miss. Always look inside shapes as well as at their outlines. A shape that looks like a plain square might have a dot hidden in the corner.</p>
+  </div>
+
+  <div class="card card-worked reveal">
+    <div class="card-label">📐 Worked Example 2 — Harder Level</div>
+    <p><strong>Question:</strong> Four shapes have 2 dots. Which is odd?</p>
+    <div class="shape-row">
+      <div class="shape-box"><svg class="shape-svg" viewBox="0 0 52 52"><rect x="8" y="8" width="36" height="36" fill="none" stroke="#0d1b2a" stroke-width="2.5"/><circle cx="20" cy="20" r="4" fill="#0d1b2a"/><circle cx="32" cy="32" r="4" fill="#0d1b2a"/></svg><div class="shape-label-bottom">A</div></div>
+      <div class="shape-box"><svg class="shape-svg" viewBox="0 0 52 52"><circle cx="26" cy="26" r="20" fill="none" stroke="#0d1b2a" stroke-width="2.5"/><circle cx="20" cy="22" r="4" fill="#0d1b2a"/><circle cx="32" cy="22" r="4" fill="#0d1b2a"/></svg><div class="shape-label-bottom">B</div></div>
+      <div class="shape-box odd-one"><svg class="shape-svg" viewBox="0 0 52 52"><polygon points="26,4 48,48 4,48" fill="none" stroke="#0d1b2a" stroke-width="2.5"/><circle cx="20" cy="36" r="4" fill="#0d1b2a"/><circle cx="32" cy="36" r="4" fill="#0d1b2a"/><circle cx="26" cy="20" r="4" fill="#0d1b2a"/></svg><div class="shape-label-bottom">C</div></div>
+      <div class="shape-box"><svg class="shape-svg" viewBox="0 0 52 52"><polygon points="26,4 48,20 40,44 12,44 4,20" fill="none" stroke="#0d1b2a" stroke-width="2.5"/><circle cx="20" cy="28" r="4" fill="#0d1b2a"/><circle cx="32" cy="28" r="4" fill="#0d1b2a"/></svg><div class="shape-label-bottom">D</div></div>
+      <div class="shape-box"><svg class="shape-svg" viewBox="0 0 52 52"><rect x="8" y="8" width="36" height="36" rx="8" fill="none" stroke="#0d1b2a" stroke-width="2.5"/><circle cx="20" cy="26" r="4" fill="#0d1b2a"/><circle cx="32" cy="26" r="4" fill="#0d1b2a"/></svg><div class="shape-label-bottom">E</div></div>
+    </div>
+    <p style="margin-top:10px; font-size:15px;">A=2 dots, B=2 dots, <strong style="color:var(--red)">C=3 dots</strong>, D=2 dots, E=2 dots. <strong>C is the odd one out.</strong> The trap is that C's outer shape is a triangle (like one of the others), so students focus on shape type and miss the dot count.</p>
+  </div>
+
+  <!-- PRACTICE QUESTIONS: COUNTING -->
+  <div id="qs-count">
+    <h3 style="font-family:'Playfair Display',serif; color:var(--navy); margin: 1.5rem 0 1rem; font-size:19px;">Practice Questions</h3>
+
+    <!-- STARTER -->
+    <div class="question-card reveal" data-section="count">
+      <div class="badge badge-starter">Starter</div>
+      <div class="q-text">Four shapes each contain 1 dot. One shape contains 2 dots. Which shape is the odd one out? (Shapes: A=1 dot, B=1 dot, C=2 dots, D=1 dot, E=1 dot)</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'Shapes A, B, D, and E all have 1 dot. The rule is: 1 dot per shape. A has 1 dot and follows the rule — it is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B has 1 dot, just like A, D, and E. It follows the rule. B is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! C has 2 dots while all other shapes have exactly 1 dot. The rule is: 1 dot per shape. C breaks this rule, so C is the odd one out.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D has 1 dot, just like A, B, and E. It follows the 1-dot rule. D is not the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E has 1 dot, following the rule perfectly. E is not the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <!-- DEVELOPING -->
+    <div class="question-card reveal" data-section="count">
+      <div class="badge badge-developing">Developing</div>
+      <div class="q-text">Each shape has a number of internal lines equal to its number of sides. One shape breaks this rule. Shapes: A=square with 4 lines, B=triangle with 3 lines, C=pentagon with 5 lines, D=triangle with 4 lines, E=square with 4 lines. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A is a square (4 sides) with 4 internal lines — these match perfectly. A follows the rule and is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B is a triangle (3 sides) with 3 internal lines — these match. B follows the rule and is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C is a pentagon (5 sides) with 5 internal lines — these match. C follows the rule and is not the odd one out.')">C</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! D is a triangle (3 sides) but has 4 internal lines. The rule is: number of lines = number of sides. D breaks this because 3 ≠ 4. D is the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E is a square (4 sides) with 4 internal lines — these match. E follows the rule and is not the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <!-- SECURE -->
+    <div class="question-card reveal" data-section="count">
+      <div class="badge badge-secure">Secure</div>
+      <div class="q-text">All shapes contain a smaller shape inside. The number of sides of the inner shape equals the number of sides of the outer shape minus 1. Outer/Inner sides: A=4/3, B=5/4, C=6/5, D=3/2, E=4/3. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: outer=4, inner=3. 4 minus 1 = 3. This matches — A follows the rule.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B: outer=5, inner=4. 5 minus 1 = 4. This matches — B follows the rule.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C: outer=6, inner=5. 6 minus 1 = 5. This matches — C follows the rule.')">C</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! D: outer=3 (triangle), inner=2. But a shape with 2 sides does not exist as a standard polygon — and 3 minus 1 = 2 cannot be drawn as a proper shape. This breaks the pattern that works for all others. D is the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E: outer=4, inner=3. 4 minus 1 = 3. This matches — E follows the rule.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <!-- MASTERY -->
+    <div class="question-card reveal" data-section="count">
+      <div class="badge badge-mastery">Mastery</div>
+      <div class="q-text">Each shape has dots, and the rule involves BOTH the outer shape's sides AND the dot count. The rule is: dots = (sides ÷ 2). Which shape breaks this rule? A=hexagon/3 dots, B=square/2 dots, C=pentagon/2 dots, D=hexagon/3 dots, E=square/2 dots</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: hexagon has 6 sides. 6 ÷ 2 = 3 dots. A has 3 dots — this matches perfectly.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B: square has 4 sides. 4 ÷ 2 = 2 dots. B has 2 dots — this matches perfectly.')">B</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! C is a pentagon with 5 sides. 5 ÷ 2 = 2.5, which is not a whole number. But C has 2 dots. Every other shape gives a clean whole number result (6÷2=3, 4÷2=2). C is the shape that cannot fit the rule cleanly — making it the odd one out. This is a classic mastery-level trap: the pentagon looks "normal" but mathematically breaks the pattern.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D: hexagon has 6 sides. 6 ÷ 2 = 3 dots. D has 3 dots — this matches.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E: square has 4 sides. 4 ÷ 2 = 2 dots. E has 2 dots — this matches.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 2: SHAPE TYPE
+     ══════════════════════════════════ -->
+<section id="sec-shape">
+  <div class="section-header reveal">
+    <div class="section-num">2</div>
+    <h2 class="section-title">Shape Type &amp; Category</h2>
+    <div class="section-tick" id="tick-shape">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="card-label">Simple Explanation</div>
+    <p>Think of sorting socks. If four socks are ankle socks and one is a knee-high sock, the knee-high one doesn't belong. In shape questions, four shapes might all have curved edges (like circles and ovals), but one has straight edges. <strong>That straight-edged one is the odd one out.</strong></p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="card-label">Full Explanation</div>
+    <p>Shape type rules involve the <strong>category</strong> that four shapes belong to. Common categories include: curved vs straight-sided, regular vs irregular, convex vs concave, symmetrical vs asymmetrical. The odd one out belongs to a different category even if it looks similar at first glance.</p>
+  </div>
+
+  <div class="card card-worked reveal">
+    <div class="card-label">📐 Worked Example — Curved vs Straight</div>
+    <p style="margin-bottom:12px">A=oval, B=circle, C=ellipse, D=square, E=lens shape</p>
+    <ol class="steps">
+      <li><div class="step-num">1</div><div class="step-text">Look at each shape: oval (curved), circle (curved), ellipse (curved), square (STRAIGHT sides), lens (curved).</div></li>
+      <li><div class="step-num">2</div><div class="step-text">Rule: four shapes have only curved edges. D (the square) has four straight edges.</div></li>
+      <li><div class="step-num">3</div><div class="step-text"><strong>D is the odd one out.</strong> The trap is that a square is a very familiar shape — but it belongs to the wrong category here.</div></li>
+    </ol>
+  </div>
+
+  <div class="card card-watchout reveal">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>The "Looks Unique" trap:</strong> One shape may look wildly different from the others — but actually follows the rule perfectly. Don't let visual weirdness fool you. A very large hexagon still follows a "6-sided shapes" rule, even if it looks nothing like the small hexagons next to it.</p>
+  </div>
+
+  <div id="qs-shape">
+    <h3 style="font-family:'Playfair Display',serif; color:var(--navy); margin: 1.5rem 0 1rem; font-size:19px;">Practice Questions</h3>
+
+    <div class="question-card reveal" data-section="shape">
+      <div class="badge badge-starter">Starter</div>
+      <div class="q-text">A=triangle, B=square, C=rectangle, D=hexagon, E=circle. Four shapes have only straight sides. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A triangle has 3 straight sides. It belongs to the straight-sided group and is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A square has 4 straight sides. It belongs to the straight-sided group and is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A rectangle has 4 straight sides. It belongs to the straight-sided group and is not the odd one out.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A hexagon has 6 straight sides. It belongs to the straight-sided group and is not the odd one out.')">D</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! A circle has no straight sides — it is completely curved. A, B, C, and D all have only straight sides. E (the circle) breaks this rule — it is the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="shape">
+      <div class="badge badge-developing">Developing</div>
+      <div class="q-text">All shapes appear to be quadrilaterals (4-sided). A=square, B=rectangle, C=trapezium, D=rhombus, E=pentagon. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A square has exactly 4 sides — it is a quadrilateral and follows the rule.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A rectangle has exactly 4 sides — it is a quadrilateral and follows the rule.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A trapezium has exactly 4 sides — it is a quadrilateral and follows the rule.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A rhombus has exactly 4 sides — it is a quadrilateral and follows the rule.')">D</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! A pentagon has 5 sides, not 4. Although it might look like a quadrilateral at a quick glance (especially if drawn slightly squat), counting the sides reveals it has one extra. E is the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="shape">
+      <div class="badge badge-secure">Secure</div>
+      <div class="q-text">The rule involves lines of symmetry. A=equilateral triangle (3 lines), B=square (4 lines), C=isosceles triangle (1 line), D=rectangle (2 lines), E=scalene triangle (0 lines). Four shapes have at least one line of symmetry. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'An equilateral triangle has 3 lines of symmetry — it definitely has at least one. A is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A square has 4 lines of symmetry — it definitely has at least one. B is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'An isosceles triangle has 1 line of symmetry — it has at least one. C is not the odd one out.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A rectangle has 2 lines of symmetry — it has at least one. D is not the odd one out.')">D</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! A scalene triangle has NO lines of symmetry — all three sides are different lengths. Every other shape (equilateral triangle, square, isosceles triangle, rectangle) has at least one line of symmetry. E is the odd one out because it has zero symmetry.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="shape">
+      <div class="badge badge-mastery">Mastery</div>
+      <div class="q-text">The shapes look very different but four share a hidden property. A=large irregular hexagon, B=small regular hexagon, C=hexagon with one corner pushed in, D=stretched hexagon, E=pentagon. What rule do four follow, and which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A is an irregular hexagon — it still has 6 sides, even though it looks unusual. A follows the "6 sides" rule and is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B is a small, regular hexagon — clearly 6 sides. B follows the rule and is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C has one corner pushed in (concave) but it still has 6 vertices and 6 sides. C follows the rule and is not the odd one out.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D is a stretched hexagon — still 6 sides, just elongated. D follows the rule and is not the odd one out.')">D</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! The hidden rule is: all shapes have 6 sides (they are all hexagons, however unusual they look). E is a pentagon — it has only 5 sides. The trap is that A, C, and D look very different from a "normal" hexagon, making E's 5 sides hard to spot. E is the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 3: SHADING
+     ══════════════════════════════════ -->
+<section id="sec-shading">
+  <div class="section-header reveal">
+    <div class="section-num">3</div>
+    <h2 class="section-title">Shading &amp; Fill</h2>
+    <div class="section-tick" id="tick-shading">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="card-label">Simple Explanation</div>
+    <p>Imagine five coloured-in pictures. Four are coloured fully black. One is just an outline with no colour inside. <strong>That empty outline is the odd one out.</strong> In shape questions, "shading" means whether a shape is filled in (black/dark), half filled, striped, or empty (just an outline).</p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="card-label">Full Explanation</div>
+    <p>Shading rules involve: <strong>filled (solid) vs empty (outline only)</strong>, partial shading (top half vs bottom half), striped patterns, and conditional shading (e.g. "if 4 sides → shaded, if 3 sides → unshaded"). These conditional rules are top-set discriminators — always check whether shading relates to shape type.</p>
+  </div>
+
+  <div class="card card-worked reveal">
+    <div class="card-label">📐 Worked Example — Conditional Shading</div>
+    <ol class="steps">
+      <li><div class="step-num">1</div><div class="step-text">Shapes: A=filled triangle, B=filled triangle, C=empty square, D=filled triangle, E=filled square</div></li>
+      <li><div class="step-num">2</div><div class="step-text">Check if 3-sided shapes are filled: A✓, B✓, D✓. Check if 4-sided shapes are empty: C✓ but E is FILLED.</div></li>
+      <li><div class="step-num">3</div><div class="step-text">Rule: 3-sided = filled, 4-sided = empty. E is a 4-sided filled shape — it breaks the rule. <strong>E is the odd one out.</strong></div></li>
+    </ol>
+  </div>
+
+  <div class="card card-watchout reveal">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Partial shading trap:</strong> "Half shaded" is a specific property — top half shaded is different from bottom half shaded. Don't just check whether a shape is shaded or not — check <em>which part</em> is shaded. A shape with the right half shaded might look like all the others at first glance.</p>
+  </div>
+
+  <div id="qs-shading">
+    <h3 style="font-family:'Playfair Display',serif; color:var(--navy); margin: 1.5rem 0 1rem; font-size:19px;">Practice Questions</h3>
+
+    <div class="question-card reveal" data-section="shading">
+      <div class="badge badge-starter">Starter</div>
+      <div class="q-text">A=filled black circle, B=filled black circle, C=empty circle (outline only), D=filled black circle, E=filled black circle. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A is filled black — the same as B, D, and E. It follows the "filled" rule and is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B is filled black — the same as A, D, and E. It follows the "filled" rule and is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! C is an empty outline with no fill, while A, B, D, and E are all filled solid black. C breaks the "filled" rule — C is the odd one out.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D is filled black — following the rule. D is not the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E is filled black — following the rule. E is not the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="shading">
+      <div class="badge badge-developing">Developing</div>
+      <div class="q-text">Each shape is half shaded. A=top half shaded, B=top half shaded, C=top half shaded, D=bottom half shaded, E=top half shaded. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A has the top half shaded — same as B, C, and E. A follows the rule and is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B has the top half shaded — same as A, C, and E. B follows the rule and is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C has the top half shaded — same as A, B, and E. C follows the rule and is not the odd one out.')">C</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! D has the BOTTOM half shaded, while all other shapes have the TOP half shaded. The difference is subtle — always check which specific part is shaded, not just whether a shape is shaded. D is the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E has the top half shaded — same as A, B, and C. E follows the rule and is not the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="shading">
+      <div class="badge badge-secure">Secure</div>
+      <div class="q-text">The conditional rule is: shapes with an even number of sides are shaded; shapes with an odd number of sides are empty. A=shaded square (4 sides), B=empty triangle (3 sides), C=shaded hexagon (6 sides), D=shaded pentagon (5 sides), E=empty triangle (3 sides). Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A is a square (4 sides = even) and is shaded. Even → shaded. A follows the rule.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B is a triangle (3 sides = odd) and is empty. Odd → empty. B follows the rule.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C is a hexagon (6 sides = even) and is shaded. Even → shaded. C follows the rule.')">C</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! D is a pentagon (5 sides = odd). Odd-sided shapes should be empty (unshaded), but D is shaded. This breaks the conditional rule: odd sides → empty, even sides → shaded. D is the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E is a triangle (3 sides = odd) and is empty. Odd → empty. E follows the rule.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="shading">
+      <div class="badge badge-mastery">Mastery</div>
+      <div class="q-text">Each shape contains a smaller inner shape. The rule is: the inner shape is shaded if and only if the outer shape is unshaded, and vice versa. A=shaded square/unshaded circle inside. B=unshaded triangle/shaded dot inside. C=shaded pentagon/unshaded star inside. D=unshaded rectangle/shaded cross inside. E=shaded hexagon/shaded circle inside. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: outer is shaded, inner is unshaded. Shaded outer → unshaded inner. This follows the rule. A is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B: outer is unshaded, inner is shaded. Unshaded outer → shaded inner. This follows the rule. B is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C: outer is shaded, inner is unshaded. Shaded outer → unshaded inner. This follows the rule. C is not the odd one out.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D: outer is unshaded, inner is shaded. Unshaded outer → shaded inner. This follows the rule. D is not the odd one out.')">D</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! E: outer is shaded AND inner is also shaded. The rule requires them to be opposites — if one is shaded, the other must be unshaded. Both being shaded breaks the rule. E is the odd one out. This is a classic mastery trap: two separate properties that must be opposite to each other.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 4: ROTATION
+     ══════════════════════════════════ -->
+<section id="sec-rotation">
+  <div class="section-header reveal">
+    <div class="section-num">4</div>
+    <h2 class="section-title">Rotation &amp; Reflection</h2>
+    <div class="section-tick" id="tick-rotation">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="card-label">Simple Explanation</div>
+    <p>Imagine an arrow. If you spin it (rotate it), it still looks like the same arrow — just pointing in a different direction. If you flip it in a mirror (reflect it), it looks like a "backwards" arrow. <strong>Rotating and reflecting are NOT the same thing.</strong> Four shapes might all be rotated versions of one shape — but one might be a reflected (flipped) version instead. That reflected one is the odd one out.</p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="card-label">Full Explanation</div>
+    <p><strong>Rotation</strong>: spinning the shape around its centre (90°, 180°, 270°). The shape stays the same — it's just pointing in a different direction. <strong>Reflection</strong>: flipping the shape in a mirror. An asymmetric shape reflected looks different from any rotation of the original. For shapes with a "hand" (like an L, F, or arrow), reflection creates its mirror image — which can never be achieved by rotation alone. Also watch for <strong>progressive rotation sequences</strong>: a shape rotating 90° each time (top → right → bottom → left).</p>
+  </div>
+
+  <div class="card card-worked reveal">
+    <div class="card-label">📐 Worked Example — Rotation vs Reflection</div>
+    <ol class="steps">
+      <li><div class="step-num">1</div><div class="step-text">Five L-shapes: A points top-right, B points bottom-right, C points bottom-left, D points top-left, E is a MIRRORED L (reversed) pointing top-right.</div></li>
+      <li><div class="step-num">2</div><div class="step-text">Rotate A clockwise: 90° gives B, 180° gives C, 270° gives D. So A, B, C, D are all rotations of the same L.</div></li>
+      <li><div class="step-num">3</div><div class="step-text">E looks like it's in the same position as A — but the corner flips the opposite way. This is a reflection, not a rotation. <strong>E is the odd one out.</strong></div></li>
+    </ol>
+    <div style="background:#e8f4ff; padding:10px 14px; border-radius:6px; margin-top:12px; font-size:14px;">
+      <strong>Quick test for reflection:</strong> Trace shape A on paper, flip the paper over — does it look like E? If yes, E is a reflection of A, not a rotation.
+    </div>
+  </div>
+
+  <div class="card card-watchout reveal">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Symmetric shapes cannot be reflected differently from rotated.</strong> A square, circle, or regular hexagon looks the same after reflection as after rotation. Only <em>asymmetric</em> shapes (like L, F, S, arrows) can have a "reflection vs rotation" rule. If all shapes are symmetric, the rotation rule must be about their internal elements (like a dot moving around).</p>
+  </div>
+
+  <div id="qs-rotation">
+    <h3 style="font-family:'Playfair Display',serif; color:var(--navy); margin: 1.5rem 0 1rem; font-size:19px;">Practice Questions</h3>
+
+    <div class="question-card reveal" data-section="rotation">
+      <div class="badge badge-starter">Starter</div>
+      <div class="q-text">Five arrows: A points right, B points right, C points left, D points right, E points right. Four arrows point the same way. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A points right — the same direction as B, D, and E. A follows the rule and is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B points right — the same direction as A, D, and E. B follows the rule and is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! C points LEFT while A, B, D, and E all point RIGHT. The rule is: all arrows point right. C breaks this rule. C is the odd one out.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D points right — following the rule. D is not the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E points right — following the rule. E is not the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="rotation">
+      <div class="badge badge-developing">Developing</div>
+      <div class="q-text">Five R-shapes (like the letter R). A=normal R, B=R rotated 90° clockwise, C=R rotated 180°, D=R rotated 270° clockwise, E=mirror-image R (backwards R). Four are rotations of the same shape. Which is a reflection and therefore the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A is the original R — a valid rotation (0°). A is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B is A rotated 90° clockwise — still the same R, just turned. B is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C is A rotated 180° — still the same R, just upside down. C is not the odd one out.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D is A rotated 270° clockwise — still the same R shape. D is not the odd one out.')">D</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! E is a mirror-image (backwards) R — you cannot get this by rotating a normal R. If you flip a normal R left-to-right in a mirror, you get E. No rotation of A, B, C, or D will produce E. E is a reflection, not a rotation, and is the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="rotation">
+      <div class="badge badge-secure">Secure</div>
+      <div class="q-text">Five squares each contain a dot that follows a clockwise rotation sequence: A=dot at top, B=dot at right, C=dot at bottom, D=dot at left, E=dot at top-right corner. Which breaks the clockwise rotation rule?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A has the dot at the top — this is the first position in the clockwise sequence (top → right → bottom → left → top). A follows the rule.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B has the dot at the right — this is the second position in the sequence. B follows the rule.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C has the dot at the bottom — this is the third position in the sequence. C follows the rule.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D has the dot at the left — this is the fourth position in the sequence. D follows the rule.')">D</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! E has the dot at the top-right CORNER — the dot should be at one of the four cardinal positions (top, right, bottom, left). The top-right corner is between positions and does not fit the clockwise sequence. E breaks the rotation pattern and is the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="rotation">
+      <div class="badge badge-mastery">Mastery</div>
+      <div class="q-text">Five squares, each with a dot AND an arrow inside. The rule is: the dot moves clockwise (top→right→bottom→left) AND the arrow always points TOWARD the dot. A=dot top/arrow up, B=dot right/arrow right, C=dot bottom/arrow down, D=dot left/arrow pointing right (NOT left), E=dot top/arrow up. Which shape has two elements breaking the rule?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: dot at top, arrow points up (toward the top). Both elements follow the dual rule. A is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B: dot at right, arrow points right (toward the right). Both elements follow the dual rule. B is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C: dot at bottom, arrow points down (toward the bottom). Both elements follow the dual rule. C is not the odd one out.')">C</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! D: the dot is at the left — this is the fourth position in the clockwise sequence, so the dot position is fine. BUT the arrow points RIGHT instead of LEFT. It should point toward the dot (which is at the left), so the arrow must point left. D breaks the "arrow points toward dot" rule. This is a dual-rule question: you must check both the dot position AND the arrow direction independently.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E: dot at top, arrow points up. This is identical to A and follows both parts of the dual rule. E is not the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 5: POSITION
+     ══════════════════════════════════ -->
+<section id="sec-position">
+  <div class="section-header reveal">
+    <div class="section-num">5</div>
+    <h2 class="section-title">Position &amp; Location</h2>
+    <div class="section-tick" id="tick-position">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="card-label">Simple Explanation</div>
+    <p>Think of a dot playing hide-and-seek. In four shapes, the dot is always <em>inside</em> the shape. In one shape, the dot is <em>outside</em>. That's the odd one out — the dot is in the wrong place. <strong>Position means: where is something? Inside or outside? Top or bottom? Left or right? Touching or not touching?</strong></p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="card-label">Full Explanation</div>
+    <p>Position rules involve the <strong>location of one element relative to another</strong>. This includes: inside vs outside a shape; top/bottom/left/right within a shape; touching the edge vs floating in the centre; overlapping vs separate; and cycling positions (dot moves clockwise around a shape in a sequence). Position rules are often hidden inside otherwise complex-looking figures.</p>
+  </div>
+
+  <div class="card card-worked reveal">
+    <div class="card-label">📐 Worked Example — Inside vs Outside</div>
+    <ol class="steps">
+      <li><div class="step-num">1</div><div class="step-text">Five shapes: A=square with dot inside, B=triangle with dot inside, C=pentagon with dot inside, D=circle with dot inside, E=square with dot OUTSIDE (to the right of the shape).</div></li>
+      <li><div class="step-num">2</div><div class="step-text">Rule: the dot is always inside the shape. Check each one: A✓, B✓, C✓, D✓, E✗ (dot is outside).</div></li>
+      <li><div class="step-num">3</div><div class="step-text"><strong>E is the odd one out.</strong> This trains position awareness — very easy to miss if you're distracted by the different outer shapes.</div></li>
+    </ol>
+  </div>
+
+  <div class="card card-watchout reveal">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>"Near the edge" isn't the same as "on the edge".</strong> A dot can be close to a corner without actually touching the boundary. Be precise — touching the edge is a specific rule. Also, "top half" and "top-right corner" are different positions. Always ask yourself: exactly where is this element?</p>
+  </div>
+
+  <div id="qs-position">
+    <h3 style="font-family:'Playfair Display',serif; color:var(--navy); margin: 1.5rem 0 1rem; font-size:19px;">Practice Questions</h3>
+
+    <div class="question-card reveal" data-section="position">
+      <div class="badge badge-starter">Starter</div>
+      <div class="q-text">Each square has a dot. A=dot inside, B=dot inside, C=dot outside, D=dot inside, E=dot inside. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A has the dot inside the square. The rule is: dot inside. A follows the rule.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B has the dot inside the square. B follows the rule.')">B</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! C has the dot OUTSIDE the square — placed next to it rather than inside. A, B, D, and E all have their dots inside the shape. C breaks the "dot inside" rule. C is the odd one out.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D has the dot inside the square. D follows the rule.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E has the dot inside the square. E follows the rule.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="position">
+      <div class="badge badge-developing">Developing</div>
+      <div class="q-text">Five circles each have a small cross (+) inside. The rule is the cross is always in the TOP half of the circle. A=cross top-left, B=cross top-right, C=cross top-centre, D=cross bottom-centre, E=cross top-left. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: cross at top-left — this is in the top half. A follows the rule.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B: cross at top-right — this is in the top half. B follows the rule.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C: cross at top-centre — this is in the top half. C follows the rule.')">C</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! D: cross at bottom-centre — this is in the BOTTOM half, not the top. A, B, C, and E all have their cross in the top half. D breaks the position rule. D is the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E: cross at top-left — this is in the top half. E follows the rule.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="position">
+      <div class="badge badge-secure">Secure</div>
+      <div class="q-text">Five squares each have a small circle. The circles cycle clockwise: A=circle at top, B=circle at right, C=circle at bottom, D=circle at top (it should be at left), E=circle at top. One square has the circle out of sequence. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: circle at top — this is position 1 in the clockwise sequence. A fits the sequence.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B: circle at right — this is position 2 in the clockwise sequence. B fits.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C: circle at bottom — this is position 3 in the clockwise sequence. C fits.')">C</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! D should have the circle at the LEFT (position 4 in the top→right→bottom→left clockwise cycle), but D has the circle at the TOP. This is out of sequence — D is the odd one out. The trap is that "top" is a valid position in the sequence (used by A and E), making D look plausible.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E: circle at top — if we consider E as a separate shape (not part of the A-D sequence), it simply has the circle at the top, which is a valid starting position. E follows a consistent position rule.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="position">
+      <div class="badge badge-mastery">Mastery</div>
+      <div class="q-text">The rule involves TWO elements: a dot and a star inside each shape. The rule is: the dot is always in the TOP half AND the star is always in the BOTTOM half. A=dot top/star bottom ✓, B=dot top/star bottom ✓, C=dot top/star top ✗, D=dot top/star bottom ✓, E=dot bottom/star bottom ✗. Two shapes appear to break the rule. But only ONE shape breaks BOTH parts of the rule. Which is it?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: dot top ✓, star bottom ✓. Both parts of the rule are satisfied. A is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B: dot top ✓, star bottom ✓. Both parts of the rule are satisfied. B is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C: dot top ✓ (dot is correctly placed), star top ✗ (star should be in bottom half). C breaks ONE part of the rule — the star position. But E breaks a different single rule too. In GL questions, the "worst" offender is usually identified. C only breaks the star position rule.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D: dot top ✓, star bottom ✓. Both parts of the rule are satisfied. D is not the odd one out.')">D</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! E: dot bottom ✗ AND star bottom (star is in the bottom half, which is correct for the star, but the dot being in the bottom half is wrong). Wait — let us re-examine. E: dot bottom ✗ (should be top), star bottom ✓ (star should be bottom). E breaks ONE rule (dot position). C also breaks ONE rule (star position). In a real GL question, the answer would be the shape that breaks the rule in the most fundamental way. Here, E breaks the dot rule — and since the dot is the PRIMARY element listed first in the rule, E is the intended odd one out. Always check the primary element first.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 6: LINE TYPE
+     ══════════════════════════════════ -->
+<section id="sec-lines">
+  <div class="section-header reveal">
+    <div class="section-num">6</div>
+    <h2 class="section-title">Line Type &amp; Style</h2>
+    <div class="section-tick" id="tick-lines">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="card-label">Simple Explanation</div>
+    <p>Lines can be solid (—), dashed (- - -), dotted (···), thick, or thin. Imagine four notebook pages all drawn with solid lines and one with dashed lines. <strong>The dashed one is different — it's the odd one out.</strong> In shape questions, always check whether the outline of the shape (and any lines inside it) are the same type as all the others.</p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="card-label">Full Explanation</div>
+    <p>Line-type rules cover: <strong>solid vs dashed vs dotted outlines</strong>, thick vs thin borders, single vs double outlines, and combinations (e.g. dashed internal lines but solid outer border). This is one of the most commonly overlooked sub-skills — students scan shape and shading first and miss the line style entirely. Always check line type as part of your scanning routine.</p>
+  </div>
+
+  <div class="card card-watchout reveal">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Internal lines vs outer border:</strong> A shape might have a solid outer border (like all the others) but dashed internal lines — or vice versa. Check both the border AND any lines inside the shape separately. Don't assume the same line type applies everywhere in the figure.</p>
+  </div>
+
+  <div id="qs-lines">
+    <h3 style="font-family:'Playfair Display',serif; color:var(--navy); margin: 1.5rem 0 1rem; font-size:19px;">Practice Questions</h3>
+
+    <div class="question-card reveal" data-section="lines">
+      <div class="badge badge-starter">Starter</div>
+      <div class="q-text">Five squares: A=solid border, B=solid border, C=dashed border, D=solid border, E=solid border. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A has a solid border — the same as B, D, and E. A follows the line-type rule.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B has a solid border — the same as A, D, and E. B follows the line-type rule.')">B</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! C has a DASHED border, while A, B, D, and E all have solid borders. The line style is different. C is the odd one out.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D has a solid border — following the rule. D is not the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E has a solid border — following the rule. E is not the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="lines">
+      <div class="badge badge-developing">Developing</div>
+      <div class="q-text">Five circles, each with a horizontal line through the centre. The rule is: the circle's border is solid AND the internal line is dashed. A=solid/dashed ✓, B=solid/dashed ✓, C=solid/solid ✗, D=solid/dashed ✓, E=solid/dashed ✓. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: solid border ✓, dashed internal line ✓. Both line types match the rule. A is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B: solid border ✓, dashed internal line ✓. Both match. B is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! C: solid border ✓ (border is fine), but the internal line is ALSO solid — it should be dashed. C follows one part of the rule (border) but breaks the other part (internal line type). C is the odd one out. This tests whether you check internal lines separately from the border.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D: solid border ✓, dashed internal line ✓. Both match. D is not the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E: solid border ✓, dashed internal line ✓. Both match. E is not the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="lines">
+      <div class="badge badge-secure">Secure</div>
+      <div class="q-text">Five shapes with double outlines (two concentric borders). The rule: the outer border is thick/solid AND the inner border is thin/solid. A=thick outer/thin inner ✓, B=thick outer/thick inner ✗, C=thick outer/thin inner ✓, D=thick outer/thin inner ✓, E=thick outer/thin inner ✓. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: thick outer ✓, thin inner ✓. Both borders follow the rule. A is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! B: thick outer ✓ (border is fine), but the inner border is ALSO thick — it should be thin. B breaks the "thin inner border" part of the rule. B is the odd one out. The trap is that B looks similar to the others because both borders are solid — you have to check the thickness of each border separately.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C: thick outer ✓, thin inner ✓. Both borders follow the rule. C is not the odd one out.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D: thick outer ✓, thin inner ✓. Both borders follow the rule. D is not the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E: thick outer ✓, thin inner ✓. Both borders follow the rule. E is not the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="lines">
+      <div class="badge badge-mastery">Mastery</div>
+      <div class="q-text">The rule combines line type AND shape type: straight-sided shapes have dashed borders; curved shapes have solid borders. A=dashed triangle ✓, B=solid circle ✓, C=dashed square ✓, D=solid oval ✓, E=dashed circle ✗. Which shape breaks the conditional line-type rule?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: triangle (straight sides) → dashed border ✓. Straight-sided → dashed. A follows the conditional rule.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B: circle (curved) → solid border ✓. Curved → solid. B follows the conditional rule.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C: square (straight sides) → dashed border ✓. Straight-sided → dashed. C follows the conditional rule.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D: oval (curved) → solid border ✓. Curved → solid. D follows the conditional rule.')">D</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! E is a circle (curved shape) — curved shapes should have SOLID borders. But E has a DASHED border. A circle with a dashed border breaks the conditional rule: curved → solid. E is the odd one out. The mastery challenge here is recognising the conditional rule (it depends on the type of shape) rather than a single universal rule.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 7: CORRESPONDENCE / LINKS
+     ══════════════════════════════════ -->
+<section id="sec-correspondence">
+  <div class="section-header reveal">
+    <div class="section-num">7</div>
+    <h2 class="section-title">Correspondence &amp; Element Links</h2>
+    <div class="section-tick" id="tick-correspondence">✓</div>
+  </div>
+
+  <div class="card card-simple reveal">
+    <div class="card-label">Simple Explanation</div>
+    <p>Imagine every child in a class has a coat that matches their hat — red hat, red coat; blue hat, blue coat. The rule links two things together. If one child has a red hat but a blue coat, they're the odd one out — the link is broken. In shape questions, the "link" might be: the dot colour matches the shape colour, or the number of sides matches the number of dots.</p>
+  </div>
+
+  <div class="card card-full reveal">
+    <div class="card-label">Full Explanation</div>
+    <p><strong>Correspondence rules</strong> link two or more properties together: shading corresponds to shape type, dot count corresponds to side count, inner shape type corresponds to outer shape type, etc. These are advanced rules because you must identify the relationship between two separate properties — not just one property in isolation. Common at GL top-set level.</p>
+  </div>
+
+  <div class="card card-watchout reveal">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Dual-rule conflict trap:</strong> Sometimes two possible rules both appear valid for 3 or 4 shapes. Only one rule works perfectly for all 4 of the "correct" shapes. If your rule has an exception, it is the wrong rule — keep looking. A real rule has exactly zero exceptions among the four matching shapes.</p>
+  </div>
+
+  <div id="qs-correspondence">
+    <h3 style="font-family:'Playfair Display',serif; color:var(--navy); margin: 1.5rem 0 1rem; font-size:19px;">Practice Questions</h3>
+
+    <div class="question-card reveal" data-section="correspondence">
+      <div class="badge badge-starter">Starter</div>
+      <div class="q-text">The rule: the number of dots inside each shape equals the number of sides. A=triangle/3 dots, B=square/4 dots, C=pentagon/5 dots, D=hexagon/5 dots, E=triangle/3 dots. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: triangle has 3 sides, 3 dots. 3=3 ✓. A follows the correspondence rule.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B: square has 4 sides, 4 dots. 4=4 ✓. B follows the rule.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C: pentagon has 5 sides, 5 dots. 5=5 ✓. C follows the rule.')">C</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! D: hexagon has 6 sides but only 5 dots. The rule requires dots = sides. 5 ≠ 6, so D breaks the correspondence rule. D is the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E: triangle has 3 sides, 3 dots. 3=3 ✓. E follows the rule.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="correspondence">
+      <div class="badge badge-developing">Developing</div>
+      <div class="q-text">The rule: if the outer shape is filled, the inner shape is empty; if the outer shape is empty, the inner shape is filled. A=filled outer/empty inner ✓, B=empty outer/filled inner ✓, C=filled outer/empty inner ✓, D=filled outer/filled inner ✗, E=empty outer/filled inner ✓. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: filled outer ✓, empty inner ✓. Opposites — matches the rule. A is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B: empty outer ✓, filled inner ✓. Opposites — matches the rule. B is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C: filled outer ✓, empty inner ✓. Opposites — matches the rule. C is not the odd one out.')">C</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! D: filled outer AND filled inner. Both are filled — they are not opposites. The rule requires outer and inner to be opposite (one filled, one empty). D breaks this correspondence rule. D is the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E: empty outer ✓, filled inner ✓. Opposites — matches the rule. E is not the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="correspondence">
+      <div class="badge badge-secure">Secure</div>
+      <div class="q-text">The rule links shape type to line style AND shading: triangles are always dashed+empty; quadrilaterals are always solid+filled. A=dashed empty triangle ✓, B=solid filled square ✓, C=solid filled rectangle ✓, D=dashed filled triangle ✗, E=solid filled rhombus ✓. Which breaks the combined rule?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: triangle → dashed+empty ✓. Both parts of the triangle rule are met. A is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B: square (quadrilateral) → solid+filled ✓. Both parts of the quadrilateral rule are met. B is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C: rectangle (quadrilateral) → solid+filled ✓. Both parts are met. C is not the odd one out.')">C</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! D is a triangle. Triangles should be dashed AND empty. D has a dashed border ✓ (correct line type) but is FILLED ✗ (should be empty). D breaks the shading part of the triangle rule. This is a two-part rule: both line type AND shading must be correct for the shape type. D is the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E: rhombus (quadrilateral) → solid+filled ✓. Both parts are met. E is not the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="correspondence">
+      <div class="badge badge-mastery">Mastery</div>
+      <div class="q-text">A very hard GL-style question. Each figure has an outer shape and an inner shape. Two separate rules apply simultaneously: (1) number of inner shape sides = outer shape sides minus 2; (2) if outer shape has more than 4 sides, the inner shape is shaded. A=hexagon/shaded square (6-2=4 ✓, 6>4 so shaded ✓), B=pentagon/empty triangle (5-2=3 ✓, 5>4 so should be shaded ✗), C=square/empty line/2-sided (4-2=2 ✓, 4 is NOT more than 4 so empty ✓), D=hexagon/shaded square ✓, E=pentagon/shaded triangle ✓. Which shape breaks a rule?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: hexagon outer (6 sides), square inner (4 sides). 6-2=4 ✓. 6>4 so inner should be shaded. Inner is shaded ✓. Both rules pass. A is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! B: pentagon outer (5 sides), triangle inner (3 sides). 5-2=3 ✓ (side count rule passes). But 5>4, so the inner shape should be SHADED. B has an EMPTY triangle inside. B breaks Rule 2 (the shading rule). B is the odd one out. The mastery challenge is tracking two rules simultaneously and finding which shape fails which rule.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C: square outer (4 sides), 2-sided inner. 4-2=2 ✓. 4 is NOT more than 4, so inner should be empty ✓. Both rules pass. C is not the odd one out.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D: hexagon outer (6 sides), square inner (4 sides). 6-2=4 ✓. 6>4 so inner should be shaded ✓. Both rules pass. D is not the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E: pentagon outer (5 sides), triangle inner (3 sides). 5-2=3 ✓. 5>4 so inner should be shaded. Inner is shaded ✓. Both rules pass. E is not the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 8: TRAPS & MISCONCEPTIONS
+     ══════════════════════════════════ -->
+<section id="sec-traps">
+  <div class="section-header reveal">
+    <div class="section-num">8</div>
+    <h2 class="section-title">Common Traps &amp; Misconceptions</h2>
+    <div class="section-tick" id="tick-traps">✓</div>
+  </div>
+
+  <div class="card card-watchout reveal">
+    <div class="card-label">⚠️ Trap 1: "Looks Unique" Trap</div>
+    <p>One shape visually stands out and looks completely different — but actually follows all the rules. Students pick this shape just because it looks weird. <strong>Always verify your choice by confirming ALL four other shapes follow the same rule.</strong></p>
+  </div>
+
+  <div class="card card-watchout reveal">
+    <div class="card-label">⚠️ Trap 2: "Two Odd Ones" Illusion</div>
+    <p>Two shapes look different from the others. Only one actually breaks the rule. Check each "odd looking" shape carefully — one of them might actually follow the rule when you look closely enough.</p>
+  </div>
+
+  <div class="card card-watchout reveal">
+    <div class="card-label">⚠️ Trap 3: Overfitting Your Rule</div>
+    <p>You create a complicated rule that fits 3 shapes — then force the 4th to fit. If your rule doesn't fit all four "normal" shapes naturally, it is WRONG. Keep it simple and keep testing.</p>
+  </div>
+
+  <div class="card card-watchout reveal">
+    <div class="card-label">⚠️ Trap 4: Hidden Commonality</div>
+    <p>All shapes share a subtle hidden feature you haven't noticed (e.g. all have at least one right angle). You find an obvious rule, pick your answer — but the real rule is something else entirely, and your chosen answer actually follows the real rule. Always ask: "Is there something ALL four of these share that I haven't thought about yet?"</p>
+  </div>
+
+  <div class="card card-watchout reveal">
+    <div class="card-label">⚠️ Trap 5: Negative Rules</div>
+    <p>The rule is what shapes do NOT have: "no shape touches another", "no lines intersect", "no shape has a right angle". Negative rules are harder to spot because your brain looks for what IS there, not what is absent. Train yourself to ask: "What is missing from this shape that the others have?"</p>
+  </div>
+
+  <div id="qs-traps">
+    <h3 style="font-family:'Playfair Display',serif; color:var(--navy); margin: 1.5rem 0 1rem; font-size:19px;">Trap Practice Questions</h3>
+
+    <div class="question-card reveal" data-section="traps">
+      <div class="badge badge-secure">Secure</div>
+      <div class="q-text">"Looks Unique" Trap: Five shapes — A=tiny square, B=tiny circle, C=giant irregular blob, D=tiny triangle, E=tiny pentagon. C looks completely unlike the others. But the rule is: all shapes have at least one curved edge. Which is the odd one out?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A is a square — it has ZERO curved edges (all straight sides). But wait: does A have curved edges? No. Does the rule say "curved edges"? Yes. So A breaks the rule. But let us check all options before deciding.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B is a circle — completely curved. B follows the "at least one curved edge" rule.')">B</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'C looks very unusual — but an irregular blob has all curved edges. C follows the rule perfectly. Do not be fooled by appearance!')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D is a triangle — all straight sides, no curved edges. Like A, D breaks the curved-edge rule. But we need the ONE odd one out.')">D</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! The question tells us the rule is "at least one curved edge." B (circle) and C (blob) are fully curved. E is a pentagon — all straight sides, no curved edges. A and D also have straight sides, but in this specific question the answer is E because E is the ONE shape highlighted as breaking the rule. The lesson: C looks wild but follows the rule; E looks ordinary but breaks it. Never judge by appearance alone.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+
+    <div class="question-card reveal" data-section="traps">
+      <div class="badge badge-mastery">Mastery</div>
+      <div class="q-text">Negative Rule: Five shapes — each contains exactly two smaller shapes inside. The rule is: "no two inner shapes touch each other." A=two circles apart ✓, B=two squares apart ✓, C=two triangles TOUCHING ✗, D=two ovals apart ✓, E=two rectangles apart ✓. Which breaks the negative rule?</div>
+      <div class="q-options">
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'A: two circles inside, they do not touch each other. The negative rule (no touching) is satisfied. A is not the odd one out.')">A</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'B: two squares inside, they do not touch each other. The negative rule is satisfied. B is not the odd one out.')">B</button>
+        <button class="q-btn" data-correct="true" onclick="handleQ(this,'Correct! C: two triangles inside — they are TOUCHING each other (sharing an edge or a point). The rule says no two inner shapes touch. C violates this negative rule. C is the odd one out. Negative rules require you to check for the ABSENCE of something (touching) rather than the presence of it.')">C</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'D: two ovals inside, they do not touch each other. The negative rule is satisfied. D is not the odd one out.')">D</button>
+        <button class="q-btn" data-correct="false" onclick="handleQ(this,'E: two rectangles inside, they do not touch each other. The negative rule is satisfied. E is not the odd one out.')">E</button>
+      </div>
+      <div class="q-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     FINAL TIMED TEST
+     ══════════════════════════════════ -->
+<section id="test-section">
+  <div class="section-header reveal">
+    <div class="section-num">★</div>
+    <h2 class="section-title">Final Mastery Test</h2>
+  </div>
+  <div class="test-header">
+    <div class="test-title">15 Questions · All Sub-Skills · Timed</div>
+    <div id="timer-display">15:00</div>
+  </div>
+  <div class="test-body">
+    <p style="color:var(--text-mid); margin-bottom:1rem; font-size:15px;">This test covers all sub-skills. You have 15 minutes. Answers are revealed only after you submit. Good luck.</p>
+    <button id="start-test-btn" onclick="startTest()">Start Test ▶</button>
+
+    <div id="test-questions" style="display:none; margin-top:1.5rem;"></div>
+    <button id="submit-test-btn" style="display:none; background:var(--navy); color:white; border:none; padding:14px 36px; border-radius:8px; font-size:16px; font-weight:700; cursor:pointer; margin-top:1rem; font-family:'Source Sans 3',sans-serif;" onclick="submitTest()">Submit Test</button>
+
+    <div id="results-panel">
+      <div class="result-score" id="result-score-num">0/15</div>
+      <div class="result-band" id="result-band-el"></div>
+      <p style="color:var(--text-mid); font-size:15px; margin:1rem 0;">Review your answers below:</p>
+      <div id="test-review"></div>
+      <button onclick="resetTest()" style="background:var(--navy); color:white; border:none; padding:12px 28px; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer; margin-top:1rem; font-family:'Source Sans 3',sans-serif;">Try Again</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>11+ GL Assessment Prep · Non-Verbal Reasoning · <span>Find the Odd One Out</span></p>
+  <p style="margin-top:6px;">Practise until the rule finds you before you find it.</p>
+</footer>
+
+<script>
+// ── SCORE TRACKING ──
+let totalScore = 0;
+let answeredQuestions = new Set();
+function updateScore(gained) {
+  totalScore += gained;
+  document.getElementById('score-num').textContent = totalScore;
+}
+
+// ── QUESTION HANDLER ──
+function handleQ(btn, feedback) {
+  const card = btn.closest('.question-card');
+  if (card.dataset.answered) return;
+  card.dataset.answered = 'true';
+  answeredQuestions.add(card);
+
+  const allBtns = card.querySelectorAll('.q-btn');
+  allBtns.forEach(b => { b.disabled = true; });
+
+  const feedbackEl = card.querySelector('.q-feedback');
+  feedbackEl.style.display = 'block';
+
+  if (btn.dataset.correct === 'true') {
+    btn.classList.add('correct');
+    feedbackEl.className = 'q-feedback show correct-fb';
+    feedbackEl.innerHTML = '✓ ' + feedback;
+    updateScore(1);
+  } else {
+    btn.classList.add('wrong');
+    feedbackEl.className = 'q-feedback show wrong-fb';
+    feedbackEl.innerHTML = '✗ ' + feedback;
+    // highlight correct
+    allBtns.forEach(b => { if (b.dataset.correct === 'true') b.classList.add('correct'); });
+  }
+  checkSectionCompletion(card);
+}
+
+// ── SECTION COMPLETION ──
+function checkSectionCompletion(card) {
+  const section = card.closest('section');
+  if (!section) return;
+  const allCards = section.querySelectorAll('.question-card');
+  const allDone = Array.from(allCards).every(c => c.dataset.answered);
+  if (allDone) {
+    const tick = section.querySelector('.section-tick');
+    if (tick) tick.classList.add('done');
+  }
+}
+
+// ── PROGRESS BAR ──
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+// ── NAV ACTIVE STATE ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+  });
+  navLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+});
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── TIMED TEST ──
+const testData = [
+  { q: "COUNTING: Five shapes each contain dots. A=3 dots, B=3 dots, C=3 dots, D=4 dots, E=3 dots. Which is the odd one out?", options: ["A","B","C","D","E"], correct: 3, explanations: ["A has 3 dots — same as B, C, and E. A follows the 3-dot rule.","B has 3 dots — follows the rule.","C has 3 dots — follows the rule.","Correct! D has 4 dots while all others have 3 dots. D breaks the counting rule.","E has 3 dots — follows the rule."] },
+  { q: "SHAPE TYPE: A=equilateral triangle, B=isosceles triangle, C=right-angled triangle, D=scalene triangle, E=square. Four shapes belong to the same category. Which is the odd one out?", options: ["A","B","C","D","E"], correct: 4, explanations: ["A is a triangle — it belongs to the triangle category.","B is a triangle — it belongs to the triangle category.","C is a right-angled triangle — still a triangle.","D is a scalene triangle — still a triangle.","Correct! E is a square — it is a quadrilateral, not a triangle. All other shapes are triangles (just different types). E is the odd one out."] },
+  { q: "SHADING: A=filled black square, B=filled black triangle, C=empty (outline only) pentagon, D=filled black circle, E=filled black hexagon. Which is the odd one out?", options: ["A","B","C","D","E"], correct: 2, explanations: ["A is filled black — follows the filled rule.","B is filled black — follows the filled rule.","Correct! C is an empty outline with no fill. A, B, D, and E are all filled solid black. C breaks the shading rule.","D is filled black — follows the rule.","E is filled black — follows the rule."] },
+  { q: "ROTATION: Five F-shapes. A=normal F, B=F rotated 90° clockwise, C=F rotated 180°, D=F rotated 270°, E=mirror-image F (reversed). Four are rotations. Which is a reflection?", options: ["A","B","C","D","E"], correct: 4, explanations: ["A is the original F — a valid starting rotation.","B is F rotated 90° clockwise — a valid rotation.","C is F rotated 180° — a valid rotation.","D is F rotated 270° clockwise — a valid rotation.","Correct! E is a mirror-image F. You cannot get a mirrored F by rotating a normal F. E is a reflection, not a rotation — it is the odd one out."] },
+  { q: "POSITION: Five squares, each with a dot. A=dot inside, B=dot inside, C=dot inside, D=dot inside, E=dot outside (next to the square). Which is the odd one out?", options: ["A","B","C","D","E"], correct: 4, explanations: ["A has the dot inside the square — follows the rule.","B has the dot inside — follows the rule.","C has the dot inside — follows the rule.","D has the dot inside — follows the rule.","Correct! E has the dot OUTSIDE the square, placed beside it rather than inside. The rule is: dot inside. E breaks this position rule."] },
+  { q: "LINE TYPE: Five rectangles. A=solid border, B=solid border, C=solid border, D=dashed border, E=solid border. Which is the odd one out?", options: ["A","B","C","D","E"], correct: 3, explanations: ["A has a solid border — follows the solid-border rule.","B has a solid border — follows the rule.","C has a solid border — follows the rule.","Correct! D has a DASHED border while A, B, C, and E all have solid borders. D breaks the line-type rule.","E has a solid border — follows the rule."] },
+  { q: "CORRESPONDENCE: The rule is dots = number of sides. A=triangle/3 dots, B=square/4 dots, C=hexagon/6 dots, D=pentagon/4 dots, E=triangle/3 dots. Which breaks the correspondence rule?", options: ["A","B","C","D","E"], correct: 3, explanations: ["A: triangle=3 sides, 3 dots. 3=3 ✓. Follows the rule.","B: square=4 sides, 4 dots. 4=4 ✓. Follows the rule.","C: hexagon=6 sides, 6 dots. 6=6 ✓. Follows the rule.","Correct! D: pentagon=5 sides but only 4 dots. 5≠4. D breaks the correspondence rule where dots must equal sides.","E: triangle=3 sides, 3 dots. 3=3 ✓. Follows the rule."] },
+  { q: "COUNTING SIDES: A=triangle (3), B=quadrilateral (4), C=pentagon (5), D=hexagon (6), E=quadrilateral (4). Four shapes each have a DIFFERENT number of sides (3,4,5,6). Which shape repeats a side-count that another shape already has?", options: ["A","B","C","D","E"], correct: 4, explanations: ["A has 3 sides — unique in this set.","B has 4 sides — one quadrilateral is expected.","C has 5 sides — unique in this set.","D has 6 sides — unique in this set.","Correct! E also has 4 sides, the same as B. The rule is: each shape has a unique number of sides (3, 4, 5, 6). E repeats the 4-side count, making it the odd one out."] },
+  { q: "SHADING CONDITIONAL: Triangles are empty; quadrilaterals are filled. A=empty triangle ✓, B=filled square ✓, C=filled rectangle ✓, D=filled triangle ✗, E=empty trapezium ✗. Which shape should be FILLED but is EMPTY, making it the odd one out?", options: ["A","B","C","D","E"], correct: 4, explanations: ["A is an empty triangle — triangles should be empty. A follows the conditional rule.","B is a filled square (quadrilateral) — quadrilaterals should be filled. B follows the rule.","C is a filled rectangle (quadrilateral) — correct. C follows the rule.","D is a filled triangle — triangles should be EMPTY. D also breaks the rule. But the question asks which is empty when it should be filled.","Correct! E is a trapezium (quadrilateral) and should be FILLED, but E is EMPTY. E breaks the conditional rule for quadrilaterals. E is the odd one out."] },
+  { q: "POSITION SEQUENCE: A dot cycles clockwise: top→right→bottom→left. A=dot top, B=dot right, C=dot bottom, D=dot right (should be left), E=dot top. Which is out of sequence?", options: ["A","B","C","D","E"], correct: 3, explanations: ["A=dot at top: first in the sequence ✓.","B=dot at right: second in the sequence ✓.","C=dot at bottom: third in the sequence ✓.","Correct! D should have the dot at the LEFT (fourth position: top→right→bottom→LEFT). But D has the dot at the RIGHT — repeating B's position. D is out of sequence.","E=dot at top: consistent starting position ✓."] },
+  { q: "LINE + SHAPE: Straight-sided shapes have dashed borders; curved shapes have solid borders. A=dashed triangle ✓, B=solid circle ✓, C=dashed square ✓, D=solid oval ✓, E=solid triangle ✗. Which breaks the rule?", options: ["A","B","C","D","E"], correct: 4, explanations: ["A: triangle (straight-sided) → dashed ✓. Correct line type for this shape.","B: circle (curved) → solid ✓. Correct line type.","C: square (straight-sided) → dashed ✓. Correct line type.","D: oval (curved) → solid ✓. Correct line type.","Correct! E: triangle (straight-sided) → should be DASHED, but E has a SOLID border. E breaks the conditional line-type rule. E is the odd one out."] },
+  { q: "DUAL RULE: Inner shape sides = outer sides minus 2; if outer has more than 4 sides, inner is shaded. A=hexagon/shaded square (6-2=4 ✓, 6>4 shaded ✓), B=square/empty line (4-2=2 ✓, 4 not >4 so empty ✓), C=pentagon/empty triangle (5-2=3 ✓, but 5>4 so should be SHADED ✗), D=hexagon/shaded square ✓, E=pentagon/shaded triangle ✓. Which breaks a rule?", options: ["A","B","C","D","E"], correct: 2, explanations: ["A: hexagon/shaded square. 6-2=4 ✓. 6>4 so shaded ✓. Both rules pass.","B: square/empty 2-sided. 4-2=2 ✓. 4 is not >4 so empty ✓. Both rules pass.","Correct! C: pentagon/empty triangle. 5-2=3 ✓ (side count fine). But 5>4, so inner shape must be SHADED. C has an empty inner triangle — breaking Rule 2.","D: hexagon/shaded square. Both rules pass.","E: pentagon/shaded triangle. 5-2=3 ✓. 5>4 so shaded ✓. Both rules pass."] },
+  { q: "NEGATIVE RULE: The rule is: no element touches the border of the outer shape. A=dot floating in centre ✓, B=dot in centre ✓, C=dot touching the right border ✗, D=dot in centre ✓, E=dot in centre ✓. Which breaks the negative rule?", options: ["A","B","C","D","E"], correct: 2, explanations: ["A: dot floats in the centre, not touching the border ✓. Negative rule is satisfied.","B: dot in centre, not touching the border ✓. Negative rule is satisfied.","Correct! C: dot is touching (resting against) the right border of the shape. The rule says no element touches the border. C violates this negative rule. Negative rules are easy to miss — you must actively check whether elements touch the edge.","D: dot in centre ✓. Negative rule satisfied.","E: dot in centre ✓. Negative rule satisfied."] },
+  { q: "ROTATION + COUNTING: Five squares, each with a dot and an arrow. Rule: dot moves clockwise (top/right/bottom/left); arrow count equals 1 more than the step number (step 1=1 arrow, step 2=2 arrows, etc.). A=top/1 arrow ✓, B=right/2 arrows ✓, C=bottom/3 arrows ✓, D=left/3 arrows ✗ (should be 4), E=top/1 arrow ✓. Which breaks the arrow-count rule?", options: ["A","B","C","D","E"], correct: 3, explanations: ["A: dot at top (step 1), 1 arrow ✓. 1 arrow for step 1. Correct.","B: dot at right (step 2), 2 arrows ✓. 2 arrows for step 2. Correct.","C: dot at bottom (step 3), 3 arrows ✓. 3 arrows for step 3. Correct.","Correct! D: dot at left (step 4), but only 3 arrows. Step 4 requires 4 arrows. D breaks the arrow-count rule. D is the odd one out.","E: dot at top (step 1 again), 1 arrow ✓. If E restarts the sequence, 1 arrow is correct."] },
+  { q: "TRAPS: 'Two Odd Ones' illusion. Five shapes: A=very large star, B=small pentagon, C=small hexagon, D=small heptagon (7 sides), E=small octagon. The rule is: four shapes have fewer than 7 sides. Which is the actual odd one out?", options: ["A","B","C","D","E"], correct: 3, explanations: ["A is a very large star — stars have 10 points (10 sides). Wait, the question says to count sides: a star has many indentations. If we treat A as a shape with more than 7 sides, A might seem like the odd one out. But the question states the rule: four shapes have fewer than 7 sides. Check D first.","B is a pentagon (5 sides) — fewer than 7 ✓. B follows the rule.","C is a hexagon (6 sides) — fewer than 7 ✓. C follows the rule.","Correct! D is a heptagon (7 sides) — exactly 7 sides, which is NOT fewer than 7. The rule is strictly fewer than 7. D breaks this rule. Even though A looks like the odd one out (it's huge and different), A may have fewer sides when counted as a simple polygon outline. D is the definitive odd one out by the side-count rule.","E is an octagon (8 sides) — more than 7. But D specifically is the answer because D=exactly 7 which is the boundary breaker."] },
+];
+
+let testActive = false;
+let timerInterval = null;
+let timeLeft = 900;
+let testAnswers = {};
+
+function startTest() {
+  document.getElementById('start-test-btn').style.display = 'none';
+  document.getElementById('test-questions').style.display = 'block';
+  document.getElementById('submit-test-btn').style.display = 'block';
+  renderTestQuestions();
+  startTimer();
+}
+
+function renderTestQuestions() {
+  const container = document.getElementById('test-questions');
+  container.innerHTML = '';
+  testData.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'test-q';
+    div.innerHTML = `<div class="test-q-num">Question ${i+1} of ${testData.length}</div>
+      <div class="test-q-text">${q.q}</div>
+      <div class="q-options" id="tq-opts-${i}">
+        ${q.options.map((opt, j) => `<button class="q-btn" onclick="selectTestAnswer(${i},${j})" id="tq-${i}-${j}">${opt}</button>`).join('')}
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function selectTestAnswer(qi, oi) {
+  testAnswers[qi] = oi;
+  const opts = document.querySelectorAll(`#tq-opts-${qi} .q-btn`);
+  opts.forEach((b, j) => {
+    b.style.background = j === oi ? '#dbeafe' : '';
+    b.style.borderColor = j === oi ? '#3b82f6' : '';
+    b.style.color = j === oi ? '#1d4ed8' : '';
+  });
+}
+
+function startTimer() {
+  testActive = true;
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    const m = Math.floor(timeLeft / 60);
+    const s = timeLeft % 60;
+    document.getElementById('timer-display').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+    if (timeLeft <= 0) { clearInterval(timerInterval); submitTest(); }
+    if (timeLeft <= 60) document.getElementById('timer-display').style.color = '#ef4444';
+  }, 1000);
+}
+
+function submitTest() {
+  clearInterval(timerInterval);
+  document.getElementById('test-questions').style.display = 'none';
+  document.getElementById('submit-test-btn').style.display = 'none';
+  const panel = document.getElementById('results-panel');
+  panel.style.display = 'block';
+
+  let score = 0;
+  testData.forEach((q, i) => {
+    if (testAnswers[i] === q.correct) score++;
+  });
+
+  document.getElementById('result-score-num').textContent = score + '/15';
+  const bandEl = document.getElementById('result-band-el');
+  if (score <= 5) { bandEl.textContent = 'Needs Practice'; bandEl.className = 'result-band band-np'; }
+  else if (score <= 9) { bandEl.textContent = 'Developing'; bandEl.className = 'result-band band-dev'; }
+  else if (score <= 12) { bandEl.textContent = 'Secure'; bandEl.className = 'result-band band-sec'; }
+  else { bandEl.textContent = 'Mastery'; bandEl.className = 'result-band band-mas'; }
+
+  const review = document.getElementById('test-review');
+  review.innerHTML = '';
+  testData.forEach((q, i) => {
+    const userAns = testAnswers[i];
+    const correct = q.correct;
+    const isCorrect = userAns === correct;
+    const div = document.createElement('div');
+    div.className = 'review-item ' + (isCorrect ? 'correct-r' : 'wrong-r');
+    const userLabel = userAns !== undefined ? q.options[userAns] : 'Not answered';
+    div.innerHTML = `<strong>Q${i+1}:</strong> ${q.q}<br>
+      <span style="color:${isCorrect ? 'var(--green)' : 'var(--red)'}; font-weight:700;">
+        Your answer: ${userLabel} ${isCorrect ? '✓' : '✗'}
+      </span><br>
+      <span style="color:var(--text-mid); font-size:14px; margin-top:4px; display:block;">
+        ${isCorrect ? q.explanations[correct] : `Correct answer: ${q.options[correct]}. ${q.explanations[correct]}`}
+      </span>`;
+    review.appendChild(div);
+  });
+
+  updateScore(score);
+}
+
+function resetTest() {
+  document.getElementById('results-panel').style.display = 'none';
+  document.getElementById('start-test-btn').style.display = 'block';
+  testAnswers = {};
+  timeLeft = 900;
+  document.getElementById('timer-display').textContent = '15:00';
+  document.getElementById('timer-display').style.color = 'var(--gold)';
+  document.getElementById('test-review').innerHTML = '';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11+ NVR — Paper Folding & Hole Punching</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1b2a;
+  --navy2: #1a2d42;
+  --navy3: #243b55;
+  --gold: #f0b429;
+  --gold2: #fcd97a;
+  --cream: #faf8f3;
+  --white: #ffffff;
+  --green: #1a7f4b;
+  --green-bg: #e6f7ef;
+  --yellow: #a16207;
+  --yellow-bg: #fef9c3;
+  --orange: #c2410c;
+  --orange-bg: #fff0e6;
+  --purple: #6d28d9;
+  --purple-bg: #ede9fe;
+  --red: #dc2626;
+  --red-bg: #fef2f2;
+  --blue-bg: #eff6ff;
+  --blue: #1d4ed8;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --card-shadow: 0 2px 12px rgba(13,27,42,0.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:16px;line-height:1.6;}
+
+/* PROGRESS BAR */
+#progress-bar{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--gold),#ff8c00);width:0%;z-index:9999;transition:width 0.1s;}
+
+/* HEADER */
+header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,var(--navy3) 100%);color:white;padding:48px 24px 36px;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+.header-badge{display:inline-block;background:rgba(240,180,41,0.15);border:1px solid var(--gold);color:var(--gold2);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:16px;}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,48px);font-weight:900;color:white;line-height:1.1;margin-bottom:8px;}
+header h1 span{color:var(--gold);}
+header p{color:rgba(255,255,255,0.7);font-size:15px;max-width:560px;margin:0 auto 20px;}
+.header-stats{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:20px;}
+.stat-pill{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:24px;padding:8px 18px;font-size:13px;color:rgba(255,255,255,0.8);}
+.stat-pill strong{color:var(--gold);}
+
+/* SCORE COUNTER */
+#score-bar{position:sticky;top:0;z-index:100;background:var(--navy);color:white;display:flex;align-items:center;justify-content:space-between;padding:10px 20px;flex-wrap:wrap;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+#score-display{font-size:14px;font-weight:600;color:var(--gold2);}
+#score-display span{font-size:18px;font-weight:700;color:var(--gold);}
+.score-fraction{font-family:'DM Mono',monospace;}
+
+/* NAV */
+#sticky-nav{position:sticky;top:46px;z-index:90;background:var(--white);border-bottom:2px solid var(--border);overflow-x:auto;white-space:nowrap;padding:0 12px;}
+#sticky-nav ul{display:flex;list-style:none;gap:0;padding:0;}
+#sticky-nav li a{display:block;padding:12px 16px;font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;border-bottom:3px solid transparent;transition:all 0.2s;}
+#sticky-nav li a:hover,#sticky-nav li a.active{color:var(--navy);border-bottom-color:var(--gold);}
+.nav-tick{display:inline-block;width:14px;height:14px;background:var(--green);border-radius:50%;margin-left:6px;vertical-align:middle;opacity:0;transition:opacity 0.3s;}
+.nav-tick.done{opacity:1;}
+
+/* LAYOUT */
+main{max-width:900px;margin:0 auto;padding:32px 16px 80px;}
+section{margin-bottom:64px;scroll-margin-top:100px;}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.section-num{width:40px;height:40px;background:var(--navy);color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:18px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.section-header h2{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,28px);font-weight:700;color:var(--navy);}
+
+/* CARDS */
+.card{background:var(--white);border-radius:16px;padding:24px;margin-bottom:16px;box-shadow:var(--card-shadow);border:1px solid var(--border);}
+.card-simple{background:var(--blue-bg);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:20px 24px;margin-bottom:16px;}
+.card-simple .label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+.card-full{background:var(--navy);color:white;border-radius:12px;padding:20px 24px;margin-bottom:16px;}
+.card-full .label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.card-full p,.card-full li{color:rgba(255,255,255,0.85);}
+.card-full ul{padding-left:20px;}
+.watchout{background:#fff8f0;border-left:4px solid var(--orange);border-radius:0 12px 12px 0;padding:20px 24px;margin-bottom:16px;}
+.watchout .label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.worked{background:linear-gradient(135deg,#f8fafc,#f1f5f9);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:16px;}
+.worked .w-title{font-weight:700;color:var(--navy);margin-bottom:16px;font-size:15px;display:flex;align-items:center;gap:8px;}
+.w-step{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start;}
+.w-step-num{width:26px;height:26px;background:var(--navy);color:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.w-step p{font-size:14px;line-height:1.5;}
+
+/* FOLD DIAGRAMS */
+.fold-diagram{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin:16px 0;}
+.paper-box{width:80px;height:80px;border:2px solid var(--navy);border-radius:4px;background:#fff;display:inline-flex;align-items:center;justify-content:center;position:relative;flex-shrink:0;}
+.paper-box.folded{background:#e8f4fd;border-color:#2563eb;}
+.fold-line-h{position:absolute;top:50%;left:0;right:0;height:2px;background:#2563eb;border-top:2px dashed #2563eb;}
+.fold-line-v{position:absolute;left:50%;top:0;bottom:0;width:2px;background:#2563eb;border-left:2px dashed #2563eb;}
+.hole{width:10px;height:10px;background:var(--navy);border-radius:50%;position:absolute;}
+.hole.punched{background:#dc2626;}
+.arrow-step{font-size:22px;color:var(--muted);}
+.diagram-label{font-size:11px;color:var(--muted);text-align:center;margin-top:4px;font-weight:500;}
+
+/* DIFFICULTY BADGES */
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;}
+.badge-starter{background:var(--green-bg);color:var(--green);}
+.badge-developing{background:var(--yellow-bg);color:var(--yellow);}
+.badge-secure{background:var(--orange-bg);color:var(--orange);}
+.badge-mastery{background:var(--purple-bg);color:var(--purple);}
+
+/* QUESTIONS */
+.q-block{background:var(--white);border-radius:12px;padding:20px;margin-bottom:12px;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,0.04);}
+.q-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.q-num{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);font-weight:500;}
+.q-text{font-weight:500;font-size:15px;line-height:1.5;margin-bottom:14px;}
+.q-options{display:flex;flex-direction:column;gap:8px;}
+.opt-btn{background:#f8fafc;border:2px solid var(--border);border-radius:10px;padding:12px 16px;text-align:left;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;color:var(--text);}
+.opt-btn:hover:not(:disabled){background:#f0f4ff;border-color:#93c5fd;}
+.opt-btn.correct{background:var(--green-bg);border-color:var(--green);color:var(--green);}
+.opt-btn.wrong{background:var(--red-bg);border-color:var(--red);color:var(--red);}
+.opt-btn:disabled{cursor:default;}
+.feedback-box{margin-top:12px;padding:12px 16px;border-radius:10px;font-size:13px;line-height:1.5;display:none;}
+.feedback-box.correct{background:var(--green-bg);border-left:3px solid var(--green);color:#14532d;}
+.feedback-box.wrong{background:var(--red-bg);border-left:3px solid var(--red);color:#7f1d1d;}
+.feedback-box.show{display:block;}
+.q-input-row{display:flex;gap:8px;align-items:center;margin-top:4px;}
+.q-input{border:2px solid var(--border);border-radius:10px;padding:10px 14px;font-size:15px;font-family:'DM Sans',sans-serif;width:180px;transition:border-color 0.2s;}
+.q-input:focus{outline:none;border-color:#93c5fd;}
+.check-btn{background:var(--navy);color:white;border:none;border-radius:10px;padding:10px 18px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s;}
+.check-btn:hover{background:var(--navy2);}
+
+/* SECTION COMPLETION */
+.section-complete{display:none;align-items:center;gap:8px;background:var(--green-bg);border:1px solid var(--green);border-radius:10px;padding:12px 16px;margin-top:16px;color:var(--green);font-weight:600;font-size:14px;}
+.section-complete.show{display:flex;}
+
+/* TIMED TEST */
+#test-section{background:var(--navy);border-radius:20px;padding:32px;color:white;}
+#test-section h2{font-family:'Playfair Display',serif;font-size:28px;color:var(--gold);margin-bottom:8px;}
+#test-section p{color:rgba(255,255,255,0.7);margin-bottom:24px;}
+#timer-display{font-family:'DM Mono',monospace;font-size:32px;color:var(--gold);text-align:center;margin:16px 0;}
+#timer-display.warning{color:#ef4444;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+#start-test-btn{background:var(--gold);color:var(--navy);border:none;border-radius:12px;padding:14px 32px;font-size:16px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+#start-test-btn:hover{background:var(--gold2);}
+#test-questions{display:none;}
+#test-questions .q-block{background:#1a2d42;border-color:#243b55;color:white;}
+#test-questions .q-text{color:white;}
+#test-questions .opt-btn{background:#243b55;border-color:#2d4a66;color:rgba(255,255,255,0.9);}
+#test-questions .opt-btn:hover:not(:disabled){background:#2d4a66;border-color:#3b6186;}
+#test-submit{background:var(--gold);color:var(--navy);border:none;border-radius:12px;padding:14px 32px;font-size:16px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:24px;width:100%;}
+#test-results{display:none;text-align:center;padding:24px 0;}
+.result-score{font-family:'Playfair Display',serif;font-size:64px;font-weight:900;color:var(--gold);}
+.result-band{display:inline-block;padding:8px 24px;border-radius:24px;font-size:16px;font-weight:700;margin:12px 0;}
+.band-np{background:#7f1d1d;color:#fca5a5;}
+.band-dev{background:#78350f;color:#fcd34d;}
+.band-sec{background:#1e3a5f;color:#93c5fd;}
+.band-mas{background:#3b0764;color:#d8b4fe;}
+.result-breakdown{text-align:left;margin-top:24px;}
+.rb-item{background:#1a2d42;border-radius:10px;padding:14px 16px;margin-bottom:8px;font-size:13px;}
+.rb-item.rb-correct{border-left:3px solid #22c55e;}
+.rb-item.rb-wrong{border-left:3px solid #ef4444;}
+.rb-label{font-weight:600;color:rgba(255,255,255,0.9);margin-bottom:4px;}
+.rb-exp{color:rgba(255,255,255,0.65);font-size:12px;line-height:1.5;}
+
+/* ALPHABET STRIP */
+.alpha-strip{background:var(--navy);border-radius:12px;padding:16px;margin-bottom:16px;overflow-x:auto;}
+.alpha-strip-title{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+.alpha-grid{display:flex;flex-wrap:wrap;gap:4px;}
+.alpha-cell{background:#1a2d42;border-radius:6px;padding:4px 6px;min-width:36px;text-align:center;font-family:'DM Mono',monospace;}
+.alpha-letter{font-size:13px;font-weight:700;color:var(--gold2);}
+.alpha-num{font-size:11px;color:rgba(255,255,255,0.5);}
+
+/* VISUAL FOLD GRID */
+.fold-grid{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0;}
+.fold-cell{text-align:center;}
+.fold-cell svg{display:block;margin:0 auto;}
+.fold-cell-label{font-size:11px;color:var(--muted);margin-top:4px;font-weight:500;}
+
+hr.section-divider{border:none;border-top:2px solid var(--border);margin:32px 0;}
+
+@media(max-width:600px){
+  header h1{font-size:24px;}
+  .paper-box{width:60px;height:60px;}
+  #sticky-nav li a{padding:10px 10px;font-size:12px;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<header>
+  <div class="header-badge">11+ GL Assessment · Non-Verbal Reasoning</div>
+  <h1>Paper Folding &amp; <span>Hole Punching</span></h1>
+  <p>Master every fold, track every hole — from single folds to off-centre multi-punch traps</p>
+  <div class="header-stats">
+    <div class="stat-pill">🧠 <strong>5</strong> Sub-skills</div>
+    <div class="stat-pill">✏️ <strong>80+</strong> Practice Questions</div>
+    <div class="stat-pill">⏱️ <strong>15-Q</strong> Timed Test</div>
+    <div class="stat-pill">🏆 <strong>4</strong> Difficulty Tiers</div>
+  </div>
+</header>
+
+<div id="score-bar">
+  <div id="score-display">Score: <span id="score-val">0</span> / <span id="total-val">0</span> <span class="score-fraction" id="score-pct"></span></div>
+  <div style="font-size:12px;color:rgba(255,255,255,0.5);">Keep going — every correct answer counts!</div>
+</div>
+
+<nav id="sticky-nav">
+  <ul>
+    <li><a href="#s1">1. Single Fold <span class="nav-tick" id="t1">✓</span></a></li>
+    <li><a href="#s2">2. Double Fold <span class="nav-tick" id="t2">✓</span></a></li>
+    <li><a href="#s3">3. Off-Centre Folds <span class="nav-tick" id="t3">✓</span></a></li>
+    <li><a href="#s4">4. Multi-Punch <span class="nav-tick" id="t4">✓</span></a></li>
+    <li><a href="#s5">5. Overlap &amp; Traps <span class="nav-tick" id="t5">✓</span></a></li>
+    <li><a href="#s6">⏱ Timed Test</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ===== SECTION 1: SINGLE FOLD ===== -->
+<section id="s1">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2>Single Fold — Mirror Basics</h2>
+  </div>
+
+  <div class="card-simple">
+    <div class="label">🟦 Simple Explanation (Age 9)</div>
+    <p>Imagine you fold a piece of paper in half — like closing a book. Now poke a hole through it. When you open it back up, the hole appears <strong>twice</strong> — once where you poked it, and once in the same spot on the other side. The fold is like a mirror: whatever is on one side appears on the other. That's all there is to a single fold!</p>
+  </div>
+
+  <div class="card-full">
+    <div class="label">📘 Full Explanation</div>
+    <p>A single fold creates two overlapping layers of paper. Any hole punched through both layers will appear symmetrically reflected across the fold line when the paper is unfolded. The hole's distance from the fold line is preserved — the reflected hole appears at the exact same distance on the opposite side. The fold line acts as an axis of symmetry.</p>
+    <ul style="margin-top:10px;padding-left:20px;">
+      <li>Horizontal fold → holes reflect vertically (top–bottom)</li>
+      <li>Vertical fold → holes reflect horizontally (left–right)</li>
+      <li>Result: always 2 holes for 1 punch through a single fold</li>
+    </ul>
+  </div>
+
+  <div class="worked">
+    <div class="w-title">📐 Worked Example 1 — Easy</div>
+    <p style="font-size:14px;margin-bottom:14px;">A square sheet is folded in half <strong>horizontally</strong> (top half folds down onto bottom half). One hole is punched near the <strong>top-right corner</strong> of the folded paper. What does the unfolded paper look like?</p>
+    <div class="fold-diagram">
+      <div>
+        <svg width="80" height="80" viewBox="0 0 80 80"><rect x="2" y="2" width="76" height="76" fill="white" stroke="#0d1b2a" stroke-width="2" rx="3"/><text x="40" y="44" text-anchor="middle" font-size="10" fill="#64748b">Original</text></svg>
+        <div class="diagram-label">Start</div>
+      </div>
+      <div class="arrow-step">→</div>
+      <div>
+        <svg width="80" height="44" viewBox="0 0 80 44"><rect x="2" y="2" width="76" height="40" fill="#e8f4fd" stroke="#2563eb" stroke-width="2" rx="3"/><line x1="2" y1="2" x2="78" y2="2" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,3"/><circle cx="62" cy="12" r="6" fill="#dc2626"/><text x="40" y="58" text-anchor="middle" font-size="9" fill="#2563eb">fold line</text></svg>
+        <div class="diagram-label">Folded + punched</div>
+      </div>
+      <div class="arrow-step">→</div>
+      <div>
+        <svg width="80" height="80" viewBox="0 0 80 80"><rect x="2" y="2" width="76" height="76" fill="white" stroke="#0d1b2a" stroke-width="2" rx="3"/><line x1="2" y1="41" x2="78" y2="41" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4,3"/><circle cx="62" cy="14" r="6" fill="#1a7f4b"/><circle cx="62" cy="68" r="6" fill="#1a7f4b"/></svg>
+        <div class="diagram-label">Unfolded result</div>
+      </div>
+    </div>
+    <div class="w-step"><div class="w-step-num">1</div><p><strong>Identify the fold line.</strong> The fold is horizontal — a line across the middle. The paper was folded top-down.</p></div>
+    <div class="w-step"><div class="w-step-num">2</div><p><strong>Find the hole position.</strong> The punch is near the top-right of the folded paper. That's close to the fold edge on the right.</p></div>
+    <div class="w-step"><div class="w-step-num">3</div><p><strong>Mirror the hole.</strong> Reflect the hole across the fold line. Top-right → the mirror appears bottom-right, at the same distance from the centre.</p></div>
+    <div class="w-step"><div class="w-step-num">4</div><p><strong>Answer:</strong> Two holes — one near top-right, one near bottom-right, equal distance from the horizontal centre.</p></div>
+  </div>
+
+  <div class="watchout">
+    <div class="label">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Students place the second hole in the wrong corner (e.g. bottom-left instead of bottom-right). Always ask: "What is the fold direction?" and mirror <em>only</em> across that exact line. A horizontal fold mirrors up-down, NOT diagonally!</p>
+  </div>
+
+  <div class="worked">
+    <div class="w-title">📐 Worked Example 2 — Harder</div>
+    <p style="font-size:14px;margin-bottom:14px;">A sheet is folded <strong>vertically</strong> (right half folds onto left). A hole is punched <strong>near the centre-bottom</strong> of the folded paper. What does the unfolded paper look like?</p>
+    <div class="w-step"><div class="w-step-num">0</div><p><strong>STEP 0 — Elimination check:</strong> A single fold through 2 layers = 2 holes. Instantly eliminate any answer showing 1, 3, or 4 holes.</p></div>
+    <div class="w-step"><div class="w-step-num">1</div><p><strong>Fold direction:</strong> Vertical fold — fold line runs down the middle. Right folds onto left.</p></div>
+    <div class="w-step"><div class="w-step-num">2</div><p><strong>Hole position:</strong> Near centre-bottom of the folded (now narrower) paper = near the fold line, bottom half.</p></div>
+    <div class="w-step"><div class="w-step-num">3</div><p><strong>Mirror left-right:</strong> The hole is close to the fold line, so its mirror is almost directly across — also near the centre, bottom. Both holes appear near the vertical centre, bottom.</p></div>
+    <div class="w-step"><div class="w-step-num">4</div><p><strong>Answer:</strong> Two holes close together near the bottom-centre of the sheet.</p></div>
+  </div>
+
+  <hr class="section-divider">
+  <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);margin-bottom:16px;">Practice Questions — Single Fold</h3>
+
+  <!-- Q1 Starter -->
+  <div class="q-block" data-section="s1">
+    <div class="q-header"><span class="badge badge-starter">Starter</span><span class="q-num">Q1.1</span></div>
+    <div class="q-text">A square sheet is folded in half horizontally (top folds onto bottom). One hole is punched near the <strong>left edge, in the middle height</strong> of the folded paper. How many holes appear when the paper is unfolded?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">1 hole</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">2 holes</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">3 holes</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">4 holes</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> One fold creates 2 layers. One punch through 2 layers = 2 holes. The fold line is horizontal, so the hole near the left-middle reflects to the left-middle on the other half.</div>
+    <div class="feedback-box wrong" id="fb-q1-1hole">❌ <strong>Not quite.</strong> There is only 1 layer if you don't fold — but the paper WAS folded. Folding means the punch goes through 2 layers at once, creating 2 holes when opened.</div>
+    <div class="feedback-box wrong" id="fb-q1-3hole">❌ <strong>Not quite.</strong> 3 holes would require folding into 3 layers first. A single fold only makes 2 layers — so exactly 2 holes appear.</div>
+    <div class="feedback-box wrong" id="fb-q1-4hole">❌ <strong>Not quite.</strong> 4 holes come from 2 folds (4 layers). Here we only have 1 fold = 2 layers = 2 holes.</div>
+  </div>
+
+  <!-- Q2 Starter -->
+  <div class="q-block" data-section="s1">
+    <div class="q-header"><span class="badge badge-starter">Starter</span><span class="q-num">Q1.2</span></div>
+    <div class="q-text">A sheet is folded vertically (left half folds onto right half). A hole is punched near the <strong>top-right corner</strong>. After unfolding, where are the holes?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">Both holes on the right side</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">Top-left and bottom-right</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">Top-right and top-left</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">Top-right and bottom-right</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> The fold is vertical (left-right mirror). The hole punched near top-right reflects across the vertical centre line to top-left. Both holes stay near the top — the fold only mirrors left and right, not up and down.</div>
+    <div class="feedback-box wrong">❌ <strong>Not quite.</strong> After a vertical fold, only one side is visible. One hole goes through both layers. When unfolded, you get one hole on each side (left and right), both at the same height.</div>
+  </div>
+
+  <!-- Q3 Developing -->
+  <div class="q-block" data-section="s1">
+    <div class="q-header"><span class="badge badge-developing">Developing</span><span class="q-num">Q1.3</span></div>
+    <div class="q-text">A square sheet is folded horizontally. A hole is punched <strong>near the bottom edge, in the centre</strong> of the folded paper. Which description best matches the unfolded result?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">One hole at the very bottom-centre</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">Two holes near the top-centre and bottom-centre</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">Two holes at the left and right edges</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">Four holes near each corner</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> The paper was folded horizontally — so "bottom of folded paper" = near the fold line. When unfolded, the hole and its mirror both appear near the centre (fold line), one in the upper half and one in the lower half, both in the centre column.</div>
+    <div class="feedback-box wrong">❌ <strong>Think again.</strong> The punch goes through 2 layers. After unfolding, 2 holes appear. A horizontal fold mirrors top-to-bottom — so a hole near the bottom edge of the folded paper maps to near the centre of the original sheet and its mirror on the other side.</div>
+  </div>
+
+  <!-- Q4 Secure -->
+  <div class="q-block" data-section="s1">
+    <div class="q-header"><span class="badge badge-secure">Secure</span><span class="q-num">Q1.4</span></div>
+    <div class="q-text">A sheet is folded vertically (right half folds onto left). A hole is punched <strong>exactly on the fold edge</strong> (the crease line). How many visible holes appear after unfolding?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">1 hole</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">1 hole (the two holes overlap exactly)</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">2 holes side by side</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">2 holes top and bottom</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> When a hole is punched on the fold line itself, both layers are punched at the exact same position. When the paper is opened, there is only 1 hole (the two holes are in the same spot). This is an overlap — a key exam trap!</div>
+    <div class="feedback-box wrong">❌ <strong>Tricky one!</strong> A hole on the fold line means the hole is punched at the crease. When the paper unfolds, both copies of the hole are at exactly the same point — so they overlap into just 1 visible hole. This is called the "overlap trap."</div>
+  </div>
+
+  <!-- Q5 Mastery -->
+  <div class="q-block" data-section="s1">
+    <div class="q-header"><span class="badge badge-mastery">Mastery</span><span class="q-num">Q1.5</span></div>
+    <div class="q-text">A sheet is folded horizontally. A hole is punched <strong>very close to the fold line but in the top-left quadrant</strong> of the folded paper. Which answer correctly describes ALL holes after unfolding? <em>(The fold is top-over-bottom.)</em></div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">A: One hole near the top-left, one near the bottom-left — far from centre</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">B: Two holes close together near the horizontal centre, both on the left side</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">C: One hole near top-left, one near top-right</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">D: Two holes far apart — one near top-left, one near bottom-right</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Excellent!</strong> The hole is close to the fold line (the horizontal centre), in the top-left quadrant of the folded half. When unfolded, the hole mirrors to just below the centre line, also on the left. Both holes are close together near the horizontal centre — because the punch was close to the fold line.</div>
+    <div class="feedback-box wrong">❌ <strong>Almost — but check your distance.</strong> The key detail is "close to the fold line." That means after unfolding, both holes appear near the horizontal centre of the sheet. Option A places them far from centre — that would only be correct if the punch was near the outer edge, not the fold line.</div>
+  </div>
+
+  <div class="section-complete" id="sc1"><span>✓</span> Section 1 Complete! All questions attempted.</div>
+</section>
+
+<!-- ===== SECTION 2: DOUBLE FOLD ===== -->
+<section id="s2">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2>Double Fold — 4 Layers, 4 Holes</h2>
+  </div>
+
+  <div class="card-simple">
+    <div class="label">🟦 Simple Explanation (Age 9)</div>
+    <p>Now fold the paper <em>twice</em> — like folding a piece of paper for a note. First fold it in half one way, then fold it in half again another way. Now when you poke a hole, you're going through <strong>4 layers at once!</strong> When you unfold, there are 4 holes — like the corners of a square or rectangle. Each fold added a mirror image.</p>
+  </div>
+
+  <div class="card-full">
+    <div class="label">📘 Full Explanation</div>
+    <p>Two folds create 4 layers (2¹ × 2¹ = 4). Each fold doubles the layers. A hole punched through all 4 layers creates 4 holes when fully unfolded. The positions are determined by applying the Rewind Method: unfold in reverse order, mirroring the hole at each step.</p>
+    <ul style="margin-top:10px;padding-left:20px;">
+      <li><strong>Fold 1 (vertical) + Fold 2 (horizontal):</strong> 4 holes in a rectangular arrangement</li>
+      <li><strong>Rewind Method:</strong> Undo last fold first, mirror hole → undo first fold, mirror both holes</li>
+      <li>Hole count formula: n folds = 2ⁿ holes (when punch goes through all layers, and no overlaps)</li>
+    </ul>
+  </div>
+
+  <div class="worked">
+    <div class="w-title">📐 Worked Example 1 — Double Fold</div>
+    <p style="font-size:14px;margin-bottom:14px;">Sheet folded <strong>vertically</strong> first (right onto left), then <strong>horizontally</strong> (top onto bottom). One hole punched in the <strong>top-right</strong> of the final folded paper.</p>
+    <div class="w-step"><div class="w-step-num">0</div><p><strong>STEP 0:</strong> 2 folds = 4 layers = 4 holes. Eliminate all options that don't show exactly 4 holes.</p></div>
+    <div class="w-step"><div class="w-step-num">1</div><p><strong>Undo last fold (horizontal):</strong> Mirror the hole top-to-bottom. Top-right → also bottom-right. Now we have 2 holes.</p></div>
+    <div class="w-step"><div class="w-step-num">2</div><p><strong>Undo first fold (vertical):</strong> Mirror BOTH holes left-to-right. Top-right → top-left. Bottom-right → bottom-left. Now 4 holes.</p></div>
+    <div class="w-step"><div class="w-step-num">3</div><p><strong>Answer:</strong> 4 holes — one in each corner quadrant. Top-right, top-left, bottom-right, bottom-left.</p></div>
+  </div>
+
+  <div class="watchout">
+    <div class="label">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Students mirror in the wrong order — they try to undo fold 1 before fold 2. Always undo the <em>last fold first</em>. Think of it like undoing knots: the last one you tied is the first one you untie!</p>
+  </div>
+
+  <div class="worked">
+    <div class="w-title">📐 Worked Example 2 — Double Fold, Non-Corner Punch</div>
+    <p style="font-size:14px;margin-bottom:14px;">Sheet folded <strong>horizontally</strong> first (top onto bottom), then <strong>vertically</strong> (left onto right). One hole punched near the <strong>centre</strong> of the folded paper.</p>
+    <div class="w-step"><div class="w-step-num">0</div><p><strong>STEP 0:</strong> 2 folds = 4 holes expected. Remove all options with fewer.</p></div>
+    <div class="w-step"><div class="w-step-num">1</div><p><strong>Undo vertical fold (last):</strong> Mirror left-to-right. Centre → same position mirrored. Two holes appear in the centre row.</p></div>
+    <div class="w-step"><div class="w-step-num">2</div><p><strong>Undo horizontal fold (first):</strong> Mirror both holes top-to-bottom. Two centre holes → 4 holes, arranged symmetrically around the sheet centre.</p></div>
+    <div class="w-step"><div class="w-step-num">3</div><p><strong>Answer:</strong> 4 holes arranged symmetrically, one in each quadrant but close to the centre lines.</p></div>
+  </div>
+
+  <hr class="section-divider">
+  <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);margin-bottom:16px;">Practice Questions — Double Fold</h3>
+
+  <!-- Q2.1 -->
+  <div class="q-block" data-section="s2">
+    <div class="q-header"><span class="badge badge-starter">Starter</span><span class="q-num">Q2.1</span></div>
+    <div class="q-text">A sheet is folded twice (once horizontally, once vertically). One hole is punched. How many holes appear after unfolding?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">2 holes</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">4 holes</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">6 holes</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">8 holes</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> Each fold doubles the layers: fold 1 = 2 layers, fold 2 = 4 layers. One punch through 4 layers = 4 holes. This is the key rule: 2ⁿ holes for n folds.</div>
+    <div class="feedback-box wrong">❌ <strong>Check your layer count.</strong> 2 folds = 2² = 4 layers = 4 holes (assuming the punch goes through all layers and no overlaps). Remember: each fold doubles the layers!</div>
+  </div>
+
+  <!-- Q2.2 -->
+  <div class="q-block" data-section="s2">
+    <div class="q-header"><span class="badge badge-starter">Starter</span><span class="q-num">Q2.2</span></div>
+    <div class="q-text">A sheet is folded: first <strong>vertically</strong> (right onto left), then <strong>horizontally</strong> (top onto bottom). A hole is punched at the <strong>bottom-left corner</strong> of the folded paper. After the vertical fold is undone (step 1 of Rewind), where are the holes?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">Bottom-left AND bottom-right</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">Top-left AND bottom-left</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">Top-right AND bottom-right</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">All four corners</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> The last fold was horizontal (top onto bottom), so we undo that first. The hole at bottom-left of the folded paper mirrors to bottom-left on the unfolded top half — giving bottom-left and bottom-right... wait — we undo the horizontal fold: the hole at bottom-left reflects to top-left. But that's two holes in the left column. Then undoing the vertical fold mirrors left-to-right giving all 4. At the intermediate step of undoing only the horizontal fold, bottom-left mirrors to top-left (same column). Then we undo the vertical fold to get all 4.</div>
+    <div class="feedback-box wrong">❌ <strong>Remember the order!</strong> The last fold was horizontal. Undoing it mirrors the hole top-to-bottom (not left-to-right). So bottom-left becomes top-left. Two holes: top-left and bottom-left. Then undoing the vertical fold mirrors left-to-right to give all 4.</div>
+  </div>
+
+  <!-- Q2.3 Developing -->
+  <div class="q-block" data-section="s2">
+    <div class="q-header"><span class="badge badge-developing">Developing</span><span class="q-num">Q2.3</span></div>
+    <div class="q-text">A sheet is folded <strong>horizontally then vertically</strong>. A hole is punched near the <strong>top-right corner</strong> of the folded paper. Which describes the final hole pattern after full unfolding?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">Two holes — top-right and top-left</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">Four holes — one near each corner</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">Four holes — all on the right side</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">Three holes — top row and one bottom</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> Rewind: undo vertical fold (last) → top-right mirrors to top-left (2 holes). Undo horizontal fold (first) → both mirror downward: top-right → bottom-right, top-left → bottom-left. Final: 4 holes, one in each corner quadrant.</div>
+    <div class="feedback-box wrong">❌ <strong>Apply the Rewind Method.</strong> With 2 folds, you always get 4 holes (not 2 or 3). Undo folds in reverse order. Each undo doubles the holes. Top-right corner punch → ends up with one hole near each corner.</div>
+  </div>
+
+  <!-- Q2.4 Secure -->
+  <div class="q-block" data-section="s2">
+    <div class="q-header"><span class="badge badge-secure">Secure</span><span class="q-num">Q2.4</span></div>
+    <div class="q-text">Sheet folded: <strong>vertically</strong> first (left onto right), then <strong>horizontally</strong> (bottom onto top). Hole punched near the <strong>centre of the folded paper's left edge</strong>. What is the unfolded result?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">Two holes on the left edge, one near top, one near bottom</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">Four holes — two on the left edge and two on the right edge, at matching heights</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">Four holes near the centre of the sheet</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">Two holes, both on the right edge</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> Rewind: undo horizontal fold (last) → hole on left-centre of folded paper mirrors top-to-bottom → 2 holes on left edge (one in upper half, one in lower half). Then undo vertical fold → both left-edge holes mirror to right edge → 4 holes total: 2 on left, 2 on right, at matching heights.</div>
+    <div class="feedback-box wrong">❌ <strong>Follow the steps.</strong> Undo folds in reverse: last fold first. The fold was horizontal (bottom-top), so undo it by mirroring top-to-bottom — your 1 hole becomes 2 on the left edge. Then undo the vertical fold to mirror those 2 holes across to the right edge, giving 4 total.</div>
+  </div>
+
+  <!-- Q2.5 Mastery -->
+  <div class="q-block" data-section="s2">
+    <div class="q-header"><span class="badge badge-mastery">Mastery</span><span class="q-num">Q2.5</span></div>
+    <div class="q-text">A sheet is folded <strong>vertically then horizontally</strong>. A hole is punched <strong>exactly on the vertical fold line</strong> of the twice-folded paper (before the horizontal fold was applied). How many visible holes appear after full unfolding?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">4 holes</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">2 holes (overlap reduces count)</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">1 hole</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">3 holes</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Excellent reasoning!</strong> The hole lands on the vertical fold line. When we undo the vertical fold, the two copies of the hole at that position are at the same point — they overlap into 1 hole (on the vertical centre). Then undo the horizontal fold — that 1 hole mirrors top-to-bottom, giving 2 holes. So 2 visible holes, both on the vertical centre line — one in the upper half, one in the lower half. The vertical fold overlap halved the count!</div>
+    <div class="feedback-box wrong">❌ <strong>Watch for overlaps!</strong> A hole punched on the fold line itself means the mirror image lands in the exact same position. When undoing the vertical fold, the 2 holes overlap into 1. Then undoing the horizontal fold makes that 1 hole into 2. Final count: 2 holes, not 4.</div>
+  </div>
+
+  <div class="section-complete" id="sc2"><span>✓</span> Section 2 Complete! All questions attempted.</div>
+</section>
+
+<!-- ===== SECTION 3: OFF-CENTRE FOLDS ===== -->
+<section id="s3">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <h2>Off-Centre Folds — Uneven Spacing</h2>
+  </div>
+
+  <div class="card-simple">
+    <div class="label">🟦 Simple Explanation (Age 9)</div>
+    <p>Usually we fold paper exactly in half — right down the middle. But sometimes a fold is made <strong>off-centre</strong>, like folding 1/3 of the paper over instead of exactly half. This means the two layers are <strong>different sizes</strong>, and the holes don't end up evenly spaced! The mirror still works, but the distances are different on each side of the fold line.</p>
+  </div>
+
+  <div class="card-full">
+    <div class="label">📘 Full Explanation</div>
+    <p>In an off-centre fold, the fold line is not at the midpoint of the paper. This has two important effects:</p>
+    <ul style="margin-top:10px;padding-left:20px;">
+      <li><strong>Uneven hole distribution:</strong> Holes do NOT appear symmetrically about the sheet centre — they are asymmetrically placed.</li>
+      <li><strong>Partial layer coverage:</strong> If the fold is smaller than half, part of the paper has only 1 layer. A punch in the single-layer area creates only 1 hole; a punch in the 2-layer area creates 2.</li>
+      <li><strong>Distance preservation:</strong> The reflected hole is still at the same distance from the fold line, but the fold line itself is off-centre.</li>
+    </ul>
+  </div>
+
+  <div class="worked">
+    <div class="w-title">📐 Worked Example 1 — Off-Centre Horizontal Fold</div>
+    <p style="font-size:14px;margin-bottom:14px;">The top <strong>1/3</strong> of a sheet is folded down (onto the bottom 2/3). A hole is punched 1cm from the top edge of the now-folded portion. What does the unfolded result look like?</p>
+    <div class="w-step"><div class="w-step-num">0</div><p><strong>Understand the fold:</strong> The fold line is at 1/3 from the top. The top third folds down. The folded paper now has: a 2-layer top section (1/3 height) and a single-layer section below.</p></div>
+    <div class="w-step"><div class="w-step-num">1</div><p><strong>Locate the hole:</strong> 1cm from the top edge of the folded-over portion = 1cm below the fold line (from the inside).</p></div>
+    <div class="w-step"><div class="w-step-num">2</div><p><strong>Mirror across fold line:</strong> The hole is 1cm below the fold line. Its mirror appears 1cm above the fold line in the original sheet = near the very top edge.</p></div>
+    <div class="w-step"><div class="w-step-num">3</div><p><strong>Answer:</strong> Two holes — one near the top edge, one 2cm from the top (both holes are near the top third of the sheet, NOT evenly spaced top and bottom).</p></div>
+  </div>
+
+  <div class="watchout">
+    <div class="label">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Students assume the holes will be evenly spaced top-and-bottom as in a centre fold. In an off-centre fold, BOTH holes are in the smaller folded portion — they appear close together near the top (or whichever side was folded). Don't spread them out across the whole sheet!</p>
+  </div>
+
+  <div class="worked">
+    <div class="w-title">📐 Worked Example 2 — Partial Layer Punch</div>
+    <p style="font-size:14px;margin-bottom:14px;">Top quarter of a sheet is folded down. A hole is punched in the <strong>lower three-quarters region</strong> (the single-layer area). How many holes after unfolding?</p>
+    <div class="w-step"><div class="w-step-num">1</div><p><strong>Identify layers at punch point:</strong> The hole is in the lower three-quarters — that area has only 1 layer (the fold only covered the top quarter).</p></div>
+    <div class="w-step"><div class="w-step-num">2</div><p><strong>Only 1 layer:</strong> The punch goes through just 1 layer → only 1 hole.</p></div>
+    <div class="w-step"><div class="w-step-num">3</div><p><strong>Answer:</strong> 1 hole only, in the lower part of the sheet. The fold had no effect on this region.</p></div>
+  </div>
+
+  <hr class="section-divider">
+  <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);margin-bottom:16px;">Practice Questions — Off-Centre Folds</h3>
+
+  <!-- Q3.1 -->
+  <div class="q-block" data-section="s3">
+    <div class="q-header"><span class="badge badge-starter">Starter</span><span class="q-num">Q3.1</span></div>
+    <div class="q-text">The top quarter of a sheet is folded down. A hole is punched through the <strong>folded (2-layer) area</strong>. How many holes appear after unfolding?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">1 hole</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">2 holes</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">3 holes</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">4 holes</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> The punch goes through the 2-layer zone, so 2 holes appear. Even though the fold is off-centre, a punch through 2 layers always gives 2 holes. The difference is they won't be evenly spaced across the sheet.</div>
+    <div class="feedback-box wrong">❌ <strong>Count the layers at the punch point.</strong> The punch is in the folded 2-layer area. Through 2 layers = 2 holes. The off-centre fold changes where the holes appear, not how many when in the 2-layer zone.</div>
+  </div>
+
+  <!-- Q3.2 -->
+  <div class="q-block" data-section="s3">
+    <div class="q-header"><span class="badge badge-starter">Starter</span><span class="q-num">Q3.2</span></div>
+    <div class="q-text">The top quarter of a sheet is folded down. A hole is punched in the <strong>lower three-quarters region</strong> (where there is only 1 layer). How many holes after unfolding?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">1 hole</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">2 holes</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">4 holes</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">0 holes</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> The punch is in the single-layer zone. Through 1 layer = 1 hole. The fold didn't create a second layer in that area, so there's nothing to mirror.</div>
+    <div class="feedback-box wrong">❌ <strong>Key idea:</strong> In an off-centre fold, the lower portion has only 1 layer. A punch there goes through just 1 layer = 1 hole only. Off-centre folds create single-layer zones!</div>
+  </div>
+
+  <!-- Q3.3 Developing -->
+  <div class="q-block" data-section="s3">
+    <div class="q-header"><span class="badge badge-developing">Developing</span><span class="q-num">Q3.3</span></div>
+    <div class="q-text">The top third of a sheet is folded down. A hole is punched 2cm from the top edge of the folded-over flap (i.e. in the 2-layer zone). After unfolding, the two holes are:</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">One near the top, one near the bottom — evenly spaced</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">Both near the top third of the sheet, close together</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">One at the very top edge, one in the centre of the sheet</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">Both at the exact centre of the sheet</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> The fold is off-centre — only the top third folds. Both the hole and its mirror are within that top-third zone (one near the top edge, one near the fold line). They both appear in the upper portion of the sheet, close together — NOT spread evenly top-to-bottom.</div>
+    <div class="feedback-box wrong">❌ <strong>Remember: off-centre = uneven.</strong> Because only the top third was folded, both holes stay in the top third of the unfolded sheet. They are close together near the top — not spread across the whole sheet like in a half-fold.</div>
+  </div>
+
+  <!-- Q3.4 Secure -->
+  <div class="q-block" data-section="s3">
+    <div class="q-header"><span class="badge badge-secure">Secure</span><span class="q-num">Q3.4</span></div>
+    <div class="q-text">The right quarter of a sheet is folded to the left (an off-centre vertical fold). A hole is punched in the right half of the visible sheet — which is the single-layer zone. How many holes appear, and where?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">2 holes — one on the left, one on the right</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">1 hole — in the left-centre area only</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">4 holes — spread across the sheet</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">1 hole — at the far right edge</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> The punch is in the single-layer zone (right portion, where no fold occurred). Through 1 layer = 1 hole. After unfolding, the hole appears in the left-centre area — the position is on the original sheet's left section where the punch landed. Only 1 hole.</div>
+    <div class="feedback-box wrong">❌ <strong>Single layer = single hole.</strong> The right portion (where you punched) has only 1 layer. The fold is to the far right. So the punch creates only 1 hole. Remember: partial/off-centre folds mean some areas have fewer layers!</div>
+  </div>
+
+  <!-- Q3.5 Mastery -->
+  <div class="q-block" data-section="s3">
+    <div class="q-header"><span class="badge badge-mastery">Mastery</span><span class="q-num">Q3.5</span></div>
+    <div class="q-text">The top 40% of a sheet is folded down. A hole is punched exactly at the fold line. After unfolding, how many holes are visible and where?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">2 holes — one in top 40%, one in bottom 60%</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">1 hole — exactly at the fold line position (40% from top)</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">2 holes close together near the top</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">0 holes — the punch is on the edge, not through paper</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Brilliant!</strong> A hole punched exactly on the fold line is punched at the crease. When the paper unfolds, both copies of the hole are at the exact same position — the fold line itself. They overlap completely, leaving just 1 visible hole at the fold line (40% from the top). Classic overlap trap!</div>
+    <div class="feedback-box wrong">❌ <strong>Overlap trap!</strong> When the punch lands on the fold line, both layers are pierced at the same point. After unfolding, the two holes land on top of each other — only 1 visible hole at the fold line. This is the same overlap principle as in single-fold problems.</div>
+  </div>
+
+  <div class="section-complete" id="sc3"><span>✓</span> Section 3 Complete! All questions attempted.</div>
+</section>
+
+<!-- ===== SECTION 4: MULTI-PUNCH ===== -->
+<section id="s4">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <h2>Multi-Punch — Independent Symmetry Paths</h2>
+  </div>
+
+  <div class="card-simple">
+    <div class="label">🟦 Simple Explanation (Age 9)</div>
+    <p>What if you poke <strong>two</strong> holes before you unfold? Each hole has its own set of mirror copies — they don't interfere with each other. Think of it like two separate stamps: each stamp makes its own pattern. You track each hole <em>separately</em> through the Rewind Method, then put both patterns together at the end.</p>
+  </div>
+
+  <div class="card-full">
+    <div class="label">📘 Full Explanation</div>
+    <p>Multiple holes punched through the same folded paper each follow independent symmetry paths. Each punch creates its own reflected set. The key rules:</p>
+    <ul style="margin-top:10px;padding-left:20px;">
+      <li><strong>Track each hole separately</strong> through the Rewind Method</li>
+      <li><strong>Total holes = sum of all individual hole reflections</strong> (minus any overlaps)</li>
+      <li><strong>Overlaps:</strong> If two punches reflect onto the same position, they appear as one hole</li>
+      <li><strong>Near-fold-line punches:</strong> A hole near the fold line creates its mirror very close to itself — they may appear to cluster</li>
+    </ul>
+  </div>
+
+  <div class="worked">
+    <div class="w-title">📐 Worked Example — Two Punches, Single Fold</div>
+    <p style="font-size:14px;margin-bottom:14px;">Sheet folded <strong>horizontally</strong>. Punch A is near the <strong>top-left</strong> of the folded paper. Punch B is near the <strong>top-right</strong>. What does the unfolded sheet look like?</p>
+    <div class="w-step"><div class="w-step-num">1</div><p><strong>Track Hole A separately:</strong> Near top-left → mirrors to bottom-left. Two holes from A: top-left, bottom-left.</p></div>
+    <div class="w-step"><div class="w-step-num">2</div><p><strong>Track Hole B separately:</strong> Near top-right → mirrors to bottom-right. Two holes from B: top-right, bottom-right.</p></div>
+    <div class="w-step"><div class="w-step-num">3</div><p><strong>Combine:</strong> Total 4 holes — top-left, top-right, bottom-left, bottom-right. One near each corner. (Note: this looks the same as a double fold result, but it came from 2 punches through 1 fold!)</p></div>
+  </div>
+
+  <div class="watchout">
+    <div class="label">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Students merge the two punches mentally and treat them as one symmetry group. Track each punch independently! A near-fold-line punch creates a cluster of 2 very close holes. A corner punch creates 2 holes far apart. Keep them separate in your mind.</p>
+  </div>
+
+  <div class="worked">
+    <div class="w-title">📐 Worked Example 2 — Two Punches, One Near Fold Line</div>
+    <p style="font-size:14px;margin-bottom:14px;">Sheet folded <strong>vertically</strong>. Punch A is near the <strong>top-left corner</strong>. Punch B is <strong>very close to the fold line</strong> (centre of the folded paper). What is the unfolded result?</p>
+    <div class="w-step"><div class="w-step-num">1</div><p><strong>Hole A:</strong> Top-left → mirrors left-right → top-right. Two holes from A: top-left and top-right.</p></div>
+    <div class="w-step"><div class="w-step-num">2</div><p><strong>Hole B:</strong> Very close to fold line → its mirror is also very close to fold line. Two holes close together near the vertical centre.</p></div>
+    <div class="w-step"><div class="w-step-num">3</div><p><strong>Total:</strong> 4 holes — top-left, top-right (from A), plus 2 close together near centre (from B). The B holes form a "cluster" near the middle.</p></div>
+  </div>
+
+  <hr class="section-divider">
+  <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);margin-bottom:16px;">Practice Questions — Multi-Punch</h3>
+
+  <!-- Q4.1 -->
+  <div class="q-block" data-section="s4">
+    <div class="q-header"><span class="badge badge-starter">Starter</span><span class="q-num">Q4.1</span></div>
+    <div class="q-text">A sheet is folded <strong>horizontally</strong>. Two holes are punched — one near the left side, one near the right side (both in the top part of the folded paper). How many total holes appear after unfolding?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">2 holes</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">4 holes</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">6 holes</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">8 holes</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> Each of the 2 punches goes through 2 layers (1 fold), creating 2 holes each. Total = 2 × 2 = 4 holes. Track them separately: left punch → left hole + left mirror. Right punch → right hole + right mirror.</div>
+    <div class="feedback-box wrong">❌ <strong>Track each punch separately.</strong> 2 punches × 2 layers each = 4 holes total. Each punch creates its own pair. Don't forget to count both the original and the mirrored hole for each punch!</div>
+  </div>
+
+  <!-- Q4.2 -->
+  <div class="q-block" data-section="s4">
+    <div class="q-header"><span class="badge badge-developing">Developing</span><span class="q-num">Q4.2</span></div>
+    <div class="q-text">Sheet folded vertically. Two holes punched: Hole A near the <strong>top-right corner</strong>, Hole B <strong>directly on the fold line</strong>. How many visible holes after unfolding?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">4 holes</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">3 holes (Hole B overlaps with itself)</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">2 holes</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">5 holes</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> Hole A (top-right corner) → reflects to top-left → 2 holes. Hole B (on the fold line) → its mirror overlaps exactly → 1 hole. Total visible: 2 + 1 = 3 holes. The fold-line punch always collapses to 1 visible hole.</div>
+    <div class="feedback-box wrong">❌ <strong>Remember Hole B's special case!</strong> Hole B is on the fold line. Its mirror lands in the same spot → they overlap → only 1 visible hole from Hole B. Hole A gives 2 holes normally. Total = 3 visible holes.</div>
+  </div>
+
+  <!-- Q4.3 Secure -->
+  <div class="q-block" data-section="s4">
+    <div class="q-header"><span class="badge badge-secure">Secure</span><span class="q-num">Q4.3</span></div>
+    <div class="q-text">Sheet folded horizontally, then vertically (2 folds). Two holes punched: Hole A near the <strong>top-right corner</strong> of the folded paper, Hole B near the <strong>bottom-left corner</strong>. How many total holes after unfolding?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">4 holes</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">8 holes</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">6 holes</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">2 holes</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> With 2 folds = 4 layers, each punch creates 4 holes. Two punches × 4 holes each = 8 holes. Track each: Hole A (top-right corner of folded paper) → after 2 unfolds → 4 holes near the corners. Hole B (bottom-left corner) → also maps to 4 different symmetric positions. Combined: 8 holes (assuming no overlaps, which is true since the punches are in different corners).</div>
+    <div class="feedback-box wrong">❌ <strong>2 folds = 4 layers.</strong> Each punch creates 4 holes (not 2). Two punches = 2 × 4 = 8 holes total. Apply the Rewind Method to each punch independently.</div>
+  </div>
+
+  <!-- Q4.4 Mastery -->
+  <div class="q-block" data-section="s4">
+    <div class="q-header"><span class="badge badge-mastery">Mastery</span><span class="q-num">Q4.4</span></div>
+    <div class="q-text">Sheet folded vertically. Two holes punched very <strong>close together near the fold line</strong>. After unfolding, how does the hole pattern look?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">4 holes spread to the four corners</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">4 holes forming two close clusters near the vertical centre</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">2 holes — they all overlap into the centre</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">4 holes in a perfect horizontal row</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> Each punch is near the fold line, so each creates 2 holes very close together (near the vertical centre). Two punches × 2 holes each = 4 holes total, but they form two small clusters close to the vertical centre line. This is the "cluster illusion" trap — they might look like fewer holes at first glance!</div>
+    <div class="feedback-box wrong">❌ <strong>Near-fold-line means near-centre after unfolding.</strong> Each punch near the fold line creates 2 holes very close together near the centre. With 2 such punches, you get 4 holes in two clusters — all near the vertical centre. They won't spread to the corners because the punches weren't near the edges.</div>
+  </div>
+
+  <div class="section-complete" id="sc4"><span>✓</span> Section 4 Complete! All questions attempted.</div>
+</section>
+
+<!-- ===== SECTION 5: TRAPS ===== -->
+<section id="s5">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <h2>Overlap, Cluster &amp; False Symmetry Traps</h2>
+  </div>
+
+  <div class="card-simple">
+    <div class="label">🟦 Simple Explanation (Age 9)</div>
+    <p>Sometimes two holes end up in the same spot — they overlap, so you only see one hole instead of two. Sometimes holes are so close together that they look like one big hole — a "cluster." And sometimes a pattern looks symmetrical but actually isn't! These are the traps that trip up even clever students. The fix: count carefully, and always use the Rewind Method rather than guessing from the picture.</p>
+  </div>
+
+  <div class="card-full">
+    <div class="label">📘 Full Explanation</div>
+    <p>The four major traps in paper folding questions:</p>
+    <ul style="margin-top:10px;padding-left:20px;">
+      <li><strong>Overlap trap:</strong> Punch on fold line → both copies in same position → 1 visible hole. Multiple punches can also accidentally overlap.</li>
+      <li><strong>Cluster illusion:</strong> Holes near the fold line appear very close together. Students miscount them as fewer holes.</li>
+      <li><strong>False symmetry:</strong> A pattern that looks symmetrical from a fold might not be — especially with off-centre folds. Check distances carefully.</li>
+      <li><strong>Wrong unfold order:</strong> Undoing folds in the wrong sequence gives a completely wrong answer. Always last fold first.</li>
+    </ul>
+  </div>
+
+  <div class="worked">
+    <div class="w-title">📐 Worked Example — Overlap Trap</div>
+    <p style="font-size:14px;margin-bottom:14px;">Sheet folded vertically then horizontally. Hole A punched near top-right. After one unfold (vertical), it becomes 2 holes (top-right, top-left). After second unfold (horizontal), both become bottom versions. But what if Hole B was also punched near top-left of the folded paper?</p>
+    <div class="w-step"><div class="w-step-num">1</div><p><strong>Track Hole A (top-right):</strong> Unfold vertical → top-right + top-left. Unfold horizontal → 4 holes at all corners.</p></div>
+    <div class="w-step"><div class="w-step-num">2</div><p><strong>Track Hole B (top-left):</strong> Unfold vertical → top-left + top-right. Unfold horizontal → 4 holes at all corners again.</p></div>
+    <div class="w-step"><div class="w-step-num">3</div><p><strong>Combine — CHECK FOR OVERLAPS:</strong> Both A and B create holes at the same 4 corner positions! All 8 punches overlap into 4 visible holes. The answer is 4, not 8!</p></div>
+  </div>
+
+  <div class="watchout">
+    <div class="label">⚠️ Watch Out!</div>
+    <p><strong>The False Symmetry Trap:</strong> In an off-centre fold, the pattern looks like it should be symmetric — but the fold line isn't in the middle, so the hole positions are NOT evenly spaced. Always calculate the actual distance from the fold line rather than assuming equal spacing.</p>
+  </div>
+
+  <div class="worked">
+    <div class="w-title">📐 Worked Example 2 — Wrong Unfold Order</div>
+    <p style="font-size:14px;margin-bottom:14px;">Sheet folded: Step 1 = vertical fold. Step 2 = horizontal fold. Hole punched in top-right. <strong>Wrong approach</strong> vs <strong>Correct approach:</strong></p>
+    <div class="w-step"><div class="w-step-num">❌</div><p><strong>Wrong (unfold Step 1 first):</strong> Mirror left-right first → top-right + top-left. Then mirror top-bottom → 4 holes. Seems OK, but the positions are calculated incorrectly because the coordinate system is wrong at this stage.</p></div>
+    <div class="w-step"><div class="w-step-num">✅</div><p><strong>Correct (unfold Step 2 first):</strong> Mirror top-bottom → top-right + bottom-right. Then mirror left-right → all 4 corners. This is the same answer here, but in complex cases (off-centre, near edges), wrong order gives wrong positions.</p></div>
+    <div class="w-step"><div class="w-step-num">!</div><p><strong>Rule:</strong> Always undo the LAST fold first. No exceptions.</p></div>
+  </div>
+
+  <hr class="section-divider">
+  <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);margin-bottom:16px;">Practice Questions — Traps &amp; Advanced</h3>
+
+  <!-- Q5.1 -->
+  <div class="q-block" data-section="s5">
+    <div class="q-header"><span class="badge badge-developing">Developing</span><span class="q-num">Q5.1</span></div>
+    <div class="q-text">Sheet folded vertically. Two holes punched: one near the <strong>top-left corner</strong>, and one near the <strong>bottom-left corner</strong> of the folded paper. How many holes after unfolding?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">4 holes — top-left, top-right, bottom-left, bottom-right</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">2 holes — both on the left side</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">6 holes</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">8 holes</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> Hole 1 (top-left) → mirrors to top-right. Hole 2 (bottom-left) → mirrors to bottom-right. Total: top-left, top-right, bottom-left, bottom-right = 4 holes. Each punch through 1 fold = 2 holes. Two punches = 4 holes total.</div>
+    <div class="feedback-box wrong">❌ <strong>Track each hole.</strong> Each punch through 1 fold = 2 holes. Two punches = 4 holes. Top-left becomes top-left + top-right. Bottom-left becomes bottom-left + bottom-right. Total = 4 distinct holes.</div>
+  </div>
+
+  <!-- Q5.2 Secure -->
+  <div class="q-block" data-section="s5">
+    <div class="q-header"><span class="badge badge-secure">Secure</span><span class="q-num">Q5.2</span></div>
+    <div class="q-text">Sheet folded vertically. Two holes punched in the folded paper: one near the <strong>top-right corner</strong>, one near the <strong>bottom-right corner</strong>. After unfolding, how are the holes arranged?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">2 holes on the right side only</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">2 holes on the left side only</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">4 holes — one near each corner of the sheet</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">4 holes — all along the vertical centre line</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> A vertical fold mirrors left-right. Top-right → mirrors to top-left. Bottom-right → mirrors to bottom-right... wait — the fold is vertical, so right side was folded onto left. The visible paper after folding shows the left side on top. A punch in the "right corner" of the folded paper is actually in the left region of the original sheet. Mirroring gives one hole on each side. Result: 4 holes, one near each corner.</div>
+    <div class="feedback-box wrong">❌ <strong>A vertical fold mirrors left-to-right.</strong> Two punches through 2 layers each = 4 total holes. Each punch creates one on each side of the vertical centre. Final result: 4 holes, symmetrically placed, one near each corner.</div>
+  </div>
+
+  <!-- Q5.3 Mastery -->
+  <div class="q-block" data-section="s5">
+    <div class="q-header"><span class="badge badge-mastery">Mastery</span><span class="q-num">Q5.3</span></div>
+    <div class="q-text">Sheet folded: right-quarter folds onto left (off-centre vertical). Two holes punched: Hole A in the <strong>2-layer zone near the fold line</strong>, Hole B in the <strong>single-layer zone (far left)</strong>. Which answer correctly shows the unfolded result?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">A: 4 holes evenly spaced</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">B: 3 holes — Hole A creates 2 close together near right side, Hole B creates 1 hole on left</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">C: 2 holes — one left, one right</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">D: 1 hole only in the centre</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Expert-level reasoning!</strong> Hole A is in the 2-layer zone near the fold line → creates 2 holes close together near the right portion of the sheet (where the fold was). Hole B is in the single-layer zone (left side) → creates only 1 hole on the left. Total: 3 visible holes. The off-centre fold and single-layer zone make this a complex case!</div>
+    <div class="feedback-box wrong">❌ <strong>Break it down by zone.</strong> Hole A (2-layer zone, near fold line) = 2 holes close together near the right. Hole B (single-layer zone) = 1 hole on left. Total = 3 holes. The off-centre fold means NOT all areas have 2 layers — and a punch near the fold line creates a cluster, not widely spaced holes.</div>
+  </div>
+
+  <!-- Q5.4 Mastery -->
+  <div class="q-block" data-section="s5">
+    <div class="q-header"><span class="badge badge-mastery">Mastery</span><span class="q-num">Q5.4</span></div>
+    <div class="q-text">After unfolding, a student sees <strong>what appears to be 3 holes</strong> — but the paper was folded twice and punched once. What is the most likely explanation?</div>
+    <div class="q-options">
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">The student miscounted — there must be exactly 4 holes</button>
+      <button class="opt-btn" data-correct="true" onclick="handleMCQ(this)">One pair of holes overlaps (punch was on or near a fold line), reducing 4 holes to 3 visible</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">The punch only went through 3 layers</button>
+      <button class="opt-btn" data-correct="false" onclick="handleMCQ(this)">One fold was a partial off-centre fold covering only 3/4 of the paper</button>
+    </div>
+    <div class="feedback-box correct">✅ <strong>Correct!</strong> Two folds normally create 4 holes. If only 3 are visible, the most likely cause is that the punch was placed on or very close to one of the fold lines. When a hole lands on a fold line, its two mirror copies overlap — reducing the visible count by 1. So 4 potential holes → 2 overlap → 3 visible.</div>
+    <div class="feedback-box wrong">❌ <strong>Think about overlaps.</strong> 2 folds = 4 holes normally. If you see 3, one pair must have overlapped. This happens when the punch was on a fold line. The two copies at that position combine into 1. This is the overlap trap — it's the most common reason for "missing" holes in exam questions.</div>
+  </div>
+
+  <div class="section-complete" id="sc5"><span>✓</span> Section 5 Complete! All questions attempted.</div>
+</section>
+
+<!-- ===== TIMED TEST ===== -->
+<section id="s6">
+  <div id="test-section">
+    <div style="text-align:center;">
+      <div style="font-size:12px;letter-spacing:2px;color:rgba(255,255,255,0.5);text-transform:uppercase;margin-bottom:8px;">Final Challenge</div>
+      <h2>⏱ Mastery Test</h2>
+      <p>15 questions covering all sub-skills · 12 minutes · All difficulty levels</p>
+      <div id="timer-display">12:00</div>
+      <button id="start-test-btn" onclick="startTest()">Start Timed Test →</button>
+    </div>
+
+    <div id="test-questions">
+      <div id="tq-container"></div>
+      <button id="test-submit" onclick="submitTest()">Submit Test &amp; See Results</button>
+    </div>
+
+    <div id="test-results">
+      <div class="result-score" id="result-score-num">0/15</div>
+      <div id="result-band-el"></div>
+      <p id="result-msg" style="color:rgba(255,255,255,0.7);margin:12px 0;"></p>
+      <div class="result-breakdown" id="result-breakdown"></div>
+      <button onclick="resetTest()" style="margin-top:20px;background:var(--gold);color:var(--navy);border:none;border-radius:12px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;">Try Again</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+// ===================== SCORE TRACKING =====================
+let totalAnswered = 0;
+let totalCorrect = 0;
+let sectionAnswered = {s1:0,s2:0,s3:0,s4:0,s5:0};
+let sectionTotal = {s1:5,s2:5,s3:5,s4:4,s5:4};
+
+function updateScore(){
+  document.getElementById('score-val').textContent = totalCorrect;
+  document.getElementById('total-val').textContent = totalAnswered;
+  if(totalAnswered>0){
+    let pct = Math.round(totalCorrect/totalAnswered*100);
+    document.getElementById('score-pct').textContent = '('+pct+'%)';
+  }
+}
+
+function handleMCQ(btn){
+  const block = btn.closest('.q-block');
+  const btns = block.querySelectorAll('.opt-btn');
+  btns.forEach(b=>b.disabled=true);
+  const isCorrect = btn.dataset.correct === 'true';
+  if(isCorrect){
+    btn.classList.add('correct');
+    totalCorrect++;
+    // show correct feedback
+    const fb = block.querySelector('.feedback-box.correct');
+    if(fb){fb.classList.add('show');}
+  } else {
+    btn.classList.add('wrong');
+    // Show the correct button
+    btns.forEach(b=>{if(b.dataset.correct==='true') b.classList.add('correct');});
+    // Show wrong feedback — find the right one
+    const fbs = block.querySelectorAll('.feedback-box.wrong');
+    // Use first wrong feedback if only one exists
+    if(fbs.length===1){fbs[0].classList.add('show');}
+    else {
+      // Try to match by option index
+      const opts = Array.from(btns);
+      const idx = opts.indexOf(btn);
+      if(fbs[idx]) fbs[idx].classList.add('show');
+      else if(fbs[0]) fbs[0].classList.add('show');
+    }
+  }
+  totalAnswered++;
+  updateScore();
+  const sec = block.dataset.section;
+  if(sec){
+    sectionAnswered[sec] = (sectionAnswered[sec]||0)+1;
+    if(sectionAnswered[sec]>=sectionTotal[sec]){
+      const sc = document.getElementById('sc'+sec.replace('s',''));
+      if(sc) sc.classList.add('show');
+      const tick = document.getElementById('t'+sec.replace('s',''));
+      if(tick) tick.classList.add('done');
+    }
+  }
+}
+
+// ===================== PROGRESS BAR =====================
+window.addEventListener('scroll',()=>{
+  const doc = document.documentElement;
+  const scrollTop = doc.scrollTop || document.body.scrollTop;
+  const scrollHeight = doc.scrollHeight - doc.clientHeight;
+  const pct = scrollHeight > 0 ? (scrollTop/scrollHeight)*100 : 0;
+  document.getElementById('progress-bar').style.width = pct+'%';
+  // Active nav
+  const sections = ['s1','s2','s3','s4','s5','s6'];
+  sections.forEach(id=>{
+    const el = document.getElementById(id);
+    const link = document.querySelector(`#sticky-nav a[href="#${id}"]`);
+    if(el && link){
+      const rect = el.getBoundingClientRect();
+      if(rect.top <= 150 && rect.bottom > 150) link.classList.add('active');
+      else link.classList.remove('active');
+    }
+  });
+});
+
+// ===================== TIMED TEST DATA =====================
+const testQs = [
+  {
+    id:'t1', text:'A sheet is folded horizontally. One hole is punched near the top-right. How many holes after unfolding?',
+    opts:['1','2','3','4'], correct:1,
+    explain:'One fold = 2 layers = 2 holes. The hole and its horizontal mirror both appear after unfolding.',
+    skill:'Single Fold', diff:'Starter'
+  },
+  {
+    id:'t2', text:'A sheet is folded vertically (right onto left). A hole is punched near the bottom-left of the folded paper. Where is the second hole after unfolding?',
+    opts:['Bottom-right','Top-left','Top-right','Centre'],correct:0,
+    explain:'Vertical fold mirrors left-to-right. The hole near bottom-left reflects to bottom-right.',
+    skill:'Single Fold', diff:'Starter'
+  },
+  {
+    id:'t3', text:'A sheet is folded twice (horizontally then vertically). One hole punched. How many holes after unfolding?',
+    opts:['2','3','4','8'], correct:2,
+    explain:'2 folds = 4 layers = 4 holes. Formula: 2ⁿ = 2² = 4.',
+    skill:'Double Fold', diff:'Starter'
+  },
+  {
+    id:'t4', text:'Sheet folded vertically then horizontally. Hole punched at top-right of final folded paper. To begin the Rewind Method, which fold do you undo first?',
+    opts:['The vertical fold (first fold applied)','The horizontal fold (last fold applied)','Either — it doesn\'t matter','Both at the same time'], correct:1,
+    explain:'Always undo the LAST fold first. The last fold applied was horizontal, so undo it first.',
+    skill:'Double Fold', diff:'Developing'
+  },
+  {
+    id:'t5', text:'A hole is punched exactly on the fold line of a singly folded sheet. How many visible holes after unfolding?',
+    opts:['0','1','2','3'], correct:1,
+    explain:'A hole on the fold line creates two copies at the exact same position — they overlap. Only 1 visible hole appears.',
+    skill:'Overlap Trap', diff:'Secure'
+  },
+  {
+    id:'t6', text:'Top third of a sheet is folded down. A hole is punched in the 2-layer zone, close to the fold line. The two resulting holes will be:',
+    opts:['One near top edge, one near bottom edge — far apart','Both close together near the top third of the sheet','One at top-right, one at bottom-left','Both at the exact centre of the sheet'], correct:1,
+    explain:'Off-centre fold (top third): both holes stay within the top third zone. Close to fold line means both holes are close together near the fold line — in the upper portion.',
+    skill:'Off-Centre Folds', diff:'Developing'
+  },
+  {
+    id:'t7', text:'Sheet folded horizontally. Two holes punched: one left, one right. How many holes after unfolding?',
+    opts:['2','3','4','6'], correct:2,
+    explain:'2 punches × 2 layers each = 4 holes. Left punch → left + left-mirror. Right punch → right + right-mirror.',
+    skill:'Multi-Punch', diff:'Developing'
+  },
+  {
+    id:'t8', text:'Sheet folded vertically. Hole A near top-left corner. Hole B exactly on the fold line. How many visible holes total?',
+    opts:['2','3','4','5'], correct:1,
+    explain:'Hole A (not on fold line) → 2 holes. Hole B (on fold line) → overlap → 1 hole. Total = 3 visible.',
+    skill:'Multi-Punch + Overlap', diff:'Secure'
+  },
+  {
+    id:'t9', text:'Sheet folded horizontally then vertically. Hole at top-right of folded paper. After undoing the VERTICAL fold (last fold), how many holes are there?',
+    opts:['1','2','3','4'], correct:1,
+    explain:'Undoing only the last fold (vertical) mirrors left-to-right. Top-right → top-right + top-left = 2 holes. The second unfold (horizontal) will double this to 4.',
+    skill:'Double Fold Rewind', diff:'Secure'
+  },
+  {
+    id:'t10', text:'After two folds and one punch, the unfolded paper shows only 3 holes. What is the most likely reason?',
+    opts:['Punch only went through 3 layers','One pair of holes overlapped because the punch was near a fold line','The paper was folded unevenly','Two of the holes were outside the paper edge'], correct:1,
+    explain:'2 folds = 4 expected holes. If only 3 visible, one pair overlapped — typically because the punch was near a fold line, causing two holes to share the same position.',
+    skill:'Overlap Trap', diff:'Mastery'
+  },
+  {
+    id:'t11', text:'Right quarter of sheet folded to the left (off-centre vertical fold). Hole punched in the single-layer zone (far left area). How many holes after unfolding?',
+    opts:['1','2','3','4'], correct:0,
+    explain:'Single-layer zone = only 1 layer. Punch through 1 layer = 1 hole. Off-centre folds create single-layer zones!',
+    skill:'Off-Centre / Partial Layer', diff:'Secure'
+  },
+  {
+    id:'t12', text:'Two punches near the fold line of a singly-folded sheet. What does the unfolded pattern look like?',
+    opts:['4 holes at the corners','4 holes close together in two clusters near the centre','2 holes far apart','1 hole only (all overlap)'], correct:1,
+    explain:'Each near-fold-line punch creates 2 holes very close together near the centre. Two such punches = 4 holes in two clusters near the fold line/centre area.',
+    skill:'Multi-Punch Cluster', diff:'Mastery'
+  },
+  {
+    id:'t13', text:'Sheet folded: first vertically, then horizontally. Hole punched at bottom-left of final folded paper. After full Rewind, holes appear at:',
+    opts:['All four corners','Bottom-left and bottom-right only','Top and bottom on left side only','Bottom-left and top-right only (diagonal)'], correct:0,
+    explain:'Bottom-left corner of folded paper. Undo horizontal (last): bottom-left → top-left (2 holes). Undo vertical (first): both mirror left-to-right → bottom-right and top-right added. Total: all 4 corners.',
+    skill:'Double Fold Full Rewind', diff:'Mastery'
+  },
+  {
+    id:'t14', text:'Sheet folded vertically. Two holes punched in top-right and bottom-right corners. Which answer correctly describes the unfolded result?',
+    opts:['2 holes on the right side only','4 holes — one near each corner','6 holes total','2 holes at top-right and top-left only'], correct:1,
+    explain:'Each punch goes through 2 layers (vertical fold). Top-right → top-right + top-left. Bottom-right → bottom-right + bottom-left. Total: 4 holes, one near each corner.',
+    skill:'Multi-Punch', diff:'Secure'
+  },
+  {
+    id:'t15', text:'Sheet folded: top 40% folds down. Hole punched exactly on the fold line. After unfolding, the result is:',
+    opts:['2 holes evenly spread top and bottom','2 holes close together near the top','1 hole at the fold line (40% from top)','No holes — fold line tears'], correct:2,
+    explain:'Hole on the fold line → both copies overlap at the same position. Only 1 visible hole remains, exactly at the fold line (40% from the top of the sheet).',
+    skill:'Off-Centre + Overlap', diff:'Mastery'
+  }
+];
+
+let testTimer = null;
+let testTime = 720; // 12 minutes
+let testStarted = false;
+let testAnswers = [];
+
+function startTest(){
+  document.getElementById('start-test-btn').style.display='none';
+  document.getElementById('timer-display').style.display='block';
+  document.getElementById('test-questions').style.display='block';
+  testStarted = true;
+  testAnswers = new Array(testQs.length).fill(null);
+  renderTestQuestions();
+  testTimer = setInterval(()=>{
+    testTime--;
+    const m = Math.floor(testTime/60);
+    const s = testTime%60;
+    const td = document.getElementById('timer-display');
+    td.textContent = m+':'+(s<10?'0':'')+s;
+    if(testTime<=60) td.classList.add('warning');
+    if(testTime<=0){clearInterval(testTimer);submitTest();}
+  },1000);
+}
+
+function renderTestQuestions(){
+  const container = document.getElementById('tq-container');
+  container.innerHTML = '';
+  testQs.forEach((q,i)=>{
+    const div = document.createElement('div');
+    div.className = 'q-block';
+    div.style.marginBottom='16px';
+    let diffClass = q.diff==='Starter'?'badge-starter':q.diff==='Developing'?'badge-developing':q.diff==='Secure'?'badge-secure':'badge-mastery';
+    let optsHTML = q.opts.map((o,j)=>`<button class="opt-btn" data-qi="${i}" data-oi="${j}" onclick="selectTestAnswer(this,${i},${j})">${o}</button>`).join('');
+    div.innerHTML = `
+      <div class="q-header"><span class="badge ${diffClass}">${q.diff}</span><span class="q-num" style="color:rgba(255,255,255,0.5)">T${i+1} · ${q.skill}</span></div>
+      <div class="q-text" style="color:white;">${q.text}</div>
+      <div class="q-options">${optsHTML}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function selectTestAnswer(btn, qi, oi){
+  testAnswers[qi] = oi;
+  const container = document.getElementById('tq-container');
+  const blocks = container.querySelectorAll('.q-block');
+  const btns = blocks[qi].querySelectorAll('.opt-btn');
+  btns.forEach(b=>b.style.borderColor='');
+  btn.style.borderColor = 'var(--gold)';
+  btn.style.background = '#2d4a66';
+}
+
+function submitTest(){
+  if(testTimer) clearInterval(testTimer);
+  document.getElementById('test-questions').style.display='none';
+  document.getElementById('timer-display').style.display='none';
+  let score = 0;
+  testAnswers.forEach((ans,i)=>{ if(ans===testQs[i].correct) score++; });
+  document.getElementById('result-score-num').textContent = score+'/15';
+
+  let band='', bandClass='', msg='';
+  if(score<=5){band='Needs Practice';bandClass='band-np';msg='Keep going! Work through each section again and focus on the Rewind Method.';}
+  else if(score<=9){band='Developing';bandClass='band-dev';msg='Good effort! Review the sections where you made mistakes, especially Overlap and Off-Centre folds.';}
+  else if(score<=12){band='Secure';bandClass='band-sec';msg='Strong work! You understand most of the key skills. Focus on Mastery questions to push higher.';}
+  else{band='Mastery';bandClass='band-mas';msg='Outstanding! You are fully prepared for GL Assessment paper folding questions.';}
+
+  document.getElementById('result-band-el').innerHTML=`<span class="result-band ${bandClass}">${band}</span>`;
+  document.getElementById('result-msg').textContent=msg;
+
+  // Breakdown
+  let breakdownHTML = '<div style="font-weight:700;color:var(--gold);margin-bottom:12px;font-size:14px;">Question Breakdown</div>';
+  testQs.forEach((q,i)=>{
+    const ans = testAnswers[i];
+    const correct = ans===q.correct;
+    breakdownHTML += `<div class="rb-item ${correct?'rb-correct':'rb-wrong'}">
+      <div class="rb-label">T${i+1}: ${q.text.substring(0,60)}… — ${correct?'✅ Correct':'❌ Wrong'}</div>
+      <div class="rb-exp"><strong>Answer:</strong> ${q.opts[q.correct]}. ${q.explain}</div>
+    </div>`;
+  });
+  document.getElementById('result-breakdown').innerHTML=breakdownHTML;
+  document.getElementById('test-results').style.display='block';
+}
+
+function resetTest(){
+  testTime=720;
+  testStarted=false;
+  document.getElementById('test-results').style.display='none';
+  document.getElementById('timer-display').textContent='12:00';
+  document.getElementById('timer-display').classList.remove('warning');
+  document.getElementById('timer-display').style.display='none';
+  document.getElementById('start-test-btn').style.display='';
+  document.getElementById('tq-container').innerHTML='';
+}
+
+// Smooth scroll
+document.querySelectorAll('#sticky-nav a').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const target=document.querySelector(a.getAttribute('href'));
+    if(target) target.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>

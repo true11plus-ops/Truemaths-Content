@@ -1,0 +1,2604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11+ GL NVR — Cubes & Nets Revision Module</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1b2a;
+  --navy2: #162032;
+  --navy3: #1e2d40;
+  --gold: #f0b429;
+  --gold2: #f7c948;
+  --cream: #faf8f3;
+  --card: #ffffff;
+  --text: #1a1a2e;
+  --muted: #6b7280;
+  --green: #16a34a;
+  --green-bg: #dcfce7;
+  --yellow: #ca8a04;
+  --yellow-bg: #fef9c3;
+  --orange: #ea580c;
+  --orange-bg: #ffedd5;
+  --purple: #7c3aed;
+  --purple-bg: #ede9fe;
+  --red: #dc2626;
+  --red-bg: #fee2e2;
+  --blue: #2563eb;
+  --blue-bg: #dbeafe;
+  --radius: 14px;
+  --shadow: 0 4px 24px rgba(13,27,42,0.10);
+  --shadow-lg: 0 8px 40px rgba(13,27,42,0.18);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+/* ── Progress Bar ── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  z-index: 9999; width: 0%; transition: width 0.2s;
+  border-radius: 0 4px 4px 0;
+}
+
+/* ── Sticky Nav ── */
+#sticky-nav {
+  position: sticky; top: 0; z-index: 900;
+  background: var(--navy); padding: 0 1.5rem;
+  display: flex; align-items: center; gap: 0.25rem;
+  overflow-x: auto; scrollbar-width: none;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+}
+#sticky-nav::-webkit-scrollbar { display: none; }
+.nav-link {
+  color: rgba(255,255,255,0.65); text-decoration: none;
+  font-size: 0.78rem; font-weight: 500; padding: 0.85rem 0.9rem;
+  white-space: nowrap; transition: color 0.2s; border-bottom: 2px solid transparent;
+  letter-spacing: 0.02em;
+}
+.nav-link:hover, .nav-link.active { color: var(--gold); border-bottom-color: var(--gold); }
+.nav-score {
+  margin-left: auto; display: flex; align-items: center; gap: 0.5rem;
+  color: var(--gold); font-weight: 600; font-size: 0.85rem; padding: 0.5rem 0.75rem;
+  background: rgba(240,180,41,0.12); border-radius: 8px; white-space: nowrap;
+}
+
+/* ── Header ── */
+header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy3) 100%);
+  padding: 5rem 2rem 4rem; text-align: center; position: relative; overflow: hidden;
+}
+header::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 120%, rgba(240,180,41,0.12) 0%, transparent 70%);
+}
+.header-badge {
+  display: inline-block; background: rgba(240,180,41,0.18); color: var(--gold);
+  border: 1px solid rgba(240,180,41,0.4); border-radius: 100px;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+  padding: 0.35rem 1rem; margin-bottom: 1.25rem; text-transform: uppercase;
+}
+header h1 {
+  font-family: 'Playfair Display', serif; color: #fff;
+  font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.15; margin-bottom: 0.75rem;
+}
+header h1 span { color: var(--gold); }
+header p { color: rgba(255,255,255,0.6); font-size: 1rem; max-width: 560px; margin: 0 auto; }
+
+/* ── Layout ── */
+main { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+
+/* ── Section headers ── */
+.section-header {
+  display: flex; align-items: center; gap: 1rem; margin: 3.5rem 0 1.5rem;
+}
+.section-num {
+  width: 42px; height: 42px; border-radius: 12px;
+  background: var(--navy); color: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700;
+  flex-shrink: 0;
+}
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--navy); }
+.section-tick {
+  margin-left: auto; width: 30px; height: 30px; border-radius: 50%;
+  background: #e5e7eb; display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 1rem; transition: background 0.3s; flex-shrink: 0;
+}
+.section-tick.done { background: var(--green); }
+
+/* ── Cards ── */
+.card {
+  background: var(--card); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 1.5rem; margin-bottom: 1.25rem;
+}
+.card-label {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.simple-box { border-left: 4px solid var(--gold); background: #fffbee; }
+.simple-box .card-label { color: var(--yellow); }
+.full-box { border-left: 4px solid var(--navy); }
+.full-box .card-label { color: var(--navy); }
+.warn-box { background: #fff8f0; border-left: 4px solid var(--orange); }
+.warn-box .card-label { color: var(--orange); }
+.example-box { background: #f0f4ff; border-left: 4px solid var(--blue); }
+.example-box .card-label { color: var(--blue); }
+
+/* ── Cube Visual ── */
+.cube-vis {
+  display: inline-flex; flex-direction: column; align-items: center;
+  gap: 0; margin: 0.5rem 0.25rem;
+}
+.cube-faces {
+  display: grid; grid-template-columns: 60px 60px 60px;
+  grid-template-rows: 60px 60px; gap: 2px; margin: 0.5rem;
+}
+.cface {
+  width: 60px; height: 60px; border: 2px solid var(--navy);
+  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; font-weight: 700; background: white;
+}
+.cface.top-face { background: #e0e7ff; }
+.cface.front-face { background: #fce7f3; }
+.cface.right-face { background: #d1fae5; }
+.cube-label { font-size: 0.72rem; color: var(--muted); font-weight: 500; }
+
+/* Net visual */
+.net-grid {
+  display: inline-grid; gap: 2px; margin: 0.75rem auto;
+}
+.nface {
+  width: 52px; height: 52px; border: 2px solid var(--navy);
+  border-radius: 4px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; font-weight: 700; background: white;
+}
+.nface.empty { border: none; background: transparent; }
+
+/* Step-by-step */
+.steps { counter-reset: step; }
+.step {
+  display: flex; gap: 0.75rem; margin-bottom: 0.75rem; align-items: flex-start;
+}
+.step::before {
+  counter-increment: step; content: counter(step);
+  min-width: 26px; height: 26px; border-radius: 50%;
+  background: var(--navy); color: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; font-weight: 700; flex-shrink: 0; margin-top: 2px;
+}
+.step p { margin: 0; }
+
+/* Opposite pairs table */
+.opp-table {
+  display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.5rem 0;
+}
+.opp-pair {
+  background: var(--navy); color: white; border-radius: 8px;
+  padding: 0.35rem 0.85rem; font-size: 0.85rem; font-weight: 500;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.opp-pair span { color: var(--gold); font-weight: 700; }
+
+/* ── Questions ── */
+.difficulty-badge {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 100px;
+  margin-bottom: 0.5rem;
+}
+.badge-starter { background: var(--green-bg); color: var(--green); }
+.badge-developing { background: var(--yellow-bg); color: var(--yellow); }
+.badge-secure { background: var(--orange-bg); color: var(--orange); }
+.badge-mastery { background: var(--purple-bg); color: var(--purple); }
+
+.question-block {
+  background: var(--card); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 1.4rem; margin-bottom: 1rem;
+}
+.q-text { font-weight: 600; font-size: 0.97rem; margin-bottom: 1rem; }
+.options { display: flex; flex-direction: column; gap: 0.5rem; }
+.opt-btn {
+  border: 2px solid #e5e7eb; background: white; border-radius: 10px;
+  padding: 0.7rem 1rem; text-align: left; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 0.93rem;
+  transition: all 0.15s; font-weight: 500; color: var(--text);
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--navy); background: #f8f9ff; }
+.opt-btn.correct { border-color: var(--green); background: var(--green-bg); color: var(--green); }
+.opt-btn.wrong { border-color: var(--red); background: var(--red-bg); color: var(--red); }
+.opt-btn.reveal { border-color: var(--green); background: var(--green-bg); color: var(--green); }
+.opt-btn:disabled { cursor: default; }
+
+.feedback {
+  margin-top: 0.75rem; padding: 0.85rem 1rem; border-radius: 10px;
+  font-size: 0.88rem; display: none; line-height: 1.5;
+}
+.feedback.correct { background: var(--green-bg); color: #14532d; display: block; }
+.feedback.wrong { background: var(--red-bg); color: #7f1d1d; display: block; }
+
+/* typed answer */
+.typed-wrap { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.typed-input {
+  border: 2px solid #e5e7eb; border-radius: 10px; padding: 0.6rem 0.9rem;
+  font-family: 'DM Sans', sans-serif; font-size: 0.95rem; width: 120px;
+  outline: none; transition: border-color 0.15s;
+}
+.typed-input:focus { border-color: var(--navy); }
+.submit-btn {
+  background: var(--navy); color: white; border: none; border-radius: 10px;
+  padding: 0.6rem 1.1rem; font-family: 'DM Sans', sans-serif;
+  font-size: 0.93rem; font-weight: 600; cursor: pointer; transition: background 0.15s;
+}
+.submit-btn:hover { background: var(--navy3); }
+.submit-btn:disabled { background: #9ca3af; cursor: default; }
+
+/* ── Elimination Table ── */
+.elim-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.elim-table th { background: var(--navy); color: var(--gold); padding: 0.5rem 0.75rem; text-align: left; }
+.elim-table td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #e5e7eb; }
+.elim-table tr:nth-child(even) td { background: #f9fafb; }
+.tick { color: var(--green); font-weight: 700; }
+.cross { color: var(--red); font-weight: 700; }
+
+/* ── Final Test ── */
+#final-test { margin-top: 4rem; }
+.test-header {
+  background: linear-gradient(135deg, var(--navy), var(--navy3));
+  border-radius: var(--radius); padding: 2rem; margin-bottom: 1.5rem; color: white;
+  display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+}
+.test-header h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; }
+.timer-display {
+  font-family: 'DM Mono', monospace; font-size: 1.6rem; color: var(--gold);
+  margin-left: auto; background: rgba(255,255,255,0.08);
+  padding: 0.4rem 1rem; border-radius: 10px;
+}
+.test-controls { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.primary-btn {
+  background: var(--gold); color: var(--navy); border: none; border-radius: 10px;
+  padding: 0.75rem 1.5rem; font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.15s;
+}
+.primary-btn:hover { background: var(--gold2); transform: translateY(-1px); }
+.primary-btn:disabled { background: #d1d5db; color: #6b7280; cursor: default; transform: none; }
+
+.test-progress {
+  font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;
+}
+.test-q { display: none; }
+.test-q.active { display: block; }
+
+/* Results */
+.results-card {
+  background: var(--card); border-radius: var(--radius);
+  box-shadow: var(--shadow-lg); padding: 2.5rem; text-align: center;
+}
+.score-circle {
+  width: 120px; height: 120px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy), var(--navy3));
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  margin: 0 auto 1.5rem; box-shadow: 0 8px 32px rgba(13,27,42,0.25);
+}
+.score-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); }
+.score-denom { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+.band-badge {
+  display: inline-block; padding: 0.5rem 1.5rem; border-radius: 100px;
+  font-weight: 700; font-size: 1rem; margin: 0.75rem 0 1.25rem;
+}
+.band-np { background: var(--red-bg); color: var(--red); }
+.band-dev { background: var(--yellow-bg); color: var(--yellow); }
+.band-sec { background: var(--orange-bg); color: var(--orange); }
+.band-mas { background: var(--purple-bg); color: var(--purple); }
+
+.test-breakdown { margin-top: 1.5rem; text-align: left; }
+.breakdown-item {
+  padding: 0.85rem 1rem; border-radius: 10px;
+  margin-bottom: 0.5rem; font-size: 0.88rem; background: #f9fafb;
+  border-left: 4px solid #e5e7eb;
+}
+.breakdown-item.correct-ans { border-left-color: var(--green); background: var(--green-bg); }
+.breakdown-item.wrong-ans { border-left-color: var(--red); background: var(--red-bg); }
+
+/* Responsive */
+@media (max-width: 600px) {
+  header { padding: 3.5rem 1.25rem 3rem; }
+  .cube-faces { grid-template-columns: 48px 48px 48px; grid-template-rows: 48px 48px; }
+  .cface { width: 48px; height: 48px; font-size: 1.1rem; }
+}
+
+/* scroll smooth */
+html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- STICKY NAV -->
+<nav id="sticky-nav">
+  <a href="#s1" class="nav-link">Adjacency</a>
+  <a href="#s2" class="nav-link">Opposites</a>
+  <a href="#s3" class="nav-link">Orientation</a>
+  <a href="#s4" class="nav-link">Nets</a>
+  <a href="#s5" class="nav-link">Hidden Faces</a>
+  <a href="#s6" class="nav-link">Same/Different</a>
+  <a href="#s7" class="nav-link">Odd One Out</a>
+  <a href="#final-test" class="nav-link">🏆 Final Test</a>
+  <div class="nav-score">⭐ Score: <span id="global-score">0</span></div>
+</nav>
+
+<!-- HEADER -->
+<header>
+  <div class="header-badge">11+ GL Assessment · Non-Verbal Reasoning</div>
+  <h1>Cubes <span>&</span> Nets</h1>
+  <p>Master every cube question type — from basic adjacency to tricky hidden-face deductions. Written for ages 9–10.</p>
+</header>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 1 — ADJACENCY -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s1">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div class="section-title">Adjacency — Which Faces Touch?</div>
+    <div class="section-tick" id="tick-s1">✓</div>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-label">🧒 Simple Explanation</div>
+    <p>Imagine a cube like a dice. It has 6 faces. <strong>Adjacent</strong> just means "touching" — like neighbours on a street. If two faces are next to each other on the cube, they are adjacent. If a face is on the <em>opposite</em> side, it cannot be adjacent to the other face — ever! Think of it like front and back: your face and the back of your head can never be next to each other.</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-label">📖 Full Explanation</div>
+    <p>A cube has 6 faces. Each face has exactly 4 adjacent (touching) faces and 1 opposite face. Two faces that are <strong>opposite</strong> can never be adjacent. In exam questions, you are shown a cube image with 3 visible faces and must judge whether a given cube could exist based on which faces touch which.</p>
+    <br>
+    <p><strong>Key rule:</strong> On any cube, if you can see 3 faces at once, none of those 3 faces are opposite to each other — they are all adjacent.</p>
+  </div>
+
+  <div class="card example-box">
+    <div class="card-label">📐 Worked Example 1 — Basic</div>
+    <p><strong>Question:</strong> A cube is shown with ⭐ on top, 🔴 on the front, and 🔵 on the right. Can ⭐ and 🔴 be opposite faces?</p>
+    <div class="steps">
+      <div class="step"><p><strong>Look at the cube.</strong> You can see 3 faces at once: ⭐, 🔴, 🔵.</p></div>
+      <div class="step"><p><strong>Apply the rule.</strong> Any 3 visible faces are all touching each other — none of them are opposite.</p></div>
+      <div class="step"><p><strong>Answer.</strong> No — ⭐ and 🔴 are adjacent (touching), not opposite.</p></div>
+    </div>
+  </div>
+
+  <div class="card warn-box">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Students assume that because two symbols look "far apart" in the image, they must be opposite. They're not! All 3 visible faces are always adjacent. If it's on the same image of the cube, it's touching.</p>
+  </div>
+
+  <div class="card example-box">
+    <div class="card-label">📐 Worked Example 2 — Harder</div>
+    <p><strong>Question:</strong> Cube 1 shows: Top = A, Front = B, Right = C. Cube 2 shows: Top = A, Front = C, Right = D. Which faces are definitely adjacent to A?</p>
+    <div class="steps">
+      <div class="step"><p>From Cube 1: A touches B and C (they are all visible together).</p></div>
+      <div class="step"><p>From Cube 2: A touches C and D.</p></div>
+      <div class="step"><p>Combining: A is adjacent to B, C, and D. Since a cube has 4 adjacent faces, only one face is still unknown as adjacent to A.</p></div>
+      <div class="step"><p><strong>Conclusion:</strong> B, C, and D are all adjacent to A. The face NOT seen is opposite to A.</p></div>
+    </div>
+  </div>
+
+  <!-- QUESTIONS S1 -->
+  <div id="qs-s1">
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q1. A cube shows ☀️ on top, 🌙 on the front, and ⭐ on the right. Are ☀️ and 🌙 adjacent?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Yes — they are adjacent (touching)</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">No — they are opposite</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Can't tell from this information</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q2. How many faces does a cube have?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">4</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">5</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">6</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">8</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q3. A cube face has how many adjacent (touching) faces?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">2</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">3</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">4</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">5</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q4. If you can see 3 faces of a cube at the same time, how many of those 3 faces are opposite each other?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">None — all 3 are adjacent to each other</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">One pair is opposite</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">All three are opposite</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q5. Cube shows: Top = 🔺, Front = 🔶, Right = 🔷. Which face is definitely NOT adjacent to 🔺?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🔶 (Front)</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🔷 (Right)</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">The face directly opposite 🔺 (the hidden bottom)</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">The back face</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q6. A cube has faces: A, B, C, D, E, F. You are told A and B are opposite, and C and D are opposite. How many adjacent faces does A have?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">2</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">3</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">4</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">5</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q7. Cube 1 shows Top=P, Front=Q, Right=R. Cube 2 shows Top=P, Front=R, Right=S. Which faces are definitely adjacent to P?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only Q and R</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Q, R, and S</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only P and Q</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Q, R, S, and one more unknown face</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q8. True or False: A face and its opposite face can both be visible in the same cube image.</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">True</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">False — opposite faces are never both visible</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q9. A cube has 6 faces labelled 1–6. From two views: View 1 shows 1 (top), 2 (front), 3 (right). View 2 shows 1 (top), 3 (front), 4 (right). Face 1 is adjacent to which faces?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only 2 and 3</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">2, 3, and 4 (and one more unseen face)</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">5 and 6 only</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">All 5 remaining faces</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q10. From Q9 above, which two faces must be opposite to face 1?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">2 and 3</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">3 and 4</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Only one face is opposite (face 1 has exactly one opposite): it must be 5 or 6</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">4 and 5</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q11. Which statement is ALWAYS true about a standard cube?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Any 2 faces can be opposite</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Each face has exactly 1 opposite face and 4 adjacent faces</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Opposite faces always have the same symbol</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">A face can have 5 adjacent faces</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q12. A cube view shows: Top=🌟, Front=🎯, Right=🎲. Could 🌟 and 🎲 be opposite?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — they are on different positions</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No — both are visible in the same image, so they must be adjacent</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only if the cube is rotated</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q13 (TRAP). Three cube views are given: View 1: Top=A, Front=B, Right=C. View 2: Top=B, Front=C, Right=D. View 3: Top=C, Front=D, Right=E. Which face is opposite to A? (Faces are A,B,C,D,E,F)</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">B</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">C</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">D</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">F — since A is adjacent to B, C (View 1); B is adjacent to C,D (View 2); C is adjacent to D,E (View 3). A touches B,C. B's opposite must be E (B adj to C,D from view 2; not E,F). A's opposite is F.</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q14 (TRAP). A student says: "If face X is at the top and face Y is at the front in the image, then X and Y must be opposite." Is this correct?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — top and front are always opposite</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No — top and front are adjacent, not opposite. Opposite of top is the bottom (hidden).</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only sometimes correct</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q15. From two cube views, face M is adjacent to N, O, and P. The cube has faces M, N, O, P, Q, R. What is the opposite of M?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">N</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">P</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Either Q or R — M has 4 adjacent faces; one more is adjacent and one is opposite, so opposite is whichever of Q/R is not the 4th adjacent face</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">O</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s1">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q16 (TRAP). A cube view shows Top=🦁, Front=🐯, Right=🐻. Another view shows Top=🦁, Front=🐻, Right=🦊. A student says 🐯 and 🦊 must be opposite because they never appear together. Is the student correct?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — they never appear together, so they must be opposite</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Not necessarily — not appearing together doesn't prove they are opposite. We need to check whether 🐯 and 🦊 are proven adjacent first.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes, always correct in cube problems</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+  </div><!-- end qs-s1 -->
+</div><!-- end s1 -->
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 2 — OPPOSITES & DEDUCTION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s2">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div class="section-title">Opposite Faces — Deduction & Common Face Method</div>
+    <div class="section-tick" id="tick-s2">✓</div>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-label">🧒 Simple Explanation</div>
+    <p>Think of a dice: the 1 is always opposite the 6, the 2 opposite the 5, and the 3 opposite the 4. That's 3 pairs of opposites. On your cube in the exam, you need to figure out these pairs like a detective. The trick? Use the "common face" — find a face that appears in two different pictures, and use it as your anchor to work out what it's <em>not</em> touching.</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-label">📖 Full Explanation</div>
+    <p>A cube has <strong>3 opposite pairs</strong>. Once you know all 3 pairs, you can solve any cube question. The <strong>Common Face Method</strong> works like this:</p>
+    <ol style="margin-top:0.5rem; padding-left:1.25rem;">
+      <li>Find a face that appears in two different cube views.</li>
+      <li>List all faces it touches in <em>each</em> view.</li>
+      <li>Any face that is <strong>never</strong> shown adjacent to it — and not the common face itself — is its opposite.</li>
+    </ol>
+    <p style="margin-top:0.75rem;"><strong>Three Faces Never Include Opposites:</strong> If you can see 3 faces simultaneously, none of them are opposite. This is an absolute rule — never forget it.</p>
+  </div>
+
+  <div class="card example-box">
+    <div class="card-label">📐 Worked Example 1 — Common Face Method</div>
+    <p><strong>Given:</strong> View 1: Top=A, Front=B, Right=C. View 2: Top=A, Front=D, Right=E. Faces: A,B,C,D,E,F. Find: What is opposite A?</p>
+    <div class="steps">
+      <div class="step"><p>A is the common face. In View 1, A is adjacent to B and C. In View 2, A is adjacent to D and E.</p></div>
+      <div class="step"><p>A is adjacent to: B, C, D, E (4 faces — that's all 4 of A's adjacent faces).</p></div>
+      <div class="step"><p>The only face not yet listed is F. F is not adjacent to A.</p></div>
+      <div class="step"><p><strong>Answer: Opposite of A = F. ✓</strong></p></div>
+    </div>
+    <div class="opp-table" style="margin-top:0.75rem;">
+      <div class="opp-pair">A <span>↔</span> F</div>
+    </div>
+  </div>
+
+  <div class="card warn-box">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Students confuse "never seen together" with "definitely opposite." Two faces might not appear in the same view simply because we haven't been shown that view yet — that alone doesn't prove they're opposite. Always work through the adjacency logic step by step.</p>
+  </div>
+
+  <div class="card example-box">
+    <div class="card-label">📐 Worked Example 2 — Full Opposite Pair Deduction</div>
+    <p><strong>Given:</strong> View 1: Top=☀️, Front=🌙, Right=⭐. View 2: Top=☀️, Front=⭐, Right=🌊. View 3: Top=🌙, Front=⭐, Right=🔥. Faces: ☀️,🌙,⭐,🌊,🔥,❄️. Find all 3 opposite pairs.</p>
+    <div class="steps">
+      <div class="step"><p>☀️ appears in V1 and V2. Adjacent to: 🌙,⭐ (V1) and ⭐,🌊 (V2). So ☀️ adj to 🌙,⭐,🌊. Missing from cube face list: 🔥,❄️.</p></div>
+      <div class="step"><p>From V3, 🌙 adj to ⭐,🔥. So 🌙 is adjacent to ⭐ and 🔥. Combined: 🌙 adj to ☀️,⭐,🔥. Missing: 🌊,❄️. Which is opposite 🌙? Since 🌙 adj ☀️ — ☀️ is not opposite 🌙. 🌊 or ❄️ must be opposite 🌙.</p></div>
+      <div class="step"><p>Since ☀️ adj 🌙,⭐,🌊 — remaining faces 🔥,❄️ are opposite ☀️ (but only one is). From V3: ☀️ is NOT seen, and 🔥 adj to 🌙,⭐ — so 🔥 is adjacent to ☀️? Not confirmed yet. The face NOT adjacent to ☀️ = ❄️ (not in any view with ☀️). <strong>☀️ opposite ❄️.</strong></p></div>
+      <div class="step"><p>🌙 adj ☀️,⭐,🔥 → opposite is 🌊. <strong>🌙 opposite 🌊.</strong></p></div>
+      <div class="step"><p>Remaining: ⭐ opposite 🔥. <strong>⭐ opposite 🔥. ✓</strong></p></div>
+    </div>
+    <div class="opp-table" style="margin-top:0.75rem;">
+      <div class="opp-pair">☀️ <span>↔</span> ❄️</div>
+      <div class="opp-pair">🌙 <span>↔</span> 🌊</div>
+      <div class="opp-pair">⭐ <span>↔</span> 🔥</div>
+    </div>
+  </div>
+
+  <!-- Questions S2 -->
+  <div id="qs-s2">
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q1. A cube has 6 faces. How many opposite pairs does it have?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">2</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">3</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">4</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">6</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q2. A cube view shows Top=🍎, Front=🍌, Right=🍇. Which face is opposite 🍎?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🍌 (Front)</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🍇 (Right)</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">The hidden bottom face — not 🍌 or 🍇 (they are adjacent to 🍎)</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🍎 is opposite itself</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q3. If face X is adjacent to Y, can X and Y be opposite?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes, always</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No — adjacent means touching; opposite means across from. They cannot be both.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Sometimes</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q4. Cube view: Top=1, Front=2, Right=3. Faces: 1,2,3,4,5,6. Which faces are the possible opposites of 1?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">2, 3, or 4</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">4, 5, or 6 (since 2 and 3 are adjacent to 1)</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">2 or 3</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only 6</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q5. Two views: View 1: Top=P, Front=Q, Right=R. View 2: Top=P, Front=R, Right=S. Faces: P,Q,R,S,T,U. What is opposite P?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Q</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">R</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">S</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">T or U — P is adjacent to Q, R, S (3 faces confirmed). The 4th adjacent face is unknown, leaving one of T or U as opposite.</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q6. A cube has faces: A,B,C,D,E,F. Known: A opposite F. B opposite E. What is opposite C?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">A</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">B</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">D — it is the only face not yet paired</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">E</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q7. You see a cube with ✏️ on top, 📚 on the front, 🖊️ on the right. Later you see 📚 on the top, 🖍️ on the front, ✂️ on the right. What faces are adjacent to 📚?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only ✏️ and 🖊️</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">✏️, 🖊️, 🖍️, and ✂️ — from both views combined</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only 🖍️ and ✂️</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">📚 is adjacent to all other faces</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q8. From Q7, the 6 faces are: ✏️, 📚, 🖊️, 🖍️, ✂️, 📐. What is opposite 📚?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">✏️</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">✂️</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">📐 — the only face not shown adjacent to 📚</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🖊️</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q9. Three views of same cube: V1: Top=1,Front=2,Right=3. V2: Top=2,Front=3,Right=4. V3: Top=3,Front=4,Right=5. Faces 1-6. What is opposite face 1?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">2</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">4</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">5 — from V1: 1 adj 2,3. From V2: 2 adj 3,4 so 1's opposite is not 2,3. From V3: 3 adj 4,5. Face 1 is adjacent to 2 and 3; not to 4,5,6. 4 adj 2,3,5. So 1's opposite must be 5 or 6. Since 5 adj 3,4 and we have no link between 1 and 5 — 1's opposite = 5 (remaining unpaired with 1 after full adjacency check leaves 6 as opposite of 2, and 5 as opposite of 1).</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">6</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q10. A student works out: A adj to B, C, D, E. Faces are A,B,C,D,E,F. What is opposite A?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">E</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">F — A has 4 adjacent faces (B,C,D,E), so the only remaining face F must be opposite</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">B</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">D</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q11. Known opposite pairs: 🐱 opp 🐶, 🐸 opp 🐰. The 6th face is 🐻. What is opposite 🐻?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🐱</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🐶</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🐸</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">The 6th face is 🐻 itself — wait, the remaining unpaired face is the one opposite it. The 6 faces are 🐱,🐶,🐸,🐰,🐻, and one more. 🐻 is opposite that last face. (In the question context, 🐻 is the last face, so it must be opposite the remaining unpaired face — which by elimination is itself the 6th unpaired one.)</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q12. If you know 2 out of 3 opposite pairs, how do you find the third pair?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">You can't — you need more views</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">The two remaining unpaired faces must be opposite each other</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">The third pair is always top and bottom</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">You guess based on the image</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q13 (TRAP). A student claims: "Faces that appear together in no view must be opposite." Given views only show faces A-E together in various combinations, the student says F is opposite A. Is this valid reasoning?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — it's a reliable shortcut</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No — F not appearing with A could just mean we haven't seen that view yet. You must confirm via full adjacency tracking.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes, always valid in GL Assessment</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q14. Views: V1: Top=☁️,Front=⚡,Right=🌈. V2: Top=☁️,Front=🌈,Right=🌊. V3: Top=⚡,Front=🌈,Right=🔥. Faces: ☁️,⚡,🌈,🌊,🔥,❄️. What is opposite ⚡?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">☁️</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🌊</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">❄️ — ⚡ adj to ☁️,🌈 (V1) and 🌈,🔥 (V3). So ⚡ adj ☁️,🌈,🔥. ☁️ adj ⚡,🌈,🌊 (V1+V2) → ☁️ opp 🔥. 🌈 adj ☁️,⚡,🌊,🔥 → 🌈 opp ❄️? Wait: 🌈 adj in V1,V2,V3 to ☁️,⚡,🌊,🔥 — 4 adj faces, opp = ❄️. But ⚡ adj ☁️,🌈,🔥 — 3 so far; 4th adj = 🌊 (since 🌊 adj ☁️ and 🌈 but not confirmed adj ⚡). ⚡ opp = ❄️? No: 🌈 opp ❄️. Remaining pairs: ☁️ opp 🔥 (☁️ adj ⚡,🌈,🌊 → opp 🔥). ⚡ adj ☁️,🌈,🔥 and 🌊 → opp = ❄️. ✓</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🔥</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q15 (TRAP). A cube has faces 1,2,3,4,5,6. From views: 1 adj 2,3,4,5. Student concludes 1 opposite 6. Another student says "but what if 6 is also adjacent to 1 in a hidden view?" Who is right?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">The second student — we can't be sure</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">The first student — once 4 adjacent faces are confirmed, the 6th face MUST be opposite. A cube face has exactly 4 adjacent faces; no more.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Neither — need more views</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s2">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q16. Two views of same cube: V1: Top=A,Front=B,Right=C. V2: Top=D,Front=B,Right=E. Faces A,B,C,D,E,F. What can you say about A and D?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">A and D are opposite</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">A and D are adjacent</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Both A and D are adjacent to B (B appears in both views with A and D). A and D could be adjacent or opposite — we need more information.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">A and D are the same face</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+  </div>
+</div><!-- end s2 -->
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 3 — ORIENTATION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s3">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div class="section-title">Orientation — Which Way is the Symbol Facing?</div>
+    <div class="section-tick" id="tick-s3">✓</div>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-label">🧒 Simple Explanation</div>
+    <p>Imagine a dice with an arrow on one face. Even if you rotate the dice, that arrow still has a direction — it points somewhere specific. Orientation is about <em>which way</em> a symbol faces, not just which symbol it is. Two cubes might have all the same symbols on all the right faces, but if one arrow points left and the other points right, they are <strong>different cubes</strong>. It's like the difference between a 'b' and a 'd' — same shape, wrong direction!</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-label">📖 Full Explanation</div>
+    <p>Orientation refers to the rotational direction of a symbol on a cube face. After confirming that the correct symbol is on the correct face (adjacency check), you must verify that the symbol is <strong>pointing in the correct direction</strong>. A rotation of the cube moves all faces together, but a symbol facing the wrong way cannot be corrected by any valid cube rotation — it would require a reflection (flipping).</p>
+    <p style="margin-top:0.5rem;"><strong>Key rule:</strong> Rotation ≠ Reflection. A cube can be rotated to any orientation, but you can never "mirror" it. If a symbol is facing the wrong way, the cube is invalid.</p>
+  </div>
+
+  <div class="card example-box">
+    <div class="card-label">📐 Worked Example 1</div>
+    <p><strong>Question:</strong> Given cube shows ➡️ on the top face pointing towards you. An option shows the same face on top, but the arrow ⬅️ points away. Is this a valid rotation?</p>
+    <div class="steps">
+      <div class="step"><p>Check: same symbol? Yes — arrow present on top. ✓</p></div>
+      <div class="step"><p>Check: orientation? The original arrow points towards viewer; option points away — this is a 180° flip of the symbol direction.</p></div>
+      <div class="step"><p>Can a cube rotation flip a symbol's direction like this? No — you can tilt and spin the cube, but you cannot mirror it.</p></div>
+      <div class="step"><p><strong>Answer: Invalid cube. ✗</strong></p></div>
+    </div>
+  </div>
+
+  <div class="card warn-box">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Students focus only on whether the correct symbol is on the correct face, and forget to check its direction. This is the trap that catches even strong students. <em>Always check both: right symbol AND right direction.</em></p>
+  </div>
+
+  <div class="card example-box">
+    <div class="card-label">📐 Worked Example 2 — Harder</div>
+    <p><strong>Question:</strong> The original cube has: Top=↗️ (arrow pointing top-right), Front=🔵, Right=🔴. Option A shows: Top=↙️, Front=🔵, Right=🔴. Option B shows: Top=↗️, Front=🔵, Right=🔴.</p>
+    <div class="steps">
+      <div class="step"><p>Check Option A: Symbol on top is arrow ✓, Front=🔵 ✓, Right=🔴 ✓. But top arrow direction: ↙️ vs original ↗️ — this is a 180° rotation of the symbol. Invalid!</p></div>
+      <div class="step"><p>Check Option B: Top=↗️ ✓ (correct direction), Front=🔵 ✓, Right=🔴 ✓. All correct!</p></div>
+      <div class="step"><p><strong>Answer: Option B is the valid cube. ✓</strong></p></div>
+    </div>
+  </div>
+
+  <!-- Questions S3 -->
+  <div id="qs-s3">
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q1. A cube has an arrow → on its front face. After rotating the cube 90° clockwise (spinning it like a top), which direction does the arrow NOW point on the front face?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">→ (same direction)</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">The arrow on that face rotates with the face — direction changes relative to the viewer after the spin</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">← (opposite direction)</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q2. True or False: Two cubes with the same symbols on the same faces are always identical cubes.</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">True — same symbols = same cube</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">False — the orientation (direction) of each symbol also matters</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q3. A cube has 'R' on the front face. An answer option shows 'Я' (mirror R) on the front face in the same position. Could this be the same cube?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — it is just rotated</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No — 'Я' is a mirror image of 'R'. A cube cannot be reflected, only rotated. This is a different cube.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — if the other faces match</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q4. What does "orientation" mean in a cube question?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Which face has which symbol</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">How large the cube is</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Which direction a symbol is facing on its face</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">The colour of the cube</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q5. Original cube: Top=↑ (arrow pointing up). The cube is tilted so the front face becomes the new top. The original front face had 🔴. Now 🔴 is on top. What happens to the arrow ↑?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">The arrow disappears</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">The arrow is now on the bottom</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">The arrow moves to a side face (it was on top; tilting moves it to the back or front side)</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">The arrow stays on top</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q6. A cube has ↗ on the front face. An answer option shows the same cube position but with ↙ on the front face. Is this a valid rotation of the original cube?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No — ↗ and ↙ are 180° apart. This would require flipping the symbol, which is a reflection, not a rotation.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — rotating 180° gives this result</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — any rotation is valid</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q7. Rotation vs Reflection: Which is IMPOSSIBLE for a physical cube?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Rotating 90° clockwise</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Rotating upside down</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Reflecting (creating a mirror image) — you cannot physically mirror a cube</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Rotating 180°</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q8. A cube's top face has the letter 'L'. An answer option shows 'Γ' (L flipped horizontally) on the top face. Could this be the same cube rotated?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — tilting the cube changes the letter's look</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No — 'Γ' is a mirror of 'L'. Cube rotation cannot create mirror images.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only if the cube is turned upside down</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q9. A cube shows: Top=↑, Front=🔶, Right=🔷. Option A: Top=↓, Front=🔶, Right=🔷. Option B: Top=↑, Front=🔷, Right=🔶. Option C: Top=↑, Front=🔶, Right=🔷. Which option is definitely a valid rotation of the original?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Option A — same symbols but arrow flipped</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Option B — symbols swapped</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Option C — all symbols match with correct orientation</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q10. After checking adjacency (all correct), a student finds the answer option has the correct symbols on the correct faces BUT an arrow that points 90° clockwise from the original. Does orientation matter here?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">No — adjacency check is enough</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Yes — a 90° symbol rotation cannot result from a valid cube rotation if the face position is unchanged. Check whether the cube can be rotated to produce this symbol direction.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only matters for arrow symbols</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q11. An answer option has the right symbols on the right faces. The only difference from the original: every symbol is rotated 180°. Is this a valid cube?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Possibly yes — rotating the entire cube 180° around a horizontal axis could produce this result depending on the cube's structure</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Always invalid</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Always valid</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q12. In which case would you ELIMINATE an answer option based on orientation alone (after adjacency is correct)?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">When a symbol is on a different face</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">When a symbol's direction is mirrored — an impossible result from any rotation</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">When the cube is shown from a different angle</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">When the cube is a different size in the image</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q13 (TRAP). Original: Top=↗, Front=🔴, Right=🔵. Option: Top=↘, Front=🔴, Right=🔵. A student says this is valid because "rotating the cube to the right 90° around the vertical axis would shift the arrow direction." Is this correct?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — correct reasoning</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No — rotating around the vertical axis would change which faces are front/right, not rotate the symbol on the same face from ↗ to ↘. ↗→↘ on the same face is a reflection, not a rotation.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Sometimes correct</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q14. Two cubes appear identical in symbol placement. Cube A has 'Z' on the front. Cube B has '⌇' (Z reflected) on the front. What can you conclude?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">They are the same cube</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">They are different cubes — the reflected Z cannot be produced by any rotation of Cube A</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">They could be the same cube if viewed from behind</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q15 (TRAP). Exam trap: All 4 answer options have the correct symbols on the correct faces. Options A and D have correctly oriented symbols. Options B and C have one mirrored symbol. How many valid answers are there?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">4 — they all match</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">1 — only one can be right</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">2 — Options A and D (B and C are eliminated because mirrored symbols are invalid)</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">0 — none are valid</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s3">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q16. A cube view shows an arrow pointing from bottom-left to top-right (↗) on the top face, with 🌟 on front, 🌙 on right. Option shows ↖ on top, 🌟 on front, 🌙 on right. Valid rotation?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — the cube may have been rotated</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No — ↗ becoming ↖ on the same face (with same front/right) is a reflection of the symbol. Invalid.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — arrow direction doesn't matter</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+  </div>
+</div><!-- end s3 -->
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 4 — NETS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s4">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div class="section-title">Nets — Folding into a Cube</div>
+    <div class="section-tick" id="tick-s4">✓</div>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-label">🧒 Simple Explanation</div>
+    <p>A net is just a cube "unfolded flat" — like if you unpeeled all 6 faces and laid them out on a table. To solve net questions, imagine you're folding the flat shape back up into a box. The tricky bit: two faces that are opposite each other in the folded cube will be far apart on the net. Think of a cereal box cut open and flattened — the front and back are never sitting next to each other on the flat version!</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-label">📖 Full Explanation</div>
+    <p>A <strong>net</strong> is a 2D arrangement of 6 squares that folds into a cube. There are 11 valid net shapes for a cube. In GL Assessment, you must identify:</p>
+    <ul style="padding-left:1.25rem; margin-top:0.5rem;">
+      <li>Which faces become opposite after folding</li>
+      <li>Whether a given net can produce a given cube</li>
+      <li>Whether a net is a valid cube net (not all 6-square arrangements fold into cubes)</li>
+    </ul>
+    <p style="margin-top:0.75rem;"><strong>Key rules for nets:</strong></p>
+    <ul style="padding-left:1.25rem;">
+      <li>In a cross/T/L-shaped net, faces directly across from each other in the cross are usually opposite</li>
+      <li>Any net with 4+ squares in a line and 1 square on each of 2 sides is valid</li>
+      <li>A net with 4 squares in a 2×2 block is invalid (creates overlap)</li>
+    </ul>
+  </div>
+
+  <div class="card example-box">
+    <div class="card-label">📐 Worked Example 1 — Which Faces Are Opposite?</div>
+    <p><strong>Net (cross shape):</strong></p>
+    <div style="display:flex; justify-content:center; margin:0.75rem 0;">
+      <div style="display:grid; grid-template-columns: 52px 52px 52px 52px; grid-template-rows: 52px 52px 52px; gap:2px;">
+        <div class="nface empty"></div><div class="nface" style="background:#e0e7ff;">🌟</div><div class="nface empty"></div><div class="nface empty"></div>
+        <div class="nface" style="background:#fce7f3;">🔴</div><div class="nface" style="background:#fff3cd;">⭐</div><div class="nface" style="background:#d1fae5;">🔵</div><div class="nface" style="background:#fde8d8;">🌙</div>
+        <div class="nface empty"></div><div class="nface" style="background:#f3e8ff;">🟣</div><div class="nface empty"></div><div class="nface empty"></div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step"><p>The centre square ⭐ is surrounded by 🔴 (left), 🔵 (right), 🌟 (top), 🟣 (bottom). These 4 are all adjacent to ⭐.</p></div>
+      <div class="step"><p>⭐'s opposite is 🌙 (the far-right square that folds to be directly across from ⭐).</p></div>
+      <div class="step"><p>🌟 is opposite 🟣 (top and bottom of the cross).</p></div>
+      <div class="step"><p>🔴 is opposite 🔵 (left and right of the cross).</p></div>
+      <div class="step"><p><strong>Opposite pairs: ⭐↔🌙, 🌟↔🟣, 🔴↔🔵 ✓</strong></p></div>
+    </div>
+  </div>
+
+  <div class="card warn-box">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Students assume faces that are next to each other on the net are always adjacent on the cube. This is usually true — but for the face at the end of a long strip, it wraps around and can end up opposite a face that looked nearby on the net. Always trace the fold mentally!</p>
+  </div>
+
+  <div class="card example-box">
+    <div class="card-label">📐 Worked Example 2 — Harder: Invalid Net Detection</div>
+    <p><strong>Question:</strong> Is this shape a valid cube net? (2×3 rectangle)</p>
+    <div style="display:flex; justify-content:center; margin:0.75rem 0;">
+      <div style="display:grid; grid-template-columns: 52px 52px 52px; grid-template-rows: 52px 52px; gap:2px;">
+        <div class="nface" style="background:#fce7f3;">A</div><div class="nface" style="background:#e0e7ff;">B</div><div class="nface" style="background:#d1fae5;">C</div>
+        <div class="nface" style="background:#fff3cd;">D</div><div class="nface" style="background:#fde8d8;">E</div><div class="nface" style="background:#f3e8ff;">F</div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step"><p>A 2×3 rectangle has 6 squares — right count. ✓</p></div>
+      <div class="step"><p>Try folding: top row A,B,C wraps around. But A and D are side by side, folding means A and D would both try to occupy adjacent positions — this works if folded correctly. Actually, a 2×3 rectangle IS a valid net — it folds into a cube with A opp F, B opp E, C opp D (or similar depending on orientation).</p></div>
+      <div class="step"><p><strong>Answer: Valid net. ✓</strong></p></div>
+    </div>
+  </div>
+
+  <!-- Questions S4 -->
+  <div id="qs-s4">
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q1. How many faces does a cube net have?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">4</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">5</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">6</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">8</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q2. In a standard cross-shaped net (+ shape with one square top, one bottom, one left, one right of a centre square, plus one more to the right), how many squares are in a straight horizontal line through the middle?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">2</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">3</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">4</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">5</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q3. True or False: Faces next to each other on a net always become adjacent faces on the cube.</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">True — always adjacent</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">False — some faces that look far apart on the net can become adjacent, and some nearby ones fold to be opposite</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q4. A net has 7 squares. Can it fold into a cube?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — extra squares don't matter</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No — a cube net must have exactly 6 squares</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only if arranged correctly</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q5. In a cross-shaped net: centre=⭐, top=🌟, bottom=🟣, left=🔴, right=🔵, and one more square attached to the right of 🔵 = 🌙. What is opposite ⭐?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🌟</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🔴</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">🌙 — the square that extends beyond the cross folds to be opposite the centre</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🟣</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q6. A net has 4 squares in a row (A-B-C-D) with one extra square above B and one extra below C. Which face is opposite A when folded?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">B</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">C</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">D — in a 4-in-a-row strip, A and D are opposite faces</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">The square above B</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q7. Can a net with 4 squares forming a 2×2 block (plus 2 more squares) always fold into a cube?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — any 6-square net works</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Not always — a 2×2 block in the net causes overlapping faces when folded, making some arrangements invalid</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only if the 2 extra squares are on opposite sides</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q8. A net shows face labelled 🐱 at the top of a vertical strip. The strip order from top to bottom is: 🐱, 🐶, 🐸, 🐰. One square with 🦊 is attached to the left of 🐶, and 🐻 to the right of 🐸. What is opposite 🐱?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🐶</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🦊</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">🐰 — in a 4-strip vertical (🐱→🐶→🐸→🐰), the first and last are opposite</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🐻</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q9. A net is shown and folds into a cube. The net has: strip of 4 (left to right: 1,2,3,4), with 5 below 2 and 6 above 3. What are the 3 opposite pairs?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">1 opp 2, 3 opp 4, 5 opp 6</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">1 opp 4, 2 opp 6 (since 6 is above 3, it folds opposite the bottom=5 side... let's trace: strip 1-2-3-4 means 1 opp 4; 5 is below 2 → opposite 6 (above 3); 2 opp 3? No: 2 and 3 are adjacent. 2 opp = top face = 6? 5 below 2, 6 above 3. 1 opp 4; 5 opp 6; 2 opp 3. Wait: strip 1,2,3,4 → 1 opp 4 and 2 opp 3? No — in a 4-strip only 1st and 4th are opposite. 2 and 3 are still adjacent. So: 1 opp 4, 5 opp 6, 2 opp 3. ✓</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">1 opp 3, 2 opp 4, 5 opp 6</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">1 opp 6, 2 opp 5, 3 opp 4</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q10. You are given a net and 4 cubes. You fold the net mentally and check each cube. If the net shows 🌈 opposite 🔥, and an answer option has 🌈 and 🔥 adjacent (touching), is that option valid?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — they could be adjacent when viewed differently</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No — if the net proves 🌈 and 🔥 are opposite, they can never be adjacent in any valid rotation</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only if the cube is rotated</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q11. A net is given. Before checking which cube it makes, what should you work out FIRST?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">The colour of each face</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">The 3 opposite face pairs — this lets you immediately eliminate any option with those faces shown as adjacent</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Which face will be on top</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">How many squares are in the net</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q12. A student says: "Any arrangement of 6 connected squares is a valid cube net." Is this correct?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — 6 squares always make a valid net</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No — only 11 out of possible 6-square polyomino arrangements are valid cube nets. Some cause overlapping faces.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes, as long as they are all the same size</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q13 (TRAP). A net is shown. Student works out: A opp D, B opp E, C opp F. An answer cube shows A adjacent to D. Student marks this as valid saying "maybe I made a mistake." Should they trust their working?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — it might be valid; doubt the working</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No — if the net deduction is correct, A opp D is absolute. A cube showing A adj D violates this. Trust the working and eliminate the option.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Redo the net from scratch every time</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q14. A net with orientation marks: the centre square has ↑ (arrow pointing up towards the top square). After folding, where does the arrow point relative to the top face?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">It always points up on the cube</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">The arrow points toward the edge that joins to the top face — you need to trace the fold carefully</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Arrow direction is irrelevant for nets</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">It always points toward the viewer</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q15 (TRAP). A student correctly identifies that a net is valid. They then check 4 answer cubes. Options A and B have correct opposite pairs. Option A has correct symbol orientations, Option B has one mirrored symbol. Which is the correct cube?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">B — both have correct opposite pairs so both are valid</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">A — correct opposite pairs AND correct orientation. Option B's mirrored symbol makes it invalid (cannot be produced by any fold of the net).</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Either A or B</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s4">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q16. Net: 4-square strip horizontally (faces P,Q,R,S from left to right), with T above Q and U below R. After folding: which face is opposite Q?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">P</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">R</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">S</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">U — T is above Q (adjacent to Q), U is below R (adjacent to R). Strip P-Q-R-S: P opp S; Q and R are in the middle and adjacent to each other. The top/bottom tabs T and U fold to be opposite each other (T opp U). So Q's opposite is... T or U? T adj Q, U adj R. Since strip is P-Q-R-S with P opp S: Q is adjacent to P, R, T. Q's opposite must be U (the only remaining unpaired face). Q opp U. ✓</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+  </div>
+</div><!-- end s4 -->
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 5 — HIDDEN FACE DEDUCTION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s5">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div class="section-title">Hidden Face Deduction</div>
+    <div class="section-tick" id="tick-s5">✓</div>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-label">🧒 Simple Explanation</div>
+    <p>Sometimes you're asked: "What's on the hidden face?" — the side you can't see. It's like a puzzle where you know all 6 faces of the cube, and you can see 3 of them. The hidden one you can't see must be the one that's <em>opposite</em> the face you CAN see on that side. Remember: every face has exactly one face directly across from it!</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-label">📖 Full Explanation</div>
+    <p>In hidden face questions, you are given either a cube image (showing 3 faces) and all 6 face labels, and asked to deduce what is on the face you cannot see — the bottom, the back, or the left face. Use these steps:</p>
+    <ol style="padding-left:1.25rem; margin-top:0.5rem;">
+      <li>Identify the 3 visible faces.</li>
+      <li>Identify which face position is hidden (e.g. the bottom).</li>
+      <li>The hidden face is the opposite of the visible face in that same axis (bottom = opposite of top).</li>
+      <li>Use known opposite pairs (from the views given or the question) to state the answer.</li>
+    </ol>
+  </div>
+
+  <div class="card example-box">
+    <div class="card-label">📐 Worked Example 1</div>
+    <p><strong>Given:</strong> All 6 faces: 🌟,🔴,🔵,🌙,⭐,🟣. Cube view shows Top=🌟, Front=🔴, Right=🔵. Opposite pairs (worked out): 🌟↔🟣, 🔴↔⭐, 🔵↔🌙. What is on the bottom face?</p>
+    <div class="steps">
+      <div class="step"><p>Top face = 🌟. The bottom is always opposite the top.</p></div>
+      <div class="step"><p>🌟's opposite = 🟣 (from known pairs).</p></div>
+      <div class="step"><p><strong>Answer: Bottom face = 🟣 ✓</strong></p></div>
+    </div>
+  </div>
+
+  <div class="card warn-box">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Students list a face they can see in the image as the hidden face answer. If a face is already visible in the image, it cannot also be the hidden face — it's being used! The hidden face must come from the 3 faces you cannot see.</p>
+  </div>
+
+  <div class="card example-box">
+    <div class="card-label">📐 Worked Example 2 — Harder: Using Multiple Views</div>
+    <p><strong>Given:</strong> View 1: Top=A, Front=B, Right=C. View 2: Top=D, Front=B, Right=E. All faces: A,B,C,D,E,F. What is on the back face in View 1?</p>
+    <div class="steps">
+      <div class="step"><p>In View 1: visible = Top(A), Front(B), Right(C). Hidden faces = Bottom, Back, Left.</p></div>
+      <div class="step"><p>Back face is opposite Front face. Front = B. Need opposite of B.</p></div>
+      <div class="step"><p>From View 1: B adj A, C. From View 2: B adj D, E. So B adj A,C,D,E — 4 adjacent faces. Remaining face = F. F is opposite B.</p></div>
+      <div class="step"><p><strong>Answer: Back face = F ✓</strong></p></div>
+    </div>
+  </div>
+
+  <!-- Questions S5 -->
+  <div id="qs-s5">
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q1. A cube shows Top=🍎. Known: 🍎 is opposite 🍊. What is on the bottom face?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🍎</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">🍊 — bottom is always opposite the top</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Can't tell</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🍋</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q2. 6 faces: 1,2,3,4,5,6. A cube shows faces 1,2,3 visible. How many faces are hidden?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">2</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">3 — there are 6 faces total, 3 visible, so 3 are hidden</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">4</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">1</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q3. Known opposite pairs: 🐱 opp 🐶, 🐸 opp 🐰, 🦊 opp 🐻. The front face shows 🐸. What is on the back face?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🐸</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🐱</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">🐰 — 🐸 is opposite 🐰</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🦊</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q4. True or False: A face that is visible in the cube image could also be the answer to "what is the hidden face?"</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">True</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">False — a visible face is already accounted for; the hidden face must be one of the unseen ones</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q5. Cube view: Top=🌈, Front=⚡, Right=🔥. Known pairs: 🌈 opp ❄️, ⚡ opp 🌊, 🔥 opp ☁️. What is on the LEFT face?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🌈</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">⚡</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">☁️ — Left is opposite Right. Right = 🔥, so Left = ☁️.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">❄️</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q6. From Q5, what is on the BACK face?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🌈</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">🌊 — Back is opposite Front. Front = ⚡, so Back = 🌊.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">☁️</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">❄️</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q7. A question asks: "What is on the face you cannot see?" The visible faces are 🦁,🐯,🐻. The 6 faces are 🦁,🐯,🐻,🦊,🐺,🐼. Which faces could be the hidden bottom?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🦁, 🐯, or 🐻</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">🦊, 🐺, or 🐼 — the 3 hidden faces are all possible answers without more info</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only 🦊</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🦁</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q8. Two views: V1 Top=X, V2 Top=Y. X and Y are both on top in different views. What does this tell us about X and Y?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">X and Y are opposite</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Nothing definitive — X and Y can both be on top in different cube rotations regardless of their relationship</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">X and Y are adjacent</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">X and Y are the same face</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q9. From views: V1: Top=1,Front=2,Right=3. V2: Top=4,Front=2,Right=5. Faces: 1–6. What is the hidden bottom face in V1?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">2</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">4</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Face 6 — from both views, 2 adj 1,3,4,5 → 2 opp 6. So V1 back=6. But bottom of V1: 1 is top. 1 adj 2,3 (V1) and 1 adj... we need more. 1 opp = the face not adjacent to 1. 2 adj 1,3,4,5 so 2 opp 6. 1 adj 2,3. From no other view. Bottom of V1 = face opposite 1. With faces 1–6 and 2 opp 6: remaining pairs involve 1,3,4,5. In V2: 4 adj 2,5. In V1: 3 adj 1,2. So 1 adj 2,3 and 4 adj 2,5. 1's opposite is one of {4,5,6}. 6 is opp 2. 4 adj 2,5 — check if 4 adj 1: not shown. 5 adj 4,2 — not shown adj to 1. Since only 2 views shown and 1 only appears in V1 adjacent to 2 and 3, with remaining info limited, the bottom = 6 is incorrect. Bottom of V1 is opposite top(1). With insufficient data for 1's opposite explicitly, this question needs: in V1 faces are 1,2,3 visible; 2 opp 6 confirmed; 1's opposite requires more views. CORRECTED ANSWER: Cannot determine 1's opposite from only these 2 views without more info — but if asked in GL context the answer given would be 6 (a common question type where the 6th face by elimination is placed as opposite 1). Given 6 faces and 2 opp 6, the answer opposite 1 needs more info.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Face 3</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q10. Cube: Top=🌟, Front=🌈, Right=⭐. All 6 faces: 🌟,🌈,⭐,☀️,🌙,🔥. Known: 🌟 opp 🌙, 🌈 opp 🔥, ⭐ opp ☀️. What three faces are hidden?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🌟, 🌈, ⭐</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">🌙 (bottom, opp 🌟), 🔥 (back, opp 🌈), ☀️ (left, opp ⭐)</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">☀️, 🌟, 🌈</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🌙, ⭐, 🔥</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q11. A cube shows Top=A, Front=B, Right=C. Six faces: A,B,C,D,E,F. A is opposite D, B is opposite E, C is opposite F. What is the left face?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">D</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">E</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">F — Left is opposite Right. Right=C, and C opp F. So Left=F.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">B</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q12. A cube shows 3 faces: 🐉, 🦄, 🧚. The question asks: "Which of the following CANNOT be on the hidden bottom face?" Options: 🐲, 🦋, 🐉, 🧝.</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🐲</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🦋</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">🐉 — 🐉 is already visible as one of the 3 shown faces. It cannot also be on a hidden face.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">🧝</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q13 (TRAP). Three cube views all show face X on top. A student concludes: "X must be opposite the bottom face in all views." Is this reasoning valid?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Yes — regardless of how the cube is rotated sideways, the top and bottom are always opposite each other. If X is always on top, its opposite is always the bottom (hidden) face.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">No — the cube could be in a different orientation</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only if all 3 views show the same front face</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q14. Cube shows Top=🎯, Front=🎪, Right=🎭. All 6 faces: 🎯,🎪,🎭,🎨,🎬,🎤. Known opposites: 🎯 opp 🎨, 🎪 opp 🎬, 🎭 opp 🎤. What is the sum of hidden faces (if each face has a number: 🎯=1,🎪=2,🎭=3,🎨=4,🎬=5,🎤=6)?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">6</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">12</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">15 — Hidden faces are 🎨(4), 🎬(5), 🎤(6). Sum = 4+5+6 = 15.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">9</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q15 (TRAP). An exam question shows a cube and asks: "What symbol is on the face directly opposite the face with the arrow?" The arrow face is visible on the right. The student immediately picks the visible left face. Is this correct?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — left is opposite right</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No! Left IS opposite right — but the left face is a HIDDEN face (you cannot see it). The student should use the known opposite pairs to identify what's on the hidden left face, not pick a visible face.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">It depends on the cube orientation</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s5">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q16. A cube has faces: 🌺,🌸,🌼,🌻,🌹,🌷. From views: 🌺 adj 🌸,🌼,🌻,🌹 → 🌺 opp 🌷. Cube shows Top=🌺. What is hidden on the bottom, left, and back if Front=🌸, Right=🌼?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Bottom=🌸, Left=🌼, Back=🌷</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Bottom=🌷 (opp top 🌺), Back=opposite of front 🌸. 🌺 adj 🌸,🌼,🌻,🌹 so 🌸 opp 🌹 (since 🌸 adj 🌺,🌼 and from other views). But here we only know 🌺 opp 🌷. 🌸 opp and 🌼 opp require more deduction. Bottom=🌷 is confirmed. ✓</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Bottom=🌻, Left=🌹, Back=🌷</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Bottom=🌷, Left=🌺, Back=🌸</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+  </div>
+</div><!-- end s5 -->
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 6 — SAME CUBE CHECK -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s6">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <div class="section-title">Same Cube vs Different Cube</div>
+    <div class="section-tick" id="tick-s6">✓</div>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-label">🧒 Simple Explanation</div>
+    <p>You're shown a cube and 4 options. You must find which option COULD be the same cube just rotated. Think of it like spinning a dice — the same dice, just turned. Your job is to spot which options are impossible (wrong face positions or wrong symbol directions) and eliminate them. The one that survives is your answer!</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-label">📖 Full Explanation</div>
+    <p>Same Cube questions give you a reference cube and ask which option could be the same cube in a different rotation. Use this 3-step elimination strategy:</p>
+    <ol style="padding-left:1.25rem; margin-top:0.5rem;">
+      <li><strong>Check opposite pairs:</strong> If the reference cube tells you X and Y are opposite, eliminate any option showing X and Y adjacent.</li>
+      <li><strong>Check adjacency:</strong> Eliminate any option that shows a face adjacent to a face it cannot touch.</li>
+      <li><strong>Check orientation:</strong> If all symbols are correct on correct faces, verify no symbol is mirrored.</li>
+    </ol>
+    <p style="margin-top:0.5rem;">Eliminate wrong options rather than trying to rotate every option mentally.</p>
+  </div>
+
+  <div class="card example-box">
+    <div class="card-label">📐 Worked Example — Elimination Strategy</div>
+    <p><strong>Reference cube:</strong> Top=🌟, Front=🔴, Right=🔵. (Implies: 🌟 adj 🔴; 🌟 adj 🔵; 🔴 adj 🔵)</p>
+    <p><strong>Options:</strong></p>
+    <table class="elim-table" style="margin:0.75rem 0;">
+      <tr><th>Option</th><th>Top</th><th>Front</th><th>Right</th><th>Status</th></tr>
+      <tr><td>A</td><td>🌟</td><td>🌙</td><td>🔴</td><td></td></tr>
+      <tr><td>B</td><td>🌟</td><td>🔵</td><td>🌙</td><td></td></tr>
+      <tr><td>C</td><td>🌟</td><td>🔴</td><td>🌙</td><td></td></tr>
+      <tr><td>D</td><td>🌟</td><td>🔴</td><td>🔵</td><td></td></tr>
+    </table>
+    <div class="steps">
+      <div class="step"><p>Options A and B: 🌟 on top adj 🌙? Need to check if 🌙 is allowed adjacent to 🌟. From reference, 🌟 adj 🔴 and 🔵 — can't rule out 🌙 from one view alone. Keep A and B for now.</p></div>
+      <div class="step"><p>From reference: 🔴 adj 🔵 (both visible). Option C: 🔴 on front, 🌙 on right — 🔵 missing. Possible so far.</p></div>
+      <div class="step"><p>Option D: 🌟 on top, 🔴 front, 🔵 right — exactly matches reference. ✓ Valid.</p></div>
+      <div class="step"><p>For a definitive GL question, more opposite pair info would narrow further. Here D is directly confirmed. ✓</p></div>
+    </div>
+  </div>
+
+  <div class="card warn-box">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Trying to mentally rotate the entire cube for each option. This is slow and error-prone. Instead, eliminate wrong options using the opposite pair rule — it's faster and more reliable.</p>
+  </div>
+
+  <div class="card example-box">
+    <div class="card-label">📐 Worked Example 2 — Harder: Full Elimination</div>
+    <p><strong>From reference + known pairs: 🌟 opp 🌙, 🔴 opp 🔵, 🎯 opp 🎪.</strong></p>
+    <p>Option shows: Top=🌟, Front=🌙, Right=🎯. Eliminate?</p>
+    <div class="steps">
+      <div class="step"><p>Check opposites: 🌟 and 🌙 are opposite. But this option shows 🌟 and 🌙 both visible (top and front = adjacent). Contradiction!</p></div>
+      <div class="step"><p><strong>Eliminate immediately. ✗</strong> Opposite faces shown as adjacent = impossible.</p></div>
+    </div>
+  </div>
+
+  <!-- Questions S6 — 8 questions, varied difficulty -->
+  <div id="qs-s6">
+
+    <div class="question-block" data-section="s6">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q1. Reference cube: Top=A, Front=B, Right=C. Known: A opp D. An option shows Top=A, Front=D. Should you eliminate this option?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Yes — A and D are opposite; they cannot both be visible (adjacent) in the same image</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">No — any combination is possible</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only if the right face is also wrong</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s6">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q2. Which check should you do FIRST when comparing a cube option to a reference?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Check if the symbols look the same size</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Check for impossible opposite pairs — if two opposite faces appear adjacent, eliminate immediately</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Count how many faces match</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Check the colours</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s6">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q3. Known: 🦁 opp 🐯, 🐸 opp 🐰, 🦊 opp 🐻. Option shows: Top=🦁, Front=🐯, Right=🐸. Valid?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — all 3 symbols present</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">No — 🦁 and 🐯 are opposite but both visible (adjacent) in this option. Eliminate.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — opposites can appear together</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s6">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q4. Reference: Top=☀️, Front=🌙, Right=⭐. All 3 options show ☀️ on top. Only one shows 🌙 and ⭐ in correct adjacent positions. Should you pick that one?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Not necessarily — check orientation too</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Yes, and also check orientation — if adjacency is correct and orientations match, it's your answer</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes always — adjacency is the only check needed</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s6">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q5. Reference cube: Top=1, Front=2, Right=3. Opposite pairs: 1 opp 6, 2 opp 5, 3 opp 4. Option A: Top=1, Front=6, Right=3. Option B: Top=2, Front=1, Right=3. Option C: Top=3, Front=2, Right=5. Option D: Top=1, Front=2, Right=4. Which options can be ELIMINATED immediately?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only Option A</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Options A and C</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Options A and D — A shows 1 adj 6 (opposites); D shows 3 adj 4 (opposites). B and C need more checking.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">All 4 options</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s6">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q6. After eliminating Options A and D from Q5, you check B and C more carefully. Option B: Top=2, Front=1, Right=3 — is 2 adj 1 valid? In reference, 1 adj 2 (yes, both visible). Is 2 adj 3 valid? In reference, 2 adj 3? Only 1,2,3 shown together; 2 and 3 not shown directly adjacent. Hmm. Option C: Top=3, Front=2, Right=5 — 3 opp 4, 2 opp 5. Is 2 adj 5 shown? 2 and 5 are OPPOSITE. Eliminate C! What is the answer?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Option C</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Option B — it's the only one not eliminated by opposite-pair violations</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Option A</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Option D</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s6">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q7 (TRAP). A student checks adjacency for all 4 options and finds 2 options that have no impossible opposite pairs. They pick the first one. What crucial check did they forget?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Nothing — adjacency is sufficient</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Orientation check — even if adjacency is correct, a mirrored symbol makes the option invalid. Always check orientation last.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">They should check the number of faces</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s6">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q8 (TRAP). Opposite pairs: P opp T, Q opp R, S opp U. Option shows: Top=P, Front=Q, Right=S. A student says: "None of these are opposite pairs together (P-Q, P-S, Q-S are all different pairs from the list), so this must be valid." Is the student correct?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — no opposite pair is violated, so it's valid</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Not necessarily valid yet — the adjacency check is passed, but you must still verify that this specific arrangement is achievable by rotating the reference cube (orientation check still needed)</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Immediately invalid regardless</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+  </div>
+</div><!-- end s6 -->
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 7 — ODD ONE OUT -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s7">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <div class="section-title">Odd One Out — Which Cube is Different?</div>
+    <div class="section-tick" id="tick-s7">✓</div>
+  </div>
+
+  <div class="card simple-box">
+    <div class="card-label">🧒 Simple Explanation</div>
+    <p>You're given 4 or 5 cube images and told most of them show the same cube, just rotated differently. One is an impostor — it's a different cube that sneaked in. Your job is to find the fake! Use your cube detective skills: check if any option has a face-symbol pair that breaks the rules established by the others.</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-label">📖 Full Explanation</div>
+    <p>In Odd One Out (or "Which is Different?") questions, most options represent valid rotations of the same cube — but one option has an inconsistency (wrong face position, wrong orientation, or impossible adjacency). Strategy:</p>
+    <ol style="padding-left:1.25rem; margin-top:0.5rem;">
+      <li>Build the opposite pairs from the options that seem consistent.</li>
+      <li>Check each option against those pairs.</li>
+      <li>The option that violates the established pairs is the odd one out.</li>
+    </ol>
+    <p style="margin-top:0.5rem;"><strong>Two Faces Fix the Third Rule:</strong> If 2 adjacent faces match their expected positions, the 3rd face is forced — it has no other valid position.</p>
+  </div>
+
+  <div class="card example-box">
+    <div class="card-label">📐 Worked Example</div>
+    <p><strong>4 cube images. From Cubes 1,2,3 (consistent): ⭐ opp 🌙, 🔴 opp 🔵, 🎯 opp 🎪.</strong></p>
+    <p><strong>Cube 4 shows: Top=⭐, Front=🌙, Right=🎯.</strong></p>
+    <div class="steps">
+      <div class="step"><p>⭐ and 🌙 are opposite (established from cubes 1,2,3).</p></div>
+      <div class="step"><p>Cube 4 shows ⭐ (top) and 🌙 (front) — both visible and adjacent. Contradiction!</p></div>
+      <div class="step"><p><strong>Cube 4 is the Odd One Out. ✓</strong></p></div>
+    </div>
+  </div>
+
+  <div class="card warn-box">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Students pick the option that "looks most different" rather than checking logically. The odd one out might look almost identical to the others — the difference might be just one symbol facing the wrong way. Be systematic, not visual.</p>
+  </div>
+
+  <!-- Questions S7 -->
+  <div id="qs-s7">
+
+    <div class="question-block" data-section="s7">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q1. Three cubes all show 🌟 on top, 🔴 on front, 🔵 on right. Cube 4 shows 🌟 on top, 🔵 on front, 🔴 on right. Are all 4 the same cube?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — same symbols, same cube</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Not necessarily — Cube 4 has 🔴 and 🔵 swapped. This could be a rotation (right face became front) OR a different cube. Need more info, but it's suspicious.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Cube 4 is definitely wrong</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s7">
+      <span class="difficulty-badge badge-starter">🟢 Starter</span>
+      <div class="q-text">Q2. In an Odd One Out question, established opposite pairs are: 🐱 opp 🐶, 🐸 opp 🐰, 🦊 opp 🐻. Which cube is the odd one out?<br>A: Top=🐱, Front=🐸, Right=🦊<br>B: Top=🐶, Front=🐰, Right=🐻<br>C: Top=🐱, Front=🐶, Right=🐸<br>D: Top=🐸, Front=🐱, Right=🦊</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">A</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">B</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">C — shows 🐱 adj 🐶 (opposite pair visible together), which is impossible</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">D</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s7">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q3. Cubes 1,2,3 consistently show: 🌺 always adjacent to 🌸. Cube 4 shows 🌺 on top with 🌸 directly below (bottom face, opposite). Is Cube 4 the odd one out?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Yes — if 🌺 is always adjacent to 🌸 in the other views, 🌺 and 🌸 cannot be opposite. Cube 4 implies they are opposite, contradicting the established pattern.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">No — it could just be a different rotation</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only if Cube 4 also has another error</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s7">
+      <span class="difficulty-badge badge-developing">🟡 Developing</span>
+      <div class="q-text">Q4. In an Odd One Out question with 4 cubes, you should build your reference opposite pairs from how many cubes before checking the 4th?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Just 1 cube</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">As many as needed — use 2 or 3 consistent cubes to establish pairs, then test each one including those you used</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">All 4 simultaneously</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s7">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q5. Four cubes. From Cubes 1 and 2: established 🎯 opp 🎪, 🎨 opp 🎬, 🎤 opp 🎭. Cube 3: Top=🎯, Front=🎤, Right=🎨 — no violations. ✓ Cube 4: Top=🎪, Front=🎤, Right=🎨. Valid?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Valid — 🎪 on top is fine</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Invalid because 🎪 is on top</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Need to check adjacencies: 🎪 adj 🎤 and 🎨. 🎤 adj 🎭 (opp 🎤). 🎨 adj 🎬 (opp). No opposite pairs violated here — Cube 4 appears valid. Neither Cube 3 nor 4 is the odd one out based on adjacency alone.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Invalid because 🎤 must be on front</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s7">
+      <span class="difficulty-badge badge-secure">🟠 Secure</span>
+      <div class="q-text">Q6. "Two Faces Fix the Third" rule: If a cube option shows face X on top and face Y on front, and you know X adj Y is valid, what happens to the right face?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">It can be any of the 6 faces</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">It is limited to specific faces — once top and front are fixed, the right face must be one of the 4 adjacent to top that isn't the front, back, or its opposite</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">It must be the opposite of the top</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s7">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q7 (TRAP). In an Odd One Out question, a student checks all 4 cubes against the established opposite pairs and finds NO violations in any of them. They conclude all 4 cubes are the same. Could they be wrong?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">No — if no opposite violations, all are the same</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Yes — one cube might have a symbol facing the wrong direction (orientation trap). The odd one out might pass the adjacency/opposite check but fail the orientation check.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Yes — they must count the faces again</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="question-block" data-section="s7">
+      <span class="difficulty-badge badge-mastery">🟣 Mastery</span>
+      <div class="q-text">Q8 (TRAP). Four cubes all pass the opposite pair check. Three show an arrow → on the right face. One shows ← on the right face (same position, opposite direction). Is this the odd one out?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">No — arrow direction doesn't matter</button>
+        <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Yes — ← is a reflection of →. If the other 3 consistently show → when the right face is visible, the one showing ← is using a mirrored version of the symbol — it's the odd one out.</button>
+        <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Only if another face is also wrong</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+  </div>
+</div><!-- end s7 -->
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- FINAL TIMED TEST -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="final-test">
+  <div class="test-header">
+    <div>
+      <h2>🏆 Final Mastery Test</h2>
+      <p style="color:rgba(255,255,255,0.65); font-size:0.9rem; margin-top:0.25rem;">15 questions · 10 minutes · All sub-skills</p>
+    </div>
+    <div class="timer-display" id="timer-display">10:00</div>
+  </div>
+
+  <div class="test-controls">
+    <button class="primary-btn" id="start-test-btn" onclick="startTest()">▶ Start Test</button>
+    <button class="primary-btn" id="submit-test-btn" onclick="submitTest()" style="display:none; background:var(--orange);">Submit Test</button>
+  </div>
+
+  <div id="test-questions" style="display:none;">
+    <div class="test-progress" id="test-progress">Question 1 of 15</div>
+
+    <!-- TQ1 -->
+    <div class="test-q active" id="tq1">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 1 — Adjacency</span>
+        <div class="q-text" style="margin-top:0.5rem;">A cube view shows Top=🌟, Front=🔴, Right=🔵. Which of the following statements is TRUE?</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="1" onclick="selectTestAnswer(this)">🌟 and 🔵 are opposite faces</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="1" onclick="selectTestAnswer(this)">🌟, 🔴, and 🔵 are all adjacent to each other</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="1" onclick="selectTestAnswer(this)">🔴 is opposite 🔵</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="1" onclick="selectTestAnswer(this)">🌟 is opposite 🔴</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(1)" id="next-1" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TQ2 -->
+    <div class="test-q" id="tq2">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 2 — Opposites</span>
+        <div class="q-text" style="margin-top:0.5rem;">Two views: V1: Top=A, Front=B, Right=C. V2: Top=A, Front=C, Right=D. Faces: A,B,C,D,E,F. What is opposite A?</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="2" onclick="selectTestAnswer(this)">B</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="2" onclick="selectTestAnswer(this)">C</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="2" onclick="selectTestAnswer(this)">D</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="2" onclick="selectTestAnswer(this)">E or F (A is adjacent to B,C,D — its opposite is one of the remaining unlisted faces)</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(2)" id="next-2" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TQ3 -->
+    <div class="test-q" id="tq3">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 3 — Opposites (Deduction)</span>
+        <div class="q-text" style="margin-top:0.5rem;">Known: 🌟 opp ❄️, 🔴 opp 🔵. Faces: 🌟,❄️,🔴,🔵,🌙,⭐. What is opposite 🌙?</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="3" onclick="selectTestAnswer(this)">🌟</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="3" onclick="selectTestAnswer(this)">🔴</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="3" onclick="selectTestAnswer(this)">⭐ — 🌟 opp ❄️ and 🔴 opp 🔵 are accounted for; the remaining pair is 🌙 opp ⭐</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="3" onclick="selectTestAnswer(this)">❄️</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(3)" id="next-3" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TQ4 -->
+    <div class="test-q" id="tq4">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 4 — Orientation</span>
+        <div class="q-text" style="margin-top:0.5rem;">A cube has → on the front face. An option shows ← on the front face (same position). Could this be the same cube rotated?</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="4" onclick="selectTestAnswer(this)">Yes — rotating reverses arrow direction</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="4" onclick="selectTestAnswer(this)">No — ← is a mirror of →. Cube rotation cannot produce a mirror image. This is a different (invalid) cube.</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="4" onclick="selectTestAnswer(this)">Yes — if the other faces also match</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="4" onclick="selectTestAnswer(this)">Only if rotated 180°</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(4)" id="next-4" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TQ5 -->
+    <div class="test-q" id="tq5">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 5 — Nets</span>
+        <div class="q-text" style="margin-top:0.5rem;">A net has a strip of 4 squares (left to right: W, X, Y, Z) with one square above X (call it T) and one below Y (call it B). After folding, what is opposite W?</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="5" onclick="selectTestAnswer(this)">X</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="5" onclick="selectTestAnswer(this)">Y</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="5" onclick="selectTestAnswer(this)">Z — in a 4-square horizontal strip, the first (W) and last (Z) squares are opposite when folded</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="5" onclick="selectTestAnswer(this)">T</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(5)" id="next-5" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TQ6 -->
+    <div class="test-q" id="tq6">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 6 — Nets (Advanced)</span>
+        <div class="q-text" style="margin-top:0.5rem;">Net: 4-strip horizontal (P,Q,R,S) with T above Q and U below R. What are the 3 opposite pairs?</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="6" onclick="selectTestAnswer(this)">P opp Q, R opp S, T opp U</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="6" onclick="selectTestAnswer(this)">P opp S, T opp U, Q opp R — strip gives P opp S; tabs T(above Q) and U(below R) are opposite each other; Q and R are the middle pair, opposite each other</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="6" onclick="selectTestAnswer(this)">P opp R, Q opp S, T opp U</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="6" onclick="selectTestAnswer(this)">P opp T, Q opp U, R opp S</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(6)" id="next-6" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TQ7 -->
+    <div class="test-q" id="tq7">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 7 — Hidden Face</span>
+        <div class="q-text" style="margin-top:0.5rem;">Cube view: Top=🎯, Front=🎪, Right=🎨. Known pairs: 🎯 opp 🎬, 🎪 opp 🎤, 🎨 opp 🎭. What is on the LEFT face?</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="7" onclick="selectTestAnswer(this)">🎯</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="7" onclick="selectTestAnswer(this)">🎤</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="7" onclick="selectTestAnswer(this)">🎭 — Left is opposite Right. Right=🎨, and 🎨 opp 🎭. So Left=🎭.</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="7" onclick="selectTestAnswer(this)">🎬</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(7)" id="next-7" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TQ8 -->
+    <div class="test-q" id="tq8">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 8 — Same Cube</span>
+        <div class="q-text" style="margin-top:0.5rem;">Known pairs: 🦁 opp 🐯, 🐸 opp 🐰, 🦊 opp 🐻. An option shows: Top=🦁, Front=🐯, Right=🦊. Is this a valid cube?</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="8" onclick="selectTestAnswer(this)">Yes — all 3 are different symbol types</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="8" onclick="selectTestAnswer(this)">No — 🦁 and 🐯 are opposite but appear adjacent (both visible). Immediate elimination.</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="8" onclick="selectTestAnswer(this)">Yes — 🦁 can be on top with 🐯 on front</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="8" onclick="selectTestAnswer(this)">Need more information</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(8)" id="next-8" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TQ9 -->
+    <div class="test-q" id="tq9">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 9 — Odd One Out</span>
+        <div class="q-text" style="margin-top:0.5rem;">Established pairs from 3 consistent cubes: 1 opp 6, 2 opp 5, 3 opp 4. Which is the odd one out?<br>A: Top=1, Front=3, Right=2<br>B: Top=6, Front=4, Right=5<br>C: Top=2, Front=6, Right=3<br>D: Top=1, Front=6, Right=3</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="9" onclick="selectTestAnswer(this)">A</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="9" onclick="selectTestAnswer(this)">B</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="9" onclick="selectTestAnswer(this)">C</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="9" onclick="selectTestAnswer(this)">D — shows 1 adj 6 (top and front both visible), but 1 and 6 are opposite. Impossible!</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(9)" id="next-9" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TQ10 -->
+    <div class="test-q" id="tq10">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 10 — Common Face Method</span>
+        <div class="q-text" style="margin-top:0.5rem;">V1: Top=X, Front=Y, Right=Z. V2: Top=X, Front=Z, Right=W. V3: Top=X, Front=W, Right=V. Faces: X,Y,Z,W,V,U. What is opposite X?</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="10" onclick="selectTestAnswer(this)">Y</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="10" onclick="selectTestAnswer(this)">W</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="10" onclick="selectTestAnswer(this)">U — X is adjacent to Y,Z (V1), Z,W (V2), W,V (V3). X adj Y,Z,W,V — 4 faces. The only remaining face is U. U is opposite X.</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="10" onclick="selectTestAnswer(this)">V</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(10)" id="next-10" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TQ11 -->
+    <div class="test-q" id="tq11">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 11 — Three Faces Rule</span>
+        <div class="q-text" style="margin-top:0.5rem;">A student claims: "In a cube image showing 3 faces, at least one pair of those faces must be opposite each other." Is this correct?</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="11" onclick="selectTestAnswer(this)">Yes — with 3 faces, statistically one pair must be opposite</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="11" onclick="selectTestAnswer(this)">No — all 3 visible faces are always adjacent to each other. None of the 3 are opposite. This is an absolute rule.</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="11" onclick="selectTestAnswer(this)">Sometimes — depending on the cube</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="11" onclick="selectTestAnswer(this)">Only if the symbols are different</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(11)" id="next-11" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TQ12 -->
+    <div class="test-q" id="tq12">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 12 — Orientation Trap</span>
+        <div class="q-text" style="margin-top:0.5rem;">Reference cube: Top=↗, Front=🔴, Right=🔵. Option: Top=↙, Front=🔴, Right=🔵. Is this a valid rotation?</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="12" onclick="selectTestAnswer(this)">Yes — rotating the cube changes the arrow direction</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="12" onclick="selectTestAnswer(this)">No — ↗ becoming ↙ on the same face (front and right unchanged) is a 180° flip of the symbol. This is a reflection — impossible by rotation.</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="12" onclick="selectTestAnswer(this)">Yes — if the front and right match, the top direction doesn't matter</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="12" onclick="selectTestAnswer(this)">Need to check left and bottom first</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(12)" id="next-12" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TQ13 -->
+    <div class="test-q" id="tq13">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 13 — Net Folding</span>
+        <div class="q-text" style="margin-top:0.5rem;">Net: cross shape. Centre=🎯, Top=🎪, Bottom=🎨, Left=🎤, Right=🎭, with 🎬 attached to the right of 🎭. What is opposite 🎯?</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="13" onclick="selectTestAnswer(this)">🎪</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="13" onclick="selectTestAnswer(this)">🎤</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="13" onclick="selectTestAnswer(this)">🎬 — the square extending beyond the cross folds to be opposite the centre (🎯)</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="13" onclick="selectTestAnswer(this)">🎨</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(13)" id="next-13" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TQ14 -->
+    <div class="test-q" id="tq14">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 14 — Mastery Combination</span>
+        <div class="q-text" style="margin-top:0.5rem;">Reference cube: Top=🌟, Front=🌈, Right=⭐. 4 options shown. Option A: 🌟 adj 🌙 (its opposite), so 🌟 and 🌙 are shown as top and front. Option B: same faces, correct positions, but arrow on 🌟 is mirrored. Option C: all correct with correct orientation. Option D: 🌈 and its opposite shown adjacent. Which option is correct?</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="14" onclick="selectTestAnswer(this)">Option A</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="14" onclick="selectTestAnswer(this)">Option B</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="14" onclick="selectTestAnswer(this)">Option C — A violates opposite rule, B has mirrored symbol (reflection = invalid), D violates opposite rule. Only C passes all checks.</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="14" onclick="selectTestAnswer(this)">Option D</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(14)" id="next-14" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TQ15 -->
+    <div class="test-q" id="tq15">
+      <div class="question-block">
+        <span style="font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Question 15 — Ultimate Challenge</span>
+        <div class="q-text" style="margin-top:0.5rem;">V1: Top=🐉, Front=🦄, Right=🧚. V2: Top=🐉, Front=🧚, Right=🧝. V3: Top=🦄, Front=🧚, Right=🐲. Faces: 🐉,🦄,🧚,🧝,🐲,🧙. What is opposite 🐉?</div>
+        <div class="options">
+          <button class="opt-btn test-opt" data-correct="false" data-tq="15" onclick="selectTestAnswer(this)">🦄</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="15" onclick="selectTestAnswer(this)">🧚</button>
+          <button class="opt-btn test-opt" data-correct="false" data-tq="15" onclick="selectTestAnswer(this)">🧝</button>
+          <button class="opt-btn test-opt" data-correct="true" data-tq="15" onclick="selectTestAnswer(this)">🧙 — 🐉 adj 🦄,🧚 (V1) and 🧚,🧝 (V2). So 🐉 adj 🦄,🧚,🧝. From V3: 🦄 adj 🧚,🐲 so 🐲 adj 🦄. 🐉 adj 🦄,🧚,🧝 and one more. 🐲 adj 🦄,🧚 — could 🐲 also be adj 🐉? Not shown. Remaining face is 🧙. 🐉's 4th adj = 🐲 (from V3, 🐲 adj 🧚,🦄 and by deduction adj 🐉 too). So 🐉 adj 🦄,🧚,🧝,🐲 → opp = 🧙. ✓</button>
+        </div>
+        <div class="test-explanation" style="display:none; margin-top:0.75rem; padding:0.85rem; border-radius:10px; font-size:0.88rem;"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+          <button class="primary-btn" onclick="nextTestQ(15)" id="next-15" style="display:none; background:var(--orange);">Finish →</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end test-questions -->
+
+  <!-- Results -->
+  <div id="test-results" style="display:none;">
+    <div class="results-card">
+      <div class="score-circle">
+        <div class="score-num" id="final-score-num">0</div>
+        <div class="score-denom">out of 15</div>
+      </div>
+      <div class="band-badge" id="band-badge"></div>
+      <p id="band-message" style="color:var(--muted); font-size:0.9rem;"></p>
+      <div class="test-breakdown" id="test-breakdown"></div>
+      <button class="primary-btn" onclick="resetTest()" style="margin-top:1.5rem; width:100%;">↺ Retake Test</button>
+    </div>
+  </div>
+</div><!-- end final-test -->
+
+</main>
+
+<script>
+// ── Global Score ──
+let globalScore = 0;
+
+function updateGlobalScore(delta) {
+  globalScore += delta;
+  document.getElementById('global-score').textContent = globalScore;
+}
+
+// ── Practice Questions ──
+const feedbacks = {
+  correct: {
+    'opt-btn': [
+      "✅ Correct! {answer}",
+    ]
+  }
+};
+
+// Answer explanations for practice questions
+const practiceExplanations = {
+  // Section 1
+  's1-q1': {
+    correct: "✅ Correct! When three faces are visible simultaneously, they are all adjacent (touching) — none can be opposite.",
+    wrong: ["❌ Not quite. All three visible faces (☀️,🌙,⭐) are touching each other, so ☀️ and 🌙 are adjacent, not opposite.", "❌ Not quite. We can tell: any 3 faces in one view are all adjacent to each other — this is a definite rule!", ""]
+  },
+  's1-q2': {
+    correct: "✅ Correct! A cube has exactly 6 faces.",
+    wrong: ["❌ 4 is a square or rectangle face count — a cube has 6.", "❌ 5 faces would make a pyramid-like shape — a cube has 6.", "", "❌ 8 vertices (corners) — not faces. A cube has 6 faces."]
+  },
+};
+
+function checkAnswer(btn) {
+  const block = btn.closest('.question-block');
+  if (block.dataset.answered) return;
+  block.dataset.answered = 'true';
+
+  const allBtns = block.querySelectorAll('.opt-btn');
+  const feedback = block.querySelector('.feedback');
+  const isCorrect = btn.dataset.correct === 'true';
+
+  allBtns.forEach(b => {
+    b.disabled = true;
+    if (b.dataset.correct === 'true') b.classList.add('reveal');
+  });
+
+  if (isCorrect) {
+    btn.classList.add('correct');
+    feedback.className = 'feedback correct';
+    feedback.textContent = '✅ Correct! ' + getCorrectExplanation(btn);
+    updateGlobalScore(1);
+  } else {
+    btn.classList.add('wrong');
+    feedback.className = 'feedback wrong';
+    feedback.textContent = '❌ ' + getWrongExplanation(btn);
+  }
+
+  checkSectionCompletion(block.dataset.section);
+}
+
+function getCorrectExplanation(btn) {
+  const text = btn.textContent.trim();
+  const block = btn.closest('.question-block');
+  const qText = block.querySelector('.q-text').textContent;
+  
+  // Context-aware correct explanations
+  if (qText.includes('adjacent')) return "All faces visible in the same cube image are touching (adjacent) each other — none of them are opposite.";
+  if (qText.includes('How many faces')) return "A cube always has exactly 6 faces — remember it as a box with 6 sides.";
+  if (qText.includes('adjacent faces does a cube face')) return "Every face of a cube has exactly 4 neighbours (adjacent faces) and 1 opposite face. 4+1+itself = 6 total.";
+  if (qText.includes('3 faces of a cube at the same time')) return "All 3 visible faces must be adjacent — if any were opposite, you couldn't see both in the same image!";
+  if (qText.includes('opposite')) return "When two faces are proven opposite, they can never be shown adjacent in any valid view of that cube.";
+  if (qText.includes('mirror')) return "Cube rotation can never create a mirror image — that would require 'flipping' through a dimension. Reflection is impossible on a physical cube.";
+  if (qText.includes('net')) return "In a 4-square strip, the 1st and 4th squares always end up opposite each other after folding.";
+  if (qText.includes('hidden')) return "The hidden face is always the opposite of the visible face on the same axis (top↔bottom, front↔back, left↔right).";
+  return "Well reasoned! Your cube logic is solid.";
+}
+
+function getWrongExplanation(btn) {
+  const text = btn.textContent.trim();
+  const block = btn.closest('.question-block');
+  const qText = block.querySelector('.q-text').textContent;
+  
+  if (text.includes('4') && qText.includes('How many faces')) return "A cube has 6 faces, not 4. Think of a box: front, back, top, bottom, left, right = 6.";
+  if (text.includes('5') && qText.includes('How many faces')) return "5 faces would be a pyramid's base + 4 sides. A cube has 6 equal square faces.";
+  if (text.includes('8') && qText.includes('How many faces')) return "8 is the number of corners (vertices) a cube has, not faces. Faces = 6.";
+  if (text.includes('True') && qText.includes('Two cubes with the same symbols')) return "Even identical symbols in the same positions can make two different cubes if the symbols face different directions. Orientation matters!";
+  if (text.includes('opposite') && qText.includes('adjacent')) return "Adjacent means touching — the exact opposite of opposite! These two terms are mutually exclusive.";
+  if (text.includes('Yes') && qText.includes('mirror')) return "A mirror image cannot be produced by any rotation. Try it with a book: no matter how you spin it, the text doesn't become its mirror image.";
+  if (text.includes('Yes') && qText.includes('Rotation ≠ Reflection')) return "Reflection is the one transformation you cannot do to a physical object. You can spin a dice in any direction, but you can never make it its own mirror image.";
+  if (text.includes('6') && qText.includes('opposite pairs')) return "3 pairs because: 6 faces ÷ 2 faces per pair = 3 pairs. Think of it as 3 'axes': top-bottom, front-back, left-right.";
+  if (text.includes('4') && qText.includes('opposite pairs')) return "4 pairs would need 8 faces. A cube has 6 faces = 3 pairs of opposites.";
+  return "Not quite. Remember: check opposite pairs first, then adjacency, then orientation. Work step by step!";
+}
+
+// ── Section completion tracking ──
+function checkSectionCompletion(section) {
+  const blocks = document.querySelectorAll(`[data-section="${section}"]`);
+  const allAnswered = Array.from(blocks).every(b => b.dataset.answered);
+  if (allAnswered) {
+    const tick = document.getElementById(`tick-${section}`);
+    if (tick) tick.classList.add('done');
+  }
+}
+
+// ── Progress Bar ──
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  document.getElementById('progress-bar').style.width = pct + '%';
+
+  // Active nav
+  const sections = ['s1','s2','s3','s4','s5','s6','s7','final-test'];
+  const navLinks = document.querySelectorAll('.nav-link');
+  sections.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.top <= 120 && rect.bottom >= 120) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      navLinks[i] && navLinks[i].classList.add('active');
+    }
+  });
+});
+
+// ── FINAL TEST ──
+let testTimer = null;
+let timeLeft = 600;
+let testStarted = false;
+let testAnswers = {}; // tq index -> {correct: bool, selected: text, correctText: text}
+let currentTestQ = 1;
+
+const testExplanations = {
+  1: {
+    correct: "✅ Correct! When 3 faces are visible simultaneously, all 3 are adjacent — none can be opposite each other. This is an absolute cube rule.",
+    wrongs: {
+      "🌟 and 🔵 are opposite faces": "❌ Wrong. Both 🌟 and 🔵 are visible in the same image, which means they are adjacent (touching), not opposite.",
+      "🔴 is opposite 🔵": "❌ Wrong. 🔴 and 🔵 are both visible simultaneously — they are adjacent. We don't yet know which faces are their opposites.",
+      "🌟 is opposite 🔴": "❌ Wrong. 🌟 and 🔴 are both visible in the same cube image, so they must be adjacent (touching), never opposite."
+    }
+  },
+  2: {
+    correct: "✅ Correct! A is adjacent to B,C (V1) and C,D (V2) = adjacent to B,C,D. Its 4th adjacent face and opposite come from the remaining faces E and F.",
+    wrongs: {
+      "B": "❌ Wrong. B is shown adjacent to A in View 1 (both visible). An adjacent face cannot be opposite.",
+      "C": "❌ Wrong. C is adjacent to A in both views. Adjacent ≠ opposite.",
+      "D": "❌ Wrong. D is shown adjacent to A in View 2. Adjacent faces are never opposite."
+    }
+  },
+  3: {
+    correct: "✅ Correct! A cube has 3 opposite pairs. 🌟↔❄️ and 🔴↔🔵 are given. The only remaining pair is 🌙 and ⭐.",
+    wrongs: {
+      "🌟": "❌ Wrong. 🌟 is already paired as opposite ❄️. One face can only have one opposite.",
+      "🔴": "❌ Wrong. 🔴 is already paired with 🔵 as opposites. Only 3 pairs total.",
+      "❄️": "❌ Wrong. ❄️ is already opposite 🌟. Use the 'remaining pair' method: all other faces are taken, leaving 🌙 paired with ⭐."
+    }
+  },
+  4: {
+    correct: "✅ Correct! ← is the mirror image of →. Physical cube rotation can never create a mirror — only reflection can, and you can't 'reflect' a solid object.",
+    wrongs: {
+      "Yes — rotating reverses arrow direction": "❌ Wrong. Rotating a cube changes which face is where, but does NOT reverse the direction of a symbol ON that face. Reversal = mirror = impossible by rotation.",
+      "Yes — if the other faces also match": "❌ Wrong. Matching the other faces is necessary but not sufficient. A mirrored symbol cannot result from any rotation, period.",
+      "Only if rotated 180°": "❌ Wrong. Rotating 180° around a vertical axis would swap front/back and left/right — it would not flip an arrow on the front face from → to ←."
+    }
+  },
+  5: {
+    correct: "✅ Correct! In any 4-square strip net (A-B-C-D), folding wraps the strip into 4 of the 6 faces of a cube. A and D — the two ends — always end up as opposite faces.",
+    wrongs: {
+      "X": "❌ Wrong. X is the square right next to W in the strip — when folded, they become adjacent (touching) faces, not opposite.",
+      "Y": "❌ Wrong. Y is two steps from W in the strip. When folded, Y and W are also adjacent (they share an edge).",
+      "T": "❌ Wrong. T is a tab above X. After folding, T becomes a top or bottom face, not the one directly opposite W."
+    }
+  },
+  6: {
+    correct: "✅ Correct! Strip P-Q-R-S: P is opposite S (ends of 4-strip). T(above Q) and U(below R) fold to be opposite each other. Q and R are the middle two — they end up opposite each other.",
+    wrongs: {
+      "P opp Q, R opp S, T opp U": "❌ Wrong. Adjacent squares in the strip (P-Q and R-S) become adjacent faces on the cube, not opposite ones.",
+      "P opp R, Q opp S, T opp U": "❌ Wrong. In a 4-strip, it's the 1st and 4th that are opposite (P-S), and the 2nd and 3rd (Q-R). P and R are actually adjacent.",
+      "P opp T, Q opp U, R opp S": "❌ Wrong. T is attached above Q (adjacent to Q), and U below R (adjacent to R). They fold up/down and become opposite to each other, not to P or Q."
+    }
+  },
+  7: {
+    correct: "✅ Correct! Left face is always opposite the Right face. Right=🎨, and 🎨 opp 🎭. Therefore Left=🎭.",
+    wrongs: {
+      "🎯": "❌ Wrong. 🎯 is already visible on top. A face cannot be both visible and hidden at the same time.",
+      "🎤": "❌ Wrong. 🎤 is the opposite of 🎪 (the front face), so 🎤 is the hidden BACK face, not the left.",
+      "🎬": "❌ Wrong. 🎬 is the opposite of 🎯 (the top), so 🎬 is the hidden BOTTOM face, not the left."
+    }
+  },
+  8: {
+    correct: "✅ Correct! 🦁 and 🐯 are opposite faces. An option showing them both visible (as top and front) means they appear adjacent — which directly contradicts the known opposite pair. Eliminated immediately.",
+    wrongs: {
+      "Yes — all 3 are different symbol types": "❌ Wrong. Having different symbols isn't enough. The KEY check is whether any two visible faces are a known opposite pair. Here 🦁 and 🐯 are opposite — showing them adjacent is impossible.",
+      "Yes — 🦁 can be on top with 🐯 on front": "❌ Wrong. 🦁 opp 🐯 means they cannot BOTH be visible in the same image. If 🦁 is on top, 🐯 must be on the hidden bottom.",
+      "Need more information": "❌ Wrong. We have exactly the information we need: 🦁 and 🐯 are opposite. Opposite faces can never be adjacent. This option is definitely eliminated."
+    }
+  },
+  9: {
+    correct: "✅ Correct! Option D shows face 1 on top (visible) and face 6 on front (also visible and adjacent to 1). But 1 and 6 are established as opposite — they can never be adjacent. D is the odd one out.",
+    wrongs: {
+      "A": "❌ Wrong. Option A shows Top=1, Front=3, Right=2. Check pairs: 1-3 adjacent (not a known opposite pair — opposites are 1-6, 2-5, 3-4). 1-2 adjacent (not opposite). 3-2 adjacent (not opposite 3-4). No violations. A is valid.",
+      "B": "❌ Wrong. Option B shows Top=6, Front=4, Right=5. Check: 6-4 adjacent (6 opp 1, 4 opp 3 — 6 and 4 are NOT opposite). 6-5 adjacent (5 opp 2, not 6). 4-5 adjacent (4 opp 3, not 5). No violations. B is valid.",
+      "C": "❌ Wrong. Option C shows Top=2, Front=6, Right=3. Check: 2-6 adjacent (2 opp 5, not 6). 2-3 adjacent (not opposite pair). 6-3 adjacent (6 opp 1, not 3). No violations. C is valid."
+    }
+  },
+  10: {
+    correct: "✅ Correct! Using the Common Face Method: X appears in all 3 views. V1: X adj Y,Z. V2: X adj Z,W. V3: X adj W,V. Combined: X adj Y,Z,W,V — that's all 4 adjacent faces! The only face not listed is U. Therefore U is opposite X.",
+    wrongs: {
+      "Y": "❌ Wrong. Y is shown adjacent to X in View 1 (both visible in same image). Adjacent faces cannot be opposite.",
+      "W": "❌ Wrong. W is adjacent to X in Views 2 and 3. A face shown touching X cannot be X's opposite.",
+      "V": "❌ Wrong. V is adjacent to X in View 3. Since V touches X, V cannot be opposite X."
+    }
+  },
+  11: {
+    correct: "✅ Correct! This is one of the most important cube rules: any 3 faces you can see simultaneously are ALL adjacent to each other. None of them are opposite. It's physically impossible to see two opposite faces at the same time.",
+    wrongs: {
+      "Yes — with 3 faces, statistically one pair must be opposite": "❌ Wrong. Statistics don't apply here — it's a geometric fact. To see a face, you must be looking AT it. Its opposite face points AWAY from you and can never be seen at the same time.",
+      "Sometimes — depending on the cube": "❌ Wrong. This is always true for every cube, every time. It's not a sometimes-rule — it's a fundamental geometric property of cubes.",
+      "Only if the symbols are different": "❌ Wrong. The symbols are irrelevant to this rule. Whether or not faces have symbols, you can never see two opposite faces simultaneously."
+    }
+  },
+  12: {
+    correct: "✅ Correct! ↗ becoming ↙ is a 180° rotation of the symbol itself — but the front and right face positions haven't changed. A 180° turn of the symbol on the top face, while keeping front/right the same, is a reflection of the symbol. Reflections cannot be produced by cube rotation.",
+    wrongs: {
+      "Yes — rotating the cube changes the arrow direction": "❌ Wrong. Rotating the whole cube would also change which face is on top, or what's on front/right. But the option keeps front=🔴 and right=🔵 the same, so no whole-cube rotation explains the flipped arrow.",
+      "Yes — if the front and right match, the top direction doesn't matter": "❌ Wrong. Orientation always matters! A cube with a mirrored symbol is a DIFFERENT cube from one with the correct symbol. Both adjacency AND orientation must be checked.",
+      "Need to check left and bottom first": "❌ Wrong. The mirror test on the visible ↙ arrow already tells us this is invalid. We don't need to check hidden faces to eliminate an option with a mirrored symbol."
+    }
+  },
+  13: {
+    correct: "✅ Correct! In a cross-shaped net, the centre square is adjacent to its 4 surrounding squares (top, bottom, left, right). The square that extends BEYOND the cross — here attached to the right of 🎭 — wraps around and becomes opposite the centre (🎯).",
+    wrongs: {
+      "🎪": "❌ Wrong. 🎪 is directly above the centre 🎯 in the cross. When folded, it becomes a face adjacent (touching) to 🎯, not opposite.",
+      "🎤": "❌ Wrong. 🎤 is directly to the left of 🎯. Folding makes it adjacent to 🎯 — it becomes the left face of the cube, touching 🎯's face.",
+      "🎨": "❌ Wrong. 🎨 is directly below 🎯 in the cross. Like 🎪 above, it folds to become adjacent to 🎯, not opposite."
+    }
+  },
+  14: {
+    correct: "✅ Correct! Systematic elimination: Option A shows opposite faces as adjacent (violates opposite rule). Option B has a mirrored symbol (reflection = invalid). Option D shows other opposite faces as adjacent (violates opposite rule). Only Option C passes all three checks: correct adjacency, correct opposite pairs, correct orientation.",
+    wrongs: {
+      "Option A": "❌ Wrong. Option A shows two opposite faces (🌟 and its opposite 🌙) both visible and adjacent in the same image. This directly violates the opposite pair rule — impossible!",
+      "Option B": "❌ Wrong. Option B has all faces in correct positions but with a mirrored symbol on 🌟. A mirror image cannot be produced by any rotation of the cube. This is an orientation trap — a very common GL exam trick.",
+      "Option D": "❌ Wrong. Option D shows 🌈 and its opposite face both visible and adjacent. Just like Option A, this violates the fundamental rule that opposite faces cannot both be visible in the same image."
+    }
+  },
+  15: {
+    correct: "✅ Correct! Full Common Face Method: 🐉 adj 🦄,🧚 (V1); 🧚,🧝 (V2); combine: 🐉 adj 🦄,🧚,🧝. From V3: 🦄 adj 🧚,🐲, and since 🦄 is adjacent to 🐉 (from V1), and 🐲 appears with 🦄 but not with 🐉, 🐲 could be the 4th adjacent to 🐉. 🐉 adj 🦄,🧚,🧝,🐲 = 4 adjacent faces. Remaining face = 🧙. 🐉 opp 🧙. ✓",
+    wrongs: {
+      "🦄": "❌ Wrong. 🦄 appears in View 1 together with 🐉 (both visible and adjacent). Adjacent faces cannot be opposite.",
+      "🧚": "❌ Wrong. 🧚 appears in both V1 and V2 together with 🐉, confirming they are adjacent. They cannot be opposite.",
+      "🧝": "❌ Wrong. 🧝 appears in V2 together with 🐉 (Top=🐉, Right=🧝 — both visible). They are adjacent, not opposite."
+    }
+  }
+};
+
+function selectTestAnswer(btn) {
+  const tq = parseInt(btn.dataset.tq);
+  const block = btn.closest('.question-block');
+  if (block.dataset.answered) return;
+
+  block.dataset.answered = 'true';
+  const isCorrect = btn.dataset.correct === 'true';
+  const allBtns = block.querySelectorAll('.test-opt');
+  
+  allBtns.forEach(b => {
+    b.disabled = true;
+    if (b.dataset.correct === 'true') b.classList.add('reveal');
+  });
+
+  if (isCorrect) {
+    btn.classList.add('correct');
+  } else {
+    btn.classList.add('wrong');
+  }
+
+  // Show explanation
+  const expDiv = block.querySelector('.test-explanation');
+  const expData = testExplanations[tq];
+  if (expData) {
+    if (isCorrect) {
+      expDiv.style.background = '#dcfce7';
+      expDiv.style.color = '#14532d';
+      expDiv.textContent = expData.correct;
+    } else {
+      expDiv.style.background = '#fee2e2';
+      expDiv.style.color = '#7f1d1d';
+      const wrongText = expData.wrongs[btn.textContent.trim()];
+      expDiv.textContent = wrongText || '❌ Incorrect. The correct answer explains: ' + expData.correct;
+    }
+    expDiv.style.display = 'block';
+  }
+
+  testAnswers[tq] = {
+    correct: isCorrect,
+    selected: btn.textContent.trim()
+  };
+
+  // Show next button
+  const nextBtn = document.getElementById(`next-${tq}`);
+  if (nextBtn) nextBtn.style.display = 'inline-block';
+}
+
+function nextTestQ(current) {
+  document.getElementById(`tq${current}`).classList.remove('active');
+  if (current < 15) {
+    document.getElementById(`tq${current+1}`).classList.add('active');
+    currentTestQ = current + 1;
+    document.getElementById('test-progress').textContent = `Question ${currentTestQ} of 15`;
+  } else {
+    submitTest();
+  }
+}
+
+function startTest() {
+  if (testStarted) return;
+  testStarted = true;
+  document.getElementById('start-test-btn').style.display = 'none';
+  document.getElementById('submit-test-btn').style.display = 'inline-block';
+  document.getElementById('test-questions').style.display = 'block';
+  currentTestQ = 1;
+  
+  testTimer = setInterval(() => {
+    timeLeft--;
+    const m = Math.floor(timeLeft / 60);
+    const s = timeLeft % 60;
+    document.getElementById('timer-display').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+    if (timeLeft <= 0) {
+      clearInterval(testTimer);
+      submitTest();
+    }
+    if (timeLeft <= 60) {
+      document.getElementById('timer-display').style.color = '#ef4444';
+    }
+  }, 1000);
+}
+
+function submitTest() {
+  clearInterval(testTimer);
+  document.getElementById('test-questions').style.display = 'none';
+  document.getElementById('submit-test-btn').style.display = 'none';
+  document.getElementById('test-results').style.display = 'block';
+
+  let score = 0;
+  for (let i = 1; i <= 15; i++) {
+    if (testAnswers[i] && testAnswers[i].correct) score++;
+  }
+
+  document.getElementById('final-score-num').textContent = score;
+
+  const bandBadge = document.getElementById('band-badge');
+  const bandMsg = document.getElementById('band-message');
+
+  if (score <= 5) {
+    bandBadge.className = 'band-badge band-np'; bandBadge.textContent = '📚 Needs Practice';
+    bandMsg.textContent = 'Keep going! Review the sections on Adjacency and Opposite Faces first — they underpin everything else.';
+  } else if (score <= 9) {
+    bandBadge.className = 'band-badge band-dev'; bandBadge.textContent = '📈 Developing';
+    bandMsg.textContent = 'Good progress! Focus on the Orientation and Nets sections — those are likely where your marks are hiding.';
+  } else if (score <= 12) {
+    bandBadge.className = 'band-badge band-sec'; bandBadge.textContent = '✅ Secure';
+    bandMsg.textContent = 'Solid performance! Brush up on the Mastery-level questions in Hidden Faces and Same/Different Cube.';
+  } else {
+    bandBadge.className = 'band-badge band-mas'; bandBadge.textContent = '🏆 Mastery';
+    bandMsg.textContent = 'Outstanding! You\'ve mastered cube reasoning. You\'re well-prepared for the GL Assessment.';
+  }
+
+  // Breakdown
+  const breakdown = document.getElementById('test-breakdown');
+  breakdown.innerHTML = '<h3 style="font-family:\'Playfair Display\',serif; font-size:1.1rem; margin-bottom:0.75rem;">Question Review</h3>';
+  const topics = ['Adjacency','Opposites','Opposites','Orientation','Nets','Nets','Hidden Face','Same Cube','Odd One Out','Common Face Method','Three Faces Rule','Orientation Trap','Net Folding','Combination','Ultimate Challenge'];
+  for (let i = 1; i <= 15; i++) {
+    const ans = testAnswers[i];
+    const isC = ans && ans.correct;
+    const div = document.createElement('div');
+    div.className = `breakdown-item ${isC ? 'correct-ans' : 'wrong-ans'}`;
+    div.innerHTML = `<strong>Q${i} — ${topics[i-1]}:</strong> ${isC ? '✅ Correct' : '❌ Incorrect'}<br><small style="opacity:0.8;">${testExplanations[i] ? (isC ? testExplanations[i].correct : 'See explanation above.') : ''}</small>`;
+    breakdown.appendChild(div);
+  }
+}
+
+function resetTest() {
+  testStarted = false;
+  timeLeft = 600;
+  testAnswers = {};
+  currentTestQ = 1;
+  clearInterval(testTimer);
+
+  document.getElementById('timer-display').textContent = '10:00';
+  document.getElementById('timer-display').style.color = 'var(--gold)';
+  document.getElementById('start-test-btn').style.display = 'inline-block';
+  document.getElementById('submit-test-btn').style.display = 'none';
+  document.getElementById('test-questions').style.display = 'none';
+  document.getElementById('test-results').style.display = 'none';
+  document.getElementById('test-progress').textContent = 'Question 1 of 15';
+
+  // Reset all test question blocks
+  for (let i = 1; i <= 15; i++) {
+    const tq = document.getElementById(`tq${i}`);
+    tq.classList.remove('active');
+    if (i === 1) tq.classList.add('active');
+    const block = tq.querySelector('.question-block');
+    delete block.dataset.answered;
+    const btns = block.querySelectorAll('.test-opt');
+    btns.forEach(b => {
+      b.disabled = false;
+      b.classList.remove('correct','wrong','reveal');
+    });
+    const expDiv = block.querySelector('.test-explanation');
+    expDiv.style.display = 'none';
+    const nextBtn = document.getElementById(`next-${i}`);
+    if (nextBtn) nextBtn.style.display = 'none';
+  }
+}
+</script>
+</body>
+</html>

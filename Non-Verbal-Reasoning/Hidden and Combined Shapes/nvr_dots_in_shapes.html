@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11+ GL NVR — Dots in Shapes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1b2a;
+  --navy2: #162032;
+  --gold: #d4a843;
+  --gold2: #f0c96b;
+  --cream: #f9f6ef;
+  --white: #ffffff;
+  --green: #22863a;
+  --green-bg: #e6f4ea;
+  --yellow: #b38a00;
+  --yellow-bg: #fff8dc;
+  --orange: #c05c00;
+  --orange-bg: #fff0e0;
+  --purple: #6b2fa0;
+  --purple-bg: #f2eaff;
+  --red: #c0392b;
+  --red-bg: #fdecea;
+  --correct: #1a7340;
+  --correct-bg: #e8f5ee;
+  --wrong: #b71c1c;
+  --wrong-bg: #fdecea;
+  --card-shadow: 0 2px 12px rgba(13,27,42,0.08);
+  --radius: 12px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--navy); font-size: 16px; line-height: 1.6; }
+
+/* PROGRESS BAR */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 4px; background: var(--gold);
+  width: 0%; z-index: 9999; transition: width 0.2s;
+}
+
+/* HEADER */
+header {
+  background: var(--navy); color: var(--white); padding: 48px 24px 36px;
+  text-align: center; position: relative; overflow: hidden;
+}
+header::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(212,168,67,0.12) 0%, transparent 65%);
+}
+.header-tag {
+  display: inline-block; background: var(--gold); color: var(--navy);
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 4px 14px; border-radius: 20px; margin-bottom: 16px;
+}
+header h1 {
+  font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 48px);
+  color: var(--gold2); line-height: 1.15; margin-bottom: 10px;
+}
+header p { color: rgba(255,255,255,0.7); font-size: 15px; max-width: 560px; margin: 0 auto; }
+
+/* SCORE COUNTER */
+#score-bar {
+  position: sticky; top: 4px; z-index: 998;
+  background: var(--navy2); color: var(--white);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 20px; gap: 12px; font-size: 14px;
+  border-bottom: 2px solid var(--gold);
+}
+#score-bar .score-chip {
+  background: var(--gold); color: var(--navy); font-weight: 700;
+  padding: 4px 14px; border-radius: 20px; font-size: 14px;
+  white-space: nowrap;
+}
+#score-bar nav { display: flex; gap: 8px; flex-wrap: wrap; }
+#score-bar nav a {
+  color: rgba(255,255,255,0.7); text-decoration: none; font-size: 12px;
+  padding: 3px 8px; border-radius: 6px; transition: all 0.2s;
+  white-space: nowrap;
+}
+#score-bar nav a:hover { color: var(--gold); background: rgba(212,168,67,0.1); }
+#score-bar nav a.done { color: var(--gold); }
+
+/* MAIN */
+main { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+
+/* SECTION */
+section { margin-bottom: 56px; }
+.section-title {
+  font-family: 'Playfair Display', serif; font-size: 26px;
+  color: var(--navy); border-left: 5px solid var(--gold);
+  padding-left: 16px; margin-bottom: 24px;
+}
+
+/* CARDS */
+.card {
+  background: var(--white); border-radius: var(--radius);
+  box-shadow: var(--card-shadow); padding: 24px; margin-bottom: 20px;
+}
+.card-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.card-label.simple { color: #2a7d4f; }
+.card-label.full { color: #1a4fa0; }
+.card-label.watchout { color: var(--red); }
+.card-label.worked { color: var(--purple); }
+
+.simple-box { border-left: 4px solid #2a7d4f; background: #f0faf4; }
+.full-box { border-left: 4px solid #1a4fa0; background: #f0f5ff; }
+.watchout-box { border-left: 4px solid var(--red); background: var(--red-bg); }
+
+/* SVG DIAGRAMS */
+.diagram-wrap { display: flex; justify-content: center; margin: 16px 0; }
+.diagram-wrap svg { max-width: 100%; }
+
+/* STEP BOX */
+.step-box {
+  background: var(--navy); color: var(--white); border-radius: 10px;
+  padding: 18px 20px; margin: 14px 0; font-size: 14px;
+}
+.step-box .step-num {
+  display: inline-block; background: var(--gold); color: var(--navy);
+  font-weight: 700; width: 24px; height: 24px; border-radius: 50%;
+  text-align: center; line-height: 24px; font-size: 13px; margin-right: 8px;
+}
+
+/* DIFFICULTY BADGE */
+.badge {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px;
+  border-radius: 20px; margin-bottom: 10px;
+}
+.badge.starter { background: var(--green-bg); color: var(--green); }
+.badge.developing { background: var(--yellow-bg); color: var(--yellow); }
+.badge.secure { background: var(--orange-bg); color: var(--orange); }
+.badge.mastery { background: var(--purple-bg); color: var(--purple); }
+
+/* QUESTION CARD */
+.q-card {
+  background: var(--white); border-radius: var(--radius);
+  box-shadow: var(--card-shadow); padding: 22px; margin-bottom: 16px;
+  border: 2px solid transparent; transition: border 0.2s;
+}
+.q-card.answered { border-color: #e0e0e0; }
+.q-num { font-size: 12px; color: #999; font-weight: 600; margin-bottom: 6px; }
+.q-text { font-size: 15px; margin-bottom: 14px; font-weight: 500; }
+.options { display: flex; flex-direction: column; gap: 8px; }
+.opt-btn {
+  background: var(--cream); border: 2px solid #e8e8e0; border-radius: 8px;
+  padding: 10px 16px; font-family: 'DM Sans', sans-serif; font-size: 14px;
+  cursor: pointer; text-align: left; transition: all 0.2s; color: var(--navy);
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--gold); background: #fff9ee; }
+.opt-btn.correct-selected { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); }
+.opt-btn.wrong-selected { background: var(--wrong-bg); border-color: var(--wrong); color: var(--wrong); }
+.opt-btn.reveal-correct { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); }
+.opt-btn:disabled { cursor: default; }
+
+.feedback-box {
+  border-radius: 8px; padding: 12px 16px; margin-top: 12px;
+  font-size: 14px; line-height: 1.5; display: none;
+}
+.feedback-box.correct { background: var(--correct-bg); color: var(--correct); display: block; }
+.feedback-box.wrong { background: var(--wrong-bg); color: var(--wrong); display: block; }
+
+/* TYPED ANSWER */
+.typed-wrap { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 4px; }
+.typed-input {
+  font-family: 'DM Mono', monospace; font-size: 16px;
+  border: 2px solid #d0d0cc; border-radius: 8px; padding: 8px 14px;
+  width: 120px; transition: border 0.2s; background: var(--cream); color: var(--navy);
+}
+.typed-input:focus { outline: none; border-color: var(--gold); }
+.submit-btn {
+  background: var(--navy); color: var(--white); border: none;
+  border-radius: 8px; padding: 9px 20px; font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s;
+}
+.submit-btn:hover { background: var(--gold); color: var(--navy); }
+
+/* COMPLETION TICK */
+.section-status { float: right; font-size: 18px; margin-left: 8px; }
+
+/* TIMED TEST */
+#test-timer {
+  font-size: 22px; font-weight: 700; color: var(--gold2);
+  font-family: 'DM Mono', monospace; text-align: center; margin: 12px 0;
+}
+#start-test-btn {
+  display: block; margin: 0 auto 24px; background: var(--gold); color: var(--navy);
+  border: none; padding: 14px 36px; border-radius: 10px; font-size: 17px;
+  font-weight: 700; cursor: pointer; font-family: 'Playfair Display', serif;
+  transition: all 0.2s;
+}
+#start-test-btn:hover { background: var(--gold2); }
+#test-area { display: none; }
+#result-area { display: none; background: var(--navy); color: var(--white); border-radius: 14px; padding: 32px; text-align: center; }
+#result-area h2 { font-family: 'Playfair Display', serif; color: var(--gold2); font-size: 28px; margin-bottom: 8px; }
+#result-band { font-size: 20px; font-weight: 700; margin: 12px 0; }
+#result-score { font-size: 48px; font-weight: 900; color: var(--gold); font-family: 'Playfair Display', serif; }
+#review-btn {
+  margin-top: 20px; background: var(--gold); color: var(--navy);
+  border: none; padding: 12px 30px; border-radius: 8px; font-size: 16px;
+  font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+
+/* SECTION DIVIDER */
+.divider {
+  height: 1px; background: linear-gradient(to right, var(--gold), transparent);
+  margin: 40px 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  #score-bar nav { display: none; }
+  .section-title { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+
+<header>
+  <div class="header-tag">11+ GL Assessment · Non-Verbal Reasoning</div>
+  <h1>Dots in Shapes<br><span style="font-size:0.6em;color:rgba(255,255,255,0.6)">Venn Logic & Region Analysis</span></h1>
+  <p>Master every trap, sub-skill, and exam technique for this question type</p>
+</header>
+
+<div id="score-bar">
+  <div class="score-chip">⭐ Score: <span id="global-score">0</span></div>
+  <nav>
+    <a href="#skill1">Overlap Logic</a>
+    <a href="#skill2">Multiple Dots</a>
+    <a href="#skill3">Nested Shapes</a>
+    <a href="#skill4">Elite Traps</a>
+    <a href="#test">Final Test</a>
+  </nav>
+</div>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SKILL 1: BASIC OVERLAP LOGIC -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="skill1">
+  <h2 class="section-title">Sub-Skill 1: Basic Overlap Logic <span class="section-status" id="tick1"></span></h2>
+
+  <div class="card simple-box">
+    <div class="card-label simple">🟢 Simple Explanation (Age 9)</div>
+    <p>Imagine two hula hoops lying on the floor. Where they cross over in the middle — that's the <strong>overlap</strong>. A dot placed in that middle bit means someone is in <em>both</em> hula hoops at the same time. A dot placed only inside one hoop means they're only in <em>that</em> hoop. Your job is to find which answer picture puts the dot in exactly the right place — not too many shapes, not too few!</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-label full">📘 Full Explanation</div>
+    <p>In NVR "Dots in Shapes" questions, you are shown a <strong>reference diagram</strong> containing two or more overlapping shapes with one or more dots. You must identify the <strong>logical region</strong> each dot occupies — defined by which shapes it is inside, and which shapes it is outside. You then select the answer option where every dot sits in its correct corresponding region, regardless of the shapes' sizes, colours, or positions on the page.</p>
+    <p style="margin-top:10px;"><strong>Key rule:</strong> Only the <em>logic</em> (which shapes contain the dot) matters — not the visual appearance of the shapes.</p>
+  </div>
+
+  <!-- WORKED EXAMPLE 1 -->
+  <div class="card" style="border-left:4px solid var(--purple);">
+    <div class="card-label worked">🔷 Worked Example — Basic</div>
+    <p class="q-text">A circle and a square overlap. A dot sits in the overlapping region (inside both shapes).<br>Which answer is correct?</p>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 320 160" width="320" height="160" xmlns="http://www.w3.org/2000/svg">
+        <!-- Reference -->
+        <text x="10" y="16" font-size="11" fill="#666" font-family="DM Sans,sans-serif">Reference</text>
+        <rect x="10" y="25" width="90" height="80" rx="4" fill="none" stroke="#1a4fa0" stroke-width="2"/>
+        <circle cx="80" cy="65" r="36" fill="none" stroke="#c05c00" stroke-width="2"/>
+        <circle cx="68" cy="65" r="5" fill="#0d1b2a"/>
+        <!-- Label -->
+        <text x="45" y="125" font-size="10" fill="#666" font-family="DM Sans,sans-serif">Dot = inside both</text>
+        <!-- Options -->
+        <text x="165" y="16" font-size="11" fill="#666" font-family="DM Sans,sans-serif">Answer Options</text>
+        <!-- A: dot in overlap -->
+        <rect x="160" y="25" width="55" height="55" rx="4" fill="none" stroke="#1a4fa0" stroke-width="1.5"/>
+        <circle cx="200" cy="52" r="22" fill="none" stroke="#c05c00" stroke-width="1.5"/>
+        <circle cx="190" cy="52" r="4" fill="#22863a"/>
+        <text x="182" y="92" font-size="10" fill="#22863a" font-family="DM Sans,sans-serif" font-weight="700">A ✓</text>
+        <!-- B: dot outside both -->
+        <rect x="228" y="25" width="55" height="55" rx="4" fill="none" stroke="#1a4fa0" stroke-width="1.5"/>
+        <circle cx="268" cy="52" r="22" fill="none" stroke="#c05c00" stroke-width="1.5"/>
+        <circle cx="238" cy="35" r="4" fill="#c0392b"/>
+        <text x="248" y="92" font-size="10" fill="#c0392b" font-family="DM Sans,sans-serif" font-weight="700">B ✗</text>
+        <!-- C: dot in circle only -->
+        <rect x="160" y="98" width="55" height="45" rx="4" fill="none" stroke="#1a4fa0" stroke-width="1.5"/>
+        <circle cx="200" cy="121" r="18" fill="none" stroke="#c05c00" stroke-width="1.5"/>
+        <circle cx="208" cy="121" r="4" fill="#c0392b"/>
+        <text x="180" y="153" font-size="10" fill="#c0392b" font-family="DM Sans,sans-serif" font-weight="700">C ✗</text>
+      </svg>
+    </div>
+    <div class="step-box"><span class="step-num">1</span> <strong>Read the dot's region:</strong> The dot in the reference is inside the square AND inside the circle — it sits in the overlap.</div>
+    <div class="step-box"><span class="step-num">2</span> <strong>Translate to a rule:</strong> I need an answer where the dot is inside BOTH shapes at the same time.</div>
+    <div class="step-box"><span class="step-num">3</span> <strong>Check each option:</strong> A → dot is in overlap ✓ | B → dot is outside both ✗ | C → dot is in circle only ✗</div>
+    <div class="step-box"><span class="step-num">4</span> <strong>Answer: A</strong> — the only option where the dot correctly sits inside both shapes simultaneously.</div>
+  </div>
+
+  <div class="card watchout-box">
+    <div class="card-label watchout">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Students match the <em>visual position</em> of the dot on the page (e.g., "it was on the left, so I pick the left one") instead of identifying the logical region. Always ask <em>"which shapes contain this dot?"</em> — not <em>"where on the page is the dot?"</em></p>
+  </div>
+
+  <!-- WORKED EXAMPLE 2 (Harder) -->
+  <div class="card" style="border-left:4px solid var(--purple);">
+    <div class="card-label worked">🔷 Worked Example — Harder</div>
+    <p class="q-text">A triangle and a circle overlap. One dot is inside the triangle only. A second dot is outside both shapes. Find the correct answer.</p>
+    <div class="step-box"><span class="step-num">1</span> <strong>Dot 1 rule:</strong> Must be inside the triangle, AND outside the circle.</div>
+    <div class="step-box"><span class="step-num">2</span> <strong>Dot 2 rule:</strong> Must be outside the triangle AND outside the circle.</div>
+    <div class="step-box"><span class="step-num">3</span> <strong>Elimination:</strong> Any option where either dot violates its rule is discarded immediately. Only the option satisfying BOTH rules survives.</div>
+    <div class="step-box"><span class="step-num">4</span> <strong>Key insight:</strong> When checking Dot 2 (outside both), make sure the dot isn't accidentally sitting on a border line — boundary dots are traps!</div>
+  </div>
+
+  <!-- QUESTIONS SKILL 1 -->
+  <div id="qs1"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SKILL 2: MULTIPLE DOTS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="skill2">
+  <h2 class="section-title">Sub-Skill 2: Multiple Dots Strategy <span class="section-status" id="tick2"></span></h2>
+
+  <div class="card simple-box">
+    <div class="card-label simple">🟢 Simple Explanation (Age 9)</div>
+    <p>Now there are two or three dots, each with their own rule. Think of each dot as a different person with their own invitation. One person is only allowed in the blue room. Another is only in the red room. Another is allowed in both. Your job is to find the answer that gets everyone to the right room at the same time — satisfy all the invitations together, not just one!</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-label full">📘 Full Explanation</div>
+    <p>When a question contains multiple dots, each dot defines an independent logical constraint. The correct answer must satisfy <strong>every dot simultaneously</strong>. The recommended strategy is to <strong>start with the most restrictive dot</strong> — the one with the most conditions (e.g., inside three shapes) — because it eliminates the most answer options instantly. Then apply remaining dots to the survivors.</p>
+    <p style="margin-top:10px;"><strong>Efficiency rule:</strong> Never check all dots equally. Start with the dot that has the most shape conditions. That dot does the most work.</p>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--purple);">
+    <div class="card-label worked">🔷 Worked Example — Basic (Two Dots)</div>
+    <p class="q-text">Reference shows: Circle + Square overlapping. Dot A = inside circle only. Dot B = inside both shapes.</p>
+    <div class="step-box"><span class="step-num">1</span> <strong>Most restrictive dot?</strong> Dot B (inside two shapes) — check this first. Eliminate options where Dot B is not in the overlap.</div>
+    <div class="step-box"><span class="step-num">2</span> <strong>Survivors:</strong> Only options with Dot B correctly placed remain. Now check Dot A — it must be inside circle only (not in the overlap, not outside).</div>
+    <div class="step-box"><span class="step-num">3</span> <strong>Final answer:</strong> Only one option places Dot A in circle-only AND Dot B in overlap simultaneously. That is correct.</div>
+    <div class="step-box"><span class="step-num">4</span> <strong>Trap to avoid:</strong> An option where Dot A accidentally sits in the overlap — it looks close but violates the "only" condition.</div>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--purple);">
+    <div class="card-label worked">🔷 Worked Example — Harder (Three Dots)</div>
+    <p class="q-text">Three shapes: Circle, Square, Triangle. Dot 1 = inside Circle + Triangle only (not Square). Dot 2 = inside Square only. Dot 3 = outside all three shapes.</p>
+    <div class="step-box"><span class="step-num">1</span> <strong>Most restrictive:</strong> Dot 1 (inside 2 shapes, outside 1) — start here. Eliminates most options.</div>
+    <div class="step-box"><span class="step-num">2</span> <strong>Check Dot 2:</strong> Must be in square-only region. Any option with Dot 2 touching circle or triangle is wrong.</div>
+    <div class="step-box"><span class="step-num">3</span> <strong>Check Dot 3:</strong> Must be completely outside every shape. If Dot 3 is touching any border, it fails.</div>
+    <div class="step-box"><span class="step-num">4</span> <strong>Answer:</strong> Only one option survives all three checks. The others fail at different stages — they're designed to catch students who only check one or two dots.</div>
+  </div>
+
+  <div class="card watchout-box">
+    <div class="card-label watchout">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Checking only the first dot and selecting the first option that satisfies it — without checking the remaining dots. In GL exams, options are deliberately designed so that one option satisfies Dot 1 but fails Dot 2. Always check <em>every</em> dot before selecting your answer.</p>
+  </div>
+
+  <div id="qs2"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SKILL 3: NESTED SHAPES -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="skill3">
+  <h2 class="section-title">Sub-Skill 3: Nested Shape Logic <span class="section-status" id="tick3"></span></h2>
+
+  <div class="card simple-box">
+    <div class="card-label simple">🟢 Simple Explanation (Age 9)</div>
+    <p>Sometimes one shape is completely <em>inside</em> another — like a small box sitting inside a big box. This is different from two shapes crossing over each other. If the small box is entirely inside the big box, then the region "inside both" is the entire inside of the small box. A dot inside the small box is inside BOTH boxes — even though there's no crossing over!</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-label full">📘 Full Explanation</div>
+    <p>When one shape is entirely contained within another (nested), there is no traditional <em>intersection region</em> — instead, the inner shape's entire interior is a subset of the outer shape. Key regions become: (1) inside the inner shape only (which also means inside the outer shape — these are the same region), (2) inside the outer shape but outside the inner shape (the "ring" region), and (3) outside the outer shape entirely. Students who expect a visible crossing-over region will be tricked.</p>
+    <p style="margin-top:10px;"><strong>The test:</strong> Ask "Is this dot inside the outer boundary? Is it also inside the inner boundary?" Answer both questions independently.</p>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--purple);">
+    <div class="card-label worked">🔷 Worked Example — Basic (Nested)</div>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 260 140" width="260" height="140" xmlns="http://www.w3.org/2000/svg">
+        <text x="10" y="14" font-size="11" fill="#666" font-family="DM Sans,sans-serif">Reference: small circle inside big square</text>
+        <rect x="20" y="22" width="100" height="100" rx="4" fill="none" stroke="#1a4fa0" stroke-width="2"/>
+        <circle cx="70" cy="72" r="28" fill="none" stroke="#c05c00" stroke-width="2"/>
+        <!-- dot inside circle (= inside both) -->
+        <circle cx="70" cy="72" r="5" fill="#0d1b2a"/>
+        <text x="22" y="132" font-size="10" fill="#555" font-family="DM Sans,sans-serif">Dot = inside circle = inside both shapes</text>
+      </svg>
+    </div>
+    <div class="step-box"><span class="step-num">1</span> <strong>Identify nesting:</strong> The circle is completely inside the square. There is no crossing.</div>
+    <div class="step-box"><span class="step-num">2</span> <strong>Dot's region:</strong> Dot is inside the circle → it is automatically also inside the square → it is "inside both".</div>
+    <div class="step-box"><span class="step-num">3</span> <strong>Find correct answer:</strong> Look for an option with a small shape completely inside a larger shape, with the dot inside the smaller shape.</div>
+    <div class="step-box"><span class="step-num">4</span> <strong>Trap:</strong> An option where the two shapes overlap (cross) instead of nest looks similar but is logically different!</div>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--purple);">
+    <div class="card-label worked">🔷 Worked Example — Harder (Ring Region)</div>
+    <p class="q-text">Large triangle contains a small circle. Dot is inside the triangle but outside the circle (the "ring" region).</p>
+    <div class="step-box"><span class="step-num">1</span> <strong>Dot's region:</strong> Inside triangle ✓, Outside circle ✓ → The "ring" between the two shapes.</div>
+    <div class="step-box"><span class="step-num">2</span> <strong>Rule:</strong> Correct answer must show a small shape inside a large shape, with the dot in the gap between them (inside outer, outside inner).</div>
+    <div class="step-box"><span class="step-num">3</span> <strong>Trap option:</strong> Dot placed inside the small circle → wrong (it would be inside both, not just the triangle).</div>
+    <div class="step-box"><span class="step-num">4</span> <strong>Another trap:</strong> Shapes that overlap instead of nesting — looks like it could work visually, but the regions are completely different logically.</div>
+  </div>
+
+  <div class="card watchout-box">
+    <div class="card-label watchout">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> Confusing "nested" with "overlapping." If one shape is fully inside another, there is no separate overlap region — the entire interior of the inner shape is already inside the outer shape. Don't look for a crossing-over section that isn't there.</p>
+  </div>
+
+  <div id="qs3"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SKILL 4: ELITE TRAPS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="skill4">
+  <h2 class="section-title">Sub-Skill 4: Elite Traps & High-Density Regions <span class="section-status" id="tick4"></span></h2>
+
+  <div class="card simple-box">
+    <div class="card-label simple">🟢 Simple Explanation (Age 9)</div>
+    <p>Some questions try to trick you by making two answers look almost the same. One tiny difference — like one shape barely touching another — changes everything. The trick is to slow down and count <em>exactly</em> which shapes each dot is inside. Don't trust your eyes. Count carefully like you're checking a shopping list.</p>
+  </div>
+
+  <div class="card full-box">
+    <div class="card-label full">📘 Full Explanation</div>
+    <p>Elite GL traps include: <strong>(1) Almost-overlap</strong> — shapes that appear to touch but do not actually intersect, meaning the expected overlap region doesn't exist. <strong>(2) Extra shape intrusion</strong> — a dot satisfies two conditions correctly but accidentally sits inside a third shape it should be outside. <strong>(3) High-density regions</strong> — four or more shapes creating 6–10 logical regions; the correct region requires tracking every shape simultaneously. <strong>(4) Duplicate valid regions</strong> — the same logical region appears in two separate places in one answer option (both are valid, but students reject the answer because they expect the dot to be "in the same place" as the reference).</p>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--purple);">
+    <div class="card-label worked">🔷 Worked Example — Almost-Overlap Trap</div>
+    <p class="q-text">Reference: Two shapes that appear to touch at the edge — they do NOT overlap. Dot is outside both shapes but placed right next to the touching point.</p>
+    <div class="step-box"><span class="step-num">1</span> <strong>Key check:</strong> Are these shapes actually overlapping, or just touching? If just touching, there is no overlap region.</div>
+    <div class="step-box"><span class="step-num">2</span> <strong>Dot's region:</strong> Even though the dot is visually close to the shapes, it is outside both → look for an answer with the dot outside both shapes.</div>
+    <div class="step-box"><span class="step-num">3</span> <strong>Trap option:</strong> An option where the shapes do properly overlap and the dot is in the overlap — this looks similar but is logically wrong (the reference has no overlap).</div>
+    <div class="step-box"><span class="step-num">4</span> <strong>Fix:</strong> Always confirm whether shapes actually cross each other, or merely touch at an edge, before deciding what regions exist.</div>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--purple);">
+    <div class="card-label worked">🔷 Worked Example — Four-Shape Nightmare</div>
+    <p class="q-text">Shapes: Circle, Square, Triangle, Pentagon. Dot 1 = inside Circle + Triangle only. Dot 2 = inside Square + Pentagon only.</p>
+    <div class="step-box"><span class="step-num">1</span> <strong>List Dot 1's conditions:</strong> Inside Circle ✓, Inside Triangle ✓, Outside Square ✓, Outside Pentagon ✓</div>
+    <div class="step-box"><span class="step-num">2</span> <strong>List Dot 2's conditions:</strong> Inside Square ✓, Inside Pentagon ✓, Outside Circle ✓, Outside Triangle ✓</div>
+    <div class="step-box"><span class="step-num">3</span> <strong>Use Dot 1 to eliminate:</strong> Discard any option where Dot 1 touches Square or Pentagon — most options fail here.</div>
+    <div class="step-box"><span class="step-num">4</span> <strong>Apply Dot 2 to survivors:</strong> Now check Dot 2 is in Square+Pentagon and outside Circle+Triangle. Usually only one option survives both checks.</div>
+  </div>
+
+  <div class="card watchout-box">
+    <div class="card-label watchout">⚠️ Watch Out!</div>
+    <p><strong>Most common mistake:</strong> In 4-shape questions, students stop checking conditions after confirming the "inside" shapes. Always also confirm the dot is <em>outside</em> the shapes it should be outside. The trap option always gets the "inside" conditions right but sneaks in an extra accidental overlap.</p>
+  </div>
+
+  <div id="qs4"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- FINAL TIMED TEST -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="test">
+  <h2 class="section-title">⏱ Final Mastery Test — 15 Questions</h2>
+  <div class="card" style="background:var(--navy);color:var(--white);">
+    <p style="margin-bottom:12px;">15 questions covering all sub-skills. You have <strong>12 minutes</strong>. Explanations revealed after submission.</p>
+    <div id="test-timer"></div>
+    <button id="start-test-btn">Start Test →</button>
+    <div id="test-area"></div>
+    <div id="result-area">
+      <h2>Test Complete!</h2>
+      <div id="result-score"></div>
+      <div id="result-band"></div>
+      <button id="review-btn">Review Answers</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// GLOBAL STATE
+// ══════════════════════════════════════════════════════════
+let globalScore = 0;
+const sectionQCounts = {1:0,2:0,3:0,4:0};
+const sectionQAnswered = {1:0,2:0,3:0,4:0};
+
+function addScore(n=1){
+  globalScore += n;
+  document.getElementById('global-score').textContent = globalScore;
+}
+
+function markSectionProgress(sectionNum){
+  sectionQAnswered[sectionNum]++;
+  if(sectionQAnswered[sectionNum] >= sectionQCounts[sectionNum]){
+    document.getElementById('tick'+sectionNum).textContent = '✅';
+    document.querySelector(`#score-bar nav a[href="#skill${sectionNum}"]`)?.classList.add('done');
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// QUESTION DATA
+// ══════════════════════════════════════════════════════════
+
+const skill1Questions = [
+  // STARTER
+  {
+    id:'s1q1', section:1, diff:'starter',
+    text:'A circle and a square overlap. A dot is placed inside the circle only (not inside the square). Which rule describes the correct answer option?',
+    type:'mcq',
+    options:[
+      {text:'The dot is inside both shapes', correct:false, why:'Wrong — this would mean the dot is in the overlapping region shared by circle and square. The reference shows the dot only inside the circle, not touching the square at all.'},
+      {text:'The dot is inside the circle and outside the square', correct:true, why:'Correct! The dot is inside the circle but NOT inside the square. This means we need an answer where the dot sits in the part of the circle that does not overlap with the square.'},
+      {text:'The dot is outside both shapes', correct:false, why:'Wrong — the dot IS inside the circle. Outside both shapes would mean the dot is not touching either shape, which contradicts the reference.'},
+      {text:'The dot is inside the square only', correct:false, why:'Wrong — the reference shows the dot inside the circle, not the square. Mixing up which shape contains the dot is the most common error in this question type.'},
+    ]
+  },
+  {
+    id:'s1q2', section:1, diff:'starter',
+    text:'Two shapes overlap. A dot is placed outside both shapes. Which description is correct?',
+    type:'mcq',
+    options:[
+      {text:'The dot is in the overlapping area of the two shapes', correct:false, why:'Wrong — the overlapping area is inside both shapes simultaneously. The reference places the dot outside both, which is the opposite region.'},
+      {text:'The dot is inside one shape only', correct:false, why:'Wrong — being inside one shape would mean the dot is touching that shape\'s interior. The reference shows the dot clearly outside all shapes.'},
+      {text:'The dot is not inside any shape', correct:true, why:'Correct! Outside both shapes means the dot is in the region that belongs to no shape at all. Look for an answer option where the dot sits in the empty space surrounding all shapes.'},
+      {text:'The dot is on the border between shapes', correct:false, why:'Wrong — sitting on a border is a different (and ambiguous) position. The reference shows the dot clearly outside all shapes, not on any line.'},
+    ]
+  },
+  {
+    id:'s1q3', section:1, diff:'starter',
+    text:'Circle and square overlap. Dot is in the overlapping region (inside both). The answer options show the same two shapes arranged differently. What must be true about the correct answer?',
+    type:'mcq',
+    options:[
+      {text:'The dot must be in the same position on the page as in the reference', correct:false, why:'Wrong — position on the page is irrelevant. What matters is the logical region: which shapes the dot is inside. The shapes may be arranged differently in the answer.'},
+      {text:'The dot must be inside both shapes simultaneously', correct:true, why:'Correct! Regardless of how the shapes are arranged or sized in the answer options, the dot must sit in the region that is inside BOTH the circle and the square at the same time. That\'s the only condition that matters.'},
+      {text:'The dot must be the same size as in the reference', correct:false, why:'Wrong — the size of the dot is irrelevant. What matters is the logical region it occupies (which shapes contain it). Never focus on visual details like size or colour.'},
+      {text:'The shapes must look identical to the reference', correct:false, why:'Wrong — shapes may be resized, repositioned, or rotated in the answer options. The logic of which shapes contain the dot is all that matters.'},
+    ]
+  },
+  {
+    id:'s1q4', section:1, diff:'starter',
+    text:'A reference shows a large rectangle and a small triangle that partially overlaps it. A dot is inside the rectangle but NOT inside the triangle. Which region is the dot in?',
+    type:'mcq',
+    options:[
+      {text:'Inside both shapes', correct:false, why:'Wrong — "inside both" requires the dot to be in the area where rectangle and triangle physically overlap. The reference shows the dot inside the rectangle in a part that the triangle does not reach.'},
+      {text:'Inside rectangle only', correct:true, why:'Correct! The dot is inside the rectangle but outside the triangle. This means it occupies the region of the rectangle that is not covered by the triangle — the "rectangle-only" zone.'},
+      {text:'Inside triangle only', correct:false, why:'Wrong — the dot is not inside the triangle at all. The triangle-only region would be the part of the triangle that sticks outside the rectangle.'},
+      {text:'Outside both shapes', correct:false, why:'Wrong — the dot is clearly inside the rectangle. Outside both would mean the dot is in the blank space surrounding all shapes, which is not the case here.'},
+    ]
+  },
+  // DEVELOPING
+  {
+    id:'s1q5', section:1, diff:'developing',
+    text:'In a reference diagram, a pentagon and a circle overlap. Dot X is inside the pentagon only (not inside the circle). Dot Y is inside both shapes. An answer option shows Dot X inside both shapes and Dot Y inside the circle only. Is this answer correct?',
+    type:'mcq',
+    options:[
+      {text:'Yes — both dots are inside shapes', correct:false, why:'Wrong — being "inside shapes" is not enough. Dot X must be inside the pentagon AND outside the circle. In this option, Dot X is inside both shapes, which violates its rule. Both conditions must be correct simultaneously.'},
+      {text:'No — Dot X is in the wrong region', correct:true, why:'Correct! Dot X should be inside the pentagon only — but in this option it is inside both shapes, which is the wrong region. Additionally, Dot Y should be in the overlap (both shapes), but here it is inside the circle only. Both dots are incorrectly placed.'},
+      {text:'No — Dot Y is correct but Dot X is wrong', correct:false, why:'Partially right reasoning, but Dot Y is also wrong! Dot Y should be inside both shapes (the overlap region), but in this option it is only inside the circle. Always check every dot before deciding.'},
+      {text:'Yes — the shapes are the same as the reference', correct:false, why:'Wrong — the shapes matching is irrelevant if the dots are in the wrong regions. The entire point of this question type is to track logical regions, not visual appearances.'},
+    ]
+  },
+  {
+    id:'s1q6', section:1, diff:'developing',
+    text:'Reference: Two overlapping ovals. Dot is inside the LEFT oval only. Answer option A shows the dot inside the overlap region. Answer option B shows the dot inside the right oval only. Answer option C shows the dot inside the left oval only. Which is correct?',
+    type:'mcq',
+    options:[
+      {text:'Option A', correct:false, why:'Wrong — Option A places the dot in the overlap region (inside both ovals). The reference shows the dot inside the left oval only, which means it must NOT be inside the right oval.'},
+      {text:'Option B', correct:false, why:'Wrong — Option B places the dot inside the right oval only. The reference clearly shows the dot in the left oval, not the right one. Swapping left and right is a common trick in GL assessments.'},
+      {text:'Option C', correct:true, why:'Correct! Option C matches the reference: the dot is inside the left oval and outside the right oval. This is the only option that correctly captures the "left oval only" region.'},
+      {text:'None of the options', correct:false, why:'Wrong — Option C is correct. Always carefully check each option before concluding none work. Hasty elimination of correct answers is a common exam error.'},
+    ]
+  },
+  {
+    id:'s1q7', section:1, diff:'developing',
+    text:'A triangle and a rectangle overlap. The reference dot is in the triangle-only region. Which of the following descriptions matches a WRONG answer?',
+    type:'mcq',
+    options:[
+      {text:'Dot inside triangle, outside rectangle', correct:false, why:'Wrong — this IS the correct placement. Inside triangle and outside rectangle perfectly describes the triangle-only region that matches the reference.'},
+      {text:'Dot inside both triangle and rectangle', correct:true, why:'Correct! A dot inside both shapes would be in the overlap region, NOT the triangle-only region. This is a wrong answer because the reference shows the dot in triangle-only, which requires the dot to be OUTSIDE the rectangle.'},
+      {text:'Dot in triangle section that does not overlap with rectangle', correct:false, why:'Wrong — this is actually a correct description of the triangle-only region. This would be a correct answer, not a wrong one.'},
+      {text:'Dot in the part of triangle outside the rectangle', correct:false, why:'Wrong — this is the correct placement. This description accurately captures the triangle-only region the reference dot occupies.'},
+    ]
+  },
+  {
+    id:'s1q8', section:1, diff:'developing',
+    text:'Fill in the blank: In a basic dots-in-shapes question, the correct answer must match the reference\'s _____, not its visual appearance.',
+    type:'typed',
+    answer:'logical region',
+    alternates:['logic','region','logical regions'],
+    why:'The correct answer is "logical region" (or similar). The key principle of this question type is that only the logical region matters — which shapes contain the dot — not where on the page the dot appears or how the shapes look.'
+  },
+  // SECURE
+  {
+    id:'s1q9', section:1, diff:'secure',
+    text:'Reference: Circle overlaps with square. Dot is in the overlap (inside both). The answer options show: A) dot in circle only, B) dot in square only, C) dot in overlap, D) dot outside both. Option C has the shapes arranged very differently from the reference — shapes are rotated and sized differently. Is Option C still correct?',
+    type:'mcq',
+    options:[
+      {text:'No — the shapes look too different', correct:false, why:'Wrong — shape appearance (size, rotation, position) is irrelevant. The only question is whether the dot sits in the region that is inside both shapes simultaneously. If it does, Option C is correct regardless of how the shapes look.'},
+      {text:'Yes — the logical region (inside both) is preserved', correct:true, why:'Correct! Even with different sizes, rotation, or positioning, the dot in Option C is inside both shapes at the same time. The logical region is preserved, so Option C correctly represents the reference dot\'s position. Visual changes to shapes never change the logical region logic.'},
+      {text:'Only if the shapes are the same type', correct:false, why:'Wrong — the shape type (circle, square, triangle) does not need to match. What matters is the logical relationship: is the dot inside both shapes? That\'s all.'},
+      {text:'Only if the overlap area looks similar in size', correct:false, why:'Wrong — the size of the overlap region is irrelevant. What counts is whether the dot is in the region belonging to both shapes. The overlap can be any size.'},
+    ]
+  },
+  {
+    id:'s1q10', section:1, diff:'secure',
+    text:'Reference: A hexagon and a circle overlap. Dot is outside both shapes — but visually close to the hexagon\'s edge. Answer option D places the dot inside the hexagon. Answer option E places the dot outside both shapes (further from the hexagon). Which option is correct, and why?',
+    type:'mcq',
+    options:[
+      {text:'Option D — the dot is nearest to the hexagon', correct:false, why:'Wrong — "nearest to" a shape is not the same as "inside" it. In the reference, the dot is clearly outside both shapes even though it is close to the hexagon\'s edge. Visual closeness never changes the logical region.'},
+      {text:'Option E — outside both shapes preserves the logical region', correct:true, why:'Correct! Even though the reference dot is close to the hexagon, it is still outside both shapes. The correct answer must also have the dot outside both shapes. Option E preserves this rule. Option D would incorrectly place the dot inside the hexagon.'},
+      {text:'Option D — close to the edge means inside', correct:false, why:'Wrong — "close to the edge" does not mean inside. A dot must cross into the shape\'s interior to be "inside" it. The reference dot is outside the hexagon, so the correct answer must also be outside.'},
+      {text:'Neither — the dot should be on the border', correct:false, why:'Wrong — a dot on the border is a different (ambiguous) position. The reference shows the dot clearly outside both shapes. We need an answer with the dot outside both shapes.'},
+    ]
+  },
+  {
+    id:'s1q11', section:1, diff:'secure',
+    text:'A dot is in the region inside the circle, inside the triangle, and outside the rectangle. Which answer option is correct: A) dot in circle+triangle overlap (not touching rectangle), B) dot in all three shapes, C) dot in triangle only, D) dot in circle only?',
+    type:'mcq',
+    options:[
+      {text:'A — dot in circle+triangle overlap, outside rectangle', correct:true, why:'Correct! The rule is: inside circle ✓, inside triangle ✓, outside rectangle ✓. Option A satisfies all three conditions. The dot is in the area where circle and triangle overlap, but that area must not include the rectangle.'},
+      {text:'B — dot in all three shapes', correct:false, why:'Wrong — the reference dot is OUTSIDE the rectangle. Being inside all three shapes would violate the "outside rectangle" condition. This is the most tempting trap because it gets the circle and triangle right but adds an extra forbidden shape.'},
+      {text:'C — dot in triangle only', correct:false, why:'Wrong — the dot must be inside both circle AND triangle, not just the triangle. Triangle-only would mean the dot is outside the circle, which contradicts the reference.'},
+      {text:'D — dot in circle only', correct:false, why:'Wrong — the dot must also be inside the triangle. Circle-only would mean the dot is outside the triangle, which contradicts the reference.'},
+    ]
+  },
+  {
+    id:'s1q12', section:1, diff:'secure',
+    text:'Reference shows dot outside circle, inside rectangle. Four answer options show: A) dot inside both; B) dot inside rectangle only; C) dot inside circle only; D) dot outside both. Which is correct?',
+    type:'mcq',
+    options:[
+      {text:'A', correct:false, why:'Wrong — the reference dot is OUTSIDE the circle. Option A places the dot inside both shapes, which violates the "outside circle" condition. Always check ALL conditions, including which shapes the dot must be outside.'},
+      {text:'B', correct:true, why:'Correct! The dot is inside the rectangle AND outside the circle — which is exactly the "rectangle only" region. Option B preserves both conditions: inside rectangle ✓, outside circle ✓.'},
+      {text:'C', correct:false, why:'Wrong — Option C places the dot inside the circle only, which contradicts the reference. The dot should be outside the circle and inside the rectangle, not the other way around.'},
+      {text:'D', correct:false, why:'Wrong — Option D places the dot outside both shapes. The reference shows the dot inside the rectangle, so it must be inside at least the rectangle in the correct answer.'},
+    ]
+  },
+  // MASTERY
+  {
+    id:'s1q13', section:1, diff:'mastery',
+    text:'TRAP QUESTION: Reference shows three shapes — circle, square, pentagon — all overlapping. Dot is inside circle and square, but outside the pentagon. The pentagon partially overlaps the circle-square intersection. Answer option A places the dot in the circle-square overlap, but that overlap region in Option A also falls inside the pentagon due to the arrangement of shapes in that option. Is Option A correct?',
+    type:'mcq',
+    options:[
+      {text:'Yes — it is in the circle-square overlap', correct:false, why:'Wrong — being in the circle-square overlap is not enough. The reference also requires the dot to be OUTSIDE the pentagon. If the overlap region in Option A falls inside the pentagon, the dot would violate the "outside pentagon" condition. All conditions must be met.'},
+      {text:'No — the dot would also be inside the pentagon', correct:true, why:'Correct! This is the elite trap. Option A gets the circle-square conditions right but fails the pentagon condition. The dot must be outside the pentagon. If the circle-square overlap in Option A is covered by the pentagon, that option is wrong. You must check every "outside" condition, not just the "inside" ones.'},
+      {text:'Yes — the pentagon condition does not matter', correct:false, why:'Wrong — every condition matters. In GL assessments, trap options are specifically designed to get some conditions right while violating others. The "outside pentagon" rule is just as important as the "inside circle" rule.'},
+      {text:'Cannot be determined without seeing the diagram', correct:false, why:'Wrong — based on the description, we can determine that Option A would place the dot inside the pentagon (because the circle-square overlap in Option A falls within the pentagon). Therefore Option A is incorrect.'},
+    ]
+  },
+  {
+    id:'s1q14', section:1, diff:'mastery',
+    text:'A dot must be inside a circle and outside a square. The shapes DO NOT overlap. Which region correctly describes this situation?',
+    type:'mcq',
+    options:[
+      {text:'Inside the part of the circle that overlaps with the square', correct:false, why:'Wrong — if the shapes do not overlap, there IS no overlapping region between them. The entire interior of the circle is outside the square when the shapes don\'t overlap.'},
+      {text:'The entire interior of the circle (which is completely outside the square)', correct:true, why:'Correct! When the circle and square do not overlap, the entire circle interior is automatically outside the square. So "inside circle, outside square" simply means anywhere inside the circle. Any point inside the circle satisfies both conditions when the shapes are separate.'},
+      {text:'The region between the two shapes (the gap)', correct:false, why:'Wrong — the gap between two non-overlapping shapes is outside BOTH shapes, not inside the circle. Inside the circle means inside its boundary, not in the space between the shapes.'},
+      {text:'This situation is impossible — you cannot be inside a shape and outside a non-overlapping shape', correct:false, why:'Wrong — it is entirely possible. If the shapes are separate, then every point inside the circle is automatically outside the square. This is a valid and simple region.'},
+    ]
+  },
+  {
+    id:'s1q15', section:1, diff:'mastery',
+    text:'What is the FIRST thing you should identify when starting any dots-in-shapes question?',
+    type:'typed',
+    answer:'logical region',
+    alternates:['the region','which shapes contain the dot','region of each dot','dot region','the dot region'],
+    why:'The correct answer is "logical region" (or similar). Before anything else, identify which shapes each dot is inside and which shapes it is outside. This gives you the rule you need to find the matching answer option. Everything else — shape size, position, colour — is irrelevant until you know the logical region.'
+  },
+  {
+    id:'s1q16', section:1, diff:'mastery',
+    text:'Reference: Circle and square overlap. Dot is inside square only. An answer option shows the circle completely inside the square (nested), with the dot inside the square but outside the circle. Is this a valid answer?',
+    type:'mcq',
+    options:[
+      {text:'Yes — the dot is inside the square and outside the circle in both cases', correct:true, why:'Correct! The logical region is preserved: dot inside square ✓, dot outside circle ✓. Even though the reference has overlapping shapes and this option has nested shapes, the dot\'s logical region (inside square, outside circle) is identical. Shape arrangement does not matter — only the dot\'s region does.'},
+      {text:'No — the shapes are arranged differently', correct:false, why:'Wrong — shape arrangement is irrelevant. What matters is the logical region of the dot. In both the reference and this option, the dot is inside the square and outside the circle. That makes this a valid answer.'},
+      {text:'No — nested shapes create a different type of question', correct:false, why:'Wrong — nested shapes and overlapping shapes can produce the same logical regions. In this case, "inside square, outside circle" is achieved in both arrangements. The region logic is identical.'},
+      {text:'Only if the shapes are identical in size', correct:false, why:'Wrong — shape size is completely irrelevant in this question type. The dot\'s logical position (inside square, outside circle) is all that determines correctness.'},
+    ]
+  },
+];
+
+const skill2Questions = [
+  {
+    id:'s2q1', section:2, diff:'starter',
+    text:'Two dots are shown. Dot 1 is inside a circle only. Dot 2 is inside a square only. They do NOT overlap. Which answer has BOTH dots correctly placed?',
+    type:'mcq',
+    options:[
+      {text:'Dot 1 in circle only, Dot 2 in square only', correct:true, why:'Correct! Both dots must be placed in their exact regions simultaneously. Dot 1 inside circle only ✓ and Dot 2 inside square only ✓. This is the only combination that satisfies both rules at the same time.'},
+      {text:'Dot 1 in square only, Dot 2 in circle only', correct:false, why:'Wrong — the dots have been swapped. Dot 1 must be in the circle, and Dot 2 must be in the square. Swapping which dot goes in which shape is a classic GL trick. Always track each dot\'s rule independently.'},
+      {text:'Both dots in the same shape', correct:false, why:'Wrong — each dot has its own separate rule. Dot 1 belongs in the circle and Dot 2 belongs in the square. Placing both in one shape violates at least one of the rules.'},
+      {text:'Both dots outside all shapes', correct:false, why:'Wrong — both dots are inside shapes in the reference. Neither dot is described as being outside all shapes. This option violates both dots\' rules.'},
+    ]
+  },
+  {
+    id:'s2q2', section:2, diff:'starter',
+    text:'When a question has two dots, which dot should you check FIRST?',
+    type:'mcq',
+    options:[
+      {text:'The dot that appears first (top-left) in the reference', correct:false, why:'Wrong — visual position in the reference doesn\'t determine checking order. The most efficient strategy is to start with the most restrictive dot — the one with the most conditions — because it eliminates the most options fastest.'},
+      {text:'The most restrictive dot — the one inside the most shapes', correct:true, why:'Correct! The most restrictive dot (e.g., inside 3 shapes) eliminates the most answer options in one step. Starting with it saves time. Then apply the remaining dot(s) to the surviving options.'},
+      {text:'The dot that is easiest to spot visually', correct:false, why:'Wrong — the goal is to be efficient and accurate. The easiest-to-spot dot may not be the most restrictive. Starting with an easier but less restrictive dot wastes time because fewer options get eliminated.'},
+      {text:'Always check all dots at the same time', correct:false, why:'Wrong — checking all dots simultaneously is inefficient and error-prone. The correct strategy is sequential: start with the most restrictive dot, eliminate options, then apply the next dot to what remains.'},
+    ]
+  },
+  {
+    id:'s2q3', section:2, diff:'starter',
+    text:'Two dots: Dot A inside both shapes, Dot B outside both shapes. Answer option shows: Dot A outside both, Dot B inside both. What is wrong with this answer?',
+    type:'mcq',
+    options:[
+      {text:'Both dots are in the wrong regions', correct:true, why:'Correct! Both dots have been completely swapped. Dot A should be in the overlap (inside both) but this option places it outside. Dot B should be outside both but this option places it in the overlap. Every single rule is violated.'},
+      {text:'Only Dot A is wrong', correct:false, why:'Wrong — Dot B is also wrong. In the reference, Dot B is outside both shapes. This option places Dot B inside both shapes (the overlap). Both dots are incorrectly placed.'},
+      {text:'Only Dot B is wrong', correct:false, why:'Wrong — Dot A is also wrong. In the reference, Dot A is inside both shapes (the overlap). This option places Dot A outside both. Both dots are incorrectly placed.'},
+      {text:'Nothing is wrong', correct:false, why:'Wrong — everything is wrong! The dots have been completely swapped. Dot A and Dot B are each in the region that the other should occupy. Always check each dot\'s rule against the option independently.'},
+    ]
+  },
+  {
+    id:'s2q4', section:2, diff:'starter',
+    text:'A reference has two dots. You check the first dot and find it correctly placed in three answer options (A, B, C). What do you do next?',
+    type:'mcq',
+    options:[
+      {text:'Choose Option A (the first one that worked)', correct:false, why:'Wrong — never choose an answer after checking only one dot. Options A, B, and C all pass the first dot\'s check, but they will differ in how they place the second dot. You must check the second dot before selecting your answer.'},
+      {text:'Check the second dot in options A, B, and C', correct:true, why:'Correct! After eliminating wrong options using the first dot, you apply the second dot\'s rule to the remaining options (A, B, C). Whichever option correctly places the second dot as well is your answer. This is the sequential elimination strategy.'},
+      {text:'Choose whichever of A, B, C looks most like the reference', correct:false, why:'Wrong — visual similarity to the reference is irrelevant. Shapes may be arranged differently. Only the logical regions of both dots determine the correct answer.'},
+      {text:'Re-check all five options from the beginning', correct:false, why:'Wrong — you have already eliminated some options using the first dot. Going back to check all options wastes time. Continue with just A, B, and C and apply the second dot\'s rule.'},
+    ]
+  },
+  {
+    id:'s2q5', section:2, diff:'developing',
+    text:'Three dots: Dot 1 inside circle+triangle, Dot 2 inside square only, Dot 3 outside all shapes. Answer option shows all three dots inside the circle. Is this correct?',
+    type:'mcq',
+    options:[
+      {text:'Yes — they are all inside something', correct:false, why:'Wrong — being inside "something" is not enough. Each dot has a specific, exact region. Dot 2 must be inside the square only (not the circle). Dot 3 must be outside ALL shapes. Both of these are violated if all dots are inside the circle.'},
+      {text:'No — Dots 2 and 3 are in wrong regions', correct:true, why:'Correct! Dot 1 may happen to be inside the circle (partial match), but Dot 2 should be in the square only (not the circle), and Dot 3 should be outside all shapes. Both Dot 2 and Dot 3 violate their rules in this option.'},
+      {text:'No — only Dot 3 is wrong', correct:false, why:'Wrong — Dot 2 is also wrong. Dot 2 should be inside the square only, but this option places it inside the circle. Always check all dots, not just the obvious violations.'},
+      {text:'Yes — since Dot 1 is correctly placed', correct:false, why:'Wrong — one dot being correct does not make the entire answer correct. All three dots must simultaneously be in their correct regions. An option fails if even one dot is in the wrong place.'},
+    ]
+  },
+  {
+    id:'s2q6', section:2, diff:'developing',
+    text:'Dot 1 is inside 3 shapes. Dot 2 is inside 1 shape. Which is more restrictive and should be checked first?',
+    type:'mcq',
+    options:[
+      {text:'Dot 2 — simpler rules are easier to check', correct:false, why:'Wrong — "easier to check" is not the right criterion. Dot 1 (inside 3 shapes) is MORE restrictive because fewer answer options will correctly place it. Starting with Dot 1 eliminates more options in one step.'},
+      {text:'Dot 1 — it has more conditions and eliminates more options', correct:true, why:'Correct! Dot 1 must be inside all three shapes simultaneously, which is a very specific region. Very few answer options will correctly place it there. Checking Dot 1 first eliminates the most options instantly.'},
+      {text:'Both are equally restrictive', correct:false, why:'Wrong — they are not equally restrictive. Dot 1 has three conditions (inside 3 shapes) while Dot 2 has only one (inside 1 shape). More conditions = more restrictive = more eliminating power.'},
+      {text:'Neither — use visual similarity to choose', correct:false, why:'Wrong — visual similarity is irrelevant. Always use the logical region strategy, starting with the most restrictive dot. Visual approaches are unreliable in this question type.'},
+    ]
+  },
+  {
+    id:'s2q7', section:2, diff:'developing',
+    text:'Dot 1: inside circle only. Dot 2: inside both circle and square. After checking Dot 1, options A and C remain. You then check Dot 2 and find option A has Dot 2 in the circle only (wrong — should be inside both). Option C has Dot 2 in the overlap (correct). What is the answer?',
+    type:'mcq',
+    options:[
+      {text:'Option A', correct:false, why:'Wrong — Option A correctly places Dot 1 but fails Dot 2. Dot 2 should be in the circle+square overlap, but Option A places it inside the circle only. The answer must satisfy ALL dots.'},
+      {text:'Option C', correct:true, why:'Correct! Option C satisfies both rules: Dot 1 is in the circle-only region ✓, and Dot 2 is in the circle+square overlap ✓. This is the sequential elimination strategy working correctly — Option C survived both checks.'},
+      {text:'Both A and C', correct:false, why:'Wrong — Option A fails the Dot 2 check. Dot 2 must be in the overlap (inside both shapes), but Option A places it in circle only. Only Option C satisfies all conditions.'},
+      {text:'Neither — start again', correct:false, why:'Wrong — Option C is correct. Starting again wastes valuable exam time. Trust the elimination process: Option C survived both the Dot 1 and Dot 2 checks, making it the correct answer.'},
+    ]
+  },
+  {
+    id:'s2q8', section:2, diff:'developing',
+    text:'What is the key danger of checking only ONE dot when multiple dots are present?',
+    type:'typed',
+    answer:'other dots may still be wrong',
+    alternates:['the other dots could be wrong','remaining dots may be incorrect','you might miss wrong dots','one dot may be right but others wrong'],
+    why:'The correct answer is that the other dots may still be wrong. An answer option can correctly place one dot while violating all the remaining dots\' rules. GL exams specifically design trap options this way — they get the "obvious" dot right to fool students who stop checking too early.'
+  },
+  {
+    id:'s2q9', section:2, diff:'secure',
+    text:'Dot 1: inside circle+triangle, outside square. Dot 2: inside square only. Option X has Dot 1 in circle+triangle overlap that also touches the square. Option Y has Dot 1 in a circle+triangle region that is clear of the square. Both options correctly place Dot 2 in square only. Which is correct?',
+    type:'mcq',
+    options:[
+      {text:'Option X — it gets circle and triangle right', correct:false, why:'Wrong — Option X gets circle and triangle correct for Dot 1, but also places Dot 1 inside the square, violating the "outside square" condition. The "outside" conditions are just as important as the "inside" conditions.'},
+      {text:'Option Y — Dot 1 is in circle+triangle without touching the square', correct:true, why:'Correct! Option Y satisfies ALL of Dot 1\'s conditions: inside circle ✓, inside triangle ✓, outside square ✓. Option X violates the "outside square" rule. This is the elite trap — getting the "inside" conditions right but failing the "outside" conditions.'},
+      {text:'Both — either could be correct', correct:false, why:'Wrong — only one can be correct. Option X places Dot 1 inside the square, violating the "outside square" rule. Questions must have exactly one correct answer, and Option Y is it.'},
+      {text:'Neither — a dot cannot be inside two shapes', correct:false, why:'Wrong — a dot can absolutely be inside multiple shapes simultaneously if those shapes overlap. The overlap region is inside both shapes at once. This is the entire basis of the question type.'},
+    ]
+  },
+  {
+    id:'s2q10', section:2, diff:'secure',
+    text:'Three dots scenario: Dot A inside circle+square. Dot B inside triangle only. Dot C outside all shapes. After applying Dot A\'s rule, options 1, 2, 3 remain. After applying Dot B\'s rule, only options 1 and 3 remain. You apply Dot C\'s rule and find: Option 1 has Dot C inside the triangle. Option 3 has Dot C outside all shapes. Which is correct?',
+    type:'mcq',
+    options:[
+      {text:'Option 1', correct:false, why:'Wrong — Option 1 places Dot C inside the triangle. Dot C must be outside ALL shapes, including the triangle. Being inside the triangle violates Dot C\'s rule. Option 1 is eliminated at the final check.'},
+      {text:'Option 2', correct:false, why:'Wrong — Option 2 was already eliminated after the Dot B check. It failed Dot B\'s rule (inside triangle only). Once eliminated, an option cannot be the correct answer.'},
+      {text:'Option 3', correct:true, why:'Correct! Option 3 survived all three checks: Dot A in circle+square overlap ✓, Dot B in triangle only ✓, Dot C outside all shapes ✓. This is the sequential elimination strategy applied to three dots.'},
+      {text:'None of the options', correct:false, why:'Wrong — Option 3 is correct. It passed all three elimination rounds. Always complete the full sequential check before concluding no option works.'},
+    ]
+  },
+  {
+    id:'s2q11', section:2, diff:'secure',
+    text:'Dot 1 must be inside pentagon+circle. Dot 2 must be inside pentagon only. An option shows Dot 1 in pentagon+circle overlap ✓, but Dot 2 in the pentagon+circle overlap too (instead of pentagon only). Is this correct?',
+    type:'mcq',
+    options:[
+      {text:'Yes — both dots are inside the pentagon', correct:false, why:'Wrong — being inside the pentagon is not the complete condition for Dot 2. Dot 2 must be inside the pentagon AND outside the circle. This option places Dot 2 inside both the pentagon AND the circle, violating the "outside circle" requirement.'},
+      {text:'No — Dot 2 is in the wrong region', correct:true, why:'Correct! Dot 2 must be in the pentagon-only region (inside pentagon, outside circle). In this option, Dot 2 is in the pentagon+circle overlap, which means it is inside the circle too. This violates Dot 2\'s rule. The option gets Dot 1 right but fails Dot 2.'},
+      {text:'Yes — Dot 2 just needs to be near the pentagon', correct:false, why:'Wrong — "near the pentagon" is not a valid rule. Dot 2 must be specifically inside the pentagon AND outside the circle. Logical region analysis requires precision, not approximation.'},
+      {text:'Cannot be determined', correct:false, why:'Wrong — based on the description, Dot 2 is in the pentagon+circle overlap, which is not the pentagon-only region. It CAN be determined: this option is incorrect because Dot 2 violates its rule.'},
+    ]
+  },
+  {
+    id:'s2q12', section:2, diff:'secure',
+    text:'True or False: In a two-dot question, it is possible for an answer option to correctly place Dot 1 but incorrectly place Dot 2, making it a wrong answer.',
+    type:'mcq',
+    options:[
+      {text:'True', correct:true, why:'Correct! This is exactly how GL trap options work. They deliberately place the "obvious" dot correctly to attract students who stop checking after one dot. Always check every dot before selecting your answer. Partially correct options are completely wrong options.'},
+      {text:'False — if one dot is right, the answer is right', correct:false, why:'Wrong — all dots must be correctly placed simultaneously for an option to be correct. An answer that gets one dot right but fails another is still a wrong answer. GL exams specifically create these partial-match traps.'},
+    ]
+  },
+  {
+    id:'s2q13', section:2, diff:'mastery',
+    text:'ELITE TRAP: Four dots. Dot 1: inside circle+square+triangle. Dot 2: inside circle only. Dot 3: inside square only. Dot 4: outside all shapes. Option Q correctly places Dots 1, 2, and 3. For Dot 4, it places the dot just outside the square, but this position is inside the triangle (which is large and extends further). Is Option Q correct?',
+    type:'mcq',
+    options:[
+      {text:'Yes — Dot 4 is outside the square', correct:false, why:'Wrong — Dot 4 must be outside ALL shapes, not just the square. If the dot is inside the triangle (even accidentally), it violates Dot 4\'s rule. Option Q fails at the final check. The triangle\'s extent must be verified carefully.'},
+      {text:'No — Dot 4 is accidentally inside the triangle', correct:true, why:'Correct! This is the highest-level trap. Three out of four dots are correctly placed, which is very convincing. But Dot 4 must be outside ALL shapes — including the triangle. The dot\'s position inside the triangle disqualifies Option Q entirely. Verify every "outside" condition for every dot.'},
+      {text:'Yes — three out of four is close enough', correct:false, why:'Wrong — in GL assessments, there is no partial credit. All four dots must be correctly placed. An option that gets 3 out of 4 dots right is still a wrong answer.'},
+      {text:'Yes — the triangle detail is a minor error', correct:false, why:'Wrong — no detail is "minor" in this question type. A dot inside one extra shape completely changes its logical region. Option Q fails because Dot 4 is inside the triangle when it must be outside all shapes.'},
+    ]
+  },
+  {
+    id:'s2q14', section:2, diff:'mastery',
+    text:'Opposite-condition trap: Dot 1 is inside circle+triangle, outside square+pentagon. Dot 2 is inside square+pentagon, outside circle+triangle. Which option is correct? A) Dot 1 in circle+triangle overlap; Dot 2 in square+pentagon overlap (neither touching the other pair). B) Dot 1 in circle+triangle+square overlap; Dot 2 in square+pentagon. C) Dot 1 in circle only; Dot 2 in square only.',
+    type:'mcq',
+    options:[
+      {text:'Option A', correct:true, why:'Correct! Option A satisfies both dots\' complete conditions. Dot 1: inside circle ✓, inside triangle ✓, outside square ✓, outside pentagon ✓. Dot 2: inside square ✓, inside pentagon ✓, outside circle ✓, outside triangle ✓. The key is that the two dots are in completely separate, non-crossing regions.'},
+      {text:'Option B', correct:false, why:'Wrong — Option B places Dot 1 inside the square as well (circle+triangle+SQUARE overlap), violating the "outside square" condition for Dot 1. This is the most common trap: getting the "inside" shapes right but missing the "outside" conditions.'},
+      {text:'Option C', correct:false, why:'Wrong — Option C places Dot 1 inside circle only (missing the triangle) and Dot 2 inside square only (missing the pentagon). Both dots must be inside two shapes each, not just one. Option C satisfies too few conditions.'},
+      {text:'Cannot be determined without a diagram', correct:false, why:'Wrong — based on the logical description, Option A is clearly correct: it satisfies all four conditions for both dots without any violations. The description provides sufficient information to determine the answer.'},
+    ]
+  },
+  {
+    id:'s2q15', section:2, diff:'mastery',
+    text:'Why should you always check "outside" conditions as carefully as "inside" conditions when placing multiple dots?',
+    type:'typed',
+    answer:'trap options get inside conditions right but fail outside conditions',
+    alternates:['traps use outside violations','outside conditions are equally important','dots can accidentally touch extra shapes','outside is as important as inside'],
+    why:'GL exam traps specifically target students who only verify "inside" conditions. Trap options deliberately satisfy all "inside" conditions while sneaking the dot into a forbidden shape. Checking "outside" conditions eliminates these traps. Both inside and outside conditions are equally critical.'
+  },
+  {
+    id:'s2q16', section:2, diff:'mastery',
+    text:'You have 4 answer options and 3 dots. After Dot 1: options B, C, D remain. After Dot 2: only option C remains. You check Dot 3 in option C and it is correctly placed. What is the answer, and can you trust the result?',
+    type:'mcq',
+    options:[
+      {text:'Option C — and yes, all three checks confirm it', correct:true, why:'Correct! Option C survived all three sequential elimination rounds. This is the correct answer. When an option passes all dot checks independently, you can be confident it is correct. The sequential elimination strategy is designed to give a reliable, confirmed answer.'},
+      {text:'Option C — but check all options again to be safe', correct:false, why:'Wrong — re-checking eliminated options wastes exam time. Options A, B, D were correctly eliminated. Option C passed all three checks. Trust the process and move on. Unnecessary re-checking is a time management problem in exams.'},
+      {text:'Cannot be sure — one option surviving might be luck', correct:false, why:'Wrong — the sequential elimination strategy is reliable. Each dot check is logically independent. If Option C passes all three checks, it genuinely satisfies all conditions. One correct answer surviving is the expected outcome, not luck.'},
+      {text:'Pick randomly between C and whatever looks right', correct:false, why:'Wrong — never pick randomly when you have a logical result. Option C has been confirmed by three independent checks. Random picking abandons the entire systematic strategy.'},
+    ]
+  },
+];
+
+const skill3Questions = [
+  {
+    id:'s3q1', section:3, diff:'starter',
+    text:'A small circle sits completely inside a large square. A dot is inside the small circle. How many shapes is the dot inside?',
+    type:'mcq',
+    options:[
+      {text:'One — just the circle', correct:false, why:'Wrong — because the circle is inside the square, anything inside the circle is automatically also inside the square. The dot is inside BOTH the circle AND the square simultaneously.'},
+      {text:'Two — both the circle and the square', correct:true, why:'Correct! When a shape is nested inside another, its entire interior is automatically inside the outer shape too. The dot is inside the small circle, and since the circle is inside the square, the dot is inside both shapes.'},
+      {text:'Zero — nested shapes create an empty region', correct:false, why:'Wrong — the dot is clearly inside both shapes. Nested shapes do not create empty regions; they create a subset relationship where the inner shape\'s interior is part of the outer shape\'s interior.'},
+      {text:'It depends on the size of the shapes', correct:false, why:'Wrong — the size of the shapes does not change the logical relationship. If the circle is completely inside the square, any dot inside the circle is inside both shapes, regardless of size.'},
+    ]
+  },
+  {
+    id:'s3q2', section:3, diff:'starter',
+    text:'Small triangle inside large circle. Dot is inside the large circle but outside the small triangle (in the "ring" region). Which region does this describe?',
+    type:'mcq',
+    options:[
+      {text:'Inside both shapes', correct:false, why:'Wrong — inside both shapes would require the dot to be inside the triangle too. The dot is inside the circle but OUTSIDE the triangle, which is the ring-shaped gap between the two shapes.'},
+      {text:'Inside outer shape only (the ring region)', correct:true, why:'Correct! This is the "ring region" — inside the large circle but outside the small triangle. It is the area of the circle that is not covered by the triangle. Think of it as the doughnut-shaped gap between the two nested shapes.'},
+      {text:'Outside both shapes', correct:false, why:'Wrong — the dot is inside the large circle. Outside both shapes would mean the dot is in the blank space completely surrounding all shapes, which is not the case here.'},
+      {text:'Inside the inner shape only', correct:false, why:'Wrong — the dot is outside the small triangle (the inner shape). Inside the inner shape only would require the dot to be inside the triangle, which contradicts the description.'},
+    ]
+  },
+  {
+    id:'s3q3', section:3, diff:'starter',
+    text:'Nested shapes: big pentagon, small circle inside it. Name the THREE possible regions where a dot can be placed.',
+    type:'mcq',
+    options:[
+      {text:'Overlap, left shape, right shape', correct:false, why:'Wrong — this describes overlapping shapes, not nested shapes. Nested shapes do not have a "left" and "right" region from overlapping. Nested shapes create different regions based on inside/outside the boundaries.'},
+      {text:'Inside circle (= inside both), ring region (inside pentagon only), outside both', correct:true, why:'Correct! The three regions in a nested arrangement are: (1) inside the inner shape, which is also inside the outer shape, (2) the ring region inside the outer shape but outside the inner shape, and (3) completely outside both shapes. These are the only three logically distinct regions.'},
+      {text:'Inside overlap, inside pentagon only, inside circle only', correct:false, why:'Wrong — nested shapes don\'t have a "circle only" region that is separate from the pentagon, because the circle is completely inside the pentagon. Every point inside the circle is automatically also inside the pentagon.'},
+      {text:'Inside pentagon, inside circle, outside pentagon', correct:false, why:'Wrong — this list incorrectly treats inside pentagon and inside circle as separate regions. Since the circle is inside the pentagon, being inside the circle means being inside both. The actual three regions are: inside circle (= inside both), ring region, and outside both.'},
+    ]
+  },
+  {
+    id:'s3q4', section:3, diff:'starter',
+    text:'A reference shows overlapping shapes with a dot in the overlap. An answer option shows nested shapes (one inside the other) with the dot inside the inner shape. Could this be correct?',
+    type:'mcq',
+    options:[
+      {text:'No — the shapes must be overlapping in the answer', correct:false, why:'Wrong — shape arrangement does not need to match. The reference shows the dot "inside both shapes." In nested shapes, the dot inside the inner shape is also inside the outer shape — so it is still "inside both." The logical region is preserved.'},
+      {text:'Yes — if the dot is inside the inner shape, it is inside both shapes, matching the reference', correct:true, why:'Correct! The reference dot is "inside both shapes." In a nested arrangement, a dot inside the inner shape is automatically inside the outer shape too. So "inside inner shape" = "inside both shapes" — the logical region is identical. The arrangement of the shapes doesn\'t matter.'},
+      {text:'Only if the inner and outer shapes are the same types as in the reference', correct:false, why:'Wrong — shape type is irrelevant. What matters is the logical region. If the dot is inside both shapes (achieved by being inside the inner nested shape), the answer is correct regardless of which types of shapes are used.'},
+      {text:'No — nested shapes create different logical regions', correct:false, why:'Wrong — nested shapes can produce the same logical regions as overlapping shapes. Specifically, "inside both shapes" can be achieved through either overlapping or nesting. The dot inside the inner nested shape is inside both shapes simultaneously.'},
+    ]
+  },
+  {
+    id:'s3q5', section:3, diff:'developing',
+    text:'Big rectangle contains small oval. Dot must be inside the big rectangle but OUTSIDE the small oval. Which answer is correct? A) Dot inside the oval. B) Dot in the gap between oval and rectangle edge. C) Dot outside the rectangle entirely.',
+    type:'mcq',
+    options:[
+      {text:'A — dot inside the oval', correct:false, why:'Wrong — being inside the oval also means being inside the rectangle (since oval is nested inside rectangle). But the rule requires the dot to be OUTSIDE the oval. Option A violates the "outside oval" condition.'},
+      {text:'B — dot in the gap between oval and rectangle edge', correct:true, why:'Correct! The gap between the oval and the rectangle edge is the ring region — inside the rectangle ✓ and outside the oval ✓. This is exactly the correct region. Option B satisfies both conditions.'},
+      {text:'C — dot outside the rectangle', correct:false, why:'Wrong — the rule requires the dot to be inside the rectangle. Being outside the rectangle violates the "inside rectangle" condition. Option C is the "outside both shapes" region, which is not what we need.'},
+      {text:'Any option with the dot touching the oval\'s border', correct:false, why:'Wrong — a dot on a border is an ambiguous position. The rule requires the dot to be clearly inside the rectangle and clearly outside the oval. Border positions are traps, not valid answers.'},
+    ]
+  },
+  {
+    id:'s3q6', section:3, diff:'developing',
+    text:'Reference shows overlapping circle and square. Dot is inside circle only. An answer shows circle completely inside square (nested), with the dot between the circle\'s edge and the square\'s edge. Is this correct?',
+    type:'mcq',
+    options:[
+      {text:'Yes — the dot is inside the square and outside the circle', correct:false, why:'Wrong — the reference dot is inside the CIRCLE only (inside circle, outside square). In a nested arrangement where circle is inside square, the ring region (between circle edge and square edge) is inside the square but outside the circle. This does NOT match the reference\'s "circle only" region.'},
+      {text:'No — the ring region is inside square only, but the reference needs circle only', correct:true, why:'Correct! In the reference (overlapping shapes), "circle only" means inside circle, outside square. In this nested option, the ring region is inside square, outside circle — the exact OPPOSITE logical region. This option has the dot in the wrong region entirely.'},
+      {text:'Yes — the shapes both involve circle and square', correct:false, why:'Wrong — using the same shape types does not guarantee the correct logical region. The dot\'s position relative to each shape\'s boundary is what matters. In this case, the ring region is inside square-outside circle, which is the opposite of what we need.'},
+      {text:'Cannot be determined without seeing the size difference', correct:false, why:'Wrong — we have enough information. The ring region in any nested circle-inside-square arrangement is always inside the square and outside the circle. This is the wrong region for the reference\'s "circle only" requirement.'},
+    ]
+  },
+  {
+    id:'s3q7', section:3, diff:'developing',
+    text:'What is the key difference between an "overlap" arrangement and a "nested" arrangement in terms of available regions?',
+    type:'mcq',
+    options:[
+      {text:'Overlapping creates three regions; nested creates two regions', correct:false, why:'Wrong — nested arrangements also create three regions: inside inner shape (= inside both), ring region (inside outer only), and outside both. It\'s not fewer regions, but the regions have different characters.'},
+      {text:'Overlapping creates a true intersection region; nested has no crossing-over region', correct:true, why:'Correct! In overlapping shapes, there is a physically distinct crossing area where both shapes share the same space. In nested shapes, there is no crossing — instead, the inner shape\'s entire interior is a subset of the outer shape. The regions are different in structure even if both arrangements have three regions total.'},
+      {text:'Nested shapes have no "inside both" region', correct:false, why:'Wrong — nested shapes DO have an "inside both" region. It is the entire interior of the inner (smaller) shape. Being inside the inner shape automatically means being inside the outer shape too.'},
+      {text:'There is no logical difference between overlapping and nested arrangements', correct:false, why:'Wrong — the arrangements are logically different. A dot in overlapping shapes\' intersection is in a physically different type of region than a dot in a nested shape\'s interior. Students must recognise which type of arrangement they are dealing with.'},
+    ]
+  },
+  {
+    id:'s3q8', section:3, diff:'developing',
+    text:'True or False: In nested shapes, the "inside inner shape" region and the "inside both shapes" region are the same region.',
+    type:'mcq',
+    options:[
+      {text:'True', correct:true, why:'Correct! When one shape is completely inside another, every point inside the inner shape is automatically also inside the outer shape. Therefore "inside inner shape" and "inside both shapes" describe the exact same set of points. There is only one region here, not two separate ones.'},
+      {text:'False — they are different regions', correct:false, why:'Wrong — they are not different. Because the inner shape is completely inside the outer shape, its entire interior is a subset of the outer shape\'s interior. Being inside the inner shape means being inside both shapes simultaneously.'},
+    ]
+  },
+  {
+    id:'s3q9', section:3, diff:'secure',
+    text:'SECURE: Reference has big triangle with small circle inside it. Dot is inside the circle (= inside both shapes). Answer option A shows big triangle with small circle inside; dot inside the circle. Answer option B shows big triangle and small circle overlapping (crossing); dot in the crossing region. Both place the dot "inside both shapes" logically. Are both correct?',
+    type:'mcq',
+    options:[
+      {text:'Yes — both achieve "inside both shapes"', correct:true, why:'Correct! Both Option A (dot in nested inner shape) and Option B (dot in overlapping region) achieve the logical region "inside both shapes." Since the logical region is preserved in both, both are valid representations. In a real question, there would be only one answer option that preserves the correct logical region — but the key insight is that the arrangement (nested vs overlapping) does not disqualify an option.'},
+      {text:'No — only Option A (nested) is correct because the reference is nested', correct:false, why:'Wrong — the arrangement of shapes does not need to match the reference. Only the logical region of the dot matters. Option B also achieves "inside both shapes" through the overlap region, which is logically equivalent.'},
+      {text:'No — only Option B (overlapping) can show "inside both"', correct:false, why:'Wrong — nested shapes can also represent "inside both." The inner shape\'s interior is inside both shapes simultaneously. Option A correctly represents "inside both" through nesting.'},
+      {text:'No — they represent different logical regions', correct:false, why:'Wrong — both represent "inside both shapes," just through different physical arrangements. The logical region (which shapes the dot is inside) is identical in both cases.'},
+    ]
+  },
+  {
+    id:'s3q10', section:3, diff:'secure',
+    text:'Reference: Large hexagon contains a small triangle. Dot is in the ring region (inside hexagon, outside triangle). Four answer options: A) dot inside triangle; B) dot in ring region between triangle and hexagon; C) dot outside hexagon; D) dot inside both shapes in an overlapping arrangement. Which is/are correct?',
+    type:'mcq',
+    options:[
+      {text:'A and D', correct:false, why:'Wrong — Option A places the dot inside the triangle (inside both shapes), not the ring region. Option D achieves "inside both" through overlapping shapes, which is also not the ring region. Neither matches the "inside hexagon, outside triangle" requirement.'},
+      {text:'B only', correct:true, why:'Correct! Option B preserves the exact logical region: inside the outer shape (hexagon) and outside the inner shape (triangle) — the ring region. Option A is inside both, Option C is outside both, and Option D is inside both through overlapping. Only Option B matches.'},
+      {text:'B and D', correct:false, why:'Wrong — Option D achieves "inside both shapes" through an overlapping arrangement, which is not the ring region (inside outer, outside inner). Option D is the wrong logical region.'},
+      {text:'All of them — the arrangement doesn\'t matter', correct:false, why:'Wrong — the arrangement doesn\'t need to match, but the logical REGION does matter. Options A, C, and D all represent different logical regions from the reference. Only Option B matches the ring region.'},
+    ]
+  },
+  {
+    id:'s3q11', section:3, diff:'secure',
+    text:'What should you ask yourself to identify the region of a dot in a nested arrangement?',
+    type:'typed',
+    answer:'is the dot inside the inner shape or in the ring region',
+    alternates:['inside inner or ring','which shapes boundary contains it','is it inside both or inside outer only','inner shape or gap'],
+    why:'The correct question to ask is whether the dot is inside the inner shape (= inside both shapes) or in the ring region (inside outer shape only, outside inner shape). This question cuts through visual confusion and identifies the exact logical region systematically.'
+  },
+  {
+    id:'s3q12', section:3, diff:'secure',
+    text:'Reference: small square nested inside large circle. Dot inside large circle but outside small square (ring region). Answer option shows: large circle nested inside small square (the nesting is reversed — circle inside square instead of square inside circle), with dot in the ring region of THIS arrangement (inside square, outside circle). Is this correct?',
+    type:'mcq',
+    options:[
+      {text:'Yes — both have the dot in the ring region', correct:false, why:'Wrong — although both have the dot in a "ring region," the logical regions are different. In the reference, the dot is inside the circle and outside the square. In this option, the dot is inside the square and outside the circle. The shapes containing the dot are SWAPPED. This is a wrong answer.'},
+      {text:'No — the reference dot is inside circle+outside square; this option has the dot inside square+outside circle', correct:true, why:'Correct! Even though both show a ring region visually, they are different logical regions. The reference requires: inside circle ✓, outside square ✓. This option provides: inside square, outside circle — the conditions are reversed. Logical region analysis must track WHICH shapes contain the dot, not just the visual pattern.'},
+      {text:'Yes — ring regions are always equivalent regardless of which shape is outer', correct:false, why:'Wrong — ring regions are NOT equivalent when the inner and outer shapes are swapped. "Inside circle, outside square" is a completely different logical region from "inside square, outside circle." Always identify specifically which shape contains the dot.'},
+      {text:'Cannot be determined', correct:false, why:'Wrong — it can be determined. The reference requires inside circle + outside square. The answer option provides inside square + outside circle. These are different logical regions. The option is incorrect.'},
+    ]
+  },
+  {
+    id:'s3q13', section:3, diff:'mastery',
+    text:'MASTERY TRAP: Three nested shapes: large rectangle, medium circle inside it, small triangle inside the circle. Dot is inside the small triangle. How many shapes is the dot inside?',
+    type:'mcq',
+    options:[
+      {text:'One — just the triangle', correct:false, why:'Wrong — the triangle is inside the circle, which is inside the rectangle. Being inside the triangle means being inside all three shapes simultaneously. Nesting is transitive: inside triangle ⊂ inside circle ⊂ inside rectangle.'},
+      {text:'Two — triangle and circle', correct:false, why:'Wrong — while the dot is inside the triangle and circle, the circle is also inside the rectangle. Therefore the dot is inside the rectangle too. With three nested shapes, a dot inside the innermost shape is inside all three.'},
+      {text:'Three — triangle, circle, and rectangle', correct:true, why:'Correct! When shapes are nested within each other, a dot in the innermost shape is inside ALL enclosing shapes. Triangle is inside circle, circle is inside rectangle. Therefore: inside triangle ✓, inside circle ✓, inside rectangle ✓. All three conditions are met.'},
+      {text:'Zero — multiple nesting creates a void', correct:false, why:'Wrong — multiple nesting does not create a void. The dot is clearly inside the triangle, which is a physical shape with an interior. Nesting simply means the dot is simultaneously inside multiple shapes.'},
+    ]
+  },
+  {
+    id:'s3q14', section:3, diff:'mastery',
+    text:'Three nested shapes: large square, medium triangle inside it, small circle inside the triangle. Dot is in the ring between the triangle and the square (inside square, inside triangle\'s border area... wait — re-check: inside square, OUTSIDE triangle). How many shapes is the dot inside?',
+    type:'mcq',
+    options:[
+      {text:'One — just the square', correct:true, why:'Correct! The dot is inside the large square but outside the medium triangle (and therefore also outside the small circle nested inside the triangle). With three nested shapes, the ring between square and triangle is: inside square only. The dot is in exactly one shape.'},
+      {text:'Two — square and triangle', correct:false, why:'Wrong — the dot is outside the triangle (it is in the ring between the square\'s edge and the triangle\'s edge). If the dot is outside the triangle, it is also automatically outside the small circle (which is inside the triangle). The dot is inside the square only.'},
+      {text:'Three — all shapes', correct:false, why:'Wrong — the dot is in the ring region between the square and triangle. This means it is outside the triangle (and therefore outside the circle too). It is inside only the square.'},
+      {text:'None — ring regions between nested shapes are outside all shapes', correct:false, why:'Wrong — the ring between the square and triangle is still inside the square. The dot is outside the triangle and circle, but it IS inside the large square.'},
+    ]
+  },
+  {
+    id:'s3q15', section:3, diff:'mastery',
+    text:'Why can nested shapes create the SAME logical region as overlapping shapes (for the "inside both" condition)?',
+    type:'typed',
+    answer:'the inner shape is entirely inside the outer shape so any dot inside the inner shape is inside both',
+    alternates:['inner shape interior is subset of outer shape','being inside inner means inside both','the dot is inside both because the inner shape is enclosed by outer'],
+    why:'When one shape is completely inside another, every point inside the inner shape is automatically inside the outer shape too (subset relationship). So "inside inner shape" = "inside both shapes" — the same logical region achieved through a different physical arrangement. This is why nested options can validly represent "inside both" in answer options.'
+  },
+  {
+    id:'s3q16', section:3, diff:'mastery',
+    text:'Most dangerous nested shapes trap: Reference shows overlapping circle and pentagon, dot in pentagon only (inside pentagon, outside circle). Answer option shows pentagon inside circle (nested), with dot in the ring between them. Why is this wrong even though both show the dot "between" the shapes?',
+    type:'mcq',
+    options:[
+      {text:'The ring in the option is inside circle + outside pentagon — opposite of the reference', correct:true, why:'Correct! In the reference: dot inside pentagon ✓, outside circle ✓. In the option\'s nested arrangement: the ring between circle and pentagon is inside the CIRCLE and outside the PENTAGON — the exact opposite. The shapes are the same but their roles (which is inner, which is outer) are swapped, creating the opposite logical region.'},
+      {text:'The dot cannot be in a ring region', correct:false, why:'Wrong — the dot can absolutely be in a ring region. The problem is not the ring region itself, but WHICH shapes contain the dot. In the option\'s ring, the dot is inside the circle and outside the pentagon, which is opposite to the reference.'},
+      {text:'The shapes are arranged differently so it is automatically wrong', correct:false, why:'Wrong — different arrangements are not automatically wrong. What matters is whether the logical region matches. In this case, the logical region is opposite (circle-inside vs circle-outside), making it wrong — but the reason is the region mismatch, not the arrangement difference.'},
+      {text:'This is actually correct — both have the dot between the shapes', correct:false, why:'Wrong — "between the shapes" is not a precise enough description. The ring between two nested shapes is defined by WHICH shape is inside which. Swapping inner and outer shapes produces the opposite logical region.'},
+    ]
+  },
+];
+
+const skill4Questions = [
+  {
+    id:'s4q1', section:4, diff:'starter',
+    text:'Two shapes look like they barely touch at one point. A student says "the dot must be in the overlap region." Is the student right?',
+    type:'mcq',
+    options:[
+      {text:'Yes — touching at a point creates an overlap', correct:false, why:'Wrong — touching at a single point or edge does not create an overlap region. For shapes to have an overlap region with area, they must cross each other\'s boundaries and share interior space. Touching at a point creates no shared interior area.'},
+      {text:'No — shapes that only touch do not have an overlap region with interior area', correct:true, why:'Correct! Two shapes that merely touch at a point or edge share no interior area. There is no overlap region where a dot could sit inside both shapes simultaneously. The student is confusing "touching" with "overlapping."'},
+      {text:'Yes — any contact between shapes creates a region', correct:false, why:'Wrong — contact at a single point creates a zero-area region, not a usable logical region for placing dots. Meaningful overlap requires the shapes to cross each other\'s boundaries and share interior space.'},
+      {text:'Only if the shapes are identical in size', correct:false, why:'Wrong — size is irrelevant. Whether touching creates an overlap depends on whether the shapes share interior space, not their sizes. Two shapes that merely touch at a point share no interior regardless of size.'},
+    ]
+  },
+  {
+    id:'s4q2', section:4, diff:'starter',
+    text:'A student sees 4 overlapping shapes and thinks "this is too complicated." What is the best strategy?',
+    type:'mcq',
+    options:[
+      {text:'Skip the question and come back later', correct:false, why:'Wrong — skipping is a last resort. With 4 shapes, the strategy is simply to apply the sequential elimination method: check the most restrictive dot first, eliminate options, then apply remaining dots one at a time. Breaking it into steps makes it manageable.'},
+      {text:'Apply the sequential elimination strategy: most restrictive dot first', correct:true, why:'Correct! Complex multi-shape questions are solved the same way as simpler ones — just sequentially. Start with the dot that has the most conditions (most restrictive), eliminate options that fail it, then apply remaining dots to survivors. Never try to check everything simultaneously.'},
+      {text:'Try to visualise all regions at once', correct:false, why:'Wrong — trying to visualise all regions simultaneously in a 4-shape question is overwhelming and error-prone. The sequential approach (one dot at a time, eliminating as you go) is faster and more reliable.'},
+      {text:'Choose the option that looks most similar to the reference', correct:false, why:'Wrong — visual similarity is unreliable and is specifically designed to mislead in complex questions. Always use logical region analysis, not visual comparison.'},
+    ]
+  },
+  {
+    id:'s4q3', section:4, diff:'starter',
+    text:'What is the "extra shape intrusion" trap?',
+    type:'mcq',
+    options:[
+      {text:'When a dot is inside too few shapes', correct:false, why:'Wrong — the extra shape intrusion trap is the opposite: the dot ends up inside MORE shapes than required. It satisfies the "inside" conditions but accidentally overlaps into a shape it should be outside.'},
+      {text:'When a dot satisfies its required conditions but also falls inside a shape it should be outside', correct:true, why:'Correct! The extra shape intrusion trap occurs when a dot is correctly inside all required shapes, but the answer option\'s arrangement accidentally places the dot inside an additional forbidden shape. The dot has too many shapes, not too few.'},
+      {text:'When a shape disappears between the reference and the answer', correct:false, why:'Wrong — all shapes are present in every answer option. The extra shape intrusion trap is about a dot accidentally falling inside an additional shape, not about shapes disappearing.'},
+      {text:'When two shapes overlap when they shouldn\'t', correct:false, why:'Wrong — this describes a different issue with shape arrangement. Extra shape intrusion is specifically about a dot being inside a forbidden shape, not about the shapes\' arrangement relative to each other.'},
+    ]
+  },
+  {
+    id:'s4q4', section:4, diff:'starter',
+    text:'A dot must be inside shapes A and B, outside shape C. An answer option correctly places the dot inside A and B. But you notice the dot\'s position is also inside shape C. Should you select this option?',
+    type:'mcq',
+    options:[
+      {text:'Yes — it gets A and B right', correct:false, why:'Wrong — the dot must also be OUTSIDE shape C. Getting A and B right while being inside C violates the "outside C" condition. This is the extra shape intrusion trap — all "inside" conditions met, but an "outside" condition violated.'},
+      {text:'No — the dot is inside C, which violates the outside-C condition', correct:true, why:'Correct! This is the classic extra shape intrusion trap. The option correctly handles the "inside A" and "inside B" conditions, but the dot accidentally falls inside C. Since the dot must be outside C, this option is wrong despite getting two out of three conditions right.'},
+      {text:'Yes — outside conditions are less important', correct:false, why:'Wrong — outside conditions are equally important as inside conditions. Violating any condition — whether "inside" or "outside" — makes an answer wrong.'},
+      {text:'Yes — approximate placement is acceptable', correct:false, why:'Wrong — there is no "approximate" in logical region analysis. Either the dot is inside shape C or it isn\'t. If it is inside C when it must be outside C, the answer is wrong, no exceptions.'},
+    ]
+  },
+  {
+    id:'s4q5', section:4, diff:'developing',
+    text:'High-density question: 4 shapes overlapping. Dot 1: inside shapes A+C, outside B+D. Which is the FIRST check that eliminates the most options?',
+    type:'mcq',
+    options:[
+      {text:'Check if Dot 1 is outside B', correct:false, why:'Wrong — while checking "outside B" is important, the most powerful first step is to check the most restrictive condition. With four shapes, verifying which shapes the dot is INSIDE (A and C) and which it is OUTSIDE (B and D) all together is the comprehensive check for Dot 1.'},
+      {text:'Verify all four conditions for Dot 1 simultaneously — inside A+C AND outside B+D', correct:true, why:'Correct! Dot 1 has four conditions. Applying all four at once to each answer option eliminates the most options in one pass. Any option that violates even ONE of the four conditions (inside A, inside C, outside B, outside D) is eliminated immediately.'},
+      {text:'Check if Dot 1 is inside A only', correct:false, why:'Wrong — checking only one condition at a time is inefficient. In a 4-shape question, any single condition eliminates fewer options than checking all of Dot 1\'s conditions together. Apply Dot 1\'s complete rule in one pass.'},
+      {text:'Skip Dot 1 and start with whichever dot is easiest', correct:false, why:'Wrong — always start with the most restrictive dot. Dot 1 (4 conditions) is likely the most restrictive. Starting with an "easier" dot wastes time because fewer options get eliminated.'},
+    ]
+  },
+  {
+    id:'s4q6', section:4, diff:'developing',
+    text:'"Dot drift illusion" trap: A student notices the dot in the reference is on the left side of the overlap region. They choose an answer where the dot is also on the left side of the overlap region. Is this correct reasoning?',
+    type:'mcq',
+    options:[
+      {text:'Yes — position within the region matters', correct:false, why:'Wrong — position WITHIN a logical region is completely irrelevant. A dot anywhere within the "inside both shapes" region satisfies the rule — it doesn\'t matter if it\'s on the left, right, top, or bottom of that region. Dot drift is a visual trap.'},
+      {text:'No — position within a region does not matter, only which region the dot is in', correct:true, why:'Correct! The "dot drift illusion" is when students think the exact position within a region matters. It does not. Any point within the correct logical region (e.g., anywhere inside the circle-square overlap) is equally valid. The student is making the classic dot-position error.'},
+      {text:'Yes — the dot must be in the same relative position as the reference', correct:false, why:'Wrong — relative position within a region is irrelevant. Only the logical region itself matters: which shapes contain the dot. The dot can be anywhere within that region.'},
+      {text:'It depends on the question type', correct:false, why:'Wrong — position within a region NEVER matters in dots-in-shapes questions. This is a fundamental principle: only the logical region (which shapes contain the dot) determines correctness.'},
+    ]
+  },
+  {
+    id:'s4q7', section:4, diff:'developing',
+    text:'"Duplicate valid regions" trap: Two different areas of an answer option both correctly represent the same logical region for the dot. A student rejects this answer because the dot is "not in the right place." Should they reject it?',
+    type:'mcq',
+    options:[
+      {text:'Yes — the dot should be in a specific place', correct:false, why:'Wrong — if both areas correctly represent the same logical region (same shapes containing the dot), both are valid placements. The student is applying the "dot drift illusion" error. Any correct logical region is acceptable regardless of where it appears in the diagram.'},
+      {text:'No — if the dot is in any area that correctly represents the logical region, the answer is valid', correct:true, why:'Correct! The duplicate valid regions trap works by having the correct logical region appear in two places in an option, causing students to doubt the answer because it doesn\'t match the reference position exactly. Both positions are equally valid.'},
+      {text:'Only if the two areas are the same size', correct:false, why:'Wrong — the size of the regions is irrelevant. What matters is whether the dot is inside the correct combination of shapes in its position. Region size never affects logical correctness.'},
+      {text:'Yes — multiple valid regions indicate an error in the question', correct:false, why:'Wrong — multiple valid positions for the dot within correct logical regions are intentional exam features, not errors. Students who reject valid answers because they see multiple options are falling into the trap.'},
+    ]
+  },
+  {
+    id:'s4q8', section:4, diff:'developing',
+    text:'What does "high-density region" mean in the context of 4+ overlapping shapes?',
+    type:'typed',
+    answer:'many overlapping shapes create many logical regions',
+    alternates:['lots of regions from many shapes','four or more shapes creating six or more regions','multiple shapes create many possible dot positions','many shapes create complex overlapping regions'],
+    why:'High-density regions occur when four or more shapes overlap, creating 6, 8, or more distinct logical regions. This makes questions complex because you must track which combination of shapes each dot is inside and outside. The sequential elimination strategy is essential in these cases.'
+  },
+  {
+    id:'s4q9', section:4, diff:'secure',
+    text:'4-shape question. Dot must be inside Circle+Square, outside Triangle+Pentagon. Answer option has the dot in the Circle+Square overlap, but this overlap area extends into the Triangle in the option\'s arrangement. What should you conclude?',
+    type:'mcq',
+    options:[
+      {text:'The option is correct — circle and square conditions are met', correct:false, why:'Wrong — the "outside Triangle" condition is violated. Even though the dot is correctly in the circle+square overlap, if that overlap area also falls inside the Triangle, the dot is inside Triangle when it must be outside. This is the extra shape intrusion trap.'},
+      {text:'The option is wrong — the dot violates the outside-Triangle condition', correct:true, why:'Correct! This is the extra shape intrusion trap. The inside conditions (circle+square) are met, but the dot accidentally enters the Triangle, violating the outside-Triangle rule. You must verify ALL four conditions: inside C ✓, inside S ✓, outside T ✗ — FAIL. The option is wrong.'},
+      {text:'The option is partially correct', correct:false, why:'Wrong — in GL assessments, an option is either fully correct (all conditions met) or wrong (any condition violated). Partial correctness does not exist. This option fails one condition, making it a wrong answer.'},
+      {text:'The pentagon condition should be checked next before deciding', correct:false, why:'Wrong — the triangle condition is already violated. Once a condition is violated, the option is eliminated. There is no need to check further conditions for an already-eliminated option.'},
+    ]
+  },
+  {
+    id:'s4q10', section:4, diff:'secure',
+    text:'Two shapes appear to nearly overlap in an answer option — they are very close but do not actually cross. A dot is placed in the tiny gap between them. What region is the dot in?',
+    type:'mcq',
+    options:[
+      {text:'Inside both shapes (the overlap)', correct:false, why:'Wrong — the shapes do not actually overlap. There is no overlap region to be inside. The dot is in the gap between the shapes, which is outside both shapes.'},
+      {text:'Outside both shapes (in the gap)', correct:true, why:'Correct! The almost-overlap trap shows shapes that appear close but don\'t actually intersect. The tiny gap between them is outside both shapes. Students who assume the shapes overlap and treat the gap as an overlap region are making the "almost overlap" error.'},
+      {text:'On the border of both shapes', correct:false, why:'Wrong — the dot is in the gap BETWEEN the shapes, not on any border. Border positions require the dot to be exactly on a shape\'s boundary line, which is different from being in the space between two non-overlapping shapes.'},
+      {text:'The region type cannot be determined without measuring the gap', correct:false, why:'Wrong — the region type can be determined logically. If the shapes do not overlap, the space between them is outside both shapes. Measuring the gap size is irrelevant to the logical region determination.'},
+    ]
+  },
+  {
+    id:'s4q11', section:4, diff:'secure',
+    text:'SECURE: Dot must be inside Circle + Triangle + Square (three shapes), outside Pentagon. Which answer is most likely to be the GL TRAP (wrong answer)?',
+    type:'mcq',
+    options:[
+      {text:'Dot inside Circle + Triangle only (missing Square)', correct:false, why:'Wrong — this is a straightforward wrong answer, easy to catch. GL traps are more subtle.'},
+      {text:'Dot inside all four shapes including Pentagon', correct:true, why:'Correct — this IS the most likely GL trap! It gets all three required "inside" shapes correct (Circle, Triangle, Square) but sneaks the dot into the Pentagon too. Students who only verify the "inside" conditions will select this trap. The "outside Pentagon" check is what catches it.'},
+      {text:'Dot outside all shapes', correct:false, why:'Wrong — this is too obviously wrong. GL traps need to be plausible. Being outside all shapes would be caught instantly.'},
+      {text:'Dot inside Pentagon only', correct:false, why:'Wrong — this is also obviously wrong. The most dangerous traps satisfy most conditions while violating just one — specifically an "outside" condition.'},
+    ]
+  },
+  {
+    id:'s4q12', section:4, diff:'secure',
+    text:'A region that "looks valid" fails one hidden condition. You must verify: dot inside A ✓, inside B ✓, inside C ✓, outside D... but the answer option has the dot on D\'s border. How should you treat this?',
+    type:'mcq',
+    options:[
+      {text:'Accept it — the dot is close enough to being outside D', correct:false, why:'Wrong — "close enough" does not exist in logical region analysis. A dot on D\'s border is ambiguous — it is neither clearly inside nor clearly outside. GL assessments do not use border positions for the correct answer. This option should be rejected.'},
+      {text:'Reject it — a dot on a border is ambiguous and not clearly outside D', correct:true, why:'Correct! A dot sitting exactly on a shape\'s boundary line is ambiguous. In GL assessments, the correct answer always places dots clearly within or clearly outside shapes. A borderline dot violates the clear "outside D" condition and should be treated as a trap.'},
+      {text:'Accept it — the border counts as outside', correct:false, why:'Wrong — the border is not unambiguously outside. In strict logical region analysis, a point on a boundary is neither inside nor outside in the usual sense. The correct answer will have the dot clearly outside D, not on its border.'},
+      {text:'Accept it — the border counts as inside', correct:false, why:'Wrong — treating the border as inside still does not resolve the ambiguity. The correct answer requires the dot to be CLEARLY outside D. A borderline position fails this requirement.'},
+    ]
+  },
+  {
+    id:'s4q13', section:4, diff:'mastery',
+    text:'ELITE MASTERY: 4 shapes — Circle (C), Square (S), Triangle (T), Pentagon (P). Dot 1: inside C+T, outside S+P. Dot 2: inside S+P, outside C+T. An answer option shows: Dot 1 in C+T overlap ✓. Dot 2 appears in S+P overlap, but in this option\'s arrangement, the S+P overlap also slightly intersects with C. Is this option correct?',
+    type:'mcq',
+    options:[
+      {text:'Yes — Dot 2 is in the S+P overlap', correct:false, why:'Wrong — Dot 2 must be inside S+P AND outside C. If the S+P overlap in this option intersects with C, then Dot 2 is also inside C, violating the "outside C" condition for Dot 2. Even though Dot 2 is in S+P, the extra C intrusion disqualifies the option.'},
+      {text:'No — Dot 2 violates its outside-C condition due to extra shape intrusion', correct:true, why:'Correct! This is the hardest elite trap. Dot 1 is correct. Dot 2 is in S+P as required, but the specific S+P overlap region in this option also overlaps with C, making Dot 2 inside C when it must be outside C. The answer fails the "outside C" check for Dot 2. Extra shape intrusion strikes at the final check.'},
+      {text:'Yes — the slight C intersection barely matters', correct:false, why:'Wrong — there is no "barely matters" in logical region analysis. If even one pixel of Dot 2\'s position is inside C, the "outside C" condition is violated. The option is wrong.'},
+      {text:'Cannot be determined — you need to see the actual diagram', correct:false, why:'Wrong — based on the description, the S+P overlap intersects with C in this option. Therefore Dot 2 is inside C, violating its "outside C" condition. The answer is determinably wrong.'},
+    ]
+  },
+  {
+    id:'s4q14', section:4, diff:'mastery',
+    text:'Shape Identity Confusion trap: Reference has a large circle and a small square. An answer option has a large square and a small circle (sizes swapped). A dot that was in circle+square overlap is now shown in the overlapping region of these swapped-size shapes. Is the answer still valid?',
+    type:'mcq',
+    options:[
+      {text:'Yes — the dot is still in the overlap region of two shapes', correct:true, why:'Correct! The logical region is "inside both shapes" — which shape is larger or which is the circle vs square is irrelevant. The dot is in the overlap region (inside both shapes) in both the reference and this option. Shape type, size, and relative size do not change the logical region. This option is valid.'},
+      {text:'No — the circle must be larger than the square as in the reference', correct:false, why:'Wrong — shape size is completely irrelevant. Only the logical region (which shapes the dot is inside) matters. The dot is in the overlap (inside both shapes) in both cases, making the option valid.'},
+      {text:'No — the shapes must be the same types as in the reference', correct:false, why:'Wrong — shape types do not need to match. A circle overlapping with a square, or a square overlapping with a circle — both create the same logical regions. Only the dot\'s region matters.'},
+      {text:'No — swapping shape sizes creates different regions', correct:false, why:'Wrong — swapping the sizes of shapes does not create different logical regions. The overlap region (inside both shapes) still exists and the dot in it satisfies the same conditions.'},
+    ]
+  },
+  {
+    id:'s4q15', section:4, diff:'mastery',
+    text:'What are the four most common elite traps in GL dots-in-shapes questions? Name any two.',
+    type:'typed',
+    answer:'almost overlap and extra shape intrusion',
+    alternates:['extra shape intrusion and almost overlap','dot drift and duplicate valid regions','almost overlap and dot drift','nested vs overlap confusion and extra shape intrusion','high density and extra shape intrusion'],
+    why:'The four elite traps are: (1) Almost-overlap — shapes appear close but don\'t actually intersect, so no overlap region exists. (2) Extra shape intrusion — dot satisfies required "inside" conditions but falls into a forbidden shape. (3) Dot drift illusion — students fixate on dot position within a region rather than which region it\'s in. (4) Duplicate valid regions — same logical region appears in multiple places; students reject valid answers because the dot isn\'t "in the right place."'
+  },
+  {
+    id:'s4q16', section:4, diff:'mastery',
+    text:'Final elite question: A student correctly identifies the logical region for both dots in a 4-shape question and selects an answer. Before submitting, what single final check should they perform?',
+    type:'mcq',
+    options:[
+      {text:'Confirm the shapes look similar to the reference', correct:false, why:'Wrong — visual similarity is irrelevant and is specifically designed to mislead. The final check should be logical, not visual.'},
+      {text:'Verify that every dot in the chosen option satisfies ALL its "outside" conditions, not just the "inside" ones', correct:true, why:'Correct! The most common source of last-minute errors is accepting an answer that gets all "inside" conditions right but fails an "outside" condition (extra shape intrusion). The final check should specifically confirm every "outside" condition for every dot. This catches the most dangerous traps.'},
+      {text:'Count the total number of shapes in the option', correct:false, why:'Wrong — counting shapes doesn\'t verify the dots\' logical regions. The final check must specifically confirm each dot\'s region against all its conditions.'},
+      {text:'Check that the dots are spread out in the diagram', correct:false, why:'Wrong — dot spread is irrelevant. Dots can be clustered or spread out — what matters is their logical regions, not their positions relative to each other.'},
+    ]
+  },
+];
+
+// ══════════════════════════════════════════════════════════
+// RENDER QUESTIONS
+// ══════════════════════════════════════════════════════════
+
+function diffBadge(d){
+  const map = {starter:'starter',developing:'developing',secure:'secure',mastery:'mastery'};
+  const labels = {starter:'Starter',developing:'Developing',secure:'Secure',mastery:'Mastery'};
+  return `<div class="badge ${map[d]}">${labels[d]}</div>`;
+}
+
+function renderMCQ(q, containerEl){
+  const div = document.createElement('div');
+  div.className = 'q-card';
+  div.id = 'qcard-'+q.id;
+
+  let opts = q.options.map((o,i)=>`
+    <button class="opt-btn" data-correct="${o.correct}" data-why="${encodeURIComponent(o.why)}" onclick="handleMCQ(this,'${q.id}',${q.section})">
+      ${String.fromCharCode(65+i)}. ${o.text}
+    </button>`).join('');
+
+  div.innerHTML = `
+    ${diffBadge(q.diff)}
+    <div class="q-num">Question ${q.id.replace('s','').replace('q','.')}</div>
+    <div class="q-text">${q.text}</div>
+    <div class="options">${opts}</div>
+    <div class="feedback-box" id="fb-${q.id}"></div>
+  `;
+  sectionQCounts[q.section]++;
+  containerEl.appendChild(div);
+}
+
+function renderTyped(q, containerEl){
+  const div = document.createElement('div');
+  div.className = 'q-card';
+  div.id = 'qcard-'+q.id;
+  div.innerHTML = `
+    ${diffBadge(q.diff)}
+    <div class="q-num">Question ${q.id.replace('s','').replace('q','.')}</div>
+    <div class="q-text">${q.text}</div>
+    <div class="typed-wrap">
+      <input class="typed-input" type="text" id="inp-${q.id}" placeholder="Type answer..." />
+      <button class="submit-btn" onclick="handleTyped('${q.id}',${q.section})">Check</button>
+    </div>
+    <div class="feedback-box" id="fb-${q.id}"></div>
+  `;
+  sectionQCounts[q.section]++;
+  containerEl.appendChild(div);
+}
+
+function renderAllQuestions(questions, containerId){
+  const el = document.getElementById(containerId);
+  questions.forEach(q=>{
+    if(q.type==='mcq') renderMCQ(q,el);
+    else if(q.type==='typed') renderTyped(q,el);
+  });
+}
+
+function handleMCQ(btn, qid, section){
+  const card = document.getElementById('qcard-'+qid);
+  if(card.dataset.done) return;
+  card.dataset.done='1';
+  const btns = card.querySelectorAll('.opt-btn');
+  btns.forEach(b=>b.disabled=true);
+  const fb = document.getElementById('fb-'+qid);
+  const why = decodeURIComponent(btn.dataset.why);
+  if(btn.dataset.correct==='true'){
+    btn.classList.add('correct-selected');
+    fb.className='feedback-box correct';
+    fb.innerHTML='✅ <strong>Correct!</strong> '+why;
+    addScore(1);
+  } else {
+    btn.classList.add('wrong-selected');
+    btns.forEach(b=>{ if(b.dataset.correct==='true') b.classList.add('reveal-correct'); });
+    fb.className='feedback-box wrong';
+    fb.innerHTML='❌ <strong>Not quite.</strong> '+why;
+  }
+  card.classList.add('answered');
+  markSectionProgress(section);
+}
+
+function handleTyped(qid, section){
+  const card = document.getElementById('qcard-'+qid);
+  if(card.dataset.done) return;
+  const inp = document.getElementById('inp-'+qid);
+  const val = inp.value.trim().toLowerCase();
+  const q = [...skill1Questions,...skill2Questions,...skill3Questions,...skill4Questions].find(x=>x.id===qid);
+  const correct = val===q.answer.toLowerCase() || (q.alternates||[]).some(a=>val.includes(a.toLowerCase())||a.toLowerCase().includes(val));
+  card.dataset.done='1';
+  inp.disabled=true;
+  card.querySelector('.submit-btn').disabled=true;
+  const fb = document.getElementById('fb-'+qid);
+  if(correct){
+    inp.style.borderColor='var(--correct)';
+    fb.className='feedback-box correct';
+    fb.innerHTML='✅ <strong>Correct!</strong> '+q.why;
+    addScore(1);
+  } else {
+    inp.style.borderColor='var(--wrong)';
+    fb.className='feedback-box wrong';
+    fb.innerHTML=`❌ <strong>Not quite.</strong> A good answer would include: <em>"${q.answer}"</em>. ${q.why}`;
+  }
+  markSectionProgress(section);
+}
+
+// Render all
+renderAllQuestions(skill1Questions,'qs1');
+renderAllQuestions(skill2Questions,'qs2');
+renderAllQuestions(skill3Questions,'qs3');
+renderAllQuestions(skill4Questions,'qs4');
+
+// ══════════════════════════════════════════════════════════
+// FINAL TEST
+// ══════════════════════════════════════════════════════════
+const testQuestions = [
+  {id:'t1',text:'A circle and square overlap. Dot is inside both shapes. Which rule describes this dot\'s region?',options:[{text:'Inside circle only',correct:false,why:'Wrong — inside circle only would mean the dot is outside the square. The reference shows the dot in the crossing area shared by both shapes.'},{text:'Inside both circle and square simultaneously',correct:true,why:'Correct! The overlap region is the area shared by both shapes. A dot here is inside both the circle and the square at the same time.'},{text:'Outside both shapes',correct:false,why:'Wrong — outside both would mean the dot is in the blank space. The reference shows the dot inside the overlapping area.'},{text:'Inside square only',correct:false,why:'Wrong — inside square only would require the dot to be outside the circle. The dot is in the shared overlap region.'}]},
+  {id:'t2',text:'Small triangle is completely inside a large pentagon. A dot is inside the small triangle. How many shapes is the dot inside?',options:[{text:'One',correct:false,why:'Wrong — because the triangle is nested inside the pentagon, being inside the triangle automatically means being inside the pentagon too. The dot is inside two shapes.'},{text:'Two — both triangle and pentagon',correct:true,why:'Correct! Nested shapes: the triangle is inside the pentagon. Any dot inside the triangle is also inside the pentagon (subset relationship). The dot is inside both shapes.'},{text:'Zero',correct:false,why:'Wrong — the dot is clearly inside the triangle, which is a physical shape with an interior. Nesting does not create voids.'},{text:'Cannot be determined',correct:false,why:'Wrong — it can be determined. Triangle inside pentagon = dot inside triangle is automatically inside pentagon. Two shapes.'}]},
+  {id:'t3',text:'Two dots: Dot A inside circle only. Dot B inside square only. Circle and square do NOT overlap. Which option is correct?',options:[{text:'Dot A in circle; Dot B in square',correct:true,why:'Correct! Both dots are in their specified regions simultaneously. Dot A inside circle (outside square) ✓, Dot B inside square (outside circle) ✓. Both conditions met.'},{text:'Dot A in square; Dot B in circle (swapped)',correct:false,why:'Wrong — the dots have been swapped. Dot A belongs in the circle, Dot B belongs in the square. Swapping is a classic GL trap.'},{text:'Both dots inside the circle',correct:false,why:'Wrong — Dot B must be in the square only. Placing both inside the circle violates Dot B\'s rule.'},{text:'Both dots outside all shapes',correct:false,why:'Wrong — both dots are inside shapes. Neither is described as being outside all shapes.'}]},
+  {id:'t4',text:'Dot must be inside Pentagon + Circle, outside Square. An option has the dot in Pentagon + Circle overlap, but this overlap also touches the Square. Is this option correct?',options:[{text:'Yes — pentagon and circle conditions are met',correct:false,why:'Wrong — the dot also falls inside the Square in this option, violating the "outside Square" condition. Both inside AND outside conditions must be checked.'},{text:'No — the dot violates the outside-Square condition',correct:true,why:'Correct! Extra shape intrusion trap. The inside conditions (Pentagon, Circle) are met, but the dot accidentally enters the Square. The "outside Square" condition is violated. Option fails.'},{text:'Yes — close enough counts',correct:false,why:'Wrong — close enough does not exist. If the dot is inside the Square, the condition is violated, period.'},{text:'Only matters if Square is large',correct:false,why:'Wrong — the size of the square is irrelevant. Any entry of the dot into the Square violates the outside-Square rule.'}]},
+  {id:'t5',text:'When checking a multi-dot question, which dot should you check FIRST?',options:[{text:'The dot with the fewest conditions',correct:false,why:'Wrong — the dot with the fewest conditions eliminates the fewest options. Start with the most restrictive dot to maximise efficiency.'},{text:'The most restrictive dot — the one inside the most shapes',correct:true,why:'Correct! The most restrictive dot (most conditions) eliminates the most answer options in one check. This is the foundation of the sequential elimination strategy.'},{text:'The largest dot visually',correct:false,why:'Wrong — visual size of the dot is completely irrelevant. Dot size never indicates which rule is more restrictive.'},{text:'Any dot — the order doesn\'t matter',correct:false,why:'Wrong — order does matter for efficiency. Starting with the most restrictive dot is systematically faster and reduces errors.'}]},
+  {id:'t6',text:'Reference: Large square, small circle nested inside it. Dot is in the ring region (inside square, outside circle). Answer option shows the circle OUTSIDE the square (non-overlapping), with the dot inside the square. Is this correct?',options:[{text:'Yes — the dot is inside the square in both cases',correct:false,why:'Wrong — in the reference, the dot must be inside the square AND outside the circle. In the option, the circle is outside the square entirely, and the dot is inside the square but not near the circle. However, the logical region is preserved: inside square ✓, outside circle ✓. Actually, this IS correct — wait. Re-reading: dot inside the square, circle is outside the square. So dot is inside square ✓ and outside circle ✓. This matches! But let me re-check the answer structure.'},{text:'Yes — inside square + outside circle is preserved',correct:true,why:'Correct! The logical region is: inside square ✓, outside circle ✓. In the option, the dot is inside the square and the circle is outside the square entirely — so the dot is definitely outside the circle. Both conditions are met. Shape arrangement doesn\'t matter, only the logical region.'},{text:'No — the shapes must be nested as in the reference',correct:false,why:'Wrong — shape arrangement (nested vs separate) does not need to match. Only the logical region matters. The dot\'s region (inside square, outside circle) is preserved in this option.'},{text:'No — ring regions only exist in nested arrangements',correct:false,why:'Wrong — ring regions can be replicated in different arrangements. The key is that the dot is inside the square and outside the circle, which is achieved in this option.'}]},
+  {id:'t7',text:'Two shapes appear to barely touch at one edge. A dot is placed right between them in the tiny gap. What region is the dot in?',options:[{text:'Inside both shapes (the touching creates an overlap)',correct:false,why:'Wrong — shapes that merely touch at an edge share no interior area. There is no overlap region to be inside. The gap between them is outside both shapes.'},{text:'Outside both shapes',correct:true,why:'Correct! Shapes that touch but do not cross have no shared interior. The dot in the gap between them is outside both shapes. The "almost overlap" trap works by making students assume touching = overlapping.'},{text:'Inside one shape only',correct:false,why:'Wrong — the dot is in the gap between the shapes, not inside either shape. Being inside one shape would require the dot to cross into that shape\'s interior.'},{text:'On the border of both',correct:false,why:'Wrong — the dot is in the gap between the shapes, not on any border. A border position requires the dot to be exactly on a shape\'s boundary line.'}]},
+  {id:'t8',text:'Large circle contains medium square, which contains small triangle. A dot is in the ring between the circle and square (inside circle, outside square). How many shapes is the dot inside?',options:[{text:'Three — circle, square, and triangle',correct:false,why:'Wrong — the dot is outside the square. Since the triangle is inside the square, anything outside the square is also outside the triangle. The dot is inside the circle only.'},{text:'One — only the circle',correct:true,why:'Correct! The dot is in the ring between the circle and the square: inside circle ✓, outside square ✓. Since the square is inside the circle, and the triangle is inside the square, the dot being outside the square means it is also outside the triangle. The dot is inside exactly one shape: the circle.'},{text:'Two — circle and square',correct:false,why:'Wrong — the dot is in the ring between the circle and square, which means it is outside the square. It cannot be inside the square if it is in the ring region outside the square.'},{text:'Zero',correct:false,why:'Wrong — the dot is inside the large circle. It is in the ring region between circle and square, which is still inside the circle.'}]},
+  {id:'t9',text:'Three dots: Dot 1 inside A+B, Dot 2 inside B+C, Dot 3 outside all shapes. After checking Dot 1, options X and Z remain. After checking Dot 2, only option X remains. Dot 3 in option X is inside shape A. Is option X correct?',options:[{text:'Yes — Dots 1 and 2 are correct',correct:false,why:'Wrong — Dot 3 must be outside ALL shapes, but in option X it is inside shape A. This violates Dot 3\'s rule. All three dots must be correct simultaneously.'},{text:'No — Dot 3 violates its outside-all condition',correct:true,why:'Correct! Option X correctly places Dots 1 and 2, but Dot 3 is inside shape A when it must be outside all shapes. This violation eliminates option X. All dots must pass their checks.'},{text:'Yes — two out of three dots correct is good enough',correct:false,why:'Wrong — all dots must be correctly placed. Two out of three is not sufficient. Option X fails the Dot 3 check and is therefore a wrong answer.'},{text:'Re-check option Z',correct:false,why:'Wrong — option Z was already eliminated by the Dot 2 check. Once eliminated, an option cannot be correct. The answer here is that option X also fails, meaning neither X nor Z is correct.'}]},
+  {id:'t10',text:'What is the "extra shape intrusion" trap?',options:[{text:'When a dot is inside too few shapes',correct:false,why:'Wrong — extra shape intrusion is when a dot is inside too MANY shapes. It satisfies all required inside-conditions but accidentally falls inside a shape it should be outside.'},{text:'When a dot correctly satisfies inside conditions but also falls inside a forbidden shape',correct:true,why:'Correct! Extra shape intrusion: the dot gets all "inside" shapes right but accidentally enters a shape it should be outside. The name says it all: an extra (unwanted) shape intrudes.'},{text:'When a shape in the answer option is missing',correct:false,why:'Wrong — all shapes are present in answer options. Extra shape intrusion is about the dot\'s position being inside an additional forbidden shape.'},{text:'When two shapes overlap when they should be separate',correct:false,why:'Wrong — this describes a different arrangement issue. Extra shape intrusion is specifically about a dot being inside an extra forbidden shape.'}]},
+  {id:'t11',text:'Reference dot: inside circle, outside triangle, outside square. An answer has the dot inside circle+triangle (triangle overlaps circle in the option). Is this correct?',options:[{text:'Yes — the circle condition is met',correct:false,why:'Wrong — the dot must also be OUTSIDE the triangle. In this option, the dot is inside the triangle as well as the circle. The "outside triangle" condition is violated.'},{text:'No — the outside-triangle condition is violated',correct:true,why:'Correct! The reference requires inside circle ✓, outside triangle ✓, outside square ✓. This option places the dot inside triangle, violating the outside-triangle condition. All three conditions must be met.'},{text:'Yes — being inside more shapes is better',correct:false,why:'Wrong — being inside MORE shapes than required is worse, not better. Each "outside" condition is equally binding. The dot must be outside triangle and square.'},{text:'Only wrong if the square condition is also violated',correct:false,why:'Wrong — any single violated condition makes an answer wrong. The triangle condition alone is enough to disqualify this option.'}]},
+  {id:'t12',text:'What does "position within a logical region" tell you about an answer option?',options:[{text:'It determines if the answer is correct',correct:false,why:'Wrong — position WITHIN a region is irrelevant. The only thing that matters is WHICH logical region the dot is in (which shapes contain it), not where within that region the dot sits.'},{text:'Nothing — only which region the dot is in matters',correct:true,why:'Correct! The dot\'s position within a logical region is irrelevant. A dot can be anywhere within the correct region and the answer is still correct. This counters the "dot drift illusion" trap.'},{text:'It helps identify which shape is closer',correct:false,why:'Wrong — shape proximity is irrelevant. The dot\'s region is defined by which shapes\' boundaries it is inside, not by how close it is to shapes.'},{text:'It confirms the answer is correct',correct:false,why:'Wrong — position within a region confirms nothing about correctness. Only the logical region itself (which shapes contain the dot) determines correctness.'}]},
+  {id:'t13',text:'HARDEST: 4 shapes — A, B, C, D. Dot 1: inside A+C, outside B+D. Dot 2: inside B+D, outside A+C. An option places Dot 1 in A+C overlap ✓, Dot 2 in B+D overlap — but B+D overlap in this option also intersects with A. Is the option correct?',options:[{text:'Yes — Dot 2 is in B and D',correct:false,why:'Wrong — Dot 2 must be inside B+D AND outside A. If the B+D overlap in this option also intersects with A, Dot 2 is inside A too, violating its "outside A" condition. This is the hardest version of the extra shape intrusion trap.'},{text:'No — Dot 2 violates its outside-A condition',correct:true,why:'Correct! Elite trap caught! Dot 1 is correctly placed. Dot 2 is in B+D as required, but the option\'s arrangement places the B+D overlap inside A too. Since Dot 2 must be outside A, this option fails. The "outside" conditions are always the final trap check.'},{text:'Yes — Dot 1 is also correct so it balances out',correct:false,why:'Wrong — each dot must independently satisfy ALL its conditions. One dot being correct does not compensate for another dot failing. Both dots must be fully correct.'},{text:'Yes — the arrangement is different from reference so rules may not apply',correct:false,why:'Wrong — the logical region rules always apply regardless of shape arrangement. The whole point of this question type is that rules are arrangement-independent.'}]},
+  {id:'t14',text:'Nested: big hexagon, small oval inside it. Dot is inside hexagon, outside oval (ring region). An answer shows big hexagon with small oval inside, dot correctly in the ring. A SECOND answer shows oval completely outside hexagon, dot inside hexagon. Which is/are correct?',options:[{text:'Only the nested arrangement answer',correct:false,why:'Wrong — both answers need checking for logical region. Ring region = inside hexagon ✓, outside oval ✓. Second answer: dot inside hexagon ✓, oval is outside hexagon so dot is definitely outside oval ✓. Both conditions met! Second answer is also valid.'},{text:'Only the separate shapes answer',correct:false,why:'Wrong — the nested arrangement also correctly places the dot in the ring region (inside hexagon, outside oval). Both answers satisfy the logical conditions.'},{text:'Both — both achieve inside hexagon + outside oval',correct:true,why:'Correct! Both options achieve the logical region: inside hexagon ✓, outside oval ✓. In the nested option, this is the ring region. In the separate option, the dot is inside hexagon and oval is entirely outside the hexagon. Both preserve the logical conditions.'},{text:'Neither — the arrangements don\'t match the reference',correct:false,why:'Wrong — arrangement matching is irrelevant. Only logical regions matter. Both options correctly represent the dot\'s region.'}]},
+  {id:'t15',text:'FINAL: What is the single most important principle to remember in ALL dots-in-shapes questions?',options:[{text:'Match the visual appearance of the reference',correct:false,why:'Wrong — visual matching is the number one trap. Shape size, position, colour, and arrangement in the answer do not need to match the reference. Only the logical region matters.'},{text:'Only the logical region of each dot matters — which shapes contain it',correct:true,why:'Correct! This is the fundamental principle of the entire question type. Every strategy, every trap, every check ultimately comes back to one question: which shapes is each dot inside, and which shapes is it outside? Answer that correctly for every dot and you will always find the right answer.'},{text:'Check inside conditions only',correct:false,why:'Wrong — outside conditions are equally critical. The most dangerous traps get all inside conditions right while violating outside conditions. Always check both.'},{text:'Start with the easiest dot',correct:false,why:'Wrong — start with the most restrictive dot (most conditions) to eliminate the most options efficiently. Starting with the easiest dot is the least efficient approach.'}]},
+];
+
+let testTimer = null;
+let testSeconds = 720; // 12 minutes
+let testStarted = false;
+let testDone = false;
+const testScores = {};
+
+document.getElementById('start-test-btn').addEventListener('click', ()=>{
+  if(testStarted) return;
+  testStarted = true;
+  document.getElementById('start-test-btn').style.display='none';
+  document.getElementById('test-area').style.display='block';
+
+  // Render test questions
+  const ta = document.getElementById('test-area');
+  testQuestions.forEach((q,i)=>{
+    const div = document.createElement('div');
+    div.className='q-card';
+    div.id='tqcard-'+q.id;
+    let opts = q.options.map((o,j)=>`
+      <button class="opt-btn" data-correct="${o.correct}" data-why="${encodeURIComponent(o.why)}" data-qid="${q.id}" onclick="handleTestMCQ(this,'${q.id}')">
+        ${String.fromCharCode(65+j)}. ${o.text}
+      </button>`).join('');
+    div.innerHTML=`
+      <div class="q-num" style="color:var(--gold2);font-weight:700">Q${i+1} of 15</div>
+      <div class="q-text" style="color:var(--white)">${q.text}</div>
+      <div class="options">${opts}</div>
+      <div class="feedback-box" id="tfb-${q.id}" style="display:none"></div>
+    `;
+    ta.appendChild(div);
+  });
+
+  const submitBtn = document.createElement('button');
+  submitBtn.id='submit-test-btn';
+  submitBtn.className='submit-btn';
+  submitBtn.style.cssText='display:block;margin:20px auto;padding:14px 36px;font-size:16px;background:var(--gold);color:var(--navy);';
+  submitBtn.textContent='Submit Test';
+  submitBtn.addEventListener('click', finishTest);
+  ta.appendChild(submitBtn);
+
+  // Timer
+  updateTimerDisplay();
+  testTimer = setInterval(()=>{
+    testSeconds--;
+    updateTimerDisplay();
+    if(testSeconds<=0){ clearInterval(testTimer); finishTest(); }
+  },1000);
+});
+
+function updateTimerDisplay(){
+  const m = Math.floor(testSeconds/60);
+  const s = testSeconds%60;
+  const el = document.getElementById('test-timer');
+  if(el) el.textContent = `⏱ ${m}:${s<10?'0'+s:s} remaining`;
+}
+
+function handleTestMCQ(btn, qid){
+  const card = document.getElementById('tqcard-'+qid);
+  if(card.dataset.done) return;
+  card.dataset.done='1';
+  const btns = card.querySelectorAll('.opt-btn');
+  btns.forEach(b=>b.disabled=true);
+  testScores[qid] = btn.dataset.correct==='true';
+  if(btn.dataset.correct==='true'){
+    btn.classList.add('correct-selected');
+  } else {
+    btn.classList.add('wrong-selected');
+  }
+}
+
+function finishTest(){
+  if(testDone) return;
+  testDone=true;
+  clearInterval(testTimer);
+  document.getElementById('test-timer').textContent='⏱ Time\'s up!';
+  document.getElementById('submit-test-btn')?.remove();
+
+  // Lock unanswered
+  testQuestions.forEach(q=>{
+    const card = document.getElementById('tqcard-'+q.id);
+    if(!card.dataset.done){
+      card.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
+      testScores[q.id]=false;
+    }
+  });
+
+  // Show explanations
+  testQuestions.forEach(q=>{
+    const card = document.getElementById('tqcard-'+q.id);
+    const btns = card.querySelectorAll('.opt-btn');
+    btns.forEach(b=>{
+      if(b.dataset.correct==='true') b.classList.add('reveal-correct');
+    });
+    const fb = document.getElementById('tfb-'+q.id);
+    const correct = testScores[q.id];
+    const correctOpt = q.options.find(o=>o.correct);
+    fb.style.display='block';
+    if(correct){
+      fb.className='feedback-box correct';
+      fb.innerHTML='✅ <strong>Correct!</strong> '+correctOpt.why;
+    } else {
+      fb.className='feedback-box wrong';
+      fb.innerHTML='❌ <strong>Explanation:</strong> '+correctOpt.why;
+    }
+  });
+
+  const score = Object.values(testScores).filter(Boolean).length;
+  const pct = score/15*100;
+  let band, color;
+  if(pct<40){ band='Needs Practice'; color='#e74c3c'; }
+  else if(pct<60){ band='Developing'; color='#f39c12'; }
+  else if(pct<80){ band='Secure'; color='#2980b9'; }
+  else { band='Mastery'; color='#27ae60'; }
+
+  const ra = document.getElementById('result-area');
+  ra.style.display='block';
+  document.getElementById('result-score').textContent=`${score} / 15`;
+  const rb = document.getElementById('result-band');
+  rb.textContent=band;
+  rb.style.color=color;
+  ra.scrollIntoView({behavior:'smooth'});
+
+  document.getElementById('review-btn').addEventListener('click',()=>{
+    document.getElementById('test-area').scrollIntoView({behavior:'smooth'});
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// PROGRESS BAR
+// ══════════════════════════════════════════════════════════
+window.addEventListener('scroll',()=>{
+  const docH = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = (window.scrollY / docH) * 100;
+  document.getElementById('progress-bar').style.width = pct+'%';
+});
+</script>
+</body>
+</html>

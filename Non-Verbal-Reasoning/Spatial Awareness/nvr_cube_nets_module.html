@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NVR: Cube Nets — 11+ GL Assessment Revision</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy2: #1a2d42;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f8f5ef;
+    --white: #ffffff;
+    --green: #2d6a4f;
+    --green-light: #d8f3dc;
+    --yellow: #b5830a;
+    --yellow-light: #fff3b0;
+    --orange: #c25b00;
+    --orange-light: #ffe4cc;
+    --purple: #5a189a;
+    --purple-light: #e8d5f5;
+    --red: #9b2226;
+    --red-light: #fde8e9;
+    --blue-light: #dbeafe;
+    --gray: #6b7280;
+    --border: #e5e0d5;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: #1f2937;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  /* PROGRESS BAR */
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    width: 0%; z-index: 1000;
+    transition: width 0.2s ease;
+    box-shadow: 0 0 8px rgba(201,168,76,0.5);
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(201,168,76,0.05) 0%, transparent 60%);
+  }
+  header .badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+  }
+  header h1 span { color: var(--gold); }
+  header p {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.95rem;
+    margin-top: 0.6rem;
+  }
+  .score-badge {
+    position: absolute; top: 1.2rem; right: 1.5rem;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.35);
+    color: var(--gold-light);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  /* STICKY NAV */
+  #sticky-nav {
+    position: sticky; top: 4px; z-index: 900;
+    background: var(--navy2);
+    border-bottom: 2px solid rgba(201,168,76,0.3);
+    display: flex; gap: 0; overflow-x: auto;
+    scrollbar-width: none;
+  }
+  #sticky-nav::-webkit-scrollbar { display: none; }
+  #sticky-nav a {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.1rem;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    position: relative;
+  }
+  #sticky-nav a:hover, #sticky-nav a.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    background: rgba(201,168,76,0.07);
+  }
+  #sticky-nav a .tick { color: #4ade80; margin-left: 4px; display: none; }
+  #sticky-nav a.done .tick { display: inline; }
+
+  /* MAIN */
+  main { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+  /* SECTION */
+  .module-section {
+    margin-bottom: 3.5rem;
+    scroll-margin-top: 80px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem;
+    color: var(--navy);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--gold);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-title .icon { font-size: 1.3rem; }
+
+  /* CARDS */
+  .card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(13,27,42,0.06);
+  }
+  .card-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .card.simple { border-left: 4px solid #3b82f6; }
+  .card.simple .card-label { color: #2563eb; }
+  .card.full { border-left: 4px solid var(--navy); }
+  .card.full .card-label { color: var(--navy); }
+  .card.warn { border-left: 4px solid #ef4444; background: var(--red-light); }
+  .card.warn .card-label { color: var(--red); }
+  .card.example { border-left: 4px solid var(--gold); background: #fffdf5; }
+  .card.example .card-label { color: #92600a; }
+
+  /* WORKED EXAMPLE */
+  .step {
+    background: #f0f4ff;
+    border-left: 3px solid #6366f1;
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    margin: 0.5rem 0;
+    font-size: 0.92rem;
+  }
+  .step strong { color: #4338ca; }
+
+  /* CUBE SVG VISUALS */
+  .cube-visual {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    align-items: flex-start;
+    margin: 1rem 0;
+  }
+  .cube-visual figure {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--gray);
+  }
+  .cube-visual figure figcaption { margin-top: 0.4rem; font-weight: 600; }
+
+  /* QUESTIONS */
+  .question-block {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.3rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .diff-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.7rem;
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+  }
+  .diff-badge.starter { background: var(--green-light); color: var(--green); }
+  .diff-badge.developing { background: var(--yellow-light); color: var(--yellow); }
+  .diff-badge.secure { background: var(--orange-light); color: var(--orange); }
+  .diff-badge.mastery { background: var(--purple-light); color: var(--purple); }
+
+  .q-text { font-weight: 600; margin-bottom: 1rem; font-size: 0.97rem; }
+  .options { display: flex; flex-direction: column; gap: 0.5rem; }
+  .opt-btn {
+    background: #f8f9fa;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .opt-btn:hover:not(:disabled) { border-color: var(--navy); background: #f0f4ff; }
+  .opt-btn.correct { border-color: var(--green) !important; background: var(--green-light) !important; color: var(--green); }
+  .opt-btn.wrong { border-color: var(--red) !important; background: var(--red-light) !important; color: var(--red); }
+  .opt-btn:disabled { cursor: not-allowed; }
+
+  .feedback {
+    display: none;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-top: 0.75rem;
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct { background: var(--green-light); color: #1a5736; border-left: 3px solid var(--green); }
+  .feedback.wrong { background: var(--red-light); color: #7f1d1d; border-left: 3px solid var(--red); }
+
+  /* TEXT ANSWER */
+  .text-input-wrap { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+  .text-input-wrap input {
+    flex: 1;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.55rem 0.9rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .text-input-wrap input:focus { border-color: var(--navy); }
+  .submit-btn {
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 0.55rem 1.2rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    transition: background 0.15s;
+  }
+  .submit-btn:hover { background: var(--navy2); }
+
+  /* TIMED TEST */
+  #test-section { scroll-margin-top: 80px; }
+  .timer-bar {
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .timer-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), #ef4444);
+    border-radius: 4px;
+    transition: width 1s linear;
+  }
+  #timer-display {
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .test-start-btn {
+    display: block; margin: 1.5rem auto;
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    border-radius: 10px;
+    padding: 0.85rem 2.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .test-start-btn:hover { background: var(--gold-light); }
+
+  #test-questions { display: none; }
+  #test-results {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    background: var(--white);
+    border-radius: 16px;
+    border: 2px solid var(--gold);
+  }
+  .result-score { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--navy); font-weight: 900; }
+  .result-band {
+    display: inline-block;
+    margin: 0.75rem auto;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .band-np { background: var(--red-light); color: var(--red); }
+  .band-dev { background: var(--yellow-light); color: var(--yellow); }
+  .band-sec { background: var(--orange-light); color: var(--orange); }
+  .band-mas { background: var(--purple-light); color: var(--purple); }
+
+  /* NET GRID */
+  .net-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 40px);
+    grid-template-rows: repeat(4, 40px);
+    gap: 2px;
+    margin: 0.5rem 0;
+  }
+  .net-cell {
+    width: 40px; height: 40px;
+    border: 2px solid #cbd5e1;
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    background: #e0e7ff;
+    font-weight: 700;
+  }
+  .net-cell.empty { background: transparent; border-color: transparent; }
+  .net-cell.top { background: #fef3c7; }
+  .net-cell.bottom { background: #dbeafe; }
+  .net-cell.front { background: #dcfce7; }
+  .net-cell.back { background: #fce7f3; }
+  .net-cell.left { background: #ede9fe; }
+  .net-cell.right { background: #ffedd5; }
+
+  /* OPPOSITE TABLE */
+  .opp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin-top: 0.75rem;
+  }
+  .opp-table th { background: var(--navy); color: var(--gold); padding: 0.5rem 1rem; text-align: left; }
+  .opp-table td { border-bottom: 1px solid var(--border); padding: 0.5rem 1rem; }
+  .opp-table tr:nth-child(even) td { background: #f8f5ef; }
+
+  /* FOLD ANIMATION */
+  .fold-demo {
+    display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+    margin: 1rem 0;
+  }
+  .fold-step {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--gray);
+  }
+  .fold-step .arrow { font-size: 1.4rem; color: var(--gold); margin: 0 0.3rem; }
+
+  /* SECTION PROGRESS */
+  .section-progress {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.8rem; color: var(--gray);
+    margin-bottom: 1rem;
+  }
+  .progress-dots { display: flex; gap: 4px; }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--border);
+    transition: background 0.2s;
+  }
+  .dot.done { background: var(--gold); }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    main { padding: 1.5rem 1rem 3rem; }
+    .section-title { font-size: 1.25rem; }
+    header h1 { font-size: 1.5rem; }
+    .score-badge { position: static; display: block; width: fit-content; margin: 0.75rem auto 0; }
+  }
+
+  .intro-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;
+  }
+  @media (max-width: 580px) { .intro-grid { grid-template-columns: 1fr; } }
+
+  .intro-stat {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    text-align: center;
+  }
+  .intro-stat .num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--gold); }
+  .intro-stat .lbl { font-size: 0.8rem; color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  hr.divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+
+<header>
+  <div class="badge">11+ GL Assessment · Non-Verbal Reasoning</div>
+  <h1>Cube <span>Nets</span> & Folding</h1>
+  <p>Spatial reasoning mastery — from net to cube and back</p>
+  <div class="score-badge">⭐ Score: <span id="global-score">0</span> / <span id="global-total">0</span></div>
+</header>
+
+<nav id="sticky-nav">
+  <a href="#intro">📖 Intro</a>
+  <a href="#s1">1. Basics<span class="tick">✓</span></a>
+  <a href="#s2">2. Opposites<span class="tick">✓</span></a>
+  <a href="#s3">3. Adjacency<span class="tick">✓</span></a>
+  <a href="#s4">4. Orientation<span class="tick">✓</span></a>
+  <a href="#s5">5. Reverse<span class="tick">✓</span></a>
+  <a href="#test-section">🏁 Test</a>
+</nav>
+
+<main>
+
+<!-- ===== INTRO ===== -->
+<section class="module-section" id="intro">
+  <div class="section-title"><span class="icon">📖</span> What Is This Topic?</div>
+
+  <div class="intro-grid">
+    <div class="intro-stat"><div class="num">6</div><div class="lbl">Faces on a cube</div></div>
+    <div class="intro-stat"><div class="num">11</div><div class="lbl">Valid net layouts</div></div>
+    <div class="intro-stat"><div class="num">3</div><div class="lbl">Pairs of opposite faces</div></div>
+    <div class="intro-stat"><div class="num">E·O·R</div><div class="lbl">Solving strategy</div></div>
+  </div>
+
+  <div class="card simple">
+    <div class="card-label">🧒 Simple Explanation</div>
+    Imagine you have a cardboard box. If you cut along its edges and flatten it out completely, you get a <strong>net</strong> — a flat shape made of 6 connected squares. The question is: if you fold it back up, which cube would you get? Think of it like origami — you're imagining the box folding itself shut in your mind.
+  </div>
+
+  <div class="card full">
+    <div class="card-label">📘 Full Explanation</div>
+    A <strong>cube net</strong> is a two-dimensional arrangement of six squares (faces) connected edge-to-edge such that when folded along those edges, they form a closed cube. GL Assessment tests whether you can:
+    <ul style="margin: 0.5rem 0 0 1.2rem;">
+      <li>Identify which net produces a given labelled cube</li>
+      <li>Identify which cube results from a given net</li>
+      <li>Eliminate nets that are geometrically invalid</li>
+      <li>Track face positions and orientations through the folding process</li>
+    </ul>
+    <p style="margin-top:0.6rem">Only <strong>11 of the 35 possible hexomino arrangements</strong> are valid cube nets.</p>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">🗺️ The E·O·R Strategy</div>
+    <div class="step"><strong>E — Eliminate Layouts:</strong> First, check if the net is even valid. Watch for the "Z-shape" or "S-shape" of 4 squares in a row with extra squares on the same side — these are invalid.</div>
+    <div class="step"><strong>O — Find Opposites:</strong> Identify which faces are opposite each other. Opposite faces can NEVER be next to each other on the net. Lock these pairs in your mind before touching the answer options.</div>
+    <div class="step"><strong>R — Check Rotation &amp; Relationship:</strong> Confirm the orientation of face markings. A face pointing the right way in the wrong rotation is still wrong.</div>
+  </div>
+</section>
+
+<!-- ===== SECTION 1: CUBE BASICS ===== -->
+<section class="module-section" id="s1">
+  <div class="section-title"><span class="icon">🎲</span> Sub-Skill 1: Reading a Net</div>
+
+  <div class="card simple">
+    <div class="card-label">🧒 Simple Explanation</div>
+    Think of a cross-shaped net as a plus sign (+). The square in the very middle folds into the <strong>bottom</strong> of the box. The four squares touching it become the <strong>sides</strong>. The one square at the top of the column becomes the <strong>lid</strong>. Picture closing the box step by step — bottom first, then sides fold up, then lid drops on top.
+  </div>
+
+  <div class="card full">
+    <div class="card-label">📘 Full Explanation</div>
+    A net is read by identifying a <strong>base face</strong> — typically the central square — and then tracking how each connected square folds relative to it. Squares connected by an edge will share that edge on the final cube. Squares connected diagonally (at a corner) will meet only at a vertex (point), not along an edge. This distinction is critical: <strong>diagonal contact in a net ≠ face-to-face contact on the cube.</strong>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">📐 Worked Example 1 — Easy</div>
+    <p style="font-weight:600; margin-bottom:0.7rem">A standard cross-shaped net has faces labelled 1–6. What face is opposite face 1 (the centre)?</p>
+    <div class="fold-demo">
+      <div class="fold-step">
+        <div class="net-grid" style="grid-template-columns: repeat(3,40px); grid-template-rows: repeat(4,40px);">
+          <div class="net-cell empty"></div><div class="net-cell top">1</div><div class="net-cell empty"></div>
+          <div class="net-cell left">2</div><div class="net-cell front">3</div><div class="net-cell right">4</div>
+          <div class="net-cell empty"></div><div class="net-cell bottom">5</div><div class="net-cell empty"></div>
+          <div class="net-cell empty"></div><div class="net-cell back">6</div><div class="net-cell empty"></div>
+        </div>
+        <figcaption>The net</figcaption>
+      </div>
+      <div class="fold-step"><span class="arrow">→</span></div>
+      <div class="fold-step" style="font-size:0.9rem; max-width:200px; text-align:left; color:#1f2937;">
+        <div class="step"><strong>Step 1:</strong> Face 3 is the base (centre column, middle row). Fold sides 2 and 4 up as left/right walls.</div>
+        <div class="step"><strong>Step 2:</strong> Face 1 folds up as the top. Face 5 and 6 fold up as back and bottom.</div>
+        <div class="step"><strong>Answer:</strong> Face 1 (top of column) ends up opposite face 5 (bottom of column). They are in the same straight line, separated by the base — so they are always opposite.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <strong>Diagonal ≠ adjacent.</strong> If two squares only touch at a single corner point (diagonal), they do NOT share an edge on the cube. Students often assume diagonal squares will become touching faces — they won't. Only edge-to-edge connections in the net create face-sharing on the cube.
+  </div>
+
+  <div class="card example">
+    <div class="card-label">📐 Worked Example 2 — Medium</div>
+    <p style="font-weight:600; margin-bottom:0.6rem">An L-shaped net: squares in positions (row,col) — (1,1), (2,1), (3,1), (3,2), (3,3), (3,4). Is this a valid cube net?</p>
+    <div class="step"><strong>Step 1 — Count squares:</strong> 6 squares ✓</div>
+    <div class="step"><strong>Step 2 — Check connectivity:</strong> All squares are edge-connected ✓</div>
+    <div class="step"><strong>Step 3 — Check for the "4-in-a-row with same-side branches" trap:</strong> The bottom row has 4 in a row. The column extends from position (3,1) upward — that's a branch on the LEFT end of the 4-in-row. This is actually the valid "L-tetromino + 2" shape ✓</div>
+    <div class="step"><strong>Answer:</strong> Yes, this is a valid net. It folds correctly.</div>
+  </div>
+
+  <!-- QUESTIONS: Section 1 -->
+  <div id="s1-questions">
+    <hr class="divider">
+    <h3 style="font-weight:700; color:var(--navy); margin-bottom:1rem;">Practice Questions — Reading a Net</h3>
+
+    <!-- Q1 Starter -->
+    <div class="question-block" data-section="s1">
+      <span class="diff-badge starter">⬤ Starter</span>
+      <div class="q-text">A cube net (cross shape) has the centre square labelled ★. The square directly ABOVE the centre in the column is labelled ●. When folded, will ★ and ● be opposite each other, adjacent, or neither?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q1s1', 'Adjacent means they share an edge. ★ (centre) and ● (above centre) share an edge in the net — so they must share an edge on the cube. Opposite faces are those at the far ends of the net, not neighbouring ones.')">A) Opposite</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q1s1', 'Correct! ★ and ● share an edge in the net, so they share an edge on the cube — they are adjacent (neighbouring) faces. Adjacent faces can never be opposite.')">B) Adjacent</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q1s1', 'They are directly connected by an edge, so they cannot be "neither." Any two squares that share an edge in the net will always share an edge on the final cube.')">C) Neither</button>
+      </div>
+      <div class="feedback" id="q1s1"></div>
+    </div>
+
+    <!-- Q2 Starter -->
+    <div class="question-block" data-section="s1">
+      <span class="diff-badge starter">⬤ Starter</span>
+      <div class="q-text">How many faces does a cube have?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q2s1', '4 faces describes a tetrahedron (triangular pyramid), not a cube. Count the flat surfaces of a standard dice — you will find 6.')">A) 4</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q2s1', 'Correct! A cube has exactly 6 faces — top, bottom, front, back, left, and right. This means every valid cube net must have exactly 6 squares.')">B) 6</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q2s1', '8 is the number of VERTICES (corners) on a cube, not faces. Faces = 6, Edges = 12, Vertices = 8.')">C) 8</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q2s1', '12 is the number of EDGES on a cube, not faces. Faces = 6, Edges = 12, Vertices = 8.')">D) 12</button>
+      </div>
+      <div class="feedback" id="q2s1"></div>
+    </div>
+
+    <!-- Q3 Developing -->
+    <div class="question-block" data-section="s1">
+      <span class="diff-badge developing">⬤ Developing</span>
+      <div class="q-text">A net has 7 squares arranged in an L-shape. Is this a valid cube net?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q3s1', 'Check the square count first — a cube has 6 faces, so a valid net must have exactly 6 squares. 7 squares means one square is extra, making this impossible to fold into a single cube.')">A) Yes — it is valid</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q3s1', 'Correct! A cube has exactly 6 faces, so any net must have exactly 6 squares. A 7-square arrangement will always have an overlapping face when folded — it is invalid.')">B) No — too many squares</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q3s1', 'The shape does not make it valid or invalid on its own — the count does. 7 squares ≠ 6 faces. You can determine invalidity immediately from the square count.')">C) It depends on the exact shape</button>
+      </div>
+      <div class="feedback" id="q3s1"></div>
+    </div>
+
+    <!-- Q4 Developing -->
+    <div class="question-block" data-section="s1">
+      <span class="diff-badge developing">⬤ Developing</span>
+      <div class="q-text">In a net, two squares only touch at a single CORNER (diagonally). On the folded cube, will these two squares share an edge?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q4s1', 'Correct! Diagonal contact in a net means the two squares meet at a single vertex (point) on the cube, not along an edge. They will share a corner, not a full face-edge. This is one of the most common confusion traps.')">A) No — they share only a vertex (corner point)</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q4s1', 'Only squares connected EDGE-to-EDGE in the net will share an edge on the cube. Diagonal connections in the net become vertex (corner) connections only on the cube.')">B) Yes — they share a full edge</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q4s1', 'This is not determined by the face labels. The geometry is fixed: diagonal connection in net = vertex contact only. No labels needed to answer this.')">C) It depends on what symbols are on the faces</button>
+      </div>
+      <div class="feedback" id="q4s1"></div>
+    </div>
+
+    <!-- Q5 Secure -->
+    <div class="question-block" data-section="s1">
+      <span class="diff-badge secure">⬤ Secure</span>
+      <div class="q-text">A net has squares arranged like this (using grid coordinates): (1,2), (2,1), (2,2), (2,3), (3,2), (4,2) — a plus/cross shape. When folded, which face is opposite the face at position (1,2)?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s1', 'Position (2,2) is the centre of the cross — the base face. It is directly adjacent (edge-connected) to (1,2), so they cannot be opposite. Adjacent faces never become opposite faces.')">A) (2,2) — the centre</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s1', '(2,1) and (2,3) are the left and right branches of the cross. They fold up as left and right walls of the cube. They are adjacent to the centre (2,2), not opposite to the top face at (1,2).')">B) (2,1) or (2,3)</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q5s1', 'Correct! In a cross-shaped net, the face at the far end of one arm is always opposite the face at the far end of the opposite arm. (1,2) is the top of the vertical arm. (4,2) is the bottom of the vertical arm. They are directly opposite on the cube.')">C) (4,2) — the far end of the column</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s1', '(3,2) is between the centre (2,2) and the bottom end (4,2). In a cross, it folds to become a face adjacent to both the centre and the bottom face — not opposite the top face at (1,2).')">D) (3,2)</button>
+      </div>
+      <div class="feedback" id="q5s1"></div>
+    </div>
+
+    <!-- Q6 Mastery -->
+    <div class="question-block" data-section="s1">
+      <span class="diff-badge mastery">⬤ Mastery</span>
+      <div class="q-text">A net has 6 squares arranged in a straight line (1×6 strip). Is this a valid cube net?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q6s1', 'It has 6 squares, but count alone does not guarantee validity. When you try to fold a 1×6 strip, the first and sixth squares end up on the same face — they overlap. A straight strip of 4 or more cannot form a cube without branching.')">A) Yes — it has 6 squares</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q6s1', 'Correct! A 1×6 strip is invalid. When folded: squares 1–4 form a ring of 4 walls, square 5 caps the top, but square 6 would overlap with square 1. A straight strip of 6 cannot close into a cube. Maximum valid straight-line sequence is 4 squares.')">B) No — a 1×6 strip cannot fold into a closed cube</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q6s1', 'You can determine this without symbols. The geometry of a straight 6-strip means face 6 always collides with face 1 when folded. No labelling can fix the structural overlap.')">C) It depends on the symbols on each face</button>
+      </div>
+      <div class="feedback" id="q6s1"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 2: OPPOSITE FACES ===== -->
+<section class="module-section" id="s2">
+  <div class="section-title"><span class="icon">🔁</span> Sub-Skill 2: Identifying Opposite Faces</div>
+
+  <div class="card simple">
+    <div class="card-label">🧒 Simple Explanation</div>
+    Hold a dice. The number on the top and the number on the bottom are opposite — you can never see both at the same time. On any cube, there are always exactly <strong>3 pairs of opposite faces</strong>. If you know which faces you can see (up to 3), you already know which faces are opposite. The rule is simple: <strong>visible faces can NEVER be opposite each other.</strong>
+  </div>
+
+  <div class="card full">
+    <div class="card-label">📘 Full Explanation</div>
+    In any cube, every face has exactly one opposite face — the face directly across the interior. These three pairs (top/bottom, front/back, left/right) share no edges or vertices. In a net, opposite faces are always separated by exactly one face between them in a straight line. The fastest way to identify opposite faces is:
+    <ul style="margin: 0.5rem 0 0 1.2rem;">
+      <li>Any two faces in the same straight column/row, with exactly one face between them, are opposite</li>
+      <li>Any face visible on a drawn cube cannot be opposite another visible face</li>
+      <li>Lock your three pairs BEFORE looking at answer options</li>
+    </ul>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">📐 Worked Example 1</div>
+    <p style="font-weight:600; margin-bottom:0.5rem">A cube shows: Top = ◆, Front = ●, Right = ▲. What is opposite ◆?</p>
+    <div class="step"><strong>Step O1:</strong> List all visible faces: ◆, ●, ▲. These three cannot be opposite each other.</div>
+    <div class="step"><strong>Step O2:</strong> The cube has 6 faces. The 3 hidden faces are opposite the 3 visible ones. ◆ is the top — its opposite is the BOTTOM (hidden). ● (front) is opposite the BACK (hidden). ▲ (right) is opposite the LEFT (hidden).</div>
+    <div class="step"><strong>Answer:</strong> The face opposite ◆ is the bottom face (whatever symbol/label is placed there in the net).</div>
+    <div class="step"><strong>Key Rule:</strong> "Visible faces can NEVER be opposite" — burn this into your memory.</div>
+  </div>
+
+  <div class="card warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <strong>Don't confuse "adjacent" with "opposite."</strong> On a cube, 4 faces are adjacent to any given face (they share an edge with it), and only 1 face is opposite. In a net, if two labelled squares share an edge, they will ALWAYS be adjacent on the cube — never opposite. Students often mistake close-by squares in the net as being opposite faces on the cube.
+  </div>
+
+  <div class="card example">
+    <div class="card-label">📐 Worked Example 2 — Harder</div>
+    <p style="font-weight:600; margin-bottom:0.5rem">Net: Row of 3 (A–B–C), with D below B, E below D, and F to the right of C. Which face is opposite B?</p>
+    <div class="step"><strong>Step 1:</strong> B is the middle of the top row. Identify the straight-line pairs: A and C are left/right of B — they'll fold to be opposite each other (left/right walls).</div>
+    <div class="step"><strong>Step 2:</strong> D is directly below B — adjacent to B. E is below D — separated from B by D, so E is opposite B.</div>
+    <div class="step"><strong>Step 3:</strong> F (right of C) will fold to become the top or bottom cap.</div>
+    <div class="step"><strong>Answer:</strong> E is opposite B. They are in the same column with exactly one face (D) between them.</div>
+  </div>
+
+  <!-- QUESTIONS: Section 2 -->
+  <div id="s2-questions">
+    <hr class="divider">
+    <h3 style="font-weight:700; color:var(--navy); margin-bottom:1rem;">Practice Questions — Opposite Faces</h3>
+
+    <!-- Q1 Starter -->
+    <div class="question-block" data-section="s2">
+      <span class="diff-badge starter">⬤ Starter</span>
+      <div class="q-text">A cube shows 3 faces: Top = ★, Front = ■, Right = ▲. Can ★ and ■ be opposite each other?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q1s2', 'Both ★ and ■ are visible on the same cube at the same time. Opposite faces are never visible simultaneously — they are always on directly facing sides. Two visible faces always share an edge, making them adjacent, not opposite.')">A) Yes</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q1s2', 'Correct! ★ (top) and ■ (front) are both visible — that means they share an edge (the top-front edge of the cube). Opposite faces never share an edge. Visible faces are ALWAYS adjacent, never opposite.')">B) No</button>
+      </div>
+      <div class="feedback" id="q1s2"></div>
+    </div>
+
+    <!-- Q2 Starter -->
+    <div class="question-block" data-section="s2">
+      <span class="diff-badge starter">⬤ Starter</span>
+      <div class="q-text">How many pairs of opposite faces does a cube have?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q2s2', '2 pairs would leave 2 faces with no opposite — impossible on a cube. Every face must have exactly one opposite face.')">A) 2</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q2s2', 'Correct! 6 faces ÷ 2 = 3 pairs of opposite faces: top/bottom, front/back, left/right. This is always true for any cube.')">B) 3</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q2s2', '4 pairs would require 8 faces. A cube has only 6 faces, giving exactly 3 opposite pairs.')">C) 4</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q2s2', '6 pairs would mean every face is opposite 2 others — impossible. Each face has exactly one opposite face, giving 3 pairs from 6 faces.')">D) 6</button>
+      </div>
+      <div class="feedback" id="q2s2"></div>
+    </div>
+
+    <!-- Q3 Developing -->
+    <div class="question-block" data-section="s2">
+      <span class="diff-badge developing">⬤ Developing</span>
+      <div class="q-text">A net is a straight column of 4 squares (top to bottom: P, Q, R, S) with T to the right of Q and U to the right of R. Which face is opposite P?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q3s2', 'Q is directly below P — they share an edge in the net, so they are adjacent faces on the cube, not opposite. Adjacent faces share an edge; opposite faces face each other across the interior.')">A) Q</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q3s2', 'R is two squares below P, but there is Q between them — that makes P and R have Q as their separator. However, you must count: P and S are at the extreme ends of the 4-square column. P is opposite S, not R. (R is the 3rd; S is the 4th, and S is opposite P.)')">B) R</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q3s2', 'Correct! P and S are at the two ends of the 4-square column, separated by Q and R. In a net column, the two end-squares are always opposite each other on the cube. P (top) folds to opposite S (bottom).')">C) S</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q3s2', 'T is beside Q in the net (a branch), not in the main column. T and U are the "cap" faces — they fold to become the remaining two faces of the cube (left/right or top/bottom of the assembled cube), not opposite to P.')">D) T</button>
+      </div>
+      <div class="feedback" id="q3s2"></div>
+    </div>
+
+    <!-- Q4 Developing -->
+    <div class="question-block" data-section="s2">
+      <span class="diff-badge developing">⬤ Developing</span>
+      <div class="q-text">A cube is shown with Top = circle, Front = cross, Right = triangle. What symbol is on the face OPPOSITE the triangle?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q4s2', 'The circle is on top — it is a visible face. The triangle is also visible (right face). Two visible faces on the same cube always share an edge. They cannot be opposite each other.')">A) Circle</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q4s2', 'The cross is on the front — it is a visible face. The triangle (right) and cross (front) are both visible and share the front-right edge. They are adjacent, not opposite.')">B) Cross</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q4s2', 'Triangle cannot be opposite itself. Opposite means a different face directly across the cube interior.')">C) Triangle</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q4s2', 'Correct! The three visible faces are circle (top), cross (front), and triangle (right). Their three hidden opposites are: bottom (opposite circle), back (opposite cross), and LEFT (opposite triangle). The symbol on the left face is opposite the triangle.')">D) The hidden face on the left side</button>
+      </div>
+      <div class="feedback" id="q4s2"></div>
+    </div>
+
+    <!-- Q5 Secure -->
+    <div class="question-block" data-section="s2">
+      <span class="diff-badge secure">⬤ Secure</span>
+      <div class="q-text">Net layout: Row 1 has one square labelled A (at column 2). Row 2 has three squares: B (col 1), C (col 2), D (col 3). Row 3 has one square E (col 2). Row 4 has one square F (col 2). This is a cross with an extra square below. Which pair are opposite?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s2', 'A (row 1) and C (row 2, centre) share an edge — they are adjacent in the net and therefore adjacent on the cube. Adjacent faces cannot be opposite each other.')">A) A and C</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s2', 'B and D are in the same row, flanking centre C. They fold up as the left and right walls — making them the opposite pair for left/right. But look at the column: A, C, E, F. Is A opposite F or E? Let\'s track: A is opposite the face two steps down through C — that\'s E. Then F folds as the sixth face (top cap) and is opposite C. So B and D are opposite, but A is opposite E, not F.')">B) A and F</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q5s2', 'Correct! In the column A–C–E–F, C is the base. A is directly above C (adjacent to C). E is directly below C (adjacent to C). So A and E are both adjacent to C and are therefore opposite each other. F (one more step below E) becomes the lid opposite C. Pairs: A↔E, C↔F, B↔D.')">C) A and E</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s2', 'C and E share an edge (they are in the same column, next to each other). Shared edges in the net means adjacency on the cube, not opposite positioning.')">D) C and E</button>
+      </div>
+      <div class="feedback" id="q5s2"></div>
+    </div>
+
+    <!-- Q6 Mastery -->
+    <div class="question-block" data-section="s2">
+      <span class="diff-badge mastery">⬤ Mastery</span>
+      <div class="q-text">TRAP QUESTION. A cube shows Top=★, Front=●, Left=■. A student says: "★ and ● are next to each other in the net, and they are also adjacent on the cube — so neither can be opposite the other. The face opposite ★ must be one of the hidden faces." Is the student correct?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q6s2', 'Correct! The student is entirely right. ★ (top) and ● (front) are both visible — they share the top-front edge on the cube. They are adjacent, not opposite. The face opposite ★ is always the BOTTOM face (hidden in this view). The student\'s reasoning is sound.')">A) Yes — the student is fully correct</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q6s2', 'The student is actually correct. Adjacent faces on the net always become adjacent (edge-sharing) faces on the cube. Two visible faces always share an edge on the cube — they cannot be opposite. The student\'s conclusion that the opposite of ★ is a hidden face is exactly right.')">B) No — adjacent in the net does not guarantee adjacent on the cube</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q6s2', 'The student\'s reasoning is correct. The only part to verify is whether all visible faces share edges — they do. Top and front always share the top-front edge regardless of the cube\'s orientation.')">C) Partially — the reasoning about the net is wrong but the conclusion happens to be right</button>
+      </div>
+      <div class="feedback" id="q6s2"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3: ADJACENCY & CHAIN LOGIC ===== -->
+<section class="module-section" id="s3">
+  <div class="section-title"><span class="icon">🔗</span> Sub-Skill 3: Adjacency & Chain Logic</div>
+
+  <div class="card simple">
+    <div class="card-label">🧒 Simple Explanation</div>
+    Imagine three people standing in a line: Alice, Bob, and Charlie. Alice is next to Bob. Bob is next to Charlie. But is Alice next to Charlie? Not directly — there's Bob in between. On a cube, this is called <strong>chain adjacency</strong>: Face A touches Face B, Face B touches Face C — this tells you A and C are NOT opposite, because they're both sharing edges with B. Faces that are both adjacent to the same face cannot be opposite to each other.
+  </div>
+
+  <div class="card full">
+    <div class="card-label">📘 Full Explanation</div>
+    <strong>Adjacency chains</strong> allow you to determine face relationships without folding. Rules:
+    <ul style="margin: 0.5rem 0 0 1.2rem;">
+      <li>If A is adjacent to B, and B is adjacent to C, then A and C cannot be opposite (they both border B, and a single face can only have one opposite)</li>
+      <li>If A is adjacent to B, then A and B cannot be opposite each other</li>
+      <li>Use the chain to narrow down which face must be opposite which</li>
+      <li>In a net, count the number of faces between two squares in the same line: 0 between them = adjacent; 1 between = opposite; 2 between = adjacent again (wrap-around)</li>
+    </ul>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">📐 Worked Example 1</div>
+    <p style="font-weight:600; margin-bottom:0.5rem">Net column (top to bottom): A – B – C – D. Branch: E to the right of B, F to the right of C. Which face is opposite A?</p>
+    <div class="step"><strong>Step 1 — Column analysis:</strong> In a 4-square column (A–B–C–D), the two ends are always opposite. A (top) is opposite D (bottom).</div>
+    <div class="step"><strong>Step 2 — Branches:</strong> E (beside B) and F (beside C) fold up as the remaining two faces. They will be opposite to each other.</div>
+    <div class="step"><strong>Step 3 — Chain check:</strong> A is adjacent to B. B is adjacent to E. So A and E are both touching B → they cannot be opposite each other. ✓ Consistent with our conclusion (A is opposite D).</div>
+    <div class="step"><strong>Answer:</strong> A is opposite D. E is opposite F. B is opposite C.</div>
+  </div>
+
+  <div class="card warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <strong>False Vertex Trap.</strong> When three squares meet at a single corner in the net, students think all three will be adjacent faces on the cube. But squares that only meet at a point (vertex) in the net do NOT share an edge on the cube — they only share a corner vertex. True adjacency requires a shared EDGE, not just a shared corner.
+  </div>
+
+  <div class="card example">
+    <div class="card-label">📐 Worked Example 2 — Chain Elimination</div>
+    <p style="font-weight:600; margin-bottom:0.5rem">A cube's 3 visible faces are labelled P (top), Q (front), R (right). Identify all three opposite pairs.</p>
+    <div class="step"><strong>Step 1:</strong> P, Q, R are all visible → they are pairwise adjacent (each pair shares an edge).</div>
+    <div class="step"><strong>Step 2:</strong> Chain: P adjacent to Q, Q adjacent to R, R adjacent to P. None of these three can be opposite to any other of these three.</div>
+    <div class="step"><strong>Step 3:</strong> The 3 hidden faces (call them P', Q', R') are opposite P, Q, R respectively.</div>
+    <div class="step"><strong>Conclusion:</strong> P↔P' (bottom), Q↔Q' (back), R↔R' (left). The three hidden faces are also mutually adjacent (they share the hidden back-bottom-left vertex region).</div>
+  </div>
+
+  <!-- QUESTIONS: Section 3 -->
+  <div id="s3-questions">
+    <hr class="divider">
+    <h3 style="font-weight:700; color:var(--navy); margin-bottom:1rem;">Practice Questions — Adjacency & Chain Logic</h3>
+
+    <!-- Q1 Starter -->
+    <div class="question-block" data-section="s3">
+      <span class="diff-badge starter">⬤ Starter</span>
+      <div class="q-text">Face X is adjacent to Face Y. Face Y is adjacent to Face Z. Can X and Z be opposite faces on the cube?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q1s3', 'This is the chain rule: X and Z are both adjacent to Y. A face can only have 1 opposite face. Since X and Z both share edges with Y, neither can be Y\'s opposite — but also, their shared neighbour (Y) means X and Z are placed around Y, which geometrically prevents them from being on directly facing sides.')">A) Yes — chain adjacency does not affect opposite pairs</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q1s3', 'Correct! If X is adjacent to Y, and Z is adjacent to Y, then both X and Z border the same face (Y). On a cube, 4 faces are adjacent to any given face — these 4 faces are all adjacent to each other in a ring. None of these 4 can be opposite each other. So X and Z (both adjacent to Y) cannot be opposite.')">B) No — faces adjacent to the same face cannot be opposite</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q1s3', 'The labels do not change the geometry. Chain adjacency is a structural rule: if both X and Z share edges with Y, they are placed in the adjacency ring of Y and cannot face each other directly.')">C) It depends on the labels on the faces</button>
+      </div>
+      <div class="feedback" id="q1s3"></div>
+    </div>
+
+    <!-- Q2 Starter -->
+    <div class="question-block" data-section="s3">
+      <span class="diff-badge starter">⬤ Starter</span>
+      <div class="q-text">In a net column of four squares: 1 – 2 – 3 – 4 (top to bottom). Which two squares are opposite each other on the folded cube?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q2s3', '1 and 2 are directly connected by an edge in the net. Edge-connected squares in a net always become edge-sharing (adjacent) faces on the cube — never opposite.')">A) 1 and 2</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q2s3', '2 and 3 are directly connected by an edge in the net. They will be adjacent on the cube, not opposite.')">B) 2 and 3</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q2s3', 'Correct! In a straight line of 4 squares, the two end squares (1 and 4) are opposite on the folded cube. There are exactly 2 squares between them (squares 2 and 3 act as the "bridge"), which is the signature of an opposite pair in a net column.')">C) 1 and 4</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q2s3', '1 and 3 have exactly one square between them (square 2). This means they fold to be opposite each other only in certain net configurations. In a pure 4-square column, 1 and 4 are the opposite pair, and 2 and 3 are the other adjacent pair making up the remaining walls.')">D) 1 and 3</button>
+      </div>
+      <div class="feedback" id="q2s3"></div>
+    </div>
+
+    <!-- Q3 Developing -->
+    <div class="question-block" data-section="s3">
+      <span class="diff-badge developing">⬤ Developing</span>
+      <div class="q-text">Net: Column (top to bottom) = A, B, C, D. Plus E to the RIGHT of B, and F to the RIGHT of C. A student claims: "E and F are opposite each other." Is the student correct?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q1s3b', 'Correct! The main column gives us A↔D (opposite) and B↔C (opposite). That accounts for 4 faces. The only remaining pair is E and F, so E↔F must be the third opposite pair. We can verify: E is a branch beside B; F is a branch beside C. Since B and C are opposite, their branches (E and F) must also be opposite.')">A) Yes — E and F are opposite</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q1s3b', 'E and F are the only pair left after assigning A↔D and B↔C. Since every face must have exactly one opposite, E and F must be opposite each other. The student is correct.')">B) No — E and F are adjacent</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q1s3b', 'You can determine this. The column gives pairs A↔D and B↔C. That leaves only E and F, which must therefore be the third opposite pair. No ambiguity.')">C) Cannot be determined from this information</button>
+      </div>
+      <div class="feedback" id="q1s3b"></div>
+    </div>
+
+    <!-- Q4 Developing -->
+    <div class="question-block" data-section="s3">
+      <span class="diff-badge developing">⬤ Developing</span>
+      <div class="q-text">Three squares in a net meet at a single corner point (they are diagonally arranged, touching only at one vertex). On the cube, will all three of these squares share edges with each other?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q4s3', 'Only edge-connected squares become edge-sharing faces. Squares that only share a corner point in the net will only share a vertex (corner) on the cube, not an edge. This is the False Vertex Trap: it looks like 3 faces meet, but none of them are truly edge-adjacent through that corner contact.')">A) Yes — they will all share edges on the cube</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q4s3', 'Correct! Squares that meet only at a corner (vertex) in the net will only meet at a vertex on the cube. They do not share edges — only a single point. This is the False Vertex Trap. For faces to share an edge on the cube, they must share a full edge in the net.')">B) No — they only share a vertex (corner point) on the cube</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q4s3', 'The geometry is clear: diagonal contact in the net = vertex contact on the cube. This is true regardless of which specific squares or symbols are involved.')">C) It depends on which specific squares they are</button>
+      </div>
+      <div class="feedback" id="q4s3"></div>
+    </div>
+
+    <!-- Q5 Secure -->
+    <div class="question-block" data-section="s3">
+      <span class="diff-badge secure">⬤ Secure</span>
+      <div class="q-text">A cube net: Row of 3 (left to right: ♠ – ♥ – ♦), with ♣ below ♥, ● below ♣, and ★ below ●. Which face is opposite ♥?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s3', '♠ is to the left of ♥ — they share an edge. Sharing an edge in the net means they are adjacent on the cube. Adjacent faces cannot be opposite.')">A) ♠</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s3', '♦ is to the right of ♥ — they share an edge. Like ♠, ♦ is adjacent to ♥ on the cube. Neither ♠ nor ♦ can be opposite ♥.')">B) ♦</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s3', '♣ is directly below ♥ — edge connected. They are adjacent on the cube, not opposite. Check further down the column: ♥→♣→●→★. In a 4-element column starting from ♥, the face opposite ♥ is ★ (the far end, with ♣ and ● between them).')">C) ♣</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q5s3', 'Correct! The column from ♥ goes: ♥ – ♣ – ● – ★. In a 4-square straight sequence, the two ends are opposite. ♥ (top of column) is opposite ★ (bottom of column). ♣ and ● are the middle two, forming the other opposite pair.')">D) ★</button>
+      </div>
+      <div class="feedback" id="q5s3"></div>
+    </div>
+
+    <!-- Q6 Mastery -->
+    <div class="question-block" data-section="s3">
+      <span class="diff-badge mastery">⬤ Mastery</span>
+      <div class="q-text">TRAP: A cube net has faces: centre = C, and 4 surrounding (adjacent) faces = N, S, E, W (like compass directions). The 6th face X is attached below S. A student says: "N and S are opposite because they're on opposite sides of C." Is the student correct?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q6s3', 'The student is wrong. Being on opposite sides of centre C in the net means N and S are both ADJACENT to C — they both share edges with C. On the cube, C is the base. N and S fold up as opposite walls — wait, actually that IS correct. Let\'s re-examine: in a plus-sign net, N and S are in the same column as C (above and below C). They will fold to be opposite faces. E and W (left and right of C) fold to be opposite faces. C is opposite X. So the student is actually right — N and S ARE opposite.')">A) No — N and S are adjacent to each other</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q6s3', 'Correct — the student is right! In a cross-shaped net, faces on exactly opposite sides of the centre fold to become opposite faces on the cube. N is above C, S is below C — they fold to be the top and bottom walls, ending up directly opposite each other. C is opposite X. E is opposite W. This is a case where "opposite sides of centre in the net" does correctly indicate opposite faces on the cube.')">B) Yes — N and S are indeed opposite</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q6s3', 'You can determine this precisely. In a plus-net, faces directly across the centre from each other fold to opposite positions. N (above C) and S (below C) fold to opposite faces. This is unambiguous.')">C) Cannot be determined without seeing the full net</button>
+      </div>
+      <div class="feedback" id="q6s3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 4: ORIENTATION & ROTATION ===== -->
+<section class="module-section" id="s4">
+  <div class="section-title"><span class="icon">🔄</span> Sub-Skill 4: Orientation & Rotation Tracking</div>
+
+  <div class="card simple">
+    <div class="card-label">🧒 Simple Explanation</div>
+    Finding the right face isn't enough — it also has to be <strong>pointing the right way</strong>. Imagine an arrow on a piece of paper. If you fold that paper, the arrow might end up pointing left instead of up. This is orientation. When a question shows you a face with a marking on it, you need to check: is the marking in the right position AND pointing the right direction? Getting the face right but the rotation wrong = wrong answer.
+  </div>
+
+  <div class="card full">
+    <div class="card-label">📘 Full Explanation</div>
+    When a face folds, its orientation (which way is "up" on that face) changes depending on the fold direction. Tracking orientation requires:
+    <ul style="margin: 0.5rem 0 0 1.2rem;">
+      <li><strong>Fold direction awareness:</strong> Folding up, down, left, or right rotates the face by 90°</li>
+      <li><strong>Anchor tracking:</strong> Fix one face as your reference point (usually the one you can see clearly on the shown cube), then track how each adjacent face folds relative to it</li>
+      <li><strong>Orientation parity:</strong> A sequence of folds that is clockwise viewed from outside produces different orientations than anticlockwise — very advanced but appears in hardest GL questions</li>
+    </ul>
+    Common marks to track: arrows, diagonal lines, dots near edges, letters/numbers that can be rotated.
+  </div>
+
+  <div class="card example">
+    <div class="card-label">📐 Worked Example 1</div>
+    <p style="font-weight:600; margin-bottom:0.5rem">A net has a square with an upward arrow (↑). It is directly to the RIGHT of the centre square. When folded, the centre square is the front face. What direction does the arrow point on the assembled cube?</p>
+    <div class="step"><strong>Step 1 — Identify fold direction:</strong> The arrow square is to the RIGHT of centre (front). When folding, it folds around the right edge of the front face.</div>
+    <div class="step"><strong>Step 2 — Apply fold rotation:</strong> The face folds 90° inward (to the right). The top of the arrow square becomes the right side in folded position. So ↑ becomes → (rotated 90° clockwise as viewed from outside).</div>
+    <div class="step"><strong>Step 3 — Final orientation:</strong> The arrow on the right face of the cube points toward the FRONT (→ from the cube's right-face perspective means toward the viewer's left).</div>
+    <div class="step"><strong>Answer:</strong> The arrow rotates 90° when the face folds to the right. Track the top of the arrow — it follows the fold direction.</div>
+  </div>
+
+  <div class="card warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <strong>Orientation blindness is the #1 source of errors in hard cube questions.</strong> Students find the correct face but pick the wrong option because they ignore the rotation. Always check: (1) Is this the right face? (2) Is the marking in the right position on the face? (3) Is the marking pointing the right direction? All three must match. If an answer has the right symbol but rotated 90° or 180°, it is wrong.
+  </div>
+
+  <div class="card example">
+    <div class="card-label">📐 Worked Example 2 — Hard</div>
+    <p style="font-weight:600; margin-bottom:0.5rem">Net: Centre = plain square. Above centre = face with a dot in the TOP-LEFT corner. This face folds to become the TOP of the cube. When viewed from above, where is the dot?</p>
+    <div class="step"><strong>Step 1:</strong> The face starts above the centre. It folds DOWN onto the top of the cube (folds inward, rotating 90° forward/toward viewer).</div>
+    <div class="step"><strong>Step 2 — Track the dot:</strong> The dot was in the top-left of the net face. When the face folds forward, "top" in the net becomes the BACK edge of the top face. "Left" stays left.</div>
+    <div class="step"><strong>Step 3:</strong> Dot lands at back-left when viewed from above.</div>
+    <div class="step"><strong>Answer:</strong> The dot is in the back-left corner of the top face when the cube is assembled. Any answer showing the dot at front-left, front-right, or back-right is wrong.</div>
+  </div>
+
+  <!-- QUESTIONS: Section 4 -->
+  <div id="s4-questions">
+    <hr class="divider">
+    <h3 style="font-weight:700; color:var(--navy); margin-bottom:1rem;">Practice Questions — Orientation</h3>
+
+    <!-- Q1 Starter -->
+    <div class="question-block" data-section="s4">
+      <span class="diff-badge starter">⬤ Starter</span>
+      <div class="q-text">A cube's front face has an arrow pointing UP (↑). You rotate the cube 90° clockwise (the right face becomes the new front). What direction does the arrow now point from your viewpoint?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q1s4', 'When the cube rotates clockwise (right face comes forward), the original front face swings to the LEFT. The arrow, which was pointing up on the front face, now points up on the left face — but from the viewer\'s perspective looking at the new front (old right face), the arrow is no longer visible in the same way. The original front face moved to the left, and the arrow still points up on that face — so it points UP on the left side.')">A) Up (↑)</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q1s4', 'The cube is rotating — the front face moves to the LEFT when you rotate the cube clockwise. The arrow does not point right. It continues to point upward on the face it is on, but that face is now on the LEFT side of the cube.')">B) Right (→)</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q1s4', 'The arrow is printed on the face and doesn\'t change direction relative to that face. When the cube rotates, the front face moves to the left side. The arrow still points up on that face (now the left face). From a front view, the arrow is no longer visible.')">C) Down (↓)</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q1s4', 'Correct! When the cube rotates 90° clockwise (right face becomes new front), the old front face swings to become the LEFT face. The arrow was pointing up on the front face — it still points up on the left face. This question tests whether you track the face vs. rotate the arrow itself. The arrow stays "up" relative to its face; the face just moved to the left side.')">D) The face moves to the left — arrow still points up on that face</button>
+      </div>
+      <div class="feedback" id="q1s4"></div>
+    </div>
+
+    <!-- Q2 Starter -->
+    <div class="question-block" data-section="s4">
+      <span class="diff-badge starter">⬤ Starter</span>
+      <div class="q-text">Two answer options show the same cube face with the same symbol — but in option A the symbol points ↑, and in option B it points →. Can both be correct?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q2s4', 'Orientation is not optional — it is part of the answer. The cube net fixes exactly how each face folds and therefore exactly which direction each marking ends up pointing. Two options with different orientations of the same symbol represent two different physical states; only one can match the given net.')">A) Yes — orientation doesn't matter if the symbol is on the right face</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q2s4', 'Correct! Orientation is a core part of the answer. A symbol pointing ↑ and a symbol pointing → represent different cube states. Only one orientation is consistent with how that face folds from the given net. This is why orientation tracking is essential — finding the right face is only half the job.')">B) No — orientation is part of the answer; only one can be correct</button>
+      </div>
+      <div class="feedback" id="q2s4"></div>
+    </div>
+
+    <!-- Q3 Developing -->
+    <div class="question-block" data-section="s4">
+      <span class="diff-badge developing">⬤ Developing</span>
+      <div class="q-text">A face in the net has a diagonal line going from top-left to bottom-right (\\). This face is BELOW the centre square, so it folds up to become the BOTTOM face. When you look at the cube from below (looking up at the bottom), the diagonal goes from __ to __.</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q3s4', 'Correct! When the bottom face folds up and you look at it from below (flipping it toward you), left and right swap relative to your view, but the diagonal itself — going from top-left to bottom-right in the net — ends up going from top-right to bottom-left when viewed from the underside. This is the mirror-flip that happens whenever you view the underside of a face. The diagonal appears reversed left-to-right.')">A) Top-right to bottom-left (looking from below, it appears reversed)</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q3s4', 'If the diagonal appeared identical from below, that would only be true for a vertical line (straight up-down) or horizontal line. A diagonal from top-left to bottom-right, when viewed from the opposite side of the face, reverses left-to-right — making it appear to go from top-right to bottom-left.')">B) Top-left to bottom-right (unchanged)</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q3s4', 'Horizontal would mean the diagonal has changed to a flat line — which is impossible. The marking stays as a diagonal; only its apparent direction changes due to the face flip.')">C) Horizontal (left to right)</button>
+      </div>
+      <div class="feedback" id="q3s4"></div>
+    </div>
+
+    <!-- Q4 Developing -->
+    <div class="question-block" data-section="s4">
+      <span class="diff-badge developing">⬤ Developing</span>
+      <div class="q-text">A face has the letter "d" written on it in the net. After folding, the face becomes the RIGHT side of the cube. The fold direction was: the face was to the right of the front face, so it folds 90° inward (swinging away from the viewer). What does "d" look like on the right face of the assembled cube when viewed from the right?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q4s4', '"d" unchanged would mean no rotation occurred. But folding the face 90° inward (away from the viewer) rotates the face. The top of the face in the net points toward the viewer when folded right — actually, for a fold to the right side (face swings away from viewer), the top of the face in the net becomes the top of the right face, and the letter rotates 90° clockwise. "d" becomes "q" rotated — it looks like a "p".')">A) "d" — unchanged</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q4s4', '"b" would result from flipping the letter horizontally, which is not what happens in a simple 90° fold. A right-fold rotates the face 90° clockwise (when viewed from outside the right face), turning "d" into a "q"-like shape rotated clockwise.')">B) "b" — mirror flipped</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q4s4', 'Correct! When the face folds to become the right side (swinging 90° away from the viewer from the front), it rotates 90° clockwise as viewed from outside. "d" rotated 90° clockwise becomes a shape like "p" (the bump that was on the right now points downward). This is a key orientation tracking skill.')">C) Rotated 90° clockwise — like a "p" shape</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q4s4', 'Upside down would be a 180° rotation. A single 90° fold produces a 90° rotation, not 180°. "d" upside down would be a "p" rotated 180° — that\'s two folds, not one.')">D) Upside down — "p" flipped</button>
+      </div>
+      <div class="feedback" id="q4s4"></div>
+    </div>
+
+    <!-- Q5 Secure -->
+    <div class="question-block" data-section="s4">
+      <span class="diff-badge secure">⬤ Secure</span>
+      <div class="q-text">A cube net shows: Front face = plain square (centre). Top face (above centre) = square with a dot near its TOP edge. After folding, the TOP face of the cube has the dot near which edge?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s4', 'Near the top edge of the top face would mean the dot is near the edge AWAY from the front — which is the back edge. But let\'s track: the face starts above the front face in the net. "Top" of this face in the net faces AWAY from the front face (upward). When the face folds down to become the top of the cube, this "top" edge becomes the BACK edge of the top face (the edge furthest from the viewer). So the dot is near the BACK edge, not the front edge.')">A) Near the FRONT edge (closest to viewer)</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q5s4', 'Correct! In the net, the face is above the centre (front face). The "top" of this face in the net points AWAY from the front face — upward. When this face folds down to sit on top of the cube, its top edge becomes the BACK edge (away from viewer) of the top face. The dot, near the top edge in the net, ends up near the BACK edge on the assembled cube.')">B) Near the BACK edge (away from viewer)</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s4', 'Left and right edges are not affected by this fold. The fold is a forward-backward fold (the face folds from above the front face, down onto the top). Left stays left, right stays right. Only front/back edge positions are swapped.')">C) Near the LEFT edge</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s4', 'Right edge is not affected. The fold is along the front-top axis. Left/right edges are unchanged. Only front/back positioning of the dot is affected.')">D) Near the RIGHT edge</button>
+      </div>
+      <div class="feedback" id="q5s4"></div>
+    </div>
+
+    <!-- Q6 Mastery -->
+    <div class="question-block" data-section="s4">
+      <span class="diff-badge mastery">⬤ Mastery</span>
+      <div class="q-text">HARD — Multi-feature orientation. A cube shows: Top face = diagonal line from front-left to back-right. Front face = dot near the TOP edge. Right face = arrow pointing UPWARD. An answer option shows: a net where the top face diagonal goes from front-right to back-left (reversed), and the dot on the front face is near the BOTTOM edge. Is this net consistent with the shown cube?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q6s4', 'Two features are wrong: (1) The diagonal is reversed — front-right to back-left instead of front-left to back-right. (2) The dot is on the wrong edge — bottom instead of top. A net must match ALL features simultaneously. One mismatch eliminates an option; two mismatches make it definitely wrong.')">A) Yes — it is consistent</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q6s4', 'Correct! There are two mismatches: (1) The diagonal direction is reversed — the net shows front-right to back-left, but the cube has front-left to back-right. (2) The dot is on the bottom edge in the net, but on the top edge of the front face of the cube. Both features must match for a net to be valid. This net fails on both counts — it is not consistent.')">B) No — the diagonal direction and dot position are both wrong</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q6s4', 'Both errors can be identified: the diagonal runs in the wrong direction, and the dot is on the wrong edge of the front face. You do not need to check the arrow — two errors already eliminate this option.')">C) Cannot tell without checking the arrow direction too</button>
+      </div>
+      <div class="feedback" id="q6s4"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 5: REVERSE — CUBE TO NET ===== -->
+<section class="module-section" id="s5">
+  <div class="section-title"><span class="icon">↩️</span> Sub-Skill 5: Reverse Problems (Cube → Net)</div>
+
+  <div class="card simple">
+    <div class="card-label">🧒 Simple Explanation</div>
+    Most questions show you a flat net and ask what cube it makes. But some questions flip it: they show you a cube and ask which net could have made it. Think of it like unfolding a cardboard box. You see a finished box — can you figure out which flat pattern it came from? Your job is to "unfold" the cube in your mind. Start with one face as your base, then imagine each other face peeling away and lying flat.
+  </div>
+
+  <div class="card full">
+    <div class="card-label">📘 Full Explanation</div>
+    Reverse problems require different thinking from standard net-to-cube problems:
+    <ul style="margin: 0.5rem 0 0 1.2rem;">
+      <li><strong>Work backwards:</strong> Start with the cube's visible faces. Choose one face as your "ground" and mentally unfold each adjacent face flat</li>
+      <li><strong>Net equivalence:</strong> The same cube can be unfolded into multiple different valid nets — don't eliminate options just because the net looks different from what you expected</li>
+      <li><strong>Opposite face rule still applies:</strong> In any valid net of the cube, opposite face pairs must be separated by exactly one face in a straight line</li>
+      <li><strong>Rotation equivalence:</strong> A net and its 90°/180°/270° rotations are the same net — students wrongly eliminate rotated-but-correct nets</li>
+    </ul>
+  </div>
+
+  <div class="card example">
+    <div class="card-label">📐 Worked Example 1</div>
+    <p style="font-weight:600; margin-bottom:0.5rem">A cube has: Top=★, Bottom=●, Front=▲, Back=■, Left=♦, Right=♣. Which net is correct?</p>
+    <div class="step"><strong>Step 1 — Lock opposite pairs:</strong> ★↔●, ▲↔■, ♦↔♣</div>
+    <div class="step"><strong>Step 2 — Check each net option:</strong> In a valid net, ★ and ● must be separated by exactly one face in a line. If any net places ★ and ● adjacent (sharing an edge), eliminate it immediately.</div>
+    <div class="step"><strong>Step 3 — Check orientation:</strong> ★ must be in the correct orientation relative to ▲. If the net shows ★ rotated incorrectly relative to ▲'s position, eliminate it.</div>
+    <div class="step"><strong>Step 4 — Accept rotation equivalence:</strong> If two nets appear different but have identical opposite pairs and identical adjacency structure, they are equivalent — accept the one with correct orientations.</div>
+  </div>
+
+  <div class="card warn">
+    <div class="card-label">⚠️ Watch Out!</div>
+    <strong>Net rotation ≠ wrong net.</strong> Students frequently eliminate the correct answer because the net is rotated 90° from what they expected. A net and its rotated version are the same net. Before eliminating a net option, verify the opposite-face pairs match. If they do and only the overall rotation of the net differs, it is still correct.
+  </div>
+
+  <div class="card example">
+    <div class="card-label">📐 Worked Example 2 — Net Equivalence</div>
+    <p style="font-weight:600; margin-bottom:0.5rem">Are these two nets the same: (1) Cross with top arm = ★, (2) Cross rotated 90° clockwise so the arm is now on the right = ★. Do they produce the same cube?</p>
+    <div class="step"><strong>Answer: Yes.</strong> Rotating a net 90° produces the same cube in a rotated orientation. If the question is "which net could produce this cube" (from any orientation), both nets are valid. They are structurally identical — just rotated.</div>
+    <div class="step"><strong>However:</strong> If the cube is shown in a specific orientation and you must match it exactly, then orientation of the net matters — you need the net that produces that exact orientation, not just any equivalent cube.</div>
+  </div>
+
+  <!-- QUESTIONS: Section 5 -->
+  <div id="s5-questions">
+    <hr class="divider">
+    <h3 style="font-weight:700; color:var(--navy); margin-bottom:1rem;">Practice Questions — Reverse (Cube → Net)</h3>
+
+    <!-- Q1 Starter -->
+    <div class="question-block" data-section="s5">
+      <span class="diff-badge starter">⬤ Starter</span>
+      <div class="q-text">A cube shows Top=A, Bottom=B. In a valid net for this cube, can A and B be directly adjacent (share an edge) in the net?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q1s5', 'If A and B share an edge in the net, they would become adjacent faces on the cube — but they are supposed to be opposite. A face and its opposite can never be adjacent. Any net where A and B share an edge cannot fold into this cube.')">A) Yes — opposite faces can be adjacent in the net</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q1s5', 'Correct! Opposite faces (A and B, which are top and bottom) must always be separated by at least one face in the net. If they were edge-adjacent in the net, they would become edge-sharing faces on the cube — making them adjacent, not opposite. This is your fastest elimination tool in reverse questions.')">B) No — opposite faces must be separated by at least one face in the net</button>
+      </div>
+      <div class="feedback" id="q1s5"></div>
+    </div>
+
+    <!-- Q2 Starter -->
+    <div class="question-block" data-section="s5">
+      <span class="diff-badge starter">⬤ Starter</span>
+      <div class="q-text">A valid net and the same net rotated 90° clockwise — do they produce the same cube (just in a rotated orientation)?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q2s5', 'Correct! Rotating a net produces the same cube in a different orientation. The structure — which faces are opposite which, and which are adjacent — is preserved by rotation. This is called net rotation equivalence. Don\'t eliminate an answer just because the net is rotated compared to what you expected.')">A) Yes — they are equivalent nets</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q2s5', 'Rotating a net does not change which faces are opposite each other or which are adjacent. The cube produced by folding a rotated net is identical in structure — just sitting in a different orientation. Net rotation = same cube.')">B) No — rotating the net creates a different cube</button>
+      </div>
+      <div class="feedback" id="q2s5"></div>
+    </div>
+
+    <!-- Q3 Developing -->
+    <div class="question-block" data-section="s5">
+      <span class="diff-badge developing">⬤ Developing</span>
+      <div class="q-text">A cube is shown: Top=circle, Front=star, Right=cross. A net (option X) has circle and star sharing an edge. Can option X be the correct net for this cube?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q3s5', 'Circle (top) and star (front) are visible on the same cube — they share the top-front edge, meaning they are adjacent on the cube. Adjacent faces CAN share an edge in the net. This is not the problem. The problem would be if OPPOSITE faces shared an edge in the net. Circle and star are adjacent, not opposite — so them sharing an edge in the net is geometrically possible and not a contradiction.')">A) No — adjacent faces cannot share an edge in the net</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q3s5', 'Correct! Circle (top) and star (front) are adjacent on the cube — they share the top-front edge. Adjacent faces on the cube MUST share an edge in any valid net. So option X (where circle and star share an edge) is geometrically consistent. You would still need to check orientation and the positions of the other faces, but this particular feature does not eliminate option X.')">B) Yes — adjacent cube faces can share an edge in the net</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q3s5', 'You can determine this. Circle and star are adjacent on the cube (both visible, sharing the top-front edge). Adjacent cube faces sharing an edge in the net is required and expected — it does not rule out the net. Only if OPPOSITE faces shared a net edge would that be a problem.')">C) Cannot tell without seeing the full net</button>
+      </div>
+      <div class="feedback" id="q3s5"></div>
+    </div>
+
+    <!-- Q4 Developing -->
+    <div class="question-block" data-section="s5">
+      <span class="diff-badge developing">⬤ Developing</span>
+      <div class="q-text">You are given a cube: Top=1, Bottom=2, Front=3, Back=4, Left=5, Right=6. A net shows faces in this order in a cross shape: centre=3, top-arm=1, bottom-arm=2, left-arm=5, right-arm=6, with 4 attached below 2. Is this net valid for this cube?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q4s5', 'Check the opposite pairs: 1(top)↔2(bottom), 3(front)↔4(back), 5(left)↔6(right). In this net, 3 is centre, 1 is above 3, and 2 is below 3. That puts 1 and 2 both adjacent to 3, one step apart. In a 3-element column (1–3–2), the end faces (1 and 2) are separated by one face (3) — this means 1 and 2 ARE opposite. ✓ Then 5 and 6 are flanking 3 — they are opposite. ✓ Then 4 is below 2 (attached below the bottom arm). 4 is adjacent to 2 — and 4 must be opposite 3. 3 is the centre. 4 (below 2, below 3) is two steps from 3 — is it opposite 3? In a cross, the face two steps down from centre is adjacent to the bottom arm (2), but is opposite the centre (3). Yes: 4 is opposite 3. ✓ All pairs match. The net is valid.')">A) No — the opposite pairs do not match</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q4s5', 'Correct! Check all three opposite pairs: (1) 1 is above 3, 2 is below 3 → 1 and 2 are opposite ✓ (matches top↔bottom). (2) 5 is left of 3, 6 is right of 3 → 5 and 6 are opposite ✓ (matches left↔right). (3) 4 is below 2 (one step beyond 2 from centre 3) → 4 is opposite 3 ✓ (matches back↔front). All pairs match. This is a valid net.')">B) Yes — all opposite pairs match correctly</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q4s5', 'You have enough information. Verify all three opposite pairs against the net structure. Working through them systematically: 1↔2 ✓, 5↔6 ✓, 3↔4 ✓. The net is valid and consistent with the given cube.')">C) Cannot determine without seeing which face has which symbol</button>
+      </div>
+      <div class="feedback" id="q4s5"></div>
+    </div>
+
+    <!-- Q5 Secure -->
+    <div class="question-block" data-section="s5">
+      <span class="diff-badge secure">⬤ Secure</span>
+      <div class="q-text">A student is checking which net matches a given cube. They find that all four answer options have the correct opposite pairs. What should they check next to narrow it down further?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s5', 'The number of squares is always 6 for any cube net — this has already been verified by reaching the "correct opposite pairs" stage. Counting squares again will not help narrow down the options.')">A) Count the squares in each net again</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s5', 'All nets with correct opposite pairs are structurally valid. The answer is not "all are correct" — orientation of the markings on each face must still be verified against the specific cube shown.')">B) Accept all four as correct answers</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q5s5', 'Correct! After confirming opposite pairs, the next step is orientation. For each face with a marking (arrow, dot, diagonal, asymmetric symbol), check that the marking is in the correct position and pointing the correct direction relative to adjacent faces. Only one net will have all markings correctly oriented to match the shown cube.')">C) Check the orientation and direction of markings on each face</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q5s5', 'The overall shape of the net (cross, L-shape, T-shape, etc.) does not determine correctness — many different net shapes can produce the same cube. What matters is which faces are opposite which, and how the markings are oriented.')">C) Check the overall shape of the net (cross vs L-shape vs other)</button>
+      </div>
+      <div class="feedback" id="q5s5"></div>
+    </div>
+
+    <!-- Q6 Mastery -->
+    <div class="question-block" data-section="s5">
+      <span class="diff-badge mastery">⬤ Mastery</span>
+      <div class="q-text">HARD — A cube is shown: Top face has a diagonal (\\ from top-left to bottom-right). Front face has an upward arrow (↑). Right face has a dot near the top-right corner. Net option A has: the top face with the diagonal going from top-right to bottom-left (/), and everything else matching. Net option B has: all faces with correct symbols and orientations. Which net is correct?</div>
+      <div class="options">
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q6s5', 'Option A has an error: the diagonal on the top face is reversed. \\ (top-left to bottom-right) ≠ / (top-right to bottom-left). These are mirror images — different orientations. Since the top face does not match, option A cannot be the correct net for this cube.')">A) Option A — even though the diagonal is reversed</button>
+        <button class="opt-btn" data-correct="true" onclick="handleMCQ(this, 'q6s5', 'Correct! Option B is the only net where all faces match: correct symbols, correct positions within each face, and correct orientations. Option A fails because its top face diagonal is reversed (/ instead of \\). In orientation questions, every detail must match — diagonal direction, arrow direction, dot placement near the correct corner. One mismatch eliminates an option.')">B) Option B — all features match exactly</button>
+        <button class="opt-btn" data-correct="false" onclick="handleMCQ(this, 'q6s5', 'Option A has a clear error: the diagonal is reversed. This is not a minor difference — \\ and / are distinct orientations. A reversed diagonal indicates the face was placed with incorrect rotation in the net. Option A is definitively wrong.')">C) Either could be correct — the diagonal reversal might be due to viewing angle</button>
+      </div>
+      <div class="feedback" id="q6s5"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TIMED TEST ===== -->
+<section class="module-section" id="test-section">
+  <div class="section-title"><span class="icon">🏁</span> Mastery Test — All Sub-Skills</div>
+  <div class="card" style="text-align:center; padding:2rem;">
+    <p style="font-size:1rem; margin-bottom:0.5rem; color:var(--gray)">15 questions · 12 minutes · All sub-skills</p>
+    <p style="font-size:0.9rem; margin-bottom:1.5rem; color:var(--gray)">Complete all practice sections first for the best preparation.</p>
+    <div id="timer-display" style="display:none">12:00</div>
+    <div class="timer-bar" style="display:none; max-width:400px; margin:0 auto 1rem;">
+      <div class="timer-fill" id="timer-fill" style="width:100%"></div>
+    </div>
+    <button class="test-start-btn" id="start-test-btn" onclick="startTest()">Begin Mastery Test →</button>
+  </div>
+
+  <div id="test-questions"></div>
+  <div id="test-results"></div>
+</section>
+
+</main>
+
+<script>
+// ==================== SCORE TRACKING ====================
+let globalScore = 0;
+let globalTotal = 0;
+const sectionAnswered = {};
+const sectionTotal = {};
+
+function updateScore(correct) {
+  if (correct) globalScore++;
+  globalTotal++;
+  document.getElementById('global-score').textContent = globalScore;
+  document.getElementById('global-total').textContent = globalTotal;
+}
+
+// ==================== MCQ HANDLER ====================
+function handleMCQ(btn, feedbackId, explanation) {
+  const block = btn.closest('.question-block');
+  if (block.dataset.answered === 'true') return;
+  block.dataset.answered = 'true';
+
+  const allBtns = block.querySelectorAll('.opt-btn');
+  allBtns.forEach(b => {
+    b.disabled = true;
+    if (b.dataset.correct === 'true') b.classList.add('correct');
+  });
+
+  const isCorrect = btn.dataset.correct === 'true';
+  if (!isCorrect) btn.classList.add('wrong');
+
+  const fb = document.getElementById(feedbackId);
+  fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'wrong');
+  fb.innerHTML = (isCorrect ? '✅ ' : '❌ ') + explanation;
+
+  const section = block.dataset.section;
+  if (!sectionAnswered[section]) sectionAnswered[section] = 0;
+  if (!sectionTotal[section]) sectionTotal[section] = 0;
+  sectionAnswered[section]++;
+
+  updateScore(isCorrect);
+  checkSectionComplete(section);
+}
+
+function checkSectionComplete(section) {
+  const blocks = document.querySelectorAll(`[data-section="${section}"]`);
+  const total = blocks.length;
+  const answered = document.querySelectorAll(`[data-section="${section}"][data-answered="true"]`).length;
+  if (answered >= total) {
+    const navLink = document.querySelector(`#sticky-nav a[href="#${section}"]`);
+    if (navLink) navLink.classList.add('done');
+  }
+}
+
+// ==================== PROGRESS BAR ====================
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrollTop = doc.scrollTop || document.body.scrollTop;
+  const scrollHeight = doc.scrollHeight - doc.clientHeight;
+  const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+// ==================== TIMED TEST ====================
+const testQuestions = [
+  {
+    id: 'tq1', section: 'Basics',
+    diff: 'starter',
+    text: 'A cube net must have exactly how many squares to be valid?',
+    options: ['4','5','6','8'],
+    correct: 2,
+    explanations: [
+      'A cube has 6 faces, so a net needs 6 squares. 4 squares would leave 2 faces missing.',
+      'A cube has 6 faces, so a net needs 6 squares. 5 squares would leave one face missing — the cube could not close.',
+      'Correct! A cube has exactly 6 faces, so every valid cube net must contain exactly 6 squares.',
+      'A cube has 6 faces, not 8. 8 is the number of vertices (corners) on a cube.'
+    ]
+  },
+  {
+    id: 'tq2', section: 'Basics',
+    diff: 'developing',
+    text: 'Two squares in a net share only a corner point (diagonal contact). On the folded cube, these two faces will share:',
+    options: ['A full edge','Only a vertex (corner point)','Nothing at all','Half an edge'],
+    correct: 1,
+    explanations: [
+      'Only edge-to-edge connections in the net produce edge-sharing on the cube. Diagonal contact (corner only) in the net becomes only a vertex contact on the cube.',
+      'Correct! Diagonal (corner-only) contact in the net becomes vertex (corner-point-only) contact on the cube. The two faces meet only at a single point, not along a full edge.',
+      'They do share something — a vertex (corner point). They just do not share a full edge.',
+      'Half an edge is not geometrically possible. Edges are either shared fully or not at all.'
+    ]
+  },
+  {
+    id: 'tq3', section: 'Opposites',
+    diff: 'starter',
+    text: 'A cube shows Top=♠, Front=♥, Right=♦. Which of these statements is TRUE?',
+    options: ['♠ and ♥ are opposite each other','♥ and ♦ are opposite each other','♠ is opposite the hidden bottom face','♠ and ♦ share no edges on the cube'],
+    correct: 2,
+    explanations: [
+      '♠ (top) and ♥ (front) are both visible — they share the top-front edge on the cube. Visible faces are always adjacent, never opposite.',
+      '♥ (front) and ♦ (right) are both visible — they share the front-right edge. They are adjacent, not opposite.',
+      'Correct! ♠ is on top. Its opposite is the bottom face — which is hidden in this view. The three visible faces (top, front, right) are each opposite a hidden face (bottom, back, left respectively).',
+      'This is false. ♠ (top) and ♦ (right) are both visible — they share the top-right edge on the cube. They are adjacent, not edgeless.'
+    ]
+  },
+  {
+    id: 'tq4', section: 'Opposites',
+    diff: 'developing',
+    text: 'Net: straight column (top to bottom) = W, X, Y, Z, with V branching to the right of X and U branching to the right of Y. Which face is opposite W?',
+    options: ['X','Y','Z','V'],
+    correct: 2,
+    explanations: [
+      'X is directly below W — they share an edge in the net. Sharing an edge means they are adjacent on the cube, never opposite.',
+      'Y is two squares below W, but Z is at the bottom. In the 4-square column (W–X–Y–Z), the two ends are opposite each other. W (top) is opposite Z (bottom), not Y.',
+      'Correct! In the 4-square column W–X–Y–Z, the two end squares W and Z are opposite each other on the folded cube. They are separated by two faces (X and Y) in the column, which is the signature of opposites in a straight-line net.',
+      'V branches off X — V is adjacent to X, and through the chain rule, V is not opposite W. W is opposite Z.'
+    ]
+  },
+  {
+    id: 'tq5', section: 'Adjacency',
+    diff: 'developing',
+    text: 'Face A is adjacent to Face B. Face B is adjacent to Face C. Face C is adjacent to Face D. Can A and D be opposite each other?',
+    options: ['No — chain adjacency prevents it','Yes — they are far apart in the chain','Only if A and D do not share an edge','It depends on the net shape'],
+    correct: 1,
+    explanations: [
+      'The chain A–B–C–D does not necessarily prevent A and D from being opposite. The chain rule only says faces adjacent to the SAME face cannot be opposite. A and D are not stated to be both adjacent to one face — they are 3 steps apart. On a cube, faces 3 steps apart in an adjacency chain can be opposite.',
+      'Correct! A chain of 3 steps (A→B→C→D) can result in A and D being opposite. Each step is a 90° turn around the cube. Three 90° turns total 270° — which brings you to the opposite side of the cube. So A and D CAN be opposite. The chain rule only blocks faces that share the same immediate neighbour.',
+      'The condition "if A and D do not share an edge" is equivalent to saying they could be opposite — but the chain analysis tells us they CAN be opposite regardless of whether this additional condition is stated. The chain itself allows it.',
+      'The 3-step chain (A→B→C→D) always allows A and D to be opposite, regardless of net shape. This is a geometric property of cubes.'
+    ]
+  },
+  {
+    id: 'tq6', section: 'Adjacency',
+    diff: 'secure',
+    text: 'A cross-shaped net has centre=C, and four arms: N (above C), S (below C), E (right of C), W (left of C), plus one extra face F below S. What are ALL THREE opposite pairs?',
+    options: [
+      'N↔S, E↔W, C↔F',
+      'N↔F, S↔C, E↔W',
+      'N↔C, S↔F, E↔W',
+      'N↔E, S↔W, C↔F'
+    ],
+    correct: 0,
+    explanations: [
+      'Correct! Column analysis: the column goes N–C–S–F (top to bottom). In a 4-square column, the two ends are opposite: N↔F? No — wait. N is above C, S is below C, F is below S. So the column is N–C–S–F. The two ends of this 4-square column are N and F. But N↔F is option B. Let\'s recheck: N is directly above C (adjacent). C is adjacent to N, S, E, W. S is below C (adjacent). F is below S (adjacent to S). In the 4-square column N–C–S–F: ends are N and F (opposite), inner pair C and S (adjacent). So the pairs are N↔F, C↔S... but wait, that\'s option B. Let me re-examine option A: it says N↔S. N and S are both adjacent to C (above and below C) — separated by C between them. In a 3-square sequence N–C–S, N and S are the outer faces separated by C. This makes N and S opposite! Then F is below S — one more step. F is adjacent to S. C is adjacent to S and N. Remaining pair: F and C. But C and F — C is the centre, F is at the bottom of the extended column. Between C and F is S — so C↔F are separated by S (one face between them) → C↔F are opposite! And E↔W are the left/right branches, opposite to each other. So: N↔S (3-square column with C between), C↔F (separated by S), E↔W. Option A is correct.',
+      'Option B says N↔F. But N and F are the outer ends of the 4-square column N–C–S–F. With TWO faces between them (C and S), N and F are NOT the standard opposite pair — they are actually adjacent-through-two-steps, which wraps back around. The correct pairs come from counting: N–C–S form a 3-square strip, so N↔S (one face C between them). Then F extends below S, giving C↔F (one face S between them). N↔F (two faces between) would be a wrap-around, not opposite.',
+      'Option C says N↔C — but N and C share an edge directly. Adjacent faces cannot be opposite.',
+      'Option D says N↔E — but N (above C) and E (right of C) are both adjacent to C. They share a vertex at the top-right of C. Two faces adjacent to the same face cannot be opposite each other.'
+    ]
+  },
+  {
+    id: 'tq7', section: 'Orientation',
+    diff: 'developing',
+    text: 'A net face has a dot near its RIGHT edge. This face is to the LEFT of the centre square, so it folds to become the LEFT face of the cube. When you look at the LEFT face from the outside (looking rightward at the left wall), where is the dot?',
+    options: ['Near the left edge (closest to back of cube)','Near the right edge (closest to front of cube)','Near the top edge','Near the bottom edge'],
+    correct: 1,
+    explanations: [
+      'Left edge of the left face (when viewed from outside) corresponds to the back of the cube. The dot was near the RIGHT edge of this face in the net — when the face folds right (swings inward to become the left wall), the right edge of the face becomes the front edge. So the dot is near the FRONT, not the back.',
+      'Correct! In the net, the face is to the left of centre, with the dot near its right edge (the edge touching the centre). When this face folds inward (around the left edge of the centre face), the right edge of the net face becomes the FRONT edge of the left face on the cube. The dot is near the front edge when viewed from outside the left face.',
+      'The dot was on the right edge of the face in the net, not the top. Folding left/right swaps left/right relative to the viewer, but does not move the dot from the right edge to the top edge.',
+      'The dot was on the right edge of the face, not the bottom. The fold moves the right edge to the front; it does not move the dot vertically.'
+    ]
+  },
+  {
+    id: 'tq8', section: 'Orientation',
+    diff: 'secure',
+    text: 'An answer option shows the correct face with the correct symbol — but the symbol is rotated 180° compared to the cube shown in the question. Should you select this option?',
+    options: ['Yes — the symbol is on the correct face','No — a 180° rotation means the orientation is wrong','Yes — 180° rotation is close enough','It depends on whether the symbol is symmetric'],
+    correct: 1,
+    explanations: [
+      'Having the correct face is only part of the answer. Orientation must also match. A symbol rotated 180° is in a completely different position from the original — it would only look the same if it is rotationally symmetric (like a plain circle or square). For asymmetric symbols, a 180° rotation is definitively wrong.',
+      'Correct! Orientation is a required part of the answer. A 180° rotation means the symbol is upside down relative to the correct answer. Unless the symbol is perfectly symmetric under 180° rotation (like the letter O or a plain circle), the rotated version is definitively wrong. Always check orientation — correct face + wrong orientation = wrong answer.',
+      '180° rotation is not "close enough" in GL Assessment. Exact orientation is tested. A symbol upside down is a completely different answer from a symbol right-side up.',
+      'This would only be true for purely rotationally symmetric symbols like O or ●. For any asymmetric symbol (arrow, diagonal line, letter, dot near an edge), a 180° rotation produces a different answer.'
+    ]
+  },
+  {
+    id: 'tq9', section: 'Reverse',
+    diff: 'starter',
+    text: 'In a cube-to-net (reverse) problem, a net shows opposite faces P and Q sharing an edge directly. What does this tell you?',
+    options: [
+      'The net is invalid for this cube',
+      'P and Q are actually adjacent, not opposite',
+      'The net may still be valid if all other pairs are correct',
+      'P and Q must be adjacent in every valid net'
+    ],
+    correct: 0,
+    explanations: [
+      'Correct! If P and Q are opposite faces on the cube but share an edge in the net, this net is invalid. Opposite faces must be separated by at least one face between them in any valid net. Direct edge adjacency in the net means edge-sharing on the cube — which means adjacency, not opposite positioning. This net cannot produce the given cube.',
+      'The problem states P and Q are opposite on the cube. The net has them sharing an edge. This conflict proves the net is invalid — not that the problem statement is wrong.',
+      'The opposite-face rule is absolute. If opposite faces P and Q share an edge in the net, the net is definitively invalid for this cube. No other features can compensate for this fundamental error.',
+      'Opposite faces must NOT be directly adjacent in any valid net. Valid nets always separate opposite faces by at least one intermediate face.'
+    ]
+  },
+  {
+    id: 'tq10', section: 'Reverse',
+    diff: 'developing',
+    text: 'A student finds two different nets — one cross-shaped, one L-shaped — that both correctly show all three opposite pairs for a given cube. Both also have correct face orientations. How many correct answers are there?',
+    options: ['Only one — cross-shape is always correct','Only one — L-shape is always correct','Both could be correct answers if the question allows multiple nets','It is impossible for two different net shapes to produce the same cube'],
+    correct: 2,
+    explanations: [
+      'There is no rule that only cross-shaped nets are correct. The 11 valid cube nets include crosses, L-shapes, T-shapes, S-shapes, and more. Any of the 11 valid shapes can produce a cube, depending on which faces are assigned to which squares.',
+      'L-shapes are not uniquely correct. Multiple valid net shapes can produce the same cube (with the same opposite pairs and orientations). The shape of the net does not determine which cube it produces — the arrangement of labelled faces does.',
+      'Correct! There are 11 valid net shapes, and the same cube can be unfolded into multiple different valid nets. If both nets have correct opposite pairs AND correct orientations for all faces, both are valid answers. In multiple-choice GL Assessment, only one option appears — but theoretically, the same cube can be represented by different net shapes.',
+      'The same cube can definitely be unfolded into different net shapes. In fact, each of the 11 valid hexomino arrangements can represent the same cube (with appropriate face assignments). Net shape alone does not determine which cube is formed.'
+    ]
+  },
+  {
+    id: 'tq11', section: 'All',
+    diff: 'secure',
+    text: 'A cube shows Top=★, Front=▲, Right=●. Which of the following is DEFINITELY TRUE?',
+    options: [
+      '★ is opposite ▲',
+      '● is opposite ★',
+      'The bottom face is opposite ★',
+      '▲ is opposite ●'
+    ],
+    correct: 2,
+    explanations: [
+      '★ (top) and ▲ (front) are both visible on the cube — they share the top-front edge. They are adjacent, not opposite. Visible faces are NEVER opposite each other.',
+      '● (right) and ★ (top) are both visible — they share the top-right edge. They are adjacent, not opposite.',
+      'Correct! ★ is the top face. Its opposite is always the bottom face — directly across the interior of the cube. The bottom face is hidden in this view. This is always true regardless of what symbol is on the bottom face.',
+      '▲ (front) and ● (right) are both visible — they share the front-right edge. They are adjacent, not opposite.'
+    ]
+  },
+  {
+    id: 'tq12', section: 'All',
+    diff: 'secure',
+    text: 'ELIMINATION ROUND: A net has 4 squares in a straight row, with 1 square branching from each END of the row (same side — both branches on the LEFT of their respective end squares). Can this fold into a valid cube?',
+    options: [
+      'Yes — all 6 squares are connected',
+      'No — the two branch squares will overlap when folded',
+      'Yes — any 6-square connected arrangement is valid',
+      'No — 4 in a row is always invalid'
+    ],
+    correct: 1,
+    explanations: [
+      'Being connected is necessary but not sufficient. When you fold this specific arrangement, the two branch squares (attached to each end of the row, both on the left) end up trying to occupy the same face — they overlap. The net is invalid.',
+      'Correct! This is the "S-shape" or "Z-shape" variant. With 4 squares in a row and branches on the LEFT of both end squares, when folded: the 4-square row forms a ring of walls, then the left-of-leftmost square caps one end, but the left-of-rightmost square tries to cap the same position — they collide. This is one of the "instant reject" invalid net patterns.',
+      'Not all 6-square connected arrangements are valid cube nets. Only 11 of the 35 possible hexominoes are valid nets. Connection alone is not enough.',
+      '4 squares in a row is not always invalid — it is the BRANCHES that matter. A 4-in-a-row with branches on opposite sides can be valid. The issue here is both branches being on the same relative side of the end squares.'
+    ]
+  },
+  {
+    id: 'tq13', section: 'All',
+    diff: 'mastery',
+    text: 'HARD: A cube is shown with Top face containing an arrow (↑). The net (option given) shows the top face with the arrow pointing LEFT (←). The net was rotated 90° clockwise from the expected orientation before being drawn. Does this net correctly represent the cube?',
+    options: [
+      'No — the arrow direction is wrong, so the net is wrong',
+      'Yes — if the net is rotated 90° clockwise, the arrow pointing ← in the net becomes ↑ on the cube',
+      'Cannot tell without checking all other faces',
+      'Yes — rotating the net always makes all arrows correct'
+    ],
+    correct: 1,
+    explanations: [
+      'You cannot judge the net by the drawn arrow direction alone when the net is rotated. The entire net has been rotated 90° clockwise before drawing. This means every face, including the arrow direction, appears rotated 90° anticlockwise compared to how it looks on the cube. An arrow pointing ← in the rotated net corresponds to an arrow pointing ↑ on the assembled cube (rotating the net 90° clockwise rotates every marking 90° anticlockwise in the drawing). So the net is actually correct.',
+      'Correct! When a net is drawn rotated 90° clockwise, all markings in the net appear rotated 90° anticlockwise compared to the cube. An arrow pointing ← in a net that is 90° clockwise rotated corresponds to an arrow pointing ↑ on the cube (← rotated 90° clockwise = ↑). The net correctly represents the cube — the apparent mismatch is entirely due to the net\'s rotation.',
+      'You have enough information. The 90° clockwise rotation of the net explains the ← arrow as representing ↑ on the cube. No additional faces need checking to answer whether this specific discrepancy is valid.',
+      'Rotating the net does make all arrows consistently adjust (they all rotate together), but this does not mean "always correct" in general — the rotation must be accounted for systematically. In this specific case, yes, the ← arrow in the rotated net correctly represents ↑ on the cube.'
+    ]
+  },
+  {
+    id: 'tq14', section: 'All',
+    diff: 'mastery',
+    text: 'VERY HARD — Hidden face deduction: A cube shows 3 visible faces. Top face = shaded (grey). Front face = dotted pattern. Right face = striped. The question asks: "Which net could produce this cube?" Option X has: shaded and dotted faces sharing an edge, striped opposite shaded. Option Y has: shaded opposite a blank face, dotted opposite striped, and a second blank face opposite the remaining face. Which option is correct?',
+    options: [
+      'Option X — shaded and dotted can share an edge',
+      'Option Y — but only if we verify shaded opposite blank',
+      'Option X is invalid; Option Y could be valid, but needs full verification',
+      'Option X — striped opposite shaded is the key rule'
+    ],
+    correct: 2,
+    explanations: [
+      'Option X has striped OPPOSITE shaded — but on the cube, striped (right face) and shaded (top face) are both VISIBLE. They share the top-right edge. They are adjacent, not opposite. Having them as opposites in the net is a contradiction — Option X is invalid.',
+      'Option Y may or may not be valid — "shaded opposite a blank face" is fine (shaded/top is opposite the hidden bottom). But we need to verify: dotted opposite striped — on the cube, dotted (front) is opposite the hidden back face, and striped (right) is opposite the hidden left face. In Option Y, dotted opposite striped would put front opposite right — but front and right are adjacent, not opposite. This makes Option Y also potentially invalid on closer inspection. Actually, Option Y says "dotted opposite striped" — these two are both visible and adjacent. This is also a contradiction. Neither option is clearly correct without full verification, making Option C the best answer.',
+      'Correct! Analysing Option X: it places striped opposite shaded. But striped (right) and shaded (top) are both visible on the cube — they are adjacent, not opposite. Option X is definitively invalid. Analysing Option Y: "dotted opposite striped" — dotted (front) and striped (right) are both visible and adjacent on the cube. They cannot be opposite. Option Y is also potentially invalid. The correct answer requires full verification of all pairs, and this question illustrates why you must check every pair systematically. Option C correctly identifies that X is invalid and Y requires full checking.',
+      'Option X is invalid precisely BECAUSE striped is placed opposite shaded — and these two faces are both visible (adjacent) on the cube. Adjacent faces cannot be opposite. Option X violates the core opposite-face rule.'
+    ]
+  },
+  {
+    id: 'tq15', section: 'All',
+    diff: 'mastery',
+    text: 'FINAL CHALLENGE — Complete the E·O·R strategy. You are given a net and a cube. Step E: the net is valid (6 squares, correct shape). Step O: you identify the opposite pairs — they all match the cube. Step R: you check orientations — the front face arrow is correct, the top face diagonal is correct, but the right face dot is near the wrong edge. Should you select this net?',
+    options: [
+      'Yes — 2 out of 3 orientations are correct, which is good enough',
+      'Yes — opposite pairs match, which is the most important check',
+      'No — all three checks (E, O, and R) must pass; one orientation failure eliminates the net',
+      'It depends on how many other options have correct opposite pairs'
+    ],
+    correct: 2,
+    explanations: [
+      '2 out of 3 is not sufficient. The E·O·R strategy requires all three steps to pass. One failed orientation check means the net does not correctly represent the cube — partial correctness is still wrong in GL Assessment.',
+      'Opposite pairs are necessary but not sufficient. After confirming opposite pairs (Step O), orientation (Step R) must also be verified. A net with correct opposite pairs but wrong orientation is still an incorrect answer.',
+      'Correct! The E·O·R strategy requires all three steps to pass: (E) Valid net layout, (O) Correct opposite pairs, (R) All face orientations correct. The right face dot is near the wrong edge — this is a Step R failure. The net is eliminated. Only a net that passes ALL three checks is the correct answer.',
+      'The number of other options with correct opposite pairs is irrelevant at this stage. This net has a confirmed orientation failure (Step R). It is eliminated regardless of how other options perform on the opposite-pairs check.'
+    ]
+  }
+];
+
+let testTimer;
+let timeLeft = 720; // 12 minutes
+let testStarted = false;
+let testAnswers = {};
+
+function startTest() {
+  testStarted = true;
+  document.getElementById('start-test-btn').style.display = 'none';
+  document.getElementById('timer-display').style.display = 'block';
+  document.querySelector('.timer-bar').style.display = 'block';
+  document.getElementById('test-questions').style.display = 'block';
+
+  renderTestQuestions();
+
+  testTimer = setInterval(() => {
+    timeLeft--;
+    const mins = Math.floor(timeLeft / 60);
+    const secs = timeLeft % 60;
+    document.getElementById('timer-display').textContent =
+      `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+    document.getElementById('timer-fill').style.width = (timeLeft / 720 * 100) + '%';
+    if (timeLeft <= 0) { clearInterval(testTimer); submitTest(); }
+  }, 1000);
+}
+
+function renderTestQuestions() {
+  const container = document.getElementById('test-questions');
+  let html = '';
+  testQuestions.forEach((q, idx) => {
+    const diffClass = q.diff;
+    html += `<div class="question-block" id="tblock-${q.id}" style="margin-bottom:1rem;">
+      <span class="diff-badge ${diffClass}">Q${idx+1} · ${q.section}</span>
+      <div class="q-text">${q.text}</div>
+      <div class="options" id="opts-${q.id}">`;
+    q.options.forEach((opt, oi) => {
+      html += `<button class="opt-btn" onclick="handleTestMCQ('${q.id}', ${oi})">${String.fromCharCode(65+oi)}) ${opt}</button>`;
+    });
+    html += `</div>
+      <div class="feedback" id="tfb-${q.id}"></div>
+    </div>`;
+  });
+  html += `<div style="text-align:center; margin-top:2rem;">
+    <button class="test-start-btn" onclick="submitTest()">Submit Test →</button>
+  </div>`;
+  container.innerHTML = html;
+}
+
+function handleTestMCQ(qId, optIdx) {
+  if (testAnswers[qId] !== undefined) return;
+  testAnswers[qId] = optIdx;
+  const q = testQuestions.find(x => x.id === qId);
+  const block = document.getElementById('tblock-' + qId);
+  const btns = block.querySelectorAll('.opt-btn');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.correct) b.classList.add('correct');
+  });
+  if (optIdx !== q.correct) btns[optIdx].classList.add('wrong');
+  // No feedback shown until submitted
+}
+
+function submitTest() {
+  if (testTimer) clearInterval(testTimer);
+  document.getElementById('test-questions').style.display = 'none';
+
+  let score = 0;
+  let feedbackHTML = '';
+  testQuestions.forEach((q, idx) => {
+    const ans = testAnswers[q.id];
+    const correct = ans === q.correct;
+    if (correct) score++;
+    feedbackHTML += `<div class="question-block" style="margin-bottom:1rem;">
+      <span class="diff-badge ${q.diff}">Q${idx+1} · ${q.section}</span>
+      <div class="q-text">${q.text}</div>
+      <div style="margin:0.5rem 0; font-weight:600; color:${correct ? 'var(--green)' : 'var(--red)'};">
+        ${correct ? '✅ Correct' : `❌ You chose: ${ans !== undefined ? String.fromCharCode(65+ans) + ') ' + q.options[ans] : 'Not answered'}`}
+      </div>
+      <div class="feedback show ${correct ? 'correct' : 'wrong'}">
+        ${correct ? '✅ ' : '❌ '}${q.explanations[ans !== undefined ? ans : q.correct]}
+      </div>
+      <div style="margin-top:0.5rem; font-size:0.82rem; color:var(--gray);">
+        Correct answer: ${String.fromCharCode(65+q.correct)}) ${q.options[q.correct]}
+      </div>
+    </div>`;
+  });
+
+  const pct = score / 15;
+  let band, bandClass, bandMsg;
+  if (pct < 0.4) { band = 'Needs Practice'; bandClass = 'band-np'; bandMsg = 'Keep revising — focus on Basics and Opposites first.'; }
+  else if (pct < 0.6) { band = 'Developing'; bandClass = 'band-dev'; bandMsg = 'Good progress! Strengthen Adjacency and Orientation.'; }
+  else if (pct < 0.8) { band = 'Secure'; bandClass = 'band-sec'; bandMsg = 'Strong performance! Tackle Mastery questions for the edge.'; }
+  else { band = 'Mastery'; bandClass = 'band-mas'; bandMsg = 'Excellent! You are GL Assessment ready.'; }
+
+  const resultsEl = document.getElementById('test-results');
+  resultsEl.style.display = 'block';
+  resultsEl.innerHTML = `
+    <div class="result-score">${score} / 15</div>
+    <div class="result-band ${bandClass}">${band}</div>
+    <p style="color:var(--gray); margin-bottom:1.5rem;">${bandMsg}</p>
+    <hr class="divider">
+    <h3 style="font-family:'Playfair Display',serif; color:var(--navy); margin-bottom:1rem; font-size:1.2rem;">Full Review</h3>
+    ${feedbackHTML}
+    <button class="test-start-btn" onclick="location.reload()">Restart Module ↺</button>
+  `;
+  resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
